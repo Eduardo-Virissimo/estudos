@@ -1,0 +1,3 @@
+Criar um aplicativo que permita ao usuário enviar o PDF de um livro. O aplicativo utilizará inteligência artificial para ler e processar o conteúdo do PDF, extraindo trechos-chave e gerando perguntas relacionadas ao conteúdo do livro. O objetivo é incentivar a leitura e o aprendizado, transformando a experiência em algo mais interativo.
+
+O sistema contará com uma mecânica de **rank** e **XP**, onde os usuários ganham pontos e sobem de nível conforme interagem com o conteúdo, respondem perguntas e avançam na leitura. Essa gamificação visa tornar o hábito de ler mais envolvente e motivador.

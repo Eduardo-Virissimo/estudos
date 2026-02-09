@@ -1,0 +1,3 @@
+Desenvolver uma plataforma SaaS (Software as a Service) que permita a criação de jogos de RPG personalizados, sem necessidade de conhecimentos avançados de programação. A plataforma fornecerá ferramentas intuitivas para que os usuários possam criar mundos, personagens, histórias e mecânicas de jogo, utilizando templates e recursos pré-configurados.
+
+O objetivo é tornar a criação de RPGs acessível para todos, desde iniciantes até desenvolvedores mais experientes, oferecendo flexibilidade para personalizar todos os aspectos do jogo, desde a narrativa até os sistemas de combate e progressão.
