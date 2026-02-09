@@ -13,3 +13,4 @@ npm install --save-dev jest
   "test": "jest",  // Executa os testes uma vez.
   "test:watch": "jest --watch"  // Fica observando alterações e executa os testes automaticamente quando você salva um arquivo.
 }
+```
