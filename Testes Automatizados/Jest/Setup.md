@@ -4,10 +4,9 @@
 
 ```bash
 npm install --save-dev jest
-Adicionar os scripts no package.json:
 ```
 
-2. 
+2. **Adicionar os scripts no `package.json`**:
 
 ```
 "scripts": { 
