@@ -1,0 +1,3 @@
+Desenvolver uma plataforma online onde os usuários possam enviar o link de seus websites para realizar uma análise de segurança automatizada. A ferramenta irá verificar o site em busca de vulnerabilidades comuns, como falhas de SQL Injection, Cross-Site Scripting (XSS), vulnerabilidades de configuração e outros riscos de segurança.
+
+O objetivo é ajudar desenvolvedores e administradores de sites a identificar possíveis brechas e corrigi-las antes que possam ser exploradas por atacantes. A plataforma pode fornecer relatórios detalhados com recomendações de como corrigir as vulnerabilidades encontradas, promovendo uma navegação mais segura na web.
