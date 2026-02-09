@@ -1,3 +1,8 @@
-npm install --save-dev jest
+## Como configurar os testes com Jest
 
-`"scripts": { "test": "jest",  // Executa os testes de uma vez. "test:watch": "jest --watch" // Fica observando alterações e executa os testes automaticamente quando você salva um arquivo. },`
+1. **Instalar o Jest como dependência de desenvolvimento:**
+
+```bash
+npm install --save-dev jest
+```
+```
