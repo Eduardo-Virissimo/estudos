@@ -2,7 +2,7 @@ npm install --save-dev jest
 
 "scripts": {
 
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "jest",  // Executa os testes de uma vez.
+    "test:watch": "jest --watch" // Fica
     
   },
