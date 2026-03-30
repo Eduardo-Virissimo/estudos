@@ -54,3 +54,16 @@ const frutas = ["Maçã", "Banana", "Uva"];
 
 - **Funções (`Function`):** Sim, no JS, funções também são valores que você pode guardar em variáveis!
 
+---
+
+🔍 Como saber o tipo de uma variável?
+
+Você pode usar o comando `typeof` para o JavaScript te dizer o que tem dentro da caixa:
+
+```
+let preco = 10.50;
+console.log(typeof preco); // Resultado: "number"
+
+let nome = "Edu";
+console.log(typeof nome);  // Resultado: "string"
+```
