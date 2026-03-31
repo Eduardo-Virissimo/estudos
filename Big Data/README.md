@@ -10,5 +10,6 @@ Para facilitar os seus estudos, o material está dividido nos seguintes módulos
 2. [Módulo 02: Tipos de Dados](./02-Tipos-de-Dados/)
 3. [Módulo 03: Metodologia CRISP-DM](./03-Metodologia-CRISP-DM/)
 4. [Módulo 04: Arquitetura e Infraestrutura](./04-Arquitetura-e-Infraestrutura/)
+5. [Módulo 05: Tecnologias e Bancos de Dados](./05-Tecnologias-e-Bancos-de-Dados/)
 
 > **Dica de Estudo:** Siga a ordem dos módulos para construir o seu conhecimento passo a passo, desde o conceito mais básico de dado até a infraestrutura de hardware e software necessária.
