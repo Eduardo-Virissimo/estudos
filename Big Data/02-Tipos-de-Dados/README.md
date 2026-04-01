@@ -1,22 +1,82 @@
-# 📚 Módulo 02: Tipos de Dados em Big Data
+# 📚 Módulo 02: Tipos de Dados no Big Data
 
-O universo do Big Data divide-se em três categorias principais quanto à estrutura da informação. Entender essa divisão é essencial para escolher as ferramentas corretas de armazenamento e análise.
+Entender o tipo de dado é essencial para escolher corretamente **armazenamento**, **processamento** e **ferramentas analíticas**.
 
-## 🏗️ 1. Dados Estruturados
-* Possuem formato padronizado e estrutura bem definida (ordem persistente).
-* São normalmente organizados em tabelas de linhas e colunas.
-* São fáceis de consultar e processar pelas máquinas.
-* **Exemplos:** Bases de dados relacionais (SQL), folhas de cálculo em Excel, registos financeiros.
+## 🧱 1) Dados estruturados
 
-## 🌪️ 2. Dados Não Estruturados
-* Não possuem qualquer estrutura predefinida.
-* Representam a grande maioria da informação atual (cerca de **80% dos dados** gerados).
-* São muito mais complexos e difíceis de analisar, exigindo técnicas avançadas de Inteligência Artificial, como *Machine Learning* e Processamento de Linguagem Natural (NLP).
-* **Exemplos:** Imagens, vídeos, ficheiros de áudio, textos abertos, e-mails e publicações em redes sociais.
+Características:
 
-## 📑 3. Dados Semiestruturados
-* Uma categoria intermédia: não são tabelas rígidas (como os estruturados), mas possuem marcadores, hierarquias ou *tags* que garantem alguma organização.
-* Permitem grande flexibilidade na adição de novos dados.
-* **Exemplos:** Páginas Web (HTML), e ficheiros de configuração ou transferência de dados como XML, JSON e YAML.
+- formato padronizado;
+- esquema definido;
+- organização em linhas e colunas;
+- consulta direta (geralmente com SQL).
 
-⬅️ [Voltar para o Índice Principal](../README.md)
+Exemplos:
+
+- bancos de dados relacionais;
+- planilhas Excel;
+- dados de ponto de venda;
+- formulários web.
+
+## 🌪️ 2) Dados não estruturados
+
+Características:
+
+- sem formato rígido;
+- maior complexidade de tratamento;
+- dependem de técnicas avançadas para extração de valor.
+
+Exemplos:
+
+- textos livres;
+- imagens;
+- áudios;
+- vídeos;
+- e-mails;
+- posts em redes sociais.
+
+> Estima-se que cerca de **80% dos dados gerados** sejam não estruturados.
+
+## 🏷️ 3) Dados semiestruturados
+
+Características:
+
+- intermediários entre estruturados e não estruturados;
+- usam marcações/tags e hierarquias;
+- têm flexibilidade com organização mínima.
+
+Exemplos:
+
+- JSON;
+- XML;
+- YAML;
+- páginas web.
+
+## 📊 4) Comparativo rápido
+
+| Tipo            | Formato                           | Armazenamento típico               | Dificuldade de análise |
+| --------------- | --------------------------------- | ---------------------------------- | ---------------------- |
+| Estruturado     | Rígido (tabelas)                  | Bancos relacionais                 | Baixa                  |
+| Semiestruturado | Parcial (tags/esquemas flexíveis) | Arquivos JSON/XML/YAML e NoSQL     | Média                  |
+| Não estruturado | Livre                             | Sistemas distribuídos e data lakes | Alta                   |
+
+## 🔁 5) Impacto no ciclo de vida
+
+Os três tipos influenciam diretamente:
+
+- coleta e integração;
+- escolha da infraestrutura;
+- custo de processamento;
+- tempo para gerar insights.
+
+Por isso, a estratégia de Big Data precisa considerar a diversidade dos dados desde o início do projeto.
+
+---
+
+## ✅ Checklist rápido
+
+- Identifico o tipo de dado por formato e estrutura.
+- Sei qual tipo tende a exigir mais processamento.
+- Consigo relacionar tipo de dado com tecnologia de armazenamento.
+
+⬅️ [Voltar para o índice principal](../README.md)

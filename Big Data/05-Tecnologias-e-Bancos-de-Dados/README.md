@@ -1,34 +1,90 @@
-# 📚 Módulo 05: Tecnologias, Armazenamento e Aplicações
+# 📚 Módulo 05: Camadas 0 a 3 da Infraestrutura de Big Data
 
-Este módulo aprofunda a etapa final da jornada do Big Data: como os dados organizados nas camadas de infraestrutura se transformam em aplicações práticas de negócio.
+Este módulo cobre as camadas de base da arquitetura: da infraestrutura física até a organização de dados para consumo analítico.
 
-## 🗃️ Estruturas Analíticas (A evolução da Camada 3)
+## 🧰 Camada 0 — Elementos físicos (hardware e rede)
 
-Após o armazenamento bruto, é necessário reunir os dados em coleções relevantes para o contexto do negócio. As principais estruturas utilizadas para isso são:
+### Princípios de projeto
 
-### O que é um Data Warehouse?
-* É um repositório central de informações que consolida dados estruturados provenientes de diversas fontes (sistemas ERP, CRM, sensores, etc.).
-* O seu objetivo é facilitar a análise de negócios, a criação de relatórios e a visualização de informações estratégicas.
-* **O Desafio do Tempo Real:** Tradicionalmente, os *Data Warehouses* são atualizados por "processamento em lote" (carregando dados em momentos específicos). Contudo, com a alta velocidade do Big Data, tornou-se necessária a adoção de abordagens em tempo real para tomada de decisão imediata.
+- **Desempenho** (latência e tempo de resposta);
+- **Disponibilidade** (tempo de atividade);
+- **Escalabilidade** (crescimento futuro);
+- **Flexibilidade** (adaptação rápida);
+- **Custo** (equilíbrio técnico-financeiro).
 
-### Data Marts
-* São subconjuntos de um *Data Warehouse*, desenhados para atender às necessidades de uma equipa ou departamento específico (ex: um Data Mart apenas com os dados de Vendas), tornando as consultas mais rápidas e direcionadas.
+### Conceitos-chave
+
+- **Resiliência:** capacidade de se recuperar de falhas.
+- **Redundância:** recursos extras para evitar interrupção.
+- **Eliminação de ponto único de falha:** requisito de arquitetura.
+
+### Atenções práticas
+
+- rede deve suportar aumento de volume e velocidade;
+- servidores e armazenamento precisam acompanhar o desempenho da rede;
+- monitoramento contínuo é obrigatório para elasticidade e prevenção de falhas.
+
+## 🛡️ Camada 1 — Segurança
+
+Objetivo: proteger dados contra acesso indevido, uso não autorizado e vazamento.
+
+Pilares:
+
+- controle de acesso por necessidade de negócio;
+- identidade federada entre camadas/sistemas;
+- proteção de dados em trânsito e em repouso;
+- abordagem de segurança em múltiplas camadas.
+
+### Criptografia e desempenho
+
+No Big Data, criptografar tudo pode elevar custo computacional. Estratégia comum:
+
+- priorizar criptografia de dados mais sensíveis;
+- equilibrar segurança e performance operacional.
+
+## 💾 Camada 2 — Armazenamento de dados
+
+Os bancos operacionais devem ser:
+
+- rápidos;
+- escaláveis;
+- confiáveis.
+
+Não existe um único motor ideal para todos os casos. Frequentemente usa-se combinação de tecnologias (SQL + NoSQL + armazenamento distribuído).
+
+### ACID em contexto operacional
+
+- **Atomicidade** — tudo ou nada.
+- **Consistência** — apenas dados válidos.
+- **Isolamento** — transações simultâneas sem interferência.
+- **Durabilidade** — persistência após gravação.
+
+## 🗂️ Camada 3 — Organização dos dados
+
+Responsável por capturar, validar, transformar e reunir dados em coleções úteis ao negócio.
+
+Funções comuns:
+
+- integração;
+- tradução;
+- normalização;
+- escalabilidade do processamento.
+
+Tecnologias típicas:
+
+- sistemas de arquivos distribuídos;
+- serviços de serialização;
+- serviços de coordenação para aplicações distribuídas;
+- ferramentas ETL;
+- orquestração/fluxo de trabalho;
+- modelos de processamento como **MapReduce**.
 
 ---
 
-## 🚀 Aplicações de Big Data e Equipes Ágeis
+## ✅ Checklist rápido
 
-Para extrair o valor final do Big Data, as empresas precisam criar aplicações focadas no negócio (Reporting, Analytics, etc.). 
+- Entendi diferenças entre resiliência e redundância.
+- Sei quando combinar SQL, NoSQL e armazenamento distribuído.
+- Consigo listar tecnologias centrais da camada de organização.
 
-* **Equipes Ágeis:** A criação de aplicações de dados exige a formação de equipas de desenvolvimento ágeis, capazes de responder rapidamente às mudanças e necessidades do mercado.
-* **Aplicações Semi-Personalizadas:** Em vez de programação complexa construída do zero, a tendência atual é a "montagem" de aplicações a partir de componentes padronizados.
-* **O Futuro (Self-Service Analytics):** Espera-se que certos tipos de aplicações e relatórios sejam criados pelo próprio utilizador final (gestores, analistas), exigindo dos desenvolvedores apenas a criação de ambientes consistentes e fáceis de usar.
-
----
-### 📚 Referências Bibliográficas do Material Original
-* **Taurion (2013/2021):** Simplificação do conceito de Big Data na fórmula dos 5 V's.
-* **Davenport & Prusak (1998):** Cinco maneiras de transformar dados em informação (Contextualização, Categorização, Cálculo, Correção, Condensação).
-* **CRISP-DM SIG (1999):** Metodologia de 6 fases para projetos de dados.
-* **TechAmerica (2012) e Hurwitz et al. (2013):** Guias práticos e arquitetura de componentes do Big Data.
-
-⬅️ [Voltar para o Índice Principal](../README.md)
+⬅️ [Voltar para o índice principal](../README.md)

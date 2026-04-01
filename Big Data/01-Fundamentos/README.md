@@ -1,35 +1,62 @@
-# 📚 Módulo 01: Fundamentos do Big Data
+# 📚 Módulo 01: Fundamentos e 5 Vs do Big Data
 
-## 1. Dados vs. Informação
+> **Foco do módulo:** entender a base conceitual do Big Data e como dados viram informação útil.
 
-A produção massiva de dados, quando bem explorada, gera enormes vantagens competitivas. Contudo, é crucial distinguir as duas bases deste conceito:
+## 🧩 1) Dados x Informação
 
-* **🧩 Dados:** São a matéria-prima bruta e desarticulada da realidade. Representam eventos fora de contexto e não possuem significado específico por si sós (ex: uma data de aniversário, um número, uma cor).
-* **💡 Informação:** É o dado dotado de *relevância, propósito e contexto*. Fornece a solução para um problema predefinido ao estabelecer correlações e criar valor.
+No contexto do Big Data, **dados** são registros brutos (qualitativos ou quantitativos), enquanto **informação** é o dado tratado com contexto, propósito e relevância para resolver um problema.
 
-### 🔄 5 Passos para transformar Dados em Informação
-*(Segundo Davenport e Prusak, 1998)*
+- **Dados:** eventos fora de contexto (ex.: nome, data, cor, quantidade).
+- **Informação:** correlação de dados com significado para apoiar decisão.
 
-1. **Contextualização:** Inserir os dados num contexto, conhecendo a sua finalidade.
-2. **Categorização:** Classificar e conhecer os componentes essenciais dos dados.
-3. **Cálculo:** Analisar os dados estatística ou matematicamente.
-4. **Correção:** Eliminar os erros dos dados.
-5. **Condensação:** Resumir os dados exibindo os relacionamentos entre eles.
+Em resumo: **dado é matéria-prima; informação é dado processado com valor**.
+
+## 🔄 2) Como transformar dados em informação
+
+Segundo Davenport e Prusak (1998), cinco formas clássicas:
+
+1. **Contextualização** — definir finalidade dos dados.
+2. **Categorização** — classificar componentes essenciais.
+3. **Cálculo** — aplicar análise estatística/matemática.
+4. **Correção** — remover erros e inconsistências.
+5. **Condensação** — resumir e evidenciar relações.
+
+## 🌐 3) Conceito de Big Data
+
+Big Data não é apenas “muito dado”. É a combinação de:
+
+- tecnologias;
+- processos;
+- práticas de negócio;
+- capacidade analítica;
+
+para capturar, armazenar, processar e analisar dados em escala e no tempo adequado para gerar decisões melhores.
+
+## 📖 4) Definições de referência (síntese)
+
+- **Doug Laney (2001):** crescimento exponencial de dados difíceis de processar por ferramentas tradicionais.
+- **TechAmerica (2012):** ênfase em volume, velocidade e variedade.
+- **Taurion (2013):** fórmula dos 5 Vs com foco em geração de valor.
+- **Pinto (2021):** conjunto de tecnologias para resultados no prazo esperado, inclusive em tempo real.
+
+## 🖐️ 5) Os 5 Vs do Big Data
+
+| V              | Significado prático                                                         |
+| -------------- | --------------------------------------------------------------------------- |
+| **Volume**     | Quantidade massiva de dados gerados e armazenados.                          |
+| **Velocidade** | Taxa de chegada e processamento dos dados, muitas vezes em tempo real.      |
+| **Variedade**  | Diversidade de formatos: estruturados, semiestruturados e não estruturados. |
+| **Veracidade** | Qualidade, integridade e confiabilidade das fontes e dos dados.             |
+| **Valor**      | Capacidade de transformar dados em insights úteis para o negócio.           |
+
+> Os 5 Vs são adaptáveis: cada organização define prioridades conforme contexto, setor e objetivos.
 
 ---
 
-## 2. Conceitos Básicos de Big Data
+## ✅ Checklist rápido
 
-O termo surgiu por volta dos anos 2000 para descrever volumes de dados em crescimento exponencial que tecnologias tradicionais não conseguiam processar atempadamente. Atualmente, o Big Data refere-se à **combinação de tecnologias e processos** que permitem às organizações armazenar, gerir e manipular dados em larga escala para extrair *insights* valiosos.
+- Sei diferenciar dado de informação.
+- Sei explicar os 5 passos (Davenport e Prusak).
+- Sei descrever os 5 Vs com exemplos.
 
-### 🖐️ Os 5 V's do Big Data (Taurion, 2013)
-
-| V                 | Característica  | Descrição                                                                                                     |
-| :---------------- | :-------------- | :------------------------------------------------------------------------------------------------------------ |
-| 📦 **Volume**     | **Dimensão**    | A gigantesca quantidade de dados gerados e armazenados (redes sociais, sensores, etc.).                       |
-| 🚀 **Velocidade** | **Tempo Real**  | A taxa de geração, processamento e análise dos dados em tempo real.                                           |
-| 🧩 **Variedade**  | **Diversidade** | A diversidade de tipos e formatos disponíveis (estruturados e não estruturados).                              |
-| 🔍 **Veracidade** | **Fiabilidade** | A qualidade, integridade, autenticidade e fiabilidade das fontes dos dados.                                   |
-| 💎 **Valor**      | **Utilidade**   | A capacidade final de extrair conhecimentos relevantes para otimizar processos e guiar decisões estratégicas. |
-
-⬅️ [Voltar para o Índice Principal](../README.md)
+⬅️ [Voltar para o índice principal](../README.md)
