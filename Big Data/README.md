@@ -12,7 +12,7 @@
 6. [Módulo 06 — Camadas 4 a 6: Análise, Visualização e Aplicações](./06-Analise-Visualizacao-e-Aplicacoes/)
 7. [Módulo 07 — Armazenamento de Dados em Big Data: SQL e NoSQL](./07-Guia-de-Implementacao-e-Referencias/)
 8. [Módulo 08 — Data Warehouse e Arquitetura Analítica](./08-Data-Warehouse-e-Arquitetura/)
-9. [Módulo 09 — Normalização, Modelagem e Revisão Final](./09-Normalizacao-e-Modelagem/)
+9. [Módulo 09 — Normalização e Modelagem](./09-Normalizacao-e-Modelagem/)
 
 ## 🧭 Mapa rápido da trilha
 
@@ -24,7 +24,7 @@
 | 05–06 | Infraestrutura, análise, visualização e aplicações |
 | 07 | Armazenamento em Big Data com bases SQL e NoSQL |
 | 08 | Data Warehouse, ETL, Data Mart, OLAP e arquitetura |
-| 09 | Normalização, modelagem dimensional e revisão integrada |
+| 09 | Normalização, modelagem dimensional e consolidação dos conceitos |
 
 ---
 

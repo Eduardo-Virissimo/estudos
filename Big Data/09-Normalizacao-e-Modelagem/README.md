@@ -1,4 +1,4 @@
-# 📚 Módulo 09: Normalização, Modelagem e Revisão Final
+# 📚 Módulo 09: Normalização e Modelagem
 
 Armazenamento em Big Data não depende só da tecnologia escolhida. A forma de **modelar e organizar** os dados também determina qualidade, consistência e desempenho.
 
@@ -137,9 +137,9 @@ Ou seja, não existe regra única. O projeto precisa equilibrar:
 - PINTO, Marcos Vinícius. _Simplificando o Big Data em 7 capítulos_. 2021.
 - TAURION, Carlos. _Big Data_. 2021.
 
-## 🎯 Fechamento da trilha
+## 🎯 Ideia central do módulo
 
-Com os módulos 07 a 09, a trilha deixa de tratar Big Data apenas no nível conceitual e passa a cobrir uma parte essencial da implementação: como os dados são modelados, armazenados, integrados e preparados para análise.
+Normalização e modelagem não são detalhes técnicos isolados. Elas influenciam diretamente qualidade, consistência, desempenho e capacidade de análise dos dados em ambientes de Big Data.
 
 ---
 
