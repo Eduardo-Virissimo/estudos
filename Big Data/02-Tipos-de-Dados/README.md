@@ -1,52 +1,30 @@
 # 📚 Módulo 02: Tipos de Dados no Big Data
 
-Entender o tipo de dado é essencial para escolher corretamente **armazenamento**, **processamento**, **integração** e **ferramentas analíticas**.
+Entender o tipo de dado é essencial para escolher corretamente **armazenamento**, **processamento** e **ferramentas analíticas**.
 
 ## 🧱 1) Dados estruturados
-
-São dados organizados em um esquema fixo, normalmente em linhas e colunas.
 
 Características:
 
 - formato padronizado;
-- regras de validação mais claras;
-- consulta direta, geralmente com SQL;
-- alto controle sobre consistência.
+- esquema definido;
+- organização em linhas e colunas;
+- consulta direta (geralmente com SQL).
 
 Exemplos:
 
-- bancos relacionais;
-- planilhas;
-- cadastros;
-- transações de vendas.
+- bancos de dados relacionais;
+- planilhas Excel;
+- dados de ponto de venda;
+- formulários web.
 
-## 🏷️ 2) Dados semiestruturados
-
-Não seguem um esquema rígido como uma tabela relacional, mas carregam marcações ou metadados que ajudam na interpretação.
+## 🌪️ 2) Dados não estruturados
 
 Características:
 
-- estrutura flexível;
-- presença de chaves, tags ou hierarquias;
-- boa adaptação a integrações entre sistemas.
-
-Exemplos:
-
-- JSON;
-- XML;
-- logs;
-- mensagens de eventos;
-- documentos com metadados.
-
-## 🌪️ 3) Dados não estruturados
-
-São dados cujo conteúdo principal não está organizado em um modelo tabular ou em um esquema simples de consulta.
-
-Características:
-
-- interpretação mais complexa;
-- necessidade frequente de técnicas como NLP, visão computacional ou processamento de sinais;
-- maior custo para extração de valor.
+- sem formato rígido;
+- maior complexidade de tratamento;
+- dependem de técnicas avançadas para extração de valor.
 
 Exemplos:
 
@@ -55,48 +33,50 @@ Exemplos:
 - áudios;
 - vídeos;
 - e-mails;
-- publicações em redes sociais.
+- posts em redes sociais.
 
-> É comum encontrar estimativas dizendo que a maior parte dos dados gerados no mundo é não estruturada, mas o percentual exato varia conforme a fonte e o setor.
+> Estima-se que cerca de **80% dos dados gerados** sejam não estruturados.
 
-## 🔁 4) A classificação depende do contexto
+## 🏷️ 3) Dados semiestruturados
 
-O mesmo ativo pode conter mais de um tipo de dado.
+Características:
 
-Exemplo:
+- intermediários entre estruturados e não estruturados;
+- usam marcações/tags e hierarquias;
+- têm flexibilidade com organização mínima.
 
-- um PDF pode ser **não estruturado** como conteúdo textual;
-- os campos de autor, data e título desse PDF podem ser **estruturados**;
-- um log em JSON é **semiestruturado**, mas pode ser transformado em tabela para análise.
+Exemplos:
 
-Isso é importante porque, em Big Data, parte do trabalho está justamente em transformar dados de um formato em outro para viabilizar análise.
+- JSON;
+- XML;
+- YAML;
+- páginas web.
 
-## 📊 5) Comparativo rápido
+## 📊 4) Comparativo rápido
 
-| Tipo | Estrutura | Armazenamento comum | Dificuldade de análise |
-| --- | --- | --- | --- |
-| Estruturado | Esquema fixo | Bancos relacionais e data warehouses | Baixa |
-| Semiestruturado | Esquema flexível | NoSQL, arquivos JSON/XML, filas e eventos | Média |
-| Não estruturado | Conteúdo livre | Data lakes, object storage, sistemas distribuídos | Alta |
+| Tipo            | Formato                           | Armazenamento típico               | Dificuldade de análise |
+| --------------- | --------------------------------- | ---------------------------------- | ---------------------- |
+| Estruturado     | Rígido (tabelas)                  | Bancos relacionais                 | Baixa                  |
+| Semiestruturado | Parcial (tags/esquemas flexíveis) | Arquivos JSON/XML/YAML e NoSQL     | Média                  |
+| Não estruturado | Livre                             | Sistemas distribuídos e data lakes | Alta                   |
 
-## 🧠 6) Impacto na arquitetura
+## 🔁 5) Impacto no ciclo de vida
 
-Os tipos de dados influenciam diretamente:
+Os três tipos influenciam diretamente:
 
-- a forma de ingestão;
-- o custo de armazenamento;
-- o tipo de processamento;
-- o tempo para gerar insight;
-- a escolha entre schema-on-write e schema-on-read.
+- coleta e integração;
+- escolha da infraestrutura;
+- custo de processamento;
+- tempo para gerar insights.
 
-Em resumo: **quanto maior a variedade, maior a necessidade de arquitetura flexível**.
+Por isso, a estratégia de Big Data precisa considerar a diversidade dos dados desde o início do projeto.
 
 ---
 
 ## ✅ Checklist rápido
 
-- Identifico a diferença entre dados estruturados, semiestruturados e não estruturados.
-- Entendo que a classificação depende do uso e do contexto.
-- Consigo relacionar tipo de dado com armazenamento e análise.
+- Identifico o tipo de dado por formato e estrutura.
+- Sei qual tipo tende a exigir mais processamento.
+- Consigo relacionar tipo de dado com tecnologia de armazenamento.
 
 ⬅️ [Voltar para o índice principal](../README.md)

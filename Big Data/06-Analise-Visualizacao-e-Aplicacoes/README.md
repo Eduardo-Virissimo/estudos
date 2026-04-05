@@ -1,91 +1,91 @@
 # 📚 Módulo 06: Camadas 4 a 6 — Análise, Visualização e Aplicações
 
-Depois de coletar, armazenar e organizar os dados, a arquitetura entra na parte que mais aparece para o negócio: análise, visualização e aplicações.
-
 ## 📈 Camada 4 — Análise de dados
 
-O objetivo desta camada é transformar dados preparados em insight e ação.
+Objetivos:
 
-### Formas de análise
+- gerar insights sobre tendências e padrões;
+- apoiar decisões mais informadas;
+- melhorar experiência do cliente.
 
-- **descritiva**: o que aconteceu;
-- **diagnóstica**: por que aconteceu;
-- **preditiva**: o que tende a acontecer;
-- **prescritiva**: o que fazer a partir disso.
+### Data Warehouse e Data Mart
 
-### Estruturas analíticas comuns
+- **Data Warehouse:** repositório central para análise, relatórios e visualização.
+- **Data Mart:** subconjunto temático/departamental do Data Warehouse.
 
-- **Data Warehouse**: repositório central integrado, voltado à análise e relatórios.
-- **Data Mart**: subconjunto analítico orientado a uma área específica.
-- **Data Lake**: repositório mais flexível para dados brutos ou variados.
+Fontes comuns de dados:
 
-Cada estrutura atende necessidades diferentes de governança, flexibilidade e desempenho.
+- CRM;
+- ERP;
+- redes sociais;
+- IoT;
+- bancos relacionais;
+- multidimensionais;
+- arquivos e outros armazenamentos.
 
-### Desafios analíticos
+### Desafios para análise
 
-Em Big Data, a análise precisa lidar com:
+Em ambientes tradicionais, processamento em lote costuma ser suficiente. Em Big Data, a velocidade dos fluxos exige, em muitos casos, análises em tempo real ou quase tempo real.
 
-- alto volume de dados;
-- variedade de fontes;
-- necessidade de baixa latência em alguns casos;
-- combinação entre processamento em lote e em streaming.
+Principais pontos:
+
+- **Volume** alto;
+- **Variedade** de fontes e formatos;
+- **Velocidade** de chegada dos dados.
 
 ## 🖥️ Camada 5 — Visualização de dados
 
-Visualizar bem é traduzir análise em entendimento.
+As ferramentas precisam lidar com:
 
-### Três classes úteis de ferramentas
+- escala;
+- dados diversos;
+- baixa latência;
+- execução distribuída.
+
+### Três classes de ferramentas
 
 1. **Relatórios e painéis**
-   - acompanhamento de indicadores e operação do dia a dia.
+   - visão amigável para acompanhamento de indicadores.
 
-2. **Visualização exploratória**
-   - interação com filtros, recortes, grafos, mapas e relações entre dados.
+2. **Visualização interativa**
+   - mapas de calor, infográficos, grafos e recursos dinâmicos/animados.
 
 3. **Análise avançada**
-   - apoio a previsão, detecção de padrões complexos e descoberta de eventos relevantes.
+   - análise preditiva, análise de sentimentos e descoberta de eventos transformadores.
 
-### Boas práticas de visualização
+#### Relatórios x Visualização (resumo)
 
-- escolher a visualização adequada ao tipo de dado;
-- evitar excesso de informação na mesma tela;
-- destacar contexto, escala e comparação;
-- priorizar clareza em vez de efeito visual.
+- **Relatórios/Painéis:** leitura objetiva de indicadores.
+- **Visualização:** exploração interativa e dinâmica (ex.: mapas de calor, grafos, infográficos).
 
 ## 🚀 Camada 6 — Aplicações de Big Data
 
-É a camada onde os resultados analíticos viram produto, serviço ou automação.
+Tipos de aplicação:
 
-### Tipos de aplicação
+- **Horizontais:** resolvem problemas comuns em vários setores.
+- **Verticais:** focadas em necessidades específicas de uma indústria.
 
-- **Horizontais**: resolvem problemas comuns a vários setores.
-- **Verticais**: atendem necessidades específicas de um domínio de negócio.
+### Requisitos para desenvolver aplicações
 
-### Requisitos importantes
+- integração por APIs ao longo de toda a pilha;
+- alto desempenho para processar dados em escala;
+- segurança e privacidade por padrão;
+- capacidade de adaptação rápida a mudanças de negócio.
 
-- integração por APIs e eventos;
-- desempenho compatível com a carga;
-- segurança e privacidade desde a concepção;
-- observabilidade e manutenção contínua;
-- capacidade de adaptação a novas regras de negócio.
+### Tendências
 
-### Tendências práticas
+- formação de equipes ágeis;
+- uso de aplicações semi-personalizadas (mais montagem, menos código do zero);
+- crescimento de abordagens self-service para usuários de negócio.
 
-- produtos de dados mais modulares;
-- componentes analíticos reutilizáveis;
-- self-service com governança;
-- aplicações que combinam dados históricos e fluxos em tempo quase real.
-
-## 🎯 Ideia central do módulo
-
-As camadas 4 a 6 existem para entregar valor visível. A base técnica só se justifica quando análise, visualização e aplicação ajudam alguém a decidir melhor ou agir mais rápido.
+> Nesta camada, estrutura, padrões e APIs bem definidas são fundamentais para escalar aplicações com segurança e velocidade.
 
 ---
 
 ## ✅ Checklist rápido
 
-- Sei diferenciar análise descritiva, diagnóstica, preditiva e prescritiva.
-- Entendo a diferença entre Data Warehouse, Data Mart e Data Lake.
-- Consigo explicar como os resultados analíticos chegam ao usuário final.
+- Sei diferenciar Data Warehouse e Data Mart.
+- Entendo as três classes de ferramentas analíticas.
+- Consigo distinguir aplicações horizontais e verticais.
 
 ⬅️ [Voltar para o índice principal](../README.md)

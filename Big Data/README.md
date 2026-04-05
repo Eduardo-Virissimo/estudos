@@ -1,34 +1,33 @@
 # 📊 Trilha de Estudos: Introdução ao Big Data
 
-Material de estudo organizado em módulos progressivos, com revisão conceitual para manter a trilha coerente do fundamento à implementação.
+Resumo organizado do livro **Introdução ao Big Data e suas características**, em módulos progressivos.
 
-> **Objetivo:** estudar Big Data com sequência lógica, linguagem direta e foco em aplicação prática.
+> **Objetivo:** estudar Big Data do conceito à aplicação prática, com sequência lógica e linguagem direta.
 
 ## 🗂️ Índice de módulos
 
 1. [Módulo 01 — Fundamentos e 5 Vs do Big Data](./01-Fundamentos/)
-2. [Módulo 02 — Tipos de Dados no Big Data](./02-Tipos-de-Dados/)
+2. [Módulo 02 — Tipos de Dados de Big Data](./02-Tipos-de-Dados/)
 3. [Módulo 03 — Ciclo de Vida e CRISP-DM](./03-Metodologia-CRISP-DM/)
 4. [Módulo 04 — Arquitetura de Referência, Interfaces e APIs](./04-Arquitetura-e-Infraestrutura/)
-5. [Módulo 05 — Camadas 0 a 3: Infraestrutura, Segurança, Armazenamento e Organização](./05-Tecnologias-e-Bancos-de-Dados/)
-6. [Módulo 06 — Camadas 4 a 6: Análise, Visualização e Aplicações](./06-Analise-Visualizacao-e-Aplicacoes/)
-7. [Módulo 07 — Guia de Implementação, Desafios e Revisão Integrada](./07-Guia-de-Implementacao-e-Referencias/)
+5. [Módulo 05 — Camadas 0 a 3 (Infraestrutura, Segurança, Armazenamento e Organização)](./05-Tecnologias-e-Bancos-de-Dados/)
+6. [Módulo 06 — Camadas 4 a 6 (Análise, Visualização e Aplicações)](./06-Analise-Visualizacao-e-Aplicacoes/)
+7. [Módulo 07 — Guia de Implementação, Desafios e Referências](./07-Guia-de-Implementacao-e-Referencias/)
 
 ## 🧭 Mapa rápido da trilha
 
-| Etapa | Foco |
-| ----- | ---- |
-| 01–02 | Conceitos-base, 5 Vs e tipos de dados |
-| 03 | Ciclo de vida do projeto e método CRISP-DM |
-| 04 | Arquitetura de referência, interfaces e integração |
-| 05 | Camadas de base: infraestrutura, segurança, armazenamento e organização |
-| 06 | Camadas analíticas: análise, visualização e aplicações |
-| 07 | Implementação, desafios, erros comuns e revisão final |
+| Etapa | Foco                                             |
+| ----- | ------------------------------------------------ |
+| 01–02 | Conceitos-base e tipos de dados                  |
+| 03    | Ciclo de vida e CRISP-DM                         |
+| 04–05 | Arquitetura e infraestrutura (camadas 0–3)       |
+| 06    | Análise, visualização e aplicações (camadas 4–6) |
+| 07    | Implementação, desafios e referências            |
 
 ---
 
-## ✅ Como estudar esta trilha
+## ✅ Dica de uso
 
-- Siga os módulos em ordem.
-- Ao fim de cada módulo, escreva um resumo curto com os conceitos-chave.
-- Use o módulo 07 para revisar dúvidas, validar decisões de arquitetura e consolidar os conceitos anteriores.
+- Siga a ordem dos módulos.
+- Ao fim de cada módulo, faça um resumo de 5 linhas.
+- Marque dúvidas para revisar no módulo 07.
