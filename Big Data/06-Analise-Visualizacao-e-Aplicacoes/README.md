@@ -50,8 +50,8 @@ As ferramentas precisam lidar com:
 2. **Visualização interativa**
    - mapas de calor, infográficos, grafos e recursos dinâmicos/animados.
 
-3. **Análise avançada**
-   - análise preditiva, análise de sentimentos e descoberta de eventos transformadores.
+3. **Ferramentas analíticas avançadas integradas à visualização**
+   - análise preditiva, análise de sentimentos e descoberta de eventos relevantes apoiadas por exploração visual.
 
 #### Relatórios x Visualização (resumo)
 

@@ -34,9 +34,9 @@ para capturar, armazenar, processar e analisar dados em escala e no tempo adequa
 
 ## 📖 4) Definições de referência (síntese)
 
-- **Doug Laney (2001):** crescimento exponencial de dados difíceis de processar por ferramentas tradicionais.
+- **Doug Laney:** popularizou a visão dos 3 Vs, destacando volume, velocidade e variedade como dimensões centrais do problema.
 - **TechAmerica (2012):** ênfase em volume, velocidade e variedade.
-- **Taurion (2013):** fórmula dos 5 Vs com foco em geração de valor.
+- **Taurion:** reforça a leitura dos 5 Vs com foco em geração de valor.
 - **Pinto (2021):** conjunto de tecnologias para resultados no prazo esperado, inclusive em tempo real.
 
 ## 🖐️ 5) Os 5 Vs do Big Data

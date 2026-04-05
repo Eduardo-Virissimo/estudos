@@ -35,7 +35,7 @@ Exemplos:
 - e-mails;
 - posts em redes sociais.
 
-> Estima-se que cerca de **80% dos dados gerados** sejam não estruturados.
+> É comum encontrar estimativas indicando que a maior parte dos dados gerados é não estruturada, mas esse percentual varia conforme a fonte e o setor.
 
 ## 🏷️ 3) Dados semiestruturados
 

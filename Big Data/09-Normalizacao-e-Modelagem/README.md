@@ -13,7 +13,7 @@ Normalização é o processo de estruturar dados para:
 
 Ela é tradicionalmente associada a bancos relacionais, mas continua relevante no contexto de Data Warehouse e Big Data quando o objetivo é manter qualidade e organização adequadas.
 
-A normalização também pode ser associada à melhoria de:
+A normalização também pode contribuir, em alguns cenários, para melhoria de:
 
 - performance;
 - escalabilidade;
@@ -28,7 +28,7 @@ Quatro benefícios principais:
 - **facilitar manutenção**;
 - **melhorar a qualidade dos dados**.
 
-Além disso, a normalização se relaciona à economia de espaço e à melhora da eficiência das consultas, já que menos dados redundantes precisam ser acessados.
+Além disso, a normalização pode se relacionar à economia de espaço e, em alguns contextos, à melhora da eficiência das consultas, já que menos dados redundantes precisam ser acessados.
 
 Quando dados são duplicados sem controle, aumentam os riscos de:
 

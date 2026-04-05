@@ -58,8 +58,6 @@ APIs são fundamentais para expor e consumir dados com:
 
 Em alguns cenários, vale adotar kits/plataformas de APIs de terceiros. Em outros, APIs internas personalizadas são necessárias — exigindo documentação e manutenção contínua.
 
-> No contexto de Big Data, interfaces com **NLP (Processamento de Linguagem Natural)** ganham espaço por permitir consultas mais intuitivas em linguagem natural.
-
 ## 🏭 6) Estratégia prática: “fábrica de conectores”
 
 Uma abordagem recomendada é criar uma camada de abstração para conectores, guiada por descrições de interface (ex.: XML), para:
