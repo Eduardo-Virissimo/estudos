@@ -1,51 +1,139 @@
-# 📚 Módulo 07: Guia de Implementação, Desafios e Referências
+# 📚 Módulo 07: Armazenamento de Dados em Big Data — SQL e NoSQL
 
-## 🧪 1) Checklist de diagnóstico inicial
+Este módulo inicia o conteúdo do segundo livro e foca no problema central do armazenamento em Big Data: como guardar, organizar e recuperar grandes volumes de dados com formatos e ritmos de geração muito diferentes.
 
-Antes de iniciar, valide:
+## 🧠 1) Por que armazenamento é tão importante em Big Data
 
-1. Qual problema de negócio será resolvido?
-2. Quais fontes de dados já existem?
-3. Qual volume atual e projeção de crescimento?
-4. Qual exigência de tempo real/quase tempo real?
-5. Quais requisitos de segurança, conformidade e governança?
-6. Qual nível de qualidade/veracidade necessário para decisão?
-7. Quais indicadores vão medir sucesso?
+No contexto de Big Data, o armazenamento deixa de ser apenas uma questão de "onde salvar os dados" e passa a envolver:
 
-## ⚠️ 2) Desafios recorrentes em Big Data
+- capacidade de lidar com grande volume;
+- variedade de formatos;
+- velocidade de geração e atualização;
+- suporte à análise posterior;
+- escolha da tecnologia adequada ao tipo de uso.
 
-- crescimento contínuo dos dados (explosão de volume);
-- integração de múltiplos formatos (variedade);
-- processamento no tempo adequado (velocidade);
-- garantia de qualidade dos dados (veracidade);
-- conversão de análise em resultado de negócio (valor).
+As bases relacionais tradicionais continuam importantes, mas muitas vezes não bastam sozinhas quando o cenário exige flexibilidade estrutural e escala horizontal.
 
-> Contexto importante do material: a quantidade de dados disponíveis no mundo tende a crescer rapidamente (estimativas citam duplicação em ciclos curtos), elevando a pressão sobre arquitetura, governança e privacidade.
+## 🧱 2) Bases de dados relacionais (SQL)
 
-## ✅ 3) Boas práticas de implementação
+Bases relacionais organizam dados estruturados em **tabelas** compostas por linhas e colunas.
 
-- começar pelo contexto e objetivo do negócio, não pela ferramenta;
-- aproveitar dados e infraestrutura existentes antes de expandir;
-- usar arquitetura em camadas para evoluir de forma organizada;
-- manter segurança transversal em todas as camadas;
-- institucionalizar monitoramento e melhoria contínua;
-- formar equipes multidisciplinares (negócio + dados + engenharia).
+### Elementos centrais
 
-## 📚 4) Referências bibliográficas (material-base)
+- **chave primária**: identifica cada registro de forma única;
+- **chave estrangeira**: relaciona tabelas entre si;
+- **esquema rígido**: a estrutura precisa ser definida previamente;
+- **SQL**: linguagem usada para consulta e manipulação dos dados.
 
-- CHAPMAN, Pete et al. _The CRISP-DM User Guide_. 1999.
-- DAVENPORT, Thomas H.; PRUSAK, Laurence. _Conhecimento empresarial_. 1998.
-- HURWITZ, Judith et al. _Big Data for Dummies_. 2013.
-- PINTO, Marcos Vinícius. _Simplificando o Big Data em 7 capítulos_. 2021.
-- TAURION, Carlos. _Big Data_. 2021.
-- TECHAMERICA FOUNDATION. _Demystifying Big Data_. 2012.
+### Propriedades importantes
+
+- modelo baseado em tabelas e relacionamentos;
+- forte controle de integridade;
+- suporte a consultas complexas;
+- aderência a transações com propriedades **ACID**.
+
+### ACID
+
+- **Atomicidade**: a transação acontece por completo ou não acontece.
+- **Consistência**: o banco preserva regras válidas de integridade.
+- **Isolamento**: transações concorrentes não devem interferir indevidamente umas nas outras.
+- **Durabilidade**: dados confirmados persistem mesmo após falhas.
+
+### Quando SQL costuma ser mais adequado
+
+- sistemas financeiros;
+- RH;
+- estoque;
+- e-commerce transacional;
+- cenários com estrutura estável e alta exigência de consistência.
+
+## 🧩 3) Modelagem em bases relacionais
+
+No modelo relacional, a organização dos dados costuma envolver:
+
+- definição de tabelas;
+- definição de chaves primárias e estrangeiras;
+- eliminação de redundâncias;
+- uso de normalização.
+
+Esse modelo é especialmente útil quando a aplicação exige:
+
+- consistência;
+- integridade;
+- rastreabilidade;
+- operações transacionais confiáveis.
+
+## 🌪️ 4) Bases de dados não relacionais (NoSQL)
+
+Bases NoSQL foram projetadas para lidar melhor com cenários de:
+
+- grandes volumes de dados;
+- dados não estruturados ou semiestruturados;
+- alta taxa de escrita;
+- escalabilidade horizontal;
+- mudanças frequentes de estrutura.
+
+### Características principais
+
+- estrutura mais flexível;
+- esquema dinâmico ou menos rígido;
+- distribuição entre vários nós;
+- possibilidade de alta escalabilidade horizontal;
+- diferentes modelos de dados conforme o problema.
+
+### Modelos mais comuns
+
+- **chave-valor**: rápido e simples para recuperação direta;
+- **documentos**: organiza dados em documentos como JSON ou XML;
+- **famílias de colunas**: útil para dados com atributos variáveis;
+- **grafos**: adequado para relacionamentos complexos.
+
+### Consistência e CAP
+
+O livro aproxima NoSQL da ideia de consistência eventual, o que faz sentido em muitos sistemas distribuídos. Mas, de forma mais precisa:
+
+- nem todo banco NoSQL funciona da mesma maneira;
+- vários sistemas priorizam disponibilidade e escalabilidade;
+- em ambientes distribuídos com particionamento de rede, surgem trade-offs entre **consistência** e **disponibilidade**.
+
+Essa é a leitura prática do **Teorema CAP** no contexto de Big Data.
+
+### Quando NoSQL costuma ser mais adequado
+
+- redes sociais;
+- logs e eventos;
+- sistemas de recomendação;
+- IoT;
+- aplicações com dados variáveis e crescimento acelerado.
+
+## ⚖️ 5) SQL x NoSQL
+
+| Critério | SQL | NoSQL |
+| --- | --- | --- |
+| Estrutura | Tabelas com esquema fixo | Estrutura flexível |
+| Tipo de dado mais comum | Estruturado | Semiestruturado e não estruturado |
+| Escalabilidade típica | Mais comum em escala vertical, embora existam exceções | Forte foco em escala horizontal |
+| Consistência | Forte em muitos cenários transacionais | Varia conforme o sistema e o caso de uso |
+| Consultas complexas | Muito forte | Depende do modelo adotado |
+| Mudança de esquema | Mais custosa | Geralmente mais simples |
+
+## 🎯 6) Ideia central do módulo
+
+Não existe tecnologia única para todo cenário de Big Data. A escolha entre SQL e NoSQL depende de:
+
+- tipo de dado;
+- volume e velocidade;
+- necessidade de consistência;
+- padrão de consulta;
+- custo de crescimento;
+- objetivo analítico ou operacional.
 
 ---
 
-## ✔️ Fechamento rápido do módulo
+## ✅ Checklist rápido
 
-- Tenho clareza dos riscos e perguntas iniciais de projeto.
-- Sei os principais desafios de Big Data para implementação.
-- Tenho as referências-base para aprofundamento.
+- Sei explicar por que Big Data exige novas estratégias de armazenamento.
+- Consigo diferenciar bancos SQL e NoSQL.
+- Entendo os principais modelos NoSQL e os critérios básicos de escolha.
 
 ⬅️ [Voltar para o índice principal](../README.md)
