@@ -1,6 +1,6 @@
 # 📚 Módulo 07: Armazenamento de Dados em Big Data — SQL e NoSQL
 
-Este módulo inicia o conteúdo do segundo livro e foca no problema central do armazenamento em Big Data: como guardar, organizar e recuperar grandes volumes de dados com formatos e ritmos de geração muito diferentes.
+Este módulo foca no problema central do armazenamento em Big Data: como guardar, organizar e recuperar grandes volumes de dados com formatos e ritmos de geração muito diferentes.
 
 ## 🧠 1) Por que armazenamento é tão importante em Big Data
 
@@ -77,7 +77,7 @@ Bases NoSQL foram projetadas para lidar melhor com cenários de:
 
 - estrutura mais flexível;
 - esquema dinâmico ou menos rígido;
-- distribuição entre vários nós;
+- distribuição entre vários nós de um cluster ou entre diferentes servidores;
 - possibilidade de alta escalabilidade horizontal;
 - diferentes modelos de dados conforme o problema.
 
@@ -90,18 +90,19 @@ Bases NoSQL foram projetadas para lidar melhor com cenários de:
 
 ### Consistência e CAP
 
-O livro aproxima NoSQL da ideia de consistência eventual, o que faz sentido em muitos sistemas distribuídos. Mas, de forma mais precisa:
+Em muitos sistemas distribuídos, NoSQL aparece associado à ideia de consistência eventual. De forma mais precisa:
 
 - nem todo banco NoSQL funciona da mesma maneira;
 - vários sistemas priorizam disponibilidade e escalabilidade;
 - em ambientes distribuídos com particionamento de rede, surgem trade-offs entre **consistência** e **disponibilidade**.
 
-Essa é a leitura prática do **Teorema CAP** no contexto de Big Data.
+Essa é a leitura prática do **Teorema CAP** no contexto de Big Data. Na formulação técnica mais comum, o termo usado é **tolerância a partições de rede**.
 
 ### Quando NoSQL costuma ser mais adequado
 
 - redes sociais;
 - logs e eventos;
+- análise de registros;
 - sistemas de recomendação;
 - IoT;
 - aplicações com dados variáveis e crescimento acelerado.

@@ -1,6 +1,6 @@
 # 📚 Módulo 08: Data Warehouse e Arquitetura Analítica
 
-Depois de entender SQL e NoSQL, o próximo passo é estudar o **Data Warehouse**, que no livro aparece como uma tecnologia fundamental para consolidar dados e apoiar decisões estratégicas.
+Depois de entender SQL e NoSQL, o próximo passo é estudar o **Data Warehouse**, uma tecnologia fundamental para consolidar dados e apoiar decisões estratégicas.
 
 ## 🏢 1) O que é Data Warehouse
 
@@ -13,6 +13,8 @@ Segundo a formulação clássica associada a William Inmon, um Data Warehouse é
 - voltado ao **suporte à decisão gerencial**.
 
 Em termos práticos, ele reúne dados de várias fontes em um ambiente preparado para análise.
+
+Historicamente, essa abordagem ganhou força a partir da década de 1980, quando as organizações passaram a precisar consolidar grandes volumes de dados de fontes diferentes para análise.
 
 ## 🧭 2) Características fundamentais
 
@@ -37,6 +39,15 @@ O histórico é preservado, permitindo comparar períodos e analisar evolução.
 
 Os dados analíticos não sofrem o mesmo padrão de atualização frequente dos sistemas operacionais. O foco é consulta, histórico e análise.
 
+### Informações consolidadas e confiáveis
+
+O Data Warehouse é pensado para entregar dados:
+
+- consolidados;
+- resumidos quando necessário;
+- consistentes;
+- confiáveis para apoiar decisão.
+
 ## 🔄 3) Data Warehouse x banco operacional
 
 | Aspecto | Banco operacional | Data Warehouse |
@@ -50,7 +61,7 @@ Por isso, não faz sentido tratar Data Warehouse como simples "banco maior". A f
 
 ## 🧱 4) Arquitetura típica de um Data Warehouse
 
-O livro apresenta uma arquitetura típica com os seguintes elementos:
+Uma arquitetura típica inclui os seguintes elementos:
 
 - **fontes de dados**;
 - **processo ETL**;
@@ -58,6 +69,14 @@ O livro apresenta uma arquitetura típica com os seguintes elementos:
 - **armazenamento central**;
 - **data marts**;
 - **camadas de acesso analítico**, como OLAP e data mining.
+
+Dependendo do cenário, outras arquiteturas podem incluir ainda:
+
+- metadados;
+- gerenciamento de dados;
+- mecanismos de segurança;
+- auditoria;
+- escalabilidade e alta disponibilidade.
 
 ## 🛠️ 5) Camadas principais da arquitetura
 
@@ -102,6 +121,8 @@ O consumo final pode ocorrer por:
 - data mining;
 - ferramentas de BI.
 
+Esse acesso deve respeitar permissões e mecanismos de segurança, para que cada usuário veja apenas as informações autorizadas.
+
 ## 🧮 6) Data Mart, OLAP e Data Mining
 
 ### Data Mart
@@ -116,9 +137,9 @@ Permite análise multidimensional, com foco em exploração de medidas e dimens�
 
 Busca padrões, relações e descobertas relevantes dentro dos dados armazenados.
 
-## 🧰 7) Tecnologias citadas para implementar Data Warehouse
+## 🧰 7) Tecnologias usadas para implementar Data Warehouse
 
-O livro menciona exemplos de SGBDs e plataformas usadas nesse contexto:
+Exemplos de SGBDs e plataformas usadas nesse contexto:
 
 - Microsoft SQL Server;
 - Oracle Database;
@@ -137,16 +158,22 @@ A escolha depende de:
 
 ## 📋 8) Passos importantes de implementação
 
-O livro destaca alguns passos essenciais:
+Passos essenciais:
 
 1. definir objetivos e requisitos;
-2. escolher a arquitetura;
-3. modelar os dados;
+2. fazer a modelagem dimensional com tabelas fato e dimensão;
+3. escolher a arquitetura;
 4. selecionar ferramentas de ETL;
 5. implementar segurança e governança;
 6. dimensionar infraestrutura;
 7. desenvolver camadas de transformação e acesso;
 8. monitorar e otimizar desempenho.
+
+Exemplos de ferramentas de ETL:
+
+- Talend;
+- Informatica PowerCenter;
+- Microsoft SQL Server Integration Services.
 
 ## 🎯 9) Ideia central do módulo
 
@@ -158,6 +185,6 @@ O Data Warehouse é uma peça analítica. Ele existe para transformar dados disp
 
 - Sei definir Data Warehouse pelas suas características centrais.
 - Consigo diferenciar Data Warehouse de banco operacional.
-- Entendo os principais componentes da arquitetura analítica apresentada no livro.
+- Entendo os principais componentes da arquitetura analítica.
 
 ⬅️ [Voltar para o índice principal](../README.md)

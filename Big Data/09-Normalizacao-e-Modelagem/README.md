@@ -1,6 +1,6 @@
 # 📚 Módulo 09: Normalização, Modelagem e Revisão Final
 
-O livro fecha mostrando que armazenamento em Big Data não depende só da tecnologia escolhida. A forma de **modelar e organizar** os dados também determina qualidade, consistência e desempenho.
+Armazenamento em Big Data não depende só da tecnologia escolhida. A forma de **modelar e organizar** os dados também determina qualidade, consistência e desempenho.
 
 ## 🧼 1) O que é normalização
 
@@ -13,14 +13,22 @@ Normalização é o processo de estruturar dados para:
 
 Ela é tradicionalmente associada a bancos relacionais, mas continua relevante no contexto de Data Warehouse e Big Data quando o objetivo é manter qualidade e organização adequadas.
 
+A normalização também pode ser associada à melhoria de:
+
+- performance;
+- escalabilidade;
+- segurança dos dados.
+
 ## ✅ 2) Benefícios da normalização
 
-O livro destaca quatro benefícios principais:
+Quatro benefícios principais:
 
 - **eliminar redundâncias**;
 - **garantir consistência**;
 - **facilitar manutenção**;
 - **melhorar a qualidade dos dados**.
+
+Além disso, a normalização se relaciona à economia de espaço e à melhora da eficiência das consultas, já que menos dados redundantes precisam ser acessados.
 
 Quando dados são duplicados sem controle, aumentam os riscos de:
 
@@ -36,7 +44,7 @@ Quando dados são duplicados sem controle, aumentam os riscos de:
 Exige:
 
 - valores atômicos;
-- ausência de grupos repetidos;
+- ausência de valores repetitivos ou grupos repetidos;
 - identificação única dos registros.
 
 ### 2FN — Segunda Forma Normal
@@ -55,7 +63,7 @@ Em resumo:
 
 ## 🧩 4) Normalização x modelagem dimensional
 
-Aqui está um ponto importante do livro: em **Data Warehouse**, nem sempre a solução ideal é maximizar normalização.
+Em **Data Warehouse**, nem sempre a solução ideal é maximizar normalização.
 
 Isso acontece porque ambientes analíticos priorizam:
 
@@ -71,9 +79,11 @@ Por isso, é comum usar **modelagem dimensional**, que organiza os dados com:
 
 Na prática, isso pode envolver alguma **desnormalização controlada** para facilitar análise.
 
+Ainda assim, a normalização continua podendo ser aplicada em partes do Data Warehouse, como na estruturação de tabelas e na preservação da integridade dos dados.
+
 ## ⚖️ 5) O equilíbrio correto
 
-O conteúdo do livro leva a uma conclusão importante:
+Uma conclusão importante:
 
 - normalização ajuda muito na integridade e organização;
 - modelagem dimensional ajuda muito na análise;
@@ -86,7 +96,7 @@ Ou seja, não existe regra única. O projeto precisa equilibrar:
 - flexibilidade;
 - facilidade de consulta.
 
-## 🔁 6) Revisão integrada do segundo livro
+## 🔁 6) Revisão integrada
 
 ### Armazenamento em Big Data
 
@@ -116,8 +126,9 @@ Ou seja, não existe regra única. O projeto precisa equilibrar:
 ### Normalização e modelagem
 
 - garantem organização, qualidade e desempenho adequado ao contexto.
+- exigem equilíbrio entre estruturação dos dados e desempenho das consultas.
 
-## 📚 7) Referências do material
+## 📚 7) Referências
 
 - COSTA, Maria Inês Peixoto da. _Etiquetagem e rastreio de fontes de dados num big data warehouse_. 2019.
 - HURWITZ, Judith; NUGENT, Alan; HALPER, Fern; KAUFMAN, Marcia. _Big Data For Dummies_. 2013.

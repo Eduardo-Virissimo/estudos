@@ -1,10 +1,5 @@
 # 📊 Trilha de Estudos: Big Data
 
-Trilha organizada em módulos progressivos a partir de dois materiais-base:
-
-- uma introdução geral ao ecossistema de Big Data;
-- um segundo livro focado em **armazenamento de dados em Big Data**.
-
 > **Objetivo:** estudar Big Data do conceito à organização do armazenamento, da análise à implementação de ambientes analíticos.
 
 ## 🗂️ Índice de módulos
