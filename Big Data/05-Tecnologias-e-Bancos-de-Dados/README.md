@@ -1,90 +1,102 @@
 # 📚 Módulo 05: Camadas 0 a 3 da Infraestrutura de Big Data
 
-Este módulo cobre as camadas de base da arquitetura: da infraestrutura física até a organização de dados para consumo analítico.
+Este módulo cobre as camadas de base da arquitetura: infraestrutura, segurança, armazenamento e organização dos dados.
 
-## 🧰 Camada 0 — Elementos físicos (hardware e rede)
+## 🧰 Camada 0 — Elementos físicos e infraestrutura
+
+É a base operacional da plataforma: servidores, rede, armazenamento, nuvem e capacidade computacional.
 
 ### Princípios de projeto
 
-- **Desempenho** (latência e tempo de resposta);
-- **Disponibilidade** (tempo de atividade);
-- **Escalabilidade** (crescimento futuro);
-- **Flexibilidade** (adaptação rápida);
-- **Custo** (equilíbrio técnico-financeiro).
+- **desempenho** para atender carga e latência esperadas;
+- **disponibilidade** para manter a operação acessível;
+- **escalabilidade** para crescer sem redesenho constante;
+- **flexibilidade** para acomodar novas demandas;
+- **custo** compatível com o valor gerado.
 
 ### Conceitos-chave
 
-- **Resiliência:** capacidade de se recuperar de falhas.
-- **Redundância:** recursos extras para evitar interrupção.
-- **Eliminação de ponto único de falha:** requisito de arquitetura.
-
-### Atenções práticas
-
-- rede deve suportar aumento de volume e velocidade;
-- servidores e armazenamento precisam acompanhar o desempenho da rede;
-- monitoramento contínuo é obrigatório para elasticidade e prevenção de falhas.
+- **Resiliência**: capacidade de continuar operando ou se recuperar rapidamente.
+- **Redundância**: existência de recursos extras para evitar indisponibilidade.
+- **Eliminação de ponto único de falha**: princípio essencial em ambientes distribuídos.
 
 ## 🛡️ Camada 1 — Segurança
 
-Objetivo: proteger dados contra acesso indevido, uso não autorizado e vazamento.
+Segurança em Big Data deve ser transversal e não um item adicionado só no final.
 
-Pilares:
+Pontos centrais:
 
-- controle de acesso por necessidade de negócio;
-- identidade federada entre camadas/sistemas;
+- controle de acesso baseado em papéis e necessidade de negócio;
+- autenticação e identidade federada;
 - proteção de dados em trânsito e em repouso;
-- abordagem de segurança em múltiplas camadas.
+- trilhas de auditoria;
+- políticas de retenção e privacidade.
 
-### Criptografia e desempenho
+### Segurança x desempenho
 
-No Big Data, criptografar tudo pode elevar custo computacional. Estratégia comum:
-
-- priorizar criptografia de dados mais sensíveis;
-- equilibrar segurança e performance operacional.
+Em ambientes de grande escala, proteção e performance precisam ser equilibradas. A decisão correta não é "criptografar tudo sem critério", mas proteger de forma proporcional ao risco e à criticidade do dado.
 
 ## 💾 Camada 2 — Armazenamento de dados
 
-Os bancos operacionais devem ser:
+O armazenamento precisa atender diferentes perfis de uso.
 
-- rápidos;
-- escaláveis;
-- confiáveis.
+Tecnologias comuns:
 
-Não existe um único motor ideal para todos os casos. Frequentemente usa-se combinação de tecnologias (SQL + NoSQL + armazenamento distribuído).
+- **SQL** para dados estruturados e consistência forte;
+- **NoSQL** para flexibilidade, escala horizontal ou alta taxa de escrita;
+- **armazenamento distribuído ou object storage** para grandes volumes e dados diversos.
 
-### ACID em contexto operacional
+### ACID e consistência
 
-- **Atomicidade** — tudo ou nada.
-- **Consistência** — apenas dados válidos.
-- **Isolamento** — transações simultâneas sem interferência.
-- **Durabilidade** — persistência após gravação.
+Em bancos transacionais, propriedades **ACID** continuam importantes:
+
+- **Atomicidade**
+- **Consistência**
+- **Isolamento**
+- **Durabilidade**
+
+Em Big Data, porém, nem todas as cargas exigem o mesmo nível de consistência. Por isso, arquiteturas modernas frequentemente combinam motores diferentes conforme o caso de uso.
 
 ## 🗂️ Camada 3 — Organização dos dados
 
-Responsável por capturar, validar, transformar e reunir dados em coleções úteis ao negócio.
+É a camada responsável por transformar dados dispersos em dados prontos para consumo.
 
 Funções comuns:
 
+- ingestão;
+- validação;
+- padronização;
+- enriquecimento;
 - integração;
-- tradução;
-- normalização;
-- escalabilidade do processamento.
+- catalogação;
+- orquestração de fluxos.
 
-Tecnologias típicas:
+### Operações típicas
+
+- ETL ou ELT;
+- processamento em lote;
+- processamento em fluxo;
+- particionamento e organização por domínio;
+- gestão de metadados e qualidade.
+
+### Tecnologias associadas
 
 - sistemas de arquivos distribuídos;
-- serviços de serialização;
-- serviços de coordenação para aplicações distribuídas;
-- ferramentas ETL;
-- orquestração/fluxo de trabalho;
-- modelos de processamento como **MapReduce**.
+- mensageria e streaming;
+- ferramentas de transformação;
+- orquestradores de pipeline;
+- processamento distribuído, como MapReduce e abordagens mais modernas equivalentes.
+
+## 🎯 Ideia central do módulo
+
+As camadas 0 a 3 sustentam tudo o que vem depois. Se essa base falha, a análise até pode existir, mas vira algo caro, instável e difícil de governar.
 
 ---
 
 ## ✅ Checklist rápido
 
-- Entendi diferenças entre resiliência e redundância.
-- Sei quando combinar SQL, NoSQL e armazenamento distribuído.
-- Consigo listar tecnologias centrais da camada de organização.
+- Entendi a diferença entre resiliência, redundância e disponibilidade.
+- Sei por que uma arquitetura costuma combinar tecnologias de armazenamento.
+- Consigo explicar o papel da organização dos dados antes da análise.
 
 ⬅️ [Voltar para o índice principal](../README.md)
