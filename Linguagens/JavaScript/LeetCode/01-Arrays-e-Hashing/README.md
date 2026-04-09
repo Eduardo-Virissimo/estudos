@@ -1,38 +1,47 @@
 ﻿# Arrays & Hashing
 
-## Objetivo
+## Visao geral
 
-Estudar os fundamentos de Arrays & Hashing para resolver problemas de LeetCode em JavaScript.
+Arrays guardam elementos em sequencia e permitem acesso por indice em O(1).
+Hashing usa estrutura de chave -> valor (Map/Set/objeto) para buscar informacao rapidamente.
+A combinacao dos dois resolve muitos problemas de contagem, frequencia e deduplicacao.
 
-## Foco do topico
+## Como funciona
 
-Arrays, objetos como hash map e set para contagem e busca rapida
+- Array: ideal para percorrer, ordenar, comparar posicoes e usar prefix sum.
+- Hash map: salva dados por chave para consultas em O(1) medio.
+- Hash set: salva apenas existencia de valor (bom para "ja vi este numero?").
 
-## Checklist de estudo
+## Complexidade tipica
 
-- [ ] Entender o conceito e quando usar
-- [ ] Revisar complexidade de tempo e espaco
-- [ ] Implementar template base em JavaScript
-- [ ] Resolver 5 exercicios faceis
-- [ ] Resolver 5 exercicios medios
-- [ ] Anotar erros comuns e padroes
+- Acesso por indice em array: O(1)
+- Insercao/busca em hash map ou set: O(1) medio
+- Percurso completo: O(n)
 
-## Template base (JS)
+## Quando usar
+
+Use quando o problema envolve:
+
+- contar frequencia
+- encontrar duplicados
+- verificar pares/complementos
+- agrupar por chave
+
+## Erros comuns
+
+- usar objeto simples sem considerar comportamento de chaves especiais
+- ignorar custo de memoria
+- criar estrutura hash quando uma varredura simples ja resolve
+
+## Exemplo em JavaScript
 
 ```js
-// Adicione aqui o template principal do topico
-function solve(input) {
-  return input;
+function containsDuplicate(nums) {
+  const seen = new Set();
+  for (const n of nums) {
+    if (seen.has(n)) return true;
+    seen.add(n);
+  }
+  return false;
 }
 ```
-
-## Problemas recomendados
-
-- [ ] Easy 1
-- [ ] Easy 2
-- [ ] Medium 1
-- [ ] Medium 2
-
-## Notas
-
-- 

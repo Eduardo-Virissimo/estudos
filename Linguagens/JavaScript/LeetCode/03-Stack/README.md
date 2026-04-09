@@ -1,38 +1,52 @@
 ﻿# Stack
 
-## Objetivo
+## Visao geral
 
-Estudar os fundamentos de Stack para resolver problemas de LeetCode em JavaScript.
+Stack (pilha) segue LIFO: o ultimo que entra e o primeiro que sai.
+E excelente para validacao de estrutura, desfazer passos e simulacao de recursao.
 
-## Foco do topico
+## Como funciona
 
-Pilha para parsing, validacao e processamento LIFO
+Operacoes basicas:
 
-## Checklist de estudo
+- push: empilha
+- pop: desempilha
+- peek/top: consulta topo
 
-- [ ] Entender o conceito e quando usar
-- [ ] Revisar complexidade de tempo e espaco
-- [ ] Implementar template base em JavaScript
-- [ ] Resolver 5 exercicios faceis
-- [ ] Resolver 5 exercicios medios
-- [ ] Anotar erros comuns e padroes
+Em JavaScript, arrays funcionam bem como stack com push/pop.
 
-## Template base (JS)
+## Complexidade tipica
+
+- push/pop/peek: O(1)
+- Espaco: O(n)
+
+## Quando usar
+
+- parenteses validos
+- avaliacao de expressoes
+- monotonic stack (next greater element)
+
+## Erros comuns
+
+- acessar topo de stack vazia
+- nao tratar ordem de abertura/fechamento
+- confundir stack normal com monotonic stack
+
+## Exemplo em JavaScript
 
 ```js
-// Adicione aqui o template principal do topico
-function solve(input) {
-  return input;
+function isValidParentheses(s) {
+  const stack = [];
+  const pair = { ')': '(', ']': '[', '}': '{' };
+
+  for (const ch of s) {
+    if (ch === '(' || ch === '[' || ch === '{') {
+      stack.push(ch);
+    } else {
+      if (stack.pop() !== pair[ch]) return false;
+    }
+  }
+
+  return stack.length === 0;
 }
 ```
-
-## Problemas recomendados
-
-- [ ] Easy 1
-- [ ] Easy 2
-- [ ] Medium 1
-- [ ] Medium 2
-
-## Notas
-
-- 

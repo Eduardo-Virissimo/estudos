@@ -1,38 +1,48 @@
 ﻿# Binary Search
 
-## Objetivo
+## Visao geral
 
-Estudar os fundamentos de Binary Search para resolver problemas de LeetCode em JavaScript.
+Binary Search divide o espaco de busca ao meio a cada passo.
+Funciona quando existe ordem ou condicao monotona.
 
-## Foco do topico
+## Como funciona
 
-Busca binaria em arrays e espaco de resposta
+- Defina intervalo [left, right]
+- Calcule mid
+- Decida qual metade descartar
+- Repita ate encontrar ou esgotar
 
-## Checklist de estudo
+## Complexidade tipica
 
-- [ ] Entender o conceito e quando usar
-- [ ] Revisar complexidade de tempo e espaco
-- [ ] Implementar template base em JavaScript
-- [ ] Resolver 5 exercicios faceis
-- [ ] Resolver 5 exercicios medios
-- [ ] Anotar erros comuns e padroes
+- Tempo: O(log n)
+- Espaco: O(1)
 
-## Template base (JS)
+## Quando usar
+
+- buscar valor em array ordenado
+- primeira/ultima ocorrencia
+- binary search na resposta (menor valor valido)
+
+## Erros comuns
+
+- atualizar limites de forma errada e criar loop infinito
+- misturar regras de lower bound e upper bound
+- aplicar sem monotonicidade
+
+## Exemplo em JavaScript
 
 ```js
-// Adicione aqui o template principal do topico
-function solve(input) {
-  return input;
+function binarySearch(nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    if (nums[mid] === target) return mid;
+    if (nums[mid] < target) left = mid + 1;
+    else right = mid - 1;
+  }
+
+  return -1;
 }
 ```
-
-## Problemas recomendados
-
-- [ ] Easy 1
-- [ ] Easy 2
-- [ ] Medium 1
-- [ ] Medium 2
-
-## Notas
-
-- 

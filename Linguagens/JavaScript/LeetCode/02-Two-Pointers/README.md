@@ -1,38 +1,48 @@
 ﻿# Two Pointers
 
-## Objetivo
+## Visao geral
 
-Estudar os fundamentos de Two Pointers para resolver problemas de LeetCode em JavaScript.
+Two Pointers usa dois indices para percorrer dados de forma coordenada.
+A ideia e evitar loop duplo completo e reduzir custo de O(n^2) para O(n) em muitos casos.
 
-## Foco do topico
+## Como funciona
 
-Dois ponteiros em sentidos iguais ou opostos para reduzir complexidade
+Ha dois formatos principais:
 
-## Checklist de estudo
+- ponteiros opostos: um no inicio e outro no fim
+- ponteiros na mesma direcao: um define inicio e outro expande
 
-- [ ] Entender o conceito e quando usar
-- [ ] Revisar complexidade de tempo e espaco
-- [ ] Implementar template base em JavaScript
-- [ ] Resolver 5 exercicios faceis
-- [ ] Resolver 5 exercicios medios
-- [ ] Anotar erros comuns e padroes
+## Complexidade tipica
 
-## Template base (JS)
+- Tempo: O(n) na maioria dos casos
+- Espaco: O(1)
+
+## Quando usar
+
+- array ordenado com busca de pares
+- comparacao de extremos (palindromo, soma alvo)
+- remocao/compressao in-place
+
+## Erros comuns
+
+- mover o ponteiro errado
+- esquecer condicao de parada
+- aplicar em array nao ordenado sem tratar isso
+
+## Exemplo em JavaScript
 
 ```js
-// Adicione aqui o template principal do topico
-function solve(input) {
-  return input;
+function twoSumSorted(nums, target) {
+  let l = 0;
+  let r = nums.length - 1;
+
+  while (l < r) {
+    const sum = nums[l] + nums[r];
+    if (sum === target) return [l, r];
+    if (sum < target) l++;
+    else r--;
+  }
+
+  return [-1, -1];
 }
 ```
-
-## Problemas recomendados
-
-- [ ] Easy 1
-- [ ] Easy 2
-- [ ] Medium 1
-- [ ] Medium 2
-
-## Notas
-
-- 

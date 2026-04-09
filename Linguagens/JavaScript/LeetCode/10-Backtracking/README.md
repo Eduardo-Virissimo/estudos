@@ -1,38 +1,55 @@
 ﻿# Backtracking
 
-## Objetivo
+## Visao geral
 
-Estudar os fundamentos de Backtracking para resolver problemas de LeetCode em JavaScript.
+Backtracking explora escolhas passo a passo e volta quando um caminho nao serve.
+E uma busca em arvore de estados com tentativa e erro controlado.
 
-## Foco do topico
+## Como funciona
 
-Geracao de combinacoes, permutacoes e busca exaustiva com poda
+Estrutura comum:
 
-## Checklist de estudo
+1. escolher uma opcao
+2. avancar com recursao
+3. desfazer escolha (backtrack)
 
-- [ ] Entender o conceito e quando usar
-- [ ] Revisar complexidade de tempo e espaco
-- [ ] Implementar template base em JavaScript
-- [ ] Resolver 5 exercicios faceis
-- [ ] Resolver 5 exercicios medios
-- [ ] Anotar erros comuns e padroes
+## Complexidade tipica
 
-## Template base (JS)
+Geralmente exponencial, dependendo da quantidade de escolhas por nivel.
+Poda e essencial para reduzir busca desnecessaria.
+
+## Quando usar
+
+- combinacoes e permutacoes
+- problemas de tabuleiro (n-queens, sudoku)
+- cenarios de "todas as respostas validas"
+
+## Erros comuns
+
+- esquecer de desfazer estado
+- copiar estrutura grande sem necessidade
+- nao interromper caminho invalido cedo
+
+## Exemplo em JavaScript
 
 ```js
-// Adicione aqui o template principal do topico
-function solve(input) {
-  return input;
+function subsets(nums) {
+  const ans = [];
+  const path = [];
+
+  function dfs(i) {
+    if (i === nums.length) {
+      ans.push([...path]);
+      return;
+    }
+
+    dfs(i + 1); // nao escolhe nums[i]
+    path.push(nums[i]);
+    dfs(i + 1); // escolhe nums[i]
+    path.pop();
+  }
+
+  dfs(0);
+  return ans;
 }
 ```
-
-## Problemas recomendados
-
-- [ ] Easy 1
-- [ ] Easy 2
-- [ ] Medium 1
-- [ ] Medium 2
-
-## Notas
-
-- 

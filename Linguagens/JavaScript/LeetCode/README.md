@@ -1,34 +1,25 @@
 # LeetCode em JavaScript
 
-Este material segue a progressao cronologica sugerida para aprender resolucao de problemas em JavaScript.
-A lista abaixo vai ate Graphs e ja deixa claro que a trilha continua depois.
+Este modulo cobre a trilha cronologica ate Graphs com foco em entendimento pratico.
+Cada topico explica como a tecnica funciona, quando aplicar e erros comuns.
 
-## Checklist ate Graphs
+## Trilha ate Graphs
 
-- [ ] 01. Arrays & Hashing
-- [ ] 02. Two Pointers
-- [ ] 03. Stack
-- [ ] 04. Sliding Window
-- [ ] 05. Binary Search
-- [ ] 06. Linked List
-- [ ] 07. Trees
-- [ ] 08. Tries
-- [ ] 09. Heap / Priority Queue
-- [ ] 10. Backtracking
-- [ ] 11. Graphs
-
-## Como estudar cada topico
-
-Para cada item da checklist, siga este mini roteiro:
-
-1. Teoria curta (conceito e complexidade)
-2. Template em JavaScript
-3. 5 a 10 exercicios (facil -> medio)
-4. Revisao de erros comuns
+1. [Arrays & Hashing](01-Arrays-e-Hashing/README.md)
+2. [Two Pointers](02-Two-Pointers/README.md)
+3. [Stack](03-Stack/README.md)
+4. [Sliding Window](04-Sliding-Window/README.md)
+5. [Binary Search](05-Binary-Search/README.md)
+6. [Linked List](06-Linked-List/README.md)
+7. [Trees](07-Trees/README.md)
+8. [Tries](08-Tries/README.md)
+9. [Heap / Priority Queue](09-Heap-Priority-Queue/README.md)
+10. [Backtracking](10-Backtracking/README.md)
+11. [Graphs](11-Graphs/README.md)
 
 ## Continua depois de Graphs
 
-A trilha completa segue com topicos mais avancados:
+Depois desta base, os proximos temas sao:
 
 - Intervals
 - Greedy

@@ -1,38 +1,41 @@
 ﻿# Trees
 
-## Objetivo
+## Visao geral
 
-Estudar os fundamentos de Trees para resolver problemas de LeetCode em JavaScript.
+Arvore conecta nos em hierarquia sem ciclos (na forma classica de Binary Tree).
+Cada no pode ter filhos, e traversal define a ordem da visita.
 
-## Foco do topico
+## Como funciona
 
-DFS, BFS, recursao e propriedades de arvores binarias
+Travessias comuns:
 
-## Checklist de estudo
+- DFS Preorder: raiz -> esquerda -> direita
+- DFS Inorder: esquerda -> raiz -> direita
+- DFS Postorder: esquerda -> direita -> raiz
+- BFS Level Order: por niveis com fila
 
-- [ ] Entender o conceito e quando usar
-- [ ] Revisar complexidade de tempo e espaco
-- [ ] Implementar template base em JavaScript
-- [ ] Resolver 5 exercicios faceis
-- [ ] Resolver 5 exercicios medios
-- [ ] Anotar erros comuns e padroes
+## Complexidade tipica
 
-## Template base (JS)
+- Visitar todos os nos: O(n)
+- Espaco: O(h) em recursao, O(n) no pior caso
+
+## Quando usar
+
+- profundidade/altura
+- validacao de BST
+- busca por niveis
+
+## Erros comuns
+
+- esquecer caso base null
+- confundir ordem de traversal
+- estourar pilha em arvore muito profunda
+
+## Exemplo em JavaScript
 
 ```js
-// Adicione aqui o template principal do topico
-function solve(input) {
-  return input;
+function maxDepth(root) {
+  if (!root) return 0;
+  return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
 }
 ```
-
-## Problemas recomendados
-
-- [ ] Easy 1
-- [ ] Easy 2
-- [ ] Medium 1
-- [ ] Medium 2
-
-## Notas
-
-- 

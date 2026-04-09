@@ -1,38 +1,65 @@
 ﻿# Tries
 
-## Objetivo
+## Visao geral
 
-Estudar os fundamentos de Tries para resolver problemas de LeetCode em JavaScript.
+Trie (prefix tree) armazena strings por caracteres em uma arvore de prefixos.
+Isso deixa busca por prefixo muito eficiente.
 
-## Foco do topico
+## Como funciona
 
-Prefix tree para buscas por prefixo e dicionarios
+Cada no guarda:
 
-## Checklist de estudo
+- filhos (mapa de caractere -> no)
+- marcador de fim de palavra
 
-- [ ] Entender o conceito e quando usar
-- [ ] Revisar complexidade de tempo e espaco
-- [ ] Implementar template base em JavaScript
-- [ ] Resolver 5 exercicios faceis
-- [ ] Resolver 5 exercicios medios
-- [ ] Anotar erros comuns e padroes
+Operacoes principais:
 
-## Template base (JS)
+- insert(word)
+- search(word)
+- startsWith(prefix)
+
+## Complexidade tipica
+
+Se L e tamanho da palavra/prefixo:
+
+- inserir: O(L)
+- buscar palavra: O(L)
+- buscar prefixo: O(L)
+
+## Quando usar
+
+- autocomplete
+- dicionario de palavras
+- filtro por prefixo
+
+## Erros comuns
+
+- esquecer de marcar fim de palavra
+- usar trie quando hash set simples ja resolve
+- nao controlar uso de memoria
+
+## Exemplo em JavaScript
 
 ```js
-// Adicione aqui o template principal do topico
-function solve(input) {
-  return input;
+class TrieNode {
+  constructor() {
+    this.children = new Map();
+    this.end = false;
+  }
+}
+
+class Trie {
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  insert(word) {
+    let node = this.root;
+    for (const ch of word) {
+      if (!node.children.has(ch)) node.children.set(ch, new TrieNode());
+      node = node.children.get(ch);
+    }
+    node.end = true;
+  }
 }
 ```
-
-## Problemas recomendados
-
-- [ ] Easy 1
-- [ ] Easy 2
-- [ ] Medium 1
-- [ ] Medium 2
-
-## Notas
-
-- 
