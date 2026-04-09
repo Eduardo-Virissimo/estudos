@@ -1,4 +1,4 @@
-﻿# Two Pointers
+# Two Pointers
 
 Boa escolha. Two Pointers faz voce sair de O(n^2) para O(n) em muitos problemas.
 

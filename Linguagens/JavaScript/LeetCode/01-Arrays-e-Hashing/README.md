@@ -1,4 +1,4 @@
-﻿# Arrays & Hashing
+# Arrays & Hashing
 
 Boa escolha para comecar. Esse e um dos blocos mais importantes do LeetCode.
 
