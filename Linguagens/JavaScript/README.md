@@ -16,6 +16,10 @@ Esta pasta reune materiais de estudo de JavaScript.
 - [Fundamentos/09-JSON-e-Storage/README.md](Fundamentos/09-JSON-e-Storage/README.md)
 - [Fundamentos/10-Assincronismo/README.md](Fundamentos/10-Assincronismo/README.md)
 
+## Trilha de LeetCode
+
+- [LeetCode/README.md](LeetCode/README.md)
+
 ## Ordem sugerida
 
 1. Entender valores, variaveis e tipos
