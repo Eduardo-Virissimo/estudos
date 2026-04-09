@@ -1,52 +1,70 @@
 ﻿# Arrays & Hashing
 
-## O que e
+Boa escolha para comecar. Esse e um dos blocos mais importantes do LeetCode.
 
-- Array e uma lista em ordem: voce acessa direto por indice.
-- Hashing e guardar informacao por chave, como dicionario: chave -> valor.
+## O que e Array?
 
-Pense assim:
+Array e uma lista ordenada de valores.
+Voce acessa cada posicao por indice.
 
-- Array: gavetas numeradas.
-- Hash map: armario por etiqueta.
+~~~js
+let numeros = [3, 1, 4, 1, 5];
 
-## Intuicao
+numeros[0];      // 3
+numeros.length;  // 5
+numeros.push(9); // adiciona no final
+numeros.pop();   // remove do final
+~~~
 
-Perguntas que pedem hashing:
+## O que e Hashing?
 
-- "ja vi esse valor antes?"
-- "quantas vezes esse valor aparece?"
-- "existe um complemento para formar tal soma?"
+Hashing e usar uma estrutura de chave -> valor para buscar rapido.
+Na pratica, em JS voce usa Map, Set ou objeto.
 
-## Como funciona na pratica
+~~~js
+// Objeto comum
+let contagem = {};
+contagem["a"] = 1;
+contagem["b"] = 2;
 
-1. Percorra o array uma vez.
-2. Guarde o que precisa no Map ou Set.
-3. Consulte em O(1) medio, em vez de procurar tudo de novo.
+// Map (mais seguro para entrevistas)
+let map = new Map();
+map.set("a", 1);
+map.get("a"); // 1
+map.has("a"); // true
 
-## Complexidade sem misterio
+// Set (quando so importa existencia)
+let set = new Set([1, 2, 3]);
+set.has(2); // true
+set.add(4);
+~~~
 
-- indice de array: O(1)
-- busca em Map/Set: O(1) medio
-- uma passada completa: O(n)
+## Padrao mais comum
 
-## Exemplo explicado
+Contar frequencia de elementos.
 
-`js
-function containsDuplicate(nums) {
-  const seen = new Set();
+~~~js
+function contarFrequencia(arr) {
+  const map = new Map();
 
-  for (const n of nums) {
-    if (seen.has(n)) return true;
-    seen.add(n);
+  for (const n of arr) {
+    map.set(n, (map.get(n) || 0) + 1);
   }
 
-  return false;
+  return map;
 }
-`
 
-## Erros comuns
+contarFrequencia([1, 2, 2, 3, 3, 3]);
+// Map { 1 => 1, 2 => 2, 3 => 3 }
+~~~
 
-- usar objeto simples quando Map/Set seria mais claro
-- ignorar custo de memoria
-- ordenar sem necessidade quando Set resolve
+## Complexidade rapida
+
+- Buscar em Map/Set: O(1) medio
+- Percorrer array de n elementos: O(n)
+
+## Problemas para praticar (ordem sugerida)
+
+1. Contains Duplicate - #217
+2. Valid Anagram - #242
+3. Two Sum - #1

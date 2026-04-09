@@ -1,48 +1,25 @@
 ﻿# Heap / Priority Queue
 
-## O que e
+Boa escolha. Heap e a estrutura certa quando voce precisa sempre do maior ou menor rapidamente.
 
-Heap e uma estrutura para pegar rapidamente o menor ou maior elemento.
-Priority Queue e a interface de uso dessa ideia.
+## O que e Heap?
 
-## Intuicao
+Heap e uma arvore especial usada para manter prioridade.
 
-Pense em fila de atendimento por prioridade:
+- Min-heap: menor no topo
+- Max-heap: maior no topo
 
-- nao importa ordem de chegada
-- importa quem tem maior prioridade
+## Ideia principal
 
-## Tipos
+Em vez de ordenar tudo, voce mantem so o que importa no topo.
 
-- Min-heap: menor valor no topo
-- Max-heap: maior valor no topo
+## Exemplo conceitual em JavaScript
 
-## Operacoes mais comuns
-
-- inserir elemento
-- consultar topo
-- remover topo
-
-## Complexidade sem misterio
-
-- inserir: O(log n)
-- remover topo: O(log n)
-- ver topo: O(1)
-
-## Onde aparece muito
-
-- Top K elementos
-- tarefas com prioridade
-- stream de dados
-
-## Exemplo conceitual em JS
-
-`js
-// minHeap aqui e uma implementacao de heap ja pronta.
-function keepTopK(nums, k, minHeap) {
+~~~js
+// minHeap aqui e uma implementacao pronta.
+function topK(nums, k, minHeap) {
   for (const n of nums) {
     minHeap.push(n);
-
     if (minHeap.size() > k) {
       minHeap.pop();
     }
@@ -50,16 +27,15 @@ function keepTopK(nums, k, minHeap) {
 
   return minHeap;
 }
-`
+~~~
 
-Por que funciona?
+## Complexidade rapida
 
-- Mantemos so k elementos.
-- Quando passa de k, removemos o menor do grupo.
-- No fim ficam os k maiores.
+- inserir/remover no heap: O(log n)
+- ver topo: O(1)
 
-## Erros comuns de iniciante
+## Problemas para praticar (ordem sugerida)
 
-- Inverter min-heap e max-heap.
-- Ordenar array inteiro sem precisar.
-- Esquecer que JS nao tem heap nativo no core da linguagem.
+1. Kth Largest Element in an Array - #215
+2. Top K Frequent Elements - #347
+3. Find Median from Data Stream - #295

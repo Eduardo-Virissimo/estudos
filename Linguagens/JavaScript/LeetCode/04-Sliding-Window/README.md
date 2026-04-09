@@ -1,58 +1,48 @@
 ﻿# Sliding Window
 
-## O que e
+Boa escolha. Sliding Window e o jeito padrao para subarray e substring continuos.
 
-Sliding Window e uma forma de analisar partes continuas de um array/string sem recalcular tudo.
-Voce mantem uma "janela" e vai deslizando.
+## O que e Sliding Window?
+
+Voce mantem uma janela de elementos e move essa janela para frente.
+Assim evita recalcular tudo do zero.
 
 ## Intuicao
 
-Imagine uma moldura de foto andando por cima de uma linha de numeros.
-Em vez de somar tudo de novo a cada passo, voce:
+Quando a janela anda 1 passo:
 
-- tira o que saiu da moldura
-- adiciona o que entrou
+- um elemento sai
+- outro entra
 
-## Tipos
+Entao voce atualiza so a diferenca.
 
-- Janela fixa: tamanho sempre igual (ex: k).
-- Janela variavel: aumenta e diminui conforme condicao.
+## Exemplo em JavaScript
 
-## Passo a passo (janela fixa)
-
-1. Monte a primeira janela.
-2. Guarde o estado (ex: soma).
-3. Ao avancar 1 posicao: remove esquerda, adiciona direita.
-4. Atualize resposta.
-
-## Complexidade sem misterio
-
-- Cada elemento entra e sai uma vez: O(n).
-- Espaco depende do estado que voce guarda: O(1) ou O(k).
-
-## Exemplo explicado
-
-`js
-function maxSumSubarrayK(nums, k) {
+~~~js
+function maiorSomaSubarray(nums, k) {
   if (nums.length < k) return null;
 
-  let sum = 0;
-  for (let i = 0; i < k; i++) sum += nums[i];
+  let soma = 0;
+  for (let i = 0; i < k; i++) soma += nums[i];
 
-  let best = sum;
+  let melhor = soma;
 
-  for (let right = k; right < nums.length; right++) {
-    sum += nums[right];
-    sum -= nums[right - k];
-    if (sum > best) best = sum;
+  for (let r = k; r < nums.length; r++) {
+    soma += nums[r] - nums[r - k];
+    melhor = Math.max(melhor, soma);
   }
 
-  return best;
+  return melhor;
 }
-`
+~~~
 
-## Erros comuns de iniciante
+## Complexidade rapida
 
-- Esquecer de remover o elemento que saiu.
-- Atualizar resposta em momento errado.
-- Confundir janela fixa com variavel.
+- Tempo: O(n)
+- Espaco: O(1) ou O(k)
+
+## Problemas para praticar (ordem sugerida)
+
+1. Best Time to Buy and Sell Stock - #121
+2. Longest Substring Without Repeating Characters - #3
+3. Minimum Window Substring - #76

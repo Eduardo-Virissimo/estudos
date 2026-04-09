@@ -1,82 +1,62 @@
 ﻿# Graphs
 
-## O que e
+Boa escolha. Graphs e um dos temas mais cobrados em entrevistas.
 
-Grafo e um conjunto de:
+## O que e Grafo?
+
+Grafo tem:
 
 - vertices (nos)
 - arestas (conexoes)
 
-Pode ser:
+Pode ser direcionado ou nao direcionado.
 
-- direcionado (A -> B)
-- nao direcionado (A <-> B)
+## Como pensar
 
-## Intuicao
+Quase tudo em grafos vira DFS ou BFS.
 
-Rede social e um grafo:
+- DFS: vai fundo no caminho
+- BFS: anda por camadas
 
-- pessoa = vertice
-- amizade = aresta
+## Exemplo em JavaScript
 
-## Representacao mais usada
-
-Lista de adjacencia:
-
-- para cada no, guardamos vizinhos
-
-## Dois jeitos de percorrer
-
-- BFS (fila): visita por camadas
-- DFS (recursao/pilha): vai fundo e volta
-
-## Complexidade sem misterio
-
-Com V vertices e E arestas:
-
-- BFS/DFS: O(V + E)
-- Espaco: O(V)
-
-## Exemplo explicado
-
-`js
+~~~js
 function countComponents(n, edges) {
-  const graph = Array.from({ length: n }, () => []);
+  const g = Array.from({ length: n }, () => []);
 
   for (const [u, v] of edges) {
-    graph[u].push(v);
-    graph[v].push(u);
+    g[u].push(v);
+    g[v].push(u);
   }
 
   const seen = new Set();
-  let components = 0;
+  let comp = 0;
 
-  function dfs(node) {
-    seen.add(node);
-
-    for (const nei of graph[node]) {
-      if (!seen.has(nei)) dfs(nei);
+  function dfs(u) {
+    seen.add(u);
+    for (const v of g[u]) {
+      if (!seen.has(v)) dfs(v);
     }
   }
 
   for (let i = 0; i < n; i++) {
     if (!seen.has(i)) {
-      components++;
+      comp++;
       dfs(i);
     }
   }
 
-  return components;
+  return comp;
 }
-`
+~~~
 
-Ideia principal:
+## Complexidade rapida
 
-- cada DFS marca uma componente inteira
-- toda vez que achar no nao visitado, comeca nova componente
+- DFS/BFS: O(V + E)
+- Espaco: O(V)
 
-## Erros comuns de iniciante
+## Problemas para praticar (ordem sugerida)
 
-- Esquecer estrutura de visitados.
-- Marcar visitado tarde e repetir trabalho.
-- Confundir regra de grafo direcionado e nao direcionado.
+1. Number of Islands - #200
+2. Clone Graph - #133
+3. Course Schedule - #207

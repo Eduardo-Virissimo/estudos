@@ -1,53 +1,48 @@
 ﻿# Two Pointers
 
-## O que e
+Boa escolha. Two Pointers faz voce sair de O(n^2) para O(n) em muitos problemas.
 
-Two Pointers e usar dois indices ao mesmo tempo para guiar a busca.
-Isso evita loop duplo em varios problemas.
+## O que e Two Pointers?
 
-## Intuicao
+E usar dois indices no mesmo array para guiar a busca.
+Normalmente:
 
-Imagine duas pessoas andando em um corredor:
+- um ponteiro comeca na esquerda
+- outro comeca na direita
 
-- uma na esquerda
-- uma na direita
+## Como pensar
 
-Com base no que voce quer, voce move uma delas.
+Se o array estiver ordenado e voce busca soma alvo:
 
-## Passo a passo classico
+- soma pequena -> move esquerda para aumentar
+- soma grande -> move direita para diminuir
 
-1. left no inicio.
-2. right no fim.
-3. avalia regra (ex: soma).
-4. move left ou right.
-5. para quando cruzar ou achar resposta.
+## Exemplo em JavaScript
 
-## Complexidade sem misterio
-
-- tempo: O(n)
-- espaco: O(1)
-
-## Exemplo explicado
-
-`js
-function twoSumSorted(nums, target) {
+~~~js
+function twoSumOrdenado(nums, target) {
   let left = 0;
   let right = nums.length - 1;
 
   while (left < right) {
-    const sum = nums[left] + nums[right];
+    const soma = nums[left] + nums[right];
 
-    if (sum === target) return [left, right];
-    if (sum < target) left++;
+    if (soma === target) return [left, right];
+    if (soma < target) left++;
     else right--;
   }
 
   return [-1, -1];
 }
-`
+~~~
 
-## Erros comuns
+## Complexidade rapida
 
-- aplicar em array nao ordenado sem tratar
-- mover os dois ponteiros sem criterio
-- esquecer condicao de parada
+- Tempo: O(n)
+- Espaco: O(1)
+
+## Problemas para praticar (ordem sugerida)
+
+1. Valid Palindrome - #125
+2. Two Sum II - #167
+3. 3Sum - #15

@@ -1,65 +1,49 @@
 ﻿# Backtracking
 
-## O que e
+Boa escolha. Backtracking e a base para combinacoes, permutacoes e busca completa.
 
-Backtracking e tentar caminhos e voltar quando um caminho nao serve.
+## O que e Backtracking?
 
-## Intuicao
+E tentar uma escolha, continuar, e voltar quando nao funciona.
 
-Imagine um labirinto:
+Padrao mental:
 
-- escolhe um caminho
-- se travar, volta
-- tenta outro
+1. escolhe
+2. explora
+3. desfaz
 
-Em codigo, isso vira recursao + desfazer estado.
+## Exemplo em JavaScript
 
-## Estrutura mental padrao
-
-1. escolher
-2. explorar
-3. desfazer
-
-Esse "desfazer" e o coracao do backtracking.
-
-## Complexidade sem misterio
-
-Pode crescer muito rapido (geralmente exponencial),
-porque voce testa muitas combinacoes.
-
-Por isso, poda e importante:
-
-- se ja esta invalido, para cedo
-
-## Exemplo explicado
-
-`js
+~~~js
 function subsets(nums) {
-  const result = [];
+  const ans = [];
   const path = [];
 
   function dfs(i) {
     if (i === nums.length) {
-      result.push([...path]);
+      ans.push([...path]);
       return;
     }
 
-    // opcao 1: nao pegar nums[i]
-    dfs(i + 1);
+    dfs(i + 1); // nao escolhe
 
-    // opcao 2: pegar nums[i]
     path.push(nums[i]);
-    dfs(i + 1);
-    path.pop(); // desfaz para voltar
+    dfs(i + 1); // escolhe
+    path.pop(); // desfaz
   }
 
   dfs(0);
-  return result;
+  return ans;
 }
-`
+~~~
 
-## Erros comuns de iniciante
+## Complexidade rapida
 
-- Nao desfazer estado (esquecer pop).
-- Misturar estado de um ramo com outro.
-- Nao cortar ramo invalido cedo.
+- Geralmente exponencial, porque testa muitas possibilidades
+- Poda ajuda a reduzir busca inutil
+
+## Problemas para praticar (ordem sugerida)
+
+1. Subsets - #78
+2. Combination Sum - #39
+3. Permutations - #46

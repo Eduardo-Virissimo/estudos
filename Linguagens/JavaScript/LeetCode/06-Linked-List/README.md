@@ -1,55 +1,45 @@
 ﻿# Linked List
 
-## O que e
+Boa escolha. Linked List ensina ponteiros e manipular referencias com seguranca.
 
-Linked List e uma cadeia de nos.
-Cada no guarda:
+## O que e Linked List?
 
-- um valor
-- referencia para o proximo no
+E uma cadeia de nos.
+Cada no tem:
 
-Diferenca para array:
+- valor
+- ponteiro para o proximo
 
-- array: acesso por indice e rapido
-- linked list: inserir no meio pode ser facil, mas achar posicao custa caminhada
+## Diferenca para array
 
-## Intuicao
+- Array: acesso por indice e direto
+- Linked List: precisa caminhar no a no
 
-Pense em vagoes de trem conectados.
-Para chegar no quinto vagao, voce passa pelos anteriores.
+## Exemplo em JavaScript
 
-## Padroes mais usados
-
-- Reversao de lista (prev, curr, next).
-- Slow/Fast pointers (meio, ciclo).
-- Dummy node para simplificar bordas.
-
-## Complexidade sem misterio
-
-- Achar posicao: O(n)
-- Inserir/remover com ponteiro certo: O(1)
-- Espaco extra iterativo: O(1)
-
-## Exemplo explicado
-
-`js
-function reverseList(head) {
+~~~js
+function inverterLista(head) {
   let prev = null;
   let curr = head;
 
   while (curr) {
-    const next = curr.next; // guarda resto da lista
-    curr.next = prev;       // vira ponteiro para tras
-    prev = curr;            // avanca prev
-    curr = next;            // avanca curr
+    const next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
   }
 
   return prev;
 }
-`
+~~~
 
-## Erros comuns de iniciante
+## Complexidade rapida
 
-- Perder o next antes de inverter.
-- Esquecer casos vazios.
-- Nao retornar nova cabeca apos operacao.
+- Buscar posicao: O(n)
+- Inserir/remover com referencia correta: O(1)
+
+## Problemas para praticar (ordem sugerida)
+
+1. Reverse Linked List - #206
+2. Linked List Cycle - #141
+3. Merge Two Sorted Lists - #21

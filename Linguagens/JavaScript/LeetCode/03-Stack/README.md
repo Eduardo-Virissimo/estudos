@@ -1,51 +1,44 @@
 ﻿# Stack
 
-## O que e
+Boa escolha. Stack aparece muito em validacao e parsing.
 
-Stack (pilha) segue LIFO:
+## O que e Stack?
 
-- Last In, First Out
-- ultimo que entra, primeiro que sai
+Stack (pilha) segue a regra LIFO:
+ultimo que entra, primeiro que sai.
 
-## Intuicao
+Operacoes:
 
-Serve para problemas onde voce precisa voltar ao ultimo contexto aberto.
-Exemplos: parenteses, tags, desfazer.
+- push: entra
+- pop: sai
+- top/peek: olha o topo
 
-## Operacoes basicas
+## Exemplo em JavaScript
 
-- push: coloca no topo
-- pop: remove do topo
-- peek: olha topo sem remover
-
-## Complexidade sem misterio
-
-- push/pop/peek: O(1)
-- espaco: O(n)
-
-## Exemplo explicado
-
-`js
-function isValidParentheses(s) {
-  const stack = [];
-  const pairs = { ')': '(', ']': '[', '}': '{' };
+~~~js
+function parentesesValidos(s) {
+  const pilha = [];
+  const pares = { ')': '(', ']': '[', '}': '{' };
 
   for (const ch of s) {
     if (ch === '(' || ch === '[' || ch === '{') {
-      stack.push(ch);
-      continue;
+      pilha.push(ch);
+    } else {
+      if (pilha.pop() !== pares[ch]) return false;
     }
-
-    const top = stack.pop();
-    if (top !== pairs[ch]) return false;
   }
 
-  return stack.length === 0;
+  return pilha.length === 0;
 }
-`
+~~~
 
-## Erros comuns
+## Complexidade rapida
 
-- pop em stack vazia
-- esquecer de validar stack vazia no final
-- confundir par de fechamento
+- push/pop: O(1)
+- Espaco: O(n)
+
+## Problemas para praticar (ordem sugerida)
+
+1. Valid Parentheses - #20
+2. Min Stack - #155
+3. Daily Temperatures - #739

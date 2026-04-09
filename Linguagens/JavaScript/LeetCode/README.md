@@ -1,7 +1,11 @@
 ﻿# LeetCode em JavaScript
 
-Este material foi escrito para quem esta comecando do zero.
-A ideia aqui nao e decorar, e entender o que cada tecnica faz e por que ela funciona.
+Este material esta no formato de explicacao para iniciantes:
+
+- conceito direto
+- exemplo curto em JavaScript
+- complexidade rapida
+- 3 problemas por topico em ordem sugerida
 
 ## Ordem de estudo ate Graphs
 
@@ -17,19 +21,7 @@ A ideia aqui nao e decorar, e entender o que cada tecnica faz e por que ela func
 10. [Backtracking](10-Backtracking/README.md)
 11. [Graphs](11-Graphs/README.md)
 
-## Como usar este material
-
-Em cada topico voce vai encontrar:
-
-- explicacao simples do conceito
-- intuicao de como pensar
-- passo a passo de execucao
-- complexidade explicada sem complicacao
-- exemplo em JavaScript
-
 ## Continua depois de Graphs
-
-Depois desta base, a trilha continua com:
 
 - Intervals
 - Greedy

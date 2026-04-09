@@ -1,47 +1,36 @@
 ﻿# Trees
 
-## O que e
+Boa escolha. Trees aparece em muitas entrevistas e melhora muito sua recursao.
 
-Tree (arvore) e uma estrutura hierarquica de nos.
-Em Binary Tree, cada no pode ter ate 2 filhos: left e right.
+## O que e Tree?
 
-## Intuicao
+E uma estrutura hierarquica de nos.
+No caso de Binary Tree, cada no pode ter ate dois filhos:
 
-Uma arvore grande e varias subarvores menores.
-Por isso recursao combina muito com tree.
+- left
+- right
 
-## Formas de percorrer
+## Jeitos principais de percorrer
 
-- DFS Preorder: raiz -> esquerda -> direita
-- DFS Inorder: esquerda -> raiz -> direita
-- DFS Postorder: esquerda -> direita -> raiz
-- BFS: por niveis com fila
+- DFS: vai fundo e volta
+- BFS: visita por niveis
 
-## Complexidade sem misterio
+## Exemplo em JavaScript
 
-- Visitar tudo: O(n)
-- Espaco: depende da altura (pilha de recursao/fila)
-
-## Exemplo explicado
-
-`js
+~~~js
 function maxDepth(root) {
   if (!root) return 0;
-
-  const leftDepth = maxDepth(root.left);
-  const rightDepth = maxDepth(root.right);
-
-  return 1 + Math.max(leftDepth, rightDepth);
+  return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
 }
-`
+~~~
 
-Leitura mental:
+## Complexidade rapida
 
-- se no nao existe, profundidade 0
-- profundidade atual = 1 + maior profundidade dos filhos
+- Visitar todos os nos: O(n)
+- Espaco: O(h), onde h e altura da arvore
 
-## Erros comuns de iniciante
+## Problemas para praticar (ordem sugerida)
 
-- Esquecer caso base null.
-- Confundir DFS com BFS.
-- Nao desenhar arvore no papel antes de codar.
+1. Maximum Depth of Binary Tree - #104
+2. Same Tree - #100
+3. Binary Tree Level Order Traversal - #102

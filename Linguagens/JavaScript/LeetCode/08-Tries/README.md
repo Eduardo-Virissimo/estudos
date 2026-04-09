@@ -1,39 +1,21 @@
 ﻿# Tries
 
-## O que e
+Boa escolha. Trie e perfeito para problemas com palavras e prefixo.
 
-Trie e uma arvore de prefixos para palavras.
-Cada nivel representa um caractere.
+## O que e Trie?
 
-## Intuicao
+Trie e uma arvore de caracteres.
+Cada caminho representa uma palavra.
 
-Se muitas palavras compartilham comeco, Trie reaproveita esse caminho.
-Exemplo: "car", "carta", "carro" compartilham "car".
+## Quando usar
 
-## Como funciona
+- buscar palavra rapidamente
+- verificar prefixo
+- autocomplete
 
-Cada no guarda:
+## Exemplo em JavaScript
 
-- filhos (caractere -> no)
-- marcador de fim de palavra
-
-Operacoes comuns:
-
-- insert("casa")
-- search("casa")
-- startsWith("cas")
-
-## Complexidade sem misterio
-
-Se L e tamanho da palavra:
-
-- inserir: O(L)
-- buscar: O(L)
-- prefixo: O(L)
-
-## Exemplo explicado
-
-`js
+~~~js
 class TrieNode {
   constructor() {
     this.children = new Map();
@@ -48,21 +30,26 @@ class Trie {
 
   insert(word) {
     let node = this.root;
-
     for (const ch of word) {
       if (!node.children.has(ch)) {
         node.children.set(ch, new TrieNode());
       }
       node = node.children.get(ch);
     }
-
     node.end = true;
   }
 }
-`
+~~~
 
-## Erros comuns de iniciante
+## Complexidade rapida
 
-- Esquecer de marcar fim de palavra.
-- Tratar prefixo como palavra completa sem validar end.
-- Usar Trie quando um Set simples resolve melhor.
+Se L for tamanho da palavra:
+
+- inserir: O(L)
+- buscar: O(L)
+
+## Problemas para praticar (ordem sugerida)
+
+1. Implement Trie (Prefix Tree) - #208
+2. Design Add and Search Words Data Structure - #211
+3. Word Search II - #212
