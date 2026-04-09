@@ -37,4 +37,3 @@ Ao terminar essa trilha, voce deve conseguir:
 - criar funcoes reutilizaveis
 - alterar elementos da pagina com DOM
 - consumir dados assincronos sem se perder no fluxo
-

@@ -37,10 +37,10 @@ Em JavaScript, arrays funcionam bem como stack com push/pop.
 ```js
 function isValidParentheses(s) {
   const stack = [];
-  const pair = { ')': '(', ']': '[', '}': '{' };
+  const pair = { ")": "(", "]": "[", "}": "{" };
 
   for (const ch of s) {
-    if (ch === '(' || ch === '[' || ch === '{') {
+    if (ch === "(" || ch === "[" || ch === "{") {
       stack.push(ch);
     } else {
       if (stack.pop() !== pair[ch]) return false;
