@@ -1,66 +1,82 @@
 ﻿# Graphs
 
-## Visao geral
+## O que e
 
-Grafo modela relacoes entre entidades: vertices e arestas.
-Pode ser direcionado ou nao direcionado, ponderado ou nao.
+Grafo e um conjunto de:
 
-## Como funciona
+- vertices (nos)
+- arestas (conexoes)
 
-Representacao mais comum em entrevistas: lista de adjacencia.
+Pode ser:
 
-Travessias principais:
+- direcionado (A -> B)
+- nao direcionado (A <-> B)
 
-- BFS: explora por camadas (fila)
-- DFS: aprofunda caminho (recursao ou pilha)
+## Intuicao
 
-## Complexidade tipica
+Rede social e um grafo:
+
+- pessoa = vertice
+- amizade = aresta
+
+## Representacao mais usada
+
+Lista de adjacencia:
+
+- para cada no, guardamos vizinhos
+
+## Dois jeitos de percorrer
+
+- BFS (fila): visita por camadas
+- DFS (recursao/pilha): vai fundo e volta
+
+## Complexidade sem misterio
 
 Com V vertices e E arestas:
 
 - BFS/DFS: O(V + E)
 - Espaco: O(V)
 
-## Quando usar
+## Exemplo explicado
 
-- componentes conectados
-- deteccao de ciclo
-- caminho minimo em grafo nao ponderado
-- matriz/grade tratada como grafo implicito
-
-## Erros comuns
-
-- esquecer conjunto de visitados
-- marcar visitado tarde demais
-- misturar regras de grafo direcionado e nao direcionado
-
-## Exemplo em JavaScript
-
-```js
+`js
 function countComponents(n, edges) {
-  const g = Array.from({ length: n }, () => []);
+  const graph = Array.from({ length: n }, () => []);
+
   for (const [u, v] of edges) {
-    g[u].push(v);
-    g[v].push(u);
+    graph[u].push(v);
+    graph[v].push(u);
   }
 
   const seen = new Set();
-  let comp = 0;
+  let components = 0;
 
-  function dfs(u) {
-    seen.add(u);
-    for (const v of g[u]) {
-      if (!seen.has(v)) dfs(v);
+  function dfs(node) {
+    seen.add(node);
+
+    for (const nei of graph[node]) {
+      if (!seen.has(nei)) dfs(nei);
     }
   }
 
   for (let i = 0; i < n; i++) {
     if (!seen.has(i)) {
-      comp++;
+      components++;
       dfs(i);
     }
   }
 
-  return comp;
+  return components;
 }
-```
+`
+
+Ideia principal:
+
+- cada DFS marca uma componente inteira
+- toda vez que achar no nao visitado, comeca nova componente
+
+## Erros comuns de iniciante
+
+- Esquecer estrutura de visitados.
+- Marcar visitado tarde e repetir trabalho.
+- Confundir regra de grafo direcionado e nao direcionado.

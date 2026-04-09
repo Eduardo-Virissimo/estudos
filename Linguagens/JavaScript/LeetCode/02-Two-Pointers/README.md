@@ -1,48 +1,53 @@
 ﻿# Two Pointers
 
-## Visao geral
+## O que e
 
-Two Pointers usa dois indices para percorrer dados de forma coordenada.
-A ideia e evitar loop duplo completo e reduzir custo de O(n^2) para O(n) em muitos casos.
+Two Pointers e usar dois indices ao mesmo tempo para guiar a busca.
+Isso evita loop duplo em varios problemas.
 
-## Como funciona
+## Intuicao
 
-Ha dois formatos principais:
+Imagine duas pessoas andando em um corredor:
 
-- ponteiros opostos: um no inicio e outro no fim
-- ponteiros na mesma direcao: um define inicio e outro expande
+- uma na esquerda
+- uma na direita
 
-## Complexidade tipica
+Com base no que voce quer, voce move uma delas.
 
-- Tempo: O(n) na maioria dos casos
-- Espaco: O(1)
+## Passo a passo classico
 
-## Quando usar
+1. left no inicio.
+2. right no fim.
+3. avalia regra (ex: soma).
+4. move left ou right.
+5. para quando cruzar ou achar resposta.
 
-- array ordenado com busca de pares
-- comparacao de extremos (palindromo, soma alvo)
-- remocao/compressao in-place
+## Complexidade sem misterio
 
-## Erros comuns
+- tempo: O(n)
+- espaco: O(1)
 
-- mover o ponteiro errado
-- esquecer condicao de parada
-- aplicar em array nao ordenado sem tratar isso
+## Exemplo explicado
 
-## Exemplo em JavaScript
-
-```js
+`js
 function twoSumSorted(nums, target) {
-  let l = 0;
-  let r = nums.length - 1;
+  let left = 0;
+  let right = nums.length - 1;
 
-  while (l < r) {
-    const sum = nums[l] + nums[r];
-    if (sum === target) return [l, r];
-    if (sum < target) l++;
-    else r--;
+  while (left < right) {
+    const sum = nums[left] + nums[right];
+
+    if (sum === target) return [left, right];
+    if (sum < target) left++;
+    else right--;
   }
 
   return [-1, -1];
 }
-```
+`
+
+## Erros comuns
+
+- aplicar em array nao ordenado sem tratar
+- mover os dois ponteiros sem criterio
+- esquecer condicao de parada

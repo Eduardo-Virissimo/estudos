@@ -1,55 +1,65 @@
 ﻿# Backtracking
 
-## Visao geral
+## O que e
 
-Backtracking explora escolhas passo a passo e volta quando um caminho nao serve.
-E uma busca em arvore de estados com tentativa e erro controlado.
+Backtracking e tentar caminhos e voltar quando um caminho nao serve.
 
-## Como funciona
+## Intuicao
 
-Estrutura comum:
+Imagine um labirinto:
 
-1. escolher uma opcao
-2. avancar com recursao
-3. desfazer escolha (backtrack)
+- escolhe um caminho
+- se travar, volta
+- tenta outro
 
-## Complexidade tipica
+Em codigo, isso vira recursao + desfazer estado.
 
-Geralmente exponencial, dependendo da quantidade de escolhas por nivel.
-Poda e essencial para reduzir busca desnecessaria.
+## Estrutura mental padrao
 
-## Quando usar
+1. escolher
+2. explorar
+3. desfazer
 
-- combinacoes e permutacoes
-- problemas de tabuleiro (n-queens, sudoku)
-- cenarios de "todas as respostas validas"
+Esse "desfazer" e o coracao do backtracking.
 
-## Erros comuns
+## Complexidade sem misterio
 
-- esquecer de desfazer estado
-- copiar estrutura grande sem necessidade
-- nao interromper caminho invalido cedo
+Pode crescer muito rapido (geralmente exponencial),
+porque voce testa muitas combinacoes.
 
-## Exemplo em JavaScript
+Por isso, poda e importante:
 
-```js
+- se ja esta invalido, para cedo
+
+## Exemplo explicado
+
+`js
 function subsets(nums) {
-  const ans = [];
+  const result = [];
   const path = [];
 
   function dfs(i) {
     if (i === nums.length) {
-      ans.push([...path]);
+      result.push([...path]);
       return;
     }
 
-    dfs(i + 1); // nao escolhe nums[i]
+    // opcao 1: nao pegar nums[i]
+    dfs(i + 1);
+
+    // opcao 2: pegar nums[i]
     path.push(nums[i]);
-    dfs(i + 1); // escolhe nums[i]
-    path.pop();
+    dfs(i + 1);
+    path.pop(); // desfaz para voltar
   }
 
   dfs(0);
-  return ans;
+  return result;
 }
-```
+`
+
+## Erros comuns de iniciante
+
+- Nao desfazer estado (esquecer pop).
+- Misturar estado de um ramo com outro.
+- Nao cortar ramo invalido cedo.

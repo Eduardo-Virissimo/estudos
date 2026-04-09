@@ -1,47 +1,52 @@
 ﻿# Arrays & Hashing
 
-## Visao geral
+## O que e
 
-Arrays guardam elementos em sequencia e permitem acesso por indice em O(1).
-Hashing usa estrutura de chave -> valor (Map/Set/objeto) para buscar informacao rapidamente.
-A combinacao dos dois resolve muitos problemas de contagem, frequencia e deduplicacao.
+- Array e uma lista em ordem: voce acessa direto por indice.
+- Hashing e guardar informacao por chave, como dicionario: chave -> valor.
 
-## Como funciona
+Pense assim:
 
-- Array: ideal para percorrer, ordenar, comparar posicoes e usar prefix sum.
-- Hash map: salva dados por chave para consultas em O(1) medio.
-- Hash set: salva apenas existencia de valor (bom para "ja vi este numero?").
+- Array: gavetas numeradas.
+- Hash map: armario por etiqueta.
 
-## Complexidade tipica
+## Intuicao
 
-- Acesso por indice em array: O(1)
-- Insercao/busca em hash map ou set: O(1) medio
-- Percurso completo: O(n)
+Perguntas que pedem hashing:
 
-## Quando usar
+- "ja vi esse valor antes?"
+- "quantas vezes esse valor aparece?"
+- "existe um complemento para formar tal soma?"
 
-Use quando o problema envolve:
+## Como funciona na pratica
 
-- contar frequencia
-- encontrar duplicados
-- verificar pares/complementos
-- agrupar por chave
+1. Percorra o array uma vez.
+2. Guarde o que precisa no Map ou Set.
+3. Consulte em O(1) medio, em vez de procurar tudo de novo.
 
-## Erros comuns
+## Complexidade sem misterio
 
-- usar objeto simples sem considerar comportamento de chaves especiais
-- ignorar custo de memoria
-- criar estrutura hash quando uma varredura simples ja resolve
+- indice de array: O(1)
+- busca em Map/Set: O(1) medio
+- uma passada completa: O(n)
 
-## Exemplo em JavaScript
+## Exemplo explicado
 
-```js
+`js
 function containsDuplicate(nums) {
   const seen = new Set();
+
   for (const n of nums) {
     if (seen.has(n)) return true;
     seen.add(n);
   }
+
   return false;
 }
-```
+`
+
+## Erros comuns
+
+- usar objeto simples quando Map/Set seria mais claro
+- ignorar custo de memoria
+- ordenar sem necessidade quando Set resolve

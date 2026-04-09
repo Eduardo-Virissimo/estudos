@@ -1,52 +1,51 @@
 ﻿# Stack
 
-## Visao geral
+## O que e
 
-Stack (pilha) segue LIFO: o ultimo que entra e o primeiro que sai.
-E excelente para validacao de estrutura, desfazer passos e simulacao de recursao.
+Stack (pilha) segue LIFO:
 
-## Como funciona
+- Last In, First Out
+- ultimo que entra, primeiro que sai
 
-Operacoes basicas:
+## Intuicao
 
-- push: empilha
-- pop: desempilha
-- peek/top: consulta topo
+Serve para problemas onde voce precisa voltar ao ultimo contexto aberto.
+Exemplos: parenteses, tags, desfazer.
 
-Em JavaScript, arrays funcionam bem como stack com push/pop.
+## Operacoes basicas
 
-## Complexidade tipica
+- push: coloca no topo
+- pop: remove do topo
+- peek: olha topo sem remover
+
+## Complexidade sem misterio
 
 - push/pop/peek: O(1)
-- Espaco: O(n)
+- espaco: O(n)
 
-## Quando usar
+## Exemplo explicado
 
-- parenteses validos
-- avaliacao de expressoes
-- monotonic stack (next greater element)
-
-## Erros comuns
-
-- acessar topo de stack vazia
-- nao tratar ordem de abertura/fechamento
-- confundir stack normal com monotonic stack
-
-## Exemplo em JavaScript
-
-```js
+`js
 function isValidParentheses(s) {
   const stack = [];
-  const pair = { ")": "(", "]": "[", "}": "{" };
+  const pairs = { ')': '(', ']': '[', '}': '{' };
 
   for (const ch of s) {
-    if (ch === "(" || ch === "[" || ch === "{") {
+    if (ch === '(' || ch === '[' || ch === '{') {
       stack.push(ch);
-    } else {
-      if (stack.pop() !== pair[ch]) return false;
+      continue;
     }
+
+    const top = stack.pop();
+    if (top !== pairs[ch]) return false;
   }
 
   return stack.length === 0;
 }
-```
+`
+
+## Erros comuns
+
+- pop em stack vazia
+- esquecer de validar stack vazia no final
+- confundir par de fechamento

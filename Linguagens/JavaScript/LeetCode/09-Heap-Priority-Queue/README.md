@@ -1,51 +1,65 @@
 ﻿# Heap / Priority Queue
 
-## Visao geral
+## O que e
 
-Heap permite acessar rapidamente o menor ou maior elemento.
-Priority Queue e a forma de usar essa estrutura em problemas praticos.
+Heap e uma estrutura para pegar rapidamente o menor ou maior elemento.
+Priority Queue e a interface de uso dessa ideia.
 
-## Como funciona
+## Intuicao
 
-Tipos:
+Pense em fila de atendimento por prioridade:
 
-- Min-heap: menor no topo
-- Max-heap: maior no topo
+- nao importa ordem de chegada
+- importa quem tem maior prioridade
 
-Operacoes:
+## Tipos
 
-- insert/push
-- extract (remove topo)
-- peek (consulta topo)
+- Min-heap: menor valor no topo
+- Max-heap: maior valor no topo
 
-## Complexidade tipica
+## Operacoes mais comuns
+
+- inserir elemento
+- consultar topo
+- remover topo
+
+## Complexidade sem misterio
 
 - inserir: O(log n)
 - remover topo: O(log n)
-- consultar topo: O(1)
+- ver topo: O(1)
 
-## Quando usar
+## Onde aparece muito
 
-- Top K
-- mediana em stream
-- processar sempre o item mais prioritario
+- Top K elementos
+- tarefas com prioridade
+- stream de dados
 
-## Erros comuns
+## Exemplo conceitual em JS
 
-- comparador invertido
-- ordenar tudo quando so precisa do topo
-- esquecer que JS nao tem heap nativo na base da linguagem
-
-## Exemplo em JavaScript
-
-```js
-// Exemplo conceitual: manter os k maiores com min-heap de tamanho k.
-// Em pratica, use implementacao de heap ou biblioteca confiavel.
+`js
+// minHeap aqui e uma implementacao de heap ja pronta.
 function keepTopK(nums, k, minHeap) {
   for (const n of nums) {
     minHeap.push(n);
-    if (minHeap.size() > k) minHeap.pop();
+
+    if (minHeap.size() > k) {
+      minHeap.pop();
+    }
   }
+
   return minHeap;
 }
-```
+`
+
+Por que funciona?
+
+- Mantemos so k elementos.
+- Quando passa de k, removemos o menor do grupo.
+- No fim ficam os k maiores.
+
+## Erros comuns de iniciante
+
+- Inverter min-heap e max-heap.
+- Ordenar array inteiro sem precisar.
+- Esquecer que JS nao tem heap nativo no core da linguagem.

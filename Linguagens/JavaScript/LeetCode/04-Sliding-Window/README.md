@@ -1,37 +1,38 @@
 ﻿# Sliding Window
 
-## Visao geral
+## O que e
 
-Sliding Window processa subarrays/substrings sem recalcular tudo do zero.
-A janela desliza mantendo estado incremental.
+Sliding Window e uma forma de analisar partes continuas de um array/string sem recalcular tudo.
+Voce mantem uma "janela" e vai deslizando.
 
-## Como funciona
+## Intuicao
 
-- Janela fixa: tamanho k constante.
-- Janela variavel: expande e contrai conforme restricao.
+Imagine uma moldura de foto andando por cima de uma linha de numeros.
+Em vez de somar tudo de novo a cada passo, voce:
 
-Estado comum: soma, frequencia, quantidade de unicos e limites left/right.
+- tira o que saiu da moldura
+- adiciona o que entrou
 
-## Complexidade tipica
+## Tipos
 
-- Tempo: O(n), porque cada indice entra e sai no maximo uma vez
-- Espaco: O(1) ou O(k), dependendo do estado
+- Janela fixa: tamanho sempre igual (ex: k).
+- Janela variavel: aumenta e diminui conforme condicao.
 
-## Quando usar
+## Passo a passo (janela fixa)
 
-- maior/menor substring com condicao
-- soma maxima em subarray de tamanho k
-- contagem por janela
+1. Monte a primeira janela.
+2. Guarde o estado (ex: soma).
+3. Ao avancar 1 posicao: remove esquerda, adiciona direita.
+4. Atualize resposta.
 
-## Erros comuns
+## Complexidade sem misterio
 
-- nao remover efeito do elemento que saiu
-- contrair janela no momento errado
-- atualizar resposta antes da janela estar valida
+- Cada elemento entra e sai uma vez: O(n).
+- Espaco depende do estado que voce guarda: O(1) ou O(k).
 
-## Exemplo em JavaScript
+## Exemplo explicado
 
-```js
+`js
 function maxSumSubarrayK(nums, k) {
   if (nums.length < k) return null;
 
@@ -39,11 +40,19 @@ function maxSumSubarrayK(nums, k) {
   for (let i = 0; i < k; i++) sum += nums[i];
 
   let best = sum;
-  for (let r = k; r < nums.length; r++) {
-    sum += nums[r] - nums[r - k];
+
+  for (let right = k; right < nums.length; right++) {
+    sum += nums[right];
+    sum -= nums[right - k];
     if (sum > best) best = sum;
   }
 
   return best;
 }
-```
+`
+
+## Erros comuns de iniciante
+
+- Esquecer de remover o elemento que saiu.
+- Atualizar resposta em momento errado.
+- Confundir janela fixa com variavel.

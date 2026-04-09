@@ -1,55 +1,55 @@
 ﻿# Linked List
 
-## Visao geral
+## O que e
 
-Linked List e uma sequencia de nos onde cada no aponta para o proximo.
-Nao ha acesso direto por indice em O(1), como em array.
+Linked List e uma cadeia de nos.
+Cada no guarda:
 
-## Como funciona
+- um valor
+- referencia para o proximo no
 
-Cada no costuma ter:
+Diferenca para array:
 
-- valor
-- next
+- array: acesso por indice e rapido
+- linked list: inserir no meio pode ser facil, mas achar posicao custa caminhada
 
-Padroes classicos:
+## Intuicao
 
-- dummy node para simplificar insercao/remocao
-- slow/fast pointers para ciclo e meio da lista
-- reversao com prev/curr/next
+Pense em vagoes de trem conectados.
+Para chegar no quinto vagao, voce passa pelos anteriores.
 
-## Complexidade tipica
+## Padroes mais usados
 
-- Acesso por posicao: O(n)
-- Insercao/remocao com referencia correta: O(1)
+- Reversao de lista (prev, curr, next).
+- Slow/Fast pointers (meio, ciclo).
+- Dummy node para simplificar bordas.
+
+## Complexidade sem misterio
+
+- Achar posicao: O(n)
+- Inserir/remover com ponteiro certo: O(1)
 - Espaco extra iterativo: O(1)
 
-## Quando usar
+## Exemplo explicado
 
-- reverter lista
-- detectar ciclo
-- mesclar listas ordenadas
-
-## Erros comuns
-
-- perder referencia do proximo no
-- nao tratar lista vazia
-- esquecer que a cabeca pode mudar
-
-## Exemplo em JavaScript
-
-```js
+`js
 function reverseList(head) {
   let prev = null;
   let curr = head;
 
   while (curr) {
-    const next = curr.next;
-    curr.next = prev;
-    prev = curr;
-    curr = next;
+    const next = curr.next; // guarda resto da lista
+    curr.next = prev;       // vira ponteiro para tras
+    prev = curr;            // avanca prev
+    curr = next;            // avanca curr
   }
 
   return prev;
 }
-```
+`
+
+## Erros comuns de iniciante
+
+- Perder o next antes de inverter.
+- Esquecer casos vazios.
+- Nao retornar nova cabeca apos operacao.

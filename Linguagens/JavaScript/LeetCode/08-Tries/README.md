@@ -1,46 +1,39 @@
 ﻿# Tries
 
-## Visao geral
+## O que e
 
-Trie (prefix tree) armazena strings por caracteres em uma arvore de prefixos.
-Isso deixa busca por prefixo muito eficiente.
+Trie e uma arvore de prefixos para palavras.
+Cada nivel representa um caractere.
+
+## Intuicao
+
+Se muitas palavras compartilham comeco, Trie reaproveita esse caminho.
+Exemplo: "car", "carta", "carro" compartilham "car".
 
 ## Como funciona
 
 Cada no guarda:
 
-- filhos (mapa de caractere -> no)
+- filhos (caractere -> no)
 - marcador de fim de palavra
 
-Operacoes principais:
+Operacoes comuns:
 
-- insert(word)
-- search(word)
-- startsWith(prefix)
+- insert("casa")
+- search("casa")
+- startsWith("cas")
 
-## Complexidade tipica
+## Complexidade sem misterio
 
-Se L e tamanho da palavra/prefixo:
+Se L e tamanho da palavra:
 
 - inserir: O(L)
-- buscar palavra: O(L)
-- buscar prefixo: O(L)
+- buscar: O(L)
+- prefixo: O(L)
 
-## Quando usar
+## Exemplo explicado
 
-- autocomplete
-- dicionario de palavras
-- filtro por prefixo
-
-## Erros comuns
-
-- esquecer de marcar fim de palavra
-- usar trie quando hash set simples ja resolve
-- nao controlar uso de memoria
-
-## Exemplo em JavaScript
-
-```js
+`js
 class TrieNode {
   constructor() {
     this.children = new Map();
@@ -55,11 +48,21 @@ class Trie {
 
   insert(word) {
     let node = this.root;
+
     for (const ch of word) {
-      if (!node.children.has(ch)) node.children.set(ch, new TrieNode());
+      if (!node.children.has(ch)) {
+        node.children.set(ch, new TrieNode());
+      }
       node = node.children.get(ch);
     }
+
     node.end = true;
   }
 }
-```
+`
+
+## Erros comuns de iniciante
+
+- Esquecer de marcar fim de palavra.
+- Tratar prefixo como palavra completa sem validar end.
+- Usar Trie quando um Set simples resolve melhor.

@@ -1,41 +1,47 @@
 ﻿# Trees
 
-## Visao geral
+## O que e
 
-Arvore conecta nos em hierarquia sem ciclos (na forma classica de Binary Tree).
-Cada no pode ter filhos, e traversal define a ordem da visita.
+Tree (arvore) e uma estrutura hierarquica de nos.
+Em Binary Tree, cada no pode ter ate 2 filhos: left e right.
 
-## Como funciona
+## Intuicao
 
-Travessias comuns:
+Uma arvore grande e varias subarvores menores.
+Por isso recursao combina muito com tree.
+
+## Formas de percorrer
 
 - DFS Preorder: raiz -> esquerda -> direita
 - DFS Inorder: esquerda -> raiz -> direita
 - DFS Postorder: esquerda -> direita -> raiz
-- BFS Level Order: por niveis com fila
+- BFS: por niveis com fila
 
-## Complexidade tipica
+## Complexidade sem misterio
 
-- Visitar todos os nos: O(n)
-- Espaco: O(h) em recursao, O(n) no pior caso
+- Visitar tudo: O(n)
+- Espaco: depende da altura (pilha de recursao/fila)
 
-## Quando usar
+## Exemplo explicado
 
-- profundidade/altura
-- validacao de BST
-- busca por niveis
-
-## Erros comuns
-
-- esquecer caso base null
-- confundir ordem de traversal
-- estourar pilha em arvore muito profunda
-
-## Exemplo em JavaScript
-
-```js
+`js
 function maxDepth(root) {
   if (!root) return 0;
-  return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+
+  const leftDepth = maxDepth(root.left);
+  const rightDepth = maxDepth(root.right);
+
+  return 1 + Math.max(leftDepth, rightDepth);
 }
-```
+`
+
+Leitura mental:
+
+- se no nao existe, profundidade 0
+- profundidade atual = 1 + maior profundidade dos filhos
+
+## Erros comuns de iniciante
+
+- Esquecer caso base null.
+- Confundir DFS com BFS.
+- Nao desenhar arvore no papel antes de codar.

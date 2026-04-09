@@ -1,43 +1,48 @@
 ﻿# Binary Search
 
-## Visao geral
+## O que e
 
-Binary Search divide o espaco de busca ao meio a cada passo.
-Funciona quando existe ordem ou condicao monotona.
+Binary Search e busca por corte ao meio.
+A cada passo, metade do espaco e descartada.
 
-## Como funciona
+## Intuicao
 
-- Defina intervalo [left, right]
-- Calcule mid
-- Decida qual metade descartar
-- Repita ate encontrar ou esgotar
+Pense em adivinhar numero entre 1 e 100:
 
-## Complexidade tipica
+- pergunta 50
+- se for maior, ignora metade de baixo
+- se for menor, ignora metade de cima
 
-- Tempo: O(log n)
-- Espaco: O(1)
+Isso acelera muito.
 
 ## Quando usar
 
-- buscar valor em array ordenado
-- primeira/ultima ocorrencia
-- binary search na resposta (menor valor valido)
+- Array ordenado.
+- Qualquer problema com resposta monotona (regiao invalida e valida).
 
-## Erros comuns
+## Passo a passo
 
-- atualizar limites de forma errada e criar loop infinito
-- misturar regras de lower bound e upper bound
-- aplicar sem monotonicidade
+1. Defina left e right.
+2. Calcule mid.
+3. Compare com alvo/condicao.
+4. Jogue fora metade inutil.
+5. Repita.
 
-## Exemplo em JavaScript
+## Complexidade sem misterio
 
-```js
+- O(log n): cada passo corta metade.
+- Espaco O(1) na versao iterativa.
+
+## Exemplo explicado
+
+`js
 function binarySearch(nums, target) {
   let left = 0;
   let right = nums.length - 1;
 
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
+
     if (nums[mid] === target) return mid;
     if (nums[mid] < target) left = mid + 1;
     else right = mid - 1;
@@ -45,4 +50,10 @@ function binarySearch(nums, target) {
 
   return -1;
 }
-```
+`
+
+## Erros comuns de iniciante
+
+- Atualizar limite errado e criar loop infinito.
+- Usar em dados nao ordenados.
+- Confundir variantes (primeira ocorrencia, ultima ocorrencia, lower bound).
