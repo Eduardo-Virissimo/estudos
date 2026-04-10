@@ -15,13 +15,13 @@ Operacoes:
 
 ## Exemplo em JavaScript
 
-~~~js
+```js
 function parentesesValidos(s) {
   const pilha = [];
-  const pares = { ')': '(', ']': '[', '}': '{' };
+  const pares = { ")": "(", "]": "[", "}": "{" };
 
   for (const ch of s) {
-    if (ch === '(' || ch === '[' || ch === '{') {
+    if (ch === "(" || ch === "[" || ch === "{") {
       pilha.push(ch);
     } else {
       if (pilha.pop() !== pares[ch]) return false;
@@ -30,7 +30,7 @@ function parentesesValidos(s) {
 
   return pilha.length === 0;
 }
-~~~
+```
 
 ## Complexidade rapida
 

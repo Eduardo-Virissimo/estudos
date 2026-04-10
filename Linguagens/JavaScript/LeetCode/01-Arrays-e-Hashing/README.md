@@ -7,21 +7,21 @@ Boa escolha para comecar. Esse e um dos blocos mais importantes do LeetCode.
 Array e uma lista ordenada de valores.
 Voce acessa cada posicao por indice.
 
-~~~js
+```js
 let numeros = [3, 1, 4, 1, 5];
 
-numeros[0];      // 3
-numeros.length;  // 5
+numeros[0]; // 3
+numeros.length; // 5
 numeros.push(9); // adiciona no final
-numeros.pop();   // remove do final
-~~~
+numeros.pop(); // remove do final
+```
 
 ## O que e Hashing?
 
 Hashing e usar uma estrutura de chave -> valor para buscar rapido.
 Na pratica, em JS voce usa Map, Set ou objeto.
 
-~~~js
+```js
 // Objeto comum
 let contagem = {};
 contagem["a"] = 1;
@@ -37,13 +37,13 @@ map.has("a"); // true
 let set = new Set([1, 2, 3]);
 set.has(2); // true
 set.add(4);
-~~~
+```
 
 ## Padrao mais comum
 
 Contar frequencia de elementos.
 
-~~~js
+```js
 function contarFrequencia(arr) {
   const map = new Map();
 
@@ -56,7 +56,7 @@ function contarFrequencia(arr) {
 
 contarFrequencia([1, 2, 2, 3, 3, 3]);
 // Map { 1 => 1, 2 => 2, 3 => 3 }
-~~~
+```
 
 ## Complexidade rapida
 

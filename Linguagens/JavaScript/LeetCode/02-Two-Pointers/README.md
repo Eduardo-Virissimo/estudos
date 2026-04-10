@@ -19,7 +19,7 @@ Se o array estiver ordenado e voce busca soma alvo:
 
 ## Exemplo em JavaScript
 
-~~~js
+```js
 function twoSumOrdenado(nums, target) {
   let left = 0;
   let right = nums.length - 1;
@@ -34,7 +34,7 @@ function twoSumOrdenado(nums, target) {
 
   return [-1, -1];
 }
-~~~
+```
 
 ## Complexidade rapida
 
