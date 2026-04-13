@@ -13,6 +13,7 @@
 7. [Módulo 07 — Armazenamento de Dados em Big Data: SQL e NoSQL](./07-Guia-de-Implementacao-e-Referencias/)
 8. [Módulo 08 — Data Warehouse e Arquitetura Analítica](./08-Data-Warehouse-e-Arquitetura/)
 9. [Módulo 09 — Normalização e Modelagem](./09-Normalizacao-e-Modelagem/)
+10. [Módulo 10 — Processamento de Big Data: CAP, ETL e MapReduce](./10-Processamento-CAP-ETL-MapReduce/)
 
 ## 🧭 Mapa rápido da trilha
 
@@ -25,6 +26,7 @@
 | 07 | Armazenamento em Big Data com bases SQL e NoSQL |
 | 08 | Data Warehouse, ETL, Data Mart, OLAP e arquitetura |
 | 09 | Normalização, modelagem dimensional e consolidação dos conceitos |
+| 10 | Processamento distribuído: Teorema CAP, ETL em escala e MapReduce |
 
 ---
 
@@ -32,4 +34,4 @@
 
 - Siga os módulos em ordem.
 - Ao fim de cada módulo, escreva um resumo curto com os conceitos-chave.
-- Nos módulos 07 a 09, compare sempre SQL, NoSQL e Data Warehouse pelo ponto de vista do caso de uso.
+- Nos módulos 07 a 10, compare sempre SQL, NoSQL, Data Warehouse e processamento distribuído pelo ponto de vista do caso de uso.
