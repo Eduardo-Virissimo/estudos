@@ -17,16 +17,16 @@
 
 ## 🧭 Mapa rápido da trilha
 
-| Etapa | Foco |
-| ----- | ---- |
-| 01–02 | Conceitos-base, 5 Vs e tipos de dados |
-| 03 | Ciclo de vida do projeto e método CRISP-DM |
-| 04 | Arquitetura de referência, interfaces e integração |
-| 05–06 | Infraestrutura, análise, visualização e aplicações |
-| 07 | Armazenamento em Big Data com bases SQL e NoSQL |
-| 08 | Data Warehouse, ETL, Data Mart, OLAP e arquitetura |
-| 09 | Normalização, modelagem dimensional e consolidação dos conceitos |
-| 10 | Processamento distribuído: Teorema CAP, ETL em escala e MapReduce |
+| Etapa | Foco                                                              |
+| ----- | ----------------------------------------------------------------- |
+| 01–02 | Conceitos-base, 5 Vs e tipos de dados                             |
+| 03    | Ciclo de vida do projeto e método CRISP-DM                        |
+| 04    | Arquitetura de referência, interfaces e integração                |
+| 05–06 | Infraestrutura, análise, visualização e aplicações                |
+| 07    | Armazenamento em Big Data com bases SQL e NoSQL                   |
+| 08    | Data Warehouse, ETL, Data Mart, OLAP e arquitetura                |
+| 09    | Normalização, modelagem dimensional e consolidação dos conceitos  |
+| 10    | Processamento distribuído: Teorema CAP, ETL em escala e MapReduce |
 
 ---
 

@@ -22,10 +22,12 @@ Para isso, o ecossistema costuma combinar:
 
 O **Teorema CAP** afirma que, em sistemas distribuídos, não é possível garantir simultaneamente os três atributos em todos os cenários:
 
-| Atributo | Significado |
-| --- | --- |
-| **Consistência (C)** | Todos os nós enxergam a mesma versão dos dados. |
-| **Disponibilidade (A)** | O sistema responde às requisições mesmo diante de falhas. |
+Também chamado de **Teorema de Brewer**, foi apresentado por Eric Brewer em 2000 e se tornou uma referência para decisões de arquitetura distribuída.
+
+| Atributo                       | Significado                                                     |
+| ------------------------------ | --------------------------------------------------------------- |
+| **Consistência (C)**           | Todos os nós enxergam a mesma versão dos dados.                 |
+| **Disponibilidade (A)**        | O sistema responde às requisições mesmo diante de falhas.       |
 | **Tolerância a partições (P)** | O sistema continua operando quando há falhas de rede entre nós. |
 
 Quando ocorre partição de rede, o sistema precisa priorizar:
@@ -53,12 +55,12 @@ Não existe uma regra única para todos os bancos NoSQL: o comportamento varia c
 
 As topologias de replicação ajudam a materializar escolhas do CAP:
 
-| Topologia | Característica | Tendência comum |
-| --- | --- | --- |
-| **Mestre-escravo** | Escrita centralizada no mestre, leitura distribuída | Mais foco em consistência |
-| **Em cascata** | Replicação em níveis hierárquicos | Mais foco em consistência |
-| **Mestre-mestre** | Escrita em múltiplos mestres | Mais foco em disponibilidade |
-| **Em anel** | Nós replicam em sequência circular | Depende da estratégia de reconciliação |
+| Topologia          | Característica                                      | Tendência comum                        |
+| ------------------ | --------------------------------------------------- | -------------------------------------- |
+| **Mestre-escravo** | Escrita centralizada no mestre, leitura distribuída | Mais foco em consistência              |
+| **Em cascata**     | Replicação em níveis hierárquicos                   | Mais foco em consistência              |
+| **Mestre-mestre**  | Escrita em múltiplos mestres                        | Mais foco em disponibilidade           |
+| **Em anel**        | Nós replicam em sequência circular                  | Depende da estratégia de reconciliação |
 
 A escolha depende dos requisitos do negócio, dos riscos aceitos e do tipo de carga analítica/operacional.
 
@@ -91,11 +93,11 @@ Carrega os dados no destino analítico (Data Warehouse, Data Lakehouse, platafor
 
 Tipos comuns de carga:
 
-| Tipo | Como funciona | Quando usar |
-| --- | --- | --- |
-| **Completa (Full Load)** | Recarrega todo o conjunto de dados | Bases menores ou recargas totais planejadas |
-| **Incremental** | Carrega apenas registros alterados | Operação contínua e eficiente |
-| **Delta** | Carrega inclusões e remoções desde a última execução | Cenários com rastreio detalhado de mudanças |
+| Tipo                     | Como funciona                                        | Quando usar                                 |
+| ------------------------ | ---------------------------------------------------- | ------------------------------------------- |
+| **Completa (Full Load)** | Recarrega todo o conjunto de dados                   | Bases menores ou recargas totais planejadas |
+| **Incremental**          | Carrega apenas registros alterados                   | Operação contínua e eficiente               |
+| **Delta**                | Carrega inclusões e remoções desde a última execução | Cenários com rastreio detalhado de mudanças |
 
 Durante a carga, é recomendável aplicar verificações de qualidade para garantir integridade dos dados:
 
@@ -137,7 +139,7 @@ Vantagens principais:
 - tolerância a falhas;
 - bom desempenho em processamento em lote.
 
-Aplicacoes comuns:
+Aplicações comuns:
 
 - processamento de logs;
 - indexação de mecanismos de busca;
