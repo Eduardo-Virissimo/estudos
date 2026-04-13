@@ -120,6 +120,15 @@ Critérios práticos de escolha:
 - facilidade de depuração e agendamento;
 - reutilização da lógica de transformação.
 
+### ETL + MapReduce no processamento em escala
+
+Em cenários de alto volume, o MapReduce pode ser aplicado ao ETL para acelerar transformações e consolidações:
+
+- **Map:** transforma dados de entrada em pares chave-valor intermediários;
+- **Reduce:** agrupa e resume resultados por chave.
+
+Essa combinação tende a reduzir tempo de processamento em pipelines distribuídos, especialmente quando há mudanças frequentes nos dados.
+
 ## 🧠 5) MapReduce
 
 O **MapReduce** é um modelo de processamento distribuído popularizado pelo Google para lidar com grandes volumes de dados em paralelo.
