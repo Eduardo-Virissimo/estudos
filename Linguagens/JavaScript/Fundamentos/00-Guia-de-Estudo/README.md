@@ -1,5 +1,9 @@
 # Guia de Estudo de JavaScript
 
+## Arquivo principal para planejamento completo
+
+- [01-Roteiro-Basico-ao-Avancado.md](01-Roteiro-Basico-ao-Avancado.md)
+
 ## O que e fundamental em JavaScript
 
 Se voce quer uma base forte, estes blocos sao obrigatorios:
@@ -60,4 +64,3 @@ if (tentativas > 0) {
 - qual a diferenca entre funcao e metodo?
 - quando usar array e quando usar objeto?
 - o que e uma Promise?
-
