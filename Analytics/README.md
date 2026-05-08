@@ -1,6 +1,6 @@
 # 📊 Trilha de Estudos: Analytics
 
-> **Objetivo:** revisar Analytics de forma curta, didática e orientada para ensino e prova, da introdução até estatística aplicada.
+> **Objetivo:** revisar Analytics de forma curta, didática e orientada para ensino e prova, da introdução até estatística aplicada, visualização de dados e fundamentos de machine learning.
 
 ## 🗂️ Índice de módulos
 
@@ -17,6 +17,13 @@
 11. [Módulo 11 — Probabilidade e Distribuições Estatísticas](./11-Probabilidade-e-Distribuicoes/)
 12. [Módulo 12 — Testes de Hipóteses na Prática](./12-Testes-de-Hipoteses/)
 13. [Módulo 13 — Intervalos de Confiança e Revisão Final da Trilha](./13-Intervalos-de-Confianca-e-Revisao/)
+14. [Módulo 14 — Representação Gráfica de Dados](./14-Representacao-Grafica-de-Dados/)
+15. [Módulo 15 — Visualização Avançada e Ferramentas](./15-Visualizacao-Avancada-e-Ferramentas/)
+16. [Módulo 16 — Fundamentos de Machine Learning](./16-Fundamentos-de-Machine-Learning/)
+17. [Módulo 17 — Aprendizado Supervisionado e Não Supervisionado](./17-Aprendizado-Supervisionado-e-Nao-Supervisionado/)
+18. [Módulo 18 — Aprendizado por Reforço e Deep Learning](./18-Aprendizado-por-Reforco-e-Deep-Learning/)
+19. [Módulo 19 — Algoritmos de Machine Learning](./19-Algoritmos-de-Machine-Learning/)
+20. [Módulo 20 — Avaliação de Modelos e Ferramentas](./20-Avaliacao-de-Modelos-e-Ferramentas/)
 
 ## 🧭 Mapa rápido da trilha
 
@@ -34,6 +41,13 @@
 | 11    | Probabilidade, incerteza e distribuições (normal, binomial e Poisson)    |
 | 12    | Lógica de testes de hipóteses e escolha do teste estatístico             |
 | 13    | Intervalo de confiança, nível de confiança e revisão final para prova    |
+| 14    | Tipos de gráficos e leitura visual de dados                              |
+| 15    | Boxplot, visualização interativa, dashboards e escolha de ferramenta     |
+| 16    | Conceito, objetivo, aplicações e visão geral de machine learning         |
+| 17    | Diferença entre aprendizado supervisionado e não supervisionado           |
+| 18    | Lógica de aprendizado por reforço e fundamentos de deep learning         |
+| 19    | Famílias principais de algoritmos de machine learning                    |
+| 20    | Métricas, validação cruzada e ferramentas para construir modelos         |
 
 ---
 
@@ -41,9 +55,10 @@
 
 - Siga os módulos na ordem e marque os checklists.
 - Ao final de cada módulo, responda em voz alta: "o que é", "quando usar" e "exemplo prático".
-- Faça uma revisão intermediária no módulo 07 e a revisão final completa no módulo 13.
+- Faça uma revisão intermediária no módulo 07, uma revisão estatística no módulo 13 e um fechamento de visualização + machine learning no módulo 20.
 
 ## 📌 Estrutura da trilha
 
 - **Módulos 01 a 07:** Introdução a Analytics, ferramentas e linguagens.
 - **Módulos 08 a 13:** Estatística para análise de dados e inferência.
+- **Módulos 14 a 20:** Visualização de dados e fundamentos de machine learning.
