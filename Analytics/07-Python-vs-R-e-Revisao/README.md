@@ -39,15 +39,6 @@ Não é disputa absoluta: em muitos projetos, Python e R são **complementares**
 - O valor não está no dado em si, mas na **decisão melhorada**.
 - A escolha de método e ferramenta depende do objetivo, do contexto e da qualidade dos dados.
 
-## 📚 6) Referências-chave do livro
-
-- Barbetta (2007)
-- Davenport e Harris (2017)
-- Kenett e Redman (2019)
-- Moore (2011)
-- Siegel (2013)
-- Strickland (2015)
-
 ---
 
 ## ✅ Checklist final

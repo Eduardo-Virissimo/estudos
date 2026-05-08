@@ -24,7 +24,7 @@ Em termos práticos:
 
 ## 🌍 3) Aplicações mais comuns
 
-O livro destaca exemplos em:
+Exemplos frequentes:
 
 - publicidade personalizada;
 - filtros de spam;

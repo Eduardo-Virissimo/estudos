@@ -70,11 +70,6 @@ Antes de escolher a fórmula, confirme:
 3. **5 min:** módulos 11 e 12 (probabilidade e testes).
 4. **5 min:** este módulo (intervalos + visão integrada).
 
-## 📚 8) Referências-chave do livro 2
-
-- Barbetta (2007)
-- Moore (2011)
-
 ---
 
 ## ✅ Checklist final de Estatística

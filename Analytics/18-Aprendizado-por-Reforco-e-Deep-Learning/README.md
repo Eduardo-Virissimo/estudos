@@ -27,6 +27,12 @@ O agente aprende por tentativa e erro, ajustando sua política de ação para ac
 7. ajustar hiperparâmetros;
 8. avaliar e melhorar.
 
+### Algoritmos que aparecem com frequência
+
+- **Q-learning:** aprende valores de ação para escolher melhores decisões.
+- **DQN (Deep Q-Network):** combina reforço com redes neurais profundas.
+- **Policy Gradient:** aprende diretamente uma política de ações.
+
 ### Aplicações citadas
 
 - jogos;

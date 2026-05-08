@@ -72,7 +72,7 @@ Isso reduz a dependência de uma única divisão treino/teste.
 - **scikit-learn:** referência para machine learning clássico em Python.
 - **TensorFlow:** plataforma completa para ML e deep learning.
 - **PyTorch:** muito forte em deep learning e pesquisa aplicada.
-- **Caffe:** framework de deep learning citado no livro, especialmente ligado a visão computacional.
+- **Caffe:** framework de deep learning, especialmente ligado a visão computacional.
 
 ### Plataformas educacionais ou de interface pronta
 
@@ -91,13 +91,6 @@ Isso reduz a dependência de uma única divisão treino/teste.
 - Se o foco é **deep learning**, `TensorFlow` e `PyTorch` são centrais.
 - Se o foco é **produção em nuvem**, Azure, Google Cloud AI e SageMaker entram com força.
 - Se o foco é **aprendizado guiado ou interface pronta**, Weka e H2O ajudam bastante.
-
-## 📚 6) Referências-chave do livro
-
-- Mitchell (1997)
-- Bishop (2006)
-- Grus (2016)
-- Pierson (2019)
 
 ---
 

@@ -2,13 +2,13 @@
 
 > **Foco do módulo:** organizar os principais algoritmos por função, sem se perder em nomes soltos.
 
-## 🧭 1) Como o livro organiza os algoritmos
+## 🧭 1) Como organizar os algoritmos
 
-O livro agrupa os algoritmos por **função**, o que facilita muito a escolha prática.
+Uma forma útil de estudar é agrupar os algoritmos por **função**.
 
 ## 🗂️ 2) Famílias principais
 
-| Família                         | Para que serve                              | Exemplos citados no livro                                  |
+| Família                         | Para que serve                              | Exemplos clássicos                                         |
 | ------------------------------ | ------------------------------------------- | ---------------------------------------------------------- |
 | Deep Learning                  | visão, texto, padrões complexos             | CNN, DBM, DBN, autocodificadores empilhados                |
 | Ensemble                       | melhorar desempenho combinando modelos      | Random Forest, GBM, AdaBoost, Bagging, Stacking, GBRT      |

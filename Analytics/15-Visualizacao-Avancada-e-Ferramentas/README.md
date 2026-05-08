@@ -25,7 +25,7 @@ Uso típico: comparar grupos e verificar rapidamente a variação dos dados.
 
 ## 🧠 2) Técnicas avançadas de visualização
 
-O livro destaca 3 ideias principais:
+Há 3 ideias principais:
 
 - **Interatividade:** filtrar, clicar, navegar e mudar parâmetros em tempo real.
 - **Visualização 3D:** útil quando há relação espacial ou estruturas mais complexas.
@@ -74,12 +74,6 @@ Antes de escolher, avalie:
 ## 📌 6) Ideia central do módulo
 
 Visualização avançada não é só “fazer gráfico bonito”. É criar meios para explorar dados com profundidade e apoiar decisão com mais contexto.
-
-## 📚 7) Referências-chave do livro
-
-- Moore (2011)
-- Grus (2016)
-- Silva (2023)
 
 ---
 
