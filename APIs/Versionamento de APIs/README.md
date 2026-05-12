@@ -76,6 +76,7 @@ Quando uma versão vai ser descontinuada, o recomendado é:
 
 1. Anunciar com antecedência (mínimo 3–6 meses em APIs públicas).
 2. Retornar headers de aviso nas respostas:
+
 ```
  Deprecation: trueSunset: Sat, 31 Dec 2025 23:59:59 GMT
 ```
