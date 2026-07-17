@@ -40,7 +40,6 @@ exemplo de código ou comando aqui
 
 ## Notas relacionadas
 
-- [[MOC - {{materia}}]]
 - [[]]
 
 ## Referências
