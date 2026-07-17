@@ -1,4 +1,4 @@
-## tags: [materia/backend, tipo/estudo, status/revisado] data: 2026-07-16
+## data: 2026-07-16
 
 # Versionamento de APIs
 
@@ -61,10 +61,10 @@ Accept: application/vnd.minhaapi.v1+json
     
 2. Retornar headers de aviso nas respostas:
     
-    ```
-    Deprecation: true
+```
+	Deprecation: true
     Sunset: Sat, 31 Dec 2025 23:59:59 GMT
-    ```
+```
     
 3. Redirecionar para a nova versão quando possível.
     
