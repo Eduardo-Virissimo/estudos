@@ -73,9 +73,7 @@ Accept: application/vnd.minhaapi.v1+json
 
 ## Notas relacionadas
 
-- [[MOC - Backend]]
-- [[REST - Principios]]
-- [[Design de APIs - Boas Praticas]]
+- [[]]
 
 ## Referências
 
