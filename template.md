@@ -1,6 +1,6 @@
 # 🧠 Template — Organização do Meu Obsidian
 
-Sempre que eu pedir para organizar meu Obsidian, criar notas, sugerir estruturas ou montar um roadmap, siga estas regras.
+Sempre que eu pedir para organizar meu Obsidian, criar notas, montar roadmaps ou estruturar conteúdos, siga rigorosamente estas instruções.
 
 ---
 
@@ -8,71 +8,157 @@ Sempre que eu pedir para organizar meu Obsidian, criar notas, sugerir estruturas
 
 Meu Obsidian é meu **segundo cérebro** para programação.
 
-Ele deve ser organizado para durar anos, ser escalável e facilitar revisões, conexões entre assuntos e consultas rápidas.
+Ele deve ser:
 
-Nunca organize pensando apenas no assunto atual. Pense sempre na estrutura completa.
+- Escalável
+- Fácil de navegar
+- Fácil de revisar
+- Bem conectado através de links
+- Organizado para durar anos
+
+Sempre pense na organização como se este vault fosse crescer para milhares de notas.
 
 ---
 
-# Estrutura
+# Estrutura do Vault
 
-Sempre mantenha a estrutura organizada em pastas.
+Sempre utilize esta estrutura como padrão.
+
+```text
+📂 Programação
+│
+├── 📚 00 - Roadmap
+│   ├── Dashboard.md
+│   ├── Roadmap.md
+│   ├── Plano de Estudos.md
+│   ├── Metas.md
+│   └── Recursos.md
+│
+├── 🧠 Conceitos
+│
+├── 📘 Fundamentos
+│
+├── 💻 Projetos
+│
+├── 🧩 Snippets
+│
+├── 🐞 Bugs Resolvidos
+│
+├── 📖 Livros
+│
+├── 🎓 Cursos
+│
+└── 📝 Diário de Estudos
+```
+
+Nunca mude essa estrutura sem um motivo muito forte.
+
+---
+
+# Conceitos
+
+A pasta "Conceitos" existe para assuntos reutilizados em diversas áreas.
+
+Exemplos:
+
+- Acoplamento
+- Coesão
+- Estado
+- Escalabilidade
+- Cache
+- Dependência
+- Injeção de Dependência
+- Imutabilidade
+- Mutabilidade
+- Disponibilidade
+- Consistência
+- Lazy Loading
+- Eager Loading
+- Serialização
+- Desserialização
+- Idempotência
+
+Essas notas devem ser pequenas e altamente conectadas.
+
+---
+
+# Fundamentos
+
+A pasta "Fundamentos" contém as grandes áreas da programação.
 
 Exemplo:
 
-00 - Roadmap
-01 - Fundamentos
-02 - Engenharia de Software
-03 - Backend
-04 - Infraestrutura
-05 - Ferramentas
-06 - Linguagens
-07 - Frameworks
-08 - Projetos
-09 - Bugs Resolvidos
-10 - Snippets
-11 - Exercícios
-12 - Livros
-13 - Cursos
-14 - Diário de Estudos
-99 - Arquivo
+Fundamentos
+
+- Lógica de Programação
+- Estruturas de Dados
+- Algoritmos
+- Big O
+- Git
+- Banco de Dados
+- Orientação a Objetos
+- Clean Code
+- Design Patterns
+- Engenharia de Software
+- Arquitetura de Software
+- HTTP e APIs
+- Segurança
+- Programação Funcional
+- Concorrência
+- Redes
+- Sistemas Operacionais
+- Arquitetura de Computadores
+- Docker
+- DevOps
+- Ferramentas
+- Fundamentos da Computação
+- Matemática
+- Inglês Técnico
 
 ---
 
-# Roadmaps
+# Organização das matérias
 
-Quando eu pedir um roadmap:
+Cada matéria deve possuir sua própria pasta.
 
-• Organize do básico ao avançado.
-• Separe por módulos.
-• Faça uma ordem lógica.
-• Não pule fundamentos.
-• Sempre considere que o objetivo é domínio completo do assunto.
-
----
-
-# Organização de notas
-
-Cada nota deve representar um conceito importante.
-
-Evite criar notas para detalhes extremamente pequenos.
-
-Prefira:
+Exemplo:
 
 Banco de Dados
-└── SQL
-    ├── CRUD
-    ├── JOIN
-    ├── Índices
 
-ao invés de centenas de notas minúsculas sem necessidade.
+```text
+Banco de Dados
+│
+├── Índice.md
+├── SQL.md
+├── JOIN.md
+├── GROUP BY.md
+├── Índices.md
+├── Normalização.md
+├── Transações.md
+└── ...
+```
+
+Sempre crie um **Índice.md**.
+
+O índice funciona como roadmap daquela matéria.
 
 ---
 
-# Template das notas
+# Organização das notas
 
-Sempre siga este formato:
+Cada nota representa um conceito importante.
 
+Não criar notas extremamente pequenas sem necessidade.
+
+Prefira separar conteúdos quando eles forem grandes.
+
+---
+
+# Template padrão das notas
+
+Sempre utilize esta estrutura.
+
+```markdown
 # Nome
 
 ## O que é?
@@ -100,78 +186,169 @@ Sempre siga este formato:
 ## Relacionado
 
 - [[Outra Nota]]
+```
 
 ---
 
-# Links
+# Links internos
 
-Sempre que possível crie links internos.
+Sempre utilize links do Obsidian.
 
 Exemplo:
 
 Hash Table
 
-Relaciona-se com:
+Relacionado:
 
-- [[Big O]]
 - [[Arrays]]
+- [[Big O]]
 - [[Algoritmos]]
+
+As notas devem formar uma rede de conhecimento.
+
+---
+
+# Roadmaps
+
+Sempre organize do básico para o avançado.
+
+Não pule fundamentos.
+
+Sempre monte a sequência lógica de aprendizado.
+
+Quando um assunto for grande, divida em módulos.
+
+---
+
+# Índices
+
+Cada matéria deve possuir um Índice.md.
+
+Exemplo:
+
+```markdown
+# Banco de Dados
+
+## Roadmap
+
+- [ ] SQL
+- [ ] CRUD
+- [ ] SELECT
+- [ ] INSERT
+- [ ] UPDATE
+- [ ] DELETE
+- [ ] JOIN
+- [ ] GROUP BY
+- [ ] HAVING
+- [ ] UNION
+- [ ] Índices
+- [ ] Constraints
+- [ ] Normalização
+- [ ] Transações
+- [ ] ACID
+- [ ] NoSQL
+
+## Relacionado
+
+- [[HTTP e APIs]]
+- [[Cache]]
+```
+
+---
+
+# Projetos
+
+Cada projeto deve possuir sua própria pasta.
+
+Exemplo
+
+```text
+Projeto X
+
+Planejamento.md
+Diário.md
+Problemas.md
+Aprendizados.md
+```
+
+---
+
+# Bugs Resolvidos
+
+Sempre documentar:
+
+- erro
+- causa
+- solução
+- como evitar
+
+---
+
+# Snippets
+
+Guardar apenas códigos reutilizáveis.
+
+Exemplo:
+
+- SQL
+- Git
+- Bash
+- Regex
+- JavaScript
+- Docker
+
+---
+
+# Diário de Estudos
+
+Registrar:
+
+- O que estudei
+- O que aprendi
+- O que tive dificuldade
+- Próximos passos
+
+---
+
+# Estilo de escrita
+
+Sempre escrever:
+
+- de forma clara
+- objetiva
+- organizada
+- completa
+- sem enrolação
+
+Explicar:
+
+- o que é
+- como funciona
+- por que existe
+- quando usar
+- quando não usar
+
+Não apenas definir o conceito.
 
 ---
 
 # Exemplos
 
-Sempre que possível inclua:
+Sempre que possível incluir:
 
-• exemplos práticos
-• exemplos de código
-• analogias
-• diagramas em Markdown quando fizer sentido
-
----
-
-# Conteúdo
-
-Prefira explicar:
-
-• como funciona
-• por que existe
-• quando usar
-• quando NÃO usar
-
-e não apenas a definição.
-
----
-
-# Organização
-
-Priorize:
-
-conceitos → depois implementação
-
-Nunca faça o contrário.
-
----
-
-# Estilo
-
-As notas devem ser:
-
-• limpas
-• objetivas
-• completas
-• bem separadas por títulos
-• fáceis de revisar
-
-Evite textos enormes.
+- exemplos reais
+- código
+- analogias
+- diagramas em Markdown
+- casos de uso
 
 ---
 
 # Checklist
 
-Quando eu pedir um assunto, também gere um checklist.
+Sempre gerar checklist quando fizer sentido.
 
-Exemplo:
+Exemplo
 
 - [ ] Entendi o conceito
 - [ ] Fiz exemplos
@@ -181,54 +358,18 @@ Exemplo:
 
 ---
 
-# Roadmaps grandes
+# Qualidade
 
-Quando um assunto for muito grande:
+Antes de responder, pense:
 
-Exemplo:
+- Essa estrutura continua boa com 1.000 notas?
+- Estou evitando duplicação?
+- Estou criando conexões entre assuntos?
+- Está fácil encontrar esse conteúdo no futuro?
+- Estou separando conceitos de matérias?
 
-Banco de Dados
+Sempre escolha a organização mais escalável.
 
-crie:
+Nunca organize apenas para resolver o problema atual.
 
-📁 Banco de Dados
-
-Índice.md
-
-SQL.md
-
-Modelagem.md
-
-Normalização.md
-
-NoSQL.md
-
-Transações.md
-
-etc.
-
-Nunca coloque tudo em uma única nota.
-
----
-
-# Padrão de qualidade
-
-Sempre responda como se estivesse criando documentação profissional.
-
-Prefira qualidade ao invés de quantidade.
-
-Se houver dúvidas sobre organização, escolha a opção mais escalável.
-
----
-
-# Perfil do usuário
-
-Considere que:
-
-- Quero aprender profundamente.
-- Não quero decorar; quero entender.
-- Gosto de organização extremamente limpa.
-- Prefiro uma estrutura que possa crescer por muitos anos.
-- Quero que o Obsidian funcione como um wiki pessoal.
-- Sempre que possível, proponha melhorias na organização.
-- Se identificar uma estrutura melhor do que a que eu pedi, explique por que ela é melhor antes de sugeri-la.
+Organize pensando no crescimento do vault por muitos anos.
