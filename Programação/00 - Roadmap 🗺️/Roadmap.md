@@ -1,10 +1,29 @@
 # 🗺️ Roadmap — Tudo que Todo Programador Deve Saber
 
-> Marque os conteúdos conforme for estudando. Cada item tem uma explicação curta do "porquê" ao lado.
+> Marque os conteúdos conforme for estudando. Cada item tem uma explicação curta do "porquê" ao lado. A ordem das seções segue uma sequência lógica de aprendizado (do básico ao avançado). As três últimas seções (Matemática, Inglês Técnico, Soft Skills) são **transversais** — vale ir estudando em paralelo desde o dia 1, não só no fim.
 
 ---
 
-# 🟢 Fundamentos
+# 1️⃣ Ferramentas
+
+> O ferramental do dia a dia de quem programa.
+
+- [ ] [[VS Code]] — editor de código leve e extensível, um dos mais usados atualmente.
+- [ ] [[Terminal]] — interface de linha de comando pra interagir diretamente com o sistema operacional.
+- [ ] [[PowerShell]] — shell e linguagem de script do Windows, mais poderoso que o CMD tradicional.
+- [ ] [[Bash]] — shell padrão em sistemas Linux/macOS, usado pra automatizar tarefas via linha de comando.
+- [ ] [[SSH]] — protocolo para acessar e controlar remotamente outro computador de forma segura.
+- [ ] [[Regex]] — linguagem para descrever padrões de texto, usada em buscas e validações complexas.
+- [ ] [[Postman]] — ferramenta para testar e explorar APIs sem precisar escrever código.
+- [ ] [[Insomnia]] — alternativa ao Postman, também usada para testar requisições de API.
+- [ ] [[DevTools]] — ferramentas embutidas no navegador para inspecionar, depurar e analisar performance de páginas web.
+- [ ] [[Linter]] — ferramenta que analisa o código em busca de erros e problemas de estilo automaticamente.
+- [ ] [[Formatter]] — ferramenta que formata o código automaticamente seguindo um padrão (ex: Prettier).
+- [ ] [[Gerenciador de Pacotes]] — ferramenta que instala e gerencia bibliotecas/dependências do projeto (ex: npm, pip, Maven).
+
+---
+
+# 2️⃣ Fundamentos
 
 - [ ] [[Lógica de Programação]] — raciocínio para transformar um problema em passos que o computador executa.
 - [ ] [[Pseudocódigo]] — escrever a solução em "português estruturado" antes de codar, pra organizar o raciocínio.
@@ -29,7 +48,32 @@
 
 ---
 
-# 🟢 Estruturas de Dados
+# 3️⃣ Git
+
+> Sistema de controle de versão: registra o histórico de mudanças do código e permite trabalho em equipe.
+
+- [ ] [[Git]] — ferramenta de controle de versão distribuído, rastreia todas as mudanças feitas no código.
+- [ ] [[GitHub]] — plataforma online que hospeda repositórios Git e adiciona colaboração (PRs, issues, etc).
+- [ ] [[Repositórios]] — pasta do projeto onde o Git guarda todo o histórico de versões.
+- [ ] [[Commit]] — um "ponto de salvamento" com uma mensagem descrevendo o que mudou no código.
+- [ ] [[Branch]] — linha paralela de desenvolvimento, permite trabalhar em algo sem afetar o código principal.
+- [ ] [[Merge]] — junta as mudanças de uma branch em outra.
+- [ ] [[Rebase]] — reaplica commits de uma branch sobre outra, mantendo o histórico mais limpo/linear.
+- [ ] [[Cherry Pick]] — pega um commit específico de outra branch e aplica na branch atual.
+- [ ] [[Stash]] — guarda temporariamente mudanças não commitadas para trocar de branch sem perder o trabalho.
+- [ ] [[Reset]] — desfaz commits, movendo o ponteiro da branch para trás (pode apagar histórico).
+- [ ] [[Revert]] — cria um novo commit que desfaz as mudanças de um commit anterior, sem apagar histórico.
+- [ ] [[Tags]] — marca um commit específico como importante (ex: uma versão de release, `v1.0.0`).
+- [ ] [[Git Flow]] — modelo de organização de branches (main, develop, feature, release, hotfix) para times.
+- [ ] [[Pull Request]] — pedido formal para juntar suas mudanças ao repositório principal, geralmente com revisão de código.
+- [ ] [[Conflitos]] — quando duas mudanças concorrentes no mesmo trecho de código precisam ser resolvidas manualmente.
+- [ ] [[.gitignore]] — arquivo que define quais arquivos/pastas o Git deve ignorar (ex: `node_modules`, `.env`).
+- [ ] [[Git Hooks]] — scripts automáticos disparados em eventos do Git (ex: rodar testes antes de um commit).
+- [ ] [[Versionamento Semântico (SemVer)]] — convenção `MAJOR.MINOR.PATCH` para numerar versões de forma que todos entendam o impacto da mudança.
+
+---
+
+# 4️⃣ Estruturas de Dados
 
 > Formas de organizar dados na memória para acessá-los e manipulá-los de forma eficiente.
 
@@ -53,7 +97,7 @@
 
 ---
 
-# 🟢 Algoritmos
+# 5️⃣ Algoritmos
 
 > Sequências de passos bem definidos para resolver um problema específico.
 
@@ -84,7 +128,7 @@
 
 ---
 
-# 🟢 Complexidade
+# 6️⃣ Complexidade
 
 > Como medir o custo (tempo e memória) de um algoritmo conforme a entrada cresce.
 
@@ -97,32 +141,111 @@
 
 ---
 
-# 🟢 Git
+# 7️⃣ Clean Code
 
-> Sistema de controle de versão: registra o histórico de mudanças do código e permite trabalho em equipe.
+> Práticas para escrever código legível, simples e fácil de manter.
 
-- [ ] [[Git]] — ferramenta de controle de versão distribuído, rastreia todas as mudanças feitas no código.
-- [ ] [[GitHub]] — plataforma online que hospeda repositórios Git e adiciona colaboração (PRs, issues, etc).
-- [ ] [[Repositórios]] — pasta do projeto onde o Git guarda todo o histórico de versões.
-- [ ] [[Commit]] — um "ponto de salvamento" com uma mensagem descrevendo o que mudou no código.
-- [ ] [[Branch]] — linha paralela de desenvolvimento, permite trabalhar em algo sem afetar o código principal.
-- [ ] [[Merge]] — junta as mudanças de uma branch em outra.
-- [ ] [[Rebase]] — reaplica commits de uma branch sobre outra, mantendo o histórico mais limpo/linear.
-- [ ] [[Cherry Pick]] — pega um commit específico de outra branch e aplica na branch atual.
-- [ ] [[Stash]] — guarda temporariamente mudanças não commitadas para trocar de branch sem perder o trabalho.
-- [ ] [[Reset]] — desfaz commits, movendo o ponteiro da branch para trás (pode apagar histórico).
-- [ ] [[Revert]] — cria um novo commit que desfaz as mudanças de um commit anterior, sem apagar histórico.
-- [ ] [[Tags]] — marca um commit específico como importante (ex: uma versão de release, `v1.0.0`).
-- [ ] [[Git Flow]] — modelo de organização de branches (main, develop, feature, release, hotfix) para times.
-- [ ] [[Pull Request]] — pedido formal para juntar suas mudanças ao repositório principal, geralmente com revisão de código.
-- [ ] [[Conflitos]] — quando duas mudanças concorrentes no mesmo trecho de código precisam ser resolvidas manualmente.
-- [ ] [[.gitignore]] — arquivo que define quais arquivos/pastas o Git deve ignorar (ex: `node_modules`, `.env`).
-- [ ] [[Git Hooks]] — scripts automáticos disparados em eventos do Git (ex: rodar testes antes de um commit).
-- [ ] [[Versionamento Semântico (SemVer)]] — convenção `MAJOR.MINOR.PATCH` para numerar versões de forma que todos entendam o impacto da mudança.
+- [ ] [[Clean Code]] — conjunto de práticas para escrever código claro, simples e fácil de entender por outras pessoas.
+- [ ] [[DRY]] ("Don't Repeat Yourself") — evite duplicar lógica; centralize em um único lugar.
+- [ ] [[KISS]] ("Keep It Simple, Stupid") — prefira a solução mais simples possível, evite complexidade desnecessária.
+- [ ] [[YAGNI]] ("You Aren't Gonna Need It") — não implemente funcionalidades "pro futuro" que ainda não são necessárias.
+- [ ] [[Code Smells]] — sinais de que algo no código pode estar mal projetado, mesmo funcionando (ex: função gigante).
+- [ ] [[Refatoração]] — melhorar a estrutura interna do código sem mudar seu comportamento externo.
+- [ ] [[Responsabilidade Única]] — cada função/classe deve fazer só uma coisa, e fazer bem feito.
+- [ ] [[Nomeação]] — escolher nomes que expliquem a intenção sem precisar de comentário extra.
+- [ ] [[Legibilidade]] — o quanto o código é fácil de ler e entender por outra pessoa (ou você no futuro).
 
 ---
 
-# 🟢 Banco de Dados
+# 8️⃣ Debugging
+
+> Processo de encontrar e corrigir erros no código.
+
+- [ ] [[Debugging]] — processo de identificar, isolar e corrigir defeitos (bugs) no código.
+- [ ] [[Breakpoints]] — pontos marcados no código onde a execução pausa para você inspecionar o estado do programa.
+- [ ] [[Watch]] — funcionalidade do debugger que monitora o valor de uma variável específica em tempo real.
+- [ ] [[Logs]] — registros de eventos/informações gerados pelo programa durante sua execução, úteis para investigar problemas.
+- [ ] [[Stack Trace]] — o "caminho" de chamadas de funções que levou até um erro, mostrado quando algo quebra.
+- [ ] [[Profiling]] — análise de onde o programa gasta mais tempo/memória, pra encontrar gargalos de performance.
+- [ ] [[Debugger]] — ferramenta que permite pausar, inspecionar e controlar a execução do programa passo a passo.
+
+---
+
+# 9️⃣ Tratamento de Erros
+
+> Como lidar com falhas de forma previsível, sem quebrar o sistema inteiro.
+
+- [ ] [[Exceptions]] — objetos que representam um erro, "lançados" quando algo inesperado acontece na execução.
+- [ ] [[try/catch]] — bloco que tenta executar um código e "captura" o erro caso ele aconteça, evitando o crash.
+- [ ] [[Logging]] — prática de registrar eventos e erros do sistema para análise posterior.
+- [ ] [[Retry]] — tentar novamente uma operação que falhou (útil para falhas temporárias, ex: rede instável).
+- [ ] [[Fallback]] — comportamento alternativo executado quando a operação principal falha.
+- [ ] [[Validação]] — checar se os dados recebidos estão corretos/esperados antes de processá-los.
+- [ ] [[Tratamento Global de Erros]] — um ponto central que captura erros não tratados em qualquer parte da aplicação.
+
+---
+
+# 🔟 Orientação a Objetos
+
+> Paradigma que organiza o código em torno de "objetos" que combinam dados e comportamento.
+
+- [ ] [[Classes]] — o "molde" que define quais atributos e métodos um objeto terá.
+- [ ] [[Objetos]] — instâncias concretas criadas a partir de uma classe.
+- [ ] [[Atributos]] — as variáveis que guardam o estado/dados de um objeto.
+- [ ] [[Métodos]] — as funções que pertencem a uma classe e definem o comportamento do objeto.
+- [ ] [[Construtores]] — método especial chamado automaticamente ao criar um objeto, usado pra inicializar seus dados.
+- [ ] [[Encapsulamento]] — esconder os detalhes internos de um objeto, expondo só o que é necessário usar.
+- [ ] [[Herança]] — uma classe pode reaproveitar atributos/métodos de outra, criando uma relação de "é um".
+- [ ] [[Polimorfismo]] — objetos de classes diferentes respondem de formas diferentes ao mesmo método chamado.
+- [ ] [[Abstração]] — focar no que um objeto faz, ignorando os detalhes de como ele faz.
+- [ ] [[Interfaces]] — contrato que define quais métodos uma classe deve implementar, sem dizer como.
+- [ ] [[Classes Abstratas]] — classe que não pode ser instanciada diretamente, serve de base para outras classes.
+- [ ] [[Composição]] — construir objetos combinando outros objetos ("tem um"), em vez de usar herança.
+- [ ] [[Agregação]] — tipo de composição mais "solta", onde as partes podem existir independente do todo.
+
+---
+
+# 1️⃣1️⃣ Testes de Software
+
+> Garantir que o código funciona como esperado, agora e depois de mudanças futuras.
+
+- [ ] [[Testes Unitários]] — testam uma unidade isolada de código (uma função, um método) sem depender de outras partes.
+- [ ] [[Testes de Integração]] — testam se diferentes partes do sistema funcionam corretamente juntas (ex: código + banco de dados).
+- [ ] [[Testes E2E (Ponta a Ponta)]] — simulam o uso real do sistema inteiro, do início ao fim, como o usuário faria.
+- [ ] [[TDD (Test Driven Development)]] — escrever o teste antes do código, e implementar só o suficiente pra ele passar.
+- [ ] [[BDD (Behavior Driven Development)]] — escreve os testes em linguagem próxima da natural, descrevendo comportamentos esperados.
+- [ ] [[Mocks e Stubs]] — objetos "falsos" que simulam dependências reais durante os testes (ex: simular uma API externa).
+- [ ] [[Test Coverage]] — métrica de quanto do código está sendo exercitado pelos testes.
+- [ ] [[Testes de Regressão]] — testes que garantem que uma funcionalidade que já funcionava não quebrou depois de uma mudança.
+
+---
+
+# 1️⃣2️⃣ Design de Software
+
+> Padrões e princípios reutilizáveis para estruturar soluções de forma flexível e manutenível.
+
+- [ ] [[SOLID]] — 5 princípios (S-O-L-I-D) para deixar o código orientado a objetos mais flexível e fácil de manter.
+- [ ] [[Singleton]] — garante que uma classe tenha só uma instância em todo o sistema.
+- [ ] [[Factory]] — centraliza a criação de objetos, escondendo a lógica de "qual classe instanciar".
+- [ ] [[Abstract Factory]] — cria famílias de objetos relacionados sem especificar suas classes concretas.
+- [ ] [[Builder]] — constrói objetos complexos passo a passo, separando construção de representação.
+- [ ] [[Prototype]] — cria novos objetos clonando um objeto existente, em vez de criar do zero.
+- [ ] [[Strategy]] — permite trocar o algoritmo/comportamento de um objeto em tempo de execução.
+- [ ] [[Observer]] — um objeto notifica automaticamente outros quando seu estado muda (base de eventos e pub/sub).
+- [ ] [[Repository]] — abstrai o acesso a dados, separando a lógica de negócio de como os dados são armazenados.
+- [ ] [[Facade]] — fornece uma interface simples para esconder a complexidade de um sistema maior.
+- [ ] [[Adapter]] — faz duas interfaces incompatíveis funcionarem juntas, "traduzindo" uma pra outra.
+- [ ] [[Decorator]] — adiciona comportamentos extras a um objeto dinamicamente, sem alterar sua classe.
+- [ ] [[Composite]] — trata objetos individuais e grupos de objetos de forma uniforme (ex: árvore de componentes).
+- [ ] [[Command]] — transforma uma ação em um objeto, permitindo enfileirar, desfazer ou logar comandos.
+- [ ] [[Chain of Responsibility]] — passa uma requisição por uma cadeia de handlers até alguém tratá-la.
+- [ ] [[Template Method]] — define o esqueleto de um algoritmo, deixando partes específicas para subclasses.
+- [ ] [[Iterator]] — permite percorrer os elementos de uma coleção sem expor sua estrutura interna.
+- [ ] [[Dependency Injection]] — fornece as dependências de um objeto de fora, em vez de ele criá-las sozinho.
+
+---
+
+# 1️⃣3️⃣ Banco de Dados
 
 > Como armazenar, consultar e manter dados de forma organizada e confiável.
 
@@ -159,96 +282,7 @@
 
 ---
 
-# 🟢 Orientação a Objetos
-
-> Paradigma que organiza o código em torno de "objetos" que combinam dados e comportamento.
-
-- [ ] [[Classes]] — o "molde" que define quais atributos e métodos um objeto terá.
-- [ ] [[Objetos]] — instâncias concretas criadas a partir de uma classe.
-- [ ] [[Atributos]] — as variáveis que guardam o estado/dados de um objeto.
-- [ ] [[Métodos]] — as funções que pertencem a uma classe e definem o comportamento do objeto.
-- [ ] [[Construtores]] — método especial chamado automaticamente ao criar um objeto, usado pra inicializar seus dados.
-- [ ] [[Encapsulamento]] — esconder os detalhes internos de um objeto, expondo só o que é necessário usar.
-- [ ] [[Herança]] — uma classe pode reaproveitar atributos/métodos de outra, criando uma relação de "é um".
-- [ ] [[Polimorfismo]] — objetos de classes diferentes respondem de formas diferentes ao mesmo método chamado.
-- [ ] [[Abstração]] — focar no que um objeto faz, ignorando os detalhes de como ele faz.
-- [ ] [[Interfaces]] — contrato que define quais métodos uma classe deve implementar, sem dizer como.
-- [ ] [[Classes Abstratas]] — classe que não pode ser instanciada diretamente, serve de base para outras classes.
-- [ ] [[Composição]] — construir objetos combinando outros objetos ("tem um"), em vez de usar herança.
-- [ ] [[Agregação]] — tipo de composição mais "solta", onde as partes podem existir independente do todo.
-
----
-
-# 🟢 Clean Code
-
-> Práticas para escrever código legível, simples e fácil de manter.
-
-- [ ] [[Clean Code]] — conjunto de práticas para escrever código claro, simples e fácil de entender por outras pessoas.
-- [ ] [[DRY]] ("Don't Repeat Yourself") — evite duplicar lógica; centralize em um único lugar.
-- [ ] [[KISS]] ("Keep It Simple, Stupid") — prefira a solução mais simples possível, evite complexidade desnecessária.
-- [ ] [[YAGNI]] ("You Aren't Gonna Need It") — não implemente funcionalidades "pro futuro" que ainda não são necessárias.
-- [ ] [[Code Smells]] — sinais de que algo no código pode estar mal projetado, mesmo funcionando (ex: função gigante).
-- [ ] [[Refatoração]] — melhorar a estrutura interna do código sem mudar seu comportamento externo.
-- [ ] [[Responsabilidade Única]] — cada função/classe deve fazer só uma coisa, e fazer bem feito.
-- [ ] [[Nomeação]] — escolher nomes que expliquem a intenção sem precisar de comentário extra.
-- [ ] [[Legibilidade]] — o quanto o código é fácil de ler e entender por outra pessoa (ou você no futuro).
-
----
-
-# 🟢 Design de Software
-
-> Padrões e princípios reutilizáveis para estruturar soluções de forma flexível e manutenível.
-
-- [ ] [[SOLID]] — 5 princípios (S-O-L-I-D) para deixar o código orientado a objetos mais flexível e fácil de manter.
-- [ ] [[Singleton]] — garante que uma classe tenha só uma instância em todo o sistema.
-- [ ] [[Factory]] — centraliza a criação de objetos, escondendo a lógica de "qual classe instanciar".
-- [ ] [[Abstract Factory]] — cria famílias de objetos relacionados sem especificar suas classes concretas.
-- [ ] [[Builder]] — constrói objetos complexos passo a passo, separando construção de representação.
-- [ ] [[Prototype]] — cria novos objetos clonando um objeto existente, em vez de criar do zero.
-- [ ] [[Strategy]] — permite trocar o algoritmo/comportamento de um objeto em tempo de execução.
-- [ ] [[Observer]] — um objeto notifica automaticamente outros quando seu estado muda (base de eventos e pub/sub).
-- [ ] [[Repository]] — abstrai o acesso a dados, separando a lógica de negócio de como os dados são armazenados.
-- [ ] [[Facade]] — fornece uma interface simples para esconder a complexidade de um sistema maior.
-- [ ] [[Adapter]] — faz duas interfaces incompatíveis funcionarem juntas, "traduzindo" uma pra outra.
-- [ ] [[Decorator]] — adiciona comportamentos extras a um objeto dinamicamente, sem alterar sua classe.
-- [ ] [[Composite]] — trata objetos individuais e grupos de objetos de forma uniforme (ex: árvore de componentes).
-- [ ] [[Command]] — transforma uma ação em um objeto, permitindo enfileirar, desfazer ou logar comandos.
-- [ ] [[Chain of Responsibility]] — passa uma requisição por uma cadeia de handlers até alguém tratá-la.
-- [ ] [[Template Method]] — define o esqueleto de um algoritmo, deixando partes específicas para subclasses.
-- [ ] [[Iterator]] — permite percorrer os elementos de uma coleção sem expor sua estrutura interna.
-- [ ] [[Dependency Injection]] — fornece as dependências de um objeto de fora, em vez de ele criá-las sozinho.
-
----
-
-# 🟢 Debugging
-
-> Processo de encontrar e corrigir erros no código.
-
-- [ ] [[Debugging]] — processo de identificar, isolar e corrigir defeitos (bugs) no código.
-- [ ] [[Breakpoints]] — pontos marcados no código onde a execução pausa para você inspecionar o estado do programa.
-- [ ] [[Watch]] — funcionalidade do debugger que monitora o valor de uma variável específica em tempo real.
-- [ ] [[Logs]] — registros de eventos/informações gerados pelo programa durante sua execução, úteis para investigar problemas.
-- [ ] [[Stack Trace]] — o "caminho" de chamadas de funções que levou até um erro, mostrado quando algo quebra.
-- [ ] [[Profiling]] — análise de onde o programa gasta mais tempo/memória, pra encontrar gargalos de performance.
-- [ ] [[Debugger]] — ferramenta que permite pausar, inspecionar e controlar a execução do programa passo a passo.
-
----
-
-# 🟢 Tratamento de Erros
-
-> Como lidar com falhas de forma previsível, sem quebrar o sistema inteiro.
-
-- [ ] [[Exceptions]] — objetos que representam um erro, "lançados" quando algo inesperado acontece na execução.
-- [ ] [[try/catch]] — bloco que tenta executar um código e "captura" o erro caso ele aconteça, evitando o crash.
-- [ ] [[Logging]] — prática de registrar eventos e erros do sistema para análise posterior.
-- [ ] [[Retry]] — tentar novamente uma operação que falhou (útil para falhas temporárias, ex: rede instável).
-- [ ] [[Fallback]] — comportamento alternativo executado quando a operação principal falha.
-- [ ] [[Validação]] — checar se os dados recebidos estão corretos/esperados antes de processá-los.
-- [ ] [[Tratamento Global de Erros]] — um ponto central que captura erros não tratados em qualquer parte da aplicação.
-
----
-
-# 🟢 HTTP e APIs
+# 1️⃣4️⃣ HTTP e APIs
 
 > Como sistemas diferentes se comunicam pela rede.
 
@@ -275,7 +309,7 @@
 
 ---
 
-# 🟢 Segurança
+# 1️⃣5️⃣ Segurança
 
 > Práticas para proteger dados, usuários e sistemas contra ataques.
 
@@ -295,7 +329,20 @@
 
 ---
 
-# 🟢 Programação Funcional
+# 1️⃣6️⃣ Serialização
+
+> Como transformar dados em memória em um formato que pode ser salvo ou transmitido.
+
+- [ ] [[JSON]] — formato leve e legível, o mais comum para troca de dados entre sistemas.
+- [ ] [[XML]] — formato baseado em tags, mais verboso, ainda comum em sistemas corporativos legados.
+- [ ] [[YAML]] — formato legível, muito usado em arquivos de configuração (ex: Docker, CI/CD).
+- [ ] [[CSV]] — formato simples de tabela separada por vírgulas, usado para exportar/importar dados tabulares.
+- [ ] [[BSON]] — versão binária do JSON, usada internamente pelo MongoDB pra ser mais compacta e rápida.
+- [ ] [[Protocol Buffers]] — formato binário compacto e rápido do Google, muito usado com gRPC.
+
+---
+
+# 1️⃣7️⃣ Programação Funcional
 
 > Paradigma que trata a computação como avaliação de funções, evitando estado mutável.
 
@@ -311,7 +358,7 @@
 
 ---
 
-# 🟢 Concorrência
+# 1️⃣8️⃣ Concorrência
 
 > Como executar múltiplas tarefas "ao mesmo tempo", de forma correta e eficiente.
 
@@ -330,39 +377,7 @@
 
 ---
 
-# 🟢 Testes de Software
-
-> Garantir que o código funciona como esperado, agora e depois de mudanças futuras.
-
-- [ ] [[Testes Unitários]] — testam uma unidade isolada de código (uma função, um método) sem depender de outras partes.
-- [ ] [[Testes de Integração]] — testam se diferentes partes do sistema funcionam corretamente juntas (ex: código + banco de dados).
-- [ ] [[Testes E2E (Ponta a Ponta)]] — simulam o uso real do sistema inteiro, do início ao fim, como o usuário faria.
-- [ ] [[TDD (Test Driven Development)]] — escrever o teste antes do código, e implementar só o suficiente pra ele passar.
-- [ ] [[BDD (Behavior Driven Development)]] — escreve os testes em linguagem próxima da natural, descrevendo comportamentos esperados.
-- [ ] [[Mocks e Stubs]] — objetos "falsos" que simulam dependências reais durante os testes (ex: simular uma API externa).
-- [ ] [[Test Coverage]] — métrica de quanto do código está sendo exercitado pelos testes.
-- [ ] [[Testes de Regressão]] — testes que garantem que uma funcionalidade que já funcionava não quebrou depois de uma mudança.
-
----
-
-# 🟢 Engenharia de Software
-
-> Processos e práticas para planejar, construir e entregar software de forma organizada.
-
-- [ ] [[Requisitos]] — o que o sistema precisa fazer, levantado junto com quem vai usá-lo.
-- [ ] [[Casos de Uso]] — descrição de como um usuário interage com o sistema pra atingir um objetivo.
-- [ ] [[User Stories]] — descrição curta de uma funcionalidade do ponto de vista do usuário ("Como X, quero Y, para Z").
-- [ ] [[Scrum]] — framework ágil que organiza o trabalho em ciclos curtos (sprints) com papéis e cerimônias bem definidos.
-- [ ] [[Kanban]] — método visual de gestão de fluxo de trabalho usando um quadro com colunas (a fazer, fazendo, feito).
-- [ ] [[Sprint]] — período de tempo fixo (geralmente 1-4 semanas) onde um time entrega um incremento do produto.
-- [ ] [[Backlog]] — lista priorizada de tudo que precisa ser feito no projeto.
-- [ ] [[Estimativas]] — previsão do esforço/tempo necessário para entregar uma tarefa.
-- [ ] [[Documentação]] — registros escritos que explicam como o sistema funciona, pra outros devs (e você mesmo) entenderem depois.
-- [ ] [[Metodologias Ágeis]] — abordagens (Scrum, Kanban, XP) que priorizam entregas incrementais e adaptação a mudanças.
-
----
-
-# 🟢 Arquitetura de Software
+# 1️⃣9️⃣ Arquitetura de Software
 
 > Como organizar as peças de um sistema em larga escala.
 
@@ -379,7 +394,7 @@
 
 ---
 
-# 🟢 Sistemas Operacionais
+# 2️⃣0️⃣ Sistemas Operacionais
 
 > O software que gerencia o hardware e serve de base para todos os programas.
 
@@ -397,7 +412,7 @@
 
 ---
 
-# 🟢 Redes
+# 2️⃣1️⃣ Redes
 
 > Como computadores se conectam e trocam dados entre si.
 
@@ -420,7 +435,54 @@
 
 ---
 
-# 🟢 DevOps
+# 2️⃣2️⃣ Fundamentos da Computação
+
+> Como o computador realmente representa e processa informação por baixo dos panos.
+
+- [ ] [[Bits]] — a menor unidade de informação, representa 0 ou 1.
+- [ ] [[Bytes]] — grupo de 8 bits, unidade básica de armazenamento.
+- [ ] [[Binário]] — sistema numérico de base 2, a linguagem "nativa" dos computadores.
+- [ ] [[Octal]] — sistema numérico de base 8, menos comum hoje em dia.
+- [ ] [[Hexadecimal]] — sistema numérico de base 16, usado para representar cores, memória e bytes de forma compacta.
+- [ ] [[ASCII]] — tabela que mapeia caracteres (letras, números, símbolos) para números, um dos primeiros padrões.
+- [ ] [[Unicode]] — padrão moderno que representa praticamente todos os caracteres de todos os idiomas do mundo.
+- [ ] [[UTF-8]] — forma de codificar Unicode em bytes, o padrão mais usado na web hoje.
+- [ ] [[Ponto Flutuante]] — forma de representar números decimais no computador, com limitações de precisão.
+- [ ] [[Complemento de Dois]] — técnica usada para representar números negativos em binário.
+
+---
+
+# 2️⃣3️⃣ Arquitetura de Computadores
+
+> Como os componentes físicos do computador funcionam e se comunicam.
+
+- [ ] [[CPU]] — o "cérebro" do computador, executa as instruções dos programas.
+- [ ] [[Registradores]] — memória pequena e extremamente rápida dentro da CPU, usada para cálculos imediatos.
+- [ ] [[Clock]] — o "relógio" que sincroniza os ciclos de execução da CPU (medido em Hz/GHz).
+- [ ] [[Pipeline]] — técnica que executa partes de várias instruções simultaneamente pra aumentar a performance da CPU.
+- [ ] [[RAM]] — memória volátil de acesso rápido, onde ficam os dados que o programa usa em execução.
+- [ ] [[Cache]] — memória pequena e muito rápida, guarda dados usados com frequência pra evitar acessar a RAM toda hora.
+- [ ] [[SSD]] — armazenamento persistente baseado em memória flash, muito mais rápido que HDs tradicionais.
+- [ ] [[Barramentos]] — "estradas" que conectam e transportam dados entre os componentes do computador.
+
+---
+
+# 2️⃣4️⃣ Compiladores
+
+> Como o código que você escreve vira algo que o computador executa.
+
+- [ ] [[Lexer]] — quebra o código-fonte em "tokens" (palavras-chave, símbolos, identificadores).
+- [ ] [[Parser]] — organiza os tokens em uma estrutura (árvore) que representa a gramática da linguagem.
+- [ ] [[AST]] (Árvore Sintática Abstrata) — representação em árvore da estrutura do código, usada por compiladores e ferramentas.
+- [ ] [[Compilação]] — traduz o código-fonte inteiro para código de máquina antes de executar.
+- [ ] [[Interpretação]] — executa o código linha por linha, sem gerar um arquivo compilado antes.
+- [ ] [[Bytecode]] — código intermediário entre o código-fonte e o código de máquina (ex: usado pela JVM).
+- [ ] [[Máquina Virtual]] — programa que simula um computador, executando bytecode de forma portátil (ex: JVM, CLR).
+- [ ] [[Linkagem]] — etapa que junta diferentes módulos/bibliotecas compilados em um único executável final.
+
+---
+
+# 2️⃣5️⃣ DevOps
 
 > Práticas que unem desenvolvimento e operações para entregar software mais rápido e com mais qualidade.
 
@@ -442,7 +504,7 @@
 
 ---
 
-# 🟢 Observabilidade
+# 2️⃣6️⃣ Observabilidade
 
 > Capacidade de entender o que está acontecendo dentro de um sistema em produção.
 
@@ -454,100 +516,24 @@
 
 ---
 
-# 🟢 Ferramentas
+# 2️⃣7️⃣ Engenharia de Software
 
-> O ferramental do dia a dia de quem programa.
+> Processos e práticas para planejar, construir e entregar software de forma organizada.
 
-- [ ] [[VS Code]] — editor de código leve e extensível, um dos mais usados atualmente.
-- [ ] [[Terminal]] — interface de linha de comando pra interagir diretamente com o sistema operacional.
-- [ ] [[PowerShell]] — shell e linguagem de script do Windows, mais poderoso que o CMD tradicional.
-- [ ] [[Bash]] — shell padrão em sistemas Linux/macOS, usado pra automatizar tarefas via linha de comando.
-- [ ] [[SSH]] — protocolo para acessar e controlar remotamente outro computador de forma segura.
-- [ ] [[Regex]] — linguagem para descrever padrões de texto, usada em buscas e validações complexas.
-- [ ] [[Postman]] — ferramenta para testar e explorar APIs sem precisar escrever código.
-- [ ] [[Insomnia]] — alternativa ao Postman, também usada para testar requisições de API.
-- [ ] [[DevTools]] — ferramentas embutidas no navegador para inspecionar, depurar e analisar performance de páginas web.
-- [ ] [[Linter]] — ferramenta que analisa o código em busca de erros e problemas de estilo automaticamente.
-- [ ] [[Formatter]] — ferramenta que formata o código automaticamente seguindo um padrão (ex: Prettier).
-- [ ] [[Gerenciador de Pacotes]] — ferramenta que instala e gerencia bibliotecas/dependências do projeto (ex: npm, pip, Maven).
+- [ ] [[Requisitos]] — o que o sistema precisa fazer, levantado junto com quem vai usá-lo.
+- [ ] [[Casos de Uso]] — descrição de como um usuário interage com o sistema pra atingir um objetivo.
+- [ ] [[User Stories]] — descrição curta de uma funcionalidade do ponto de vista do usuário ("Como X, quero Y, para Z").
+- [ ] [[Scrum]] — framework ágil que organiza o trabalho em ciclos curtos (sprints) com papéis e cerimônias bem definidos.
+- [ ] [[Kanban]] — método visual de gestão de fluxo de trabalho usando um quadro com colunas (a fazer, fazendo, feito).
+- [ ] [[Sprint]] — período de tempo fixo (geralmente 1-4 semanas) onde um time entrega um incremento do produto.
+- [ ] [[Backlog]] — lista priorizada de tudo que precisa ser feito no projeto.
+- [ ] [[Estimativas]] — previsão do esforço/tempo necessário para entregar uma tarefa.
+- [ ] [[Documentação]] — registros escritos que explicam como o sistema funciona, pra outros devs (e você mesmo) entenderem depois.
+- [ ] [[Metodologias Ágeis]] — abordagens (Scrum, Kanban, XP) que priorizam entregas incrementais e adaptação a mudanças.
 
 ---
 
-# 🟢 Fundamentos da Computação
-
-> Como o computador realmente representa e processa informação por baixo dos panos.
-
-- [ ] [[Bits]] — a menor unidade de informação, representa 0 ou 1.
-- [ ] [[Bytes]] — grupo de 8 bits, unidade básica de armazenamento.
-- [ ] [[Binário]] — sistema numérico de base 2, a linguagem "nativa" dos computadores.
-- [ ] [[Octal]] — sistema numérico de base 8, menos comum hoje em dia.
-- [ ] [[Hexadecimal]] — sistema numérico de base 16, usado para representar cores, memória e bytes de forma compacta.
-- [ ] [[ASCII]] — tabela que mapeia caracteres (letras, números, símbolos) para números, um dos primeiros padrões.
-- [ ] [[Unicode]] — padrão moderno que representa praticamente todos os caracteres de todos os idiomas do mundo.
-- [ ] [[UTF-8]] — forma de codificar Unicode em bytes, o padrão mais usado na web hoje.
-- [ ] [[Ponto Flutuante]] — forma de representar números decimais no computador, com limitações de precisão.
-- [ ] [[Complemento de Dois]] — técnica usada para representar números negativos em binário.
-
----
-
-# 🟢 Arquitetura de Computadores
-
-> Como os componentes físicos do computador funcionam e se comunicam.
-
-- [ ] [[CPU]] — o "cérebro" do computador, executa as instruções dos programas.
-- [ ] [[Registradores]] — memória pequena e extremamente rápida dentro da CPU, usada para cálculos imediatos.
-- [ ] [[Clock]] — o "relógio" que sincroniza os ciclos de execução da CPU (medido em Hz/GHz).
-- [ ] [[Pipeline]] — técnica que executa partes de várias instruções simultaneamente pra aumentar a performance da CPU.
-- [ ] [[RAM]] — memória volátil de acesso rápido, onde ficam os dados que o programa usa em execução.
-- [ ] [[Cache]] — memória pequena e muito rápida, guarda dados usados com frequência pra evitar acessar a RAM toda hora.
-- [ ] [[SSD]] — armazenamento persistente baseado em memória flash, muito mais rápido que HDs tradicionais.
-- [ ] [[Barramentos]] — "estradas" que conectam e transportam dados entre os componentes do computador.
-
----
-
-# 🟢 Compiladores
-
-> Como o código que você escreve vira algo que o computador executa.
-
-- [ ] [[Lexer]] — quebra o código-fonte em "tokens" (palavras-chave, símbolos, identificadores).
-- [ ] [[Parser]] — organiza os tokens em uma estrutura (árvore) que representa a gramática da linguagem.
-- [ ] [[AST]] (Árvore Sintática Abstrata) — representação em árvore da estrutura do código, usada por compiladores e ferramentas.
-- [ ] [[Compilação]] — traduz o código-fonte inteiro para código de máquina antes de executar.
-- [ ] [[Interpretação]] — executa o código linha por linha, sem gerar um arquivo compilado antes.
-- [ ] [[Bytecode]] — código intermediário entre o código-fonte e o código de máquina (ex: usado pela JVM).
-- [ ] [[Máquina Virtual]] — programa que simula um computador, executando bytecode de forma portátil (ex: JVM, CLR).
-- [ ] [[Linkagem]] — etapa que junta diferentes módulos/bibliotecas compilados em um único executável final.
-
----
-
-# 🟢 Serialização
-
-> Como transformar dados em memória em um formato que pode ser salvo ou transmitido.
-
-- [ ] [[JSON]] — formato leve e legível, o mais comum para troca de dados entre sistemas.
-- [ ] [[XML]] — formato baseado em tags, mais verboso, ainda comum em sistemas corporativos legados.
-- [ ] [[YAML]] — formato legível, muito usado em arquivos de configuração (ex: Docker, CI/CD).
-- [ ] [[CSV]] — formato simples de tabela separada por vírgulas, usado para exportar/importar dados tabulares.
-- [ ] [[BSON]] — versão binária do JSON, usada internamente pelo MongoDB pra ser mais compacta e rápida.
-- [ ] [[Protocol Buffers]] — formato binário compacto e rápido do Google, muito usado com gRPC.
-
----
-
-# 🟢 Matemática
-
-> A base teórica que sustenta algoritmos, estruturas de dados e ciência da computação.
-
-- [ ] [[Lógica Booleana]] — álgebra de verdadeiro/falso (AND, OR, NOT), base de toda decisão computacional.
-- [ ] [[Conjuntos]] — coleções de elementos únicos e as operações entre eles (união, interseção, diferença).
-- [ ] [[Combinatória]] — estudo de contagem de arranjos e combinações possíveis, base de análise de algoritmos.
-- [ ] [[Probabilidade]] — chance de eventos ocorrerem, base para algoritmos randomizados e machine learning.
-- [ ] [[Estatística]] — coleta e interpretação de dados, essencial em análise de dados e ML.
-- [ ] [[Álgebra Linear]] — vetores e matrizes, base fundamental para computação gráfica e machine learning.
-- [ ] [[Matemática Discreta]] — o "guarda-chuva" que cobre lógica, grafos e combinatória, base teórica da ciência da computação.
-
----
-
-# 🟢 Conceitos Gerais
+# 2️⃣8️⃣ Conceitos Gerais
 
 > Termos que aparecem em praticamente qualquer discussão técnica de sistemas.
 
@@ -566,7 +552,21 @@
 
 ---
 
-# 🟢 Inglês Técnico
+# ♾️ Transversais (estudar em paralelo, do dia 1 ao fim)
+
+## 🔸 Matemática
+
+> A base teórica que sustenta algoritmos, estruturas de dados e ciência da computação.
+
+- [ ] [[Lógica Booleana]] — álgebra de verdadeiro/falso (AND, OR, NOT), base de toda decisão computacional.
+- [ ] [[Conjuntos]] — coleções de elementos únicos e as operações entre eles (união, interseção, diferença).
+- [ ] [[Combinatória]] — estudo de contagem de arranjos e combinações possíveis, base de análise de algoritmos.
+- [ ] [[Probabilidade]] — chance de eventos ocorrerem, base para algoritmos randomizados e machine learning.
+- [ ] [[Estatística]] — coleta e interpretação de dados, essencial em análise de dados e ML.
+- [ ] [[Álgebra Linear]] — vetores e matrizes, base fundamental para computação gráfica e machine learning.
+- [ ] [[Matemática Discreta]] — o "guarda-chuva" que cobre lógica, grafos e combinatória, base teórica da ciência da computação.
+
+## 🔸 Inglês Técnico
 
 > A maior parte da documentação, discussões e vagas de programação são em inglês.
 
@@ -575,9 +575,7 @@
 - [ ] [[Vocabulário Técnico]] — palavras frequentes em código e documentação (fetch, parse, render, deploy...).
 - [ ] [[Ler Documentação]] — habilidade de entender documentação oficial em inglês, essencial pra resolver problemas por conta própria.
 
----
-
-# 🟢 Soft Skills
+## 🔸 Soft Skills
 
 > Habilidades comportamentais que fazem tanta diferença quanto o conhecimento técnico.
 
