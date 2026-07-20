@@ -1,0 +1,5 @@
+Criar um aplicativo que permita gerenciar e controlar remotamente o conteúdo exibido em televisões por meio de um dispositivo móvel. O sistema será composto por dois aplicativos: um para **celulares**, responsável pela administração e gerenciamento dos conteúdos, e outro exclusivo para as **televisões**, responsável por receber e exibir as informações enviadas.
+
+A plataforma permitirá criar e organizar **dashboards**, campanhas publicitárias, comunicados, vídeos, imagens e outros conteúdos, possibilitando definir quais televisões receberão cada material e quando ele será exibido. Também será possível programar horários de exibição, criar playlists de conteúdo e atualizar as telas em tempo real.
+
+O objetivo é facilitar o gerenciamento de painéis digitais, tornando a distribuição de informações e anúncios mais prática, centralizada e eficiente para empresas, estabelecimentos comerciais, instituições de ensino, hospitais e demais ambientes que utilizam televisões como meio de comunicação.
