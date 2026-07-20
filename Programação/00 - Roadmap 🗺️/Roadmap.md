@@ -8,18 +8,18 @@
 
 > O ferramental do dia a dia de quem programa.
 
-- [ ] [[VS Code]] — editor de código leve e extensível, um dos mais usados atualmente.
-- [ ] [[Terminal]] — interface de linha de comando pra interagir diretamente com o sistema operacional.
-- [ ] [[PowerShell]] — shell e linguagem de script do Windows, mais poderoso que o CMD tradicional.
-- [ ] [[Bash]] — shell padrão em sistemas Linux/macOS, usado pra automatizar tarefas via linha de comando.
+- [x] [[VS Code]] — editor de código leve e extensível, um dos mais usados atualmente.
+- [x] [[Terminal]] — interface de linha de comando pra interagir diretamente com o sistema operacional.
+- [x] [[PowerShell]] — shell e linguagem de script do Windows, mais poderoso que o CMD tradicional.
+- [x] [[Bash]] — shell padrão em sistemas Linux/macOS, usado pra automatizar tarefas via linha de comando.
 - [ ] [[SSH]] — protocolo para acessar e controlar remotamente outro computador de forma segura.
 - [ ] [[Regex]] — linguagem para descrever padrões de texto, usada em buscas e validações complexas.
-- [ ] [[Postman]] — ferramenta para testar e explorar APIs sem precisar escrever código.
-- [ ] [[Insomnia]] — alternativa ao Postman, também usada para testar requisições de API.
-- [ ] [[DevTools]] — ferramentas embutidas no navegador para inspecionar, depurar e analisar performance de páginas web.
-- [ ] [[Linter]] — ferramenta que analisa o código em busca de erros e problemas de estilo automaticamente.
-- [ ] [[Formatter]] — ferramenta que formata o código automaticamente seguindo um padrão (ex: Prettier).
-- [ ] [[Gerenciador de Pacotes]] — ferramenta que instala e gerencia bibliotecas/dependências do projeto (ex: npm, pip, Maven).
+- [x] [[Postman]] — ferramenta para testar e explorar APIs sem precisar escrever código.
+- [x] [[Insomnia]] — alternativa ao Postman, também usada para testar requisições de API.
+- [x] [[DevTools]] — ferramentas embutidas no navegador para inspecionar, depurar e analisar performance de páginas web.
+- [x] [[Linter]] — ferramenta que analisa o código em busca de erros e problemas de estilo automaticamente.
+- [x] [[Formatter]] — ferramenta que formata o código automaticamente seguindo um padrão (ex: Prettier).
+- [x] [[Gerenciador de Pacotes]] — ferramenta que instala e gerencia bibliotecas/dependências do projeto (ex: npm, pip, Maven).
 
 ---
 
