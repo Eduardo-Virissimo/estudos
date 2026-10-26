@@ -486,7 +486,7 @@
 
 > Práticas que unem desenvolvimento e operações para entregar software mais rápido e com mais qualidade.
 
-- [ ] [[Docker]] — ferramenta que empacota uma aplicação e suas dependências em containers isolados e portáveis.
+- [ ] [[estudos/Programação/25 - DevOps 🤖/Docker/README]] — ferramenta que empacota uma aplicação e suas dependências em containers isolados e portáveis.
 - [ ] [[Containers]] — ambientes isolados e leves que rodam uma aplicação de forma consistente em qualquer máquina.
 - [ ] [[Images]] — "moldes" imutáveis usados para criar containers.
 - [ ] [[Dockerfile]] — arquivo de instruções que define como construir uma imagem Docker.

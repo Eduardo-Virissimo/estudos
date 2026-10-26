@@ -1,192 +1,463 @@
-## O que é?
+# 📚 Docker
 
-Docker é uma plataforma de **containerização** que permite empacotar uma aplicação junto com todas as suas dependências (bibliotecas, binários, configurações, versão do sistema) em uma unidade isolada chamada **container**.
+> *"Docker é o futuro da implantação de software – é a única forma correta"* — Jez Humble
 
-O objetivo do Docker é resolver o clássico problema: _"na minha máquina funciona"_. Com Docker, o ambiente de execução é sempre o mesmo, independente de onde o container rode — seu notebook, o servidor da empresa ou a nuvem.
+---
 
-Diferente de uma máquina virtual, o container não emula um sistema operacional inteiro. Ele compartilha o kernel do sistema hospedeiro e isola apenas os processos, arquivos e recursos da aplicação. Isso o torna muito mais leve e rápido de iniciar.
+## O que é Docker?
 
-## Como funciona?
+**Docker** é uma plataforma de virtualização baseada em containers que permite empacotar, executar e gerenciar aplicações de forma consistente em qualquer ambiente. Diferente das máquinas virtuais tradicionais (VMs), os containers do Docker compartilham o kernel do sistema operacional do host, tornando-os mais leves, rápidos e eficientes em recursos.
 
-O Docker se baseia em três conceitos centrais:
+### Funcionamento Básico
 
-- **Imagem (Image)**: um "molde" somente leitura que contém o sistema de arquivos, dependências e instruções necessárias para rodar a aplicação. É construída a partir de um `Dockerfile`.
-- **Container**: uma instância em execução de uma imagem. É isolado, mas leve, e pode ser criado, iniciado, parado e destruído rapidamente.
-- **Dockerfile**: um arquivo de texto com instruções passo a passo de como construir a imagem (qual sistema base usar, quais pacotes instalar, quais arquivos copiar, qual comando rodar).
+Imagine que você desenvolveu um site web usando Node.js, mas no servidor de produção só existe Python instalado. Com Docker, você pode "empacotar" seu site junto com todas as dependências (Node.js, bibliotecas, etc.) em um container, garantindo que funcione exatamente da mesma forma em qualquer lugar.
 
-O fluxo básico é:
+Os containers são criados a partir de **imagens** — templates leves e imutáveis que definem todo o ambiente necessário para sua aplicação.
 
-```text
-Dockerfile → (docker build) → Imagem → (docker run) → Container
-```
+---
 
-Internamente, o Docker usa recursos do kernel Linux como **namespaces** (isolamento de processos, rede, sistema de arquivos) e **cgroups** (limitação de uso de CPU/memória) para criar esse isolamento sem precisar de um hypervisor completo.
+## Uma História Breve 📜
 
-Também existem **volumes**, usados para persistir dados fora do ciclo de vida do container, e **redes (networks)**, usadas para permitir comunicação entre containers.
+A história do Docker começa no início de 2013, quando as empresas buscavam soluções mais eficientes para "dependency hell" (conflitos de dependências). A inspiração veio da indústria aeroespacial e naval:
 
-## Sintaxe
+- **2007**: Solomon Hykes cria o projeto **AppContainer** no Facebook
+- **2013**: A empresa Dotcloud renomeia seu sistema como **Docker**
+- **2013**: Docker é lançado como código aberto
+- **2014-2015**: Criação de ferramentas complementares (Docker Compose, Swarm)
+- **Hoje**: O Docker é usado por mais de 70% das empresas que implementam containers
 
-Comandos essenciais:
+A tecnologia evoluiu do conceito de "containers" (originado no Linux em 2005 com o projeto LXC) para se tornar um padrão da indústria em DevOps e CI/CD.
 
-```bash
-# Construir uma imagem a partir de um Dockerfile
-docker build -t minha-imagem .
+---
 
-# Rodar um container a partir de uma imagem
-docker run -d -p 8080:80 --name meu-app minha-imagem
+## Por que é Importante? 💡
 
-# Listar containers em execução
-docker ps
+### Vantagens Principais
 
-# Listar todos os containers (inclusive parados)
-docker ps -a
+- 🚀 **Portabilidade**: Execute sua aplicação em qualquer lugar (dev, staging, produção) com comportamento idêntico
+- 📦 **Consistência**: Elimina o problema "funciona na minha máquina" — todo ambiente é reproduzível
+- 🔧 **Isolamento**: Cada aplicativo roda em seu próprio sandbox seguro sem conflitos de dependências
+- 🤖 **Escalabilidade Fácil**: Containers podem ser criados e destruídos rapidamente para lidar com carga variável
+- 🌐 **Orquestração**: Ferramentas como Kubernetes facilitam a gestão de grandes números de containers
+- 💾 **Recursos Eficientes**: Containers consomem menos memória e CPU que máquinas virtuais tradicionais
 
-# Parar um container
-docker stop meu-app
+---
 
-# Remover um container
-docker rm meu-app
+## Conceitos Fundamentais 🎯
 
-# Listar imagens
-docker images
+### Dockerfile
 
-# Remover uma imagem
-docker rmi minha-imagem
-
-# Ver logs de um container
-docker logs -f meu-app
-
-# Entrar no terminal de um container em execução
-docker exec -it meu-app bash
-
-# Rodar com Docker Compose
-docker compose up -d
-docker compose down
-```
-
-Exemplo de `Dockerfile` básico (aplicação Node.js):
+O **Dockerfile** é um arquivo de texto com instruções para criar uma imagem Docker. Cada linha cria uma camada na imagem final.
 
 ```dockerfile
-FROM node:20-alpine
+# Exemplo básico de Dockerfile para aplicação Node.js
 
-WORKDIR /app
+FROM node:18-alpine            # Base: imagem do Node.js 18 Alpine (leve)
 
-COPY package*.json ./
-RUN npm install
+WORKDIR /app                  # Define o diretório de trabalho
 
-COPY . .
+COPY package*.json ./         # Copia package.json e package-lock.json
 
-EXPOSE 3000
+RUN npm install               # Instala dependências
 
-CMD ["node", "index.js"]
+COPY . .                      # Copia todo o código fonte
+
+EXPOSE 3000                   # Expor a porta da aplicação
+
+CMD ["node", "server.js"]     # Comando para iniciar a aplicação
 ```
 
-Exemplo de `docker-compose.yml`:
+### Imagens vs Containers
+
+| Característica | Imagem Docker | Container Docker |
+|----------------|---------------|------------------|
+| Natureza | Template/Template estático | Instância executável dinâmica |
+| Estado | Imutável | Efêmero (muda durante execução) |
+| Uso | Criação de ambientes | Execução da aplicação |
+
+### Dockerfile vs docker-compose.yml
+
+O **Dockerfile** cria uma única imagem para um serviço, enquanto o **docker-compose.yml** define múltiplos serviços (servidor DB, aplicação frontend, backend, cache) e como eles se comunicam.
 
 ```yaml
-version: "3.9"
+# docker-compose.yml - exemplo de ambiente completo
+
+version: '3.8'
+
 services:
   app:
     build: .
     ports:
       - "3000:3000"
-    volumes:
-      - .:/app
-    environment:
-      - NODE_ENV=development
+    depends_on:
+      - db
+  
   db:
-    image: postgres:16
+    image: postgres:15-alpine
     environment:
-      - POSTGRES_PASSWORD=senha
+      POSTGRES_PASSWORD: exemplo
     volumes:
-      - db-data:/var/lib/postgresql/data
-
+      - pgdata:/var/lib/postgresql/data
+  
 volumes:
-  db-data:
+  pgdata:
 ```
 
-## Exemplo
+---
 
-Imagine que você tem uma API em Node.js que depende do Node 20, precisa da variável de ambiente `DATABASE_URL` e expõe a porta 3000.
+## Como Usar na Prática 🛠️
 
-Sem Docker, cada desenvolvedor precisaria instalar manualmente a versão correta do Node, configurar variáveis de ambiente e garantir que nenhuma outra dependência do sistema conflite.
+### Exemplo 1: Uso Básico — Criando e Executando um Container
 
-Com Docker, basta rodar:
+**Passo 1: Criar o Dockerfile** (`Dockerfile`):
+
+```dockerfile
+FROM ubuntu:22.04
+RUN apt-get update && apt-get install -y python3-pip
+WORKDIR /app
+COPY app.py .
+CMD ["python3", "app.py"]
+```
+
+**Passo 2: Criar a imagem**:
 
 ```bash
-docker build -t minha-api .
-docker run -e DATABASE_URL=postgres://user:pass@db:5432/app -p 3000:3000 minha-api
+docker build -t meu-contador-app .
 ```
 
-E a aplicação sobe exatamente igual em qualquer máquina que tenha o Docker instalado.
+**Passo 3: Executar o container**:
 
-## Casos de uso
+```bash
+docker run -p 8080:5000 -d meu-contador-app
+```
 
-- Padronizar ambientes de desenvolvimento entre times
-- Criar pipelines de CI/CD reproduzíveis
-- Isolar dependências conflitantes entre projetos diferentes
-- Rodar múltiplos serviços (API, banco de dados, cache) de forma orquestrada com Compose
-- Facilitar deploy em produção (Kubernetes, ECS, etc.)
-- Testar bibliotecas ou versões de sistemas sem "sujar" a máquina local
-- Criar ambientes descartáveis para experimentação
+- `-p 8080:5000`: Mapeia a porta 8080 do host para a 5000 do container
+- `-d`: Executa em modo detached (background)
 
-## Vantagens
+### Exemplo 2: Caso de Uso Real — API com Banco de Dados PostgreSQL
 
-- Ambientes consistentes entre dev, teste e produção
-- Inicialização muito mais rápida que máquinas virtuais
-- Menor consumo de recursos (compartilha o kernel do host)
-- Facilita versionamento de infraestrutura (Dockerfile no controle de versão)
-- Grande ecossistema (Docker Hub, Compose, Swarm, Kubernetes)
-- Facilita rollback (basta voltar para uma imagem anterior)
+**Dockerfile da aplicação**:
 
-## Desvantagens
+```dockerfile
+FROM python:3.11-slim
 
-- Curva de aprendizado inicial (networking, volumes, camadas de imagem)
-- Overhead de gerenciamento em ambientes muito grandes (geralmente exige Kubernetes)
-- Containers Linux não rodam nativamente no Windows/Mac (usam uma VM leve por trás, como o Docker Desktop)
-- Imagens mal construídas podem ficar grandes e lentas para build/deploy
-- Persistência de dados exige atenção (containers são efêmeros por padrão)
+WORKDIR /app
 
-## Boas práticas
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-- Usar imagens base leves (ex: `alpine`) quando possível
-- Nunca rodar containers como usuário `root` em produção
-- Usar `.dockerignore` para não copiar arquivos desnecessários (como `node_modules` e `.git`)
-- Aproveitar o cache de camadas: copiar `package.json` antes do restante do código
-- Definir `HEALTHCHECK` para monitorar a saúde do container
-- Nunca colocar segredos (senhas, chaves) diretamente no Dockerfile
-- Usar multi-stage builds para reduzir o tamanho final da imagem
-- Fixar versões das imagens base (evitar `latest` em produção)
+COPY . .
 
-## Erros comuns
+EXPOSE 8000
 
-- Esquecer de expor a porta com `-p` e achar que a aplicação "não sobe"
-- Confundir a porta do host com a porta do container (`host:container`)
-- Perder dados por não usar volumes (dados somem ao remover o container)
-- Buildar a imagem sem `.dockerignore`, deixando-a enorme e lenta
-- Não entender a diferença entre `CMD` e `ENTRYPOINT`
-- Achar que `docker stop` remove o container (na verdade só remove com `docker rm`)
-- Rodar múltiplos processos dentro de um único container sem necessidade (quebra o princípio de um processo por container)
+CMD ["python", "main.py"]
+```
 
-## Exercícios
+**docker-compose.yml para ambiente completo**:
 
-- [ ] Criar um Dockerfile para uma aplicação simples (Node, Python ou outra)
-- [ ] Rodar essa aplicação em um container e acessá-la pelo navegador
-- [ ] Criar um `docker-compose.yml` com a aplicação + um banco de dados
-- [ ] Criar um volume e testar a persistência de dados após remover o container
-- [ ] Praticar multi-stage build para reduzir o tamanho da imagem final
-- [ ] Explicar, sem consultar, a diferença entre imagem e container
+```yaml
+version: '3.8'
 
-## Referências
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://appuser:mysupersecretpassword@db:5432/mydb
+      - REDIS_URL=redis://cache:6379
+    depends_on:
+      - db
+      - cache
+  
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: mysupersecretpassword
+      POSTGRES_DB: mydb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  
+  cache:
+    image: redis:7-alpine
+    volumes:
+      - redisdata:/data
 
-- Documentação oficial: https://docs.docker.com
-- Docker Hub: https://hub.docker.com
-- Play with Docker (ambiente prático online): https://labs.play-with-docker.com
+volumes:
+  pgdata:
+  redisdata:
+```
 
-## Relacionado
+**Comandos para iniciar o ambiente**:
 
-- [[DevOps]]
-- [[Redes]]
-- [[Sistemas Operacionais]]
-- [[Arquitetura de Software]]
-- [[Ferramentas]]
+```bash
+docker-compose up -d           # Inicia todos os serviços no background
+
+# Acessar o terminal do banco de dados
+docker-compose exec db psql -U appuser -d mydb
+
+# Ver logs de todos os containers
+docker-compose logs -f
+
+# Parar tudo
+docker-compose down
+```
+
+---
+
+## Configurações Recomendadas ⚙️
+
+### .dockerignore — Excluindo Arquivos do Build
+
+Crie um arquivo `.dockerignore` na mesma pasta do Dockerfile para evitar copiar arquivos desnecessários:
+
+```dockerfile
+# .dockerignore
+.git
+.gitignore
+__pycache__/
+*.pyc
+.env
+node_modules/
+.DS_Store
+```
+
+### docker-compose.yml — Variáveis de Ambiente
+
+Use variáveis de ambiente para configurar seu container dinamicamente:
+
+```yaml
+services:
+  api:
+    environment:
+      - DEBUG=false
+      - NODE_ENV=production
+      - API_PORT=3000
+```
+
+---
+
+## Dicas de Ouro 💎
+
+### 1. Use Imagens Multi-Stage para Reduzir Tamanho
+
+Crie imagens menores usando estágios separados no Dockerfile:
+
+```dockerfile
+# Estágio 1: Build (com todas as ferramentas de compilação)
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Estágio 2: Produção (apenas o necessário)
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+```
+
+### 2. Não Rode Containers como Root
+
+Sempre defina um usuário não-root para segurança:
+
+```dockerfile
+RUN useradd -m appuser
+USER appuser
+```
+
+### 3. Otimize com `.dockerignore`
+
+Arquivos grandes e desnecessários (`.git`, `node_modules`) aumentam significativamente o tempo de build.
+
+---
+
+## Comandos e Sintaxe Essenciais 📋
+
+| Comando | Função |
+|---------|--------|
+| `docker --version` | Verifica instalação do Docker |
+| `docker pull [IMAGE]` | Baixa uma imagem do Docker Hub |
+| `docker build -t NOME .` | Cria uma imagem a partir de um Dockerfile |
+| `docker run [OPÇÕES] [IMAGEM]` | Cria e executa um container |
+| `docker images` | Lista imagens locais |
+| `docker ps` | Lista containers rodando |
+| `docker ps -a` | Lista todos os containers (incluidos parados) |
+| `docker stop [ID/NAME]` | Para um container em execução |
+| `docker start [ID/NAME]` | Inicia um container parado |
+| `docker rm [ID/NAME]` | Remove um container parado |
+| `docker rmi [ID/IMAGE]` | Remove uma imagem local |
+| `docker logs [CONTAINER]` | Mostra logs do container |
+| `docker exec -it [CONTAINER] bash` | Entra no terminal do container |
+| `docker-compose up -d` | Inicia serviços definidos no docker-compose.yml |
+| `docker-compose down` | Para e remove todos os serviços |
+| `docker system prune -a` | Limpa imagens e containers não usados |
+
+---
+
+## Exercício Prático 🎯
+
+**Objetivo:** Criar um ambiente de desenvolvimento web completo usando Docker para uma aplicação Node.js com MongoDB.
+
+### Passo a passo:
+
+1. **Crie os arquivos no diretório de trabalho**:
+
+   ```bash
+   mkdir docker-exercicio-nodemon-db
+   cd docker-exercicio-nodemon-db
+   ```
+
+2. **Crie o Dockerfile** (`Dockerfile`):
+
+   ```dockerfile
+   FROM node:18-alpine
+   
+   WORKDIR /app
+   
+   COPY package*.json ./
+   
+   RUN npm install
+   RUN npm install -g nodemon
+   
+   COPY . .
+   
+   EXPOSE 3000
+   
+   CMD ["npm", "start"]
+   ```
+
+3. **Crie o docker-compose.yml** (`docker-compose.yml`):
+
+   ```yaml
+   version: '3.8'
+   
+   services:
+     app:
+       build: .
+       ports:
+         - "3000:3000"
+       environment:
+         MONGO_URI: mongodb://mongo:27017/minha-app
+       depends_on:
+         - mongo
+       volumes:
+         - .:/app   # Mount para hot-reload
+   
+     mongo:
+       image: mongo:6.0
+       ports:
+         - "27017:27017"
+       volumes:
+         - mongo_data:/data/db
+   
+   volumes:
+     mongo_data:
+   ```
+
+4. **Crie um arquivo `package.json`** com scripts simples de testar:
+
+   ```json
+   {
+     "name": "docker-exemplo",
+     "version": "1.0.0",
+     "scripts": {
+       "start": "echo 'Node.js rodando no container!'",
+       "test": "echo 'Executando teste Docker...'"
+     }
+   }
+   ```
+
+5. **Execute os comandos**:
+
+   ```bash
+   # Inicia o ambiente completo
+   docker-compose up -d
+   
+   # Verifique se está rodando
+   docker-compose ps
+   
+   # Acesse o MongoDB
+   docker-compose exec mongo mongosh
+   > show dbs; use minha-app
+   
+   # Veja os logs da aplicação
+   docker-compose logs app -f
+   ```
+
+---
+
+## Próximos Passos ✅
+
+- [ ] Instalar Docker Desktop no seu sistema operacional
+- [ ] Explorar Docker Hub para encontrar imagens oficiais de linguagens e frameworks
+- [ ] Criar um container com uma aplicação Python simples (Flask/Django)
+- [ ] Estudar orquestração com Kubernetes básico
+- [ ] Ler a documentação oficial: [docs.docker.com](https://docs.docker.com/)
+
+---
+
+## Recursos Recomendados 📚
+
+### 📖 Livros:
+- *[Docker Deep Dive]*
+- *[Container Security Handbook]* 
+
+---
+
+## Problemas Comuns e Soluções 🔧
+
+### Problema: Container não conecta ao banco de dados
+
+**Solução:**
+1. Verifique se o container do banco está rodando antes de iniciar a aplicação
+2. Use nomes de serviço (não IPs) para conexões dentro do mesmo `docker-compose`
+3. Adicione `depends_on` no docker-compose.yml
+4. Para produção, use variáveis de ambiente com senhas fortes
+
+```yaml
+# Exemplo correto:
+environment:
+  DATABASE_URL: postgres://user:password@db:5432/mydb
+```
+
+### Problema: Container roda mas a porta não responde no localhost
+
+**Solução:**
+1. Verifique o mapeamento de portas: `docker port [container]`
+2. Confirme se a aplicação está escutando na porta correta dentro do container
+3. Em produção, use variáveis de ambiente para definir a porta dinâmica
+
+```dockerfile
+# Melhor prática:
+ENV PORT=3000
+EXPOSE ${PORT}
+CMD ["node", "server.js"]
+```
+
+### Problema: Imagem muito grande (>1GB)
+
+**Solução:**
+1. Use imagens base `alpine` ou `slim` ao invés de versões completas
+2. Implemente builds multi-stage no Dockerfile
+3. Adicione `.dockerignore` para excluir arquivos grandes
+4. Execute regularmente: `docker system prune -a`
+
+---
+
+## Conclusão 🎉
+
+Docker revolucionou a forma como desenvolvedores e operações implantam e gerenciam aplicações. Com containers, você garante consistência entre ambientes, elimina dependências conflitantes e escala facilmente suas aplicações.
+
+**Dicas para dominar Docker:**
+- ✅ Use sempre `docker-compose` para ambientes locais
+- ✅ Publique imagens do seu projeto no Docker Hub
+- ✅ Leia logs com `docker logs -f [container]` quando algo falhar
+- ✅ Pratique com `docker run`, `docker exec` e `docker inspect`
+
+A jornada de aprendizado em DevOps não termina aqui — explore Kubernetes, CI/CD pipelines e monitoramento para levar seus projetos ao próximo nível! 🚀
+
+---
+
+*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
