@@ -201,4 +201,4 @@ Pratique com pequenas tarefas do dia a dia e vá evoluindo para scripts completo
 
 ---
 
-*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
+

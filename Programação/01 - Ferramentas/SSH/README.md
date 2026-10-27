@@ -205,4 +205,4 @@ Pratique em uma VM ou servidor de teste antes de usar em ambientes importantes.
 
 ---
 
-*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
+

@@ -6,7 +6,7 @@
 
 ## O que é Bash?
 
-O **Bash** (*Bourne-Again SHell*) é um shell e linguagem de script usado em sistemas Linux e disponível em macOS e Windows (via WSL ou Git Bash). Ele interpreta os comandos digitados no [[Terminal]] e permite escrever **scripts** que automatizam tarefas: backups, deploys, processamento de arquivos, etc.
+O **Bash** (*Bourne-Again SHell*) é um shell e linguagem de script usado em sistemas Linux e disponível em macOS e Windows (via WSL ou Git Bash). Ele interpreta os comandos digitados no [[estudos/Programação/01 - Ferramentas/Terminal/README|Terminal]] e permite escrever **scripts** que automatizam tarefas: backups, deploys, processamento de arquivos, etc.
 
 ### Uma História Breve 📜
 
@@ -213,4 +213,4 @@ Comece com tarefas simples e vá ganhando confiança antes de partir para script
 
 ---
 
-*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
+

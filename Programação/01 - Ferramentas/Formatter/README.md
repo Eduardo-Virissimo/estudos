@@ -222,4 +222,4 @@ Configure uma vez, automatize ao salvar e foque no que realmente importa: a lóg
 
 ---
 
-*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
+

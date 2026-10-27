@@ -202,4 +202,4 @@ Dominar o básico aqui abre as portas para shells, scripts, SSH e automação.
 
 ---
 
-*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
+

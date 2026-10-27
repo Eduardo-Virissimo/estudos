@@ -245,4 +245,4 @@ Pratique com projetos pequenos e crie o hábito de gerenciar dependências com c
 
 ---
 
-*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
+

@@ -200,4 +200,4 @@ Abra-as com frequência, mesmo em sites de terceiros, para aprender como as cois
 
 ---
 
-*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
+

@@ -186,4 +186,4 @@ Comece simples, adicione recursos aos poucos e deixe o editor com a sua cara ant
 
 ---
 
-*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
+

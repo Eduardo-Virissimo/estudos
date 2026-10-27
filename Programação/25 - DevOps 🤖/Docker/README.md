@@ -460,4 +460,4 @@ A jornada de aprendizado em DevOps não termina aqui — explore Kubernetes, CI/
 
 ---
 
-*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
+

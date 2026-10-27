@@ -212,4 +212,4 @@ Faça dele parte do seu fluxo desde o início de cada projeto.
 
 ---
 
-*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
+
