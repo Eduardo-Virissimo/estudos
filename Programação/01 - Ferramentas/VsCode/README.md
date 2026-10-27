@@ -1,362 +1,189 @@
-# 🟢 Visual Studio Code (VSCode)
+# 📚 VS Code
 
-> *"O editor de código mais amado do mundo."*
-
----
-
-## O que é o VSCode?
-
-O **Visual Studio Code** (comumente chamado de **VSCode**) é uma ferramenta de desenvolvimento criada pela Microsoft que revolucionou a forma como programadores escrevem código. É um editor de texto inteligente que vai muito além de apenas escrever linhas de código — ele entende suas intenções e te ajuda a cada passo do caminho!
+> *"O editor que cabe no seu fluxo de trabalho, não o contrário."*
 
 ---
 
-## Uma Breve História 📜
+## O que é VS Code?
 
-O VSCode foi lançado em 2015, nascendo da união entre duas tecnologias:
-- **Code** (o núcleo leve do editor)
-- **IntelliSense** (a tecnologia de autocompletar)
+O **Visual Studio Code** (VS Code) é um editor de código-fonte gratuito, leve e extensível, criado pela Microsoft. Ele roda em Windows, macOS e Linux e suporta praticamente qualquer linguagem através de **extensões**.
 
-A Microsoft percebeu que os programadores precisavam de uma ferramenta poderosa, mas mais leve que o Visual Studio tradicional. E assim nasceu o VSCode! Hoje é usado por milhões em projetos que vão desde sites simples até sistemas complexos como o próprio Linux!
+Diferente de uma IDE completa, ele começa enxuto e cresce conforme você instala o que precisa: depurador, terminal integrado, controle de versão com Git, autocomplete inteligente (IntelliSense) e muito mais.
+
+### Uma História Breve 📜
+
+O VS Code foi lançado pela Microsoft em **2015**, construído sobre o framework **Electron** (tecnologia web empacotada como app desktop). O código-fonte base é aberto (projeto *Code - OSS*, licença MIT). Em poucos anos virou um dos editores mais usados do mundo, aparecendo no topo das pesquisas anuais de desenvolvedores do Stack Overflow.
 
 ---
 
-## Por que o VSCode se Torna Essencial?
+## Por que é Importante? 💡
 
-### 🧠 IntelliSense - Ele te Entende
+### Vantagens Principais
 
-O coração do VSCode. Imagine que ele lê seu código enquanto você digita:
+- 🚀 **Leve e rápido**: abre rápido e funciona bem até em máquinas modestas.
+- 📦 **Ecossistema de extensões**: milhares de extensões para linguagens, temas, linters e ferramentas.
+- 🔧 **Tudo em um lugar**: terminal, Git, debugger e editor na mesma janela.
+- 🤖 **Integração com IA e remoto**: suporte a assistentes de código e a desenvolvimento remoto (SSH, containers, WSL).
 
-```javascript
-// Você começa a digitar...
-const minhaFuncao = 
+---
 
-// O IntelliSense sugere:
-// [minhaFuncao, minhaVariavel, console.log, Promise.all]
+## Conceitos Fundamentais 🎯
+
+### Conceito 1: Command Palette
+
+É a central de comandos do editor. Praticamente tudo que o VS Code faz pode ser acessado por ela.
+
+```text
+Ctrl + Shift + P   (Windows/Linux)
+Cmd  + Shift + P   (macOS)
 ```
 
-Ele sabe o que você precisa antes mesmo de você terminar! 🤯
+Digite o que quer fazer (ex.: "format document", "change language mode") e execute.
 
-### 🎨 Snippets e Autocompletar Rápido
+### Conceito 2: Workspace e Pasta
 
-```typescript
-// Digite 'func' e aperte TAB:
-function minhaFuncao(parametro: string): void { // Pronto!
-    console.log(parametro);
-}
+O VS Code trabalha melhor abrindo **uma pasta de projeto** (`File > Open Folder`). Cada projeto pode ter configurações próprias na pasta `.vscode/`.
+
+### Conceito 3: Extensões
+
+Funcionalidades extras instaladas pelo painel de extensões (`Ctrl + Shift + X`). Exemplos: Prettier, ESLint, GitLens, Live Share, Remote - SSH.
+
+### Conceito 4: Settings (User vs Workspace)
+
+- **User**: vale para todos os projetos.
+- **Workspace**: vale só para o projeto atual (fica em `.vscode/settings.json`).
+
+---
+
+## Como Usar na Prática 🛠️
+
+### Exemplo 1: Uso Básico
+
+Abrir um projeto direto pelo terminal:
+
+```bash
+cd meu-projeto
+code .
 ```
 
-### 🔌 Extensões - Transformam o Editor em Qualquer Coisa que Você Desejar
+> Se o comando `code` não funcionar, abra a Command Palette e rode **"Shell Command: Install 'code' command in PATH"** (macOS) ou reinstale marcando a opção de adicionar ao PATH (Windows).
 
-O VSCode não é apenas um editor — é uma plataforma. Com extensões, você pode torná-lo:
+### Exemplo 2: Caso de Uso Real
 
-| Área | Exemplo de Extensão |
-|------|---------------------|
-| Python | Python (Microsoft) |
-| React | React Snippet Pack |
-| Docker | Docker |
-| Git | GitLens |
-| HTML/CSS | Live Server |
+Fluxo de um dia de estudo:
 
-### 📦 Controle de Versão Integrado
-
-Gerencie seu Git diretamente do editor:
-- Faça commits (`Ctrl + Shift + M`)
-- Visualize mudanças antes de enviar
-- Resolva conflitos no próprio editor
+1. `Ctrl + P` para abrir um arquivo por nome.
+2. `Ctrl + `` ` `` para abrir o terminal integrado e rodar o projeto.
+3. `F5` para depurar com breakpoints.
+4. `Ctrl + Shift + G` para revisar e commitar mudanças no Git.
 
 ---
 
-## Atalhos de Teclado Essenciais ⌨️
+## Configurações Recomendadas ⚙️
 
-### Navegação e Produtividade
-
-| Atalho | Função |
-|--------|--------|
-| `Ctrl + P` | Buscar arquivos (`Ctrl + Shift + O` para múltiplos) |
-| `Ctrl + /` | Comentar/descomentar código |
-| `Ctrl + K Ctrl + S` | Salvar todos os arquivos |
-| `Ctrl + \` | Mostrar/esconder a interface gráfica (modo minimalista) |
-| `Alt + F12` | Ir para uma função/definição |
-
-### Manipulação de Código
-
-| Atalho | Função |
-|--------|--------|
-| `Shift + Alt + ↓ / ↑` | Mover blocos de código para baixo/cima |
-| `Ctrl + D` | Selecionar próxima ocorrência do mesmo texto |
-| `Ctrl + W` | Fechar a aba atual (ou todas se pressionar Shift) |
-| `Ctrl + B` | Mostrar/esconder as barras de rolagem laterais e verticais |
-
----
-
-## Configurações Importantes 🛠️
-
-### 1. Formatação Automática (Prettier)
-
-Edite seu `.vscode/settings.json`:
+Abra com `Ctrl + Shift + P` → **"Preferences: Open User Settings (JSON)"**:
 
 ```json
 {
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2,
-    "files.autoSave": "afterDelay"
-}
-```
-
-### 2. Dicas de Linha (Problemas em Tempo Real)
-
-Adicione ao seu `settings.json`:
-
-```json
-{
-    "editor.renderWhitespace": "all",
-    "problems.decorations.enabled": true,
-    "editor.rulers": [80]
+    "editor.tabSize": 4,
+    "editor.wordWrap": "on",
+    "files.autoSave": "afterDelay",
+    "editor.minimap.enabled": false,
+    "editor.bracketPairColorization.enabled": true,
+    "terminal.integrated.fontSize": 14
 }
 ```
 
 ---
 
-## Extensões que Você PRECISA Instalar 🚀
+## Dicas de Ouro 💎
 
-### 1. Prettier - Formatação Consistente
+### 1. Aprenda poucos atalhos, mas bem
 
-Deixe seu código sempre bonito com um toque de `Shift + Alt + F`:
+`Ctrl + P` (abrir arquivo), `Ctrl + Shift + P` (comandos) e `Ctrl + D` (selecionar próxima ocorrência) já te deixam muito mais rápido.
 
-> **Instalar:** Extensiones > Busque "Prettier" > Install
+### 2. Multi-cursor
 
-### 2. ESLint - Detecção de Erros
+`Alt + Click` adiciona cursores extras. Perfeito para editar várias linhas ao mesmo tempo.
 
-Encontre bugs antes mesmo de rodar o código:
+### 3. Use Profiles
 
-> **Instalar:** Extensiones > Busque "ESLint" > Install
-
-### 3. GitLens - Seu Time Machine no Código
-
-Veja quem fez cada mudança, quando foi, e o porquê:
-
-> **Instalar:** Extensiones > Busque "GitLens" > Install
-
-### 4. Live Server - Servidor Local Automático
-
-Abra seu site em uma página que se atualiza automaticamente:
-
-> **Instalar:** Extensiones > Busque "Live Server" > Install
+Crie perfis (ex.: "Python", "Web") com extensões e configurações diferentes para não deixar o editor pesado.
 
 ---
 
-## Como Personalizar o VSCode 💎
+## Comandos e Sintaxe Essenciais 📋
 
-### Tema Visual
+| Atalho (Windows/Linux) | Função |
+|-----------------|--------|
+| `Ctrl + P` | Abrir arquivo por nome |
+| `Ctrl + Shift + P` | Command Palette |
+| `` Ctrl + ` `` | Abrir/fechar terminal integrado |
+| `Ctrl + B` | Mostrar/esconder barra lateral |
+| `Ctrl + D` | Selecionar próxima ocorrência |
+| `Alt + ↑ / ↓` | Mover linha |
+| `Shift + Alt + ↓` | Duplicar linha |
+| `Ctrl + /` | Comentar/descomentar |
+| `F2` | Renomear símbolo em todo o projeto |
 
-1. Abra Extensões (`Ctrl + Shift + X`)
-2. Pesquise "Theme"
-3. Instale um que você goste! (Ex: One Dark, Dracula, Monokai)
+---
 
-Para mudar de tema rapidamente: `Ctrl + K Ctrl + T` → Selecione o tema
+## Exercício Prático 🎯
 
-### Ícones do Sistema de Arquivos
+**Objetivo:** Configurar um ambiente de edição confortável e usar os principais atalhos.
 
-1. Instale "Material Icon Theme"
-2. Abra Configurações > Extensions > File Icon Theme
-
-### Fontes de Código
-
-```json
-// Em settings.json
-{
-    "editor.fontFamily": "'Fira Code', 'Consolas', monospace",
-    "editor.fontSize": 14,
-    "editor.fontLigatures": true
-}
+```text
+1. Instale o VS Code e abra uma pasta de projeto vazia.
+2. Instale as extensões Prettier e GitLens.
+3. Ative "editor.formatOnSave" nas configurações.
+4. Crie um arquivo index.js, escreva código mal formatado e salve.
+5. Veja o Prettier arrumar tudo automaticamente.
+6. Abra o terminal integrado e rode: node index.js
 ```
 
 ---
 
-## Fluxo de Trabalho Típico no VSCode 📋
+## Próximos Passos ✅
 
-### Criando um Novo Projeto
-
-```bash
-# 1. Abra o terminal integrado (Ctrl + `)
-> mkdir meu-projeto
-> cd meu-projeto
-
-# 2. Inicie o servidor local
-> npm install
-> npm run dev
-```
-
-### Trabalhando com Arquivos Múltiplos
-
-1. Pressione `Ctrl + P` para buscar arquivos
-2. Digite o nome e navegue pelas sugestões
-3. Aperte `Enter` para abrir
-
-### Refatoração Segura
-
-O VSCode ajuda você a mudar código sem quebrar nada:
-
-- Para **renomear** uma variável ou função: `F2`
-- Ele renomeia em todos os arquivos!
+- [ ] Instalar o VS Code e a extensão do seu primeiro idioma de programação
+- [ ] Configurar `settings.json` com formatação ao salvar
+- [ ] Aprender a usar o debugger (`launch.json`)
+- [ ] Explorar o Remote - SSH para editar arquivos em servidores
 
 ---
 
-## Dicas Avançadas 🎯
+## Recursos Recomendados 📚
 
-### 1. Configurar Teclas Personalizadas
-
-No `keybindings.json`:
-
-```json
-[
-    {
-        "key": "ctrl+shift+h",
-        "command": "-editor.action.showHover",
-        "when": "editorTextFocus"
-    }
-]
-```
-
-### 2. Usar Snippets Próprios
-
-Crie em `%USERPROFILE%\\.vscode\\snippets\\javascript.json`:
-
-```json
-{
-    "asyncPadrao": {
-        "prefix": "aspad",
-        "body": [
-            "async function ${1:nome}() {",
-            "    try {",
-            "        const response = await fetch('${2:url}');",
-            "        if (!response.ok) throw new Error('Erro na requisição');",
-            "        return await response.json();",
-            "    } catch (error) {",
-            "        console.error(error);",
-            "    }",
-            "}"
-        ],
-        "description": "Função async/await básica"
-    }
-}
-```
-
-### 3. Trabalhar em Múltiplos Projetos Simultaneamente
-
-Abra várias pastas: `File > Open Folder` (ou `Ctrl + K Ctrl+ O`)
-
----
-
-## Integrações Comuns 🔄
-
-### Git + VSCode
-
-O GitLens adiciona informações do Git ao VSCode:
-- Histórico de commits visível na árvore de arquivos
-- Mensagens de commit sugeridas automaticamente
-- Resolução de conflitos gráfica
-
-### Docker + VSCode
-
-Containerize e rode seus aplicativos com ease. O Docker Extension permite:
-- Verificar containers no painel lateral
-- Executar `docker-compose` diretamente do terminal integrado
-- Inspecionar logs e métricas
+### 💻 Sites e Documentação:
+- [Documentação oficial](https://code.visualstudio.com/docs) - Guias completos de uso
+- [Atalhos de teclado (PDF oficial)](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf) - Cola de atalhos para Windows
+- [Marketplace de extensões](https://marketplace.visualstudio.com/vscode) - Catálogo de extensões
 
 ---
 
 ## Problemas Comuns e Soluções 🔧
 
-### Editor Lentos?
+### Problema: O comando `code .` não é reconhecido no terminal
 
-1. Desative extensões não usadas (`Ctrl + Shift + X`)
-2. Limpe o cache: `File > Clear Cache and Restart`
-3. Configure memória no VSCode (ajuste em `settings.json`):
+**Solução:**
+1. Reinstale o VS Code marcando "Add to PATH" (Windows) ou execute "Shell Command: Install 'code' command in PATH" (macOS).
+2. Feche e reabra o terminal.
 
-```json
-{
-    "window.zoomLevel": 0,
-    "editor.fontSize": 14,
-    "files.autoSave": "afterDelay",
-    "workbench.editor.enablePreview": true
-}
-```
+### Problema: O editor está lento
 
-### Extensões Não Instaladas?
-
-Algumas extensões exigem instalação via GitHub Marketplace:
-1. Abra a extensão no VSCode
-2. Clique em "..." → "Install from GitHub"
-
----
-
-## Próximos Passos 🚀
-
-- [ ] Configure seu `.vscode/settings.json` personalizado
-- [ ] Instale o Live Server para sua primeira página web
-- [ ] Explore o modo de terminal integrado
-- [ ] Aprenda a usar GitLens para entender histórico de projetos
-- [ ] Crie seus próprios snippets de código
-
----
-
-## Recursos Avançados para Dominar
-
-### 1. Multi-Cursor (Produtividade Pura)
-
-```javascript
-// Digite 'console.log('
-// Aperte Alt + Click para múltiplos cursos
-// Digite 'error' e todos atualizam!
-```
-
-### 2. Go to Definition (`F12`)
-
-Clique em qualquer função ou variável para ir diretamente para onde ela é declarada — o VSCode mostra a hierarquia inteira de dependências!
-
-### 3. Source Control Visual
-
-Veja exatamente o que mudou antes de fazer commit:
-- Clique no ícone do Git no canto esquerdo
-- Veja as diferenças linha por linha
-- Faça commits com mensagens sugeridas
-
----
-
-## Configurações Recomendadas para Iniciantes
-
-Crie um `settings.json` no `.vscode/` de seu projeto:
-
-```json
-{
-    "editor.tabSize": 2,           // Tabs de 2 espaços (padrão indústria)
-    "editor.insertSpaces": true,   // Usar tabs (ou false para espaços)
-    "editor.formatOnSave": true,   // Formatar automaticamente ao salvar
-    "files.autoSave": "afterDelay", // Auto-salvar com pequeno atraso
-    "editor.renderWhitespace": "selection", // Mostrar espaços em texto selecionado
-    "terminal.integrated.profiles.windows": {
-        "PowerShell": {
-            "path": ["powershell.exe", "-NoExit", "-Command", "Enable-PSRemoting -Force"]
-        }
-    }
-}
-```
+**Solução:**
+1. Desative extensões que não está usando (`Extensions > Disable`).
+2. Use `Help > Start Extension Bisect` para descobrir qual extensão causa o problema.
 
 ---
 
 ## Conclusão 🎉
 
-O VSCode não é apenas um editor — é um **companheiro** de programação. Ele:
+O VS Code é uma das ferramentas que você mais vai usar como programador, então vale investir tempo em conhecê-lo bem. Dominar atalhos, extensões e configurações multiplica sua produtividade em qualquer linguagem.
 
-✅ Aprende com você (quanto mais código, melhores sugestões)  
-✅ Se adapta a qualquer linguagem através de extensões  
-✅ Integra ferramentas que você precisa na mesma tela  
-✅ É gratuito e open-source  
-
-Comece simples, explore gradualmente, e em pouco tempo o VSCode se tornará seu parceiro mais fiel na jornada de programação!
+Comece simples, adicione recursos aos poucos e deixe o editor com a sua cara antes de partir para ferramentas mais avançadas.
 
 ---
 
-*A documentação do VSCode segue o padrão da pasta Ferramentas para manter consistência entre todas as ferramentas.* 🎯
+*Este material segue o padrão da pasta Ferramentas para manter consistência entre todos os tópicos do vault de estudos.* 🎯
