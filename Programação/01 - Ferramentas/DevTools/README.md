@@ -160,10 +160,10 @@ Evita que arquivos antigos em cache atrapalhem seus testes enquanto desenvolve.
 
 ## Próximos Passos ✅
 
-- [ ] Explorar cada aba das DevTools do seu navegador principal
-- [ ] Aprender a usar breakpoints na aba Sources
-- [ ] Rodar o Lighthouse em um projeto seu
-- [ ] Ler a documentação oficial do Chrome DevTools
+- [x] Explorar cada aba das DevTools do seu navegador principal
+- [x] Aprender a usar breakpoints na aba Sources
+- [x] Rodar o Lighthouse em um projeto seu
+- [x] Ler a documentação oficial do Chrome DevTools
 
 ---
 

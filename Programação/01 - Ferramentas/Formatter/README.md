@@ -32,7 +32,7 @@ Antes dos formatters, equipes gastavam tempo em discussões sobre estilo (tabs v
 ### Conceito 1: Formatter vs Linter
 
 - **Formatter**: cuida da **aparência** do código.
-- **[[Linter]]**: cuida da **qualidade e dos erros** potenciais.
+- **[[estudos/Programação/01 - Ferramentas/Linter/README|Linter]]**: cuida da **qualidade e dos erros** potenciais.
 
 Os dois se complementam.
 
@@ -181,10 +181,10 @@ Desative as regras de estilo do linter que duplicam o formatter (no ESLint, use 
 
 ## Próximos Passos ✅
 
-- [ ] Instalar o formatter da sua linguagem principal
-- [ ] Ativar formatação ao salvar no editor
-- [ ] Adicionar `format:check` na integração contínua
-- [ ] Combinar com um [[Linter]] no mesmo projeto
+- [x] Instalar o formatter da sua linguagem principal
+- [x] Ativar formatação ao salvar no editor
+- [x] Adicionar `format:check` na integração contínua
+- [x] Combinar com um [[Linter]] no mesmo projeto
 
 ---
 
