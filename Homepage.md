@@ -83,7 +83,7 @@ async function run() {
   dv.container.innerHTML =
     '<div class="estudos-page">'
     + '<div class="es-rail">'
-    + '<div class="es-brand"><span class="es-mark"></span><span class="es-name">estudos</span><span class="es-year">' + new Date().getFullYear() + "</span></div>"
+    + '<div class="es-brand"><span class="es-mark"></span><span class="es-name">estudos</span></div>'
     + '<label class="es-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>'
     + '<input type="text" placeholder="Buscar tópicos" spellcheck="false"></label>'
     + '<div class="es-global"></div>'
