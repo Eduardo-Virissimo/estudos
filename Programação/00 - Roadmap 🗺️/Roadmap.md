@@ -11,7 +11,7 @@
 - [x] [[VS Code]] — editor de código leve e extensível, um dos mais usados atualmente.
 - [x] [[Terminal]] — interface de linha de comando pra interagir diretamente com o sistema operacional.
 - [x] [[PowerShell]] — shell e linguagem de script do Windows, mais poderoso que o CMD tradicional.
-- [ ] [[Bash]] — shell padrão em sistemas Linux/macOS, usado pra automatizar tarefas via linha de comando.
+- [x] [[Bash]] — shell padrão em sistemas Linux/macOS, usado pra automatizar tarefas via linha de comando.
 - [x] [[SSH]] — protocolo para acessar e controlar remotamente outro computador de forma segura.
 - [x] [[Regex]] — linguagem para descrever padrões de texto, usada em buscas e validações complexas.
 - [x] [[Postman]] — ferramenta para testar e explorar APIs sem precisar escrever código.

@@ -2,84 +2,262 @@
 cssclasses:
   - estudos-home
 ---
+```dataviewjs
+const ROADMAP_NAME = "Roadmap";            // nome da nota do roadmap
+const STORE_KEY = "estudos-home-secao";    // lembra a última seção aberta
+const MAX_SEARCH = 90;
 
-<div class="estudos-page">
-<header class="estudos-header">
-<div class="estudos-brand"><span class="estudos-brand-mark">/</span><span>estudos</span></div>
-<div class="estudos-header-meta"><span>2026</span><span>central de estudos</span></div>
-</header>
+const norm = s => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const pct = (d, t) => t ? (d / t * 100).toFixed(1).replace(".", ",") : "0,0";
+function cleanHeading(t) {
+  return t.replace(/^(?:[0-9#*]\uFE0F?\u20E3\s*)+/u, "")
+    .replace(/\p{Extended_Pictographic}|\uFE0F|\u200D|\u20E3/gu, "").trim();
+}
+function cleanFolder(n) {
+  return n.replace(/\p{Extended_Pictographic}|\uFE0F|\u200D/gu, "").replace(/^\s*\d+\s*-\s*/, "").trim();
+}
 
-<main class="estudos-main">
-<aside class="estudos-sidebar">
-<div class="estudos-sidebar-heading"><span class="estudos-kicker">NAVEGAÇÃO</span><span class="estudos-sidebar-count">05 áreas</span></div>
-<nav class="estudos-index" aria-label="Áreas de estudo">
-<a class="is-featured" href="Programação/00 - Roadmap 🗺️/Roadmap.md"><i class="nav-icon nav-icon-roadmap"></i><em>00 - Roadmap</em></a>
-<a href="Programação/01 - Ferramentas/Bash/README.md"><i class="nav-icon nav-icon-tools"></i><em>01 - Ferramentas</em></a>
-<a href="Programação/25 - DevOps 🤖/Docker/README.md"><i class="nav-icon nav-icon-devops"></i><em>25 - DevOps</em></a>
-<a href="Programação/APIs/README.md"><i class="nav-icon nav-icon-api"></i><em>APIs</em></a>
-<a href="Programação/Ideias de Projetos/Plataforma SaaS para Criação de RPGs Personalizados.md"><i class="nav-icon nav-icon-projects"></i><em>Ideias de Projetos</em></a>
-</nav>
+const ICON_CHECK = '<svg class="es-ico-check" viewBox="0 0 24 24"><polyline points="5 12 10 17 19 7"/></svg>';
+const ICON_FILE = '<svg class="es-card-ico" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><polyline points="14 3 14 8 19 8"/></svg>';
+const ICON_NEW = '<svg class="es-card-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>';
 
-<section class="estudos-week card-panel">
-<div class="card-panel-heading"><span class="estudos-kicker">SEMANA</span><strong>sequência: 3 dias</strong></div>
-<div class="week-days">
-<div><span>seg</span><i class="is-done"></i></div><div><span>ter</span><i class="is-done"></i></div><div><span>qua</span><i class="is-done is-today"></i></div><div><span>qui</span><i></i></div><div><span>sex</span><i></i></div><div><span>sáb</span><i></i></div><div><span>dom</span><i></i></div>
-</div>
-<p>Mais um pouco hoje mantém o ritmo.</p>
-</section>
+const files = app.vault.getMarkdownFiles();
+const roadmap = files.find(f => f.basename === ROADMAP_NAME && /roadmap/i.test((f.parent && f.parent.name) || ""))
+  || files.find(f => f.basename === ROADMAP_NAME);
 
-<section class="estudos-recent card-panel">
-<div class="card-panel-heading"><span class="estudos-kicker">RECENTES</span><a href="Programação/01 - Ferramentas/Regex/README.md">ver todas</a></div>
-<a href="Programação/01 - Ferramentas/Regex/README.md"><strong>Regex</strong><span>hoje</span></a>
-<a href="Programação/25 - DevOps 🤖/Docker/README.md"><strong>Docker</strong><span>ontem</span></a>
-<a href="Programação/01 - Ferramentas/SSH/README.md"><strong>SSH</strong><span>esta semana</span></a>
-</section>
-</aside>
+const readmeByFolder = new Map();
+files.forEach(f => {
+  if (f.basename.toLowerCase() === "readme" && f.parent) readmeByFolder.set(norm(cleanFolder(f.parent.name)), f);
+});
 
-<section class="estudos-content">
-<section class="estudos-focus-card">
-<div class="estudos-card-heading"><span class="estudos-kicker">FOCO DE HOJE</span></div>
-<div class="estudos-focus-body">
-<div><h1>Bash: variáveis e condicionais</h1><p>próximo tópico do roadmap · 25 min · uma sessão curta para avançar sem pressa</p></div>
-<div class="estudos-focus-actions"><a class="estudos-primary-link" href="Programação/00 - Roadmap 🗺️/Roadmap.md">começar</a><a href="Programação/00 - Roadmap 🗺️/Roadmap.md">abrir roadmap</a></div>
-</div>
-</section>
+function parse(text) {
+  const lines = text.split(/\r?\n/);
+  const sections = [];
+  let cur = null;
+  lines.forEach((line, idx) => {
+    let m = line.match(/^(#{1,2})\s+(.*)$/);
+    if (m) {
+      cur = { name: cleanHeading(m[2]), level: m[1].length, desc: "", items: [] };
+      sections.push(cur);
+      return;
+    }
+    if (!cur) return;
+    m = line.match(/^>\s?(.*)$/);
+    if (m) {
+      if (!cur.desc && cur.items.length === 0) cur.desc = m[1].trim();
+      return;
+    }
+    m = line.match(/^\s*-\s\[([ xX])\]\s+(.*)$/);
+    if (!m) return;
+    const rest = m[2];
+    const lm = rest.match(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/);
+    if (!lm) return;
+    const target = lm[1].trim();
+    let label = lm[2] ? lm[2].trim() : target.split("/").pop();
+    if (label.toLowerCase() === "readme") {
+      const parts = target.split("/");
+      label = parts[parts.length - 2] || label;
+    }
+    const after = rest.slice(rest.indexOf(lm[0]) + lm[0].length);
+    const dash = after.indexOf("—");
+    const desc = (dash >= 0 ? after.slice(dash + 1) : after).trim();
+    const dest = app.metadataCache.getFirstLinkpathDest(target, roadmap.path);
+    const readme = readmeByFolder.get(norm(label));
+    cur.items.push({
+      label: label, target: target, desc: desc, done: m[1].toLowerCase() === "x",
+      line: idx, raw: line, path: dest ? dest.path : (readme ? readme.path : null)
+    });
+  });
+  return sections.filter(s => s.items.length > 0);
+}
 
-<section class="estudos-progress-section">
-<div class="estudos-section-heading"><div><span class="estudos-kicker">PROGRESSO</span><h2>Trilhas de aprendizado</h2></div><div class="estudos-total"><strong>2,9%</strong><span>concluído</span></div></div>
-<div class="estudos-tracks">
-<a class="track-cyan" href="Programação/00 - Roadmap 🗺️/Roadmap.md"><span><b>Roadmap</b></span><i><u></u></i><strong>11/374</strong></a>
-<a class="track-violet" href="Programação/01 - Ferramentas/Bash/README.md"><span><b>Ferramentas</b><i class="track-dot"></i></span><em>última: SSH · hoje</em><strong>12 notas</strong></a>
-<a class="track-amber" href="Programação/25 - DevOps 🤖/Docker/README.md"><span><b>DevOps</b><i class="track-dot"></i></span><em>última: Docker · ontem</em><strong>1 nota</strong></a>
-<a class="track-blue" href="Programação/APIs/README.md"><span><b>APIs</b><i class="track-dot"></i></span><em>última: README · esta semana</em><strong>1 nota</strong></a>
-</div>
-</section>
+async function run() {
+  const text = await app.vault.cachedRead(roadmap);
+  const sections = parse(text);
+  const state = { sel: 0, q: "" };
+  const saved = app.loadLocalStorage(STORE_KEY);
+  const si = sections.findIndex(s => s.name === saved);
+  if (si >= 0) state.sel = si;
 
-<div class="estudos-metrics">
-<div><strong>3</strong><span>tópicos hoje</span></div><div><strong>4h</strong><span>na semana</span></div><div><strong>6</strong><span>notas novas</span></div><div><strong>8</strong><span>para revisar</span></div>
-</div>
+  dv.container.innerHTML =
+    '<div class="estudos-page">'
+    + '<div class="es-rail">'
+    + '<div class="es-brand"><span class="es-mark"></span><span class="es-name">estudos</span><span class="es-year">' + new Date().getFullYear() + "</span></div>"
+    + '<label class="es-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>'
+    + '<input type="text" placeholder="Buscar tópicos" spellcheck="false"></label>'
+    + '<div class="es-global"></div>'
+    + '<div class="es-list"></div>'
+    + "</div>"
+    + '<div class="es-main"></div>'
+    + "</div>";
 
-<div class="estudos-bottom-grid">
-<section class="estudos-review card-panel">
-<div class="card-panel-heading"><span class="estudos-kicker">PARA REVISAR</span><strong>5 de 8 notas</strong></div>
-<a href="Programação/01 - Ferramentas/Regex/README.md"><strong>Regex</strong><span>há 8 dias</span></a>
-<a href="Programação/01 - Ferramentas/SSH/README.md"><strong>SSH</strong><span>há 12 dias</span></a>
-<a href="Programação/01 - Ferramentas/Formatter/README.md"><strong>Formatter</strong><span>há 15 dias</span></a>
-<a href="Programação/01 - Ferramentas/Postman/README.md"><strong>Postman</strong><span>há 18 dias</span></a>
-<a href="Programação/01 - Ferramentas/PowerShell/README.md"><strong>PowerShell</strong><span>há 21 dias</span></a>
-</section>
+  const root = dv.container;
+  const elGlobal = root.querySelector(".es-global");
+  const elList = root.querySelector(".es-list");
+  const elMain = root.querySelector(".es-main");
+  const input = root.querySelector(".es-search input");
 
-<section class="estudos-projects card-panel">
-<div class="card-panel-heading"><span class="estudos-kicker">IDEIAS DE PROJETOS</span><strong>4 ideias</strong></div>
-<a href="Programação/Ideias de Projetos/Desenvolvimento de Aplicativo para Gerenciamento de Conteúdo em Televisões.md"><strong>Gerenciamento de conteúdo em televisões</strong></a>
-<a href="Programação/Ideias de Projetos/Desenvolvimento de Aplicativo para Leitura e Aprendizado Interativo.md"><strong>Leitura e aprendizado interativo</strong></a>
-<a href="Programação/Ideias de Projetos/Plataforma de Análise de Vulnerabilidades de Segurança para Websites.md"><strong>Análise de vulnerabilidades para websites</strong></a>
-<a href="Programação/Ideias de Projetos/Plataforma SaaS para Criação de RPGs Personalizados.md"><strong>Plataforma SaaS para criação de RPGs</strong></a>
-</section>
-</div>
+  const count = s => s.items.filter(i => i.done).length;
 
-<a class="estudos-capture" href="Programação/Template/Template.md"><span>+</span><strong>criar nota rápida</strong><em>anote uma dúvida, ideia ou próximo experimento…</em><b>abrir</b></a>
+  function renderGlobal() {
+    let t = 0, d = 0;
+    sections.forEach(s => { t += s.items.length; d += count(s); });
+    elGlobal.innerHTML = '<span class="es-g-label">Progresso geral</span>'
+      + '<div class="es-g-row"><strong>' + pct(d, t) + '%</strong><span>' + d + " de " + t + " tópicos</span></div>"
+      + '<span class="es-g-bar"><b style="width:' + (t ? d / t * 100 : 0) + '%"></b></span>';
+  }
 
-</section>
-</main>
-</div>
+  function renderList() {
+    const keep = elList.scrollTop;
+    let html = "";
+    let labeled = false;
+    sections.forEach((s, i) => {
+      if (s.level === 2 && !labeled) {
+        labeled = true;
+        html += '<div class="es-group">Transversais</div>';
+      }
+      const d = count(s), t = s.items.length, complete = d === t;
+      const cls = "es-item" + (i === state.sel && !state.q ? " is-active" : "") + (complete ? " is-complete" : "");
+      html += '<button class="' + cls + '" data-s="' + i + '"><span class="es-item-name">' + esc(s.name) + "</span>"
+        + (complete ? ICON_CHECK : '<span class="es-item-meta">' + d + "/" + t + "</span>") + "</button>";
+    });
+    elList.innerHTML = html;
+    elList.scrollTop = keep;
+  }
+
+  function card(it, s, i, showSection) {
+    const cls = "es-card" + (it.done ? " is-done" : "") + (it.path ? "" : " is-missing");
+    const tip = it.path ? "Abrir nota" : "Ainda sem nota. Clique para criar.";
+    return '<div class="' + cls + '" tabindex="0" role="link" data-s="' + s + '" data-i="' + i + '" title="' + tip + '">'
+      + '<button class="es-tick" data-s="' + s + '" data-i="' + i + '" aria-label="Marcar como estudado" title="Marcar como estudado"><svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 7"/></svg></button>'
+      + '<div class="es-card-body">'
+      + (showSection ? '<div class="es-card-sec">' + esc(sections[s].name) + "</div>" : "")
+      + '<div class="es-card-title"><span>' + esc(it.label) + "</span>" + (it.path ? ICON_FILE : ICON_NEW) + "</div>"
+      + (it.desc ? '<div class="es-card-desc">' + esc(it.desc) + "</div>" : "")
+      + "</div></div>";
+  }
+
+  function ring(d, t) {
+    const c = 2 * Math.PI * 30;
+    const off = c * (1 - (t ? d / t : 0));
+    return '<div class="es-ring"><svg viewBox="0 0 72 72"><circle class="es-ring-bg" cx="36" cy="36" r="30"/>'
+      + '<circle class="es-ring-fg" cx="36" cy="36" r="30" stroke-dasharray="' + c.toFixed(2) + '" stroke-dashoffset="' + off.toFixed(2) + '"/></svg>'
+      + '<span class="es-ring-text">' + Math.round(t ? d / t * 100 : 0) + "%</span></div>";
+  }
+
+  function renderMain(keepScroll) {
+    const old = elMain.querySelector(".es-cards");
+    const top = keepScroll && old ? old.scrollTop : 0;
+    let head = "", body = "";
+    if (state.q) {
+      const q = norm(state.q);
+      const found = [];
+      sections.forEach((s, a) => s.items.forEach((it, b) => {
+        if (norm(it.label).includes(q) || norm(it.desc).includes(q)) found.push([it, a, b]);
+      }));
+      head = '<div class="es-head"><div class="es-head-text"><div class="es-eyebrow">Busca</div><div class="es-title">Resultados</div>'
+        + '<div class="es-sub">' + found.length + " tópico(s) para “" + esc(state.q) + "”</div></div></div>";
+      body = found.slice(0, MAX_SEARCH).map(f => card(f[0], f[1], f[2], true)).join("")
+        || '<div class="es-empty">Nenhum tópico encontrado.</div>';
+    } else {
+      const s = sections[state.sel];
+      const d = count(s), t = s.items.length;
+      head = '<div class="es-head"><div class="es-head-text"><div class="es-eyebrow">' + (s.level === 2 ? "Transversal" : "Roadmap") + "</div>"
+        + '<div class="es-title">' + esc(s.name) + "</div>" + (s.desc ? '<div class="es-sub">' + esc(s.desc) + "</div>" : "") + "</div>"
+        + '<div class="es-prog"><div class="es-prog-text"><strong>' + d + " de " + t + "</strong><span>estudados</span></div>" + ring(d, t) + "</div></div>";
+      body = s.items.map((it, ii) => card(it, state.sel, ii, false)).join("");
+    }
+    elMain.innerHTML = head + '<div class="es-cards">' + body + "</div>";
+    const nu = elMain.querySelector(".es-cards");
+    if (nu) nu.scrollTop = top;
+  }
+
+  async function toggle(it) {
+    let changed = false;
+    await app.vault.process(roadmap, data => {
+      const lines = data.split("\n");
+      const cur = lines[it.line];
+      if (cur === undefined || cur.replace(/\r$/, "") !== it.raw) return data;
+      lines[it.line] = it.done ? cur.replace(/\[[xX]\]/, "[ ]") : cur.replace(/\[ \]/, "[x]");
+      changed = true;
+      return lines.join("\n");
+    });
+    if (changed) {
+      it.done = !it.done;
+      it.raw = it.done ? it.raw.replace(/\[ \]/, "[x]") : it.raw.replace(/\[[xX]\]/, "[ ]");
+    }
+  }
+
+  function openCard(c, newTab) {
+    const it = sections[c.dataset.s].items[c.dataset.i];
+    app.workspace.openLinkText(it.path || it.target, roadmap.path, newTab);
+  }
+
+  root.addEventListener("click", async e => {
+    const item = e.target.closest(".es-item");
+    if (item) {
+      state.sel = Number(item.dataset.s);
+      state.q = "";
+      input.value = "";
+      app.saveLocalStorage(STORE_KEY, sections[state.sel].name);
+      renderList();
+      renderMain(false);
+      return;
+    }
+    const tick = e.target.closest(".es-tick");
+    if (tick) {
+      e.stopPropagation();
+      await toggle(sections[tick.dataset.s].items[tick.dataset.i]);
+      renderGlobal();
+      renderList();
+      renderMain(true);
+      return;
+    }
+    const c = e.target.closest(".es-card");
+    if (c) openCard(c, e.ctrlKey || e.metaKey);
+  });
+
+  root.addEventListener("keydown", e => {
+    if (e.key !== "Enter") return;
+    const c = e.target.closest(".es-card");
+    if (c && e.target === c) openCard(c, false);
+  });
+
+  input.addEventListener("input", () => {
+    state.q = input.value.trim();
+    renderList();
+    renderMain(false);
+  });
+
+  // Ajusta a altura da página à área real da nota (assim só o menu lateral rola)
+  const page = root.querySelector(".estudos-page");
+  const host = root.closest(".view-content");
+  let ro = null;
+  function fit() {
+    if (!host || !page) return;
+    if (!root.isConnected) { if (ro) ro.disconnect(); return; }
+    const pr = page.getBoundingClientRect();
+    const hr = host.getBoundingClientRect();
+    page.style.height = Math.max(320, host.clientHeight - (pr.top - hr.top)) + "px";
+    page.style.width = Math.max(480, host.clientWidth - (pr.left - hr.left)) + "px";
+  }
+  if (host && window.ResizeObserver) {
+    ro = new ResizeObserver(fit);
+    ro.observe(host);
+  }
+  fit();
+
+  renderGlobal();
+  renderList();
+  renderMain(false);
+  const active = elList.querySelector(".is-active");
+  if (active) elList.scrollTop = Math.max(0, active.offsetTop - elList.clientHeight / 2);
+}
+
+if (!roadmap) {
+  dv.paragraph('Não encontrei a nota "' + ROADMAP_NAME + '". Ajuste ROADMAP_NAME no começo do script.');
+} else {
+  await run();
+}
+```

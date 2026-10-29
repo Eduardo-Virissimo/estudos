@@ -1,5 +1,35 @@
-Criar um aplicativo que permita gerenciar e controlar remotamente o conteúdo exibido em televisões por meio de um dispositivo móvel. O sistema será composto por dois aplicativos: um para **celulares**, responsável pela administração e gerenciamento dos conteúdos, e outro exclusivo para as **televisões**, responsável por receber e exibir as informações enviadas.
+# Plataforma de Gerenciamento de Conteúdo para Televisões
 
-A plataforma permitirá criar e organizar **dashboards**, campanhas publicitárias, comunicados, vídeos, imagens e outros conteúdos, possibilitando definir quais televisões receberão cada material e quando ele será exibido. Também será possível programar horários de exibição, criar playlists de conteúdo e atualizar as telas em tempo real.
+Criar uma plataforma para controlar remotamente o conteúdo exibido em televisões, painéis e monitores. O administrador gerencia tudo por um painel web, enquanto um aplicativo instalado na televisão baixa e exibe os materiais.
 
-O objetivo é facilitar o gerenciamento de painéis digitais, tornando a distribuição de informações e anúncios mais prática, centralizada e eficiente para empresas, estabelecimentos comerciais, instituições de ensino, hospitais e demais ambientes que utilizam televisões como meio de comunicação.
+## Funcionalidades
+
+- Cadastro e pareamento de televisões;
+- Upload de imagens, vídeos, textos e PDFs;
+- Criação de playlists;
+- Agendamento por data e horário;
+- Organização por grupos de telas;
+- Atualização automática;
+- Funcionamento offline com os últimos conteúdos baixados;
+- Status online ou offline de cada televisão;
+- Permissões para administradores e editores.
+
+## Público-Alvo
+
+Lojas, restaurantes, escolas, hospitais, academias, empresas e agências de publicidade.
+
+## Diferencial
+
+Centralizar várias telas em um único lugar, permitindo atualizar campanhas e comunicados sem acessar cada televisão individualmente.
+
+## Possíveis Tecnologias
+
+React ou Next.js, Node.js, PostgreSQL, armazenamento S3 e um aplicativo para Android TV ou modo kiosk.
+
+## Próximos Passos
+
+- [ ] Criar protótipo do painel;
+- [ ] Implementar pareamento de telas;
+- [ ] Criar playlists e agendamento;
+- [ ] Desenvolver o reprodutor com cache offline;
+- [ ] Testar em diferentes televisões.

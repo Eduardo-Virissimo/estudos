@@ -1,3 +1,36 @@
-Desenvolver uma plataforma online onde os usuários possam enviar o link de seus websites para realizar uma análise de segurança automatizada. A ferramenta irá verificar o site em busca de vulnerabilidades comuns, como falhas de SQL Injection, Cross-Site Scripting (XSS), vulnerabilidades de configuração e outros riscos de segurança.
+# Plataforma de Análise de Segurança para Websites
 
-O objetivo é ajudar desenvolvedores e administradores de sites a identificar possíveis brechas e corrigi-las antes que possam ser exploradas por atacantes. A plataforma pode fornecer relatórios detalhados com recomendações de como corrigir as vulnerabilidades encontradas, promovendo uma navegação mais segura na web.
+Criar uma plataforma para analisar websites autorizados e identificar problemas básicos de segurança. O sistema apresentará os riscos encontrados, suas evidências e recomendações de correção.
+
+## Funcionalidades
+
+- Cadastro de domínios autorizados;
+- Análise de HTTPS e certificado;
+- Verificação de cabeçalhos de segurança;
+- Identificação de cookies inseguros;
+- Detecção de arquivos expostos;
+- Verificação de dependências vulneráveis;
+- Relatório com severidade e impacto;
+- Histórico e comparação de análises;
+- Exportação do relatório;
+- Notificações sobre novos problemas.
+
+## Público-Alvo
+
+Desenvolvedores, pequenas empresas, agências e administradores de websites.
+
+## Diferencial
+
+Traduzir problemas técnicos em explicações simples e indicar quais correções devem ser priorizadas.
+
+## Cuidados
+
+A ferramenta deve analisar somente sistemas autorizados, limitar requisições, proteger os dados coletados e evitar acesso a redes internas ou informações sensíveis.
+
+## Próximos Passos
+
+- [ ] Criar verificação de HTTPS e cabeçalhos;
+- [ ] Desenvolver o modelo de relatório;
+- [ ] Adicionar histórico de análises;
+- [ ] Implementar validação de domínio;
+- [ ] Avaliar integrações com GitHub e ferramentas de tarefas.

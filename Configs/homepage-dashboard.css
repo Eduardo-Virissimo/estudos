@@ -991,3 +991,532 @@ body:has(.workspace-leaf.mod-active .estudos-home)
     grid-template-columns: 1fr;
   }
 }
+
+.estudos-home .estudos-content {
+  align-content: stretch;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  height: 100%;
+  min-height: 0;
+  gap: 0.75rem;
+}
+
+.estudos-home .estudos-progress-section {
+  padding: 0.85rem 1rem;
+}
+
+.estudos-home .estudos-progress-section .estudos-section-heading h2 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.estudos-home .estudos-tracks {
+  grid-template-columns: 1fr;
+  gap: 0.35rem;
+  margin-top: 0.7rem;
+}
+
+.estudos-home .estudos-tracks a {
+  grid-template-columns: 8rem minmax(0, 1fr) 6.5rem;
+  gap: 0.65rem;
+  min-height: 1.7rem;
+}
+
+.estudos-home .estudos-tracks span {
+  display: block;
+}
+
+.estudos-home .estudos-tracks i {
+  height: 8px;
+}
+
+.estudos-home .estudos-tracks .track-violet u {
+  width: 34%;
+  background: var(--violet);
+}
+
+.estudos-home .estudos-tracks .track-amber u {
+  width: 18%;
+  background: var(--amber);
+}
+
+.estudos-home .estudos-tracks .track-blue u {
+  width: 18%;
+  background: #7aa7ff;
+}
+
+.estudos-home .estudos-bottom-grid {
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 0;
+}
+
+.estudos-home .estudos-bottom-grid .estudos-projects {
+  min-height: 0;
+}
+
+.estudos-home .estudos-review,
+.estudos-home .estudos-metrics {
+  display: none;
+}
+
+.estudos-home .estudos-progress-section {
+  padding: 1rem;
+}
+
+.estudos-home .estudos-progress-section .estudos-section-heading {
+  margin-bottom: 0.8rem;
+}
+
+.estudos-home .progress-caption {
+  color: var(--muted);
+  font-family: var(--font-monospace);
+  font-size: 11px;
+}
+
+.estudos-home .estudos-tracks {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0;
+}
+
+.estudos-home .estudos-tracks .track-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  gap: 0.55rem 0.75rem;
+  min-width: 0;
+  min-height: 7rem;
+  padding: 0.85rem;
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+}
+
+.estudos-home .estudos-tracks .track-card:hover {
+  border-color: currentColor;
+  background: var(--surface);
+}
+
+.estudos-home .estudos-tracks .track-card > span {
+  display: flex;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.estudos-home .estudos-tracks .track-card b {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.estudos-home .estudos-tracks .track-card strong {
+  color: currentColor;
+  font-size: 16px;
+  text-align: left;
+}
+
+.estudos-home .estudos-tracks .track-card i {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  width: 100%;
+  height: 8px;
+  background: var(--line);
+}
+
+.estudos-home .estudos-tracks .track-card u {
+  min-width: 4px;
+}
+
+.estudos-home .estudos-tracks .track-card em {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  color: var(--muted);
+  font-family: var(--font-monospace);
+  font-size: 11px;
+  font-style: normal;
+}
+
+.estudos-home .estudos-tracks .track-cyan {
+  color: var(--cyan);
+}
+
+.estudos-home .estudos-tracks .track-cyan u {
+  width: 2.9%;
+  background: var(--cyan);
+}
+
+.estudos-home .estudos-tracks .track-violet {
+  color: var(--violet);
+}
+
+.estudos-home .estudos-tracks .track-violet u {
+  width: 34%;
+  background: var(--violet);
+}
+
+.estudos-home .estudos-tracks .track-amber {
+  color: var(--amber);
+}
+
+.estudos-home .estudos-tracks .track-amber u {
+  width: 18%;
+  background: var(--amber);
+}
+
+.estudos-home .estudos-tracks .track-blue {
+  color: #7aa7ff;
+}
+
+.estudos-home .estudos-tracks .track-blue u {
+  width: 18%;
+  background: #7aa7ff;
+}
+
+@media (max-width: 1100px) {
+  .estudos-home .estudos-tracks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .estudos-home .estudos-tracks {
+    grid-template-columns: 1fr;
+  }
+}
+
+.estudos-home .estudos-progress-section {
+  padding: 1rem;
+}
+
+.estudos-home .estudos-progress-section * {
+  margin: 0;
+}
+
+.estudos-home .estudos-progress-section .estudos-section-heading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 28px;
+  margin: 0 0 0.6rem;
+}
+
+.estudos-home .estudos-progress-section .progress-total {
+  color: var(--cyan);
+  font-family: var(--font-monospace);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.estudos-home .estudos-progress-section .estudos-tracks {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 0;
+}
+
+.estudos-home .estudos-progress-section .track-row {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr) 100px;
+  align-items: center;
+  gap: 12px;
+  height: 40px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  color: var(--text);
+  white-space: nowrap;
+  border-left: 3px solid currentColor;
+  background: var(--surface-soft);
+}
+
+.estudos-home .estudos-progress-section .track-row > * {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.estudos-home .estudos-progress-section .track-name {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 14px;
+  text-overflow: ellipsis;
+}
+
+.estudos-home .estudos-progress-section .track-symbol {
+  position: relative;
+  display: block;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid currentColor;
+  color: currentColor;
+}
+
+.estudos-home .estudos-progress-section .symbol-roadmap {
+  border-radius: 4px;
+}
+
+.estudos-home .estudos-progress-section .symbol-roadmap::after {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  left: 3px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  box-shadow: 0 -4px currentColor, 0 -8px currentColor;
+}
+
+.estudos-home .estudos-progress-section .symbol-tools {
+  border-width: 0 0 2px 2px;
+  border-radius: 3px;
+  transform: rotate(-45deg) scale(0.75);
+}
+
+.estudos-home .estudos-progress-section .symbol-tools::after {
+  position: absolute;
+  top: 3px;
+  right: -3px;
+  width: 7px;
+  height: 7px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  content: "";
+}
+
+.estudos-home .estudos-progress-section .symbol-devops {
+  border-radius: 50%;
+}
+
+.estudos-home .estudos-progress-section .symbol-devops::after {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  content: "";
+}
+
+.estudos-home .estudos-progress-section .symbol-api {
+  border-radius: 3px;
+}
+
+.estudos-home .estudos-progress-section .symbol-api::after {
+  position: absolute;
+  top: 7px;
+  right: 3px;
+  left: 3px;
+  height: 3px;
+  border-top: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  content: "";
+}
+
+.estudos-home .estudos-progress-section .track-bar {
+  width: 100%;
+  height: 10px;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 999px;
+  background: var(--line);
+}
+
+.estudos-home .estudos-progress-section .track-row:hover {
+  background: rgb(255 255 255 / 7%);
+}
+
+.estudos-home .estudos-progress-section .track-bar span {
+  display: block;
+  width: 2.9%;
+  min-width: 4px;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--cyan);
+}
+
+.estudos-home .estudos-progress-section .track-violet .track-bar span {
+  width: 34%;
+  background: var(--violet);
+}
+
+.estudos-home .estudos-progress-section .track-amber .track-bar span {
+  width: 18%;
+  background: var(--amber);
+}
+
+.estudos-home .estudos-progress-section .track-blue .track-bar span {
+  width: 18%;
+  background: #7aa7ff;
+}
+
+.estudos-home .estudos-progress-section .track-value {
+  overflow: hidden;
+  color: var(--muted);
+  font-family: var(--font-monospace);
+  font-size: 12px;
+  text-align: right;
+  text-overflow: ellipsis;
+}
+
+.estudos-home .estudos-bottom-grid,
+.estudos-home .estudos-bottom-grid .estudos-projects {
+  width: 100%;
+}
+
+.estudos-home .progress-v2 {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+}
+
+.estudos-home .progress-v2 * {
+  min-width: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.estudos-home .progress-v2-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.estudos-home .progress-v2-header strong {
+  color: var(--muted);
+  font-family: var(--font-monospace);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.estudos-home .progress-v2-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.estudos-home .progress-v2-card {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 0.35rem 0.65rem;
+  min-width: 0;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid var(--line);
+  border-left: 3px solid currentColor;
+  border-radius: 3px;
+  color: var(--text);
+  background: var(--surface-soft);
+  white-space: nowrap;
+}
+
+.estudos-home .progress-v2-card:hover {
+  border-color: currentColor;
+  background: var(--surface);
+}
+
+.estudos-home .progress-v2-icon {
+  display: grid;
+  grid-column: 1;
+  grid-row: 1;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-family: var(--font-monospace);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.estudos-home .progress-v2-info {
+  display: grid;
+  grid-column: 2;
+  grid-row: 1;
+  gap: 0.15rem;
+  overflow: hidden;
+}
+
+.estudos-home .progress-v2-info b {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 14px;
+  text-overflow: ellipsis;
+}
+
+.estudos-home .progress-v2-info small {
+  overflow: hidden;
+  color: var(--muted);
+  font-family: var(--font-monospace);
+  font-size: 10px;
+  text-overflow: ellipsis;
+}
+
+.estudos-home .progress-v2-card > strong {
+  grid-column: 3;
+  grid-row: 1;
+  color: currentColor;
+  font-family: var(--font-monospace);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.estudos-home .progress-v2-meter {
+  display: block;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--line);
+}
+
+.estudos-home .progress-v2-meter i {
+  display: block;
+  width: 2.9%;
+  height: 100%;
+  border-radius: inherit;
+  background: currentColor;
+}
+
+.estudos-home .progress-v2-tools .progress-v2-meter i {
+  width: 55%;
+}
+
+.estudos-home .progress-v2-devops .progress-v2-meter i,
+.estudos-home .progress-v2-api .progress-v2-meter i {
+  width: 20%;
+}
+
+.estudos-home .progress-v2-roadmap {
+  color: var(--cyan);
+}
+
+.estudos-home .progress-v2-tools {
+  color: var(--violet);
+}
+
+.estudos-home .progress-v2-devops {
+  color: var(--amber);
+}
+
+.estudos-home .progress-v2-api {
+  color: #7aa7ff;
+}
+
+@media (max-width: 700px) {
+  .estudos-home .progress-v2-grid {
+    grid-template-columns: 1fr;
+  }
+}

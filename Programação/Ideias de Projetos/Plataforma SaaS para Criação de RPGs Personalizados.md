@@ -1,3 +1,36 @@
-Desenvolver uma plataforma SaaS (Software as a Service) que permita a criação de jogos de RPG personalizados, sem necessidade de conhecimentos avançados de programação. A plataforma fornecerá ferramentas intuitivas para que os usuários possam criar mundos, personagens, histórias e mecânicas de jogo, utilizando templates e recursos pré-configurados.
+# Plataforma SaaS para Criação de RPGs Personalizados
 
-O objetivo é tornar a criação de RPGs acessível para todos, desde iniciantes até desenvolvedores mais experientes, oferecendo flexibilidade para personalizar todos os aspectos do jogo, desde a narrativa até os sistemas de combate e progressão.
+Desenvolver uma plataforma que permita criar campanhas e jogos de RPG sem exigir conhecimentos avançados de programação. O usuário poderá montar mundos, personagens, histórias, missões e regras usando ferramentas visuais.
+
+## Funcionalidades
+
+- Editor de mundos e mapas;
+- Criação de personagens e NPCs;
+- Classes, atributos e inventários;
+- Cenas, diálogos e escolhas;
+- Missões e finais alternativos;
+- Regras de dados e combate;
+- Templates prontos;
+- Colaboração entre criadores;
+- Publicação e compartilhamento por link;
+- Histórico de versões.
+
+## Público-Alvo
+
+Mestres de RPG, escritores, comunidades, professores e desenvolvedores iniciantes.
+
+## Diferencial
+
+Oferecer uma experiência no-code simples para iniciantes, mas com regras personalizáveis para criadores mais experientes.
+
+## Possíveis Tecnologias
+
+React ou Next.js, Node.js, PostgreSQL, WebSocket e armazenamento em nuvem.
+
+## Próximos Passos
+
+- [ ] Escolher entre RPG narrativo ou RPG de mesa online;
+- [ ] Criar editor de cenas e diálogos;
+- [ ] Implementar personagens e inventário;
+- [ ] Adicionar escolhas e finais;
+- [ ] Criar modo de jogo para campanhas publicadas.

@@ -1,3 +1,35 @@
-Criar um aplicativo que permita ao usuário enviar o PDF de um livro. O aplicativo utilizará inteligência artificial para ler e processar o conteúdo do PDF, extraindo trechos-chave e gerando perguntas relacionadas ao conteúdo do livro. O objetivo é incentivar a leitura e o aprendizado, transformando a experiência em algo mais interativo.
+# Aplicativo de Leitura e Aprendizado Interativo
 
-O sistema contará com uma mecânica de **rank** e **XP**, onde os usuários ganham pontos e sobem de nível conforme interagem com o conteúdo, respondem perguntas e avançam na leitura. Essa gamificação visa tornar o hábito de ler mais envolvente e motivador.
+Criar um aplicativo que transforme livros e PDFs em experiências de estudo. A inteligência artificial organiza os capítulos, resume conceitos, gera perguntas e ajuda o usuário a revisar o conteúdo.
+
+## Funcionalidades
+
+- Importação de PDFs autorizados;
+- Leitor com marcações e anotações;
+- Resumos por capítulo;
+- Perguntas de compreensão;
+- Flashcards;
+- Revisão baseada nos erros e acertos;
+- Acompanhamento do progresso;
+- XP, níveis e metas de leitura;
+- Histórico de conteúdos estudados.
+
+## Público-Alvo
+
+Estudantes, leitores, profissionais e pessoas que querem aprender com livros de forma mais ativa.
+
+## Diferencial
+
+Não apenas resumir o livro, mas estimular a compreensão e a memorização por meio de perguntas, revisões e aplicações práticas.
+
+## Cuidados
+
+O sistema deve informar que a IA pode cometer erros, respeitar direitos autorais e permitir que o usuário consulte o trecho usado como base para cada resposta.
+
+## Próximos Passos
+
+- [ ] Criar o leitor de PDF;
+- [ ] Dividir o conteúdo por capítulos;
+- [ ] Gerar perguntas com IA;
+- [ ] Implementar flashcards e revisão;
+- [ ] Adicionar XP e metas.
