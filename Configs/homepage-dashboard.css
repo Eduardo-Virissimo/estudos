@@ -58,12 +58,7 @@ body:has(.workspace-leaf.mod-active .estudos-home)
 
 /* Elementos do Obsidian que empurravam a página ~26px para baixo */
 .workspace-leaf-content:has(.estudos-home)
-  :is(
-    .mod-header,
-    .mod-footer,
-    .markdown-preview-pusher,
-    .frontmatter-container
-  ) {
+  :is(.mod-header, .mod-footer, .markdown-preview-pusher, .frontmatter-container) {
   display: none !important;
 }
 
@@ -175,9 +170,7 @@ body:has(.workspace-leaf.mod-active .estudos-home)
   background-clip: padding-box;
 }
 
-.estudos-home
-  .estudos-page
-  :is(.es-list, .es-cards)::-webkit-scrollbar-thumb:hover {
+.estudos-home .estudos-page :is(.es-list, .es-cards)::-webkit-scrollbar-thumb:hover {
   background-color: #a3a3a3;
 }
 
@@ -207,28 +200,29 @@ body:has(.workspace-leaf.mod-active .estudos-home)
 
 .estudos-home .estudos-page .es-brand {
   display: flex;
-  align-items: center;
-  gap: 0.6rem;
+  flex-direction: column;
+  gap: 0.4rem;
   padding: 0 0.2rem;
 }
 
-.estudos-home .estudos-page .es-mark {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  background: var(--accent);
+.estudos-home .estudos-page .es-wordmark {
+  color: var(--text);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
 }
 
-.estudos-home .estudos-page .es-name {
-  font-size: 18px;
-  font-weight: 650;
+.estudos-home .estudos-page .es-wordmark i {
+  color: var(--faint);
+  font-style: normal;
 }
 
-.estudos-home .estudos-page .es-year {
-  margin-left: auto;
+.estudos-home .estudos-page .es-tagline {
   color: var(--muted);
   font-family: var(--font-monospace);
   font-size: 12px;
+  letter-spacing: 0.04em;
 }
 
 .estudos-home .estudos-page .es-search {
@@ -264,6 +258,23 @@ body:has(.workspace-leaf.mod-active .estudos-home)
   box-shadow: none;
   color: var(--text);
   font-size: 14px;
+}
+
+.estudos-home .estudos-page .es-search kbd {
+  flex: 0 0 auto;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--faint);
+  font-family: var(--font-monospace);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.estudos-home .estudos-page .es-search:focus-within kbd {
+  display: none;
 }
 
 .estudos-home .estudos-page .es-global {
@@ -366,6 +377,22 @@ body:has(.workspace-leaf.mod-active .estudos-home)
   box-shadow: inset 3px 0 0 var(--accent);
   color: var(--text);
   font-weight: 600;
+}
+
+.estudos-home .estudos-page .es-group:first-child {
+  margin-top: 0.25rem;
+}
+
+.estudos-home .estudos-page .es-star {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  margin: -2px 0.5rem 0 0;
+  vertical-align: middle;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
 }
 
 .estudos-home .estudos-page .es-item-name {
@@ -495,6 +522,45 @@ body:has(.workspace-leaf.mod-active .estudos-home)
   font-weight: 650;
 }
 
+.estudos-home .estudos-page .es-filters {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.5rem;
+  margin: 0 1.25rem 1.1rem 0;
+}
+
+.estudos-home .estudos-page .es-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.estudos-home .estudos-page .es-pill span {
+  color: var(--faint);
+  font-family: var(--font-monospace);
+  font-size: 12px;
+}
+
+.estudos-home .estudos-page .es-pill:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.estudos-home .estudos-page .es-pill.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.estudos-home .estudos-page .es-pill.is-active span {
+  color: var(--muted);
+}
+
 .estudos-home .estudos-page .es-empty {
   grid-column: 1 / -1;
   padding: 1rem 0;
@@ -528,9 +594,7 @@ body:has(.workspace-leaf.mod-active .estudos-home)
   border-radius: 6px;
   background: var(--card);
   cursor: pointer;
-  transition:
-    border-color 0.15s,
-    background 0.15s;
+  transition: border-color 0.15s, background 0.15s;
 }
 
 .estudos-home .estudos-page .es-card:hover {
@@ -576,6 +640,45 @@ body:has(.workspace-leaf.mod-active .estudos-home)
 
 .estudos-home .estudos-page .es-card-body {
   min-width: 0;
+}
+
+.estudos-home .estudos-page .es-card-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.estudos-home .estudos-page .es-step-num {
+  color: var(--faint);
+  font-family: var(--font-monospace);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.estudos-home .estudos-page .es-step-go {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.estudos-home .estudos-page .es-card.is-next {
+  border-color: var(--line-strong);
+  background: var(--card-hover);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.estudos-home .estudos-page .es-card.is-next .es-step-num {
+  color: var(--accent);
+}
+
+.estudos-home .estudos-page .es-card.is-done .es-step-num {
+  text-decoration: line-through;
 }
 
 .estudos-home .estudos-page .es-card-sec {

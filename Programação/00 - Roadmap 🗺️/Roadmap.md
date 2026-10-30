@@ -1,6 +1,6 @@
 # 🗺️ Roadmap — Tudo que Todo Programador Deve Saber
 
-> Marque os conteúdos conforme for estudando. Cada item tem uma explicação curta do "porquê" ao lado. A ordem das seções segue uma sequência lógica de aprendizado (do básico ao avançado). As três últimas seções (Matemática, Inglês Técnico, Soft Skills) são **transversais** — vale ir estudando em paralelo desde o dia 1, não só no fim.
+> Marque os conteúdos conforme for estudando. Cada item tem uma explicação curta do "porquê" ao lado. A ordem das seções segue uma sequência lógica de aprendizado (do básico ao avançado). As três últimas seções (Matemática, Inglês Técnico, Soft Skills) são **transversais** — vale ir estudando em paralelo desde o dia 1, não só no fim. As seções marcadas com ⭐ são prioridade e aparecem em destaque na Homepage.
 
 ---
 
@@ -549,6 +549,71 @@
 - [ ] [[Cache]] — armazenar temporariamente um resultado pra evitar recalcular/rebuscar o mesmo dado repetidamente.
 - [ ] [[Lazy Loading]] — carregar dados/recursos só quando realmente são necessários, economizando recursos.
 - [ ] [[Eager Loading]] — carregar todos os dados relacionados de uma vez, evitando múltiplas idas ao banco.
+
+---
+
+# 2️⃣9️⃣ IA no Desenvolvimento ⭐🧭
+
+> Como programar com IA de verdade, sem perder o controle do que vai pro repositório. Os tópicos estão em ordem de estudo: base, uso no dia a dia, agentes e fluxo avançado.
+
+- [ ] [[LLMs]] — modelos de linguagem que preveem o próximo token; a base de ChatGPT, Claude, Gemini e similares. Entender isso explica por que a IA acerta e por que erra.
+- [ ] [[Tokens e Janela de Contexto]] — o token é a unidade em que o modelo "lê"; a janela é o limite de texto que ele considera de uma vez e define o que ele "lembra".
+- [ ] [[Alucinações e Limites]] — saber quando a IA inventa APIs, bibliotecas ou fatos e como conferir na documentação oficial.
+- [ ] [[Assistentes de Código]] — autocomplete e chat dentro do editor (ex: GitHub Copilot, Cursor), a porta de entrada pra programar com IA.
+- [ ] [[Prompt Engineering]] — escrever instruções claras, com contexto, exemplos e critério de "pronto", pra obter respostas melhores.
+- [ ] [[Escolha de Modelos]] — modelos maiores raciocinam melhor, os menores são mais rápidos e baratos; casar o modelo com a tarefa.
+- [ ] [[Agentes de Código]] — IAs que leem o projeto, editam arquivos e rodam comandos e testes sozinhas, em loop, até cumprir a tarefa (ex: Claude Code, Codex).
+- [ ] [[Permissões e Sandbox]] — controlar o que o agente pode ler, editar e executar (e em qual ambiente isolado) pra limitar estragos. Configure antes de dar autonomia.
+- [ ] [[Context Engineering]] — escolher o que entra no contexto da IA (arquivos, docs, histórico), já que a janela é limitada e define a qualidade da resposta.
+- [ ] [[Arquivos de Instrução do Agente]] — arquivos no repositório (ex: `AGENTS.md`, `CLAUDE.md`) que ensinam ao agente as convenções, comandos e regras do projeto.
+- [ ] [[Planejar Antes de Codar]] — pedir um plano, revisar e só então mandar executar, evitando que o agente implemente na direção errada.
+- [ ] [[Revisão de Código Gerado por IA]] — ler e entender cada mudança antes de aceitar: a IA erra com confiança e você continua responsável pelo código.
+- [ ] [[Testes com IA]] — usar testes como rede de segurança (e pedir pra IA escrevê-los) pra provar que o código gerado realmente funciona.
+- [ ] [[Depuração com IA]] — passar o erro, o stack trace e o contexto pra IA investigar a causa, sem aceitar o primeiro palpite às cegas.
+- [ ] [[Vibe Coding]] — descrever o que quer e aceitar o resultado sem revisar; ótimo pra protótipo, arriscado pra produção.
+- [ ] [[Spec-Driven Development]] — a alternativa disciplinada ao vibe coding: escrever uma especificação clara (requisitos e critérios de aceite) e deixar a IA implementar a partir dela.
+- [ ] [[Segurança com Agentes]] — riscos de dar autonomia a uma IA: comandos destrutivos, vazamento de secrets e instruções maliciosas escondidas em arquivos ou páginas.
+- [ ] [[Custo e Limites de Uso]] — entender tokens, cache e cotas pra não gastar à toa e saber quando trocar de modelo ou abrir uma conversa nova.
+- [ ] [[Skills e Comandos Customizados]] — pacotes de instruções reutilizáveis que ensinam o agente a executar uma tarefa específica do seu jeito.
+- [ ] [[Hooks de Agentes]] — scripts que rodam automaticamente em momentos do ciclo do agente (ex: antes de editar, depois de um comando) pra impor regras.
+- [ ] [[Subagentes]] — agentes auxiliares com contexto próprio, usados pra delegar pesquisas e tarefas sem poluir a conversa principal.
+- [ ] [[Git Worktrees]] — várias cópias de trabalho do mesmo repositório em pastas separadas, base pra rodar agentes em paralelo sem conflito.
+- [ ] [[Agentes em Paralelo]] — rodar vários agentes ao mesmo tempo, cada um em sua branch, e juntar os resultados depois.
+- [ ] [[IA no Fluxo do Time]] — usar IA em PRs, code review e documentação respeitando as regras da empresa (privacidade, licenças, padrões do time).
+
+---
+
+# 3️⃣0️⃣ Construindo com IA ⭐🧭
+
+> LLMs, RAG e agentes: como criar produtos que usam IA. Os tópicos estão em ordem de estudo, da primeira chamada à API até agentes em produção. Pré-requisitos: HTTP e APIs e JSON.
+
+- [ ] [[API de LLMs]] — chamar um modelo por HTTP ou SDK: enviar mensagens, receber respostas e tratar erros e limites de uso.
+- [ ] [[Parâmetros de Geração]] — temperature, top-p e limite de tokens: controlam o quão criativa ou previsível é a resposta.
+- [ ] [[System Prompt]] — instrução inicial que define o papel, as regras e o tom do modelo durante toda a conversa.
+- [ ] [[Streaming de Respostas]] — receber a resposta aos poucos, token a token, pra mostrar na tela sem esperar terminar.
+- [ ] [[Saídas Estruturadas]] — fazer o modelo responder em JSON com formato garantido, pro seu código conseguir usar o resultado.
+- [ ] [[Tool Use (Function Calling)]] — o modelo pede pra executar uma função sua (buscar um dado, chamar uma API) e usa o resultado na resposta.
+- [ ] [[Embeddings]] — representação numérica do significado de um texto; permite comparar textos por similaridade.
+- [ ] [[Banco de Dados Vetorial]] — armazena embeddings e encontra rápido os mais parecidos (ex: pgvector, Qdrant).
+- [ ] [[Chunking]] — quebrar documentos em pedaços do tamanho certo antes de indexar, pra a busca funcionar bem.
+- [ ] [[RAG]] — buscar os trechos relevantes dos seus dados e entregá-los ao modelo junto da pergunta, pra respostas baseadas em fontes.
+- [ ] [[Agentes de IA]] — sistemas em que o modelo decide os próximos passos e usa ferramentas em loop até cumprir um objetivo.
+- [ ] [[Loop do Agente]] — o ciclo de pensar, agir (chamar uma ferramenta), observar o resultado e repetir até terminar.
+- [ ] [[Planejamento e Raciocínio]] — técnicas pro agente quebrar uma tarefa em passos (ex: chain of thought, ReAct, plan-and-execute).
+- [ ] [[Memória de Agentes]] — como o agente lembra das coisas: histórico da conversa, resumos e armazenamento de longo prazo.
+- [ ] [[MCP (Model Context Protocol)]] — protocolo aberto pra conectar modelos a ferramentas e fontes de dados de forma padronizada.
+- [ ] [[Human in the Loop]] — pontos em que uma pessoa aprova ou corrige antes do agente executar ações sensíveis.
+- [ ] [[Guardrails]] — validações e limites na entrada e na saída do modelo pra impedir respostas ou ações indesejadas.
+- [ ] [[Prompt Injection]] — ataque em que um texto malicioso tenta sequestrar as instruções do modelo ou do agente.
+- [ ] [[Sistemas Multiagente]] — vários agentes especializados colaborando (ex: um planeja, outro executa, outro revisa).
+- [ ] [[Orquestração de Agentes]] — coordenar fluxo, estado, retentativas e passagem de tarefa entre agentes e ferramentas (ex: LangGraph, Agent SDKs).
+- [ ] [[Evals]] — conjuntos de testes que medem a qualidade das respostas de um sistema de IA, antes e depois de cada mudança.
+- [ ] [[Observabilidade de LLMs]] — registrar prompts, respostas, custo, latência e erros pra depurar sistemas de IA em produção.
+- [ ] [[Custo e Latência de LLMs]] — estimar o gasto por token, escolher o modelo e enxugar prompts pra caber no orçamento.
+- [ ] [[Prompt Caching]] — reaproveitar partes repetidas do prompt pra reduzir custo e latência.
+- [ ] [[Multimodalidade]] — modelos que entendem e geram mais que texto: imagens, áudio e documentos.
+- [ ] [[Modelos Locais]] — rodar modelos abertos na própria máquina ou servidor (ex: Ollama), por privacidade ou custo.
+- [ ] [[Fine-tuning]] — treinar um modelo existente com seus exemplos pra especializá-lo, quando prompt e RAG não bastam.
 
 ---
 
