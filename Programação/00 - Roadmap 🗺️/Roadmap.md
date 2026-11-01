@@ -25,7 +25,7 @@
 
 # 2️⃣ Fundamentos
 
-- [ ] [[Lógica de Programação]] — raciocínio para transformar um problema em passos que o computador executa.
+- [x] [[Lógica de Programação]] — raciocínio para transformar um problema em passos que o computador executa.
 - [ ] [[Pseudocódigo]] — escrever a solução em "português estruturado" antes de codar, pra organizar o raciocínio.
 - [ ] [[Variáveis]] — espaços na memória que guardam valores que podem mudar durante a execução.
 - [ ] [[Constantes]] — valores guardados na memória que **não** podem ser alterados depois de definidos.
