@@ -140,7 +140,7 @@ async function run() {
     return '<div class="' + cls + '" tabindex="0" role="link" data-s="' + s + '" data-i="' + i + '" title="' + tip + '">'
       + '<button class="es-tick" data-s="' + s + '" data-i="' + i + '" aria-label="Marcar como estudado" title="Marcar como estudado"><svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 7"/></svg></button>'
       + '<div class="es-card-body">'
-      + (step ? '<div class="es-card-step"><span class="es-step-num">' + String(step).padStart(2, "0") + "</span>" + (next ? '<svg class="es-step-go" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>' : "") + "</div>" : "")
+      + (step ? '<div class="es-card-step"><span class="es-step-num">' + String(step).padStart(2, "0") + "</span></div>" : "")
       + (showSection ? '<div class="es-card-sec">' + esc(sections[s].name) + "</div>" : "")
       + '<div class="es-card-title"><span>' + esc(it.label) + "</span>" + (it.path ? ICON_FILE : ICON_NEW) + "</div>"
       + (it.desc ? '<div class="es-card-desc">' + esc(it.desc) + "</div>" : "")

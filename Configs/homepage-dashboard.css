@@ -58,7 +58,12 @@ body:has(.workspace-leaf.mod-active .estudos-home)
 
 /* Elementos do Obsidian que empurravam a página ~26px para baixo */
 .workspace-leaf-content:has(.estudos-home)
-  :is(.mod-header, .mod-footer, .markdown-preview-pusher, .frontmatter-container) {
+  :is(
+    .mod-header,
+    .mod-footer,
+    .markdown-preview-pusher,
+    .frontmatter-container
+  ) {
   display: none !important;
 }
 
@@ -170,7 +175,9 @@ body:has(.workspace-leaf.mod-active .estudos-home)
   background-clip: padding-box;
 }
 
-.estudos-home .estudos-page :is(.es-list, .es-cards)::-webkit-scrollbar-thumb:hover {
+.estudos-home
+  .estudos-page
+  :is(.es-list, .es-cards)::-webkit-scrollbar-thumb:hover {
   background-color: #a3a3a3;
 }
 
@@ -594,7 +601,9 @@ body:has(.workspace-leaf.mod-active .estudos-home)
   border-radius: 6px;
   background: var(--card);
   cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
 }
 
 .estudos-home .estudos-page .es-card:hover {
@@ -657,24 +666,16 @@ body:has(.workspace-leaf.mod-active .estudos-home)
   letter-spacing: 0.08em;
 }
 
-.estudos-home .estudos-page .es-step-go {
-  width: 14px;
-  height: 14px;
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 2.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
 .estudos-home .estudos-page .es-card.is-next {
   border-color: var(--line-strong);
   background: var(--card-hover);
-  box-shadow: inset 3px 0 0 var(--accent);
 }
 
 .estudos-home .estudos-page .es-card.is-next .es-step-num {
-  color: var(--accent);
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--canvas);
 }
 
 .estudos-home .estudos-page .es-card.is-done .es-step-num {
