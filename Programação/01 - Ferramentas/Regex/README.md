@@ -1,6 +1,19 @@
-# 📚 Regex
+---
+nivel: escrito
+revisado:
+---
+
+# Regex
 
 > *"Descreva o padrão uma vez e encontre-o em qualquer lugar."*
+
+> [!tip] ⚡ Em 30 segundos
+> Uma mini-linguagem pra descrever **padrões de texto** (CEP, e-mail, data). Serve pra buscar, validar e substituir em massa. 80% do uso: classes (`\d`, `[a-z]`), quantificadores (`+`, `{n}`), âncoras (`^ $`) e grupos `( )`.
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
@@ -13,17 +26,6 @@
 ### Uma História Breve 📜
 
 A base teórica vem do matemático **Stephen Kleene**, que nos anos 1950 formalizou as "linguagens regulares". Nos anos 1960-70, **Ken Thompson** levou a ideia para ferramentas Unix como editores de texto e o `grep` (nome vem de `g/re/p`: *global / regular expression / print*). Hoje quase toda linguagem de programação tem suporte a regex, com pequenas variações de sintaxe entre elas.
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-- 🚀 **Busca poderosa**: acha padrões que a busca simples não consegue.
-- 📦 **Validação**: confere formato de e-mails, telefones, senhas, etc.
-- 🔧 **Substituição em massa**: renomeia e reformata texto em segundos (no [[VS Code]], por exemplo).
-- 🤖 **Processamento de logs e dados**: extrai pedaços relevantes de grandes volumes de texto.
 
 ---
 
@@ -159,7 +161,23 @@ Texto: <b>um</b> e <b>dois</b>
 
 ---
 
-## Exercício Prático 🎯
+## Problemas Comuns e Soluções 🔧
+
+### Problema: O padrão casa mais do que deveria
+
+**Solução:**
+1. Verifique se `.*` está "guloso" demais e troque por `.*?`.
+2. Use âncoras `^` e `$` para exigir correspondência completa.
+
+### Problema: Um caractere especial não é encontrado
+
+**Solução:**
+1. Escape com barra invertida: `\.`, `\(`, `\$`.
+2. Lembre que em strings de algumas linguagens a barra precisa ser dobrada (`"\\d"`).
+
+---
+
+## 🔨 Desafio prático
 
 **Objetivo:** Escrever padrões para casos reais e testá-los.
 
@@ -172,6 +190,56 @@ Crie uma expressão regular para cada item e teste no regex101.com:
 4. Todas as palavras que começam com maiúscula
 5. Uma URL que começa com http:// ou https://
 ```
+
+---
+
+## 🧠 Me teste
+
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
+
+> [!question]- Qual a diferença entre `.*` e `.*?`?
+> `.*` é **guloso**: casa o máximo possível. `.*?` é **preguiçoso**: casa o mínimo. Em `<b>um</b> e <b>dois</b>`, `<b>.*</b>` pega tudo de uma vez; `<b>.*?</b>` pega cada trecho.
+
+> [!question]- Por que `^\d{5}-\d{3}$` precisa do `^` e do `$`?
+> Sem as âncoras, o padrão casaria um CEP no meio de qualquer texto (`abc88000-000xyz`). Com elas, a string **inteira** precisa ser o CEP.
+
+> [!question]- Como casar um ponto literal, tipo em `site.com`?
+> Escapando: `\.`. O `.` sozinho casa *qualquer* caractere.
+
+> [!question]- O que `(?:abc)` faz de diferente de `(abc)`?
+> Agrupa **sem capturar**: serve pra aplicar quantificador ou `|`, mas não vira `$1` na substituição.
+
+> [!question]- Escreva um padrão para hora `HH:MM` de 00:00 a 23:59.
+> `^([01]\d|2[0-3]):[0-5]\d$`
+
+---
+
+## 🃏 Flashcards
+
+#flashcards/ferramentas
+
+`\d`::qualquer dígito (0-9)
+`\w`::letra, número ou `_`
+`\s`::espaço em branco (espaço, tab, quebra de linha)
+`+` vs `*`::`+` = um ou mais · `*` = zero ou mais
+`[^0-9]`::qualquer caractere que **não** seja dígito
+`\b`::limite de palavra
+Flag `i`::ignora maiúsculas/minúsculas
+
+---
+
+## 📓 Diário de bordo
+
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+-
+
+**O que me confundiu / onde eu errei:**
+-
+
+**Onde eu usei de verdade:**
+-
 
 ---
 
@@ -193,31 +261,3 @@ Crie uma expressão regular para cada item e teste no regex101.com:
 - [regex101](https://regex101.com) - Testador com explicação detalhada
 - [RegexOne](https://regexone.com) - Lições interativas
 - [MDN: Expressões regulares](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Regular_expressions) - Guia para JavaScript
-
----
-
-## Problemas Comuns e Soluções 🔧
-
-### Problema: O padrão casa mais do que deveria
-
-**Solução:**
-1. Verifique se `.*` está "guloso" demais e troque por `.*?`.
-2. Use âncoras `^` e `$` para exigir correspondência completa.
-
-### Problema: Um caractere especial não é encontrado
-
-**Solução:**
-1. Escape com barra invertida: `\.`, `\(`, `\$`.
-2. Lembre que em strings de algumas linguagens a barra precisa ser dobrada (`"\\d"`).
-
----
-
-## Conclusão 🎉
-
-Regex parece enigmático no começo, mas é um dos recursos mais reutilizáveis que existem: funciona em editores, terminais e praticamente toda linguagem. Aprenda os blocos básicos, teste muito e consulte a referência quando precisar.
-
-Com prática, padrões que pareciam ilegíveis passam a ser leitura natural.
-
----
-
-

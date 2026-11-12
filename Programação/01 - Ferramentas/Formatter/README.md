@@ -1,6 +1,19 @@
-# 📚 Formatter
+---
+nivel: escrito
+revisado:
+---
+
+# Formatter
 
 > *"Código bonito não é luxo, é consistência que ninguém precisa discutir."*
+
+> [!tip] ⚡ Em 30 segundos
+> Reescreve a **aparência** do código (espaços, aspas, quebras de linha) num padrão fixo, como o Prettier. Acaba com discussão de estilo no time: você salva, ele formata, pronto.
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
@@ -13,17 +26,6 @@ Exemplos: **Prettier** (JavaScript, TypeScript, CSS, HTML, JSON, Markdown), **Bl
 ### Uma História Breve 📜
 
 Antes dos formatters, equipes gastavam tempo em discussões sobre estilo (tabs vs espaços, onde colocar chaves). O **gofmt**, da linguagem Go, ajudou a popularizar a ideia de um único formato oficial. No ecossistema JavaScript, o **Prettier** (criado por James Long, por volta de 2017) tornou-se o padrão de fato, e o **Black** fez o mesmo no Python ("o formatador sem concessões").
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-- 🚀 **Fim das discussões de estilo**: o formatter decide, o time segue.
-- 📦 **Diffs mais limpos**: o Git mostra mudanças reais, não espaços.
-- 🔧 **Economia de tempo**: você escreve e o editor arruma ao salvar.
-- 🤖 **Consistência automática**: todo o projeto com o mesmo visual, independente de quem escreveu.
 
 ---
 
@@ -164,7 +166,24 @@ Desative as regras de estilo do linter que duplicam o formatter (no ESLint, use 
 
 ---
 
-## Exercício Prático 🎯
+## Problemas Comuns e Soluções 🔧
+
+### Problema: O arquivo não formata ao salvar
+
+**Solução:**
+1. Confirme se há um formatter padrão definido (`editor.defaultFormatter`).
+2. Verifique se a extensão está instalada e se o tipo de arquivo é suportado.
+3. Veja se o arquivo não está listado no `.prettierignore`.
+
+### Problema: Cada pessoa do time gera um formato diferente
+
+**Solução:**
+1. Versione o `.prettierrc` (ou equivalente) no repositório.
+2. Fixe a versão do formatter no `package.json` para todos usarem a mesma.
+
+---
+
+## 🔨 Desafio prático
 
 **Objetivo:** Configurar formatação automática ao salvar.
 
@@ -176,6 +195,55 @@ Desative as regras de estilo do linter que duplicam o formatter (no ESLint, use 
 # 5. Crie um .prettierrc e mude tabWidth para 4, depois salve de novo
 # 6. Rode npx prettier --check . e veja o resultado
 ```
+
+---
+
+## 🧠 Me teste
+
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
+
+> [!question]- Qual a diferença entre formatter e linter?
+> O **formatter** cuida da aparência. O **linter** aponta problemas de qualidade e bugs prováveis (variável não usada, `==`).
+
+> [!question]- Por que a configuração do formatter vai pro repositório?
+> Pra todo mundo formatar igual. Sem isso, cada commit vira uma guerra de diffs de estilo.
+
+> [!question]- Por que formatar o projeto inteiro num commit separado?
+> Pra não misturar mudança de lógica com mudança de estilo. O review e o `git blame` ficam limpos.
+
+> [!question]- O arquivo não formata ao salvar. O que checar?
+> `editor.formatOnSave` ligado, o Prettier definido como formatter padrão, extensão instalada e se o arquivo tem erro de sintaxe.
+
+> [!question]- O que faz `npx prettier --check .`?
+> Verifica se está tudo formatado **sem alterar nada**. Ideal pra CI.
+
+---
+
+## 🃏 Flashcards
+
+#flashcards/ferramentas
+
+`editor.formatOnSave`::config do VS Code que formata ao salvar
+`.prettierrc`::arquivo de configuração do Prettier
+`prettier --write .`::formata todos os arquivos
+Formatter "opinionated"::poucas opções de propósito, pra ninguém discutir estilo
+`eslint-config-prettier`::desliga as regras de estilo do ESLint que brigam com o Prettier
+Formatter muda o comportamento do código?::Não. Só a aparência.
+
+---
+
+## 📓 Diário de bordo
+
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+-
+
+**O que me confundiu / onde eu errei:**
+-
+
+**Onde eu usei de verdade:**
+-
 
 ---
 
@@ -194,32 +262,3 @@ Desative as regras de estilo do linter que duplicam o formatter (no ESLint, use 
 - [Prettier](https://prettier.io/docs/en/) - Documentação oficial
 - [Black](https://black.readthedocs.io) - Formatador oficial do ecossistema Python
 - [Ruff Formatter](https://docs.astral.sh/ruff/formatter/) - Alternativa rápida para Python
-
----
-
-## Problemas Comuns e Soluções 🔧
-
-### Problema: O arquivo não formata ao salvar
-
-**Solução:**
-1. Confirme se há um formatter padrão definido (`editor.defaultFormatter`).
-2. Verifique se a extensão está instalada e se o tipo de arquivo é suportado.
-3. Veja se o arquivo não está listado no `.prettierignore`.
-
-### Problema: Cada pessoa do time gera um formato diferente
-
-**Solução:**
-1. Versione o `.prettierrc` (ou equivalente) no repositório.
-2. Fixe a versão do formatter no `package.json` para todos usarem a mesma.
-
----
-
-## Conclusão 🎉
-
-Um formatter elimina uma categoria inteira de discussão e retrabalho: você escreve, salva e o código se organiza sozinho. Ele é um dos ganhos mais fáceis de produtividade e consistência.
-
-Configure uma vez, automatize ao salvar e foque no que realmente importa: a lógica do programa.
-
----
-
-

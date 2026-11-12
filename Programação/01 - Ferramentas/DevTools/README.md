@@ -1,6 +1,19 @@
-# 📚 DevTools
+---
+nivel: escrito
+revisado:
+---
+
+# DevTools
 
 > *"O navegador é também o seu laboratório."*
+
+> [!tip] ⚡ Em 30 segundos
+> Ferramentas embutidas no navegador (`F12`) pra inspecionar HTML/CSS, rodar JS no **Console**, depurar com breakpoints e ver cada requisição na aba **Network**. É o primeiro lugar a olhar quando algo na página não funciona.
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
@@ -13,17 +26,6 @@ Estão disponíveis no Chrome, Edge, Firefox, Safari e outros, com pequenas dife
 ### Uma História Breve 📜
 
 Antes das DevTools modernas, o **Firebug** (extensão do Firefox, meados dos anos 2000) popularizou a inspeção de páginas. Depois, navegadores passaram a trazer ferramentas nativas: o Chrome, por exemplo, incorporou as suas desde as primeiras versões, e elas evoluíram muito até hoje.
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-- 🚀 **Depuração rápida**: encontre erros de layout e JavaScript direto na página.
-- 📦 **Visibilidade da rede**: veja cada requisição, resposta, tempo e erro.
-- 🔧 **Experimentação ao vivo**: altere CSS e HTML sem mexer no código-fonte.
-- 🤖 **Análise de performance e acessibilidade**: identifique gargalos e melhorias.
 
 ---
 
@@ -143,7 +145,23 @@ Evita que arquivos antigos em cache atrapalhem seus testes enquanto desenvolve.
 
 ---
 
-## Exercício Prático 🎯
+## Problemas Comuns e Soluções 🔧
+
+### Problema: Minha alteração no CSS sumiu ao recarregar
+
+**Solução:**
+1. As edições nas DevTools são temporárias.
+2. Copie as mudanças para o seu código-fonte antes de recarregar.
+
+### Problema: A página continua mostrando a versão antiga
+
+**Solução:**
+1. Ative "Disable cache" na aba Network (com as DevTools abertas).
+2. Faça um recarregamento forçado: `Ctrl + Shift + R`.
+
+---
+
+## 🔨 Desafio prático
 
 **Objetivo:** Praticar inspeção, console e rede em um site real.
 
@@ -155,6 +173,55 @@ Evita que arquivos antigos em cache atrapalhem seus testes enquanto desenvolve.
 4. Na aba Network, descubra qual arquivo carregado é o maior
 5. Rode o Lighthouse e anote uma sugestão de melhoria
 ```
+
+---
+
+## 🧠 Me teste
+
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
+
+> [!question]- Os dados da API não aparecem na tela. Qual aba você abre primeiro e o que olha?
+> **Network**: a requisição saiu? Qual o status (200, 404, 500)? O que veio no *Response*? Depois o **Console**, pra ver erros de JS.
+
+> [!question]- Por que a alteração de CSS feita nas DevTools sumiu ao recarregar?
+> Edições nas DevTools são **temporárias**. Copie a mudança pro arquivo (ou use *Local Overrides*).
+
+> [!question]- Pra que serve marcar "Disable cache"?
+> Desliga o cache enquanto as DevTools estão abertas, pra não ver a versão antiga dos arquivos.
+
+> [!question]- O que é `$0` no Console?
+> O elemento selecionado por último na aba Elements.
+
+> [!question]- Onde ver localStorage e cookies?
+> Na aba **Application**.
+
+---
+
+## 🃏 Flashcards
+
+#flashcards/ferramentas
+
+Abrir DevTools::`F12` ou `Ctrl + Shift + I`
+Selecionar elemento na página::`Ctrl + Shift + C`
+Aba pra breakpoints em JS::Sources
+Aba pra ver requisições HTTP::Network
+Lighthouse::auditoria de performance, acessibilidade e SEO
+Modo responsivo::`Ctrl + Shift + M`: simula telas de celular
+
+---
+
+## 📓 Diário de bordo
+
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+-
+
+**O que me confundiu / onde eu errei:**
+-
+
+**Onde eu usei de verdade:**
+-
 
 ---
 
@@ -173,31 +240,3 @@ Evita que arquivos antigos em cache atrapalhem seus testes enquanto desenvolve.
 - [Chrome DevTools](https://developer.chrome.com/docs/devtools) - Documentação oficial do Chrome
 - [Firefox Developer Tools](https://firefox-source-docs.mozilla.org/devtools-user/) - Documentação do Firefox
 - [MDN Web Docs](https://developer.mozilla.org/pt-BR/) - Referência geral de desenvolvimento web
-
----
-
-## Problemas Comuns e Soluções 🔧
-
-### Problema: Minha alteração no CSS sumiu ao recarregar
-
-**Solução:**
-1. As edições nas DevTools são temporárias.
-2. Copie as mudanças para o seu código-fonte antes de recarregar.
-
-### Problema: A página continua mostrando a versão antiga
-
-**Solução:**
-1. Ative "Disable cache" na aba Network (com as DevTools abertas).
-2. Faça um recarregamento forçado: `Ctrl + Shift + R`.
-
----
-
-## Conclusão 🎉
-
-As DevTools são uma das ferramentas mais valiosas do desenvolvimento web: elas encurtam o ciclo entre ter uma dúvida e ver a resposta. Dominar Elements, Console e Network já resolve a maioria dos problemas do dia a dia.
-
-Abra-as com frequência, mesmo em sites de terceiros, para aprender como as coisas funcionam por dentro.
-
----
-
-

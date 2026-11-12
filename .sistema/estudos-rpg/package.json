@@ -1,0 +1,19 @@
+{
+  "name": "estudos-rpg",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plugin do Obsidian que transforma o vault de estudos numa ficha de RPG (XP, missões, revisão espaçada).",
+  "type": "module",
+  "scripts": {
+    "dev": "node esbuild.config.mjs --watch",
+    "build": "npm run typecheck && npm test && node esbuild.config.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test \"test/**/*.test.ts\""
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "esbuild": "0.28.2",
+    "obsidian": "1.14.4",
+    "typescript": "5.9.3"
+  }
+}

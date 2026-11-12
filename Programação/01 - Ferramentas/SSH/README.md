@@ -1,6 +1,19 @@
-# 📚 SSH
+---
+nivel: escrito
+revisado:
+---
+
+# SSH
 
 > *"Um túnel seguro entre você e qualquer máquina do mundo."*
+
+> [!tip] ⚡ Em 30 segundos
+> Protocolo pra acessar outra máquina com tudo **criptografado**. No dia a dia: `ssh user@host`, chave `ed25519` em vez de senha e `~/.ssh/config` pra criar apelidos. Também é como você autentica no GitHub.
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
@@ -13,17 +26,6 @@ Ele é usado para administrar servidores, transferir arquivos, fazer deploys e a
 ### Uma História Breve 📜
 
 O SSH foi criado em **1995** por **Tatu Ylönen**, na Finlândia, após um ataque de captura de senhas na rede da universidade dele. Ele substituiu protocolos inseguros como **Telnet** e **rlogin**, que enviavam tudo em texto puro. A implementação livre **OpenSSH** (projeto OpenBSD, 1999) é hoje a mais usada, e já vem incluída em Linux, macOS e Windows.
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-- 🚀 **Acesso remoto seguro**: administre servidores de qualquer lugar.
-- 📦 **Transferência de arquivos**: `scp` e `sftp` usam a mesma segurança.
-- 🔧 **Autenticação por chave**: sem digitar senha, e mais seguro que senha.
-- 🤖 **Integração com Git e CI/CD**: clones e deploys autenticados por chave.
 
 ---
 
@@ -144,7 +146,24 @@ chmod 600 ~/.ssh/id_ed25519
 
 ---
 
-## Exercício Prático 🎯
+## Problemas Comuns e Soluções 🔧
+
+### Problema: "Permission denied (publickey)"
+
+**Solução:**
+1. Confirme que a chave pública está em `~/.ssh/authorized_keys` no servidor.
+2. Verifique as permissões de `~/.ssh` e da chave privada.
+3. Rode `ssh -v user@host` para ver qual chave está sendo tentada.
+
+### Problema: "WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!"
+
+**Solução:**
+1. Confirme se o servidor foi realmente reinstalado/alterado (não ignore o aviso às cegas).
+2. Se for legítimo, remova a entrada antiga: `ssh-keygen -R endereco-do-servidor`.
+
+---
+
+## 🔨 Desafio prático
 
 **Objetivo:** Configurar acesso por chave e um atalho de conexão.
 
@@ -157,6 +176,55 @@ chmod 600 ~/.ssh/id_ed25519
 # 6. Opcional: adicione a chave pública na sua conta do GitHub
 #    e teste com: ssh -T git@github.com
 ```
+
+---
+
+## 🧠 Me teste
+
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
+
+> [!question]- Qual chave vai pro servidor: a pública ou a privada?
+> A **pública** (`.pub`). A privada nunca sai da sua máquina.
+
+> [!question]- Por que não ignorar o aviso `REMOTE HOST IDENTIFICATION HAS CHANGED`?
+> O fingerprint salvo em `known_hosts` mudou: pode ser um servidor reinstalado ou um ataque *man-in-the-middle*. Confirme antes de rodar `ssh-keygen -R host`.
+
+> [!question]- O que faz `ssh -L 5433:localhost:5432 ana@servidor`?
+> Cria um túnel: tudo que você mandar pra porta **5433 local** chega na porta **5432 do servidor** (ex.: acessar o Postgres remoto como se fosse local).
+
+> [!question]- Deu `Permission denied (publickey)`. O que checar?
+> 1) A pública está em `~/.ssh/authorized_keys` no servidor? 2) Permissões 700/600? 3) `ssh -v` pra ver qual chave foi tentada.
+
+> [!question]- Pra que colocar passphrase na chave?
+> Se alguém copiar o arquivo da chave, ainda vai precisar da frase. O `ssh-agent` evita digitar toda hora.
+
+---
+
+## 🃏 Flashcards
+
+#flashcards/ferramentas
+
+Porta padrão do SSH::22
+`ssh-keygen -t ed25519`::gera um par de chaves moderno
+`ssh-copy-id user@host`::instala sua chave pública no servidor
+`scp arq user@host:/caminho`::copia arquivo via SSH
+Permissões de `~/.ssh` e da chave privada::700 na pasta, 600 na chave
+`ssh -T git@github.com`::testa sua autenticação SSH no GitHub
+
+---
+
+## 📓 Diário de bordo
+
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+-
+
+**O que me confundiu / onde eu errei:**
+-
+
+**Onde eu usei de verdade:**
+-
 
 ---
 
@@ -177,32 +245,3 @@ chmod 600 ~/.ssh/id_ed25519
 ### 💻 Sites e Documentação:
 - [OpenSSH](https://www.openssh.com/manual.html) - Manuais oficiais
 - [Documentação do GitHub sobre SSH](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh) - Configuração com GitHub
-
----
-
-## Problemas Comuns e Soluções 🔧
-
-### Problema: "Permission denied (publickey)"
-
-**Solução:**
-1. Confirme que a chave pública está em `~/.ssh/authorized_keys` no servidor.
-2. Verifique as permissões de `~/.ssh` e da chave privada.
-3. Rode `ssh -v user@host` para ver qual chave está sendo tentada.
-
-### Problema: "WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!"
-
-**Solução:**
-1. Confirme se o servidor foi realmente reinstalado/alterado (não ignore o aviso às cegas).
-2. Se for legítimo, remova a entrada antiga: `ssh-keygen -R endereco-do-servidor`.
-
----
-
-## Conclusão 🎉
-
-O SSH é uma das ferramentas mais importantes para quem trabalha com servidores, Git e infraestrutura. Entender chaves, `known_hosts` e o arquivo `config` te dá segurança e produtividade.
-
-Pratique em uma VM ou servidor de teste antes de usar em ambientes importantes.
-
----
-
-

@@ -1,0 +1,13 @@
+{
+  "theme": "obsidian",
+  "enabledCssSnippets": [
+    "custom-rainbow-colors",
+    "cursor-smooth",
+    "homepage-dashboard"
+  ],
+  "cssTheme": "AnuPpuccin",
+  "showRibbon": false,
+  "accentColor": "",
+  "showViewHeader": false,
+  "textFontFamily": ""
+}

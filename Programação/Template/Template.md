@@ -1,166 +1,105 @@
-# 📚 [NOME DO TÓPICO]
+---
+nivel: escrito
+revisado:
+---
 
-> *"Uma frase inspiradora ou conceitual sobre o tópico"*
+# [NOME DO TÓPICO]
+
+> [!tip] ⚡ Em 30 segundos
+> [Que problema isso resolve, em 2 ou 3 linhas. Se não couber, você ainda não entendeu, e tudo bem: volte aqui depois.]
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
-## O que é [Nome do Tópico]?
+## O mínimo pra usar
 
-[Aqui você descreve o conceito básico. Explique de forma clara e acessível o que é esse tópico, como ele funciona e por que é importante para programadores.]
-
-### Uma História Breve 📜
-
-[Breve contexto histórico sobre a origem desse tópico ou tecnologia. Como surgiu e como evoluiu ao longo do tempo.]
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-[Aqui liste os benefícios principais de dominar esse tópico. Use emojis para destacar cada ponto.]
-
-- 🚀 **Vantagem 1**: [Descrição da vantagem]
-- 📦 **Vantagem 2**: [Descrição da vantagem]
-- 🔧 **Vantagem 3**: [Descrição da vantagem]
-- 🤖 **Vantagem 4**: [Descrição da vantagem]
-
----
-
-## Conceitos Fundamentais 🎯
-
-[Aqui você explica os conceitos essenciais que todo mundo precisa entender sobre este tópico. Use exemplos de código quando apropriado.]
-
-### Conceito 1: [Nome do Conceito]
-
-[Explicação detalhada com exemplos práticos]
+[Os 20% que resolvem 80% dos casos. Nada de história nem lista de vantagens: só o que você precisa pra começar a usar hoje.]
 
 ```[linguagem]
-// Exemplo de código ou sintaxe
-[código aqui]
+// o exemplo mais simples que funciona
 ```
-
-### Conceito 2: [Nome do Conceito]
-
-[Explicação detalhada com exemplos práticos]
 
 ---
 
-## Como Usar na Prática 🛠️
+## Exemplo meu
 
-[Aqui você mostra aplicações práticas e exemplos reais de como usar o tópico no dia a dia.]
-
-### Exemplo 1: Uso Básico
-
-[Mostrar um exemplo simples e direto de uso]
+[Código que **você** escreveu e rodou, de preferência do seu projeto. Copiado da internet não vale.]
 
 ```[linguagem]
-// Código de exemplo básico
-[código aqui]
-```
 
-### Exemplo 2: Caso de Uso Real
-
-[Mostrar um exemplo mais complexo ou situação real onde o tópico é aplicado]
-
----
-
-## Configurações Recomendadas (se aplicável) ⚙️
-
-[Caso o tópico tenha configurações, extensões, ou setups específicos, inclua aqui. Inclua blocos JSON quando necessário.]
-
-```json
-{
-    "configuracao": "valor",
-    "outro": "exemplo"
-}
 ```
 
 ---
 
-## Dicas de Ouro 💎
+## Pegadinhas
 
-### 1. Dica Prática 1
-
-[Dica valiosa relacionada ao tópico que pode ajudar a otimizar o aprendizado ou uso.]
-
-### 2. Dica Prática 2
-
-[Outra dica importante sobre boas práticas, atalhos de teclado, ou truques úteis.]
-
-### 3. Dica Prática 3
-
-[Dica final que complete o usuário no tópico.]
+- [Erro comum 1 e como evitar]
+- [Erro comum 2 e como evitar]
 
 ---
 
-## Comandos e Sintaxe Essenciais (se aplicável) 📋
+## Cola rápida
 
-[Aqui você pode incluir tabelas de comandos, sintaxes importantes, ou referências rápidas.]
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `comando1`      | [O que faz] |
-| `comando2`      | [O que faz] |
-| `sintaxe()`     | [O que faz] |
+| Comando/Sintaxe | O que faz |
+|-----------------|-----------|
+| `exemplo`       |           |
 
 ---
 
-## Exercício Prático 🎯
+## 🔨 Desafio prático
 
-[Crie um exercício prático para o usuário aplicar o conhecimento.]
+**Objetivo:** [algo concreto que dá pra terminar em 20-40 min]
 
-**Objetivo:** [O que o usuário deve alcançar após fazer o exercício]
-
-```[linguagem ou bash]
-// Instruções do exercício
-[instruções aqui]
-```
+1. [passo]
+2. [passo]
+3. [passo]
 
 ---
 
-## Próximos Passos ✅
+## 🧠 Me teste
 
-- [ ] [Ação 1 para aprender mais sobre este tópico]
-- [ ] [Ação 2: prática recomendada]
-- [ ] [Ação 3: recurso complementar]
-- [ ] [Ação 4: desafio ou projeto sugerido]
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
 
----
+> [!question]- [Pergunta 1: "qual a diferença entre X e Y?"]
+> [Resposta]
 
-## Recursos Recomendados 📚
+> [!question]- [Pergunta 2: "quando eu usaria X?"]
+> [Resposta]
 
-### 📖 Livros:
-- *[Nome do Livro]* - [Breve descrição]
-- *[Nome do Livro]* - [Breve descrição]
-
-### 💻 Sites e Documentação:
-- [Link para recurso 1](url) - [Descrição]
-- [Link para recurso 2](url) - [Descrição]
-
-### 🎥 Vídeos/Canais (opcional):
-- [Nome do canal/vídeo](url) - [Breve descrição]
+> [!question]- [Pergunta 3: "deu o erro Z. O que checar?"]
+> [Resposta]
 
 ---
 
-## Problemas Comuns e Soluções 🔧
+## 🃏 Flashcards
 
-[Aqui você pode incluir uma seção de troubleshooting, com problemas frequentes e como resolvê-los.]
+#flashcards/[area]
 
-### Problema: [Descrição do problema comum]
-
-**Solução:**
-1. [Passo 1 da solução]
-2. [Passo 2 da solução]
+[Frente]::[Verso]
+[Frente]::[Verso]
 
 ---
 
-## Conclusão 🎉
+## 📓 Diário de bordo
 
-[Resumo inspirador sobre o tópico, reforçando a importância de continuar aprendendo e praticando.]
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
 
-[Aqui você pode encorajar o usuário a dominar esse tópico antes de avançar para conteúdos mais complexos.]
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+- 
+
+**O que me confundiu / onde eu errei:**
+- 
+
+**Onde eu usei de verdade:**
+- 
 
 ---
 
+## Recursos
 
+- [Documentação oficial](url)
+- [Um tutorial interativo ou vídeo que valeu a pena](url)

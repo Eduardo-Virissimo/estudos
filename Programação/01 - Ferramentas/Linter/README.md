@@ -1,6 +1,19 @@
-# 📚 Linter
+---
+nivel: escrito
+revisado:
+---
+
+# Linter
 
 > *"Um revisor de código que nunca se cansa e nunca esquece uma regra."*
+
+> [!tip] ⚡ Em 30 segundos
+> Analisa o código **sem rodar** e aponta bugs prováveis e más práticas (variável não usada, `==` em vez de `===`). Exemplo: ESLint. Comece com o `recommended`, rode no editor e na CI.
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
@@ -13,17 +26,6 @@ Cada linguagem tem seus linters: **ESLint** (JavaScript/TypeScript), **Pylint**,
 ### Uma História Breve 📜
 
 O termo vem do programa **lint**, criado por **Stephen C. Johnson** nos **Bell Labs** por volta de 1978 para encontrar problemas em código C que o compilador deixava passar. O nome faz referência à "pelugem" (*lint*) que se tira das roupas. Desde então, linters ficaram cada vez mais completos e hoje fazem parte do fluxo padrão de quase todo projeto.
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-- 🚀 **Pega bugs cedo**: encontra problemas antes de rodar ou subir o código.
-- 📦 **Padroniza o time**: todo mundo segue as mesmas regras.
-- 🔧 **Ensina boas práticas**: as mensagens explicam o que está errado e por quê.
-- 🤖 **Automatizável**: roda no editor, no commit e na integração contínua (CI).
 
 ---
 
@@ -152,7 +154,23 @@ Assim ninguém mescla código que quebre as regras do projeto, mesmo sem ter o e
 
 ---
 
-## Exercício Prático 🎯
+## Problemas Comuns e Soluções 🔧
+
+### Problema: O linter e o formatter brigam entre si
+
+**Solução:**
+1. Use a configuração que desativa regras de estilo conflitantes (no caso do ESLint com Prettier, o pacote `eslint-config-prettier`).
+2. Deixe estilo para o formatter e qualidade para o linter.
+
+### Problema: Milhares de avisos num projeto antigo
+
+**Solução:**
+1. Comece só com regras de erro e vá aumentando aos poucos.
+2. Corrija por pastas ou use `--fix` onde for seguro.
+
+---
+
+## 🔨 Desafio prático
 
 **Objetivo:** Configurar um linter e corrigir os problemas encontrados.
 
@@ -164,6 +182,55 @@ Assim ninguém mescla código que quebre as regras do projeto, mesmo sem ter o e
 # 5. Rode npx eslint . e leia as mensagens
 # 6. Corrija os erros (alguns com --fix)
 ```
+
+---
+
+## 🧠 Me teste
+
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
+
+> [!question]- Qual a diferença entre linter e formatter?
+> O **linter** acha problemas de qualidade e bugs prováveis. O **formatter** só arruma a aparência.
+
+> [!question]- Por que `==` costuma ser marcado como erro em JS?
+> Ele faz coerção de tipo: `0 == ""` dá `true`. `===` compara valor **e** tipo.
+
+> [!question]- Projeto antigo com milhares de avisos: por onde começar?
+> Rodar `--fix` no que for automático, tratar as regras mais graves primeiro e exigir lint limpo só nos arquivos que você mexer.
+
+> [!question]- Por que rodar o linter na CI?
+> Garante que código com problema não entra, mesmo se alguém do time não tiver a extensão instalada.
+
+> [!question]- Quando é aceitável desativar uma regra?
+> Com um motivo real, de forma localizada (`// eslint-disable-next-line regra -- motivo`), nunca por preguiça.
+
+---
+
+## 🃏 Flashcards
+
+#flashcards/ferramentas
+
+`npx eslint .`::analisa o projeto inteiro
+`npx eslint . --fix`::corrige automaticamente o que for possível
+`eslint.config.js`::arquivo de configuração (flat config)
+Níveis de uma regra::`"off"`, `"warn"`, `"error"`
+`no-unused-vars`::acusa variável declarada e nunca usada
+O linter executa o código?::Não. A análise é estática.
+
+---
+
+## 📓 Diário de bordo
+
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+-
+
+**O que me confundiu / onde eu errei:**
+-
+
+**Onde eu usei de verdade:**
+-
 
 ---
 
@@ -185,31 +252,3 @@ Assim ninguém mescla código que quebre as regras do projeto, mesmo sem ter o e
 - [ESLint](https://eslint.org/docs/latest/) - Documentação oficial
 - [Ruff](https://docs.astral.sh/ruff/) - Linter rápido para Python
 - [ShellCheck](https://www.shellcheck.net/) - Linter para shell scripts
-
----
-
-## Problemas Comuns e Soluções 🔧
-
-### Problema: O linter e o formatter brigam entre si
-
-**Solução:**
-1. Use a configuração que desativa regras de estilo conflitantes (no caso do ESLint com Prettier, o pacote `eslint-config-prettier`).
-2. Deixe estilo para o formatter e qualidade para o linter.
-
-### Problema: Milhares de avisos num projeto antigo
-
-**Solução:**
-1. Comece só com regras de erro e vá aumentando aos poucos.
-2. Corrija por pastas ou use `--fix` onde for seguro.
-
----
-
-## Conclusão 🎉
-
-O linter é um dos melhores investimentos para a qualidade do código: encontra problemas cedo, ensina boas práticas e mantém o time alinhado. Configurá-lo leva minutos e economiza horas de depuração.
-
-Faça dele parte do seu fluxo desde o início de cada projeto.
-
----
-
-

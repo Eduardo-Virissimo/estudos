@@ -1,6 +1,19 @@
-# 📚 VS Code
+---
+nivel: escrito
+revisado:
+---
+
+# VS Code
 
 > *"O editor que cabe no seu fluxo de trabalho, não o contrário."*
+
+> [!tip] ⚡ Em 30 segundos
+> Editor leve e extensível. O que muda o jogo: **Command Palette** (`Ctrl + Shift + P`), poucos atalhos bem aprendidos, multi-cursor e configurações por workspace.
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
@@ -13,17 +26,6 @@ Diferente de uma IDE completa, ele começa enxuto e cresce conforme você instal
 ### Uma História Breve 📜
 
 O VS Code foi lançado pela Microsoft em **2015**, construído sobre o framework **Electron** (tecnologia web empacotada como app desktop). O código-fonte base é aberto (projeto *Code - OSS*, licença MIT). Em poucos anos virou um dos editores mais usados do mundo, aparecendo no topo das pesquisas anuais de desenvolvedores do Stack Overflow.
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-- 🚀 **Leve e rápido**: abre rápido e funciona bem até em máquinas modestas.
-- 📦 **Ecossistema de extensões**: milhares de extensões para linguagens, temas, linters e ferramentas.
-- 🔧 **Tudo em um lugar**: terminal, Git, debugger e editor na mesma janela.
-- 🤖 **Integração com IA e remoto**: suporte a assistentes de código e a desenvolvimento remoto (SSH, containers, WSL).
 
 ---
 
@@ -129,7 +131,23 @@ Crie perfis (ex.: "Python", "Web") com extensões e configurações diferentes p
 
 ---
 
-## Exercício Prático 🎯
+## Problemas Comuns e Soluções 🔧
+
+### Problema: O comando `code .` não é reconhecido no terminal
+
+**Solução:**
+1. Reinstale o VS Code marcando "Add to PATH" (Windows) ou execute "Shell Command: Install 'code' command in PATH" (macOS).
+2. Feche e reabra o terminal.
+
+### Problema: O editor está lento
+
+**Solução:**
+1. Desative extensões que não está usando (`Extensions > Disable`).
+2. Use `Help > Start Extension Bisect` para descobrir qual extensão causa o problema.
+
+---
+
+## 🔨 Desafio prático
 
 **Objetivo:** Configurar um ambiente de edição confortável e usar os principais atalhos.
 
@@ -141,6 +159,55 @@ Crie perfis (ex.: "Python", "Web") com extensões e configurações diferentes p
 5. Veja o Prettier arrumar tudo automaticamente.
 6. Abra o terminal integrado e rode: node index.js
 ```
+
+---
+
+## 🧠 Me teste
+
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
+
+> [!question]- Qual a diferença entre settings de User e de Workspace?
+> **User** vale pra tudo. **Workspace** fica em `.vscode/settings.json`, vale só pro projeto e tem prioridade.
+
+> [!question]- `code .` não é reconhecido no terminal. Como resolver?
+> Command Palette → *Shell Command: Install 'code' command in PATH* (macOS) ou reinstalar marcando "Adicionar ao PATH" (Windows). Reabra o terminal.
+
+> [!question]- Como editar várias linhas ao mesmo tempo?
+> Multi-cursor: `Alt + Click`, `Ctrl + D` (próxima ocorrência) ou `Ctrl + Alt + ↑/↓`.
+
+> [!question]- Pra que servem os Profiles?
+> Conjuntos separados de extensões e configurações (ex.: um perfil pra web, outro pra Python).
+
+> [!question]- O editor ficou lento. O que investigar?
+> Extensões (*Developer: Show Running Extensions* ou *Extension Bisect*) e pastas enormes indexadas (`files.exclude`, `search.exclude`).
+
+---
+
+## 🃏 Flashcards
+
+#flashcards/ferramentas
+
+Command Palette::`Ctrl + Shift + P`
+Abrir arquivo por nome::`Ctrl + P`
+Selecionar a próxima ocorrência::`Ctrl + D`
+Terminal integrado::`` Ctrl + ` ``
+Mover linha pra cima/baixo::`Alt + ↑/↓`
+Renomear símbolo em todo o projeto::`F2`
+
+---
+
+## 📓 Diário de bordo
+
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+-
+
+**O que me confundiu / onde eu errei:**
+-
+
+**Onde eu usei de verdade:**
+-
 
 ---
 
@@ -159,31 +226,3 @@ Crie perfis (ex.: "Python", "Web") com extensões e configurações diferentes p
 - [Documentação oficial](https://code.visualstudio.com/docs) - Guias completos de uso
 - [Atalhos de teclado (PDF oficial)](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf) - Cola de atalhos para Windows
 - [Marketplace de extensões](https://marketplace.visualstudio.com/vscode) - Catálogo de extensões
-
----
-
-## Problemas Comuns e Soluções 🔧
-
-### Problema: O comando `code .` não é reconhecido no terminal
-
-**Solução:**
-1. Reinstale o VS Code marcando "Add to PATH" (Windows) ou execute "Shell Command: Install 'code' command in PATH" (macOS).
-2. Feche e reabra o terminal.
-
-### Problema: O editor está lento
-
-**Solução:**
-1. Desative extensões que não está usando (`Extensions > Disable`).
-2. Use `Help > Start Extension Bisect` para descobrir qual extensão causa o problema.
-
----
-
-## Conclusão 🎉
-
-O VS Code é uma das ferramentas que você mais vai usar como programador, então vale investir tempo em conhecê-lo bem. Dominar atalhos, extensões e configurações multiplica sua produtividade em qualquer linguagem.
-
-Comece simples, adicione recursos aos poucos e deixe o editor com a sua cara antes de partir para ferramentas mais avançadas.
-
----
-
-

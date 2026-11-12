@@ -1,6 +1,19 @@
-# 📚 Postman
+---
+nivel: escrito
+revisado:
+---
+
+# Postman
 
 > *"Teste a API antes de escrever uma linha do código que a consome."*
+
+> [!tip] ⚡ Em 30 segundos
+> Ferramenta pra testar e explorar APIs: você monta a requisição (método, URL, headers, body), envia e vê a resposta. Organize em **coleções**, use **ambientes** pras variáveis e escreva testes simples.
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
@@ -13,17 +26,6 @@ Além do teste manual, permite organizar requisições em **coleções**, usar *
 ### Uma História Breve 📜
 
 O Postman começou em **2012** como uma extensão do Chrome criada por **Abhinav Asthana** para facilitar o teste de APIs. Cresceu até virar um aplicativo desktop próprio e hoje é uma plataforma completa para o ciclo de vida de APIs (design, testes, documentação, monitoramento).
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-- 🚀 **Teste rápido**: valida endpoints sem montar um front-end.
-- 📦 **Coleções organizadas**: agrupa e reutiliza requisições do projeto.
-- 🔧 **Variáveis e ambientes**: alterna entre dev, homologação e produção com um clique.
-- 🤖 **Testes automatizados**: scripts verificam respostas e podem rodar em lote.
 
 ---
 
@@ -148,7 +150,23 @@ Adicione descrições e exemplos. A coleção vira documentação viva para o ti
 
 ---
 
-## Exercício Prático 🎯
+## Problemas Comuns e Soluções 🔧
+
+### Problema: Erro de conexão ao chamar uma API local
+
+**Solução:**
+1. Verifique se o servidor está rodando e a porta está correta.
+2. Use `http://localhost:PORTA` (e não `https`, a não ser que haja certificado).
+
+### Problema: 401 Unauthorized
+
+**Solução:**
+1. Confira se o token está na aba **Authorization** ou no header correto.
+2. Verifique se a variável `{{token}}` foi realmente preenchida e não expirou.
+
+---
+
+## 🔨 Desafio prático
 
 **Objetivo:** Montar uma coleção pequena com testes automáticos.
 
@@ -162,6 +180,54 @@ Usando https://jsonplaceholder.typicode.com:
 5. Adicione um teste de status em cada requisição
 6. Rode tudo com o Collection Runner
 ```
+
+---
+
+## 🧠 Me teste
+
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
+
+> [!question]- Quais partes formam uma requisição HTTP?
+> Método (GET, POST...), URL (com query params), headers e body.
+
+> [!question]- Qual a diferença entre coleção e ambiente?
+> **Coleção** agrupa requisições (a API organizada). **Ambiente** guarda variáveis (`base_url`, `token`) que mudam entre dev e produção.
+
+> [!question]- Deu `401 Unauthorized`. O que significa e o que checar?
+> Falta autenticação ou ela é inválida. Cheque o header `Authorization`, se o token expirou e se o ambiente certo está ativo.
+
+> [!question]- Erro de conexão ao chamar uma API local. O que checar?
+> O servidor está rodando? Porta certa? `http` vs `https`? `localhost` vs `127.0.0.1`?
+
+> [!question]- Escreva um teste que verifica se o status é 200.
+> `pm.test("Status 200", () => pm.response.to.have.status(200));`
+
+---
+
+## 🃏 Flashcards
+
+#flashcards/ferramentas
+
+Sintaxe de variável no Postman::`{{nome}}`
+GET vs POST::GET busca dados · POST envia/cria
+Status 2xx / 4xx / 5xx::sucesso / erro do cliente / erro do servidor
+Status 404::recurso não encontrado
+Salvar o token via script::`pm.environment.set("token", valor)`
+
+---
+
+## 📓 Diário de bordo
+
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+-
+
+**O que me confundiu / onde eu errei:**
+-
+
+**Onde eu usei de verdade:**
+-
 
 ---
 
@@ -179,31 +245,3 @@ Usando https://jsonplaceholder.typicode.com:
 ### 💻 Sites e Documentação:
 - [Postman Learning Center](https://learning.postman.com) - Documentação e tutoriais oficiais
 - [JSONPlaceholder](https://jsonplaceholder.typicode.com) - API falsa gratuita para praticar
-
----
-
-## Problemas Comuns e Soluções 🔧
-
-### Problema: Erro de conexão ao chamar uma API local
-
-**Solução:**
-1. Verifique se o servidor está rodando e a porta está correta.
-2. Use `http://localhost:PORTA` (e não `https`, a não ser que haja certificado).
-
-### Problema: 401 Unauthorized
-
-**Solução:**
-1. Confira se o token está na aba **Authorization** ou no header correto.
-2. Verifique se a variável `{{token}}` foi realmente preenchida e não expirou.
-
----
-
-## Conclusão 🎉
-
-O Postman acelera muito o desenvolvimento e depuração de APIs, e é uma ferramenta que você encontrará em quase qualquer time de back-end e integração. Começar com requisições simples e evoluir para variáveis e testes já traz grande ganho.
-
-Pratique com APIs públicas até se sentir confortável com HTTP.
-
----
-
-

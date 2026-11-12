@@ -1,0 +1,961 @@
+/* Homepage Estudos — rail lateral + cards (classes com prefixo es-) */
+
+body:has(.estudos-home) {
+  --file-line-width: 100vw !important;
+  --line-width: 100vw !important;
+  --line-width-wide: 100vw !important;
+}
+
+body:has(.estudos-home)
+  :is(
+    .workspace-leaf-content,
+    .view-content,
+    .markdown-reading-view,
+    .markdown-preview-view,
+    .markdown-source-view,
+    .cm-scroller,
+    .markdown-preview-sizer,
+    .markdown-preview-section,
+    .cm-sizer,
+    .cm-content,
+    .cm-contentContainer
+  ) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+body:has(.workspace-leaf.mod-active .estudos-home)
+  :is(
+    .inline-title,
+    .metadata-container,
+    .metadata-properties,
+    .metadata-property,
+    .metadata-add-button,
+    #editingToolbarModalBar,
+    #editingToolbarPopoverBar
+  ) {
+  display: none !important;
+}
+
+/* A nota vira uma "tela" fixa: a página ocupa a altura inteira e nada rola */
+.workspace-leaf-content:has(.estudos-home)
+  :is(
+    .view-content,
+    .markdown-reading-view,
+    .markdown-preview-view,
+    .markdown-preview-sizer,
+    .markdown-preview-section,
+    .markdown-source-view,
+    .cm-scroller
+  ) {
+  overflow: hidden !important;
+  scrollbar-gutter: auto !important;
+  scrollbar-width: none !important;
+}
+
+/* Elementos do Obsidian que empurravam a página ~26px para baixo */
+.workspace-leaf-content:has(.estudos-home)
+  :is(.mod-header, .mod-footer, .markdown-preview-pusher, .frontmatter-container) {
+  display: none !important;
+}
+
+.workspace-leaf-content:has(.estudos-home)
+  :is(
+    .markdown-reading-view,
+    .markdown-preview-view,
+    .markdown-preview-sizer,
+    .markdown-preview-section,
+    .block-language-dataviewjs
+  ) {
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+.estudos-home .block-language-dataviewjs {
+  margin: 0;
+  padding: 0;
+}
+
+/* Reset de botão com especificidade ZERO, para não vencer as classes abaixo */
+:where(.estudos-home .estudos-page) button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  height: auto;
+  cursor: pointer;
+  appearance: none;
+}
+
+/* Paleta: cinza grafite neutro. Para dar um toque de cor, mude só --accent */
+.estudos-home .estudos-page {
+  --canvas: #141414;
+  --rail: #181818;
+  --card: #1c1c1c;
+  --card-hover: #232323;
+  --line: #2a2a2a;
+  --line-strong: #3d3d3d;
+  --text: #ececec;
+  --muted: #a3a3a3;
+  --faint: #727272;
+  --accent: #e6e6e6;
+  --accent-soft: color-mix(in srgb, var(--accent) 13%, transparent);
+
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 19rem minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  overflow: hidden;
+  color: var(--text);
+  background: var(--canvas);
+  font-family: var(--font-interface), ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.estudos-home .estudos-page *,
+.estudos-home .estudos-page *::before,
+.estudos-home .estudos-page *::after {
+  box-sizing: border-box;
+}
+
+.estudos-home .estudos-page :is(button, .es-card):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Busca: só a borda da caixa indica o foco (sem contorno duplo do Obsidian) */
+.estudos-home .estudos-page .es-search input,
+.estudos-home .estudos-page .es-search input:hover,
+.estudos-home .estudos-page .es-search input:focus,
+.estudos-home .estudos-page .es-search input:focus-visible,
+.estudos-home .estudos-page .es-search input:active {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Barras de rolagem próprias (menu lateral e cards) */
+.estudos-home .estudos-page :is(.es-list, .es-cards) {
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+}
+
+.estudos-home .estudos-page :is(.es-list, .es-cards)::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: transparent;
+}
+
+.estudos-home .estudos-page :is(.es-list, .es-cards)::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: rgb(255 255 255 / 6%);
+}
+
+.estudos-home .estudos-page :is(.es-list, .es-cards)::-webkit-scrollbar-thumb {
+  min-height: 3rem;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-color: #666;
+  background-clip: padding-box;
+}
+
+.estudos-home .estudos-page :is(.es-list, .es-cards)::-webkit-scrollbar-thumb:hover {
+  background-color: #a3a3a3;
+}
+
+.estudos-home .estudos-page :is(.es-list, .es-cards)::-webkit-scrollbar-button,
+.estudos-home .estudos-page :is(.es-list, .es-cards)::-webkit-scrollbar-corner {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Rail lateral */
+.estudos-home .estudos-page .es-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  min-height: 0;
+  padding: 1.5rem 0.5rem 1rem 1.25rem;
+  border-right: 1px solid var(--line);
+  background: var(--rail);
+}
+
+.estudos-home .estudos-page .es-brand,
+.estudos-home .estudos-page .es-search,
+.estudos-home .estudos-page .es-global {
+  margin-right: 0.75rem;
+}
+
+.estudos-home .estudos-page .es-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0 0.2rem;
+}
+
+.estudos-home .estudos-page .es-wordmark {
+  color: var(--text);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.estudos-home .estudos-page .es-wordmark i {
+  color: var(--faint);
+  font-style: normal;
+}
+
+.estudos-home .estudos-page .es-tagline {
+  color: var(--muted);
+  font-family: var(--font-monospace);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.estudos-home .estudos-page .es-search {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--canvas);
+}
+
+.estudos-home .estudos-page .es-search:focus-within {
+  border-color: var(--accent);
+}
+
+.estudos-home .estudos-page .es-search svg {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.estudos-home .estudos-page .es-search input {
+  width: 100%;
+  height: 2.35rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.estudos-home .estudos-page .es-search kbd {
+  flex: 0 0 auto;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--faint);
+  font-family: var(--font-monospace);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.estudos-home .estudos-page .es-search:focus-within kbd {
+  display: none;
+}
+
+.estudos-home .estudos-page .es-global {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--card);
+}
+
+.estudos-home .estudos-page .es-g-label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.estudos-home .estudos-page .es-g-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.estudos-home .estudos-page .es-g-row strong {
+  font-size: 26px;
+  font-weight: 650;
+  line-height: 1.1;
+}
+
+.estudos-home .estudos-page .es-g-row span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.estudos-home .estudos-page .es-g-bar {
+  display: block;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.estudos-home .estudos-page .es-g-bar b {
+  display: block;
+  min-width: 4px;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+/* Lista de seções: rolagem independente */
+.estudos-home .estudos-page .es-list {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-height: 0;
+  padding: 0 0.25rem 0.5rem 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.estudos-home .estudos-page .es-group {
+  flex: 0 0 auto;
+  margin: 1.1rem 0.9rem 0.4rem;
+  color: var(--faint);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.estudos-home .estudos-page .es-item {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  width: 100%;
+  min-height: 2.4rem;
+  padding: 0 0.9rem;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.estudos-home .estudos-page .es-item:hover {
+  background: rgb(255 255 255 / 5%);
+  color: var(--text);
+}
+
+.estudos-home .estudos-page .es-item.is-active {
+  background: var(--accent-soft);
+  box-shadow: inset 3px 0 0 var(--accent);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.estudos-home .estudos-page .es-group:first-child {
+  margin-top: 0.25rem;
+}
+
+.estudos-home .estudos-page .es-star {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  margin: -2px 0.5rem 0 0;
+  vertical-align: middle;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.estudos-home .estudos-page .es-item-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.estudos-home .estudos-page .es-item-meta {
+  flex: 0 0 auto;
+  color: var(--faint);
+  font-family: var(--font-monospace);
+  font-size: 12px;
+}
+
+.estudos-home .estudos-page .es-item.is-active .es-item-meta {
+  color: var(--muted);
+}
+
+.estudos-home .estudos-page .es-ico-check {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Área principal */
+.estudos-home .estudos-page .es-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  padding: 2.25rem 1.5rem 0 2.75rem;
+}
+
+.estudos-home .estudos-page .es-head {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  margin: 0 1.25rem 1.5rem 0;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.estudos-home .estudos-page .es-eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.estudos-home .estudos-page .es-title {
+  margin-top: 0.4rem;
+  color: var(--text);
+  font-size: 32px;
+  font-weight: 650;
+  line-height: 1.15;
+}
+
+.estudos-home .estudos-page .es-sub {
+  max-width: 46rem;
+  margin-top: 0.6rem;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.estudos-home .estudos-page .es-prog {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.estudos-home .estudos-page .es-prog-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.estudos-home .estudos-page .es-prog-text strong {
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.estudos-home .estudos-page .es-prog-text span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.estudos-home .estudos-page .es-ring {
+  position: relative;
+  width: 72px;
+  height: 72px;
+}
+
+.estudos-home .estudos-page .es-ring svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke-width: 6;
+  transform: rotate(-90deg);
+}
+
+.estudos-home .estudos-page .es-ring-bg {
+  stroke: var(--line);
+}
+
+.estudos-home .estudos-page .es-ring-fg {
+  stroke: var(--accent);
+  stroke-linecap: round;
+}
+
+.estudos-home .estudos-page .es-ring-text {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.estudos-home .estudos-page .es-filters {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.5rem;
+  margin: 0 1.25rem 1.1rem 0;
+}
+
+.estudos-home .estudos-page .es-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.estudos-home .estudos-page .es-pill span {
+  color: var(--faint);
+  font-family: var(--font-monospace);
+  font-size: 12px;
+}
+
+.estudos-home .estudos-page .es-pill:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.estudos-home .estudos-page .es-pill.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.estudos-home .estudos-page .es-pill.is-active span {
+  color: var(--muted);
+}
+
+.estudos-home .estudos-page .es-empty {
+  grid-column: 1 / -1;
+  padding: 1rem 0;
+  color: var(--muted);
+}
+
+/* Cards de tópicos */
+.estudos-home .estudos-page .es-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+  grid-auto-rows: max-content;
+  gap: 1rem;
+  align-content: start;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 0.5rem 2rem 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.estudos-home .estudos-page .es-card {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  column-gap: 0.9rem;
+  align-items: start;
+  min-height: 5.6rem;
+  padding: 1.05rem 1.15rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--card);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.estudos-home .estudos-page .es-card:hover {
+  border-color: var(--line-strong);
+  background: var(--card-hover);
+}
+
+.estudos-home .estudos-page .es-tick {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid var(--faint);
+  border-radius: 50%;
+  background: transparent;
+}
+
+.estudos-home .estudos-page .es-tick svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: var(--canvas);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+.estudos-home .estudos-page .es-tick:hover {
+  border-color: var(--accent);
+}
+
+.estudos-home .estudos-page .es-card.is-done .es-tick {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.estudos-home .estudos-page .es-card.is-done .es-tick svg {
+  opacity: 1;
+}
+
+.estudos-home .estudos-page .es-card-body {
+  min-width: 0;
+}
+
+.estudos-home .estudos-page .es-card-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.estudos-home .estudos-page .es-step-num {
+  color: var(--faint);
+  font-family: var(--font-monospace);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.estudos-home .estudos-page .es-card.is-next {
+  border-color: var(--line-strong);
+  background: var(--card-hover);
+}
+
+.estudos-home .estudos-page .es-card.is-next .es-step-num {
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--canvas);
+}
+
+.estudos-home .estudos-page .es-card.is-done .es-step-num {
+  text-decoration: line-through;
+}
+
+.estudos-home .estudos-page .es-card-sec {
+  margin-bottom: 0.2rem;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.estudos-home .estudos-page .es-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  min-height: 22px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.estudos-home .estudos-page .es-card-title span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.estudos-home .estudos-page .es-card.is-done .es-card-title span {
+  color: var(--muted);
+}
+
+.estudos-home .estudos-page .es-card-ico {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--faint);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.estudos-home .estudos-page .es-card:hover .es-card-ico {
+  stroke: var(--accent);
+}
+
+.estudos-home .estudos-page .es-card-desc {
+  display: -webkit-box;
+  max-height: 3em;
+  margin-top: 0.4rem;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* Telas baixas */
+@media (max-height: 800px) {
+  .estudos-home .estudos-page .es-main {
+    padding-top: 1.5rem;
+  }
+
+  .estudos-home .estudos-page .es-head {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .estudos-home .estudos-page .es-title {
+    font-size: 26px;
+  }
+
+  .estudos-home .estudos-page .es-rail {
+    gap: 0.8rem;
+    padding-top: 1rem;
+  }
+}
+
+/* Telas estreitas */
+@media (max-width: 900px) {
+  .estudos-home {
+    overflow: auto !important;
+  }
+
+  .estudos-home .estudos-page {
+    position: static;
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    overflow: visible;
+  }
+
+  .estudos-home .estudos-page .es-list {
+    max-height: 14rem;
+  }
+
+  .estudos-home .estudos-page .es-main {
+    padding: 1.5rem 1rem;
+  }
+
+  .estudos-home .estudos-page .es-cards {
+    overflow: visible;
+  }
+}
+
+/* ---------- Estudo ativo: aba "Hoje", níveis e revisão ---------- */
+.estudos-home .estudos-page .es-g-niveis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.8rem;
+  padding-top: 0.15rem;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.estudos-home .estudos-page .es-g-niveis b {
+  color: var(--text);
+  font-weight: 650;
+}
+
+.estudos-home .estudos-page .es-nivel {
+  display: inline-block;
+  margin-top: 0.55rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+.estudos-home .estudos-page .es-nivel-praticado {
+  border-color: color-mix(in srgb, #e0a458 55%, var(--line));
+  color: #e0a458;
+}
+
+.estudos-home .estudos-page .es-nivel-projeto {
+  border-color: color-mix(in srgb, #7cc5a1 55%, var(--line));
+  color: #7cc5a1;
+}
+
+.estudos-home .estudos-page .es-cards-hoje {
+  grid-template-columns: repeat(auto-fill, minmax(21rem, 1fr));
+}
+
+.estudos-home .estudos-page .es-hoje {
+  display: contents;
+}
+
+.estudos-home .estudos-page .es-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--rail);
+}
+
+.estudos-home .estudos-page .es-panel-wide {
+  grid-column: 1 / -1;
+}
+
+.estudos-home .estudos-page .es-panel-h {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.estudos-home .estudos-page .es-panel-h span {
+  color: var(--faint);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.estudos-home .estudos-page .es-panel-p,
+.estudos-home .estudos-page .es-panel-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.estudos-home .estudos-page .es-panel-hint {
+  color: var(--faint);
+  font-size: 12.5px;
+}
+
+.estudos-home .estudos-page .es-btn {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  background: var(--accent);
+  box-shadow: none;
+  color: var(--canvas);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.estudos-home .estudos-page .es-btn:hover {
+  opacity: 0.88;
+}
+
+.estudos-home .estudos-page .es-btn-ghost {
+  border-color: var(--line-strong);
+  background: transparent;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.estudos-home .estudos-page .es-btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--text);
+  opacity: 1;
+}
+
+.estudos-home .estudos-page .es-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.estudos-home .estudos-page .es-q {
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.estudos-home .estudos-page .es-a {
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 5px 5px 0;
+  background: var(--card);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.estudos-home .estudos-page :is(.es-q, .es-a, .es-panel-p) code {
+  padding: 0.05rem 0.3rem;
+  border-radius: 3px;
+  background: var(--card-hover);
+  font-size: 0.9em;
+}
+
+.estudos-home .estudos-page .es-rev {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.estudos-home .estudos-page .es-rev .es-nivel {
+  margin-top: 0;
+}
+
+.estudos-home .estudos-page .es-rev-name {
+  justify-self: start;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.estudos-home .estudos-page .es-rev-name:hover {
+  text-decoration: underline;
+}
+
+.estudos-home .estudos-page .es-rev-when {
+  color: var(--faint);
+  font-size: 12px;
+}

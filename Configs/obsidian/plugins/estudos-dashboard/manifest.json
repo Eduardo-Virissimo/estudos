@@ -1,0 +1,9 @@
+{
+  "id": "estudos-dashboard",
+  "name": "Estudos Dashboard",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "Painel automático para o vault de estudos.",
+  "author": "Local vault plugin",
+  "isDesktopOnly": false
+}

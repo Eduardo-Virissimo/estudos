@@ -1,6 +1,11 @@
+---
+tipo: trilha
+nome: Programação
+---
+
 # 🗺️ Roadmap — Tudo que Todo Programador Deve Saber
 
-> Marque os conteúdos conforme for estudando. Cada item tem uma explicação curta do "porquê" ao lado. A ordem das seções segue uma sequência lógica de aprendizado (do básico ao avançado). As três últimas seções (Matemática, Inglês Técnico, Soft Skills) são **transversais** — vale ir estudando em paralelo desde o dia 1, não só no fim. As seções marcadas com ⭐ são prioridade e aparecem em destaque na Homepage.
+> **Como usar:** marque ✅ só quando tiver **praticado** (feito o desafio da nota), não quando a nota existir. Cada nota tem um `nivel` (📝 escrito → 🔨 praticado → 🚀 projeto) que aparece na Ficha do herói. Não precisa seguir na ordem: o [[Projeto-guia]] diz o que estudar a seguir pra construir algo de verdade. As seções Transversais (Matemática, Inglês Técnico, Soft Skills) vão em paralelo desde o dia 1. As seções com ⭐ aparecem em destaque no mapa.
 
 ---
 
@@ -25,25 +30,17 @@
 
 # 2️⃣ Fundamentos
 
-- [ ] [[Lógica de Programação]] — raciocínio para transformar um problema em passos que o computador executa.
-- [ ] [[Pseudocódigo]] — escrever a solução em "português estruturado" antes de codar, pra organizar o raciocínio.
-- [ ] [[Variáveis]] — espaços na memória que guardam valores que podem mudar durante a execução.
-- [ ] [[Constantes]] — valores guardados na memória que **não** podem ser alterados depois de definidos.
-- [ ] [[Tipos de Dados]] — categorias de valores (número, texto, booleano...) que definem o que pode ser feito com eles.
-- [ ] [[Operadores]] — símbolos que fazem operações: `+`, `-`, `==`, `&&`, etc. (aritméticos, lógicos, relacionais).
-- [ ] [[Conversão de Tipos]] — transformar um tipo em outro (ex: texto "10" virar número 10), implícita ou explícita.
+- [ ] [[Lógica de Programação]] — transformar um problema em passos que o computador executa, incluindo escrever a solução em pseudocódigo antes de codar.
+- [ ] [[Variáveis e Tipos de Dados]] — variáveis e constantes, os tipos (número, texto, booleano...) e como converter um no outro (`"10"` → `10`).
+- [ ] [[Operadores e Expressões]] — `+`, `==`, `&&`... e como combiná-los em expressões que resultam em um valor.
 - [ ] [[Entrada e Saída]] — como o programa recebe dados (input) e mostra resultados (output) pro usuário.
-- [ ] [[Expressões]] — combinações de valores, variáveis e operadores que resultam em um valor.
 - [ ] [[Estruturas Condicionais]] — `if/else/switch`, permitem que o código tome decisões diferentes dependendo da situação.
 - [ ] [[Estruturas de Repetição]] — `for/while/do-while`, repetem um bloco de código várias vezes sem reescrevê-lo.
-- [ ] [[Funções]] — blocos de código reutilizáveis que executam uma tarefa específica quando chamados.
-- [ ] [[Parâmetros]] — valores que uma função recebe de fora para trabalhar com eles internamente.
-- [ ] [[Retorno]] — valor que uma função devolve depois de terminar sua execução.
+- [ ] [[Funções]] — blocos reutilizáveis: como recebem parâmetros, executam uma tarefa e devolvem um retorno.
 - [ ] [[Escopo]] — define onde uma variável "existe" e pode ser acessada (local, global, de bloco).
 - [ ] [[Recursão]] — função que chama a si mesma para resolver um problema quebrando-o em partes menores.
 - [ ] [[Modularização]] — dividir o código em arquivos/módulos menores e organizados por responsabilidade.
-- [ ] [[Comentários]] — texto explicativo no código que não é executado, serve pra documentar decisões.
-- [ ] [[Boas Práticas de Nomenclatura]] — dar nomes claros a variáveis/funções, facilitando a leitura do código.
+- [ ] [[Nomes e Comentários]] — dar nomes claros a variáveis/funções e comentar o *porquê*, não o *o quê*.
 - [ ] [[Paradigmas de Programação]] — os "estilos" de programar: imperativo, orientado a objetos, funcional, declarativo.
 
 ---
@@ -52,24 +49,15 @@
 
 > Sistema de controle de versão: registra o histórico de mudanças do código e permite trabalho em equipe.
 
-- [ ] [[Git]] — ferramenta de controle de versão distribuído, rastreia todas as mudanças feitas no código.
-- [ ] [[GitHub]] — plataforma online que hospeda repositórios Git e adiciona colaboração (PRs, issues, etc).
-- [ ] [[Repositórios]] — pasta do projeto onde o Git guarda todo o histórico de versões.
-- [ ] [[Commit]] — um "ponto de salvamento" com uma mensagem descrevendo o que mudou no código.
-- [ ] [[Branch]] — linha paralela de desenvolvimento, permite trabalhar em algo sem afetar o código principal.
-- [ ] [[Merge]] — junta as mudanças de uma branch em outra.
-- [ ] [[Rebase]] — reaplica commits de uma branch sobre outra, mantendo o histórico mais limpo/linear.
-- [ ] [[Cherry Pick]] — pega um commit específico de outra branch e aplica na branch atual.
+- [ ] [[Git Básico]] — repositório, `add`, `commit`, histórico e `.gitignore`: o ciclo do dia a dia.
+- [ ] [[GitHub e Pull Requests]] — hospedar repositórios, colaborar e propor mudanças com revisão de código.
+- [ ] [[Branches, Merge e Conflitos]] — trabalhar em paralelo numa branch, juntar com merge e resolver conflitos.
+- [ ] [[Rebase e Cherry Pick]] — reescrever/reaplicar commits: histórico linear e trazer um commit específico de outra branch.
 - [ ] [[Stash]] — guarda temporariamente mudanças não commitadas para trocar de branch sem perder o trabalho.
-- [ ] [[Reset]] — desfaz commits, movendo o ponteiro da branch para trás (pode apagar histórico).
-- [ ] [[Revert]] — cria um novo commit que desfaz as mudanças de um commit anterior, sem apagar histórico.
-- [ ] [[Tags]] — marca um commit específico como importante (ex: uma versão de release, `v1.0.0`).
+- [ ] [[Desfazendo Mudanças (Reset e Revert)]] — voltar atrás: `reset` move o ponteiro (pode apagar histórico), `revert` cria um commit que desfaz.
+- [ ] [[Tags e Versionamento Semântico]] — marcar releases (`v1.0.0`) e numerar versões no padrão `MAJOR.MINOR.PATCH`.
 - [ ] [[Git Flow]] — modelo de organização de branches (main, develop, feature, release, hotfix) para times.
-- [ ] [[Pull Request]] — pedido formal para juntar suas mudanças ao repositório principal, geralmente com revisão de código.
-- [ ] [[Conflitos]] — quando duas mudanças concorrentes no mesmo trecho de código precisam ser resolvidas manualmente.
-- [ ] [[.gitignore]] — arquivo que define quais arquivos/pastas o Git deve ignorar (ex: `node_modules`, `.env`).
 - [ ] [[Git Hooks]] — scripts automáticos disparados em eventos do Git (ex: rodar testes antes de um commit).
-- [ ] [[Versionamento Semântico (SemVer)]] — convenção `MAJOR.MINOR.PATCH` para numerar versões de forma que todos entendam o impacto da mudança.
 
 ---
 
@@ -88,8 +76,7 @@
 - [ ] [[Set]] — coleção de valores únicos, sem duplicatas, ótima pra checar existência rapidamente.
 - [ ] [[Árvore Binária]] — cada nó tem no máximo 2 filhos, base para várias estruturas mais avançadas.
 - [ ] [[Árvore Binária de Busca (BST)]] — árvore binária ordenada, onde busca, inserção e remoção são eficientes.
-- [ ] [[Árvore AVL]] — árvore binária de busca que se auto-balanceia para manter buscas rápidas sempre.
-- [ ] [[Árvore Rubro-Negra]] — outra árvore auto-balanceada, usada internamente em várias bibliotecas (ex: `TreeMap` do Java).
+- [ ] [[Árvores Balanceadas (AVL e Rubro-Negra)]] — árvores de busca que se auto-balanceiam pra manter buscas rápidas sempre.
 - [ ] [[Heap]] — árvore especial usada para sempre acessar rapidamente o maior/menor elemento (filas de prioridade).
 - [ ] [[Trie]] — árvore especializada em armazenar strings, muito usada em autocomplete e correção ortográfica.
 - [ ] [[Union-Find (Disjoint Set)]] — estrutura que gerencia grupos de elementos e verifica conexões, usada em grafos.
@@ -103,21 +90,16 @@
 
 - [ ] [[Busca Linear]] — percorre elemento por elemento até encontrar o que procura; simples, mas lenta em listas grandes.
 - [ ] [[Busca Binária]] — divide a busca ao meio repetidamente em listas ordenadas; muito mais rápida que a linear.
-- [ ] [[Bubble Sort]] — algoritmo de ordenação simples que "borbulha" o maior valor a cada passagem (didático, pouco eficiente).
-- [ ] [[Selection Sort]] — seleciona repetidamente o menor elemento e o coloca na posição correta.
-- [ ] [[Insertion Sort]] — insere cada elemento na posição correta da parte já ordenada; bom para listas pequenas/quase ordenadas.
+- [ ] [[Ordenações Simples (Bubble, Selection, Insertion)]] — os três algoritmos didáticos de ordenação O(n²); ótimos pra entender a ideia, ruins pra listas grandes.
 - [ ] [[Merge Sort]] — divide a lista, ordena as partes e depois junta tudo (divide e conquista); estável e previsível.
 - [ ] [[Quick Sort]] — escolhe um "pivô" e particiona a lista ao redor dele; rápido na prática, muito usado.
 - [ ] [[Heap Sort]] — usa a estrutura Heap para ordenar; garante desempenho consistente mesmo no pior caso.
-- [ ] [[Counting Sort]] — conta ocorrências de valores para ordenar sem comparações; rápido quando o intervalo de valores é pequeno.
-- [ ] [[Radix Sort]] — ordena números processando dígito por dígito; útil para grandes volumes de inteiros.
+- [ ] [[Ordenações sem Comparação (Counting, Radix)]] — ordenam contando/processando dígitos, sem comparar elementos; rápidos em casos específicos.
 - [ ] [[DFS (Busca em Profundidade)]] — explora um grafo/árvore indo o mais fundo possível antes de voltar.
 - [ ] [[BFS (Busca em Largura)]] — explora um grafo/árvore nível por nível, útil pra achar o caminho mais curto sem peso.
 - [ ] [[Dijkstra]] — encontra o caminho mais curto entre nós em grafos com pesos positivos (ex: rotas no GPS).
-- [ ] [[Bellman-Ford]] — como o Dijkstra, mas funciona mesmo com pesos negativos no grafo.
-- [ ] [[Floyd-Warshall]] — calcula o caminho mais curto entre **todos** os pares de nós de um grafo.
-- [ ] [[Kruskal]] — algoritmo guloso para montar a árvore geradora mínima de um grafo (menor custo total).
-- [ ] [[Prim]] — outro algoritmo para árvore geradora mínima, expandindo a árvore a partir de um nó inicial.
+- [ ] [[Bellman-Ford e Floyd-Warshall]] — caminho mínimo com pesos negativos (Bellman-Ford) e entre todos os pares de nós (Floyd-Warshall).
+- [ ] [[Árvore Geradora Mínima (Kruskal e Prim)]] — dois jeitos de conectar todos os nós de um grafo com o menor custo total.
 - [ ] [[Divide and Conquer]] — estratégia de quebrar o problema em subproblemas menores, resolver e combinar os resultados.
 - [ ] [[Backtracking]] — tenta soluções, e "volta atrás" quando percebe que o caminho não vai dar certo (ex: sudoku, N-rainhas).
 - [ ] [[Programação Dinâmica]] — resolve problemas guardando resultados de subproblemas já calculados, evitando recomputação.
@@ -132,11 +114,8 @@
 
 > Como medir o custo (tempo e memória) de um algoritmo conforme a entrada cresce.
 
-- [ ] [[Big O]] — notação que descreve o crescimento do custo de um algoritmo no pior caso (ex: O(n), O(log n)).
-- [ ] [[Complexidade Temporal]] — quanto tempo um algoritmo leva para rodar em função do tamanho da entrada.
-- [ ] [[Complexidade Espacial]] — quanta memória um algoritmo consome em função do tamanho da entrada.
+- [ ] [[Big O]] — como o custo de tempo e de memória cresce com a entrada (O(1), O(n), O(log n)...).
 - [ ] [[Complexidade Amortizada]] — custo médio de uma operação ao longo de várias execuções (ex: array dinâmico que redimensiona).
-- [ ] [[Análise Assintótica]] — estudo do comportamento de um algoritmo quando a entrada tende ao infinito.
 - [ ] [[Trade-offs Tempo x Espaço]] — decidir entre usar mais memória para ganhar velocidade, ou vice-versa.
 
 ---

@@ -1,6 +1,19 @@
-# 📚 Docker
+---
+nivel: escrito
+revisado:
+---
+
+# Docker
 
 > *"Docker é o futuro da implantação de software – é a única forma correta"* — Jez Humble
+
+> [!tip] ⚡ Em 30 segundos
+> Empacota sua aplicação com tudo que ela precisa numa **imagem**, que roda igual em qualquer máquina como **container**. O Dockerfile descreve uma imagem; o docker-compose sobe vários containers juntos (API + banco).
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
@@ -27,19 +40,6 @@ A história do Docker começa no início de 2013, quando as empresas buscavam so
 - **Hoje**: O Docker é usado por mais de 70% das empresas que implementam containers
 
 A tecnologia evoluiu do conceito de "containers" (originado no Linux em 2005 com o projeto LXC) para se tornar um padrão da indústria em DevOps e CI/CD.
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-- 🚀 **Portabilidade**: Execute sua aplicação em qualquer lugar (dev, staging, produção) com comportamento idêntico
-- 📦 **Consistência**: Elimina o problema "funciona na minha máquina" — todo ambiente é reproduzível
-- 🔧 **Isolamento**: Cada aplicativo roda em seu próprio sandbox seguro sem conflitos de dependências
-- 🤖 **Escalabilidade Fácil**: Containers podem ser criados e destruídos rapidamente para lidar com carga variável
-- 🌐 **Orquestração**: Ferramentas como Kubernetes facilitam a gestão de grandes números de containers
-- 💾 **Recursos Eficientes**: Containers consomem menos memória e CPU que máquinas virtuais tradicionais
 
 ---
 
@@ -296,7 +296,47 @@ Arquivos grandes e desnecessários (`.git`, `node_modules`) aumentam significati
 
 ---
 
-## Exercício Prático 🎯
+## Problemas Comuns e Soluções 🔧
+
+### Problema: Container não conecta ao banco de dados
+
+**Solução:**
+1. Verifique se o container do banco está rodando antes de iniciar a aplicação
+2. Use nomes de serviço (não IPs) para conexões dentro do mesmo `docker-compose`
+3. Adicione `depends_on` no docker-compose.yml
+4. Para produção, use variáveis de ambiente com senhas fortes
+
+```yaml
+# Exemplo correto:
+environment:
+  DATABASE_URL: postgres://user:password@db:5432/mydb
+```
+
+### Problema: Container roda mas a porta não responde no localhost
+
+**Solução:**
+1. Verifique o mapeamento de portas: `docker port [container]`
+2. Confirme se a aplicação está escutando na porta correta dentro do container
+3. Em produção, use variáveis de ambiente para definir a porta dinâmica
+
+```dockerfile
+# Melhor prática:
+ENV PORT=3000
+EXPOSE ${PORT}
+CMD ["node", "server.js"]
+```
+
+### Problema: Imagem muito grande (>1GB)
+
+**Solução:**
+1. Use imagens base `alpine` ou `slim` ao invés de versões completas
+2. Implemente builds multi-stage no Dockerfile
+3. Adicione `.dockerignore` para excluir arquivos grandes
+4. Execute regularmente: `docker system prune -a`
+
+---
+
+## 🔨 Desafio prático
 
 **Objetivo:** Criar um ambiente de desenvolvimento web completo usando Docker para uma aplicação Node.js com MongoDB.
 
@@ -388,6 +428,59 @@ Arquivos grandes e desnecessários (`.git`, `node_modules`) aumentam significati
 
 ---
 
+## 🧠 Me teste
+
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
+
+> [!question]- Qual a diferença entre imagem e container?
+> A **imagem** é o molde imutável (a receita). O **container** é uma instância rodando dessa imagem. Uma imagem pode ter vários containers.
+
+> [!question]- Dockerfile vs `docker-compose.yml`?
+> O Dockerfile descreve como **construir uma imagem**. O compose descreve como **rodar vários serviços juntos** (portas, volumes, rede, variáveis).
+
+> [!question]- O container está rodando, mas `localhost:3000` não responde. Causas prováveis?
+> Esqueceu de publicar a porta (`-p 3000:3000`) ou o app escuta em `127.0.0.1` dentro do container em vez de `0.0.0.0`.
+
+> [!question]- A API no container não conecta no banco usando `localhost`. Por quê?
+> Dentro do container, `localhost` é **o próprio container**. No compose, use o nome do serviço (ex.: `db`) como host.
+
+> [!question]- Por que copiar o `package.json` e rodar `npm install` antes de copiar o resto do código?
+> Cache de camadas: se só o código mudou, o Docker reaproveita a camada das dependências e o build fica muito mais rápido.
+
+> [!question]- Como reduzir uma imagem de mais de 1 GB?
+> Multi-stage build, imagem base `alpine`/`slim` e um `.dockerignore` bem feito.
+
+---
+
+## 🃏 Flashcards
+
+#flashcards/devops
+
+`docker build -t nome .`::cria uma imagem a partir do Dockerfile
+`docker run -p 8080:3000 nome`::roda um container mapeando porta do host (8080) → container (3000)
+`docker ps`::lista os containers rodando
+`docker compose up -d`::sobe os serviços do compose em segundo plano
+`docker logs -f <id>`::acompanha os logs de um container
+`docker exec -it <id> sh`::abre um terminal dentro do container
+`.dockerignore`::exclui arquivos do contexto de build
+
+---
+
+## 📓 Diário de bordo
+
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+-
+
+**O que me confundiu / onde eu errei:**
+-
+
+**Onde eu usei de verdade:**
+-
+
+---
+
 ## Próximos Passos ✅
 
 - [ ] Instalar Docker Desktop no seu sistema operacional
@@ -403,61 +496,3 @@ Arquivos grandes e desnecessários (`.git`, `node_modules`) aumentam significati
 ### 📖 Livros:
 - *[Docker Deep Dive]*
 - *[Container Security Handbook]* 
-
----
-
-## Problemas Comuns e Soluções 🔧
-
-### Problema: Container não conecta ao banco de dados
-
-**Solução:**
-1. Verifique se o container do banco está rodando antes de iniciar a aplicação
-2. Use nomes de serviço (não IPs) para conexões dentro do mesmo `docker-compose`
-3. Adicione `depends_on` no docker-compose.yml
-4. Para produção, use variáveis de ambiente com senhas fortes
-
-```yaml
-# Exemplo correto:
-environment:
-  DATABASE_URL: postgres://user:password@db:5432/mydb
-```
-
-### Problema: Container roda mas a porta não responde no localhost
-
-**Solução:**
-1. Verifique o mapeamento de portas: `docker port [container]`
-2. Confirme se a aplicação está escutando na porta correta dentro do container
-3. Em produção, use variáveis de ambiente para definir a porta dinâmica
-
-```dockerfile
-# Melhor prática:
-ENV PORT=3000
-EXPOSE ${PORT}
-CMD ["node", "server.js"]
-```
-
-### Problema: Imagem muito grande (>1GB)
-
-**Solução:**
-1. Use imagens base `alpine` ou `slim` ao invés de versões completas
-2. Implemente builds multi-stage no Dockerfile
-3. Adicione `.dockerignore` para excluir arquivos grandes
-4. Execute regularmente: `docker system prune -a`
-
----
-
-## Conclusão 🎉
-
-Docker revolucionou a forma como desenvolvedores e operações implantam e gerenciam aplicações. Com containers, você garante consistência entre ambientes, elimina dependências conflitantes e escala facilmente suas aplicações.
-
-**Dicas para dominar Docker:**
-- ✅ Use sempre `docker-compose` para ambientes locais
-- ✅ Publique imagens do seu projeto no Docker Hub
-- ✅ Leia logs com `docker logs -f [container]` quando algo falhar
-- ✅ Pratique com `docker run`, `docker exec` e `docker inspect`
-
-A jornada de aprendizado em DevOps não termina aqui — explore Kubernetes, CI/CD pipelines e monitoramento para levar seus projetos ao próximo nível! 🚀
-
----
-
-

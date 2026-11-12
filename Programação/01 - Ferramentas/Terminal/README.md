@@ -1,6 +1,19 @@
-# 📚 Terminal
+---
+nivel: escrito
+revisado:
+---
+
+# Terminal
 
 > *"A interface gráfica mostra o que você pode fazer. O terminal permite fazer qualquer coisa."*
+
+> [!tip] ⚡ Em 30 segundos
+> A janela onde você conversa com o sistema **digitando comandos**. Terminal ≠ shell: o terminal é a janela, o shell (Bash, PowerShell) é quem interpreta. A base: navegar (`cd`, `ls`), mexer em arquivos e encadear com pipes.
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
@@ -17,17 +30,6 @@ Três termos que costumam se confundir:
 ### Uma História Breve 📜
 
 Os terminais surgiram nos anos 1960-70 como equipamentos físicos (teletipos e depois monitores como o DEC VT100) ligados a computadores centrais. Hoje são programas que **emulam** esses aparelhos, e o padrão de funcionamento se manteve: texto entra, texto sai.
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-- 🚀 **Velocidade**: muitas tarefas levam segundos no terminal e minutos na interface gráfica.
-- 📦 **Ferramentas de desenvolvimento**: Git, npm, Docker, pip e muitas outras funcionam via linha de comando.
-- 🔧 **Automação**: o que você digita pode virar um script reutilizável.
-- 🤖 **Acesso remoto**: servidores quase sempre só oferecem terminal (via SSH).
 
 ---
 
@@ -142,7 +144,24 @@ Digite o começo do nome de arquivos e comandos e aperte `Tab`. Economiza digita
 
 ---
 
-## Exercício Prático 🎯
+## Problemas Comuns e Soluções 🔧
+
+### Problema: "command not found" / "não é reconhecido como comando"
+
+**Solução:**
+1. Verifique se digitou o nome corretamente.
+2. Confirme se o programa está instalado.
+3. Verifique se ele está no `PATH` do sistema e reabra o terminal.
+
+### Problema: "Permission denied"
+
+**Solução:**
+1. Confira se você tem permissão no arquivo/pasta (`ls -l`).
+2. Se necessário, use `sudo` (Linux/macOS), sabendo exatamente o que o comando faz.
+
+---
+
+## 🔨 Desafio prático
 
 **Objetivo:** Navegar e manipular arquivos usando só o terminal.
 
@@ -154,6 +173,55 @@ Digite o começo do nome de arquivos e comandos e aperte `Tab`. Economiza digita
 # 5. Liste tudo com detalhes
 # 6. Apague b.txt e c.txt
 ```
+
+---
+
+## 🧠 Me teste
+
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
+
+> [!question]- Qual a diferença entre terminal e shell?
+> O **terminal** é a janela (Windows Terminal, iTerm2). O **shell** é o programa que interpreta os comandos (Bash, Zsh, PowerShell).
+
+> [!question]- Caminho absoluto vs relativo: dê um exemplo de cada.
+> Absoluto parte da raiz: `/home/ana/projetos` ou `C:\Users\ana`. Relativo parte de onde você está: `./src`, `../docs`.
+
+> [!question]- Em `ls -la /home`, o que é comando, opção e argumento?
+> `ls` = comando · `-la` = opções · `/home` = argumento.
+
+> [!question]- O que acontece em `ls | grep ".txt"`?
+> O pipe `|` entrega a saída do `ls` como entrada do `grep`, que filtra só as linhas com `.txt`.
+
+> [!question]- Apareceu "não é reconhecido como comando". O que checar?
+> Digitação, se o programa está instalado e se ele está no `PATH`. Depois de mexer no PATH, reabra o terminal.
+
+---
+
+## 🃏 Flashcards
+
+#flashcards/ferramentas
+
+`pwd`::mostra a pasta atual
+`cd ..`::sobe um nível
+`~`::pasta do usuário (home)
+`Ctrl + R`::busca no histórico de comandos (Bash/Zsh)
+`Tab`::autocompleta nomes de arquivos e comandos
+`rm` manda pra lixeira?::Não. Apaga direto, sem volta.
+
+---
+
+## 📓 Diário de bordo
+
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+-
+
+**O que me confundiu / onde eu errei:**
+-
+
+**Onde eu usei de verdade:**
+-
 
 ---
 
@@ -174,32 +242,3 @@ Digite o começo do nome de arquivos e comandos e aperte `Tab`. Economiza digita
 ### 💻 Sites e Documentação:
 - [Windows Terminal (documentação)](https://learn.microsoft.com/windows/terminal/) - Configuração do Windows Terminal
 - [The Linux Command Line (versão online)](https://linuxcommand.org/tlcl.php) - Livro disponível gratuitamente
-
----
-
-## Problemas Comuns e Soluções 🔧
-
-### Problema: "command not found" / "não é reconhecido como comando"
-
-**Solução:**
-1. Verifique se digitou o nome corretamente.
-2. Confirme se o programa está instalado.
-3. Verifique se ele está no `PATH` do sistema e reabra o terminal.
-
-### Problema: "Permission denied"
-
-**Solução:**
-1. Confira se você tem permissão no arquivo/pasta (`ls -l`).
-2. Se necessário, use `sudo` (Linux/macOS), sabendo exatamente o que o comando faz.
-
----
-
-## Conclusão 🎉
-
-O terminal parece intimidador no começo, mas poucos comandos já mudam sua rotina. Quanto mais você usa, mais natural fica, e quase toda ferramenta moderna de programação assume que você sabe usá-lo.
-
-Dominar o básico aqui abre as portas para shells, scripts, SSH e automação.
-
----
-
-

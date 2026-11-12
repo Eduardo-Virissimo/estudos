@@ -1,6 +1,19 @@
-# 📚 Bash
+---
+nivel: escrito
+revisado:
+---
+
+# Bash
 
 > *"Se você faz algo duas vezes no terminal, provavelmente deveria virar um script."*
+
+> [!tip] ⚡ Em 30 segundos
+> Shell padrão do Linux e linguagem pra **automatizar o terminal**. Se você digitou a mesma sequência de comandos duas vezes, ela vira script: shebang, variáveis, `if`, `for` e pipes.
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
@@ -11,17 +24,6 @@ O **Bash** (*Bourne-Again SHell*) é um shell e linguagem de script usado em sis
 ### Uma História Breve 📜
 
 O Bash foi criado por **Brian Fox** em **1989** para o projeto GNU, como substituto livre do shell Bourne (`sh`) — daí o trocadilho "Bourne-Again". Tornou-se o shell padrão da maioria das distribuições Linux. No macOS, o shell padrão passou a ser o **Zsh** a partir do Catalina (2019), mas o Bash continua disponível e muito usado em scripts.
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-- 🚀 **Automação rápida**: transforma tarefas repetitivas em um único comando.
-- 📦 **Presente em todo lugar**: servidores, containers Docker, pipelines de CI.
-- 🔧 **Cola entre ferramentas**: combina programas pequenos via pipes e redirecionamentos.
-- 🤖 **Base para DevOps**: scripts de build, deploy e manutenção.
 
 ---
 
@@ -154,7 +156,23 @@ O [ShellCheck](https://www.shellcheck.net/) analisa seus scripts e aponta erros 
 
 ---
 
-## Exercício Prático 🎯
+## Problemas Comuns e Soluções 🔧
+
+### Problema: "Permission denied" ao executar o script
+
+**Solução:**
+1. Rode `chmod +x script.sh`.
+2. Execute com `./script.sh` (o `./` indica a pasta atual).
+
+### Problema: "command not found" com `^M` ou erros estranhos
+
+**Solução:**
+1. O arquivo pode ter finais de linha do Windows (CRLF).
+2. Converta para LF no editor (VS Code: canto inferior direito) ou com `dos2unix script.sh`.
+
+---
+
+## 🔨 Desafio prático
 
 **Objetivo:** Criar um script que organiza arquivos por extensão.
 
@@ -165,6 +183,55 @@ O [ShellCheck](https://www.shellcheck.net/) analisa seus scripts e aponta erros 
 # 4. Crie uma pasta com o nome da extensão (mkdir -p)
 # 5. Mova o arquivo para a pasta correspondente
 ```
+
+---
+
+## 🧠 Me teste
+
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
+
+> [!question]- Por que `nome = "Ana"` dá erro?
+> O Bash não aceita espaços ao redor do `=`. Ele entende `nome` como um comando com os argumentos `=` e `"Ana"`.
+
+> [!question]- Qual a diferença entre `>` e `>>`?
+> `>` **sobrescreve** o arquivo; `>>` **anexa** no final.
+
+> [!question]- O que `2>&1` faz?
+> Manda a saída de erro (stderr, 2) para o mesmo lugar da saída normal (stdout, 1).
+
+> [!question]- Pra que serve `set -euo pipefail`?
+> `-e` para no primeiro erro, `-u` dá erro em variável não definida, `pipefail` faz um pipe falhar se *qualquer* comando dele falhar.
+
+> [!question]- Por que escrever `"$arquivo"` com aspas?
+> Sem aspas, um nome com espaço (`meu arquivo.txt`) vira dois argumentos e o comando quebra.
+
+---
+
+## 🃏 Flashcards
+
+#flashcards/ferramentas
+
+`#!/usr/bin/env bash`::shebang: diz qual interpretador roda o script
+`$(comando)`::substituição de comando: usa a saída do comando como valor
+`$1` / `$@`::primeiro argumento / todos os argumentos do script
+`chmod +x script.sh`::dá permissão de execução
+`source ~/.bashrc`::recarrega as configurações no shell atual
+Erro com `^M` ou `\r`::arquivo com quebra de linha CRLF (Windows); converter pra LF
+
+---
+
+## 📓 Diário de bordo
+
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+-
+
+**O que me confundiu / onde eu errei:**
+-
+
+**Onde eu usei de verdade:**
+-
 
 ---
 
@@ -186,31 +253,3 @@ O [ShellCheck](https://www.shellcheck.net/) analisa seus scripts e aponta erros 
 ### 💻 Sites e Documentação:
 - [Manual do GNU Bash](https://www.gnu.org/software/bash/manual/) - Documentação oficial
 - [ShellCheck](https://www.shellcheck.net/) - Analisador de scripts
-
----
-
-## Problemas Comuns e Soluções 🔧
-
-### Problema: "Permission denied" ao executar o script
-
-**Solução:**
-1. Rode `chmod +x script.sh`.
-2. Execute com `./script.sh` (o `./` indica a pasta atual).
-
-### Problema: "command not found" com `^M` ou erros estranhos
-
-**Solução:**
-1. O arquivo pode ter finais de linha do Windows (CRLF).
-2. Converta para LF no editor (VS Code: canto inferior direito) ou com `dos2unix script.sh`.
-
----
-
-## Conclusão 🎉
-
-O Bash é a linguagem de automação do dia a dia em ambientes Linux e servidores. Mesmo scripts pequenos já poupam muito tempo, e o conhecimento se aplica diretamente a CI/CD, Docker e DevOps.
-
-Comece com tarefas simples e vá ganhando confiança antes de partir para scripts maiores.
-
----
-
-

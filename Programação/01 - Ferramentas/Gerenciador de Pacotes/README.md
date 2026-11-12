@@ -1,6 +1,19 @@
-# 📚 Gerenciador de Pacotes
+---
+nivel: escrito
+revisado:
+---
+
+# Gerenciador de Pacotes
 
 > *"Não reinvente a roda: instale-a, versione-a e atualize-a."*
+
+> [!tip] ⚡ Em 30 segundos
+> Instala, atualiza e remove as bibliotecas do projeto (npm, pip...). Tudo gira em torno de dois arquivos: o **manifesto** (`package.json`) diz o que você quer; o **lockfile** diz exatamente o que foi instalado.
+>
+> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+
+> [!info] 📊 Nível
+> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
 
 ---
 
@@ -22,17 +35,6 @@ Também existem gerenciadores de pacotes do **sistema operacional** (`apt`, `bre
 ### Uma História Breve 📜
 
 Gerenciadores de pacotes de sistema (como `dpkg`/`apt` no Debian) existem desde os anos 1990. Para linguagens de programação, o movimento cresceu com **CPAN** (Perl), **RubyGems**, **Maven** (Java, 2004) e **pip** (Python). O **npm** surgiu em **2010**, criado por Isaac Schlueter, e se tornou um dos maiores registros de pacotes do mundo.
-
----
-
-## Por que é Importante? 💡
-
-### Vantagens Principais
-
-- 🚀 **Reuso de código**: milhares de bibliotecas prontas para usar.
-- 📦 **Dependências organizadas**: o projeto declara o que precisa, e qualquer pessoa reproduz o ambiente.
-- 🔧 **Controle de versões**: atualiza com segurança e evita conflitos.
-- 🤖 **Automação**: facilita builds, CI/CD e deploys reproduzíveis.
 
 ---
 
@@ -185,7 +187,24 @@ Instala exatamente o que está no lockfile, de forma limpa e reproduzível.
 
 ---
 
-## Exercício Prático 🎯
+## Problemas Comuns e Soluções 🔧
+
+### Problema: Conflito de versões entre dependências
+
+**Solução:**
+1. Leia a mensagem de erro para ver qual pacote exige qual versão.
+2. Atualize ou fixe as versões compatíveis.
+3. Como último recurso, reinstale do zero (apague `node_modules` e rode `npm install`).
+
+### Problema: "command not found: npm" / "pip não é reconhecido"
+
+**Solução:**
+1. Instale o Node.js (que traz o npm) ou o Python (que traz o pip).
+2. Verifique se estão no `PATH` e reabra o [[Terminal]].
+
+---
+
+## 🔨 Desafio prático
 
 **Objetivo:** Criar um projeto, instalar dependências e reproduzi-lo do zero.
 
@@ -198,6 +217,55 @@ Instala exatamente o que está no lockfile, de forma limpa e reproduzível.
 # 6. Rode npm install de novo e execute o index.js
 # 7. Olhe o package.json e o package-lock.json gerados
 ```
+
+---
+
+## 🧠 Me teste
+
+> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
+
+> [!question]- Qual a diferença entre `package.json` e `package-lock.json`?
+> O `package.json` lista as dependências e as faixas de versão aceitas. O lockfile registra a versão **exata** instalada de cada pacote (e das dependências delas).
+
+> [!question]- O que significa `"dayjs": "^1.4.2"`?
+> Aceita qualquer `1.x.x` a partir de `1.4.2` (novos MINOR e PATCH), mas nunca `2.0.0`.
+
+> [!question]- `node_modules` vai pro Git? E o lockfile?
+> `node_modules` **não** (vai no `.gitignore`). O lockfile **sim**.
+
+> [!question]- `npm install` vs `npm ci`?
+> `npm ci` instala exatamente o que está no lockfile, do zero, e falha se ele não bater com o `package.json`. É o certo pra CI.
+
+> [!question]- Dependência de produção vs de desenvolvimento: dê exemplos.
+> Produção: o que o app usa rodando (`dayjs`, `express`). Dev: só pra desenvolver (`prettier`, `eslint`), instalado com `-D`.
+
+---
+
+## 🃏 Flashcards
+
+#flashcards/ferramentas
+
+`npm install -D pacote`::instala como dependência de desenvolvimento
+SemVer `MAJOR.MINOR.PATCH`::MAJOR quebra compatibilidade · MINOR adiciona recurso · PATCH corrige bug
+`~1.4.2`::aceita só patches (`1.4.x`)
+`python -m venv .venv`::cria um ambiente isolado em Python
+`pip freeze > requirements.txt`::salva as dependências instaladas
+`npx`::executa um pacote sem instalá-lo globalmente
+
+---
+
+## 📓 Diário de bordo
+
+> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+
+**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+-
+
+**O que me confundiu / onde eu errei:**
+-
+
+**Onde eu usei de verdade:**
+-
 
 ---
 
@@ -217,32 +285,3 @@ Instala exatamente o que está no lockfile, de forma limpa e reproduzível.
 - [pip](https://pip.pypa.io/en/stable/) - Documentação oficial do pip
 - [Maven](https://maven.apache.org/guides/) - Guias oficiais do Maven
 - [Semantic Versioning](https://semver.org/lang/pt-BR/) - Especificação do SemVer
-
----
-
-## Problemas Comuns e Soluções 🔧
-
-### Problema: Conflito de versões entre dependências
-
-**Solução:**
-1. Leia a mensagem de erro para ver qual pacote exige qual versão.
-2. Atualize ou fixe as versões compatíveis.
-3. Como último recurso, reinstale do zero (apague `node_modules` e rode `npm install`).
-
-### Problema: "command not found: npm" / "pip não é reconhecido"
-
-**Solução:**
-1. Instale o Node.js (que traz o npm) ou o Python (que traz o pip).
-2. Verifique se estão no `PATH` e reabra o [[Terminal]].
-
----
-
-## Conclusão 🎉
-
-Gerenciadores de pacotes são a base do desenvolvimento moderno: eles dão acesso ao trabalho de milhões de pessoas e garantem que seu projeto seja reproduzível em qualquer máquina. Entender manifesto, versões e lockfile evita muitos dos problemas clássicos de "na minha máquina funciona".
-
-Pratique com projetos pequenos e crie o hábito de gerenciar dependências com cuidado.
-
----
-
-

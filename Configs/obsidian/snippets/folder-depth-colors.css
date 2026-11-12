@@ -1,0 +1,40 @@
+
+/* Cores por profundidade da hierarquia */
+
+/* 1º nível — azul */
+.nav-files-container > div > .nav-folder > .nav-folder-title {
+  color: #89B4FA !important;
+}
+
+/* 2º nível — roxo */
+.nav-files-container > div > .nav-folder
+> .nav-folder-children > .nav-folder
+> .nav-folder-title {
+  color: #CBA6F7 !important;
+}
+
+/* 3º nível — verde */
+.nav-files-container > div > .nav-folder
+> .nav-folder-children > .nav-folder
+> .nav-folder-children > .nav-folder
+> .nav-folder-title {
+  color: #A6E3A1 !important;
+}
+
+/* 4º nível — amarelo */
+.nav-files-container > div > .nav-folder
+> .nav-folder-children > .nav-folder
+> .nav-folder-children > .nav-folder
+> .nav-folder-children > .nav-folder
+> .nav-folder-title {
+  color: #F9E2AF !important;
+}
+
+/* 5º nível — rosa */
+.nav-files-container > div > .nav-folder
+> .nav-folder-children > .nav-folder
+> .nav-folder-children > .nav-folder
+> .nav-folder-children > .nav-folder
+> .nav-folder-children > .nav-folder-title {
+  color: #F38BA8 !important;
+}

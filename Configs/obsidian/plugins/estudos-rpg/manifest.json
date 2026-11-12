@@ -1,0 +1,9 @@
+{
+  "id": "estudos-rpg",
+  "name": "Estudos RPG",
+  "version": "1.0.0",
+  "minAppVersion": "1.7.2",
+  "description": "Ficha do herói para o vault de estudos: XP, missões, revisão espaçada, treino misto e mapa das trilhas.",
+  "author": "Eduardo",
+  "isDesktopOnly": false
+}
