@@ -77,9 +77,6 @@ export interface DiaDiario {
   data: string; // YYYY-MM-DD
   caminho: string;
   minutos: number;
-  treinos: number;
-  acertos: number;
-  perfeitos: number;
 }
 
 /** Foto do vault num instante. A interface só lê daqui. */

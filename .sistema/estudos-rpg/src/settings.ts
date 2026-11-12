@@ -8,8 +8,6 @@ export interface XPConfig {
   topico: number;
   diario: number;
   caixa: number;
-  treino: number;
-  acerto: number;
   tarefa: number;
 }
 
@@ -24,7 +22,6 @@ export interface Settings {
   pastasIgnoradas: string[];
   /** Dias até a próxima revisão para cada caixa (índice = caixa). */
   intervalos: number[];
-  perguntasPorTreino: number;
   semanasNoCalendario: number;
   xp: XPConfig;
   titulos: string[];
@@ -36,25 +33,38 @@ export const DEFAULT_SETTINGS: Settings = {
   templateDiario: "estudos/Programação/Template/Diário.md",
   pastasIgnoradas: ["estudos/Programação/Template"],
   intervalos: [0, 1, 3, 7, 14, 30, 60],
-  perguntasPorTreino: 5,
-  semanasNoCalendario: 20,
-  xp: { escrito: 20, praticado: 60, projeto: 120, topico: 10, diario: 15, caixa: 10, treino: 20, acerto: 5, tarefa: 25 },
+  semanasNoCalendario: 30,
+  xp: { escrito: 20, praticado: 60, projeto: 120, topico: 10, diario: 15, caixa: 10, tarefa: 25 },
   titulos: ["Aprendiz", "Escudeiro", "Cavaleiro", "Cavaleiro do Código", "Mago dos Bits", "Arquimago", "Lorde do Terminal", "Lenda do Reino"],
 };
 
-/** Junta o que foi salvo com os padrões (e se uma versão nova adicionar campos?). */
-export function mergeSettings(saved: Partial<Settings> | null | undefined): Settings {
-  const s = saved ?? {};
+/**
+ * Junta o que foi salvo com os padrões.
+ * E se a config salva for de uma versão antiga? Campos novos ganham o padrão,
+ * campos que não existem mais (ex.: do treino removido) são descartados,
+ * e valores com tipo errado são ignorados.
+ */
+export function mergeSettings(saved: unknown): Settings {
+  const s = (saved && typeof saved === "object" ? saved : {}) as Record<string, unknown>;
+  const d = DEFAULT_SETTINGS;
+  const xpSalvo = (s.xp && typeof s.xp === "object" ? s.xp : {}) as Record<string, unknown>;
+  const xp = { ...d.xp };
+  for (const k of Object.keys(xp) as (keyof XPConfig)[]) if (typeof xpSalvo[k] === "number") xp[k] = xpSalvo[k] as number;
+
   return {
-    ...DEFAULT_SETTINGS,
-    ...s,
-    xp: { ...DEFAULT_SETTINGS.xp, ...(s.xp ?? {}) },
-    intervalos: validList(s.intervalos, DEFAULT_SETTINGS.intervalos),
-    titulos: validList(s.titulos, DEFAULT_SETTINGS.titulos),
-    pastasIgnoradas: Array.isArray(s.pastasIgnoradas) ? s.pastasIgnoradas : DEFAULT_SETTINGS.pastasIgnoradas,
+    abrirAoIniciar: typeof s.abrirAoIniciar === "boolean" ? s.abrirAoIniciar : d.abrirAoIniciar,
+    pastaDiario: typeof s.pastaDiario === "string" && s.pastaDiario.trim() ? s.pastaDiario : d.pastaDiario,
+    templateDiario: typeof s.templateDiario === "string" ? s.templateDiario : d.templateDiario,
+    pastasIgnoradas: Array.isArray(s.pastasIgnoradas) ? s.pastasIgnoradas.filter((x): x is string => typeof x === "string") : d.pastasIgnoradas,
+    intervalos: listaDe(s.intervalos, (x): x is number => typeof x === "number" && x >= 0, d.intervalos, 2),
+    semanasNoCalendario: typeof s.semanasNoCalendario === "number" ? s.semanasNoCalendario : d.semanasNoCalendario,
+    xp,
+    titulos: listaDe(s.titulos, (x): x is string => typeof x === "string" && x.trim() !== "", d.titulos, 1),
   };
 }
 
-function validList<T>(v: unknown, fallback: T[]): T[] {
-  return Array.isArray(v) && v.length > 0 ? (v as T[]) : fallback;
+function listaDe<T>(v: unknown, valido: (x: unknown) => x is T, padrao: T[], minimo: number): T[] {
+  if (!Array.isArray(v)) return [...padrao];
+  const ok = v.filter(valido);
+  return ok.length >= minimo ? ok : [...padrao];
 }

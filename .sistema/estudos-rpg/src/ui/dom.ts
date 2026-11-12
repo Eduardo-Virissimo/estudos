@@ -56,5 +56,5 @@ export function vazio(parent: HTMLElement, texto: string, dica?: string): void {
 }
 
 export function ornamento(parent: HTMLElement): void {
-  parent.createDiv({ cls: "erpg-ornamento", attr: { "aria-hidden": "true" } }).createSpan({ text: "⚜" });
+  parent.createDiv({ cls: "erpg-ornamento", attr: { "aria-hidden": "true" } }).createSpan({ text: "◆" });
 }

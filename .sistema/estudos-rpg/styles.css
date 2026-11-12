@@ -1,343 +1,398 @@
 /* =====================================================================
-   Estudos RPG · tema "fantasia clássica"
-   Couro escuro ao fundo, painéis de pergaminho, moldura dourada,
-   selos de cera e tipografia Cinzel (títulos) + EB Garamond (texto).
+   Estudos RPG · tema "RPG moderno" (HUD de jogo)
+   Layout de TELA ÚNICA: a ficha ocupa a altura da aba, sem rolagem.
+     [ faixa do topo ]
+     [ Missão | Pergunta + Revisar | Trilhas + Atividade ]
+   Listas longas rolam DENTRO do próprio painel (.erpg-rola), nunca a página.
+   Telas pequenas/baixas empilham as colunas (aí a página rola).
    Tudo escopado em .erpg-host: não vaza para o resto do Obsidian.
    ===================================================================== */
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap");
 
 .erpg-host {
-  /* Paleta */
-  --couro: #1c130c;
-  --couro-2: #2a1c11;
-  --pergaminho: #ecdcb6;
-  --pergaminho-2: #e0caa0;
-  --pergaminho-3: #d3b886;
-  --tinta: #2b1c0e;
-  --tinta-suave: #5c4428;
-  --tinta-clara: #7d6444;
-  --ouro: #c9a14a;
-  --ouro-claro: #f0d58a;
-  --ouro-escuro: #8a6a2a;
-  --cera: #7e1e1a;
-  --cera-clara: #a3302a;
-  --ferro: #4a4038;
-  --brasa: #d9772b;
+  --fundo: #080b12;
+  --fundo-2: #0e1422;
+  --painel: rgba(17, 23, 38, 0.86);
+  --painel-2: rgba(28, 37, 60, 0.62);
+  --painel-3: rgba(40, 52, 82, 0.55);
+  --linha: rgba(231, 194, 122, 0.16);
+  --linha-2: rgba(231, 194, 122, 0.38);
+  --texto: #ece7dc;
+  --suave: #aaa596;
+  --apagado: #7b776d;
 
-  --fonte-titulo: "Cinzel", "Trajan Pro", Georgia, serif;
-  --fonte-texto: "EB Garamond", Garamond, Georgia, serif;
-  --r: 6px;
+  --ouro: #e7c27a;
+  --ouro-2: #c99a45;
+  --ouro-claro: #fbe6b0;
+  --chama: #ff8a3d;
+  --ok: #5fd4a0;
+
+  --comum: #a3acb7;
+  --raro: #4ea8ff;
+  --epico: #b57bff;
+  --lendario: #ffb547;
+
+  --fonte-titulo: "Rajdhani", "Segoe UI", system-ui, sans-serif;
+  --fonte-texto: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --chanfro: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px);
+  --hex: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-
-  /* Ruído de papel/couro (SVG inline, sem arquivo externo) */
-  --grao: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.17  0 0 0 0 0.08  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --gap: 0.85rem;
 
   padding: 0 !important;
-  overflow-y: auto;
+  overflow: hidden;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(201, 161, 74, 0.12), transparent 55%),
-    radial-gradient(ellipse at 50% 120%, rgba(0, 0, 0, 0.7), transparent 60%),
-    var(--grao),
-    linear-gradient(180deg, var(--couro-2), var(--couro));
-  color: var(--tinta);
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(231, 194, 122, 0.12), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(78, 168, 255, 0.07), transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(180deg, var(--fundo-2), var(--fundo));
+  color: var(--texto);
   font-family: var(--fonte-texto);
-  font-size: 17px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.45;
 }
 
 .erpg-host *,
 .erpg-host *::before,
 .erpg-host *::after { box-sizing: border-box; }
 
-.erpg {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 2.25rem 1.75rem 4rem;
-}
+/* O Obsidian dá a todo <button> altura fixa (~30px) e texto sem quebra.
+   Aqui os botões são cards e blocos: a altura segue o conteúdo. */
+.erpg-host button { height: auto; white-space: normal; font-weight: inherit; }
 
 .erpg-carregando {
   padding: 4rem;
-  color: var(--ouro-claro);
+  color: var(--ouro);
   font-family: var(--fonte-titulo);
+  font-size: 18px;
+  letter-spacing: 0.15em;
   text-align: center;
+  text-transform: uppercase;
 }
 
-/* ---------- Pergaminho com moldura (base de ficha e painéis) ---------- */
+/* ---------- Estrutura de tela única ---------- */
+.erpg {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: var(--gap);
+  width: 100%;
+  max-width: 1680px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 1.1rem;
+}
+
+.erpg-grade-principal {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: var(--gap);
+  min-height: 0;
+}
+
+.erpg-col { display: flex; flex-direction: column; gap: var(--gap); min-height: 0; }
+.erpg-col > .erpg-painel { flex: 1 1 0; }
+.erpg-col.is-b > .is-oraculo { flex-grow: 1.15; }
+.erpg-col > .is-cronica { flex: 0 0 auto; }
+
+/* Área que rola por dentro do painel quando o conteúdo não cabe */
+.erpg-rola {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--linha-2) transparent;
+}
+.erpg-rola::-webkit-scrollbar { width: 6px; }
+.erpg-rola::-webkit-scrollbar-thumb { border-radius: 3px; background: var(--linha-2); }
+
+/* ---------- Painel base: vidro escuro + cantoneiras douradas ---------- */
 .erpg-ficha,
 .erpg-painel {
   position: relative;
-  border: 2px solid var(--ouro-escuro);
-  border-radius: var(--r);
-  background:
-    radial-gradient(ellipse at center, transparent 55%, rgba(120, 80, 30, 0.28) 100%),
-    var(--grao),
-    linear-gradient(170deg, var(--pergaminho), var(--pergaminho-2));
-  box-shadow:
-    0 0 0 4px var(--couro),
-    0 0 0 5px var(--ouro),
-    0 14px 30px -12px rgba(0, 0, 0, 0.85),
-    inset 0 0 40px rgba(110, 70, 20, 0.25);
+  border: 1px solid var(--linha);
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 40%), var(--painel);
+  box-shadow: 0 16px 36px -20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
-
-/* Cantoneiras douradas */
 .erpg-ficha::before,
 .erpg-ficha::after,
 .erpg-painel::before,
 .erpg-painel::after {
   content: "";
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 12px;
+  height: 12px;
   border: 2px solid var(--ouro);
   pointer-events: none;
 }
 .erpg-ficha::before,
-.erpg-painel::before { top: 5px; left: 5px; border-right: 0; border-bottom: 0; }
+.erpg-painel::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
 .erpg-ficha::after,
-.erpg-painel::after { right: 5px; bottom: 5px; border-top: 0; border-left: 0; }
+.erpg-painel::after { right: -1px; bottom: -1px; border-top: 0; border-left: 0; }
 
-/* ---------- Ficha do herói ---------- */
+.erpg-painel { display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: 0.85rem 1rem 0.95rem; overflow: hidden; }
+
+.erpg-painel-cab {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--linha);
+}
+.erpg-selo { position: relative; width: 28px; height: 28px; color: var(--ouro); }
+.erpg-selo::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--linha-2);
+  background: rgba(231, 194, 122, 0.08);
+  transform: rotate(45deg);
+}
+.erpg-selo svg { position: relative; width: 14px; height: 14px; }
+.erpg-painel-tt { display: flex; flex: 1; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.2rem 0.75rem; min-width: 0; }
+.erpg-host .erpg-painel-tt h2 {
+  margin: 0;
+  color: var(--texto);
+  font-family: var(--fonte-titulo);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.erpg-painel-sub { color: var(--apagado); font-size: 12px; }
+.erpg-painel-corpo { display: flex; flex: 1 1 auto; flex-direction: column; gap: 0.6rem; min-height: 0; }
+
+/* ---------- Faixa do topo ---------- */
 .erpg-ficha {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: 1.75rem;
-  padding: 1.75rem 2rem;
-  animation: erpg-desenrolar 0.6s var(--ease) both;
+  gap: 1.25rem;
+  padding: 0.75rem 1.1rem;
+  background:
+    radial-gradient(ellipse 40% 140% at 0% 50%, rgba(231, 194, 122, 0.16), transparent 70%),
+    linear-gradient(110deg, rgba(28, 37, 60, 0.95), rgba(14, 20, 34, 0.92));
+  animation: erpg-entrar 0.45s var(--ease) both;
 }
 
 .erpg-brasao {
+  position: relative;
   display: grid;
   place-items: center;
   align-content: center;
-  width: 96px;
-  height: 112px;
-  clip-path: path("M48 0 L96 14 L96 58 C96 86 74 102 48 112 C22 102 0 86 0 58 L0 14 Z");
-  background:
-    linear-gradient(160deg, var(--ouro-claro), var(--ouro) 45%, var(--ouro-escuro));
-  color: var(--tinta);
+  width: 58px;
+  height: 66px;
+  clip-path: var(--hex);
+  background: linear-gradient(160deg, var(--ouro-claro), var(--ouro) 40%, var(--ouro-2));
+  color: var(--ouro-claro);
   text-align: center;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
 }
-.erpg-brasao-rot {
+.erpg-brasao::before { content: ""; position: absolute; inset: 2px; clip-path: inherit; background: radial-gradient(circle at 50% 30%, #2a3554, #0e1422 75%); }
+.erpg-brasao > * { position: relative; }
+.erpg-brasao-rot { color: var(--ouro); font-family: var(--fonte-titulo); font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; line-height: 1; }
+.erpg-brasao-num { font-family: var(--fonte-titulo); font-size: 28px; font-weight: 700; line-height: 1; text-shadow: 0 0 14px rgba(231, 194, 122, 0.55); }
+
+.erpg-ficha-id { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+.erpg-host .erpg-titulo {
+  margin: 0;
+  overflow: hidden;
+  color: var(--texto);
+  font-family: var(--fonte-titulo);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.erpg-xp { display: flex; align-items: center; gap: 0.7rem; max-width: 560px; }
+.erpg-xp-num { flex: 0 0 auto; color: var(--ouro-claro); font-family: var(--fonte-titulo); font-size: 14px; font-weight: 700; }
+
+.erpg-atributos { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.erpg-atributo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--linha);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--suave);
+  font-size: 12px;
+}
+.erpg-atributo .erpg-ico { color: var(--ouro); }
+.erpg-atributo .erpg-ico svg { width: 13px; height: 13px; }
+.erpg-atributo-val { color: var(--texto); font-family: var(--fonte-titulo); font-size: 15px; font-weight: 700; line-height: 1; }
+.erpg-atributo.is-chama { border-color: rgba(255, 138, 61, 0.5); }
+.erpg-atributo.is-chama .erpg-ico,
+.erpg-atributo.is-chama .erpg-atributo-val { color: var(--chama); }
+
+/* Conquistas: medalhas hexagonais com cor de raridade */
+.erpg-medalhas { display: flex; flex-direction: column; gap: 0.35rem; }
+.erpg-medalhas-fila { display: grid; grid-template-columns: repeat(6, 26px); gap: 5px; }
+.erpg-medalha {
+  --cor: var(--comum);
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 29px;
+  clip-path: var(--hex);
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--apagado);
+  cursor: help;
+  transition: transform 0.2s var(--ease);
+}
+.erpg-medalha:hover { transform: scale(1.15); }
+.erpg-medalha svg { width: 13px; height: 13px; }
+.erpg-medalha.is-raro { --cor: var(--raro); }
+.erpg-medalha.is-epico { --cor: var(--epico); }
+.erpg-medalha.is-lendario { --cor: var(--lendario); }
+.erpg-medalha.is-ok {
+  background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--cor) 75%, #fff), color-mix(in srgb, var(--cor) 40%, #0e1422));
+  color: #fff;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--cor) 60%, transparent));
+}
+
+.erpg-ficha-acao { display: flex; align-items: center; }
+
+.erpg-rotulo {
+  color: var(--ouro);
   font-family: var(--fonte-titulo);
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-.erpg-brasao-num {
-  font-family: var(--fonte-titulo);
-  font-size: 44px;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.erpg-ficha-id { display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
-
-.erpg-sobretitulo,
-.erpg-subtitulo {
-  color: var(--cera);
-  font-family: var(--fonte-titulo);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-.erpg-host .erpg-titulo {
-  margin: 0;
-  color: var(--tinta);
-  font-family: var(--fonte-titulo);
-  font-size: clamp(28px, 3.6vw, 44px);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1.05;
-}
-
-.erpg-xp { display: flex; align-items: center; gap: 0.9rem; max-width: 620px; }
-.erpg-xp-num { flex: 0 0 auto; color: var(--tinta-suave); font-family: var(--fonte-titulo); font-size: 13px; font-weight: 700; }
-
-/* Barras: moldura de ferro, preenchimento de ouro */
+/* ---------- Barras ---------- */
 .erpg-barra {
   position: relative;
   flex: 1 1 auto;
-  height: 10px;
+  height: 5px;
   overflow: hidden;
-  border: 1px solid var(--tinta);
-  border-radius: 999px;
-  background: rgba(43, 28, 14, 0.18);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.08);
 }
-.erpg-barra.is-xp { height: 16px; border: 2px solid var(--ferro); background: #2b221b; }
-.erpg-barra-fill {
-  height: 100%;
-  min-width: 4px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, var(--ouro-claro), var(--ouro) 50%, var(--ouro-escuro));
-  transition: width 0.8s var(--ease);
+.erpg-barra-fill { height: 100%; min-width: 2px; background: linear-gradient(90deg, var(--ouro-2), var(--ouro-claro)); transition: width 0.8s var(--ease); }
+.erpg-barra.is-xp {
+  height: 10px;
+  border: 1px solid var(--linha-2);
+  background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), rgba(0, 0, 0, 0.55) calc(10% - 1px) 10%), rgba(0, 0, 0, 0.45);
 }
-.erpg-barra.is-xp .erpg-barra-fill {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 45%),
-    linear-gradient(90deg, var(--ouro-escuro), var(--ouro-claro));
-  box-shadow: 0 0 10px rgba(240, 213, 138, 0.6);
+.erpg-barra.is-xp .erpg-barra-fill { position: relative; background: linear-gradient(90deg, var(--ouro-2), var(--ouro) 60%, var(--ouro-claro)); box-shadow: 0 0 12px rgba(231, 194, 122, 0.7); }
+.erpg-barra.is-xp .erpg-barra-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent) no-repeat;
+  background-size: 40% 100%;
+  animation: erpg-brilho 3.2s ease-in-out infinite;
 }
-
-.erpg-atributos { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
-.erpg-atributo { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--tinta-suave); font-size: 15px; }
-.erpg-atributo .erpg-ico { color: var(--ouro-escuro); }
-.erpg-atributo-val { color: var(--tinta); font-family: var(--fonte-titulo); font-size: 16px; font-weight: 700; }
-.erpg-atributo.is-chama .erpg-ico,
-.erpg-atributo.is-chama .erpg-atributo-val { color: var(--brasa); }
-
-.erpg-ficha-acao { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; max-width: 260px; text-align: right; }
 
 /* ---------- Ícones ---------- */
 .erpg-ico { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; }
-.erpg-ico svg { width: 18px; height: 18px; stroke-width: 1.9; }
+.erpg-ico svg { width: 16px; height: 16px; stroke-width: 2; }
 
-/* ---------- Botões: selo de cera / pergaminho / link ---------- */
+/* ---------- Botões chanfrados ---------- */
 .erpg-host .erpg-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  min-height: 44px;
+  gap: 0.45rem;
+  min-height: 40px;
   margin: 0;
-  padding: 0 1.15rem;
-  border: 1px solid #4d0f0c;
-  border-radius: 4px;
-  background: linear-gradient(180deg, var(--cera-clara), var(--cera));
-  box-shadow: inset 0 1px 0 rgba(255, 220, 180, 0.25), 0 2px 0 #3b0b08, 0 4px 10px -4px rgba(0, 0, 0, 0.6);
-  color: var(--ouro-claro);
+  padding: 0 1.1rem;
+  border: 0;
+  border-radius: 0;
+  clip-path: var(--chanfro);
+  background: linear-gradient(180deg, var(--ouro-claro), var(--ouro) 55%, var(--ouro-2));
+  box-shadow: none;
+  color: #1a1408;
   font-family: var(--fonte-titulo);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
   cursor: pointer;
-  transition: transform 0.15s var(--ease), filter 0.15s, box-shadow 0.15s;
+  transition: transform 0.15s var(--ease), filter 0.15s;
 }
-.erpg-host .erpg-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
-.erpg-host .erpg-btn:active { transform: translateY(1px); box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5); }
-.erpg-host .erpg-btn:disabled { opacity: 0.6; cursor: progress; }
+.erpg-host .erpg-btn:hover { transform: translateY(-1px); filter: brightness(1.12) drop-shadow(0 0 8px rgba(231, 194, 122, 0.45)); }
+.erpg-host .erpg-btn:active { transform: translateY(1px); filter: brightness(0.95); }
+.erpg-host .erpg-btn:disabled { opacity: 0.55; cursor: progress; }
 .erpg-host .erpg-btn.is-secundario {
-  border-color: var(--tinta-suave);
-  background: linear-gradient(180deg, var(--pergaminho), var(--pergaminho-3));
-  box-shadow: 0 2px 0 var(--tinta-clara);
-  color: var(--tinta);
+  border: 1px solid transparent;
+  background: linear-gradient(var(--painel-3), var(--painel-3)) padding-box, linear-gradient(180deg, var(--linha-2), var(--linha)) border-box;
+  color: var(--texto);
 }
-.erpg-host .erpg-btn.is-discreto { border-color: transparent; background: transparent; box-shadow: none; color: var(--tinta-suave); }
-.erpg-host .erpg-btn.is-discreto:hover { color: var(--cera); }
-.erpg-host .erpg-btn.is-sm { min-height: 36px; padding: 0 0.8rem; font-size: 12px; }
-.erpg-host .erpg-btn .erpg-ico svg { width: 16px; height: 16px; }
+.erpg-host .erpg-btn.is-secundario:hover { color: var(--ouro-claro); filter: brightness(1.2); }
+.erpg-host .erpg-btn.is-discreto { clip-path: none; background: transparent; color: var(--suave); }
+.erpg-host .erpg-btn.is-discreto:hover { color: var(--ouro); filter: none; }
+.erpg-host .erpg-btn.is-sm { min-height: 32px; padding: 0 0.75rem; font-size: 12.5px; }
+.erpg-host .erpg-btn .erpg-ico svg { width: 15px; height: 15px; }
 
-.erpg-host :is(button, input):focus-visible { outline: 2px solid var(--cera); outline-offset: 2px; }
+.erpg-host :is(button, input):focus-visible { outline: 2px solid var(--raro); outline-offset: 2px; }
 
-.erpg-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.erpg-acoes { display: flex; flex: 0 0 auto; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
 
-/* ---------- Painéis ---------- */
-.erpg-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+/* ---------- Textos ---------- */
+.erpg-texto, .erpg-host .erpg-painel p { margin: 0; color: var(--suave); }
+.erpg-dica { color: var(--apagado); font-size: 12px; }
+.erpg-meta { color: var(--apagado); font-size: 12px; }
+.erpg-meta.is-ouro { color: var(--ouro); font-family: var(--fonte-titulo); font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.erpg-num { color: var(--suave); font-family: var(--fonte-titulo); font-size: 13px; font-weight: 700; white-space: nowrap; }
+.erpg-num.is-ouro { color: var(--ouro); }
+.erpg-linha { display: flex; flex: 0 0 auto; align-items: center; gap: 0.7rem; }
+.erpg-subtitulo { color: var(--ouro); font-family: var(--fonte-titulo); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
 
-.erpg-painel { display: flex; flex-direction: column; min-width: 0; padding: 1.4rem 1.5rem 1.5rem; }
+.erpg-vazio p { margin: 0; }
+.erpg-vazio p:first-child { color: var(--texto); }
+.erpg-vazio p + p { margin-top: 0.3rem; }
 
-.erpg-painel-cab {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.8rem;
-  border-bottom: 1px solid rgba(92, 68, 40, 0.35);
-}
-.erpg-selo {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, var(--cera-clara), var(--cera) 60%, #4d0f0c);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.45), inset 0 0 0 2px rgba(240, 213, 138, 0.35);
-  color: var(--ouro-claro);
-}
-.erpg-host .erpg-painel-tt h2 {
-  margin: 0;
-  color: var(--tinta);
-  font-family: var(--fonte-titulo);
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  line-height: 1.2;
-}
-.erpg-painel-sub { color: var(--tinta-clara); font-size: 14px; font-style: italic; }
-.erpg-painel-corpo { display: flex; flex-direction: column; gap: 0.9rem; }
-
-.erpg-texto, .erpg-host .erpg-painel p { margin: 0; color: var(--tinta-suave); }
-.erpg-dica { color: var(--tinta-clara); font-size: 14px; font-style: italic; }
-.erpg-meta { color: var(--tinta-clara); font-size: 14px; }
-.erpg-meta.is-ouro { color: var(--ouro-escuro); font-family: var(--fonte-titulo); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-.erpg-num { color: var(--tinta-suave); font-family: var(--fonte-titulo); font-size: 13px; font-weight: 700; white-space: nowrap; }
-.erpg-num.is-ouro { color: var(--ouro-escuro); }
-.erpg-linha { display: flex; align-items: center; gap: 0.8rem; }
-
-.erpg-vazio { padding: 0.5rem 0; }
-.erpg-vazio p:first-child { color: var(--tinta); font-size: 17px; }
-
-/* Divisor: ──── ⚜ ──── */
-.erpg-ornamento {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin: 0.3rem 0;
-  color: var(--ouro-escuro);
-  font-size: 16px;
-  line-height: 1;
-}
+.erpg-ornamento { display: flex; flex: 0 0 auto; align-items: center; gap: 0.6rem; color: var(--ouro); font-size: 8px; line-height: 1; }
 .erpg-ornamento::before,
-.erpg-ornamento::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--ouro-escuro));
-}
-.erpg-ornamento::after { background: linear-gradient(90deg, var(--ouro-escuro), transparent); }
+.erpg-ornamento::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--linha-2)); }
+.erpg-ornamento::after { background: linear-gradient(90deg, var(--linha-2), transparent); }
 
-/* Markdown renderizado dentro de painéis */
-.erpg-host .erpg-painel :is(p, ul, ol) { margin: 0; }
-.erpg-host .erpg-painel code {
-  padding: 0.05em 0.35em;
-  border-radius: 3px;
-  background: rgba(43, 28, 14, 0.1);
-  color: var(--cera);
-  font-size: 0.85em;
-}
-.erpg-host .erpg-painel strong { color: var(--tinta); }
+/* Markdown renderizado */
+.erpg-host :is(.erpg-painel, .erpg-modal-lista) :is(p, ul, ol) { margin: 0; }
+.erpg-host code { padding: 0.05em 0.35em; border: 1px solid var(--linha); border-radius: 3px; background: rgba(0, 0, 0, 0.35); color: var(--ouro-claro); font-size: 0.86em; }
+.erpg-host strong { color: var(--texto); }
 
 /* ---------- Missão ---------- */
-.erpg-painel.is-missao { box-shadow: 0 0 0 4px var(--couro), 0 0 0 5px var(--ouro-claro), 0 14px 30px -12px rgba(0, 0, 0, 0.85), inset 0 0 40px rgba(110, 70, 20, 0.25); }
-.erpg-missao-titulo { color: var(--tinta); font-family: var(--fonte-titulo); font-size: 24px; font-weight: 700; line-height: 1.15; }
-.erpg-missao-entrega { color: var(--tinta-suave); }
+.erpg-painel.is-missao { border-color: var(--linha-2); }
+.erpg-missao-titulo { flex: 0 0 auto; color: var(--texto); font-family: var(--fonte-titulo); font-size: 21px; font-weight: 700; line-height: 1.1; }
+.erpg-missao-entrega { flex: 0 0 auto; color: var(--suave); font-size: 13.5px; }
 
-.erpg-host .erpg-tarefas { display: flex; flex-direction: column; gap: 0.25rem; margin: 0; padding: 0; list-style: none; }
+/* As tarefas podem encolher (e rolar por dentro), mas nunca somem: no mínimo ~2 visíveis. */
+.erpg-host .erpg-tarefas { display: flex; flex: 0 1 auto; flex-direction: column; gap: 0.25rem; min-height: 86px; margin: 0; padding: 0; list-style: none; }
+.is-missao .erpg-painel-corpo > .erpg-ornamento { margin-top: auto; padding-top: 0.4rem; }
 .erpg-host .erpg-tarefas li {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) auto;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.2rem;
   margin: 0;
-  padding-right: 0.6rem;
-  border-bottom: 1px dashed rgba(92, 68, 40, 0.3);
+  padding-right: 0.65rem;
+  border-left: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.03);
+  transition: background 0.2s, border-color 0.2s;
 }
+.erpg-host .erpg-tarefas li:hover { border-left-color: var(--ouro); background: rgba(231, 194, 122, 0.06); }
 .erpg-host .erpg-tarefas li::before { display: none; }
-.erpg-tarefas li.is-feita .erpg-tarefa-txt { color: var(--tinta-clara); text-decoration: line-through; text-decoration-color: var(--cera); }
+.erpg-tarefas li.is-feita .erpg-tarefa-txt { color: var(--apagado); text-decoration: line-through; }
 
-/* Caixinha de marcar: tinta sobre pergaminho */
 .erpg-host .erpg-check {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -346,281 +401,235 @@
   color: transparent;
   cursor: pointer;
 }
-.erpg-host .erpg-check .erpg-ico {
-  width: 22px;
-  height: 22px;
-  border: 1.5px solid var(--tinta-suave);
-  border-radius: 3px;
-  background: rgba(255, 250, 235, 0.45);
-  transition: background 0.15s, border-color 0.15s;
-}
-.erpg-host .erpg-check .erpg-ico svg { width: 15px; height: 15px; stroke-width: 3; }
-.erpg-host .erpg-check:hover .erpg-ico { border-color: var(--cera); }
-.erpg-host :is(.is-feita, .is-feito) > .erpg-check { color: var(--ouro-claro); }
-.erpg-host :is(.is-feita, .is-feito) > .erpg-check .erpg-ico { border-color: var(--cera); background: var(--cera); }
+.erpg-host .erpg-check .erpg-ico { width: 18px; height: 18px; border: 1.5px solid var(--linha-2); border-radius: 2px; background: rgba(0, 0, 0, 0.3); transition: background 0.15s, border-color 0.15s, box-shadow 0.15s; }
+.erpg-host .erpg-check .erpg-ico svg { width: 13px; height: 13px; stroke-width: 3.2; }
+.erpg-host .erpg-check:hover .erpg-ico { border-color: var(--ouro); }
+.erpg-host :is(.is-feita, .is-feito) > .erpg-check { color: #1a1408; }
+.erpg-host :is(.is-feita, .is-feito) > .erpg-check .erpg-ico { border-color: var(--ouro); background: var(--ouro); box-shadow: 0 0 8px rgba(231, 194, 122, 0.5); }
 
-/* ---------- Oráculo ---------- */
+/* ---------- Pergunta do dia ---------- */
 .erpg-host .erpg-origem {
+  flex: 0 0 auto;
   align-self: flex-start;
   margin: 0;
   padding: 0;
   border: 0;
   background: none;
   box-shadow: none;
-  color: var(--ouro-escuro);
+  color: var(--raro);
   font-family: var(--fonte-titulo);
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
 }
-.erpg-host .erpg-origem:hover { color: var(--cera); }
-.erpg-pergunta { color: var(--tinta); font-size: 21px; font-weight: 500; line-height: 1.35; }
-.erpg-resposta {
-  padding: 0.9rem 1.1rem;
-  border-left: 3px solid var(--cera);
-  background: rgba(255, 250, 235, 0.5);
-  color: var(--tinta);
-  animation: erpg-revelar 0.35s var(--ease);
-}
-.erpg-pontos { display: flex; gap: 0.35rem; margin-left: auto; }
-.erpg-pontos span { width: 12px; height: 12px; border: 1.5px solid var(--tinta-suave); border-radius: 50%; }
-.erpg-pontos span.is-passada { background: var(--tinta-suave); }
-.erpg-pontos span.is-atual { border-color: var(--cera); background: var(--cera); }
-.erpg-placar { display: flex; align-items: baseline; gap: 0.4rem; }
-.erpg-placar-num { color: var(--cera); font-family: var(--fonte-titulo); font-size: 72px; font-weight: 900; line-height: 1; }
-.erpg-placar-de { color: var(--tinta-clara); font-family: var(--fonte-titulo); font-size: 28px; }
+.erpg-host .erpg-origem:hover { color: var(--ouro); }
+.erpg-pergunta { color: var(--texto); font-size: 17px; font-weight: 500; line-height: 1.35; }
+.erpg-resposta { margin-top: 0.6rem; padding: 0.65rem 0.85rem; border-left: 2px solid var(--raro); background: linear-gradient(90deg, rgba(78, 168, 255, 0.1), transparent); color: var(--texto); animation: erpg-revelar 0.3s var(--ease); }
 
-/* ---------- Revisão ---------- */
-.erpg-revisoes { display: flex; flex-direction: column; }
-.erpg-revisao {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.65rem 0;
-  border-bottom: 1px dashed rgba(92, 68, 40, 0.3);
-}
+/* ---------- Revisar ---------- */
+.erpg-revisoes { display: flex; flex-direction: column; gap: 0.3rem; }
+.erpg-revisao { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 0.6rem; padding: 0.35rem 0.4rem 0.35rem 0.65rem; border-left: 2px solid var(--ok); background: rgba(255, 255, 255, 0.03); }
 .erpg-revisao-info { min-width: 0; }
+.erpg-revisao .erpg-meta { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.erpg-revisao .erpg-acoes { flex-wrap: nowrap; }
 .erpg-host .erpg-link {
+  display: block;
+  max-width: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
   border: 0;
   background: none;
   box-shadow: none;
-  color: var(--tinta);
+  color: var(--texto);
   font-family: var(--fonte-texto);
-  font-size: 18px;
+  font-size: 14.5px;
   font-weight: 600;
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 3px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
-  transition: text-decoration-color 0.2s;
+  transition: color 0.15s;
 }
-.erpg-host .erpg-link:hover { text-decoration-color: var(--cera); }
+.erpg-host .erpg-link:hover { color: var(--ouro); }
 
-/* ---------- Crônica (calendário) ---------- */
+/* ---------- Atividade (calendário compacto) ---------- */
+/* Dias quadrados de tamanho fixo. Se não couberem todas as semanas,
+   as mais ANTIGAS ficam de fora (o grid é alinhado à direita). */
 .erpg-grade {
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(7, 1fr);
-  grid-template-columns: repeat(var(--semanas), 1fr);
+  grid-template-rows: repeat(7, 11px);
+  grid-template-columns: repeat(var(--semanas), 11px);
+  justify-content: end;
   gap: 3px;
+  overflow: hidden;
 }
-.erpg-dia { display: block; aspect-ratio: 1; border-radius: 2px; }
-.erpg-dia.is-n0 { background: rgba(92, 68, 40, 0.13); }
-.erpg-dia.is-n1 { background: #c9a06a; }
-.erpg-dia.is-n2 { background: #a5602f; }
-.erpg-dia.is-n3 { background: var(--cera); }
+.erpg-dia { display: block; border-radius: 2px; }
+.erpg-dia.is-n0 { background: rgba(255, 255, 255, 0.06); }
+.erpg-dia.is-n1 { background: rgba(231, 194, 122, 0.35); }
+.erpg-dia.is-n2 { background: rgba(231, 194, 122, 0.7); }
+.erpg-dia.is-n3 { background: var(--ouro-claro); box-shadow: 0 0 6px rgba(231, 194, 122, 0.6); }
 .erpg-dia.is-nx { background: transparent; }
-.erpg-dia.is-hoje { outline: 2px solid var(--ouro-escuro); outline-offset: 1px; }
-.erpg-legenda { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem; color: var(--tinta-clara); font-size: 14px; }
-.erpg-escala { display: inline-flex; align-items: center; gap: 3px; }
-.erpg-escala .erpg-dia { width: 12px; }
+.erpg-dia.is-hoje { outline: 1px solid var(--raro); outline-offset: 1px; }
 
-/* ---------- Mapa ---------- */
-.erpg-busca {
+/* ---------- Trilhas (mapa compacto) ---------- */
+.erpg-host .erpg-busca {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
-  gap: 0.6rem;
-  min-height: 44px;
-  padding: 0 0.9rem;
-  border: 1px solid var(--tinta-suave);
-  border-radius: 4px;
-  background: rgba(255, 250, 235, 0.55);
-  color: var(--tinta-clara);
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 34px;
+  margin: 0;
+  padding: 0 0.75rem;
+  border: 1px solid var(--linha);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: none;
+  color: var(--apagado);
+  font-family: var(--fonte-texto);
+  font-size: 13.5px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
 }
-.erpg-busca:focus-within { border-color: var(--cera); }
+.erpg-host .erpg-busca:hover,
+.erpg-host .erpg-busca:focus-within { border-color: var(--ouro); color: var(--suave); }
 .erpg-host .erpg-busca input {
   width: 100%;
-  height: 42px;
+  height: 40px;
   padding: 0;
   border: 0;
   background: transparent;
   box-shadow: none;
-  color: var(--tinta);
+  color: var(--texto);
   font-family: var(--fonte-texto);
-  font-size: 17px;
+  font-size: 15px;
 }
-.erpg-host .erpg-busca input::placeholder { color: var(--tinta-clara); font-style: italic; }
+.erpg-host .erpg-busca input::placeholder { color: var(--apagado); }
 
-.erpg-reino-cab { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-top: 0.4rem; }
-.erpg-host .erpg-reino-cab h3 {
-  margin: 0;
-  color: var(--cera);
-  font-family: var(--fonte-titulo);
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
+.is-mapa .erpg-rola > .erpg-rotulo { margin: 0.2rem 0 0.35rem; }
+.is-mapa .erpg-rola > .erpg-rotulo:not(:first-child) { margin-top: 0.7rem; }
 
-.erpg-regioes { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 13.5rem), 1fr)); gap: 0.55rem; }
+.erpg-regioes { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 5px; padding-right: 2px; }
 .erpg-host .erpg-regiao {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 0.35rem 0.5rem;
-  min-height: 44px;
+  gap: 0.3rem 0.4rem;
+  min-height: 40px;
   margin: 0;
-  padding: 0.65rem 0.8rem;
-  border: 1px solid rgba(92, 68, 40, 0.45);
-  border-radius: 4px;
-  background: rgba(255, 250, 235, 0.42);
+  padding: 0.4rem 0.55rem;
+  border: 1px solid var(--linha);
+  border-radius: 2px;
+  background: var(--painel-2);
   box-shadow: none;
-  color: var(--tinta);
+  color: var(--texto);
   font-family: var(--fonte-texto);
   text-align: left;
   cursor: pointer;
   transition: transform 0.2s var(--ease), border-color 0.2s, background 0.2s;
 }
-.erpg-host .erpg-regiao:hover { transform: translateY(-2px); border-color: var(--tinta-suave); }
-.erpg-host .erpg-regiao.is-aberta { border-color: var(--cera); background: rgba(126, 30, 26, 0.08); }
-.erpg-host .erpg-regiao.is-conquistada { border: 2px solid var(--ouro); }
-.erpg-regiao-nome { display: flex; align-items: center; gap: 0.3rem; grid-column: 1 / -1; min-width: 0; font-weight: 600; }
-.erpg-regiao-nome span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.erpg-regiao-nome .erpg-ico { color: var(--ouro-escuro); }
-.erpg-regiao-nome .erpg-ico svg { width: 14px; height: 14px; }
-.erpg-estrelas { display: flex; gap: 2px; }
-.erpg-estrelas span::before { content: "★"; color: rgba(92, 68, 40, 0.28); font-size: 13px; }
-.erpg-estrelas span.is-cheia::before { color: var(--ouro-escuro); }
+.erpg-host .erpg-regiao:hover { transform: translateY(-2px); border-color: var(--linha-2); background: var(--painel-3); }
+.erpg-host .erpg-regiao.is-destaque { border-left: 2px solid var(--raro); }
+.erpg-host .erpg-regiao.is-conquistada { border-color: var(--ouro); background: linear-gradient(135deg, rgba(231, 194, 122, 0.16), var(--painel-2)); }
+.erpg-regiao-nome { min-width: 0; overflow: hidden; font-size: 12.5px; font-weight: 600; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.erpg-regiao .erpg-num { font-size: 11.5px; }
+.erpg-regiao.is-conquistada .erpg-num { color: var(--ouro); }
+.erpg-regiao .erpg-barra { grid-column: 1 / -1; height: 3px; }
 
-.erpg-regiao-det {
-  grid-column: 1 / -1;
-  padding: 1rem;
-  border: 1px solid rgba(126, 30, 26, 0.35);
-  border-radius: 4px;
-  background: rgba(255, 250, 235, 0.35);
-  animation: erpg-revelar 0.3s var(--ease);
-}
-.erpg-regiao-det > .erpg-texto { margin-bottom: 0.8rem; font-style: italic; }
-
-.erpg-topicos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 0.55rem; }
+/* ---------- Cards de tópico (missão e janela de tópicos) ---------- */
+.erpg-topicos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 0.45rem; }
 .erpg-topico {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
+  flex: 0 0 auto;
+  grid-template-columns: 40px minmax(0, 1fr);
   align-items: start;
-  padding: 0.25rem 0.8rem 0.25rem 0;
-  border: 1px solid rgba(92, 68, 40, 0.35);
-  border-radius: 4px;
-  background: rgba(255, 250, 235, 0.5);
+  padding: 0.15rem 0.7rem 0.15rem 0;
+  border: 1px solid var(--linha);
+  border-radius: 2px;
+  background: var(--painel-2);
   transition: transform 0.2s var(--ease), border-color 0.2s;
 }
-.erpg-topico:hover { transform: translateY(-2px); border-color: var(--tinta-suave); }
+.erpg-topico:hover { transform: translateY(-2px); border-color: var(--linha-2); }
 .erpg-host .erpg-topico-corpo {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.15rem;
+  gap: 0.1rem;
   min-width: 0;
-  min-height: 44px;
+  min-height: 40px;
   margin: 0;
-  padding: 0.5rem 0;
+  padding: 0.45rem 0;
   border: 0;
   background: none;
   box-shadow: none;
-  color: var(--tinta);
+  color: var(--texto);
   font-family: var(--fonte-texto);
   text-align: left;
   cursor: pointer;
 }
-.erpg-topico-nome { font-size: 17px; font-weight: 600; line-height: 1.25; }
-.erpg-topico.is-feito .erpg-topico-nome { color: var(--tinta-clara); }
-.erpg-topico-desc {
-  display: -webkit-box;
-  overflow: hidden;
-  color: var(--tinta-clara);
-  font-size: 14px;
-  line-height: 1.35;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-.erpg-selo-novo { margin-left: 0.4rem; color: var(--tinta-clara); font-size: 12px; font-style: italic; font-weight: 400; }
-.erpg-nivel {
-  margin-top: 0.3rem;
-  padding: 0 0.5rem;
-  border: 1px solid var(--tinta-clara);
-  border-radius: 999px;
-  color: var(--tinta-suave);
-  font-family: var(--fonte-titulo);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.erpg-nivel.is-praticado { border-color: var(--brasa); color: #9a4d12; }
-.erpg-nivel.is-projeto { border-color: var(--cera); background: var(--cera); color: var(--ouro-claro); }
+.erpg-topico-nome { font-size: 14.5px; font-weight: 600; line-height: 1.25; }
+.erpg-topico.is-feito .erpg-topico-nome { color: var(--apagado); }
+.erpg-topico-desc { display: -webkit-box; overflow: hidden; color: var(--apagado); font-size: 12.5px; line-height: 1.35; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.erpg-selo-novo { margin-left: 0.4rem; color: var(--apagado); font-size: 11px; font-weight: 400; }
+.erpg-nivel { margin-top: 0.3rem; padding: 0 0.45rem; border: 1px solid currentColor; border-radius: 1px; font-family: var(--fonte-titulo); font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.erpg-nivel.is-escrito { color: var(--comum); }
+.erpg-nivel.is-praticado { color: var(--raro); background: rgba(78, 168, 255, 0.1); }
+.erpg-nivel.is-projeto { color: var(--lendario); background: rgba(255, 181, 71, 0.12); }
 
-/* ---------- Troféus ---------- */
-.erpg-trofeus { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr)); gap: 1rem 0.8rem; }
-.erpg-trofeu { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; text-align: center; }
-.erpg-medalha {
-  display: grid;
-  place-items: center;
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #9b938a, var(--ferro) 70%);
-  box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.25), 0 3px 6px rgba(0, 0, 0, 0.35);
-  color: #d8d0c4;
+/* ---------- Janela de tópicos (modal) ---------- */
+.modal.erpg-modal {
+  width: min(960px, 92vw);
+  border: 1px solid rgba(231, 194, 122, 0.38);
+  background: linear-gradient(180deg, #121a2c, #0a0e18);
 }
-.erpg-medalha .erpg-ico svg { width: 26px; height: 26px; }
-.erpg-trofeu.is-ok .erpg-medalha {
-  background: radial-gradient(circle at 35% 30%, var(--ouro-claro), var(--ouro) 55%, var(--ouro-escuro));
-  box-shadow: inset 0 0 0 3px rgba(138, 106, 42, 0.6), 0 0 0 2px var(--cera), 0 4px 12px rgba(201, 161, 74, 0.55);
-  color: var(--tinta);
-}
-.erpg-trofeu-nome { color: var(--tinta-clara); font-family: var(--fonte-titulo); font-size: 13px; font-weight: 700; line-height: 1.2; }
-.erpg-trofeu.is-ok .erpg-trofeu-nome { color: var(--tinta); }
-.erpg-trofeu-desc { color: var(--tinta-clara); font-size: 13px; line-height: 1.3; }
+.modal.erpg-modal .modal-title { color: #ece7dc; font-family: "Rajdhani", "Segoe UI", sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.modal.erpg-modal .modal-content.erpg-host { display: flex; flex-direction: column; gap: 0.8rem; background: none; overflow: visible; }
+.erpg-modal-lista { max-height: 64vh; overflow-y: auto; scrollbar-width: thin; }
 
 /* ---------- Barra de status ---------- */
 .erpg-status { cursor: pointer; }
 
 /* ---------- Animações ---------- */
-@keyframes erpg-desenrolar { from { opacity: 0; transform: translateY(-8px) scaleY(0.97); } to { opacity: 1; transform: none; } }
+@keyframes erpg-entrar { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes erpg-revelar { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@keyframes erpg-brilho { 0% { background-position: -60% 0; } 60%, 100% { background-position: 160% 0; } }
 
 @media (prefers-reduced-motion: reduce) {
   .erpg-host *,
   .erpg-host *::before,
-  .erpg-host *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .erpg-host *::after { animation: none !important; transition-duration: 0.01ms !important; }
 }
 
-/* ---------- Telas menores ---------- */
-@media (max-width: 900px) {
-  .erpg-grid { grid-template-columns: minmax(0, 1fr); }
-  .erpg-ficha { grid-template-columns: auto minmax(0, 1fr); }
-  .erpg-ficha-acao { grid-column: 1 / -1; align-items: stretch; max-width: none; text-align: left; }
+/* ---------- E se a tela for baixa? Corta o que é secundário antes do essencial ---------- */
+@media (max-height: 860px) {
+  .is-missao .erpg-topico-desc,
+  .is-missao .erpg-missao-entrega { display: none; }
+  .erpg-regioes { grid-template-columns: repeat(auto-fill, minmax(7.25rem, 1fr)); }
+  .erpg-host .erpg-regiao { min-height: 36px; padding: 0.3rem 0.5rem; }
 }
-@media (max-width: 560px) {
-  .erpg { padding: 1.25rem 0.9rem 3rem; }
-  .erpg-ficha { grid-template-columns: minmax(0, 1fr); padding: 1.25rem; }
-  .erpg-brasao { width: 72px; height: 84px; clip-path: path("M36 0 L72 10 L72 44 C72 64 56 76 36 84 C16 76 0 64 0 44 L0 10 Z"); }
-  .erpg-brasao-num { font-size: 32px; }
-  .erpg-painel { padding: 1.15rem; }
-  .erpg-revisao { grid-template-columns: minmax(0, 1fr); }
-  .erpg-acoes .erpg-btn { flex: 1 1 100%; }
+
+/* ---------- E se a tela for estreita? Duas colunas na faixa do topo ---------- */
+@media (max-width: 1250px) {
+  .erpg-ficha { grid-template-columns: auto minmax(0, 1fr) auto; row-gap: 0.5rem; }
+  .erpg-medalhas { flex-direction: row; align-items: center; gap: 0.6rem; grid-column: 2 / -1; grid-row: 2; }
+  .erpg-medalhas-fila { grid-template-columns: repeat(12, 22px); gap: 4px; }
+  .erpg-medalha { width: 22px; height: 25px; }
+  .erpg-ficha-acao { grid-row: 1; grid-column: 3; }
+}
+
+/* ---------- E se a tela for pequena ou baixa? Empilha e deixa a página rolar ---------- */
+@media (max-width: 980px), (max-height: 600px) {
+  .erpg-host { overflow-y: auto; }
+  .erpg { height: auto; grid-template-rows: auto auto; }
+  .erpg-grade-principal { grid-template-columns: minmax(0, 1fr); }
+  .erpg-col > .erpg-painel { flex: 0 0 auto; }
+  .erpg-rola { overflow: visible; }
+  .erpg-ficha { grid-template-columns: auto minmax(0, 1fr); }
+  .erpg-ficha-acao { grid-column: 1 / -1; }
+  .erpg-ficha-acao .erpg-btn { width: 100%; }
 }

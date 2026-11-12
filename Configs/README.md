@@ -1,6 +1,6 @@
 # 🧰 Configs: backup e restauração do Obsidian
 
-Tudo que preciso pra deixar o Obsidian **exatamente igual** num PC novo (ou depois de um problema): plugins com o código, as configurações de cada um, temas, snippets CSS, ícones e atalhos.
+Tudo que preciso pra deixar o Obsidian igual num PC novo (ou depois de um problema): **os plugins que eu fiz**, meus snippets CSS, atalhos e preferências do Obsidian. Plugins e temas da loja **não** ficam guardados aqui: só a lista em [[Extensões]], com o link pra instalar.
 
 > [!tip] Resumo
 > - **Fazer backup:** `backup.ps1`
@@ -13,8 +13,8 @@ Tudo que preciso pra deixar o Obsidian **exatamente igual** num PC novo (ou depo
 
 | Item | O que é |
 |---|---|
-| `obsidian/` | **Espelho completo** da pasta `.obsidian` do vault. É a fonte da verdade do backup. |
-| `backup.ps1` | Atualiza o espelho, apaga senhas/tokens da cópia e gera o `Extensões.md`. |
+| `obsidian/` | Cópia do que importa da pasta `.obsidian` do vault (veja abaixo). |
+| `backup.ps1` | Atualiza a cópia, apaga senhas/tokens e gera o `Extensões.md`. Os ids dos plugins feitos por mim ficam na variável `$PluginsProprios` no topo. |
 | `restaurar.ps1` | Coloca o espelho de volta no vault (guarda o `.obsidian` atual antes, por segurança). |
 | `Extensões.md` | Lista gerada automaticamente: plugins, versões, temas, snippets e plugins nativos ativos. |
 
@@ -22,18 +22,15 @@ Dentro de `obsidian/`:
 
 | Caminho | Conteúdo |
 |---|---|
-| `plugins/<id>/` | Código do plugin (`main.js`, `manifest.json`, `styles.css`) **e** as configurações dele (`data.json`) |
-| `plugins/estudos-dashboard/` | Plugin feito por mim (não existe na loja: só dá pra recuperar daqui!) |
-| `snippets/` | CSS: `homepage-dashboard.css` (visual da Homepage), cores das pastas, cursor... |
-| `themes/` | AnuPpuccin (ativo) e Minimal |
-| `icons/` | Pacotes de ícones do Iconize |
-| `appearance.json` | Tema e snippets ativos |
+| `plugins/estudos-rpg/` | **Plugin feito por mim, completo** (não existe na loja: só dá pra recuperar daqui!) |
+| `snippets/` | Meus CSS: cores das pastas, cursor... |
+| `appearance.json` | Tema e snippets ativos (o tema em si é reinstalado pela loja) |
 | `community-plugins.json` | Quais plugins da comunidade estão ligados |
 | `core-plugins.json` | Quais plugins nativos estão ligados |
 | `hotkeys.json` | Meus atalhos |
 | `app.json`, `graph.json` | Preferências do editor e do grafo |
 
-**Fica de fora de propósito:** `workspace.json` (só lembra abas abertas e muda o tempo todo) e caches.
+**Fica de fora de propósito:** tudo dos plugins e temas da loja (só ficam anotados no `Extensões.md`), `workspace.json` (só lembra abas abertas) e caches.
 
 ---
 
@@ -42,7 +39,7 @@ Dentro de `obsidian/`:
 Rode sempre que instalar/configurar um plugin, mudar tema ou mexer em CSS:
 
 ```powershell
-cd "C:\Users\eduar\OneDrive\Documentos\Obsidian Vault\estudos\Configs"
+cd "$HOME\OneDrive\Documentos\Obsidian Vault\estudos\Configs"
 powershell -ExecutionPolicy Bypass -File .\backup.ps1
 ```
 
@@ -68,8 +65,9 @@ Depois o plugin **Git** faz o commit e envia pro GitHub junto com as notas (ou `
    powershell -ExecutionPolicy Bypass -File .\restaurar.ps1
    ```
 4. Abra o Obsidian → **Open folder as vault** → escolha `Obsidian Vault` (a pasta **de cima**, não a `estudos`).
-5. Clique em **Trust author and enable plugins** e reinicie o Obsidian uma vez.
-6. Reconfigure senhas/tokens (ex.: autenticação do Git, veja abaixo).
+5. Clique em **Trust author and enable plugins**.
+6. Instale os plugins da loja listados em [[Extensões]] (cada um tem o link) e configure do seu jeito. Em **Aparência**, instale o tema.
+7. Reinicie o Obsidian uma vez e reconfigure senhas/tokens (ex.: autenticação do Git, veja abaixo).
 
 > [!info] Por que a pasta de cima?
 > O vault é `Obsidian Vault/`, e o repositório de estudos fica em `Obsidian Vault/estudos/`. A Homepage está em `estudos/Homepage.md` e o plugin Homepage aponta pra esse caminho.
@@ -97,11 +95,4 @@ O painel de estudos é o plugin **`estudos-rpg`**, feito por mim. O código-font
 
 - **Num PC novo, não precisa compilar nada:** o `restaurar.ps1` já coloca o plugin pronto.
 - **Para mexer no código:** instale o [Node.js](https://nodejs.org) (versão 22+) e siga o `README.md` do plugin (`npm install` e `npm run build`).
-- Não depende de Dataview nem de snippet CSS. As fontes (Cinzel e EB Garamond) vêm do Google Fonts; sem internet, usa uma fonte serifada do sistema.
-- O plugin antigo **Estudos Dashboard** e o snippet **`homepage-dashboard.css`** não são mais usados e podem ser desativados.
-
----
-
-## 🗃️ Arquivos antigos
-
-`appearance.json`, `community-plugins.json`, `cursor-smooth.css`, `custom-rainbow-colors.css`, `homepage-dashboard*.css` e `estudos-dashboard/` soltos nesta pasta são **cópias antigas** de antes do espelho. A versão atual de tudo está em `obsidian/`. Pode apagar.
+- Não depende de Dataview nem de snippet CSS. As fontes (Rajdhani e Barlow) vêm do Google Fonts; sem internet, usa a fonte do sistema.

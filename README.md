@@ -10,10 +10,10 @@ Estou constantemente atualizando e adicionando mais conteúdo.
 
 ### 🔁 Como eu estudo aqui
 
-1. **Abro a Ficha do herói** (plugin *Estudos RPG*, abre sozinho): missão do dia, desafio do oráculo, pergaminhos para revisar, crônica, mapa dos reinos e troféus.
+1. **Abro a Ficha do herói** (plugin *Estudos RPG*, abre sozinho): missão, pergunta do dia, revisão, atividade, trilhas e conquistas.
 2. **Construo algo de verdade**: o [[Projeto-guia]] diz o que estudar em cada fase do projeto.
 3. **Pratico antes de ler**: toda nota começa com um resumo de 30 segundos e tem um 🔨 *Desafio prático*.
-4. **Me testo**: perguntas 🧠 *Me teste* (viram o oráculo e o treino misto) e 🃏 flashcards (plugin *Spaced Repetition*).
+4. **Me testo**: perguntas 🧠 *Me teste* (uma delas vira a pergunta do dia) e 🃏 flashcards (plugin *Spaced Repetition*).
 5. **Revejo no tempo certo**: "Lembrei" afasta a próxima revisão (1 → 3 → 7 → 14 → 30 → 60 dias); "Esqueci" traz de volta amanhã.
 6. **Escrevo com as minhas palavras**: a seção 📓 *Diário de bordo* de cada nota e o diário do dia.
 7. **Subo o nível**: 📝 escrito → 🔨 praticado → 🚀 usado em projeto (propriedade `nivel`).
@@ -25,7 +25,7 @@ Estou constantemente atualizando e adicionando mais conteúdo.
 | Uma nota de estudo nova | Crio a partir do [Template](Programação/Template/Template.md) (já vem com `nivel: escrito`) |
 | Uma trilha nova (Inglês, Matemática…) | Nota com a propriedade `tipo: trilha`, seções `#` e tópicos `- [ ] [[Nota]] — descrição` |
 | Um projeto com fases | Nota com `tipo: missao`, seções `## Fase N: título` e tarefas `- [ ]` |
-| Uma pergunta pro oráculo | Callout `> [!question]- Pergunta` com a resposta na linha `> …` de baixo |
+| Uma pergunta pra pergunta do dia | Callout `> [!question]- Pergunta` com a resposta na linha `> …` de baixo |
 
 Detalhes e o código do plugin: `.sistema/estudos-rpg/README.md`.
 

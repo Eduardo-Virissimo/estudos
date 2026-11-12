@@ -23,7 +23,7 @@ __export(main_exports, {
   default: () => EstudosRPG
 });
 module.exports = __toCommonJS(main_exports);
-var import_obsidian7 = require("obsidian");
+var import_obsidian8 = require("obsidian");
 
 // src/domain/dates.ts
 function hojeISO(agora = /* @__PURE__ */ new Date()) {
@@ -87,11 +87,6 @@ function calcularProgresso(s, xp, titulos) {
     topicosTotal++;
     if (tp.feito) topicosFeitos++;
   }
-  let treinos = 0, acertos = 0;
-  for (const d of s.diario.values()) {
-    treinos += d.treinos;
-    acertos += d.acertos;
-  }
   let tarefas = 0;
   for (const m of s.missoes) for (const f of m.fases) for (const t of f.tarefas) if (t.feita) tarefas++;
   const partes = {
@@ -99,7 +94,6 @@ function calcularProgresso(s, xp, titulos) {
     topicos: topicosFeitos * xp.topico,
     diario: s.diario.size * xp.diario,
     revisao: caixas * xp.caixa,
-    treinos: treinos * xp.treino + acertos * xp.acerto,
     missoes: tarefas * xp.tarefa
   };
   const total = Object.values(partes).reduce((a, b) => a + b, 0);
@@ -119,30 +113,20 @@ function calcularProgresso(s, xp, titulos) {
     topicosTotal
   };
 }
-function habilidades(s) {
-  const out = [];
-  for (const t of s.trilhas) for (const r of t.regioes) {
-    const feitos = r.topicos.filter((x) => x.feito).length;
-    const total = r.topicos.length;
-    out.push({ nome: r.nome, trilha: t.nome, feitos, total, estrelas: total ? Math.round(feitos / total * 5) : 0 });
-  }
-  return out;
-}
-var totalPerfeitos = (s) => [...s.diario.values()].reduce((a, d) => a + d.perfeitos, 0);
 var faseConcluida = (s, n) => s.missoes.some((m) => m.fases.some((f) => f.num === n && f.tarefas.length > 0 && f.tarefas.every((t) => t.feita)));
 var CONQUISTAS = [
-  { id: "primeira-sessao", icone: "sprout", nome: "Primeira jornada", desc: "Registre um dia no di\xE1rio", teste: (s) => s.diario.size >= 1 },
-  { id: "chama-3", icone: "flame", nome: "Chama acesa", desc: "3 dias seguidos de estudo", teste: (_, p) => p.sequencia >= 3 },
-  { id: "chama-7", icone: "flame-kindling", nome: "Fogo eterno", desc: "7 dias seguidos de estudo", teste: (_, p) => p.sequencia >= 7 },
-  { id: "chama-30", icone: "sun", nome: "Sol invicto", desc: "30 dias seguidos de estudo", teste: (_, p) => p.sequencia >= 30 },
-  { id: "na-mosca", icone: "crosshair", nome: "Olho de \xE1guia", desc: "Gabarite um treino misto", teste: (s) => totalPerfeitos(s) >= 1 },
-  { id: "pratica", icone: "hammer", nome: "M\xE3o na forja", desc: "Uma nota no n\xEDvel praticado", teste: (_, p) => p.contagemNivel.praticado + p.contagemNivel.projeto >= 1 },
-  { id: "projeto", icone: "castle", nome: "Construtor", desc: "Uma nota usada em projeto", teste: (_, p) => p.contagemNivel.projeto >= 1 },
-  { id: "memoria", icone: "brain", nome: "Mem\xF3ria de drag\xE3o", desc: "Uma nota na \xFAltima caixa de revis\xE3o", teste: (s) => s.notas.some((n) => n.caixa >= 5) },
-  { id: "regiao", icone: "flag", nome: "Conquistador", desc: "Conclua uma regi\xE3o inteira do mapa", teste: (s) => s.trilhas.some((t) => t.regioes.some((r) => r.topicos.every((x) => x.feito))) },
-  { id: "explorador", icone: "compass", nome: "Explorador", desc: "Avance em 5 regi\xF5es do mapa", teste: (s) => s.trilhas.flatMap((t) => t.regioes).filter((r) => r.topicos.some((x) => x.feito)).length >= 5 },
-  { id: "missao-1", icone: "swords", nome: "Primeira miss\xE3o", desc: "Conclua a Fase 1 de uma miss\xE3o", teste: (s) => faseConcluida(s, 1) },
-  { id: "nivel-8", icone: "crown", nome: "Lenda", desc: "Chegue ao n\xEDvel 8", teste: (_, p) => p.nivel >= 8 }
+  { id: "primeira-sessao", icone: "sprout", nome: "Primeira jornada", desc: "Registre um dia no di\xE1rio", raridade: "comum", teste: (s) => s.diario.size >= 1 },
+  { id: "chama-3", icone: "flame", nome: "Chama acesa", desc: "3 dias seguidos de estudo", raridade: "comum", teste: (_, p) => p.sequencia >= 3 },
+  { id: "pratica", icone: "hammer", nome: "M\xE3o na forja", desc: "Uma nota no n\xEDvel praticado", raridade: "comum", teste: (_, p) => p.contagemNivel.praticado + p.contagemNivel.projeto >= 1 },
+  { id: "chama-7", icone: "flame-kindling", nome: "Fogo eterno", desc: "7 dias seguidos de estudo", raridade: "raro", teste: (_, p) => p.sequencia >= 7 },
+  { id: "estudioso", icone: "book-open", nome: "Estudioso", desc: "10 dias de estudo no total", raridade: "raro", teste: (s) => s.diario.size >= 10 },
+  { id: "explorador", icone: "compass", nome: "Explorador", desc: "Avance em 5 regi\xF5es do mapa", raridade: "raro", teste: (s) => s.trilhas.flatMap((t) => t.regioes).filter((r) => r.topicos.some((x) => x.feito)).length >= 5 },
+  { id: "missao-1", icone: "swords", nome: "Primeira miss\xE3o", desc: "Conclua a Fase 1 de uma miss\xE3o", raridade: "raro", teste: (s) => faseConcluida(s, 1) },
+  { id: "projeto", icone: "castle", nome: "Construtor", desc: "Uma nota usada em projeto", raridade: "epico", teste: (_, p) => p.contagemNivel.projeto >= 1 },
+  { id: "regiao", icone: "flag", nome: "Conquistador", desc: "Conclua uma regi\xE3o inteira do mapa", raridade: "epico", teste: (s) => s.trilhas.some((t) => t.regioes.some((r) => r.topicos.every((x) => x.feito))) },
+  { id: "memoria", icone: "brain", nome: "Mem\xF3ria de drag\xE3o", desc: "Uma nota na \xFAltima caixa de revis\xE3o", raridade: "epico", teste: (s) => s.notas.some((n) => n.caixa >= 5) },
+  { id: "chama-30", icone: "sun", nome: "Sol invicto", desc: "30 dias seguidos de estudo", raridade: "lendario", teste: (_, p) => p.sequencia >= 30 },
+  { id: "nivel-8", icone: "crown", nome: "Lenda", desc: "Chegue ao n\xEDvel 8", raridade: "lendario", teste: (_, p) => p.nivel >= 8 }
 ];
 function avaliarConquistas(s, p) {
   return CONQUISTAS.map(({ teste, ...c }) => ({ ...c, ok: teste(s, p) }));
@@ -183,24 +167,31 @@ var DEFAULT_SETTINGS = {
   templateDiario: "estudos/Programa\xE7\xE3o/Template/Di\xE1rio.md",
   pastasIgnoradas: ["estudos/Programa\xE7\xE3o/Template"],
   intervalos: [0, 1, 3, 7, 14, 30, 60],
-  perguntasPorTreino: 5,
-  semanasNoCalendario: 20,
-  xp: { escrito: 20, praticado: 60, projeto: 120, topico: 10, diario: 15, caixa: 10, treino: 20, acerto: 5, tarefa: 25 },
+  semanasNoCalendario: 30,
+  xp: { escrito: 20, praticado: 60, projeto: 120, topico: 10, diario: 15, caixa: 10, tarefa: 25 },
   titulos: ["Aprendiz", "Escudeiro", "Cavaleiro", "Cavaleiro do C\xF3digo", "Mago dos Bits", "Arquimago", "Lorde do Terminal", "Lenda do Reino"]
 };
 function mergeSettings(saved) {
-  const s = saved ?? {};
+  const s = saved && typeof saved === "object" ? saved : {};
+  const d = DEFAULT_SETTINGS;
+  const xpSalvo = s.xp && typeof s.xp === "object" ? s.xp : {};
+  const xp = { ...d.xp };
+  for (const k of Object.keys(xp)) if (typeof xpSalvo[k] === "number") xp[k] = xpSalvo[k];
   return {
-    ...DEFAULT_SETTINGS,
-    ...s,
-    xp: { ...DEFAULT_SETTINGS.xp, ...s.xp ?? {} },
-    intervalos: validList(s.intervalos, DEFAULT_SETTINGS.intervalos),
-    titulos: validList(s.titulos, DEFAULT_SETTINGS.titulos),
-    pastasIgnoradas: Array.isArray(s.pastasIgnoradas) ? s.pastasIgnoradas : DEFAULT_SETTINGS.pastasIgnoradas
+    abrirAoIniciar: typeof s.abrirAoIniciar === "boolean" ? s.abrirAoIniciar : d.abrirAoIniciar,
+    pastaDiario: typeof s.pastaDiario === "string" && s.pastaDiario.trim() ? s.pastaDiario : d.pastaDiario,
+    templateDiario: typeof s.templateDiario === "string" ? s.templateDiario : d.templateDiario,
+    pastasIgnoradas: Array.isArray(s.pastasIgnoradas) ? s.pastasIgnoradas.filter((x) => typeof x === "string") : d.pastasIgnoradas,
+    intervalos: listaDe(s.intervalos, (x) => typeof x === "number" && x >= 0, d.intervalos, 2),
+    semanasNoCalendario: typeof s.semanasNoCalendario === "number" ? s.semanasNoCalendario : d.semanasNoCalendario,
+    xp,
+    titulos: listaDe(s.titulos, (x) => typeof x === "string" && x.trim() !== "", d.titulos, 1)
   };
 }
-function validList(v, fallback) {
-  return Array.isArray(v) && v.length > 0 ? v : fallback;
+function listaDe(v, valido, padrao, minimo) {
+  if (!Array.isArray(v)) return [...padrao];
+  const ok = v.filter(valido);
+  return ok.length >= minimo ? ok : [...padrao];
 }
 
 // src/ui/settingsTab.ts
@@ -233,7 +224,7 @@ var AbaConfig = class extends import_obsidian.PluginSettingTab {
       s.pastasIgnoradas = v.split("\n").map((x) => x.trim()).filter(Boolean);
       await salvar();
     }));
-    new import_obsidian.Setting(el).setName("Revis\xE3o e treino").setHeading();
+    new import_obsidian.Setting(el).setName("Revis\xE3o e calend\xE1rio").setHeading();
     new import_obsidian.Setting(el).setName("Intervalos de revis\xE3o (dias)").setDesc("Um n\xFAmero por caixa, separados por v\xEDrgula. O primeiro \xE9 a caixa 0 (ignorado).").addText((t) => t.setValue(s.intervalos.join(", ")).onChange(async (v) => {
       const nums = v.split(",").map((x) => Number(x.trim())).filter((n) => Number.isFinite(n) && n >= 0);
       if (nums.length >= 2) {
@@ -241,11 +232,7 @@ var AbaConfig = class extends import_obsidian.PluginSettingTab {
         await salvar();
       }
     }));
-    this.numero(el, "Perguntas por treino misto", s.perguntasPorTreino, 1, 30, async (n) => {
-      s.perguntasPorTreino = n;
-      await salvar();
-    });
-    this.numero(el, "Semanas na cr\xF4nica (calend\xE1rio)", s.semanasNoCalendario, 4, 52, async (n) => {
+    this.numero(el, "Semanas no calend\xE1rio de atividade", s.semanasNoCalendario, 4, 52, async (n) => {
       s.semanasNoCalendario = n;
       await salvar();
     });
@@ -257,8 +244,6 @@ var AbaConfig = class extends import_obsidian.PluginSettingTab {
       topico: "T\xF3pico marcado numa trilha",
       diario: "Dia registrado no di\xE1rio",
       caixa: "Cada caixa de revis\xE3o alcan\xE7ada",
-      treino: "Treino misto conclu\xEDdo",
-      acerto: "Acerto no treino",
       tarefa: "Tarefa de miss\xE3o conclu\xEDda"
     };
     for (const k of Object.keys(rotulos)) {
@@ -294,40 +279,7 @@ var AbaConfig = class extends import_obsidian.PluginSettingTab {
 };
 
 // src/ui/view.ts
-var import_obsidian4 = require("obsidian");
-
-// src/domain/quiz.ts
-function embaralhar(lista, rng = Math.random) {
-  const a = [...lista];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-function montarTreino(perguntas, n, rng = Math.random) {
-  const porNota = /* @__PURE__ */ new Map();
-  for (const p of embaralhar(perguntas, rng)) {
-    const lista = porNota.get(p.caminho) ?? [];
-    lista.push(p);
-    porNota.set(p.caminho, lista);
-  }
-  const filas = embaralhar([...porNota.values()], rng);
-  const out = [];
-  for (let rodada = 0; out.length < n && filas.some((f) => f.length > rodada); rodada++) {
-    for (const fila of filas) {
-      const p = fila[rodada];
-      if (p && out.length < n) out.push(p);
-    }
-  }
-  return out;
-}
-function indiceDoDia(hoje, total) {
-  if (total <= 0) return -1;
-  let h = 0;
-  for (const ch of hoje) h = h * 31 + ch.charCodeAt(0) >>> 0;
-  return h % total;
-}
+var import_obsidian5 = require("obsidian");
 
 // src/ui/sections.ts
 var import_obsidian3 = require("obsidian");
@@ -436,6 +388,14 @@ function semWikilinks(t) {
   return t.replace(/\[\[([^\]|]+\|)?([^\]]+)\]\]/g, "$2");
 }
 
+// src/domain/quiz.ts
+function indiceDoDia(hoje, total) {
+  if (total <= 0) return -1;
+  let h = 0;
+  for (const ch of hoje) h = h * 31 + ch.charCodeAt(0) >>> 0;
+  return h % total;
+}
+
 // src/ui/dom.ts
 var import_obsidian2 = require("obsidian");
 function icone(parent, nome, cls = "erpg-ico") {
@@ -482,11 +442,12 @@ function vazio(parent, texto, dica) {
   if (dica) v.createEl("p", { cls: "erpg-dica", text: dica });
 }
 function ornamento(parent) {
-  parent.createDiv({ cls: "erpg-ornamento", attr: { "aria-hidden": "true" } }).createSpan({ text: "\u269C" });
+  parent.createDiv({ cls: "erpg-ornamento", attr: { "aria-hidden": "true" } }).createSpan({ text: "\u25C6" });
 }
 
 // src/ui/sections.ts
 var NOME_NIVEL = { escrito: "escrito", praticado: "praticado", projeto: "em projeto" };
+var RARIDADE = { comum: "Comum", raro: "Raro", epico: "\xC9pico", lendario: "Lend\xE1rio" };
 function md(ctx, el, texto, origem) {
   void import_obsidian3.MarkdownRenderer.render(ctx.app, texto, el, origem, ctx.comp);
 }
@@ -494,17 +455,18 @@ function ficha(root, ctx) {
   const { prog } = ctx;
   const sec = root.createEl("header", { cls: "erpg-ficha" });
   const brasao = sec.createDiv({ cls: "erpg-brasao", attr: { "aria-label": `N\xEDvel ${prog.nivel}` } });
-  brasao.createSpan({ cls: "erpg-brasao-rot", text: "N\xEDvel" });
+  brasao.createSpan({ cls: "erpg-brasao-rot", text: "Nv" });
   brasao.createSpan({ cls: "erpg-brasao-num", text: String(prog.nivel) });
   const id = sec.createDiv({ cls: "erpg-ficha-id" });
-  id.createDiv({ cls: "erpg-sobretitulo", text: "Ficha do her\xF3i" });
   id.createEl("h1", { cls: "erpg-titulo", text: prog.titulo });
-  const xp = id.createDiv({ cls: "erpg-xp" });
+  const p = prog.partes;
+  const origemXP = `De onde vem o XP \u2014 notas ${p.notas} \xB7 t\xF3picos ${p.topicos} \xB7 di\xE1rio ${p.diario} \xB7 revis\xF5es ${p.revisao} \xB7 miss\xF5es ${p.missoes}`;
+  const xp = id.createDiv({ cls: "erpg-xp", attr: { title: origemXP } });
   barra(xp, (prog.xp - prog.xpNivel) / (prog.xpProximo - prog.xpNivel), "erpg-barra is-xp", "Experi\xEAncia at\xE9 o pr\xF3ximo n\xEDvel");
   xp.createSpan({ cls: "erpg-xp-num", text: `${prog.xp} / ${prog.xpProximo} XP` });
   const st = id.createDiv({ cls: "erpg-atributos" });
   const atributo = (ic, valor, rot, cls = "") => {
-    const a = st.createDiv({ cls: `erpg-atributo ${cls}`.trim() });
+    const a = st.createDiv({ cls: `erpg-atributo ${cls}`.trim(), attr: { title: `${valor} ${rot}` } });
     icone(a, ic);
     a.createSpan({ cls: "erpg-atributo-val", text: String(valor) });
     a.createSpan({ cls: "erpg-atributo-rot", text: rot });
@@ -513,45 +475,55 @@ function ficha(root, ctx) {
   atributo("scroll-text", prog.contagemNivel.escrito, "escritas");
   atributo("hammer", prog.contagemNivel.praticado, "praticadas");
   atributo("castle", prog.contagemNivel.projeto, "em projeto");
-  atributo("trophy", `${ctx.conquistas.filter((c) => c.ok).length}/${ctx.conquistas.length}`, "trof\xE9us");
+  medalhas(sec, ctx);
   const acao = sec.createDiv({ cls: "erpg-ficha-acao" });
-  botao(acao, prog.estudouHoje ? "Abrir o di\xE1rio de hoje" : "Come\xE7ar a jornada de hoje", () => ctx.acoes.iniciarDia(), { icone: prog.estudouHoje ? "book-open" : "play" });
-  acao.createDiv({ cls: "erpg-dica", text: prog.estudouHoje ? "Sess\xE3o de hoje registrada." : `Registrar o dia vale +${ctx.settings.xp.diario} XP e mant\xE9m a chama acesa.` });
+  botao(acao, prog.estudouHoje ? "Di\xE1rio de hoje" : `Come\xE7ar sess\xE3o \xB7 +${ctx.settings.xp.diario} XP`, () => ctx.acoes.iniciarDia(), { icone: prog.estudouHoje ? "book-open" : "play" });
+}
+function medalhas(parent, ctx) {
+  const ok = ctx.conquistas.filter((c) => c.ok).length;
+  const box = parent.createDiv({ cls: "erpg-medalhas" });
+  box.createDiv({ cls: "erpg-rotulo", text: `Conquistas ${ok}/${ctx.conquistas.length}` });
+  const fila = box.createDiv({ cls: "erpg-medalhas-fila" });
+  for (const c of ctx.conquistas) {
+    const desc = `${c.nome} \xB7 ${RARIDADE[c.raridade]}
+${c.desc}${c.ok ? "\n\u2713 Conquistado" : ""}`;
+    const m = fila.createDiv({ cls: `erpg-medalha is-${c.raridade}${c.ok ? " is-ok" : ""}`, attr: { title: desc, "aria-label": desc } });
+    icone(m, c.ok ? c.icone : "lock");
+  }
 }
 function missao(root, ctx) {
-  const ativa = ctx.snap.missoes.map((m2) => ({ m: m2, f: m2.fases.find((f2) => f2.tarefas.some((t) => !t.feita)) })).find((x) => x.f);
-  const corpo = painel(root, "swords", "Miss\xE3o principal", ativa ? `${ativa.m.nome} \xB7 Fase ${ativa.f.num}` : void 0, "is-missao");
+  const ativa = ctx.snap.missoes.map((m) => ({ m, f: m.fases.find((f) => f.tarefas.some((t) => !t.feita)) })).find((x) => x.f);
+  const corpo = painel(root, "swords", "Miss\xE3o", ativa ? `${ativa.m.nome} \xB7 Fase ${ativa.f.num}` : void 0, "is-missao");
   if (!ctx.snap.missoes.length) {
-    vazio(corpo, "Nenhuma miss\xE3o no seu di\xE1rio de miss\xF5es.", "Crie uma nota com a propriedade tipo: missao, se\xE7\xF5es \u201C## Fase 1: \u2026\u201D e tarefas \u201C- [ ] \u2026\u201D.");
-    return;
+    vazio(corpo, "Nenhuma miss\xE3o.", "Crie uma nota com a propriedade tipo: missao, se\xE7\xF5es \u201C## Fase 1: \u2026\u201D e tarefas \u201C- [ ] \u2026\u201D.");
+  } else if (!ativa || !ativa.f) {
+    vazio(corpo, "Todas as miss\xF5es conclu\xEDdas.");
+  } else {
+    const { m, f } = ativa;
+    corpo.createDiv({ cls: "erpg-missao-titulo", text: f.titulo || `Fase ${f.num}` });
+    if (f.entrega) md(ctx, corpo.createDiv({ cls: "erpg-missao-entrega" }), `**Entrega:** ${f.entrega}`, m.caminho);
+    const feitas = f.tarefas.filter((t) => t.feita).length;
+    const prog = corpo.createDiv({ cls: "erpg-linha" });
+    barra(prog, feitas / f.tarefas.length, "erpg-barra", "Progresso da fase");
+    prog.createSpan({ cls: "erpg-num", text: `${feitas}/${f.tarefas.length}` });
+    const ul = corpo.createEl("ul", { cls: "erpg-tarefas erpg-rola" });
+    for (const t of f.tarefas) {
+      const li = ul.createEl("li", { cls: t.feita ? "is-feita" : "" });
+      const chk = li.createEl("button", { cls: "erpg-check", attr: { "aria-label": t.feita ? "Desfazer tarefa" : "Concluir tarefa", "aria-pressed": String(t.feita) } });
+      icone(chk, "check");
+      chk.addEventListener("click", () => ctx.acoes.alternarTarefa(m, t));
+      md(ctx, li.createDiv({ cls: "erpg-tarefa-txt" }), semWikilinks(t.texto), m.caminho);
+      li.createSpan({ cls: "erpg-num is-ouro", text: `+${ctx.settings.xp.tarefa}` });
+    }
+    const rodape = corpo.createDiv({ cls: "erpg-acoes" });
+    botao(rodape, "Abrir miss\xE3o", (ev) => ctx.acoes.abrirNota(m.caminho, ev.ctrlKey || ev.metaKey), { variante: "secundario", icone: "external-link", pequeno: true });
+    const outras = ctx.snap.missoes.filter((x) => x !== m && x.fases.some((ff) => ff.tarefas.some((t) => !t.feita)));
+    if (outras.length) rodape.createSpan({ cls: "erpg-dica", text: `Outras: ${outras.map((x) => x.nome).join(", ")}` });
   }
-  if (!ativa || !ativa.f) {
-    vazio(corpo, "Todas as miss\xF5es foram cumpridas. Hora de escrever uma nova!");
-    return;
-  }
-  const { m, f } = ativa;
-  corpo.createDiv({ cls: "erpg-missao-titulo", text: f.titulo || `Fase ${f.num}` });
-  if (f.entrega) md(ctx, corpo.createDiv({ cls: "erpg-missao-entrega" }), `**Entrega:** ${f.entrega}`, m.caminho);
-  const feitas = f.tarefas.filter((t) => t.feita).length;
-  const prog = corpo.createDiv({ cls: "erpg-linha" });
-  barra(prog, feitas / f.tarefas.length, "erpg-barra", "Progresso da fase");
-  prog.createSpan({ cls: "erpg-num", text: `${feitas}/${f.tarefas.length}` });
-  const ul = corpo.createEl("ul", { cls: "erpg-tarefas" });
-  for (const t of f.tarefas) {
-    const li = ul.createEl("li", { cls: t.feita ? "is-feita" : "" });
-    const chk = li.createEl("button", { cls: "erpg-check", attr: { "aria-label": t.feita ? "Desfazer tarefa" : "Concluir tarefa", "aria-pressed": String(t.feita) } });
-    icone(chk, "check");
-    chk.addEventListener("click", () => ctx.acoes.alternarTarefa(m, t));
-    md(ctx, li.createDiv({ cls: "erpg-tarefa-txt" }), semWikilinks(t.texto), m.caminho);
-    li.createSpan({ cls: "erpg-num is-ouro", text: `+${ctx.settings.xp.tarefa}` });
-  }
-  botao(corpo, "Abrir o pergaminho da miss\xE3o", (ev) => ctx.acoes.abrirNota(m.caminho, ev.ctrlKey || ev.metaKey), { variante: "secundario", icone: "scroll" });
-  const outras = ctx.snap.missoes.filter((x) => x !== m && x.fases.some((ff) => ff.tarefas.some((t) => !t.feita)));
-  if (outras.length) corpo.createDiv({ cls: "erpg-dica", text: `Miss\xF5es secund\xE1rias: ${outras.map((x) => x.nome).join(", ")}` });
   const prox = proximoTopico(ctx.snap.trilhas);
   if (prox) {
     ornamento(corpo);
-    corpo.createDiv({ cls: "erpg-subtitulo", text: "Pr\xF3ximo t\xF3pico do mapa" });
+    corpo.createDiv({ cls: "erpg-subtitulo", text: "Pr\xF3ximo t\xF3pico" });
     topico(corpo, ctx, prox.trilha, prox.topico, prox.regiao);
   }
 }
@@ -564,48 +536,10 @@ function proximoTopico(trilhas) {
   return null;
 }
 function oraculo(root, ctx) {
-  const { snap, estado, settings } = ctx;
-  const tr = estado.treino;
-  const corpo = painel(root, "sparkles", "Desafio do or\xE1culo", tr ? `Treino misto \xB7 ${tr.itens.length} perguntas de notas diferentes` : "Responda de cabe\xE7a antes de revelar", "is-oraculo");
+  const { snap, estado } = ctx;
+  const corpo = painel(root, "sparkles", "Pergunta do dia", void 0, "is-oraculo");
   if (!snap.perguntas.length) {
-    vazio(corpo, "O or\xE1culo ainda n\xE3o tem perguntas.", "Adicione callouts \u201C> [!question]- Pergunta\u201D com a resposta embaixo nas suas notas de estudo.");
-    return;
-  }
-  if (tr) {
-    if (tr.fim) {
-      const fim = corpo.createDiv({ cls: "erpg-placar" });
-      fim.createSpan({ cls: "erpg-placar-num", text: `${tr.acertos}` });
-      fim.createSpan({ cls: "erpg-placar-de", text: `/ ${tr.itens.length}` });
-      corpo.createEl("p", { cls: "erpg-texto", text: tr.acertos === tr.itens.length ? "Gabaritou! O or\xE1culo se curva diante de voc\xEA." : "As notas que voc\xEA errou voltam amanh\xE3 na revis\xE3o." });
-      const row3 = corpo.createDiv({ cls: "erpg-acoes" });
-      botao(row3, "Treinar de novo", () => ctx.acoes.iniciarTreino(), { icone: "repeat" });
-      botao(row3, "Voltar", () => {
-        estado.treino = null;
-        ctx.acoes.redesenhar();
-      }, { variante: "secundario" });
-      return;
-    }
-    const p2 = tr.itens[tr.i];
-    if (!p2) return;
-    const topo = corpo.createDiv({ cls: "erpg-linha" });
-    topo.createSpan({ cls: "erpg-num", text: `Pergunta ${tr.i + 1} de ${tr.itens.length}` });
-    const pontos = topo.createDiv({ cls: "erpg-pontos" });
-    tr.itens.forEach((_, k) => pontos.createSpan({ cls: k < tr.i ? "is-passada" : k === tr.i ? "is-atual" : "" }));
-    pergunta(corpo, ctx, p2.pergunta, p2.resposta, p2.caminho, p2.nota, tr.mostrar);
-    const row2 = corpo.createDiv({ cls: "erpg-acoes" });
-    if (!tr.mostrar) {
-      botao(row2, "Revelar resposta", () => {
-        tr.mostrar = true;
-        ctx.acoes.redesenhar();
-      }, { icone: "eye" });
-      botao(row2, "Abandonar treino", () => {
-        estado.treino = null;
-        ctx.acoes.redesenhar();
-      }, { variante: "discreto" });
-    } else {
-      botao(row2, "Acertei", () => ctx.acoes.responderTreino(true), { icone: "check" });
-      botao(row2, "Errei", () => ctx.acoes.responderTreino(false), { variante: "secundario", icone: "x" });
-    }
+    vazio(corpo, "Nenhuma pergunta ainda.", "Adicione callouts \u201C> [!question]- Pergunta\u201D com a resposta embaixo nas suas notas de estudo.");
     return;
   }
   if (estado.perguntaIdx === null || estado.perguntaIdx >= snap.perguntas.length) estado.perguntaIdx = indiceDoDia(snap.hoje, snap.perguntas.length);
@@ -613,58 +547,55 @@ function oraculo(root, ctx) {
   if (!p) return;
   pergunta(corpo, ctx, p.pergunta, p.resposta, p.caminho, p.nota, estado.mostrarResposta);
   const row = corpo.createDiv({ cls: "erpg-acoes" });
-  botao(row, estado.mostrarResposta ? "Esconder resposta" : "Revelar resposta", () => {
+  botao(row, estado.mostrarResposta ? "Esconder" : "Ver resposta", () => {
     estado.mostrarResposta = !estado.mostrarResposta;
     ctx.acoes.redesenhar();
-  }, { icone: "eye" });
-  if (snap.perguntas.length > 1) botao(row, "Outra pergunta", () => {
+  }, { icone: "eye", pequeno: true });
+  if (snap.perguntas.length > 1) botao(row, "Outra", () => {
     let n = estado.perguntaIdx ?? 0;
     while (n === estado.perguntaIdx) n = Math.floor(Math.random() * snap.perguntas.length);
     estado.perguntaIdx = n;
     estado.mostrarResposta = false;
     ctx.acoes.redesenhar();
-  }, { variante: "secundario", icone: "shuffle" });
-  botao(row, `Treino misto (${Math.min(settings.perguntasPorTreino, snap.perguntas.length)})`, () => ctx.acoes.iniciarTreino(), { variante: "secundario", icone: "swords" });
+  }, { variante: "secundario", icone: "shuffle", pequeno: true });
 }
 function pergunta(corpo, ctx, q, a, caminho, nota, mostrar) {
   const origem = corpo.createEl("button", { cls: "erpg-origem", text: nota, attr: { "aria-label": `Abrir a nota ${nota}` } });
   origem.addEventListener("click", (ev) => ctx.acoes.abrirNota(caminho, ev.ctrlKey || ev.metaKey));
-  md(ctx, corpo.createDiv({ cls: "erpg-pergunta" }), q, caminho);
-  if (mostrar) md(ctx, corpo.createDiv({ cls: "erpg-resposta" }), a, caminho);
+  const area = corpo.createDiv({ cls: "erpg-rola" });
+  md(ctx, area.createDiv({ cls: "erpg-pergunta" }), q, caminho);
+  if (mostrar) md(ctx, area.createDiv({ cls: "erpg-resposta" }), a, caminho);
 }
 function revisao(root, ctx) {
   const { snap, settings } = ctx;
-  const corpo = painel(root, "scroll-text", "Pergaminhos para revisar", "Lembrou \u2192 volta mais tarde \xB7 Esqueceu \u2192 volta amanh\xE3", "is-revisao");
+  const infos = snap.notas.map((n) => ({ n, ...infoRevisao({ caixa: n.caixa, revisado: n.revisado }, snap.hoje, settings.intervalos) }));
+  const fila = ordenarFila(infos.filter((x) => x.vencida));
+  const corpo = painel(root, "repeat", "Revisar", fila.length ? `${fila.length} na fila` : void 0, "is-revisao");
   if (!snap.notas.length) {
     vazio(corpo, "Nenhuma nota de estudo encontrada.", "Notas com a propriedade nivel (escrito, praticado ou projeto) entram aqui.");
     return;
   }
-  const infos = snap.notas.map((n) => ({ n, ...infoRevisao({ caixa: n.caixa, revisado: n.revisado }, snap.hoje, settings.intervalos) }));
-  const fila = ordenarFila(infos.filter((x) => x.vencida));
   if (!fila.length) {
     const prox = infos.map((x) => x.proxima).filter((x) => !!x).sort()[0];
-    vazio(corpo, "Nenhum pergaminho vencido hoje. Descanse, her\xF3i.", prox ? `Pr\xF3xima revis\xE3o ${relativo(prox, snap.hoje)}.` : void 0);
+    vazio(corpo, "Nada para revisar hoje.", prox ? `Pr\xF3xima revis\xE3o ${relativo(prox, snap.hoje)}.` : void 0);
     return;
   }
-  const lista = corpo.createDiv({ cls: "erpg-revisoes" });
-  for (const x of fila.slice(0, 6)) {
+  const lista = corpo.createDiv({ cls: "erpg-revisoes erpg-rola" });
+  for (const x of fila) {
     const row = lista.createDiv({ cls: "erpg-revisao" });
     const info = row.createDiv({ cls: "erpg-revisao-info" });
     const nome = info.createEl("button", { cls: "erpg-link", text: x.n.label });
     nome.addEventListener("click", (ev) => ctx.acoes.abrirNota(x.n.caminho, ev.ctrlKey || ev.metaKey));
-    const meta = [x.n.area, x.revisado ? `caixa ${x.caixa} \xB7 revisada ${relativo(x.revisado, snap.hoje)}` : "nunca revisada"].filter(Boolean).join(" \xB7 ");
-    info.createDiv({ cls: "erpg-meta", text: meta });
+    info.createDiv({ cls: "erpg-meta", text: x.revisado ? `caixa ${x.caixa} \xB7 ${relativo(x.revisado, snap.hoje)}` : "nunca revisada" });
     const acts = row.createDiv({ cls: "erpg-acoes" });
-    botao(acts, "Lembrei", () => ctx.acoes.revisar(x.n, true), { pequeno: true, icone: "check" });
-    botao(acts, "Esqueci", () => ctx.acoes.revisar(x.n, false), { pequeno: true, variante: "secundario" });
+    botao(acts, "Lembrei", () => ctx.acoes.revisar(x.n, true), { pequeno: true, titulo: "Volta mais tarde (intervalo maior)" });
+    botao(acts, "Esqueci", () => ctx.acoes.revisar(x.n, false), { pequeno: true, variante: "secundario", titulo: "Volta amanh\xE3" });
   }
-  if (fila.length > 6) corpo.createDiv({ cls: "erpg-dica", text: `Mais ${fila.length - 6} na fila.` });
-  corpo.createDiv({ cls: "erpg-dica", text: "Abra a nota, responda o \u201CMe teste\u201D sem olhar e s\xF3 ent\xE3o escolha." });
 }
 function cronica(root, ctx) {
-  const { snap, settings, prog } = ctx;
+  const { snap, settings } = ctx;
   const semanas = Math.max(4, Math.min(52, settings.semanasNoCalendario));
-  const corpo = painel(root, "calendar-days", "Cr\xF4nica da jornada", `\xDAltimas ${semanas} semanas`, "is-cronica");
+  const corpo = painel(root, "calendar-days", "Atividade", `${snap.diario.size} ${snap.diario.size === 1 ? "dia" : "dias"} de estudo`, "is-cronica");
   const dow = ((/* @__PURE__ */ new Date()).getDay() + 6) % 7;
   const inicio = addDias(snap.hoje, -dow - (semanas - 1) * 7);
   const grade = corpo.createDiv({ cls: "erpg-grade", attr: { style: `--semanas:${semanas}` } });
@@ -675,81 +606,36 @@ function cronica(root, ctx) {
     const lv = !d ? 0 : d.minutos < 25 ? 1 : d.minutos < 50 ? 2 : 3;
     grade.createSpan({
       cls: `erpg-dia is-n${futuro ? "x" : lv}${dia === snap.hoje ? " is-hoje" : ""}`,
-      attr: { "aria-label": `${dia}${d ? ` \xB7 ${d.minutos} min` : ""}` }
+      attr: { title: `${dia}${d ? ` \xB7 ${d.minutos} min` : ""}` }
     });
   }
-  const leg = corpo.createDiv({ cls: "erpg-legenda" });
-  leg.createSpan({ text: `${snap.diario.size} dias de estudo \xB7 sequ\xEAncia atual: ${prog.sequencia}` });
-  const esc = leg.createSpan({ cls: "erpg-escala" });
-  esc.createSpan({ text: "menos" });
-  for (let i = 0; i < 4; i++) esc.createSpan({ cls: `erpg-dia is-n${i}` });
-  esc.createSpan({ text: "mais" });
 }
 function mapa(root, ctx) {
-  const { snap, estado, prog } = ctx;
-  const corpo = painel(root, "map", "Mapa dos reinos", `${prog.topicosFeitos} de ${prog.topicosTotal} t\xF3picos conquistados`, "is-mapa");
+  const { snap, prog } = ctx;
+  const corpo = painel(root, "map", "Trilhas", `${prog.topicosFeitos} de ${prog.topicosTotal} t\xF3picos`, "is-mapa");
   if (!snap.trilhas.length) {
-    vazio(corpo, "Nenhum reino descoberto.", "Crie uma nota com a propriedade tipo: trilha, se\xE7\xF5es com \u201C#\u201D e t\xF3picos \u201C- [ ] [[Nota]] \u2014 descri\xE7\xE3o\u201D.");
+    vazio(corpo, "Nenhuma trilha.", "Crie uma nota com a propriedade tipo: trilha, se\xE7\xF5es com \u201C#\u201D e t\xF3picos \u201C- [ ] [[Nota]] \u2014 descri\xE7\xE3o\u201D.");
     return;
   }
-  const busca = corpo.createDiv({ cls: "erpg-busca" });
+  const busca = corpo.createEl("button", { cls: "erpg-busca", attr: { "aria-label": "Buscar t\xF3pico" } });
   icone(busca, "search");
-  const input = busca.createEl("input", { type: "search", attr: { placeholder: "Buscar t\xF3pico em todos os reinos", "aria-label": "Buscar t\xF3pico", spellcheck: "false" } });
-  input.value = estado.busca;
-  const resultado = corpo.createDiv();
-  const desenharBusca = () => {
-    resultado.empty();
-    const q = normalizar(estado.busca);
-    if (q) {
-      const achados = [];
-      for (const t of snap.trilhas) for (const r of t.regioes) for (const tp of r.topicos)
-        if (normalizar(tp.label).includes(q) || normalizar(tp.desc).includes(q)) achados.push({ t, r: r.nome, tp });
-      resultado.createDiv({ cls: "erpg-meta", text: `${achados.length} resultado(s)` });
-      const g = resultado.createDiv({ cls: "erpg-topicos" });
-      achados.slice(0, 60).forEach((a) => topico(g, ctx, a.t.caminho, a.tp, `${a.t.nome} \xB7 ${a.r}`));
-      return;
-    }
-    for (const t of snap.trilhas) reino(resultado, ctx, t);
-  };
-  input.addEventListener("input", () => {
-    estado.busca = input.value.trim();
-    desenharBusca();
-  });
-  desenharBusca();
-}
-function reino(parent, ctx, t) {
-  const { estado } = ctx;
-  const feitos = t.regioes.reduce((a, r) => a + r.topicos.filter((x) => x.feito).length, 0);
-  const total = t.regioes.reduce((a, r) => a + r.topicos.length, 0);
-  const cab = parent.createDiv({ cls: "erpg-reino-cab" });
-  cab.createEl("h3", { text: t.nome });
-  cab.createSpan({ cls: "erpg-num", text: `${feitos}/${total}` });
-  const skills = new Map(habilidades(ctx.snap).filter((h) => h.trilha === t.nome).map((h) => [h.nome, h]));
-  const grid = parent.createDiv({ cls: "erpg-regioes" });
-  for (const r of t.regioes) {
-    const chave = `${t.caminho}::${r.nome}`;
-    const h = skills.get(r.nome);
-    const aberta = estado.regiaoAberta === chave;
-    const feitosR = r.topicos.filter((x) => x.feito).length;
-    const b = grid.createEl("button", {
-      cls: `erpg-regiao${aberta ? " is-aberta" : ""}${feitosR === r.topicos.length ? " is-conquistada" : ""}`,
-      attr: { "aria-expanded": String(aberta) }
-    });
-    const nome = b.createDiv({ cls: "erpg-regiao-nome" });
-    if (r.destaque) icone(nome, "star");
-    nome.createSpan({ text: r.nome });
-    const est = b.createDiv({ cls: "erpg-estrelas", attr: { "aria-label": `${h?.estrelas ?? 0} de 5 estrelas` } });
-    for (let i = 0; i < 5; i++) est.createSpan({ cls: i < (h?.estrelas ?? 0) ? "is-cheia" : "" });
-    b.createSpan({ cls: "erpg-num", text: `${feitosR}/${r.topicos.length}` });
-    b.addEventListener("click", () => {
-      estado.regiaoAberta = aberta ? null : chave;
-      ctx.acoes.redesenhar();
-    });
-    if (aberta) {
-      const det = parent.createDiv({ cls: "erpg-regiao-det" });
-      if (r.desc) det.createEl("p", { cls: "erpg-texto", text: r.desc });
-      const g = det.createDiv({ cls: "erpg-topicos" });
-      r.topicos.forEach((tp) => topico(g, ctx, t.caminho, tp));
+  busca.createSpan({ text: "Buscar t\xF3pico" });
+  busca.addEventListener("click", () => ctx.acoes.abrirTopicos(null));
+  const area = corpo.createDiv({ cls: "erpg-rola" });
+  for (const t of snap.trilhas) {
+    if (snap.trilhas.length > 1) area.createDiv({ cls: "erpg-rotulo", text: t.nome });
+    const grid = area.createDiv({ cls: "erpg-regioes" });
+    for (const r of t.regioes) {
+      const feitos = r.topicos.filter((x) => x.feito).length;
+      const b = grid.createEl("button", {
+        cls: `erpg-regiao${feitos === r.topicos.length ? " is-conquistada" : ""}${r.destaque ? " is-destaque" : ""}`,
+        attr: { title: `${r.nome}: ${feitos} de ${r.topicos.length}${r.desc ? `
+${r.desc}` : ""}` }
+      });
+      b.createSpan({ cls: "erpg-regiao-nome", text: r.nome });
+      b.createSpan({ cls: "erpg-num", text: `${feitos}/${r.topicos.length}` });
+      barra(b, feitos / r.topicos.length, "erpg-barra");
+      b.addEventListener("click", () => ctx.acoes.abrirTopicos({ trilha: t.caminho, regiao: r.nome }));
     }
   }
 }
@@ -767,33 +653,84 @@ function topico(parent, ctx, trilha, tp, contexto) {
   if (nota) corpo.createSpan({ cls: `erpg-nivel is-${nota.nivel}`, text: NOME_NIVEL[nota.nivel] });
   corpo.addEventListener("click", (ev) => ctx.acoes.abrirNota(tp.caminho ?? tp.alvo, ev.ctrlKey || ev.metaKey));
 }
-function trofeus(root, ctx) {
-  const ok = ctx.conquistas.filter((c) => c.ok).length;
-  const corpo = painel(root, "trophy", "Sal\xE3o de trof\xE9us", `${ok} de ${ctx.conquistas.length} conquistados`, "is-trofeus");
-  const grid = corpo.createDiv({ cls: "erpg-trofeus" });
-  for (const c of ctx.conquistas) {
-    const t = grid.createDiv({ cls: `erpg-trofeu${c.ok ? " is-ok" : ""}` });
-    icone(t.createDiv({ cls: "erpg-medalha" }), c.ok ? c.icone : "lock");
-    t.createDiv({ cls: "erpg-trofeu-nome", text: c.nome });
-    t.createDiv({ cls: "erpg-trofeu-desc", text: c.desc });
+function listaTopicos(parent, ctx, alvo, busca) {
+  const q = normalizar(busca.trim());
+  const achados = [];
+  for (const t of ctx.snap.trilhas) for (const r of t.regioes) {
+    const naRegiao = alvo && t.caminho === alvo.trilha && r.nome === alvo.regiao;
+    for (const tp of r.topicos) {
+      if (q ? normalizar(`${tp.label} ${tp.desc}`).includes(q) : naRegiao) achados.push({ t, r: r.nome, tp });
+    }
   }
-  const p = ctx.prog.partes;
-  const linhas = [["notas", p.notas], ["t\xF3picos", p.topicos], ["di\xE1rio", p.diario], ["revis\xF5es", p.revisao], ["treinos", p.treinos], ["miss\xF5es", p.missoes]];
-  corpo.createDiv({ cls: "erpg-meta", text: "De onde vem seu XP: " + linhas.map(([k, v]) => `${k} ${v}`).join(" \xB7 ") });
+  if (!achados.length) {
+    vazio(parent, q ? "Nada encontrado." : "Essa regi\xE3o n\xE3o existe mais.");
+    return;
+  }
+  const g = parent.createDiv({ cls: "erpg-topicos" });
+  achados.slice(0, 120).forEach((a) => topico(g, ctx, a.t.caminho, a.tp, q ? `${a.t.nome} \xB7 ${a.r}` : void 0));
 }
 function normalizar(s) {
   return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 }
 
+// src/ui/topicosModal.ts
+var import_obsidian4 = require("obsidian");
+var TopicosModal = class extends import_obsidian4.Modal {
+  constructor(plugin, criarCtx, alvo) {
+    super(plugin.app);
+    this.plugin = plugin;
+    this.criarCtx = criarCtx;
+    this.alvo = alvo;
+  }
+  plugin;
+  criarCtx;
+  alvo;
+  comp = new import_obsidian4.Component();
+  lista;
+  input;
+  desinscrever = null;
+  onOpen() {
+    this.modalEl.addClass("erpg-modal");
+    this.contentEl.addClass("erpg-host");
+    this.comp.load();
+    this.setTitle(this.alvo ? this.alvo.regiao : "Buscar t\xF3pico");
+    const busca = this.contentEl.createDiv({ cls: "erpg-busca is-campo" });
+    icone(busca, "search");
+    this.input = busca.createEl("input", { type: "search", attr: { placeholder: "Buscar em todas as trilhas", "aria-label": "Buscar t\xF3pico", spellcheck: "false" } });
+    this.input.addEventListener("input", () => this.desenharLista());
+    this.lista = this.contentEl.createDiv({ cls: "erpg-modal-lista" });
+    this.desinscrever = this.plugin.aoAtualizar(() => this.desenharLista());
+    this.desenharLista();
+    if (!this.alvo) this.input.focus();
+  }
+  onClose() {
+    this.desinscrever?.();
+    this.comp.unload();
+    this.contentEl.empty();
+  }
+  desenharLista() {
+    this.comp.unload();
+    this.comp = new import_obsidian4.Component();
+    this.comp.load();
+    this.lista.empty();
+    const ctx = this.criarCtx(this.comp);
+    if (!ctx) return;
+    const busca = this.input.value;
+    this.setTitle(busca.trim() ? "Buscar t\xF3pico" : this.alvo ? this.alvo.regiao : "Buscar t\xF3pico");
+    if (!busca.trim() && !this.alvo) return;
+    listaTopicos(this.lista, ctx, this.alvo, busca);
+  }
+};
+
 // src/ui/view.ts
 var VIEW_FICHA = "estudos-rpg-ficha";
-var FichaView = class extends import_obsidian4.ItemView {
+var FichaView = class extends import_obsidian5.ItemView {
   constructor(leaf, plugin) {
     super(leaf);
     this.plugin = plugin;
   }
   plugin;
-  estado = { regiaoAberta: null, busca: "", perguntaIdx: null, mostrarResposta: false, treino: null };
+  estado = { perguntaIdx: null, mostrarResposta: false };
   desinscrever = null;
   getViewType() {
     return VIEW_FICHA;
@@ -812,19 +749,11 @@ var FichaView = class extends import_obsidian4.ItemView {
   async onClose() {
     this.desinscrever?.();
   }
-  /** Redesenha tudo mantendo a rolagem e o foco da busca. */
-  desenhar() {
-    const el = this.contentEl;
-    const rolagem = el.scrollTop;
-    const buscaFocada = document.activeElement instanceof HTMLInputElement && el.contains(document.activeElement);
-    const comp = this.novoFilho();
-    el.empty();
+  /** Monta o contexto que as seções usam (null enquanto o vault não foi lido). */
+  criarCtx = (comp) => {
     const dados = this.plugin.dados;
-    if (!dados) {
-      el.createDiv({ cls: "erpg-carregando", text: "Abrindo o grim\xF3rio\u2026" });
-      return;
-    }
-    const ctx = {
+    if (!dados) return null;
+    return {
       app: this.app,
       comp,
       settings: this.plugin.config,
@@ -834,36 +763,48 @@ var FichaView = class extends import_obsidian4.ItemView {
       prog: dados.prog,
       conquistas: dados.conquistas
     };
+  };
+  /**
+   * Redesenha a ficha. Layout de tela única:
+   *   [ faixa do topo: nível · XP · status · conquistas · sessão ]
+   *   [ Missão / Atividade | Pergunta do dia / Revisar | Trilhas ]
+   * Em telas pequenas o CSS empilha as colunas (aí a página rola).
+   */
+  desenhar() {
+    const el = this.contentEl;
+    const rolagem = el.scrollTop;
+    const comp = this.novoFilho();
+    el.empty();
+    const ctx = this.criarCtx(comp);
+    if (!ctx) {
+      el.createDiv({ cls: "erpg-carregando", text: "Carregando\u2026" });
+      return;
+    }
     const pagina = el.createDiv({ cls: "erpg" });
     ficha(pagina, ctx);
-    const g1 = pagina.createDiv({ cls: "erpg-grid" });
-    missao(g1, ctx);
-    oraculo(g1, ctx);
-    const g2 = pagina.createDiv({ cls: "erpg-grid" });
-    revisao(g2, ctx);
-    cronica(g2, ctx);
-    mapa(pagina, ctx);
-    trofeus(pagina, ctx);
+    const grade = pagina.createDiv({ cls: "erpg-grade-principal" });
+    const colA = grade.createDiv({ cls: "erpg-col is-a" });
+    missao(colA, ctx);
+    cronica(colA, ctx);
+    const colB = grade.createDiv({ cls: "erpg-col is-b" });
+    oraculo(colB, ctx);
+    revisao(colB, ctx);
+    mapa(grade.createDiv({ cls: "erpg-col is-c" }), ctx);
     el.scrollTop = rolagem;
-    if (buscaFocada) {
-      const input = el.querySelector(".erpg-busca input");
-      if (input) {
-        input.focus();
-        input.setSelectionRange(input.value.length, input.value.length);
-      }
-    }
   }
   /** Dono dos renderizadores de Markdown do desenho atual; trocado a cada desenho. */
   filho = null;
   novoFilho() {
     if (this.filho) this.removeChild(this.filho);
-    this.filho = this.addChild(new import_obsidian4.Component());
+    this.filho = this.addChild(new import_obsidian5.Component());
     return this.filho;
   }
   // ------------------------------------------------------------ ações
   acoes = {
-    abrirNota: (caminho, novaAba = false) => {
-      void this.app.workspace.openLinkText(caminho, "", novaAba);
+    // Notas abrem numa aba nova do centro: a ficha continua aberta na dela.
+    // Ctrl/Cmd+clique abre ao lado (divisão), para ler a nota com a ficha visível.
+    abrirNota: (caminho, aoLado = false) => {
+      void this.app.workspace.openLinkText(caminho, "", aoLado ? "split" : "tab");
     },
     alternarTopico: async (trilha, t) => {
       await this.plugin.writer.alternarLinha(trilha, t.linha, t.raw);
@@ -878,49 +819,19 @@ var FichaView = class extends import_obsidian4.ItemView {
       const caixa = lembrou ? aposLembrar({ caixa: n.caixa, revisado: n.revisado }, intervalos) : aposEsquecer();
       const hoje = this.plugin.hoje();
       await this.plugin.writer.propriedades(n.caminho, { caixa, revisado: hoje });
-      new import_obsidian4.Notice(lembrou ? `${n.label}: caixa ${caixa}, volta em ${intervalos[caixa] ?? "?"} dia(s).` : `${n.label} volta amanh\xE3.`);
+      new import_obsidian5.Notice(lembrou ? `${n.label}: caixa ${caixa}, volta em ${intervalos[caixa] ?? "?"} dia(s).` : `${n.label} volta amanh\xE3.`);
       await this.plugin.atualizarAgora();
     },
     iniciarDia: async () => {
-      const f = await this.plugin.writer.diario(this.plugin.hoje());
-      await this.app.workspace.getLeaf(false).openFile(f);
+      await this.plugin.abrirNoCentro(await this.plugin.writer.diario(this.plugin.hoje()));
     },
-    iniciarTreino: () => {
-      const dados = this.plugin.dados;
-      if (!dados?.snap.perguntas.length) return;
-      const itens = montarTreino(dados.snap.perguntas, this.plugin.config.perguntasPorTreino);
-      this.estado.treino = { itens, i: 0, acertos: 0, mostrar: false, fim: false };
-      this.desenhar();
-    },
-    responderTreino: async (acertou) => {
-      const tr = this.estado.treino;
-      const p = tr?.itens[tr.i];
-      if (!tr || !p) return;
-      if (acertou) tr.acertos++;
-      else await this.plugin.writer.propriedades(p.caminho, { caixa: aposEsquecer(), revisado: this.plugin.hoje() });
-      tr.i++;
-      tr.mostrar = false;
-      if (tr.i >= tr.itens.length) {
-        tr.fim = true;
-        const f = await this.plugin.writer.diario(this.plugin.hoje());
-        const fm = this.app.metadataCache.getFileCache(f)?.frontmatter ?? {};
-        const n = (k) => Number(fm[k]) || 0;
-        await this.plugin.writer.propriedades(f.path, {
-          treinos: n("treinos") + 1,
-          acertos: n("acertos") + tr.acertos,
-          perfeitos: n("perfeitos") + (tr.acertos === tr.itens.length ? 1 : 0)
-        });
-        await this.plugin.atualizarAgora();
-      } else {
-        this.desenhar();
-      }
-    },
+    abrirTopicos: (alvo) => new TopicosModal(this.plugin, this.criarCtx, alvo).open(),
     redesenhar: () => this.desenhar()
   };
 };
 
 // src/vault/indexer.ts
-var import_obsidian5 = require("obsidian");
+var import_obsidian6 = require("obsidian");
 var Indexer = class {
   constructor(app, getSettings) {
     this.app = app;
@@ -932,14 +843,14 @@ var Indexer = class {
   cachePerguntas = /* @__PURE__ */ new Map();
   async construir(hoje) {
     const s = this.getSettings();
-    const ignoradas = s.pastasIgnoradas.map((p) => (0, import_obsidian5.normalizePath)(p).toLowerCase()).filter(Boolean);
+    const ignoradas = s.pastasIgnoradas.map((p) => (0, import_obsidian6.normalizePath)(p).toLowerCase()).filter(Boolean);
     const ignorar = (f) => ignoradas.some((p) => f.path.toLowerCase() === p || f.path.toLowerCase().startsWith(p + "/"));
     const arquivos = this.app.vault.getMarkdownFiles().filter((f) => !ignorar(f));
     const trilhas = [];
     const missoes = [];
     const candidatasEstudo = [];
     const diario = /* @__PURE__ */ new Map();
-    const pastaDiario = (0, import_obsidian5.normalizePath)(s.pastaDiario);
+    const pastaDiario = (0, import_obsidian6.normalizePath)(s.pastaDiario);
     for (const f of arquivos) {
       const fm = this.fm(f);
       const tipo = String(fm.tipo ?? "").toLowerCase().trim();
@@ -948,10 +859,7 @@ var Indexer = class {
         if (data) diario.set(data, {
           data,
           caminho: f.path,
-          minutos: num(fm.minutos, 25),
-          treinos: num(fm.treinos),
-          acertos: num(fm.acertos),
-          perfeitos: num(fm.perfeitos)
+          minutos: num(fm.minutos, 25)
         });
         continue;
       }
@@ -1019,7 +927,7 @@ function normalizar2(s) {
 }
 
 // src/vault/writer.ts
-var import_obsidian6 = require("obsidian");
+var import_obsidian7 = require("obsidian");
 var Writer = class {
   constructor(app, getSettings) {
     this.app = app;
@@ -1045,7 +953,7 @@ var Writer = class {
       ok = true;
       return linhas.join(quebra);
     });
-    if (!ok) new import_obsidian6.Notice("A nota mudou desde a \xFAltima leitura. Tente de novo.");
+    if (!ok) new import_obsidian7.Notice("A nota mudou desde a \xFAltima leitura. Tente de novo.");
     return ok;
   }
   async propriedades(caminho, patch) {
@@ -1056,13 +964,13 @@ var Writer = class {
   /** Cria (se preciso) e devolve a nota do diário de `data`. */
   async diario(data) {
     const s = this.getSettings();
-    const pasta = (0, import_obsidian6.normalizePath)(s.pastaDiario);
-    const caminho = (0, import_obsidian6.normalizePath)(`${pasta}/${data}.md`);
+    const pasta = (0, import_obsidian7.normalizePath)(s.pastaDiario);
+    const caminho = (0, import_obsidian7.normalizePath)(`${pasta}/${data}.md`);
     const existente = this.app.vault.getAbstractFileByPath(caminho);
-    if (existente instanceof import_obsidian6.TFile) return existente;
+    if (existente instanceof import_obsidian7.TFile) return existente;
     if (!this.app.vault.getAbstractFileByPath(pasta)) await this.app.vault.createFolder(pasta);
-    const tpl = this.app.vault.getAbstractFileByPath((0, import_obsidian6.normalizePath)(s.templateDiario));
-    const corpo = tpl instanceof import_obsidian6.TFile ? (await this.app.vault.read(tpl)).replace(/\{\{date(?::[^}]*)?\}\}/g, data) : `---
+    const tpl = this.app.vault.getAbstractFileByPath((0, import_obsidian7.normalizePath)(s.templateDiario));
+    const corpo = tpl instanceof import_obsidian7.TFile ? (await this.app.vault.read(tpl)).replace(/\{\{date(?::[^}]*)?\}\}/g, data) : `---
 minutos: 25
 ---
 
@@ -1075,14 +983,14 @@ minutos: 25
   }
   arquivo(caminho) {
     const f = this.app.vault.getAbstractFileByPath(caminho);
-    if (f instanceof import_obsidian6.TFile) return f;
-    new import_obsidian6.Notice(`N\xE3o achei a nota ${caminho}.`);
+    if (f instanceof import_obsidian7.TFile) return f;
+    new import_obsidian7.Notice(`N\xE3o achei a nota ${caminho}.`);
     return null;
   }
 };
 
 // src/main.ts
-var EstudosRPG = class extends import_obsidian7.Plugin {
+var EstudosRPG = class extends import_obsidian8.Plugin {
   config;
   writer;
   dados = null;
@@ -1102,7 +1010,7 @@ var EstudosRPG = class extends import_obsidian7.Plugin {
     this.statusEl = this.addStatusBarItem();
     this.statusEl.addClass("erpg-status");
     this.statusEl.addEventListener("click", () => this.abrirFicha());
-    const agendar = (0, import_obsidian7.debounce)(() => void this.atualizarAgora(), 400, true);
+    const agendar = (0, import_obsidian8.debounce)(() => void this.atualizarAgora(), 400, true);
     this.registerEvent(this.app.metadataCache.on("changed", agendar));
     this.registerEvent(this.app.vault.on("create", agendar));
     this.registerEvent(this.app.vault.on("delete", (f) => {
@@ -1154,7 +1062,7 @@ var EstudosRPG = class extends import_obsidian7.Plugin {
           this.ouvintes.forEach((fn) => fn());
         } catch (e) {
           console.error("[estudos-rpg] falha ao ler o vault", e);
-          new import_obsidian7.Notice("Estudos RPG: erro ao ler o vault. Veja o console (Ctrl+Shift+I).");
+          new import_obsidian8.Notice("Estudos RPG: erro ao ler o vault. Veja o console (Ctrl+Shift+I).");
         }
       } while (this.pendente);
     })().finally(() => {
@@ -1166,10 +1074,10 @@ var EstudosRPG = class extends import_obsidian7.Plugin {
   anunciar(antes, depois) {
     if (!antes) return;
     const delta = depois.prog.xp - antes.prog.xp;
-    if (delta > 0) new import_obsidian7.Notice(`\u2726 +${delta} XP`, 2500);
-    if (depois.prog.nivel > antes.prog.nivel) new import_obsidian7.Notice(`\u269C Subiu de n\xEDvel! N\xEDvel ${depois.prog.nivel} \xB7 ${depois.prog.titulo}`, 6e3);
+    if (delta > 0) new import_obsidian8.Notice(`\u2726 +${delta} XP`, 2500);
+    if (depois.prog.nivel > antes.prog.nivel) new import_obsidian8.Notice(`\u269C Subiu de n\xEDvel! N\xEDvel ${depois.prog.nivel} \xB7 ${depois.prog.titulo}`, 6e3);
     const tinha = new Set(antes.conquistas.filter((c) => c.ok).map((c) => c.id));
-    for (const c of depois.conquistas) if (c.ok && !tinha.has(c.id)) new import_obsidian7.Notice(`\u{1F3C6} Trof\xE9u conquistado: ${c.nome}`, 6e3);
+    for (const c of depois.conquistas) if (c.ok && !tinha.has(c.id)) new import_obsidian8.Notice(`\u{1F3C6} Trof\xE9u conquistado: ${c.nome}`, 6e3);
   }
   atualizarStatus() {
     if (!this.statusEl || !this.dados) return;
@@ -1177,11 +1085,26 @@ var EstudosRPG = class extends import_obsidian7.Plugin {
     this.statusEl.setText(`\u269C Nv ${p.nivel} \xB7 ${p.xp}/${p.xpProximo} XP${p.sequencia ? ` \xB7 \u{1F525}${p.sequencia}` : ""}`);
     this.statusEl.setAttr("aria-label", "Abrir a ficha do her\xF3i");
   }
+  /**
+   * Abre a ficha SEMPRE na área principal (nunca nas barras laterais).
+   * E se uma ficha ficou presa numa barra lateral (ex.: abriu quando o painel do Git
+   * era a aba ativa, e o Obsidian lembrou o lugar)? Ela é fechada e reaberta no centro.
+   */
   async abrirFicha() {
-    const existente = this.app.workspace.getLeavesOfType(VIEW_FICHA)[0];
-    const leaf = existente ?? this.app.workspace.getLeaf(false);
-    if (!existente) await leaf.setViewState({ type: VIEW_FICHA, active: true });
-    await this.app.workspace.revealLeaf(leaf);
+    const ws = this.app.workspace;
+    const fichas = ws.getLeavesOfType(VIEW_FICHA);
+    let leaf = fichas.find((l) => l.getRoot() === ws.rootSplit) ?? null;
+    for (const l of fichas) if (l !== leaf) l.detach();
+    if (!leaf) {
+      const recente = ws.getMostRecentLeaf(ws.rootSplit);
+      leaf = recente && recente.view.getViewType() === "empty" ? recente : ws.getLeaf("tab");
+      await leaf.setViewState({ type: VIEW_FICHA, active: true });
+    }
+    await ws.revealLeaf(leaf);
+  }
+  /** Abre um arquivo numa aba da área principal (a ficha continua aberta na dela). */
+  async abrirNoCentro(f) {
+    await this.app.workspace.getLeaf("tab").openFile(f);
   }
   async salvarConfig() {
     await this.saveData(this.config);
@@ -1193,10 +1116,7 @@ var EstudosRPG = class extends import_obsidian7.Plugin {
     this.addCommand({
       id: "diario-hoje",
       name: "Abrir/criar o di\xE1rio de hoje",
-      callback: async () => {
-        const f = await this.writer.diario(this.hoje());
-        await this.app.workspace.getLeaf(false).openFile(f);
-      }
+      callback: async () => this.abrirNoCentro(await this.writer.diario(this.hoje()))
     });
     this.addCommand({
       id: "proxima-revisao",
@@ -1207,17 +1127,17 @@ var EstudosRPG = class extends import_obsidian7.Plugin {
         const fila = ordenarFila(d.snap.notas.map((n) => ({ n, ...infoRevisao(n, d.snap.hoje, this.config.intervalos) })).filter((x) => x.vencida));
         const prox = fila[0];
         if (!prox) {
-          new import_obsidian7.Notice("Nenhuma revis\xE3o vencida hoje.");
+          new import_obsidian8.Notice("Nenhuma revis\xE3o vencida hoje.");
           return;
         }
-        void this.app.workspace.openLinkText(prox.n.caminho, "", false);
+        void this.app.workspace.openLinkText(prox.n.caminho, "", "tab");
       }
     });
     const naNota = (id, name, acao) => this.addCommand({
       id,
       name,
       checkCallback: (checando) => {
-        const f = this.app.workspace.getActiveViewOfType(import_obsidian7.MarkdownView)?.file;
+        const f = this.app.workspace.getActiveViewOfType(import_obsidian8.MarkdownView)?.file;
         const fm = f ? this.app.metadataCache.getFileCache(f)?.frontmatter ?? {} : null;
         if (!f || !fm || !NIVEIS.includes(String(fm.nivel ?? ""))) return false;
         if (!checando) void acao(f, fm);
@@ -1228,17 +1148,17 @@ var EstudosRPG = class extends import_obsidian7.Plugin {
       const atual = NIVEIS.indexOf(String(fm.nivel));
       const novo = NIVEIS[Math.min(NIVEIS.length - 1, atual + 1)] ?? "projeto";
       if (novo === fm.nivel) {
-        new import_obsidian7.Notice("Essa nota j\xE1 est\xE1 no n\xEDvel m\xE1ximo.");
+        new import_obsidian8.Notice("Essa nota j\xE1 est\xE1 no n\xEDvel m\xE1ximo.");
         return;
       }
       await this.writer.propriedades(f.path, { nivel: novo });
-      new import_obsidian7.Notice(`N\xEDvel da nota: ${novo}`);
+      new import_obsidian8.Notice(`N\xEDvel da nota: ${novo}`);
     });
     const revisarAtual = (lembrou) => async (f, fm) => {
       const estado = { caixa: normalizarCaixa(fm.caixa, this.config.intervalos), revisado: typeof fm.revisado === "string" ? fm.revisado : null };
       const caixa = lembrou ? aposLembrar(estado, this.config.intervalos) : aposEsquecer();
       await this.writer.propriedades(f.path, { caixa, revisado: this.hoje() });
-      new import_obsidian7.Notice(lembrou ? `Caixa ${caixa}: volta em ${this.config.intervalos[caixa] ?? "?"} dia(s).` : "Volta amanh\xE3.");
+      new import_obsidian8.Notice(lembrou ? `Caixa ${caixa}: volta em ${this.config.intervalos[caixa] ?? "?"} dia(s).` : "Volta amanh\xE3.");
     };
     naNota("lembrei", "Revis\xE3o: lembrei desta nota", revisarAtual(true));
     naNota("esqueci", "Revis\xE3o: esqueci desta nota", revisarAtual(false));

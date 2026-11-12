@@ -4,18 +4,22 @@
 #  Uso (PowerShell, dentro da pasta Configs ou de qualquer lugar):
 #     powershell -ExecutionPolicy Bypass -File .\backup.ps1
 #
-#  O que faz:
-#   1. Espelha <vault>\.obsidian  ->  Configs\obsidian  (plugins com codigo,
-#      data.json de cada plugin, temas, snippets CSS, icones, hotkeys...)
-#   2. Ignora o que e so estado da sessao (workspace.json) e caches.
-#   3. Procura senhas/tokens nos data.json e APAGA o valor na copia
-#      (o original no .obsidian continua intacto).
-#   4. Gera Configs\Extensoes.md com a lista atualizada de tudo.
+#  O que guarda em Configs\obsidian:
+#   - As configuracoes do Obsidian (*.json da raiz, menos workspace.json).
+#   - Os snippets CSS (feitos por mim).
+#   - Os MEUS plugins ($PluginsProprios): completos (codigo + configuracao).
+#   - Plugins e temas da loja: NADA deles. Ficam so listados no
+#     Configs\Extensoes.md, com link, pra reinstalar num PC novo.
+#   - Senhas/tokens nos data.json sao APAGADOS na copia.
 # =====================================================================
 param(
     [string]$Vault = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 )
 $ErrorActionPreference = "Stop"
+
+# Plugins feitos por mim (nao existem na loja): o codigo deles entra no backup.
+# Criou outro plugin? Adicione o id dele aqui.
+$PluginsProprios = @("estudos-rpg")
 
 $origem  = Join-Path $Vault ".obsidian"
 $destino = Join-Path $PSScriptRoot "obsidian"
@@ -25,11 +29,30 @@ Write-Host "Vault:   $Vault"
 Write-Host "Origem:  $origem"
 Write-Host "Destino: $destino"
 
-# 1-2. Espelho (robocopy /MIR apaga do destino o que nao existe mais na origem)
-$null = robocopy $origem $destino /MIR /NFL /NDL /NJH /NJS /NP `
-    /XF "workspace.json" "workspace-mobile.json" "*.tmp" `
-    /XD ".git" "node_modules" "cache" ".trash"
-if ($LASTEXITCODE -ge 8) { throw "robocopy falhou (codigo $LASTEXITCODE)" }
+function Copiar([string]$de, [string]$para, [string[]]$extra = @()) {
+    $null = robocopy $de $para @extra /NFL /NDL /NJH /NJS /NP
+    if ($LASTEXITCODE -ge 8) { throw "robocopy falhou ($de -> $para, codigo $LASTEXITCODE)" }
+}
+
+# Monta o backup numa pasta temporaria e depois espelha no destino
+# (assim o que saiu do .obsidian, ou deixou de ser guardado, some do backup tambem).
+$stage = Join-Path ([IO.Path]::GetTempPath()) ("obsidian-backup-" + [guid]::NewGuid().ToString("N"))
+New-Item -ItemType Directory -Path $stage | Out-Null
+try {
+    Get-ChildItem $origem -File -Filter "*.json" | Where-Object { $_.Name -notlike "workspace*" } |
+        Copy-Item -Destination $stage
+    if (Test-Path (Join-Path $origem "snippets")) { Copiar (Join-Path $origem "snippets") (Join-Path $stage "snippets") @("/E", "/XF", "*.bak") }
+
+    Get-ChildItem (Join-Path $origem "plugins") -Directory -ErrorAction SilentlyContinue | ForEach-Object {
+        $alvo = Join-Path $stage "plugins\$($_.Name)"
+        # Plugins da loja nao entram no backup: ficam so listados no Extensoes.md.
+        if ($PluginsProprios -contains $_.Name) { Copiar $_.FullName $alvo @("/E", "/XD", "node_modules") }
+    }
+
+    Copiar $stage $destino @("/MIR")
+} finally {
+    Remove-Item $stage -Recurse -Force -ErrorAction SilentlyContinue
+}
 
 # 3. Segredos: qualquer campo com token/senha/segredo/apikey e valor nao vazio
 $padrao = '("(?i)[a-z_]*(token|password|passwd|secret|apikey|api_key|accesskey)[a-z_]*"\s*:\s*")([^"]+)(")'
@@ -55,17 +78,19 @@ $md.Add("# Extens" + [char]0x00F5 + "es e configura" + [char]0x00E7 + [char]0x00
 $md.Add("")
 $md.Add("> Gerado por ``backup.ps1`` em " + (Get-Date -Format "yyyy-MM-dd HH:mm") + ". N" + [char]0x00E3 + "o edite " + [char]0x00E0 + " m" + [char]0x00E3 + "o: rode o script de novo.")
 $md.Add("")
-$md.Add("## Plugins da comunidade")
+$md.Add("## Plugins")
 $md.Add("")
-$md.Add("| Plugin | ID | Vers" + [char]0x00E3 + "o | Ativo | Config salva |")
+$md.Add("Os da loja: instale pelo link (ou em Configura" + [char]0x00E7 + [char]0x00F5 + "es " + [char]0x2192 + " Plugins da comunidade). Os feitos por mim j" + [char]0x00E1 + " v" + [char]0x00EA + "m completos no backup.")
+$md.Add("")
+$md.Add("| Plugin | ID | Vers" + [char]0x00E3 + "o | Ativo | No backup |")
 $md.Add("|---|---|---|---|---|")
 Get-ChildItem (Join-Path $origem "plugins") -Directory | Sort-Object Name | ForEach-Object {
     $mf = Join-Path $_.FullName "manifest.json"
     if (Test-Path $mf) {
         $m = Get-Content $mf -Raw -Encoding UTF8 | ConvertFrom-Json
         $on = if ($ativos -contains $m.id) { "sim" } else { "-" }
-        $dj = if (Test-Path (Join-Path $_.FullName "data.json")) { "sim" } else { "-" }
-        $nome = if (@("estudos-dashboard", "estudos-rpg") -contains $m.id) { $m.name + " (feito por mim)" } else { "[" + $m.name + "](https://obsidian.md/plugins?id=" + $m.id + ")" }
+        $dj = if ($PluginsProprios -contains $m.id) { "completo" } else { "instalar pela loja" }
+        $nome = if ($PluginsProprios -contains $m.id) { $m.name + " (feito por mim)" } else { "[" + $m.name + "](https://obsidian.md/plugins?id=" + $m.id + ")" }
         $md.Add("| $nome | ``$($m.id)`` | $($m.version) | $on | $dj |")
     }
 }

@@ -1,0 +1,6 @@
+# Arquivos internos do graphify: guardam caminhos absolutos do PC (com o nome de usuário)
+graphify-out/.graphify_*
+graphify-out/cache/
+
+# Dependências e builds (cada projeto em .sistema também tem o seu .gitignore)
+node_modules/

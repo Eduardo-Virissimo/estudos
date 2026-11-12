@@ -19,14 +19,17 @@ if (!existsSync(path.join(vault, ".obsidian"))) {
   process.exit(1);
 }
 
+// Cópia no backup do repositório (estudos/Configs/obsidian/...), para restaurar num PC novo
+// sem precisar compilar. Fica dentro do repo, então vai pro Git junto com o código.
+const backupDir = path.resolve(here, "..", "..", "Configs", "obsidian", "plugins", "estudos-rpg");
+
 async function install() {
-  await mkdir(pluginDir, { recursive: true });
-  await Promise.all([
-    copyFile(path.join(here, "dist", "main.js"), path.join(pluginDir, "main.js")),
-    copyFile(path.join(here, "manifest.json"), path.join(pluginDir, "manifest.json")),
-    copyFile(path.join(here, "styles.css"), path.join(pluginDir, "styles.css")),
-  ]);
-  console.log(`[estudos-rpg] instalado em ${pluginDir}`);
+  for (const destino of [pluginDir, backupDir]) {
+    await mkdir(destino, { recursive: true });
+    await Promise.all(["main.js", "manifest.json", "styles.css"].map((nome) =>
+      copyFile(path.join(here, nome === "main.js" ? "dist" : ".", nome), path.join(destino, nome))));
+    console.log(`[estudos-rpg] instalado em ${destino}`);
+  }
 }
 
 const ctx = await esbuild.context({

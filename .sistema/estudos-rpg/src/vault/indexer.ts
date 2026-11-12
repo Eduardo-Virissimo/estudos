@@ -40,7 +40,7 @@ export class Indexer {
         const data = parseISO(f.basename);
         if (data) diario.set(data, {
           data, caminho: f.path,
-          minutos: num(fm.minutos, 25), treinos: num(fm.treinos), acertos: num(fm.acertos), perfeitos: num(fm.perfeitos),
+          minutos: num(fm.minutos, 25),
         });
         continue;
       }

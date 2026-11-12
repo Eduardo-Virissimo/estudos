@@ -118,11 +118,29 @@ export default class EstudosRPG extends Plugin {
     this.statusEl.setAttr("aria-label", "Abrir a ficha do herói");
   }
 
+  /**
+   * Abre a ficha SEMPRE na área principal (nunca nas barras laterais).
+   * E se uma ficha ficou presa numa barra lateral (ex.: abriu quando o painel do Git
+   * era a aba ativa, e o Obsidian lembrou o lugar)? Ela é fechada e reaberta no centro.
+   */
   async abrirFicha() {
-    const existente = this.app.workspace.getLeavesOfType(VIEW_FICHA)[0];
-    const leaf = existente ?? this.app.workspace.getLeaf(false);
-    if (!existente) await leaf.setViewState({ type: VIEW_FICHA, active: true });
-    await this.app.workspace.revealLeaf(leaf);
+    const ws = this.app.workspace;
+    const fichas = ws.getLeavesOfType(VIEW_FICHA);
+    let leaf = fichas.find((l) => l.getRoot() === ws.rootSplit) ?? null;
+    for (const l of fichas) if (l !== leaf) l.detach(); // presas na lateral ou duplicadas
+
+    if (!leaf) {
+      // Reaproveita uma aba vazia do centro; senão, cria uma aba nova no centro.
+      const recente = ws.getMostRecentLeaf(ws.rootSplit);
+      leaf = recente && recente.view.getViewType() === "empty" ? recente : ws.getLeaf("tab");
+      await leaf.setViewState({ type: VIEW_FICHA, active: true });
+    }
+    await ws.revealLeaf(leaf);
+  }
+
+  /** Abre um arquivo numa aba da área principal (a ficha continua aberta na dela). */
+  async abrirNoCentro(f: TFile) {
+    await this.app.workspace.getLeaf("tab").openFile(f);
   }
 
   async salvarConfig() {
@@ -136,7 +154,7 @@ export default class EstudosRPG extends Plugin {
 
     this.addCommand({
       id: "diario-hoje", name: "Abrir/criar o diário de hoje",
-      callback: async () => { const f = await this.writer.diario(this.hoje()); await this.app.workspace.getLeaf(false).openFile(f); },
+      callback: async () => this.abrirNoCentro(await this.writer.diario(this.hoje())),
     });
 
     this.addCommand({
@@ -147,7 +165,7 @@ export default class EstudosRPG extends Plugin {
         const fila = ordenarFila(d.snap.notas.map((n) => ({ n, ...infoRevisao(n, d.snap.hoje, this.config.intervalos) })).filter((x) => x.vencida));
         const prox = fila[0];
         if (!prox) { new Notice("Nenhuma revisão vencida hoje."); return; }
-        void this.app.workspace.openLinkText(prox.n.caminho, "", false);
+        void this.app.workspace.openLinkText(prox.n.caminho, "", "tab");
       },
     });
 

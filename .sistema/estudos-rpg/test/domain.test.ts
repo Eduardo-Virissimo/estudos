@@ -3,8 +3,8 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { addDias, diffDias, parseISO, relativo } from "../src/domain/dates.ts";
 import { parseMissao, parsePerguntas, parseTrilha, alternarCheckbox, limparTitulo } from "../src/domain/parse.ts";
-import { calcularProgresso, nivelPara, sequencia, avaliarConquistas } from "../src/domain/progress.ts";
-import { indiceDoDia, montarTreino } from "../src/domain/quiz.ts";
+import { CONQUISTAS, calcularProgresso, nivelPara, sequencia, avaliarConquistas } from "../src/domain/progress.ts";
+import { indiceDoDia } from "../src/domain/quiz.ts";
 import { aposLembrar, infoRevisao, normalizarCaixa } from "../src/domain/review.ts";
 import type { Snapshot } from "../src/domain/types.ts";
 import { DEFAULT_SETTINGS, mergeSettings } from "../src/settings.ts";
@@ -88,19 +88,8 @@ describe("revisão", () => {
   });
 });
 
-describe("treino misto", () => {
-  const P = (c: string, i: number) => ({ pergunta: `${c}${i}`, resposta: "r", caminho: c, nota: c });
-  const perguntas = ["a", "b", "c"].flatMap((c) => [0, 1, 2, 3].map((i) => P(c, i)));
-  it("intercala notas: as 3 primeiras são de notas diferentes", () => {
-    const t = montarTreino(perguntas, 5);
-    assert.equal(t.length, 5);
-    assert.equal(new Set(t.slice(0, 3).map((x) => x.caminho)).size, 3);
-  });
-  it("e se houver menos perguntas que o pedido? devolve as que existem", () => {
-    assert.equal(montarTreino(perguntas.slice(0, 2), 5).length, 2);
-    assert.equal(montarTreino([], 5).length, 0);
-  });
-  it("pergunta do dia é estável no mesmo dia", () => {
+describe("pergunta do dia", () => {
+  it("é estável no mesmo dia e não quebra sem perguntas", () => {
     assert.equal(indiceDoDia("2026-11-11", 10), indiceDoDia("2026-11-11", 10));
     assert.equal(indiceDoDia("2026-11-11", 0), -1);
   });
@@ -127,11 +116,30 @@ describe("progresso", () => {
   });
 });
 
+describe("conquistas", () => {
+  it("ids únicos e raridade válida em todas", () => {
+    const ids = CONQUISTAS.map((c) => c.id);
+    assert.equal(new Set(ids).size, ids.length);
+    for (const c of CONQUISTAS) assert.ok(["comum", "raro", "epico", "lendario"].includes(c.raridade), c.id);
+  });
+});
+
 describe("configurações", () => {
   it("campos novos ganham padrão quando a config salva é antiga", () => {
     const s = mergeSettings({ xp: { escrito: 1 } as never, intervalos: [] });
     assert.equal(s.xp.escrito, 1);
     assert.equal(s.xp.tarefa, DEFAULT_SETTINGS.xp.tarefa);
     assert.deepEqual(s.intervalos, DEFAULT_SETTINGS.intervalos);
+  });
+  it("campos que não existem mais (do treino removido) e tipos errados são descartados", () => {
+    const antiga = { perguntasPorTreino: 5, xp: { treino: 20, acerto: 5, diario: "x" }, abrirAoIniciar: "sim", titulos: [] };
+    const s = mergeSettings(antiga) as unknown as Record<string, unknown> & { xp: Record<string, unknown> };
+    assert.equal("perguntasPorTreino" in s, false);
+    assert.equal("treino" in s.xp, false);
+    assert.equal(s.xp.diario, DEFAULT_SETTINGS.xp.diario);
+    assert.equal(s.abrirAoIniciar, DEFAULT_SETTINGS.abrirAoIniciar);
+    assert.deepEqual(s.titulos, DEFAULT_SETTINGS.titulos);
+    assert.doesNotThrow(() => mergeSettings(null));
+    assert.doesNotThrow(() => mergeSettings("lixo"));
   });
 });

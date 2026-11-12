@@ -32,20 +32,19 @@ export class AbaConfig extends PluginSettingTab {
       .addTextArea((t) => t.setValue(s.pastasIgnoradas.join("\n"))
         .onChange(async (v) => { s.pastasIgnoradas = v.split("\n").map((x) => x.trim()).filter(Boolean); await salvar(); }));
 
-    new Setting(el).setName("Revisão e treino").setHeading();
+    new Setting(el).setName("Revisão e calendário").setHeading();
     new Setting(el).setName("Intervalos de revisão (dias)").setDesc("Um número por caixa, separados por vírgula. O primeiro é a caixa 0 (ignorado).")
       .addText((t) => t.setValue(s.intervalos.join(", ")).onChange(async (v) => {
         const nums = v.split(",").map((x) => Number(x.trim())).filter((n) => Number.isFinite(n) && n >= 0);
         if (nums.length >= 2) { s.intervalos = nums; await salvar(); }
       }));
-    this.numero(el, "Perguntas por treino misto", s.perguntasPorTreino, 1, 30, async (n) => { s.perguntasPorTreino = n; await salvar(); });
-    this.numero(el, "Semanas na crônica (calendário)", s.semanasNoCalendario, 4, 52, async (n) => { s.semanasNoCalendario = n; await salvar(); });
+    this.numero(el, "Semanas no calendário de atividade", s.semanasNoCalendario, 4, 52, async (n) => { s.semanasNoCalendario = n; await salvar(); });
 
     new Setting(el).setName("Experiência (XP)").setHeading();
     const rotulos: Record<keyof XPConfig, string> = {
       escrito: "Nota no nível escrito", praticado: "Nota no nível praticado", projeto: "Nota usada em projeto",
       topico: "Tópico marcado numa trilha", diario: "Dia registrado no diário", caixa: "Cada caixa de revisão alcançada",
-      treino: "Treino misto concluído", acerto: "Acerto no treino", tarefa: "Tarefa de missão concluída",
+      tarefa: "Tarefa de missão concluída",
     };
     for (const k of Object.keys(rotulos) as (keyof XPConfig)[]) {
       this.numero(el, rotulos[k], s.xp[k], 0, 1000, async (n) => { s.xp[k] = n; await salvar(); });

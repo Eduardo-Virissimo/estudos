@@ -1,4 +1,4 @@
-// XP, nível, sequência de dias, habilidades e conquistas.
+// XP, nível, sequência de dias e conquistas.
 // Tudo é calculado a partir do Snapshot: nada é "salvo à parte", então não dessincroniza.
 
 import type { XPConfig } from "../settings.ts";
@@ -10,7 +10,6 @@ export interface PartesXP {
   topicos: number;
   diario: number;
   revisao: number;
-  treinos: number;
   missoes: number;
 }
 
@@ -51,9 +50,6 @@ export function calcularProgresso(s: Snapshot, xp: XPConfig, titulos: string[]):
   let topicosFeitos = 0, topicosTotal = 0;
   for (const t of s.trilhas) for (const r of t.regioes) for (const tp of r.topicos) { topicosTotal++; if (tp.feito) topicosFeitos++; }
 
-  let treinos = 0, acertos = 0;
-  for (const d of s.diario.values()) { treinos += d.treinos; acertos += d.acertos; }
-
   let tarefas = 0;
   for (const m of s.missoes) for (const f of m.fases) for (const t of f.tarefas) if (t.feita) tarefas++;
 
@@ -62,7 +58,6 @@ export function calcularProgresso(s: Snapshot, xp: XPConfig, titulos: string[]):
     topicos: topicosFeitos * xp.topico,
     diario: s.diario.size * xp.diario,
     revisao: caixas * xp.caixa,
-    treinos: treinos * xp.treino + acertos * xp.acerto,
     missoes: tarefas * xp.tarefa,
   };
   const total = Object.values(partes).reduce((a, b) => a + b, 0);
@@ -77,34 +72,17 @@ export function calcularProgresso(s: Snapshot, xp: XPConfig, titulos: string[]):
   };
 }
 
-// ---------- Habilidades (cada região de cada trilha) ----------
-
-export interface Habilidade {
-  nome: string;
-  trilha: string;
-  feitos: number;
-  total: number;
-  /** 0 a 5 estrelas. */
-  estrelas: number;
-}
-
-export function habilidades(s: Snapshot): Habilidade[] {
-  const out: Habilidade[] = [];
-  for (const t of s.trilhas) for (const r of t.regioes) {
-    const feitos = r.topicos.filter((x) => x.feito).length;
-    const total = r.topicos.length;
-    out.push({ nome: r.nome, trilha: t.nome, feitos, total, estrelas: total ? Math.round((feitos / total) * 5) : 0 });
-  }
-  return out;
-}
-
 // ---------- Conquistas (declarativas: adicionar uma = adicionar uma linha) ----------
+
+/** Raridade, como nos jogos: define a cor do troféu. */
+export type Raridade = "comum" | "raro" | "epico" | "lendario";
 
 export interface Conquista {
   id: string;
   icone: string; // nome de ícone do Obsidian (lucide)
   nome: string;
   desc: string;
+  raridade: Raridade;
   ok: boolean;
 }
 
@@ -113,26 +91,26 @@ interface DefConquista {
   icone: string;
   nome: string;
   desc: string;
+  raridade: Raridade;
   teste: (s: Snapshot, p: Progresso) => boolean;
 }
 
-const totalPerfeitos = (s: Snapshot) => [...s.diario.values()].reduce((a, d) => a + d.perfeitos, 0);
 const faseConcluida = (s: Snapshot, n: number) =>
   s.missoes.some((m) => m.fases.some((f) => f.num === n && f.tarefas.length > 0 && f.tarefas.every((t) => t.feita)));
 
 export const CONQUISTAS: DefConquista[] = [
-  { id: "primeira-sessao", icone: "sprout", nome: "Primeira jornada", desc: "Registre um dia no diário", teste: (s) => s.diario.size >= 1 },
-  { id: "chama-3", icone: "flame", nome: "Chama acesa", desc: "3 dias seguidos de estudo", teste: (_, p) => p.sequencia >= 3 },
-  { id: "chama-7", icone: "flame-kindling", nome: "Fogo eterno", desc: "7 dias seguidos de estudo", teste: (_, p) => p.sequencia >= 7 },
-  { id: "chama-30", icone: "sun", nome: "Sol invicto", desc: "30 dias seguidos de estudo", teste: (_, p) => p.sequencia >= 30 },
-  { id: "na-mosca", icone: "crosshair", nome: "Olho de águia", desc: "Gabarite um treino misto", teste: (s) => totalPerfeitos(s) >= 1 },
-  { id: "pratica", icone: "hammer", nome: "Mão na forja", desc: "Uma nota no nível praticado", teste: (_, p) => p.contagemNivel.praticado + p.contagemNivel.projeto >= 1 },
-  { id: "projeto", icone: "castle", nome: "Construtor", desc: "Uma nota usada em projeto", teste: (_, p) => p.contagemNivel.projeto >= 1 },
-  { id: "memoria", icone: "brain", nome: "Memória de dragão", desc: "Uma nota na última caixa de revisão", teste: (s) => s.notas.some((n) => n.caixa >= 5) },
-  { id: "regiao", icone: "flag", nome: "Conquistador", desc: "Conclua uma região inteira do mapa", teste: (s) => s.trilhas.some((t) => t.regioes.some((r) => r.topicos.every((x) => x.feito))) },
-  { id: "explorador", icone: "compass", nome: "Explorador", desc: "Avance em 5 regiões do mapa", teste: (s) => s.trilhas.flatMap((t) => t.regioes).filter((r) => r.topicos.some((x) => x.feito)).length >= 5 },
-  { id: "missao-1", icone: "swords", nome: "Primeira missão", desc: "Conclua a Fase 1 de uma missão", teste: (s) => faseConcluida(s, 1) },
-  { id: "nivel-8", icone: "crown", nome: "Lenda", desc: "Chegue ao nível 8", teste: (_, p) => p.nivel >= 8 },
+  { id: "primeira-sessao", icone: "sprout", nome: "Primeira jornada", desc: "Registre um dia no diário", raridade: "comum", teste: (s) => s.diario.size >= 1 },
+  { id: "chama-3", icone: "flame", nome: "Chama acesa", desc: "3 dias seguidos de estudo", raridade: "comum", teste: (_, p) => p.sequencia >= 3 },
+  { id: "pratica", icone: "hammer", nome: "Mão na forja", desc: "Uma nota no nível praticado", raridade: "comum", teste: (_, p) => p.contagemNivel.praticado + p.contagemNivel.projeto >= 1 },
+  { id: "chama-7", icone: "flame-kindling", nome: "Fogo eterno", desc: "7 dias seguidos de estudo", raridade: "raro", teste: (_, p) => p.sequencia >= 7 },
+  { id: "estudioso", icone: "book-open", nome: "Estudioso", desc: "10 dias de estudo no total", raridade: "raro", teste: (s) => s.diario.size >= 10 },
+  { id: "explorador", icone: "compass", nome: "Explorador", desc: "Avance em 5 regiões do mapa", raridade: "raro", teste: (s) => s.trilhas.flatMap((t) => t.regioes).filter((r) => r.topicos.some((x) => x.feito)).length >= 5 },
+  { id: "missao-1", icone: "swords", nome: "Primeira missão", desc: "Conclua a Fase 1 de uma missão", raridade: "raro", teste: (s) => faseConcluida(s, 1) },
+  { id: "projeto", icone: "castle", nome: "Construtor", desc: "Uma nota usada em projeto", raridade: "epico", teste: (_, p) => p.contagemNivel.projeto >= 1 },
+  { id: "regiao", icone: "flag", nome: "Conquistador", desc: "Conclua uma região inteira do mapa", raridade: "epico", teste: (s) => s.trilhas.some((t) => t.regioes.some((r) => r.topicos.every((x) => x.feito))) },
+  { id: "memoria", icone: "brain", nome: "Memória de dragão", desc: "Uma nota na última caixa de revisão", raridade: "epico", teste: (s) => s.notas.some((n) => n.caixa >= 5) },
+  { id: "chama-30", icone: "sun", nome: "Sol invicto", desc: "30 dias seguidos de estudo", raridade: "lendario", teste: (_, p) => p.sequencia >= 30 },
+  { id: "nivel-8", icone: "crown", nome: "Lenda", desc: "Chegue ao nível 8", raridade: "lendario", teste: (_, p) => p.nivel >= 8 },
 ];
 
 export function avaliarConquistas(s: Snapshot, p: Progresso): Conquista[] {

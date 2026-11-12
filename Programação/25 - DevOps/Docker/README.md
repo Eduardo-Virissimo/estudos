@@ -5,7 +5,7 @@ revisado:
 
 # Docker
 
-> *"Docker é o futuro da implantação de software – é a única forma correta"* — Jez Humble
+> *"Funciona na minha máquina? Então empacota a sua máquina junto."*
 
 > [!tip] ⚡ Em 30 segundos
 > Empacota sua aplicação com tudo que ela precisa numa **imagem**, que roda igual em qualquer máquina como **container**. O Dockerfile descreve uma imagem; o docker-compose sobe vários containers juntos (API + banco).
@@ -31,15 +31,15 @@ Os containers são criados a partir de **imagens** — templates leves e imutáv
 
 ## Uma História Breve 📜
 
-A história do Docker começa no início de 2013, quando as empresas buscavam soluções mais eficientes para "dependency hell" (conflitos de dependências). A inspiração veio da indústria aeroespacial e naval:
+O Docker nasceu dentro da **dotCloud**, uma empresa de hospedagem (PaaS) fundada por **Solomon Hykes**, que usava containers internamente. O nome e a metáfora vêm dos **contêineres de navio**: uma caixa padrão que qualquer navio, trem ou caminhão sabe carregar, não importa o que vai dentro.
 
-- **2007**: Solomon Hykes cria o projeto **AppContainer** no Facebook
-- **2013**: A empresa Dotcloud renomeia seu sistema como **Docker**
-- **2013**: Docker é lançado como código aberto
-- **2014-2015**: Criação de ferramentas complementares (Docker Compose, Swarm)
-- **Hoje**: O Docker é usado por mais de 70% das empresas que implementam containers
+- **Antes do Docker**: o isolamento já existia em partes — `chroot` (Unix, 1979), FreeBSD Jails (2000), Solaris Zones (2004), *cgroups* no kernel Linux (2007-2008) e o **LXC** (2008).
+- **2013 (março)**: Solomon Hykes apresenta o Docker na PyCon e o projeto vira código aberto.
+- **2013 (outubro)**: a dotCloud muda de nome para **Docker, Inc.**
+- **2014**: sai o Docker 1.0; o Docker troca o LXC pela sua própria biblioteca (*libcontainer*); o Compose surge a partir do projeto Fig.
+- **2015**: nasce a **OCI** (Open Container Initiative), que padroniza o formato de imagens e containers.
 
-A tecnologia evoluiu do conceito de "containers" (originado no Linux em 2005 com o projeto LXC) para se tornar um padrão da indústria em DevOps e CI/CD.
+O que o Docker trouxe de novo não foi o container em si, mas deixá-lo **fácil**: um `Dockerfile` legível, imagens em camadas e um registro público (Docker Hub) para compartilhar.
 
 ---
 
