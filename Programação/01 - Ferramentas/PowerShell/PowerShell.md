@@ -10,26 +10,43 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Shell do Windows (multiplataforma no PowerShell 7) em que o pipeline passa **objetos**, não texto. Os comandos seguem `Verbo-Substantivo` e quase tudo se descobre com `Get-Help` e `Get-Command`.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é PowerShell?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Descobrir comandos sozinho com `Get-Command` e `Get-Help`
+- Filtrar e ordenar dados com o pipeline de **objetos**
+- Rodar scripts com segurança (`-WhatIf`, política de execução)
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** [[Terminal]]
+- **Depois:** [[Bash]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é PowerShell?
 
 O **PowerShell** é um shell e uma linguagem de script da Microsoft. Diferente do CMD tradicional, que trabalha só com texto, o PowerShell trabalha com **objetos**: cada comando devolve dados estruturados (com propriedades e métodos) que podem ser filtrados, ordenados e transformados no pipeline.
 
 Ele é usado para administrar sistemas, automatizar tarefas e gerenciar serviços, inclusive na nuvem (Azure, Microsoft 365).
 
-### Uma História Breve 📜
-
-O projeto nasceu como "Monad" e foi lançado como **Windows PowerShell** em **2006**. A versão final do Windows PowerShell foi a **5.1**, que acompanha o Windows. A partir do **PowerShell Core 6** (2018) ele passou a ser **open source e multiplataforma**, e hoje a linha atual é chamada simplesmente de **PowerShell 7+**, funcionando em Windows, Linux e macOS.
+> [!note]- 📜 Um pouco de história
+> O projeto nasceu como "Monad" e foi lançado como **Windows PowerShell** em **2006**. A versão final do Windows PowerShell foi a **5.1**, que acompanha o Windows. A partir do **PowerShell Core 6** (2018) ele passou a ser **open source e multiplataforma**, e hoje a linha atual é chamada simplesmente de **PowerShell 7+**, funcionando em Windows, Linux e macOS.
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Conceito 1: Cmdlets (Verbo-Substantivo)
 
@@ -62,7 +79,7 @@ Atalhos para cmdlets: `ls`, `cd`, `cat`, `dir` e `gci` apontam para cmdlets como
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -92,7 +109,7 @@ Copy-Item $origem $destino -Recurse
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 Política de execução de scripts (necessária no Windows para rodar `.ps1`):
 
@@ -109,7 +126,7 @@ notepad $PROFILE
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Descubra tudo com `Get-Help` e `Get-Command`
 
@@ -129,23 +146,7 @@ Remove-Item *.tmp -WhatIf
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `Get-Help` | Mostra a ajuda de um cmdlet |
-| `Get-Command` | Lista/pesquisa comandos |
-| `Get-Member` | Mostra propriedades e métodos de um objeto |
-| `Get-ChildItem` | Lista arquivos e pastas |
-| `Where-Object` | Filtra objetos |
-| `Select-Object` | Escolhe propriedades |
-| `Sort-Object` | Ordena objetos |
-| `ForEach-Object` | Executa algo para cada objeto |
-| `Out-File` | Salva a saída em arquivo |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: "A execução de scripts foi desabilitada neste sistema"
 
@@ -195,19 +196,42 @@ Remove-Item *.tmp -WhatIf
 > [!question]- Por que `ls` funciona no PowerShell?
 > É um **alias** de `Get-ChildItem`. Mas as opções são as do cmdlet, não as do `ls` do Linux.
 
+> [!question]- Padrão de nome de cmdlet
+> `Verbo-Substantivo` (ex.: `Get-Process`)
+
+> [!question]- `Get-ChildItem`
+> lista arquivos (aliases `ls`, `dir`)
+
+> [!question]- `Where-Object`
+> filtra objetos do pipeline
+
+> [!question]- `Select-Object`
+> escolhe propriedades ou os primeiros N itens
+
+> [!question]- `Sort-Object`
+> ordena objetos
+
+> [!question]- `$env:PATH`
+> lê uma variável de ambiente
+
+> [!question]- `Export-Csv`
+> salva objetos num arquivo CSV
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
-
-Padrão de nome de cmdlet::`Verbo-Substantivo` (ex.: `Get-Process`)
-`Get-ChildItem`::lista arquivos (aliases `ls`, `dir`)
-`Where-Object`::filtra objetos do pipeline
-`Select-Object`::escolhe propriedades ou os primeiros N itens
-`Sort-Object`::ordena objetos
-`$env:PATH`::lê uma variável de ambiente
-`Export-Csv`::salva objetos num arquivo CSV
+| Comando/Sintaxe | Função |
+|-----------------|--------|
+| `Get-Help` | Mostra a ajuda de um cmdlet |
+| `Get-Command` | Lista/pesquisa comandos |
+| `Get-Member` | Mostra propriedades e métodos de um objeto |
+| `Get-ChildItem` | Lista arquivos e pastas |
+| `Where-Object` | Filtra objetos |
+| `Select-Object` | Escolhe propriedades |
+| `Sort-Object` | Ordena objetos |
+| `ForEach-Object` | Executa algo para cada objeto |
+| `Out-File` | Salva a saída em arquivo |
 
 ---
 
@@ -226,7 +250,7 @@ Padrão de nome de cmdlet::`Verbo-Substantivo` (ex.: `Get-Process`)
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [ ] Praticar `Get-Help` e `Get-Member` em vários cmdlets
 - [ ] Escrever seu primeiro script `.ps1`
@@ -235,7 +259,7 @@ Padrão de nome de cmdlet::`Verbo-Substantivo` (ex.: `Get-Process`)
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 📖 Livros:
 - *Learn PowerShell in a Month of Lunches* (Don Jones e Jeffery Hicks) - Introdução didática

@@ -10,14 +10,32 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Empacota sua aplicação com tudo que ela precisa numa **imagem**, que roda igual em qualquer máquina como **container**. O Dockerfile descreve uma imagem; o docker-compose sobe vários containers juntos (API + banco).
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é Docker?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Explicar a diferença entre **imagem** e **container**
+- Escrever um Dockerfile enxuto (com `.dockerignore` e multi-stage)
+- Subir aplicação + banco juntos com Docker Compose e resolver problemas de porta e rede
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** [[Terminal]] · [[Gerenciador de Pacotes]]
+- **Depois:** [[Docker Compose]] · [[CI/CD]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é Docker?
 
 **Docker** é uma plataforma de virtualização baseada em containers que permite empacotar, executar e gerenciar aplicações de forma consistente em qualquer ambiente. Diferente das máquinas virtuais tradicionais (VMs), os containers do Docker compartilham o kernel do sistema operacional do host, tornando-os mais leves, rápidos e eficientes em recursos.
 
@@ -27,23 +45,20 @@ Imagine que você desenvolveu um site web usando Node.js, mas no servidor de pro
 
 Os containers são criados a partir de **imagens** — templates leves e imutáveis que definem todo o ambiente necessário para sua aplicação.
 
----
-
-## Uma História Breve 📜
-
-O Docker nasceu dentro da **dotCloud**, uma empresa de hospedagem (PaaS) fundada por **Solomon Hykes**, que usava containers internamente. O nome e a metáfora vêm dos **contêineres de navio**: uma caixa padrão que qualquer navio, trem ou caminhão sabe carregar, não importa o que vai dentro.
-
-- **Antes do Docker**: o isolamento já existia em partes — `chroot` (Unix, 1979), FreeBSD Jails (2000), Solaris Zones (2004), *cgroups* no kernel Linux (2007-2008) e o **LXC** (2008).
-- **2013 (março)**: Solomon Hykes apresenta o Docker na PyCon e o projeto vira código aberto.
-- **2013 (outubro)**: a dotCloud muda de nome para **Docker, Inc.**
-- **2014**: sai o Docker 1.0; o Docker troca o LXC pela sua própria biblioteca (*libcontainer*); o Compose surge a partir do projeto Fig.
-- **2015**: nasce a **OCI** (Open Container Initiative), que padroniza o formato de imagens e containers.
-
-O que o Docker trouxe de novo não foi o container em si, mas deixá-lo **fácil**: um `Dockerfile` legível, imagens em camadas e um registro público (Docker Hub) para compartilhar.
+> [!note]- 📜 Um pouco de história
+> O Docker nasceu dentro da **dotCloud**, uma empresa de hospedagem (PaaS) fundada por **Solomon Hykes**, que usava containers internamente. O nome e a metáfora vêm dos **contêineres de navio**: uma caixa padrão que qualquer navio, trem ou caminhão sabe carregar, não importa o que vai dentro.
+>
+> - **Antes do Docker**: o isolamento já existia em partes — `chroot` (Unix, 1979), FreeBSD Jails (2000), Solaris Zones (2004), *cgroups* no kernel Linux (2007-2008) e o **LXC** (2008).
+> - **2013 (março)**: Solomon Hykes apresenta o Docker na PyCon e o projeto vira código aberto.
+> - **2013 (outubro)**: a dotCloud muda de nome para **Docker, Inc.**
+> - **2014**: sai o Docker 1.0; o Docker troca o LXC pela sua própria biblioteca (*libcontainer*); o Compose surge a partir do projeto Fig.
+> - **2015**: nasce a **OCI** (Open Container Initiative), que padroniza o formato de imagens e containers.
+>
+> O que o Docker trouxe de novo não foi o container em si, mas deixá-lo **fácil**: um `Dockerfile` legível, imagens em camadas e um registro público (Docker Hub) para compartilhar.
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Dockerfile
 
@@ -105,7 +120,7 @@ volumes:
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico — Criando e Executando um Container
 
@@ -206,7 +221,7 @@ docker-compose down
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 ### .dockerignore — Excluindo Arquivos do Build
 
@@ -238,7 +253,7 @@ services:
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Use Imagens Multi-Stage para Reduzir Tamanho
 
@@ -273,30 +288,7 @@ Arquivos grandes e desnecessários (`.git`, `node_modules`) aumentam significati
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando | Função |
-|---------|--------|
-| `docker --version` | Verifica instalação do Docker |
-| `docker pull [IMAGE]` | Baixa uma imagem do Docker Hub |
-| `docker build -t NOME .` | Cria uma imagem a partir de um Dockerfile |
-| `docker run [OPÇÕES] [IMAGEM]` | Cria e executa um container |
-| `docker images` | Lista imagens locais |
-| `docker ps` | Lista containers rodando |
-| `docker ps -a` | Lista todos os containers (incluidos parados) |
-| `docker stop [ID/NAME]` | Para um container em execução |
-| `docker start [ID/NAME]` | Inicia um container parado |
-| `docker rm [ID/NAME]` | Remove um container parado |
-| `docker rmi [ID/IMAGE]` | Remove uma imagem local |
-| `docker logs [CONTAINER]` | Mostra logs do container |
-| `docker exec -it [CONTAINER] bash` | Entra no terminal do container |
-| `docker-compose up -d` | Inicia serviços definidos no docker-compose.yml |
-| `docker-compose down` | Para e remove todos os serviços |
-| `docker system prune -a` | Limpa imagens e containers não usados |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: Container não conecta ao banco de dados
 
@@ -450,19 +442,49 @@ CMD ["node", "server.js"]
 > [!question]- Como reduzir uma imagem de mais de 1 GB?
 > Multi-stage build, imagem base `alpine`/`slim` e um `.dockerignore` bem feito.
 
+> [!question]- `docker build -t nome .`
+> cria uma imagem a partir do Dockerfile
+
+> [!question]- `docker run -p 8080:3000 nome`
+> roda um container mapeando porta do host (8080) → container (3000)
+
+> [!question]- `docker ps`
+> lista os containers rodando
+
+> [!question]- `docker compose up -d`
+> sobe os serviços do compose em segundo plano
+
+> [!question]- `docker logs -f <id>`
+> acompanha os logs de um container
+
+> [!question]- `docker exec -it <id> sh`
+> abre um terminal dentro do container
+
+> [!question]- `.dockerignore`
+> exclui arquivos do contexto de build
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/devops
-
-`docker build -t nome .`::cria uma imagem a partir do Dockerfile
-`docker run -p 8080:3000 nome`::roda um container mapeando porta do host (8080) → container (3000)
-`docker ps`::lista os containers rodando
-`docker compose up -d`::sobe os serviços do compose em segundo plano
-`docker logs -f <id>`::acompanha os logs de um container
-`docker exec -it <id> sh`::abre um terminal dentro do container
-`.dockerignore`::exclui arquivos do contexto de build
+| Comando | Função |
+|---------|--------|
+| `docker --version` | Verifica instalação do Docker |
+| `docker pull [IMAGE]` | Baixa uma imagem do Docker Hub |
+| `docker build -t NOME .` | Cria uma imagem a partir de um Dockerfile |
+| `docker run [OPÇÕES] [IMAGEM]` | Cria e executa um container |
+| `docker images` | Lista imagens locais |
+| `docker ps` | Lista containers rodando |
+| `docker ps -a` | Lista todos os containers (incluidos parados) |
+| `docker stop [ID/NAME]` | Para um container em execução |
+| `docker start [ID/NAME]` | Inicia um container parado |
+| `docker rm [ID/NAME]` | Remove um container parado |
+| `docker rmi [ID/IMAGE]` | Remove uma imagem local |
+| `docker logs [CONTAINER]` | Mostra logs do container |
+| `docker exec -it [CONTAINER] bash` | Entra no terminal do container |
+| `docker-compose up -d` | Inicia serviços definidos no docker-compose.yml |
+| `docker-compose down` | Para e remove todos os serviços |
+| `docker system prune -a` | Limpa imagens e containers não usados |
 
 ---
 
@@ -481,7 +503,7 @@ CMD ["node", "server.js"]
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [ ] Instalar Docker Desktop no seu sistema operacional
 - [ ] Explorar Docker Hub para encontrar imagens oficiais de linguagens e frameworks
@@ -491,8 +513,8 @@ CMD ["node", "server.js"]
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 📖 Livros:
 - *[Docker Deep Dive]*
-- *[Container Security Handbook]* 
+- *[Container Security Handbook]*

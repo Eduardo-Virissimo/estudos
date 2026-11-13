@@ -1,15 +1,14 @@
 // Lê o vault e monta o Snapshot. Descobre tudo DINAMICAMENTE pelas propriedades:
 //   tipo: trilha  -> trilha de estudo (vira reino no mapa)
-//   tipo: missao  -> projeto com fases (vira missão)
 //   nivel: ...    -> nota de estudo (entra em revisão, XP e perguntas)
-//   <pastaDiario>/YYYY-MM-DD.md -> dia de estudo
+//   <pastaDiario>/YYYY-MM-DD.md com minutos > 0 -> dia de estudo
 // Criou uma nota nova com essas propriedades? Ela aparece sozinha.
 
 import { type App, TFile, normalizePath } from "obsidian";
 import { parseISO } from "../domain/dates.ts";
-import { parseMissao, parsePerguntas, parseTrilha } from "../domain/parse.ts";
+import { parsePerguntas, parseTrilha } from "../domain/parse.ts";
 import { normalizarCaixa } from "../domain/review.ts";
-import { NIVEIS, type DiaDiario, type Missao, type Nivel, type NotaEstudo, type Pergunta, type Snapshot, type Trilha } from "../domain/types.ts";
+import { NIVEIS, type DiaDiario, type Nivel, type NotaEstudo, type Pergunta, type Snapshot, type Trilha } from "../domain/types.ts";
 import type { Settings } from "../settings.ts";
 
 type Frontmatter = Record<string, unknown>;
@@ -27,7 +26,6 @@ export class Indexer {
     const arquivos = this.app.vault.getMarkdownFiles().filter((f) => !ignorar(f));
 
     const trilhas: Trilha[] = [];
-    const missoes: Missao[] = [];
     const candidatasEstudo: { f: TFile; fm: Frontmatter; nivel: Nivel }[] = [];
     const diario = new Map<string, DiaDiario>();
     const pastaDiario = normalizePath(s.pastaDiario);
@@ -37,20 +35,15 @@ export class Indexer {
       const tipo = String(fm.tipo ?? "").toLowerCase().trim();
 
       if (f.parent?.path === pastaDiario) {
+        // Só é dia de estudo se tiver minutos: abrir o diário sem estudar não vale XP nem sequência.
         const data = parseISO(f.basename);
-        if (data) diario.set(data, {
-          data, caminho: f.path,
-          minutos: num(fm.minutos, 25),
-        });
+        const minutos = num(fm.minutos, 0);
+        if (data && minutos > 0) diario.set(data, { data, caminho: f.path, minutos });
         continue;
       }
       if (tipo === "trilha") {
         const texto = await this.app.vault.cachedRead(f);
         trilhas.push({ caminho: f.path, nome: String(fm.nome ?? f.basename), regioes: parseTrilha(texto, (alvo) => this.resolver(alvo, f.path)) });
-      } else if (tipo === "missao" || tipo === "missão") {
-        if (fm.ativa === false) continue;
-        const texto = await this.app.vault.cachedRead(f);
-        missoes.push({ caminho: f.path, nome: String(fm.nome ?? f.basename), prioridade: num(fm.prioridade, 100), fases: parseMissao(texto) });
       }
       const nivel = String(fm.nivel ?? "").toLowerCase().trim() as Nivel;
       if (NIVEIS.includes(nivel)) candidatasEstudo.push({ f, fm, nivel });
@@ -73,9 +66,8 @@ export class Indexer {
     for (const { f } of candidatasEstudo) perguntas.push(...(await this.perguntasDe(f)));
 
     trilhas.sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
-    missoes.sort((a, b) => a.prioridade - b.prioridade || a.nome.localeCompare(b.nome, "pt-BR"));
     notas.sort((a, b) => a.label.localeCompare(b.label, "pt-BR"));
-    return { hoje, trilhas, missoes, notas, perguntas, diario };
+    return { hoje, trilhas, notas, perguntas, diario };
   }
 
   /** Esquece arquivos apagados/renomeados do cache. */

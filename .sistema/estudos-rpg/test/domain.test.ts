@@ -1,10 +1,9 @@
 // Testes das regras do jogo (sem Obsidian). Rodar: npm test
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { addDias, diffDias, parseISO, relativo } from "../src/domain/dates.ts";
-import { parseMissao, parsePerguntas, parseTrilha, alternarCheckbox, limparTitulo } from "../src/domain/parse.ts";
-import { CONQUISTAS, calcularProgresso, nivelPara, sequencia, avaliarConquistas } from "../src/domain/progress.ts";
-import { indiceDoDia } from "../src/domain/quiz.ts";
+import { addDias, diaDaSemana, diffDias, parseISO, relativo } from "../src/domain/dates.ts";
+import { parsePerguntas, parseTrilha, alternarCheckbox, limparTitulo } from "../src/domain/parse.ts";
+import { CONQUISTAS, calcularProgresso, maiorSequencia, nivelPara, sequencia, avaliarConquistas } from "../src/domain/progress.ts";
 import { aposLembrar, infoRevisao, normalizarCaixa } from "../src/domain/review.ts";
 import type { Snapshot } from "../src/domain/types.ts";
 import { DEFAULT_SETTINGS, mergeSettings } from "../src/settings.ts";
@@ -23,6 +22,8 @@ describe("datas", () => {
     assert.equal(addDias("2026-12-31", 1), "2027-01-01");
     assert.equal(diffDias("2026-11-01", "2026-11-11"), 10);
     assert.equal(relativo("2026-11-12", "2026-11-11"), "amanhã");
+    assert.equal(diaDaSemana("2026-11-09"), 0); // segunda
+    assert.equal(diaDaSemana("2026-11-15"), 6); // domingo
   });
 });
 
@@ -47,14 +48,12 @@ describe("parse", () => {
     assert.equal(r[0]?.topicos[0]?.caminho, "VsCode/README.md");
     assert.equal(r[0]?.topicos[1]?.label, "Bash");
     assert.equal(r[1]?.nivelTitulo, 2);
+    assert.equal(r[1]?.grupo, "Ferramentas"); // a região ## herda o último #
   });
 
-  it("lê fases de missão e ignora checkboxes fora de fase", () => {
-    const f = parseMissao(["## Fase 0: Preparar ✅ (quase)", "**Entrega:** repo", "- [x] a", "- [ ] b", "---", "## Depois", "- [ ] não conta"].join("\n"));
-    assert.equal(f.length, 1);
-    assert.equal(f[0]?.titulo, "Preparar");
-    assert.equal(f[0]?.entrega, "repo");
-    assert.deepEqual(f[0]?.tarefas.map((t) => t.feita), [true, false]);
+  it("estágios (#) agrupam módulos (##) e somem do mapa se não tiverem tópicos próprios", () => {
+    const r = parseTrilha(["# 🌱 Estágio 1 · Base", "> 🎯 Objetivo", "## Git", "- [ ] [[Git Básico]]", "## Fundamentos", "- [ ] [[Funções]]"].join("\n"), () => null);
+    assert.deepEqual(r.map((x) => [x.nome, x.grupo]), [["Git", "Estágio 1 · Base"], ["Fundamentos", "Estágio 1 · Base"]]);
   });
 
   it("lê perguntas e ignora placeholders do template", () => {
@@ -88,12 +87,6 @@ describe("revisão", () => {
   });
 });
 
-describe("pergunta do dia", () => {
-  it("é estável no mesmo dia e não quebra sem perguntas", () => {
-    assert.equal(indiceDoDia("2026-11-11", 10), indiceDoDia("2026-11-11", 10));
-    assert.equal(indiceDoDia("2026-11-11", 0), -1);
-  });
-});
 
 describe("progresso", () => {
   it("curva de nível", () => {
@@ -108,15 +101,36 @@ describe("progresso", () => {
     assert.equal(sequencia(new Set(["2026-11-05"]), "2026-11-11"), 0);
   });
   it("vault vazio não quebra", () => {
-    const vazio: Snapshot = { hoje: "2026-11-11", trilhas: [], missoes: [], notas: [], perguntas: [], diario: new Map() };
+    const vazio: Snapshot = { hoje: "2026-11-11", trilhas: [], notas: [], perguntas: [], diario: new Map() };
     const p = calcularProgresso(vazio, DEFAULT_SETTINGS.xp, DEFAULT_SETTINGS.titulos);
     assert.equal(p.xp, 0);
     assert.equal(p.titulo, "Aprendiz");
-    assert.ok(avaliarConquistas(vazio, p).every((c) => !c.ok));
+    assert.ok(avaliarConquistas(vazio, p, { caixaFinal: 6 }).every((c) => !c.ok));
+  });
+  it("maior sequência da história", () => {
+    assert.equal(maiorSequencia(new Set()), 0);
+    assert.equal(maiorSequencia(new Set(["2026-10-01", "2026-10-02", "2026-10-03", "2026-11-10"])), 3);
+  });
+  it("XP de tempo conta blocos de 10 min por dia; minutos da semana começam na segunda", () => {
+    const dia = (data: string, minutos: number) => [data, { data, caminho: data + ".md", minutos }] as const;
+    const s: Snapshot = { hoje: "2026-11-12", trilhas: [], notas: [], perguntas: [], diario: new Map([dia("2026-11-08", 60), dia("2026-11-09", 25), dia("2026-11-12", 9)]) };
+    const p = calcularProgresso(s, DEFAULT_SETTINGS.xp, DEFAULT_SETTINGS.titulos);
+    assert.equal(p.partes.estudo, (6 + 2 + 0) * DEFAULT_SETTINGS.xp.dezMinutos);
+    assert.equal(p.minutosSemana, 25 + 9);
+    assert.equal(p.minutosHoje, 9);
   });
 });
 
 describe("conquistas", () => {
+  it("de sequência não somem quando a chama apaga", () => {
+    const dias = ["2026-10-01", "2026-10-02", "2026-10-03"].map((d) => [d, { data: d, caminho: d, minutos: 30 }] as const);
+    const s: Snapshot = { hoje: "2026-11-12", trilhas: [], notas: [], perguntas: [], diario: new Map(dias) };
+    const p = calcularProgresso(s, DEFAULT_SETTINGS.xp, DEFAULT_SETTINGS.titulos);
+    assert.equal(p.sequencia, 0);
+    const c = avaliarConquistas(s, p, { caixaFinal: 6 });
+    assert.equal(c.find((x) => x.id === "chama-3")?.ok, true);
+    assert.deepEqual([c.find((x) => x.id === "chama-7")?.atual, c.find((x) => x.id === "chama-7")?.meta], [3, 7]);
+  });
   it("ids únicos e raridade válida em todas", () => {
     const ids = CONQUISTAS.map((c) => c.id);
     assert.equal(new Set(ids).size, ids.length);
@@ -128,7 +142,7 @@ describe("configurações", () => {
   it("campos novos ganham padrão quando a config salva é antiga", () => {
     const s = mergeSettings({ xp: { escrito: 1 } as never, intervalos: [] });
     assert.equal(s.xp.escrito, 1);
-    assert.equal(s.xp.tarefa, DEFAULT_SETTINGS.xp.tarefa);
+    assert.equal(s.xp.caixa, DEFAULT_SETTINGS.xp.caixa);
     assert.deepEqual(s.intervalos, DEFAULT_SETTINGS.intervalos);
   });
   it("campos que não existem mais (do treino removido) e tipos errados são descartados", () => {

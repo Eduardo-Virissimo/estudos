@@ -10,31 +10,48 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Reescreve a **aparência** do código (espaços, aspas, quebras de linha) num padrão fixo, como o Prettier. Acaba com discussão de estilo no time: você salva, ele formata, pronto.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é um Formatter?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Configurar formatação automática ao salvar
+- Versionar a configuração para o time inteiro formatar igual
+- Fazer linter e formatter trabalharem juntos sem conflito
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** [[Linter]] · [[VS Code]]
+- **Depois:** [[Git Básico]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é um Formatter?
 
 Um **formatter** (formatador de código) reescreve automaticamente o seu código seguindo um **padrão visual fixo**: indentação, espaços, aspas, quebras de linha, vírgulas finais, etc. Ele **não muda o comportamento** do programa, só a aparência.
 
 Exemplos: **Prettier** (JavaScript, TypeScript, CSS, HTML, JSON, Markdown), **Black** e **Ruff format** (Python), **gofmt** (Go), **rustfmt** (Rust), **google-java-format** (Java).
 
-### Uma História Breve 📜
-
-Antes dos formatters, equipes gastavam tempo em discussões sobre estilo (tabs vs espaços, onde colocar chaves). O **gofmt**, da linguagem Go, ajudou a popularizar a ideia de um único formato oficial. No ecossistema JavaScript, o **Prettier** (criado por James Long, por volta de 2017) tornou-se o padrão de fato, e o **Black** fez o mesmo no Python ("o formatador sem concessões").
+> [!note]- 📜 Um pouco de história
+> Antes dos formatters, equipes gastavam tempo em discussões sobre estilo (tabs vs espaços, onde colocar chaves). O **gofmt**, da linguagem Go, ajudou a popularizar a ideia de um único formato oficial. No ecossistema JavaScript, o **Prettier** (criado por James Long, por volta de 2017) tornou-se o padrão de fato, e o **Black** fez o mesmo no Python ("o formatador sem concessões").
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Conceito 1: Formatter vs Linter
 
 - **Formatter**: cuida da **aparência** do código.
-- **[[estudos/Programação/01 - Ferramentas/Linter/README|Linter]]**: cuida da **qualidade e dos erros** potenciais.
+- **[[Linter]]**: cuida da **qualidade e dos erros** potenciais.
 
 Os dois se complementam.
 
@@ -75,7 +92,7 @@ O fluxo ideal é o editor formatar o arquivo toda vez que você salva, sem esfor
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -115,7 +132,7 @@ E scripts no `package.json`:
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 No `settings.json` do [[VS Code]], com a extensão Prettier instalada:
 
@@ -136,7 +153,7 @@ build
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Coloque a config no repositório
 
@@ -152,21 +169,7 @@ Desative as regras de estilo do linter que duplicam o formatter (no ESLint, use 
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `npx prettier --write .` | Formata todos os arquivos suportados |
-| `npx prettier --check .` | Só verifica, sem alterar |
-| `black .` | Formata projeto Python |
-| `black --check .` | Verifica formatação Python |
-| `gofmt -w .` | Formata código Go |
-| `.prettierrc` | Arquivo de configuração do Prettier |
-| `.prettierignore` | Lista o que não deve ser formatado |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: O arquivo não formata ao salvar
 
@@ -217,18 +220,37 @@ Desative as regras de estilo do linter que duplicam o formatter (no ESLint, use 
 > [!question]- O que faz `npx prettier --check .`?
 > Verifica se está tudo formatado **sem alterar nada**. Ideal pra CI.
 
+> [!question]- `editor.formatOnSave`
+> config do VS Code que formata ao salvar
+
+> [!question]- `.prettierrc`
+> arquivo de configuração do Prettier
+
+> [!question]- `prettier --write .`
+> formata todos os arquivos
+
+> [!question]- Formatter "opinionated"
+> poucas opções de propósito, pra ninguém discutir estilo
+
+> [!question]- `eslint-config-prettier`
+> desliga as regras de estilo do ESLint que brigam com o Prettier
+
+> [!question]- Formatter muda o comportamento do código?
+> Não. Só a aparência.
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
-
-`editor.formatOnSave`::config do VS Code que formata ao salvar
-`.prettierrc`::arquivo de configuração do Prettier
-`prettier --write .`::formata todos os arquivos
-Formatter "opinionated"::poucas opções de propósito, pra ninguém discutir estilo
-`eslint-config-prettier`::desliga as regras de estilo do ESLint que brigam com o Prettier
-Formatter muda o comportamento do código?::Não. Só a aparência.
+| Comando/Sintaxe | Função |
+|-----------------|--------|
+| `npx prettier --write .` | Formata todos os arquivos suportados |
+| `npx prettier --check .` | Só verifica, sem alterar |
+| `black .` | Formata projeto Python |
+| `black --check .` | Verifica formatação Python |
+| `gofmt -w .` | Formata código Go |
+| `.prettierrc` | Arquivo de configuração do Prettier |
+| `.prettierignore` | Lista o que não deve ser formatado |
 
 ---
 
@@ -247,7 +269,7 @@ Formatter muda o comportamento do código?::Não. Só a aparência.
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [x] Instalar o formatter da sua linguagem principal
 - [x] Ativar formatação ao salvar no editor
@@ -256,7 +278,7 @@ Formatter muda o comportamento do código?::Não. Só a aparência.
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 💻 Sites e Documentação:
 - [Prettier](https://prettier.io/docs/en/) - Documentação oficial

@@ -10,14 +10,32 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Instala, atualiza e remove as bibliotecas do projeto (npm, pip...). Tudo gira em torno de dois arquivos: o **manifesto** (`package.json`) diz o que você quer; o **lockfile** diz exatamente o que foi instalado.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é um Gerenciador de Pacotes?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Ler um manifesto (`package.json`) e as faixas de versão do SemVer (`^`, `~`)
+- Explicar pra que serve o lockfile e reproduzir um projeto do zero
+- Separar dependências de produção e de desenvolvimento
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** [[Terminal]]
+- **Depois:** [[Linter]] · [[Formatter]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é um Gerenciador de Pacotes?
 
 Um **gerenciador de pacotes** é uma ferramenta que **instala, atualiza e remove bibliotecas e dependências** de um projeto. Em vez de baixar arquivos manualmente, você pede o pacote pelo nome e a ferramenta busca, resolve as versões compatíveis e instala tudo, incluindo as dependências do pacote.
 
@@ -32,13 +50,12 @@ Exemplos por ecossistema:
 
 Também existem gerenciadores de pacotes do **sistema operacional** (`apt`, `brew`, `winget`), que instalam programas, não bibliotecas de projeto.
 
-### Uma História Breve 📜
-
-Gerenciadores de pacotes de sistema (como `dpkg`/`apt` no Debian) existem desde os anos 1990. Para linguagens de programação, o movimento cresceu com **CPAN** (Perl), **RubyGems**, **Maven** (Java, 2004) e **pip** (Python). O **npm** surgiu em **2010**, criado por Isaac Schlueter, e se tornou um dos maiores registros de pacotes do mundo.
+> [!note]- 📜 Um pouco de história
+> Gerenciadores de pacotes de sistema (como `dpkg`/`apt` no Debian) existem desde os anos 1990. Para linguagens de programação, o movimento cresceu com **CPAN** (Perl), **RubyGems**, **Maven** (Java, 2004) e **pip** (Python). O **npm** surgiu em **2010**, criado por Isaac Schlueter, e se tornou um dos maiores registros de pacotes do mundo.
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Conceito 1: Manifesto de dependências
 
@@ -90,7 +107,7 @@ source .venv/bin/activate      # Linux/macOS
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -130,7 +147,7 @@ pip install -r requirements.txt
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 Scripts úteis no `package.json`:
 
@@ -153,7 +170,7 @@ node_modules/
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Versione o lockfile, ignore a pasta de dependências
 
@@ -169,25 +186,7 @@ Instala exatamente o que está no lockfile, de forma limpa e reproduzível.
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `npm install` | Instala as dependências do projeto |
-| `npm install pacote` | Adiciona um pacote |
-| `npm install -D pacote` | Adiciona como dependência de desenvolvimento |
-| `npm uninstall pacote` | Remove um pacote |
-| `npm update` | Atualiza dentro das faixas permitidas |
-| `npm audit` | Verifica vulnerabilidades |
-| `npm ci` | Instalação limpa a partir do lockfile |
-| `pip install pacote` | Instala pacote Python |
-| `pip install -r requirements.txt` | Instala lista de pacotes |
-| `pip freeze` | Lista versões instaladas |
-| `mvn install` | Compila e instala (Maven) |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: Conflito de versões entre dependências
 
@@ -239,18 +238,41 @@ Instala exatamente o que está no lockfile, de forma limpa e reproduzível.
 > [!question]- Dependência de produção vs de desenvolvimento: dê exemplos.
 > Produção: o que o app usa rodando (`dayjs`, `express`). Dev: só pra desenvolver (`prettier`, `eslint`), instalado com `-D`.
 
+> [!question]- `npm install -D pacote`
+> instala como dependência de desenvolvimento
+
+> [!question]- SemVer `MAJOR.MINOR.PATCH`
+> MAJOR quebra compatibilidade · MINOR adiciona recurso · PATCH corrige bug
+
+> [!question]- `~1.4.2`
+> aceita só patches (`1.4.x`)
+
+> [!question]- `python -m venv .venv`
+> cria um ambiente isolado em Python
+
+> [!question]- `pip freeze > requirements.txt`
+> salva as dependências instaladas
+
+> [!question]- `npx`
+> executa um pacote sem instalá-lo globalmente
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
-
-`npm install -D pacote`::instala como dependência de desenvolvimento
-SemVer `MAJOR.MINOR.PATCH`::MAJOR quebra compatibilidade · MINOR adiciona recurso · PATCH corrige bug
-`~1.4.2`::aceita só patches (`1.4.x`)
-`python -m venv .venv`::cria um ambiente isolado em Python
-`pip freeze > requirements.txt`::salva as dependências instaladas
-`npx`::executa um pacote sem instalá-lo globalmente
+| Comando/Sintaxe | Função |
+|-----------------|--------|
+| `npm install` | Instala as dependências do projeto |
+| `npm install pacote` | Adiciona um pacote |
+| `npm install -D pacote` | Adiciona como dependência de desenvolvimento |
+| `npm uninstall pacote` | Remove um pacote |
+| `npm update` | Atualiza dentro das faixas permitidas |
+| `npm audit` | Verifica vulnerabilidades |
+| `npm ci` | Instalação limpa a partir do lockfile |
+| `pip install pacote` | Instala pacote Python |
+| `pip install -r requirements.txt` | Instala lista de pacotes |
+| `pip freeze` | Lista versões instaladas |
+| `mvn install` | Compila e instala (Maven) |
 
 ---
 
@@ -269,7 +291,7 @@ SemVer `MAJOR.MINOR.PATCH`::MAJOR quebra compatibilidade · MINOR adiciona recur
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [ ] Praticar npm (ou pip) em um projeto pequeno
 - [ ] Entender SemVer e a diferença entre `^` e `~`
@@ -278,7 +300,7 @@ SemVer `MAJOR.MINOR.PATCH`::MAJOR quebra compatibilidade · MINOR adiciona recur
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 💻 Sites e Documentação:
 - [Documentação do npm](https://docs.npmjs.com) - Guia oficial

@@ -36,7 +36,3 @@ Encontrar parceiros considerando não apenas o jogo, mas também horários, obje
 - [ ] Criar curtidas e matches;
 - [ ] Adicionar chat;
 - [ ] Testar com jogadores de League of Legends e Valorant.
-
-## 🎓 Usando como projeto de estudo
-
-Este é o projeto-guia dos estudos: cada fase diz o que construir e quais tópicos do roadmap estudar. Veja [[Projeto-guia]].

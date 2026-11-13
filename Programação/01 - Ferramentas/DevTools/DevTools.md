@@ -10,26 +10,43 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Ferramentas embutidas no navegador (`F12`) pra inspecionar HTML/CSS, rodar JS no **Console**, depurar com breakpoints e ver cada requisição na aba **Network**. É o primeiro lugar a olhar quando algo na página não funciona.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que são as DevTools?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Inspecionar e editar HTML/CSS ao vivo na aba Elements
+- Depurar JavaScript no Console e com breakpoints
+- Analisar requisições na aba Network e a performance com Lighthouse
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** nada, é um ponto de partida.
+- **Depois:** [[HTTP]] · [[Debugging]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que são as DevTools?
 
 As **DevTools** (*Developer Tools*, ferramentas do desenvolvedor) são um conjunto de ferramentas **embutidas no navegador** para inspecionar, depurar e analisar páginas web. Com elas você vê o HTML e o CSS em tempo real, executa JavaScript no console, acompanha requisições de rede, mede performance e muito mais.
 
 Estão disponíveis no Chrome, Edge, Firefox, Safari e outros, com pequenas diferenças de nomes e recursos.
 
-### Uma História Breve 📜
-
-Antes das DevTools modernas, o **Firebug** (extensão do Firefox, meados dos anos 2000) popularizou a inspeção de páginas. Depois, navegadores passaram a trazer ferramentas nativas: o Chrome, por exemplo, incorporou as suas desde as primeiras versões, e elas evoluíram muito até hoje.
+> [!note]- 📜 Um pouco de história
+> Antes das DevTools modernas, o **Firebug** (extensão do Firefox, meados dos anos 2000) popularizou a inspeção de páginas. Depois, navegadores passaram a trazer ferramentas nativas: o Chrome, por exemplo, incorporou as suas desde as primeiras versões, e elas evoluíram muito até hoje.
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Como abrir
 
@@ -71,7 +88,7 @@ Analisam desempenho de carregamento e execução, e geram relatórios de perform
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -98,7 +115,7 @@ Descobrir por que uma chamada de API falha:
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 Atalhos e ajustes úteis (no ícone de engrenagem das DevTools → Settings):
 
@@ -115,7 +132,7 @@ Atalhos e ajustes úteis (no ícone de engrenagem das DevTools → Settings):
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Use o modo responsivo
 
@@ -131,21 +148,7 @@ Evita que arquivos antigos em cache atrapalhem seus testes enquanto desenvolve.
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `F12` | Abre/fecha as DevTools |
-| `Ctrl + Shift + C` | Seleciona elemento na página |
-| `console.log()` | Imprime no console |
-| `console.table()` | Mostra dados em formato de tabela |
-| `debugger;` | Pausa a execução no código |
-| `$0` | Referência ao elemento selecionado |
-| `Ctrl + Shift + M` | Alterna modo dispositivo |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: Minha alteração no CSS sumiu ao recarregar
 
@@ -195,18 +198,37 @@ Evita que arquivos antigos em cache atrapalhem seus testes enquanto desenvolve.
 > [!question]- Onde ver localStorage e cookies?
 > Na aba **Application**.
 
+> [!question]- Abrir DevTools
+> `F12` ou `Ctrl + Shift + I`
+
+> [!question]- Selecionar elemento na página
+> `Ctrl + Shift + C`
+
+> [!question]- Aba pra breakpoints em JS
+> Sources
+
+> [!question]- Aba pra ver requisições HTTP
+> Network
+
+> [!question]- Lighthouse
+> auditoria de performance, acessibilidade e SEO
+
+> [!question]- Modo responsivo
+> `Ctrl + Shift + M`: simula telas de celular
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
-
-Abrir DevTools::`F12` ou `Ctrl + Shift + I`
-Selecionar elemento na página::`Ctrl + Shift + C`
-Aba pra breakpoints em JS::Sources
-Aba pra ver requisições HTTP::Network
-Lighthouse::auditoria de performance, acessibilidade e SEO
-Modo responsivo::`Ctrl + Shift + M`: simula telas de celular
+| Comando/Sintaxe | Função |
+|-----------------|--------|
+| `F12` | Abre/fecha as DevTools |
+| `Ctrl + Shift + C` | Seleciona elemento na página |
+| `console.log()` | Imprime no console |
+| `console.table()` | Mostra dados em formato de tabela |
+| `debugger;` | Pausa a execução no código |
+| `$0` | Referência ao elemento selecionado |
+| `Ctrl + Shift + M` | Alterna modo dispositivo |
 
 ---
 
@@ -225,7 +247,7 @@ Modo responsivo::`Ctrl + Shift + M`: simula telas de celular
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [x] Explorar cada aba das DevTools do seu navegador principal
 - [x] Aprender a usar breakpoints na aba Sources
@@ -234,7 +256,7 @@ Modo responsivo::`Ctrl + Shift + M`: simula telas de celular
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 💻 Sites e Documentação:
 - [Chrome DevTools](https://developer.chrome.com/docs/devtools) - Documentação oficial do Chrome

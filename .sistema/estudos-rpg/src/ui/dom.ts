@@ -2,12 +2,14 @@
 // Usam a API do Obsidian (createEl/setIcon), nunca innerHTML com texto de nota.
 
 import { setIcon } from "obsidian";
+import { desenharPixel } from "./pixel.ts";
 
 export type Variante = "primario" | "secundario" | "discreto";
 
+/** Ícone em pixel art; se não houver desenho para o nome, usa o Lucide do Obsidian. */
 export function icone(parent: HTMLElement, nome: string, cls = "erpg-ico"): HTMLElement {
   const span = parent.createSpan({ cls });
-  setIcon(span, nome);
+  if (!desenharPixel(span, nome)) setIcon(span, nome);
   return span;
 }
 
@@ -19,10 +21,11 @@ export function botao(
 ): HTMLButtonElement {
   const b = parent.createEl("button", {
     cls: `erpg-btn is-${opts.variante ?? "primario"}${opts.pequeno ? " is-sm" : ""}`,
-    attr: opts.titulo ? { "aria-label": opts.titulo } : {},
+    attr: opts.titulo ? { "aria-label": opts.titulo, title: opts.titulo } : {},
   });
   if (opts.icone) icone(b, opts.icone);
-  b.createSpan({ text: texto });
+  if (texto) b.createSpan({ text: texto });
+  else b.addClass("is-icone");
   b.addEventListener("click", async (ev) => {
     if (b.disabled) return;
     b.disabled = true; // evita clique duplo gravando duas vezes

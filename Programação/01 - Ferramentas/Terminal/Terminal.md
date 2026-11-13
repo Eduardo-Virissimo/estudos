@@ -10,14 +10,32 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > A janela onde você conversa com o sistema **digitando comandos**. Terminal ≠ shell: o terminal é a janela, o shell (Bash, PowerShell) é quem interpreta. A base: navegar (`cd`, `ls`), mexer em arquivos e encadear com pipes.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é o Terminal?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Navegar entre pastas usando caminhos relativos e absolutos
+- Ler qualquer comando como *comando + opções + argumentos*
+- Encadear comandos com pipe (`|`) e salvar a saída com `>`
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** nada, é um ponto de partida.
+- **Depois:** [[Bash]] · [[PowerShell]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é o Terminal?
 
 O **terminal** é uma interface de **linha de comando (CLI)**: você digita comandos em texto e o sistema operacional executa. Em vez de clicar em ícones e menus, você conversa diretamente com o computador.
 
@@ -27,13 +45,12 @@ Três termos que costumam se confundir:
 - **Shell**: o programa que interpreta os comandos (ex.: Bash, Zsh, PowerShell).
 - **Console**: termo antigo para o terminal físico/ligado direto ao sistema; hoje costuma ser usado como sinônimo.
 
-### Uma História Breve 📜
-
-Os terminais surgiram nos anos 1960-70 como equipamentos físicos (teletipos e depois monitores como o DEC VT100) ligados a computadores centrais. Hoje são programas que **emulam** esses aparelhos, e o padrão de funcionamento se manteve: texto entra, texto sai.
+> [!note]- 📜 Um pouco de história
+> Os terminais surgiram nos anos 1960-70 como equipamentos físicos (teletipos e depois monitores como o DEC VT100) ligados a computadores centrais. Hoje são programas que **emulam** esses aparelhos, e o padrão de funcionamento se manteve: texto entra, texto sai.
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Conceito 1: Diretório atual e caminhos
 
@@ -66,7 +83,7 @@ echo "olá" > arq.txt    # redireciona a saída para um arquivo
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -90,7 +107,7 @@ grep -r "TODO" ./src | wc -l
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 No Windows, o **Windows Terminal** permite definir o perfil padrão e a aparência em um arquivo JSON (`settings.json`):
 
@@ -109,7 +126,7 @@ No Windows, o **Windows Terminal** permite definir o perfil padrão e a aparênc
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Use `Tab` para autocompletar
 
@@ -125,26 +142,7 @@ Digite o começo do nome de arquivos e comandos e aperte `Tab`. Economiza digita
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `pwd` | Mostra a pasta atual |
-| `ls` | Lista arquivos e pastas |
-| `cd` | Muda de pasta |
-| `mkdir` | Cria pasta |
-| `touch` | Cria arquivo vazio |
-| `cp` / `mv` | Copia / move (ou renomeia) |
-| `rm` | Remove arquivos |
-| `cat` | Mostra o conteúdo de um arquivo |
-| `clear` | Limpa a tela |
-| `man comando` | Abre o manual (Linux/macOS) |
-
-> No PowerShell alguns desses nomes funcionam como apelidos (aliases) de cmdlets.
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: "command not found" / "não é reconhecido como comando"
 
@@ -195,18 +193,42 @@ Digite o começo do nome de arquivos e comandos e aperte `Tab`. Economiza digita
 > [!question]- Apareceu "não é reconhecido como comando". O que checar?
 > Digitação, se o programa está instalado e se ele está no `PATH`. Depois de mexer no PATH, reabra o terminal.
 
+> [!question]- `pwd`
+> mostra a pasta atual
+
+> [!question]- `cd ..`
+> sobe um nível
+
+> [!question]- `~`
+> pasta do usuário (home)
+
+> [!question]- `Ctrl + R`
+> busca no histórico de comandos (Bash/Zsh)
+
+> [!question]- `Tab`
+> autocompleta nomes de arquivos e comandos
+
+> [!question]- `rm` manda pra lixeira?
+> Não. Apaga direto, sem volta.
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
+| Comando/Sintaxe | Função |
+|-----------------|--------|
+| `pwd` | Mostra a pasta atual |
+| `ls` | Lista arquivos e pastas |
+| `cd` | Muda de pasta |
+| `mkdir` | Cria pasta |
+| `touch` | Cria arquivo vazio |
+| `cp` / `mv` | Copia / move (ou renomeia) |
+| `rm` | Remove arquivos |
+| `cat` | Mostra o conteúdo de um arquivo |
+| `clear` | Limpa a tela |
+| `man comando` | Abre o manual (Linux/macOS) |
 
-`pwd`::mostra a pasta atual
-`cd ..`::sobe um nível
-`~`::pasta do usuário (home)
-`Ctrl + R`::busca no histórico de comandos (Bash/Zsh)
-`Tab`::autocompleta nomes de arquivos e comandos
-`rm` manda pra lixeira?::Não. Apaga direto, sem volta.
+> No PowerShell alguns desses nomes funcionam como apelidos (aliases) de cmdlets.
 
 ---
 
@@ -225,7 +247,7 @@ Digite o começo do nome de arquivos e comandos e aperte `Tab`. Economiza digita
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [ ] Praticar os comandos básicos por alguns dias
 - [ ] Aprender sobre pipes e redirecionamentos
@@ -234,7 +256,7 @@ Digite o começo do nome de arquivos e comandos e aperte `Tab`. Economiza digita
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 📖 Livros:
 - *The Linux Command Line* (William Shotts) - Introdução completa à linha de comando

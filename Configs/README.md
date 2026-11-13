@@ -70,7 +70,7 @@ Depois o plugin **Git** faz o commit e envia pro GitHub junto com as notas (ou `
 7. Reinicie o Obsidian uma vez e reconfigure senhas/tokens (ex.: autenticação do Git, veja abaixo).
 
 > [!info] Por que a pasta de cima?
-> O vault é `Obsidian Vault/`, e o repositório de estudos fica em `Obsidian Vault/estudos/`. A Homepage está em `estudos/Homepage.md` e o plugin Homepage aponta pra esse caminho.
+> O vault é `Obsidian Vault/`, e o repositório de estudos fica em `Obsidian Vault/estudos/`. As pastas do plugin Estudos RPG (diário, templates) são configuradas a partir dessa raiz (`estudos/...`).
 
 ### Restaurar sem o script (manual)
 

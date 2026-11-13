@@ -36,6 +36,18 @@ export class Writer {
     await this.app.fileManager.processFrontMatter(f, (fm: Record<string, unknown>) => Object.assign(fm, patch));
   }
 
+  /** Soma minutos estudados no diário de `data` (cria o diário se preciso). Devolve o total do dia. */
+  async somarMinutos(data: string, minutos: number): Promise<number> {
+    const f = await this.diario(data);
+    let total = minutos;
+    await this.app.fileManager.processFrontMatter(f, (fm: Record<string, unknown>) => {
+      const antes = Number(fm.minutos);
+      total = (Number.isFinite(antes) && antes > 0 ? antes : 0) + minutos;
+      fm.minutos = total;
+    });
+    return total;
+  }
+
   /** Cria (se preciso) e devolve a nota do diário de `data`. */
   async diario(data: string): Promise<TFile> {
     const s = this.getSettings();
@@ -49,7 +61,7 @@ export class Writer {
     // E se o template não existir? Usa um modelo mínimo em vez de quebrar.
     const corpo = tpl instanceof TFile
       ? (await this.app.vault.read(tpl)).replace(/\{\{date(?::[^}]*)?\}\}/g, data)
-      : `---\nminutos: 25\n---\n\n# 📜 ${data}\n\n**O que estudei:**\n- \n`;
+      : `---\nminutos: 0\n---\n\n# 📜 ${data}\n\n**O que estudei:**\n- \n`;
     return this.app.vault.create(caminho, corpo);
   }
 

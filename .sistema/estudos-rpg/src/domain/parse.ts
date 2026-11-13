@@ -1,7 +1,7 @@
 // Leitura do Markdown das notas. Funções puras: recebem texto, devolvem dados.
 // O Obsidian não aparece aqui, por isso dá pra testar com `npm test`.
 
-import type { Fase, Regiao, Topico } from "./types.ts";
+import type { Regiao, Topico } from "./types.ts";
 
 const EMOJI = /\p{Extended_Pictographic}|️|‍|⃣/gu;
 
@@ -22,6 +22,7 @@ export function parseTrilha(texto: string, resolver: (alvo: string) => string | 
   let atual: Regiao | null = null;
   let emFrontmatter = false;
   let emCodigo = false;
+  let grupo = "";
 
   texto.split(/\r?\n/).forEach((linha, i) => {
     if (i === 0 && linha === "---") { emFrontmatter = true; return; }
@@ -31,7 +32,10 @@ export function parseTrilha(texto: string, resolver: (alvo: string) => string | 
 
     const h = linha.match(/^(#{1,2})\s+(.*)$/);
     if (h) {
-      atual = { nome: limparTitulo(h[2] ?? ""), nivelTitulo: (h[1]?.length ?? 1) as 1 | 2, destaque: /⭐/.test(h[2] ?? ""), desc: "", topicos: [] };
+      const nome = limparTitulo(h[2] ?? "");
+      const nivelTitulo = (h[1]?.length ?? 1) as 1 | 2;
+      if (nivelTitulo === 1) grupo = nome;
+      atual = { nome, nivelTitulo, grupo, destaque: /⭐/.test(h[2] ?? ""), desc: "", topicos: [] };
       regioes.push(atual);
       return;
     }
@@ -58,31 +62,6 @@ export function parseTrilha(texto: string, resolver: (alvo: string) => string | 
   });
 
   return regioes.filter((r) => r.topicos.length > 0);
-}
-
-/**
- * Lê uma missão: `## Fase N: título`, `**Entrega:** ...` e checkboxes da fase.
- * Checkboxes dentro de callouts (`> - [ ]`) não contam como tarefas.
- */
-export function parseMissao(texto: string): Fase[] {
-  const fases: Fase[] = [];
-  let atual: Fase | null = null;
-  texto.split(/\r?\n/).forEach((linha, i) => {
-    const f = linha.match(/^##\s+Fase\s+(\d+)\s*[:—–-]\s*(.*)$/i);
-    if (f) {
-      atual = { num: Number(f[1]), titulo: limparTitulo((f[2] ?? "").replace(/\(.*?\)/g, "")), entrega: "", tarefas: [] };
-      fases.push(atual);
-      return;
-    }
-    if (/^#{1,2}\s/.test(linha)) { atual = null; return; }
-    if (!atual) return;
-    const fase: Fase = atual;
-    const e = linha.match(/^\*\*Entrega:\*\*\s*(.*)$/i);
-    if (e) { fase.entrega = (e[1] ?? "").trim(); return; }
-    const c = linha.match(CHECKBOX);
-    if (c) fase.tarefas.push({ texto: (c[2] ?? "").trim(), feita: (c[1] ?? " ").toLowerCase() === "x", linha: i, raw: linha });
-  });
-  return fases;
 }
 
 /**

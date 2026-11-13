@@ -7,8 +7,9 @@ export interface XPConfig {
   projeto: number;
   topico: number;
   diario: number;
+  /** XP a cada 10 minutos estudados num dia. */
+  dezMinutos: number;
   caixa: number;
-  tarefa: number;
 }
 
 export interface Settings {
@@ -23,6 +24,12 @@ export interface Settings {
   /** Dias até a próxima revisão para cada caixa (índice = caixa). */
   intervalos: number[];
   semanasNoCalendario: number;
+  /** Minutos que separam as cores do calendário (ex.: [25, 50] = <25, <50, 50+). */
+  faixasCalendario: number[];
+  /** Meta de minutos por semana (0 = sem meta). */
+  metaSemanalMin: number;
+  /** Sessão esquecida ligada? Conta no máximo isso (minutos). */
+  sessaoMaxMin: number;
   xp: XPConfig;
   titulos: string[];
 }
@@ -30,11 +37,14 @@ export interface Settings {
 export const DEFAULT_SETTINGS: Settings = {
   abrirAoIniciar: true,
   pastaDiario: "estudos/Diário",
-  templateDiario: "estudos/Programação/Template/Diário.md",
-  pastasIgnoradas: ["estudos/Programação/Template"],
+  templateDiario: "estudos/Templates/Diário.md",
+  pastasIgnoradas: ["estudos/Templates"],
   intervalos: [0, 1, 3, 7, 14, 30, 60],
   semanasNoCalendario: 30,
-  xp: { escrito: 20, praticado: 60, projeto: 120, topico: 10, diario: 15, caixa: 10, tarefa: 25 },
+  faixasCalendario: [25, 50],
+  metaSemanalMin: 300,
+  sessaoMaxMin: 240,
+  xp: { escrito: 20, praticado: 60, projeto: 120, topico: 10, diario: 15, dezMinutos: 5, caixa: 10 },
   titulos: ["Aprendiz", "Escudeiro", "Cavaleiro", "Cavaleiro do Código", "Mago dos Bits", "Arquimago", "Lorde do Terminal", "Lenda do Reino"],
 };
 
@@ -58,6 +68,9 @@ export function mergeSettings(saved: unknown): Settings {
     pastasIgnoradas: Array.isArray(s.pastasIgnoradas) ? s.pastasIgnoradas.filter((x): x is string => typeof x === "string") : d.pastasIgnoradas,
     intervalos: listaDe(s.intervalos, (x): x is number => typeof x === "number" && x >= 0, d.intervalos, 2),
     semanasNoCalendario: typeof s.semanasNoCalendario === "number" ? s.semanasNoCalendario : d.semanasNoCalendario,
+    faixasCalendario: listaDe(s.faixasCalendario, (x): x is number => typeof x === "number" && x > 0, d.faixasCalendario, 1).sort((a, b) => a - b),
+    metaSemanalMin: typeof s.metaSemanalMin === "number" && s.metaSemanalMin >= 0 ? s.metaSemanalMin : d.metaSemanalMin,
+    sessaoMaxMin: typeof s.sessaoMaxMin === "number" && s.sessaoMaxMin >= 1 ? s.sessaoMaxMin : d.sessaoMaxMin,
     xp,
     titulos: listaDe(s.titulos, (x): x is string => typeof x === "string" && x.trim() !== "", d.titulos, 1),
   };

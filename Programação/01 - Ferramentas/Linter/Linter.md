@@ -10,26 +10,43 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Analisa o código **sem rodar** e aponta bugs prováveis e más práticas (variável não usada, `==` em vez de `===`). Exemplo: ESLint. Comece com o `recommended`, rode no editor e na CI.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é um Linter?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Configurar um linter a partir da config *recommended*
+- Corrigir problemas com autofix e entender cada regra
+- Explicar a diferença entre linter e formatter
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** [[VS Code]] · [[Gerenciador de Pacotes]]
+- **Depois:** [[Formatter]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é um Linter?
 
 Um **linter** é uma ferramenta que faz **análise estática** do código, ou seja, lê seu código sem executá-lo e aponta **erros potenciais, más práticas e problemas de estilo**. Exemplos: variável declarada e nunca usada, comparação suspeita, função muito complexa, import inexistente.
 
 Cada linguagem tem seus linters: **ESLint** (JavaScript/TypeScript), **Pylint**, **Flake8** e **Ruff** (Python), **Checkstyle** (Java), **ShellCheck** (Bash), entre outros.
 
-### Uma História Breve 📜
-
-O termo vem do programa **lint**, criado por **Stephen C. Johnson** nos **Bell Labs** por volta de 1978 para encontrar problemas em código C que o compilador deixava passar. O nome faz referência à "pelugem" (*lint*) que se tira das roupas. Desde então, linters ficaram cada vez mais completos e hoje fazem parte do fluxo padrão de quase todo projeto.
+> [!note]- 📜 Um pouco de história
+> O termo vem do programa **lint**, criado por **Stephen C. Johnson** nos **Bell Labs** por volta de 1978 para encontrar problemas em código C que o compilador deixava passar. O nome faz referência à "pelugem" (*lint*) que se tira das roupas. Desde então, linters ficaram cada vez mais completos e hoje fazem parte do fluxo padrão de quase todo projeto.
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Conceito 1: Regras (rules)
 
@@ -76,7 +93,7 @@ npx eslint . --fix
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -111,7 +128,7 @@ No dia a dia: instale a extensão do ESLint no [[VS Code]] para ver sublinhados 
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 No `settings.json` do VS Code, para corrigir problemas ao salvar:
 
@@ -125,7 +142,7 @@ No `settings.json` do VS Code, para corrigir problemas ao salvar:
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Comece com a configuração "recommended"
 
@@ -141,20 +158,7 @@ Assim ninguém mescla código que quebre as regras do projeto, mesmo sem ter o e
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `npx eslint .` | Analisa o projeto (JavaScript/TypeScript) |
-| `npx eslint . --fix` | Corrige o que for possível automaticamente |
-| `ruff check .` | Analisa projeto Python com Ruff |
-| `pylint arquivo.py` | Analisa arquivo Python com Pylint |
-| `shellcheck script.sh` | Analisa scripts Bash |
-| `// eslint-disable-next-line` | Ignora a regra na próxima linha |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: O linter e o formatter brigam entre si
 
@@ -204,18 +208,36 @@ Assim ninguém mescla código que quebre as regras do projeto, mesmo sem ter o e
 > [!question]- Quando é aceitável desativar uma regra?
 > Com um motivo real, de forma localizada (`// eslint-disable-next-line regra -- motivo`), nunca por preguiça.
 
+> [!question]- `npx eslint .`
+> analisa o projeto inteiro
+
+> [!question]- `npx eslint . --fix`
+> corrige automaticamente o que for possível
+
+> [!question]- `eslint.config.js`
+> arquivo de configuração (flat config)
+
+> [!question]- Níveis de uma regra
+> `"off"`, `"warn"`, `"error"`
+
+> [!question]- `no-unused-vars`
+> acusa variável declarada e nunca usada
+
+> [!question]- O linter executa o código?
+> Não. A análise é estática.
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
-
-`npx eslint .`::analisa o projeto inteiro
-`npx eslint . --fix`::corrige automaticamente o que for possível
-`eslint.config.js`::arquivo de configuração (flat config)
-Níveis de uma regra::`"off"`, `"warn"`, `"error"`
-`no-unused-vars`::acusa variável declarada e nunca usada
-O linter executa o código?::Não. A análise é estática.
+| Comando/Sintaxe | Função |
+|-----------------|--------|
+| `npx eslint .` | Analisa o projeto (JavaScript/TypeScript) |
+| `npx eslint . --fix` | Corrige o que for possível automaticamente |
+| `ruff check .` | Analisa projeto Python com Ruff |
+| `pylint arquivo.py` | Analisa arquivo Python com Pylint |
+| `shellcheck script.sh` | Analisa scripts Bash |
+| `// eslint-disable-next-line` | Ignora a regra na próxima linha |
 
 ---
 
@@ -234,7 +256,7 @@ O linter executa o código?::Não. A análise é estática.
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [ ] Instalar o linter da linguagem que você mais estuda
 - [ ] Configurar a extensão no seu editor
@@ -243,7 +265,7 @@ O linter executa o código?::Não. A análise é estática.
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 📖 Livros:
 - *Clean Code* (Robert C. Martin) - Princípios de código limpo que os linters ajudam a reforçar

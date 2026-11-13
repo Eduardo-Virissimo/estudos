@@ -10,26 +10,43 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Editor leve e extensível. O que muda o jogo: **Command Palette** (`Ctrl + Shift + P`), poucos atalhos bem aprendidos, multi-cursor e configurações por workspace.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é VS Code?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Achar qualquer ação pela Command Palette em vez de decorar menus
+- Separar configurações de usuário e de workspace (projeto)
+- Escolher extensões e usar multi-cursor e atalhos essenciais
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** [[Terminal]]
+- **Depois:** [[Linter]] · [[Formatter]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é VS Code?
 
 O **Visual Studio Code** (VS Code) é um editor de código-fonte gratuito, leve e extensível, criado pela Microsoft. Ele roda em Windows, macOS e Linux e suporta praticamente qualquer linguagem através de **extensões**.
 
 Diferente de uma IDE completa, ele começa enxuto e cresce conforme você instala o que precisa: depurador, terminal integrado, controle de versão com Git, autocomplete inteligente (IntelliSense) e muito mais.
 
-### Uma História Breve 📜
-
-O VS Code foi lançado pela Microsoft em **2015**, construído sobre o framework **Electron** (tecnologia web empacotada como app desktop). O código-fonte base é aberto (projeto *Code - OSS*, licença MIT). Em poucos anos virou um dos editores mais usados do mundo, aparecendo no topo das pesquisas anuais de desenvolvedores do Stack Overflow.
+> [!note]- 📜 Um pouco de história
+> O VS Code foi lançado pela Microsoft em **2015**, construído sobre o framework **Electron** (tecnologia web empacotada como app desktop). O código-fonte base é aberto (projeto *Code - OSS*, licença MIT). Em poucos anos virou um dos editores mais usados do mundo, aparecendo no topo das pesquisas anuais de desenvolvedores do Stack Overflow.
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Conceito 1: Command Palette
 
@@ -57,7 +74,7 @@ Funcionalidades extras instaladas pelo painel de extensões (`Ctrl + Shift + X`)
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -81,7 +98,7 @@ Fluxo de um dia de estudo:
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 Abra com `Ctrl + Shift + P` → **"Preferences: Open User Settings (JSON)"**:
 
@@ -99,7 +116,7 @@ Abra com `Ctrl + Shift + P` → **"Preferences: Open User Settings (JSON)"**:
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Aprenda poucos atalhos, mas bem
 
@@ -115,23 +132,7 @@ Crie perfis (ex.: "Python", "Web") com extensões e configurações diferentes p
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Atalho (Windows/Linux) | Função |
-|-----------------|--------|
-| `Ctrl + P` | Abrir arquivo por nome |
-| `Ctrl + Shift + P` | Command Palette |
-| `` Ctrl + ` `` | Abrir/fechar terminal integrado |
-| `Ctrl + B` | Mostrar/esconder barra lateral |
-| `Ctrl + D` | Selecionar próxima ocorrência |
-| `Alt + ↑ / ↓` | Mover linha |
-| `Shift + Alt + ↓` | Duplicar linha |
-| `Ctrl + /` | Comentar/descomentar |
-| `F2` | Renomear símbolo em todo o projeto |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: O comando `code .` não é reconhecido no terminal
 
@@ -181,18 +182,39 @@ Crie perfis (ex.: "Python", "Web") com extensões e configurações diferentes p
 > [!question]- O editor ficou lento. O que investigar?
 > Extensões (*Developer: Show Running Extensions* ou *Extension Bisect*) e pastas enormes indexadas (`files.exclude`, `search.exclude`).
 
+> [!question]- Command Palette
+> `Ctrl + Shift + P`
+
+> [!question]- Abrir arquivo por nome
+> `Ctrl + P`
+
+> [!question]- Selecionar a próxima ocorrência
+> `Ctrl + D`
+
+> [!question]- Terminal integrado
+> `` Ctrl + ` ``
+
+> [!question]- Mover linha pra cima/baixo
+> `Alt + ↑/↓`
+
+> [!question]- Renomear símbolo em todo o projeto
+> `F2`
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
-
-Command Palette::`Ctrl + Shift + P`
-Abrir arquivo por nome::`Ctrl + P`
-Selecionar a próxima ocorrência::`Ctrl + D`
-Terminal integrado::`` Ctrl + ` ``
-Mover linha pra cima/baixo::`Alt + ↑/↓`
-Renomear símbolo em todo o projeto::`F2`
+| Atalho (Windows/Linux) | Função |
+|-----------------|--------|
+| `Ctrl + P` | Abrir arquivo por nome |
+| `Ctrl + Shift + P` | Command Palette |
+| `` Ctrl + ` `` | Abrir/fechar terminal integrado |
+| `Ctrl + B` | Mostrar/esconder barra lateral |
+| `Ctrl + D` | Selecionar próxima ocorrência |
+| `Alt + ↑ / ↓` | Mover linha |
+| `Shift + Alt + ↓` | Duplicar linha |
+| `Ctrl + /` | Comentar/descomentar |
+| `F2` | Renomear símbolo em todo o projeto |
 
 ---
 
@@ -211,7 +233,7 @@ Renomear símbolo em todo o projeto::`F2`
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [ ] Instalar o VS Code e a extensão do seu primeiro idioma de programação
 - [ ] Configurar `settings.json` com formatação ao salvar
@@ -220,7 +242,7 @@ Renomear símbolo em todo o projeto::`F2`
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 💻 Sites e Documentação:
 - [Documentação oficial](https://code.visualstudio.com/docs) - Guias completos de uso

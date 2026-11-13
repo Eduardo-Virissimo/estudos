@@ -3,32 +3,42 @@ tipo: trilha
 nome: Programação
 ---
 
-# 🗺️ Roadmap — Tudo que Todo Programador Deve Saber
+# 🗺️ Roadmap de Programação
 
-> **Como usar:** marque ✅ só quando tiver **praticado** (feito o desafio da nota), não quando a nota existir. Cada nota tem um `nivel` (📝 escrito → 🔨 praticado → 🚀 projeto) que aparece na Ficha do herói. Não precisa seguir na ordem: o [[Projeto-guia]] diz o que estudar a seguir pra construir algo de verdade. As seções Transversais (Matemática, Inglês Técnico, Soft Skills) vão em paralelo desde o dia 1. As seções com ⭐ aparecem em destaque no mapa.
+> [!abstract] Como usar este roadmap
+> - **Estágios em ordem.** Cada estágio usa o anterior. Dentro dele, os módulos e tópicos também vêm na ordem sugerida.
+> - **Não precisa terminar tudo pra avançar.** Passou no critério ✅ *Pronto pra seguir*? Avance e volte quando precisar (aprendizado em espiral).
+> - **Cada estágio tem um 🔨 Projeto.** É ele que prova o ✅: os tópicos ensinam, o projeto fixa. Vários usam as suas ideias de `Ideias de Projetos/`.
+> - **Marque ✅ só depois de praticar** (fez o desafio da nota), não quando a nota existir.
+> - **Intercale.** Estude 1 tópico do estágio atual + 1 de *Em paralelo* por semana. Misturar assuntos fixa mais que estudar um bloco só.
+> - Cada nota tem `nivel`: 📝 escrito → 🔨 praticado → 🚀 projeto. A Ficha do herói mostra o próximo tópico e a fila de revisão.
 
 ---
 
-# 1️⃣ Ferramentas
+# 🌱 Estágio 1 · Primeiros passos
+
+> 🎯 **Objetivo:** Montar seu ambiente e escrever programas pequenos em TypeScript, versionados no Git.
+> ✅ **Pronto pra seguir quando** você cria um projeto TypeScript do zero, escreve um programa com condições, laços e funções, e publica no GitHub.
+> 🔨 **Projeto do estágio:** um gerenciador de tarefas no terminal (adicionar, listar, concluir, salvar em JSON), em TypeScript e publicado no GitHub.
+
+## Ferramentas
 
 > O ferramental do dia a dia de quem programa.
 
-- [x] [[VS Code]] — editor de código leve e extensível, um dos mais usados atualmente.
-- [x] [[Terminal]] — interface de linha de comando pra interagir diretamente com o sistema operacional.
-- [x] [[PowerShell]] — shell e linguagem de script do Windows, mais poderoso que o CMD tradicional.
-- [x] [[Bash]] — shell padrão em sistemas Linux/macOS, usado pra automatizar tarefas via linha de comando.
-- [x] [[SSH]] — protocolo para acessar e controlar remotamente outro computador de forma segura.
-- [x] [[Regex]] — linguagem para descrever padrões de texto, usada em buscas e validações complexas.
-- [x] [[Postman]] — ferramenta para testar e explorar APIs sem precisar escrever código.
-- [x] [[Insomnia]] — alternativa ao Postman, também usada para testar requisições de API.
-- [x] [[DevTools]] — ferramentas embutidas no navegador para inspecionar, depurar e analisar performance de páginas web.
-- [x] [[Linter]] — ferramenta que analisa o código em busca de erros e problemas de estilo automaticamente.
-- [x] [[Formatter]] — ferramenta que formata o código automaticamente seguindo um padrão (ex: Prettier).
-- [x] [[Gerenciador de Pacotes]] — ferramenta que instala e gerencia bibliotecas/dependências do projeto (ex: npm, pip, Maven).
+- [ ] [[Terminal]] — interface de linha de comando pra interagir diretamente com o sistema operacional.
+- [ ] [[Bash]] — shell padrão em sistemas Linux/macOS, usado pra automatizar tarefas via linha de comando.
+- [ ] [[PowerShell]] — shell e linguagem de script do Windows, mais poderoso que o CMD tradicional.
+- [ ] [[VS Code]] — editor de código leve e extensível, um dos mais usados atualmente.
+- [ ] [[Gerenciador de Pacotes]] — ferramenta que instala e gerencia bibliotecas/dependências do projeto (ex: npm, pip, Maven).
+- [ ] [[Linter]] — ferramenta que analisa o código em busca de erros e problemas de estilo automaticamente.
+- [ ] [[Formatter]] — ferramenta que formata o código automaticamente seguindo um padrão (ex: Prettier).
+- [ ] [[Regex]] — linguagem para descrever padrões de texto, usada em buscas e validações complexas.
+- [ ] [[SSH]] — protocolo para acessar e controlar remotamente outro computador de forma segura.
+- [ ] [[DevTools]] — ferramentas embutidas no navegador para inspecionar, depurar e analisar performance de páginas web.
+- [ ] [[Postman]] — ferramenta para testar e explorar APIs sem precisar escrever código.
+- [ ] [[Insomnia]] — alternativa ao Postman, também usada para testar requisições de API.
 
----
-
-# 2️⃣ Fundamentos
+## Fundamentos
 
 - [ ] [[Lógica de Programação]] — transformar um problema em passos que o computador executa, incluindo escrever a solução em pseudocódigo antes de codar.
 - [ ] [[Variáveis e Tipos de Dados]] — variáveis e constantes, os tipos (número, texto, booleano...) e como converter um no outro (`"10"` → `10`).
@@ -43,9 +53,23 @@ nome: Programação
 - [ ] [[Nomes e Comentários]] — dar nomes claros a variáveis/funções e comentar o *porquê*, não o *o quê*.
 - [ ] [[Paradigmas de Programação]] — os "estilos" de programar: imperativo, orientado a objetos, funcional, declarativo.
 
----
+## TypeScript
 
-# 3️⃣ Git
+> Sua linguagem principal. Pratique os Fundamentos acima já nela; aqui entra o que é próprio do JavaScript/TypeScript. A mesma linguagem roda no navegador, no servidor e no terminal.
+
+- [ ] [[JavaScript e TypeScript]] — TypeScript é JavaScript com tipos: no fim vira JS, mas os tipos pegam erros antes de rodar.
+- [ ] [[Node.js]] — o ambiente que roda JavaScript/TypeScript fora do navegador, com o `npm` pra instalar pacotes.
+- [ ] [[Configurando um Projeto TypeScript]] — `npm init`, `tsconfig.json`, rodar com `tsx` e compilar com `tsc`.
+- [ ] [[Tipos Básicos do TypeScript]] — `string`, `number`, `boolean`, arrays, tuplas, e por que preferir `unknown` a `any`.
+- [ ] [[Objetos e Arrays no JavaScript]] — desestruturação, spread (`...`) e os métodos de array do dia a dia.
+- [ ] [[null e undefined]] — a ausência de valor, `?.` e `??`, e o `strictNullChecks` que evita o erro mais comum do JS.
+- [ ] [[Interfaces e Type Aliases]] — descrever o formato de um objeto com `interface` e `type`.
+- [ ] [[Union Types e Narrowing]] — `string | number`, e como o TypeScript descobre o tipo certo depois de um `if`.
+- [ ] [[Módulos ES (import e export)]] — dividir o código em arquivos e importar só o que precisa.
+- [ ] [[Generics]] — funções e tipos que servem pra qualquer tipo sem perder a checagem (`Array<T>`).
+- [ ] [[Utility Types]] — `Partial`, `Pick`, `Omit`, `Record`: tipos novos a partir dos que já existem.
+
+## Git
 
 > Sistema de controle de versão: registra o histórico de mudanças do código e permite trabalho em equipe.
 
@@ -61,7 +85,13 @@ nome: Programação
 
 ---
 
-# 4️⃣ Estruturas de Dados
+# 🧠 Estágio 2 · Pensar como programador
+
+> 🎯 **Objetivo:** Escolher a estrutura e o algoritmo certos e saber quanto eles custam.
+> ✅ **Pronto pra seguir quando** você resolve exercícios fáceis/médios (LeetCode, Beecrowd) e explica o Big-O da sua solução.
+> 🔨 **Projeto do estágio:** implementar do zero, em TypeScript, pilha, fila, hash table e árvore de busca, e resolver 30 exercícios anotando o Big-O de cada solução.
+
+## Estruturas de Dados
 
 > Formas de organizar dados na memória para acessá-los e manipulá-los de forma eficiente.
 
@@ -77,14 +107,12 @@ nome: Programação
 - [ ] [[Árvore Binária]] — cada nó tem no máximo 2 filhos, base para várias estruturas mais avançadas.
 - [ ] [[Árvore Binária de Busca (BST)]] — árvore binária ordenada, onde busca, inserção e remoção são eficientes.
 - [ ] [[Árvores Balanceadas (AVL e Rubro-Negra)]] — árvores de busca que se auto-balanceiam pra manter buscas rápidas sempre.
-- [ ] [[Heap]] — árvore especial usada para sempre acessar rapidamente o maior/menor elemento (filas de prioridade).
+- [ ] [[Heap (Estrutura de Dados)]] — árvore especial usada para sempre acessar rapidamente o maior/menor elemento (filas de prioridade).
 - [ ] [[Trie]] — árvore especializada em armazenar strings, muito usada em autocomplete e correção ortográfica.
 - [ ] [[Union-Find (Disjoint Set)]] — estrutura que gerencia grupos de elementos e verifica conexões, usada em grafos.
 - [ ] [[Grafos]] — conjunto de nós (vértices) conectados por arestas, modela redes, mapas, relações sociais, etc.
 
----
-
-# 5️⃣ Algoritmos
+## Algoritmos
 
 > Sequências de passos bem definidos para resolver um problema específico.
 
@@ -108,9 +136,7 @@ nome: Programação
 - [ ] [[Two Pointers]] — usa dois ponteiros percorrendo a estrutura, muito usado em arrays ordenados e strings.
 - [ ] [[Manipulação de Bits]] — operações de baixo nível (AND, OR, XOR, shifts) usadas para otimização e truques de performance.
 
----
-
-# 6️⃣ Complexidade
+## Complexidade
 
 > Como medir o custo (tempo e memória) de um algoritmo conforme a entrada cresce.
 
@@ -120,7 +146,13 @@ nome: Programação
 
 ---
 
-# 7️⃣ Clean Code
+# 🧹 Estágio 3 · Código profissional
+
+> 🎯 **Objetivo:** Escrever código que outra pessoa consegue ler, testar e mudar sem medo.
+> ✅ **Pronto pra seguir quando** seu projeto tem testes automatizados, erros tratados e você acha bugs com o debugger, não com `console.log`.
+> 🔨 **Projeto do estágio:** profissionalizar o gerenciador de tarefas do Estágio 1: testes (Vitest), erros tratados, classes onde fizer sentido e um README.
+
+## Clean Code
 
 > Práticas para escrever código legível, simples e fácil de manter.
 
@@ -134,9 +166,7 @@ nome: Programação
 - [ ] [[Nomeação]] — escolher nomes que expliquem a intenção sem precisar de comentário extra.
 - [ ] [[Legibilidade]] — o quanto o código é fácil de ler e entender por outra pessoa (ou você no futuro).
 
----
-
-# 8️⃣ Debugging
+## Debugging
 
 > Processo de encontrar e corrigir erros no código.
 
@@ -148,23 +178,18 @@ nome: Programação
 - [ ] [[Profiling]] — análise de onde o programa gasta mais tempo/memória, pra encontrar gargalos de performance.
 - [ ] [[Debugger]] — ferramenta que permite pausar, inspecionar e controlar a execução do programa passo a passo.
 
----
-
-# 9️⃣ Tratamento de Erros
+## Tratamento de Erros
 
 > Como lidar com falhas de forma previsível, sem quebrar o sistema inteiro.
 
 - [ ] [[Exceptions]] — objetos que representam um erro, "lançados" quando algo inesperado acontece na execução.
 - [ ] [[try/catch]] — bloco que tenta executar um código e "captura" o erro caso ele aconteça, evitando o crash.
-- [ ] [[Logging]] — prática de registrar eventos e erros do sistema para análise posterior.
 - [ ] [[Retry]] — tentar novamente uma operação que falhou (útil para falhas temporárias, ex: rede instável).
 - [ ] [[Fallback]] — comportamento alternativo executado quando a operação principal falha.
 - [ ] [[Validação]] — checar se os dados recebidos estão corretos/esperados antes de processá-los.
 - [ ] [[Tratamento Global de Erros]] — um ponto central que captura erros não tratados em qualquer parte da aplicação.
 
----
-
-# 🔟 Orientação a Objetos
+## Orientação a Objetos
 
 > Paradigma que organiza o código em torno de "objetos" que combinam dados e comportamento.
 
@@ -182,9 +207,7 @@ nome: Programação
 - [ ] [[Composição]] — construir objetos combinando outros objetos ("tem um"), em vez de usar herança.
 - [ ] [[Agregação]] — tipo de composição mais "solta", onde as partes podem existir independente do todo.
 
----
-
-# 1️⃣1️⃣ Testes de Software
+## Testes de Software
 
 > Garantir que o código funciona como esperado, agora e depois de mudanças futuras.
 
@@ -197,9 +220,7 @@ nome: Programação
 - [ ] [[Test Coverage]] — métrica de quanto do código está sendo exercitado pelos testes.
 - [ ] [[Testes de Regressão]] — testes que garantem que uma funcionalidade que já funcionava não quebrou depois de uma mudança.
 
----
-
-# 1️⃣2️⃣ Design de Software
+## Design de Software
 
 > Padrões e princípios reutilizáveis para estruturar soluções de forma flexível e manutenível.
 
@@ -224,7 +245,75 @@ nome: Programação
 
 ---
 
-# 1️⃣3️⃣ Banco de Dados
+# 🌐 Estágio 4 · Web: front-end e back-end
+
+> 🎯 **Objetivo:** Construir uma aplicação web completa: tela no navegador, API e banco de dados, com login e sem falhas de segurança básicas.
+> ✅ **Pronto pra seguir quando** você tem uma tela em React conversando com uma API REST com CRUD, banco relacional, login com JWT e validação de entrada.
+> 🔨 **Projeto do estágio:** o MVP da [[Plataforma de Matchmaking para Duos em Jogos]]: cadastro, login, perfil com jogos e rank, e busca com filtros.
+
+## HTTP e APIs
+
+> Como sistemas diferentes se comunicam pela rede.
+
+- [ ] [[HTTP]] — protocolo usado para transferir dados entre cliente e servidor na web.
+- [ ] [[HTTPS]] — versão do HTTP com criptografia (TLS), protegendo os dados em trânsito.
+- [ ] [[REST]] — estilo arquitetural para APIs baseado em recursos e verbos HTTP (GET, POST, PUT, DELETE).
+- [ ] [[GraphQL]] — linguagem de consulta que permite ao cliente pedir exatamente os dados que precisa, em uma única requisição.
+- [ ] [[gRPC]] — protocolo de comunicação de alta performance baseado em Protocol Buffers, comum entre microsserviços.
+- [ ] [[Headers]] — metadados enviados junto com uma requisição/resposta HTTP (ex: tipo de conteúdo, autenticação).
+- [ ] [[Cookies]] — pequenos dados guardados no navegador para lembrar informações entre requisições (ex: login).
+- [ ] [[Sessions]] — forma de manter o estado de um usuário entre requisições no servidor.
+- [ ] [[JWT]] — token assinado usado para autenticar usuários sem precisar guardar sessão no servidor.
+- [ ] [[OAuth]] — protocolo padrão para autorização, permite logar em um app usando conta de outro serviço (ex: "Entrar com Google").
+- [ ] [[CORS]] — mecanismo de segurança do navegador que controla quais domínios podem acessar recursos de uma API.
+- [ ] [[Status Codes]] — códigos numéricos que indicam o resultado de uma requisição HTTP (200 OK, 404 Not Found, etc).
+- [ ] [[Idempotência]] — propriedade de uma operação que dá o mesmo resultado não importa quantas vezes seja repetida.
+- [ ] [[Webhooks]] — forma de um sistema "avisar" outro automaticamente quando um evento acontece, via HTTP.
+- [ ] [[WebSockets]] — conexão persistente entre cliente e servidor, permite comunicação em tempo real nos dois sentidos.
+- [ ] [[Rate Limiting]] — limita quantas requisições um cliente pode fazer em um período, evitando abuso/sobrecarga.
+- [ ] [[Versionamento de API]] — estratégias (ex: `/v1/`, headers) para evoluir uma API sem quebrar quem já a usa.
+
+## Serialização
+
+> Como transformar dados em memória em um formato que pode ser salvo ou transmitido.
+
+- [ ] [[JSON]] — formato leve e legível, o mais comum para troca de dados entre sistemas.
+- [ ] [[XML]] — formato baseado em tags, mais verboso, ainda comum em sistemas corporativos legados.
+- [ ] [[YAML]] — formato legível, muito usado em arquivos de configuração (ex: Docker, CI/CD).
+- [ ] [[CSV]] — formato simples de tabela separada por vírgulas, usado para exportar/importar dados tabulares.
+- [ ] [[BSON]] — versão binária do JSON, usada internamente pelo MongoDB pra ser mais compacta e rápida.
+- [ ] [[Protocol Buffers]] — formato binário compacto e rápido do Google, muito usado com gRPC.
+
+## Front-end
+
+> O que roda no navegador: estrutura, estilo e interatividade. Em TypeScript desde o começo.
+
+- [ ] [[HTML Semântico]] — estruturar a página com as tags certas (`header`, `main`, `button`), o que ajuda acessibilidade e SEO.
+- [ ] [[CSS Básico]] — seletores, cascata e o box model (margin, border, padding).
+- [ ] [[Flexbox e Grid]] — os dois jeitos modernos de montar layout no CSS.
+- [ ] [[Design Responsivo]] — a mesma página funcionando no celular e no desktop (media queries, mobile first).
+- [ ] [[DOM e Eventos]] — como o JavaScript lê e altera a página e reage a cliques e digitação.
+- [ ] [[Fetch API]] — buscar dados de uma API pelo navegador, com `async/await`.
+- [ ] [[Vite]] — cria e roda o projeto front-end, com recarga instantânea a cada mudança.
+- [ ] [[React]] — biblioteca pra montar interfaces a partir de componentes reutilizáveis.
+- [ ] [[Componentes e Props]] — dividir a tela em peças e passar dados de uma pra outra.
+- [ ] [[Estado e Hooks]] — `useState` e `useEffect`: dados que mudam e efeitos colaterais.
+- [ ] [[Formulários no React]] — inputs controlados, validação e envio.
+- [ ] [[Roteamento no Front-end]] — várias "páginas" numa aplicação só (React Router).
+- [ ] [[Acessibilidade (a11y)]] — interface que funciona com teclado, leitor de tela e bom contraste.
+
+## Construindo uma API
+
+> O lado do servidor: receber a requisição, aplicar as regras e responder. Em Node.js com TypeScript.
+
+- [ ] [[Servidor HTTP com Node.js]] — criar uma API com um framework (Express ou Fastify) e entender o ciclo requisição → resposta.
+- [ ] [[Rotas e Controllers]] — ligar cada URL e verbo HTTP à função que trata a requisição.
+- [ ] [[Middlewares]] — funções que rodam antes da rota: autenticação, logs, leitura do corpo.
+- [ ] [[Validação com Zod]] — validar o corpo da requisição e gerar o tipo TypeScript a partir do mesmo esquema.
+- [ ] [[Variáveis de Ambiente]] — configurações e segredos fora do código (`.env`), diferentes em cada ambiente.
+- [ ] [[Paginação e Filtros]] — devolver listas grandes em pedaços (`?page=2&limit=20`) e filtrar por parâmetros.
+
+## Banco de Dados
 
 > Como armazenar, consultar e manter dados de forma organizada e confiável.
 
@@ -259,36 +348,7 @@ nome: Programação
 - [ ] [[Connection Pooling]] — reutilizar conexões abertas com o banco em vez de abrir/fechar uma nova a cada requisição.
 - [ ] [[ORM]] — camada que traduz objetos do código em registros do banco (ex: Prisma, Sequelize, Hibernate).
 
----
-
-# 1️⃣4️⃣ HTTP e APIs
-
-> Como sistemas diferentes se comunicam pela rede.
-
-- [ ] [[HTTP]] — protocolo usado para transferir dados entre cliente e servidor na web.
-- [ ] [[HTTPS]] — versão do HTTP com criptografia (TLS), protegendo os dados em trânsito.
-- [ ] [[REST]] — estilo arquitetural para APIs baseado em recursos e verbos HTTP (GET, POST, PUT, DELETE).
-- [ ] [[GraphQL]] — linguagem de consulta que permite ao cliente pedir exatamente os dados que precisa, em uma única requisição.
-- [ ] [[gRPC]] — protocolo de comunicação de alta performance baseado em Protocol Buffers, comum entre microsserviços.
-- [ ] [[JSON]] — formato leve de troca de dados baseado em texto, o mais usado em APIs modernas.
-- [ ] [[XML]] — formato de dados baseado em tags, mais verboso que JSON, ainda usado em sistemas legados.
-- [ ] [[YAML]] — formato de dados legível por humanos, muito usado em arquivos de configuração.
-- [ ] [[Headers]] — metadados enviados junto com uma requisição/resposta HTTP (ex: tipo de conteúdo, autenticação).
-- [ ] [[Cookies]] — pequenos dados guardados no navegador para lembrar informações entre requisições (ex: login).
-- [ ] [[Sessions]] — forma de manter o estado de um usuário entre requisições no servidor.
-- [ ] [[JWT]] — token assinado usado para autenticar usuários sem precisar guardar sessão no servidor.
-- [ ] [[OAuth]] — protocolo padrão para autorização, permite logar em um app usando conta de outro serviço (ex: "Entrar com Google").
-- [ ] [[CORS]] — mecanismo de segurança do navegador que controla quais domínios podem acessar recursos de uma API.
-- [ ] [[Status Codes]] — códigos numéricos que indicam o resultado de uma requisição HTTP (200 OK, 404 Not Found, etc).
-- [ ] [[Idempotência]] — propriedade de uma operação que dá o mesmo resultado não importa quantas vezes seja repetida.
-- [ ] [[Webhooks]] — forma de um sistema "avisar" outro automaticamente quando um evento acontece, via HTTP.
-- [ ] [[WebSockets]] — conexão persistente entre cliente e servidor, permite comunicação em tempo real nos dois sentidos.
-- [ ] [[Rate Limiting]] — limita quantas requisições um cliente pode fazer em um período, evitando abuso/sobrecarga.
-- [ ] [[Versionamento de API]] — estratégias (ex: `/v1/`, headers) para evoluir uma API sem quebrar quem já a usa.
-
----
-
-# 1️⃣5️⃣ Segurança
+## Segurança
 
 > Práticas para proteger dados, usuários e sistemas contra ataques.
 
@@ -308,20 +368,66 @@ nome: Programação
 
 ---
 
-# 1️⃣6️⃣ Serialização
+# 🚀 Estágio 5 · Colocar em produção
 
-> Como transformar dados em memória em um formato que pode ser salvo ou transmitido.
+> 🎯 **Objetivo:** Levar o projeto do seu PC para um servidor, de forma automática e monitorada.
+> ✅ **Pronto pra seguir quando** um push no GitHub roda os testes e faz o deploy sozinho, e você consegue ver os logs quando algo quebra.
+> 🔨 **Projeto do estágio:** colocar o Matchmaking no ar com Docker e deploy automático, e publicar o [[Site de Roadmap para o Vault de Estudos]], gerado sozinho a cada push.
 
-- [ ] [[JSON]] — formato leve e legível, o mais comum para troca de dados entre sistemas.
-- [ ] [[XML]] — formato baseado em tags, mais verboso, ainda comum em sistemas corporativos legados.
-- [ ] [[YAML]] — formato legível, muito usado em arquivos de configuração (ex: Docker, CI/CD).
-- [ ] [[CSV]] — formato simples de tabela separada por vírgulas, usado para exportar/importar dados tabulares.
-- [ ] [[BSON]] — versão binária do JSON, usada internamente pelo MongoDB pra ser mais compacta e rápida.
-- [ ] [[Protocol Buffers]] — formato binário compacto e rápido do Google, muito usado com gRPC.
+## DevOps
+
+> Práticas que unem desenvolvimento e operações para entregar software mais rápido e com mais qualidade.
+
+- [ ] [[Docker]] — ferramenta que empacota uma aplicação e suas dependências em containers isolados e portáveis.
+- [ ] [[Containers]] — ambientes isolados e leves que rodam uma aplicação de forma consistente em qualquer máquina.
+- [ ] [[Images]] — "moldes" imutáveis usados para criar containers.
+- [ ] [[Dockerfile]] — arquivo de instruções que define como construir uma imagem Docker.
+- [ ] [[Docker Compose]] — ferramenta para definir e rodar múltiplos containers juntos com um único arquivo de configuração.
+- [ ] [[Volumes]] — mecanismo do Docker para persistir dados fora do ciclo de vida do container.
+- [ ] [[Networks]] — configuração de rede entre containers, permitindo que eles se comuniquem.
+- [ ] [[CI/CD]] — automação que integra (CI), testa e entrega (CD) código continuamente, reduzindo erros manuais.
+- [ ] [[GitHub Actions]] — ferramenta de automação de workflows (CI/CD) integrada ao GitHub.
+- [ ] [[Deploy]] — processo de colocar uma nova versão do software em produção.
+- [ ] [[Pipelines]] — sequência automatizada de etapas (build, teste, deploy) que o código passa até chegar em produção.
+- [ ] [[Rollback]] — reverter para uma versão anterior do sistema quando um deploy dá problema.
+- [ ] [[Kubernetes]] — orquestrador de containers, gerencia escala, disponibilidade e deploy de aplicações em containers automaticamente.
+- [ ] [[Infraestrutura como Código (IaC)]] — definir servidores/infraestrutura em arquivos de código (ex: Terraform), em vez de configurar manualmente.
+- [ ] [[Cloud Computing]] — usar servidores e serviços de terceiros (AWS, Azure, GCP) sob demanda, em vez de infraestrutura própria.
+
+## Observabilidade
+
+> Capacidade de entender o que está acontecendo dentro de um sistema em produção.
+
+- [ ] [[Logs Centralizados]] — juntar os logs de todos os servidores num lugar só, pra buscar e filtrar (ex: Grafana Loki, Datadog).
+- [ ] [[Métricas]] — valores numéricos coletados ao longo do tempo (ex: uso de CPU, tempo de resposta).
+- [ ] [[Tracing]] — rastreia uma requisição através de vários serviços, mostrando onde o tempo foi gasto.
+- [ ] [[Monitoramento]] — observação contínua da saúde e desempenho do sistema.
+- [ ] [[Alertas]] — notificações automáticas disparadas quando algo sai do esperado (ex: erro acima do normal).
+
+## Engenharia de Software
+
+> Processos e práticas para planejar, construir e entregar software de forma organizada.
+
+- [ ] [[Requisitos]] — o que o sistema precisa fazer, levantado junto com quem vai usá-lo.
+- [ ] [[Casos de Uso]] — descrição de como um usuário interage com o sistema pra atingir um objetivo.
+- [ ] [[User Stories]] — descrição curta de uma funcionalidade do ponto de vista do usuário ("Como X, quero Y, para Z").
+- [ ] [[Scrum]] — framework ágil que organiza o trabalho em ciclos curtos (sprints) com papéis e cerimônias bem definidos.
+- [ ] [[Kanban]] — método visual de gestão de fluxo de trabalho usando um quadro com colunas (a fazer, fazendo, feito).
+- [ ] [[Sprint]] — período de tempo fixo (geralmente 1-4 semanas) onde um time entrega um incremento do produto.
+- [ ] [[Backlog]] — lista priorizada de tudo que precisa ser feito no projeto.
+- [ ] [[Estimativas]] — previsão do esforço/tempo necessário para entregar uma tarefa.
+- [ ] [[Documentação]] — registros escritos que explicam como o sistema funciona, pra outros devs (e você mesmo) entenderem depois.
+- [ ] [[Metodologias Ágeis]] — abordagens (Scrum, Kanban, XP) que priorizam entregas incrementais e adaptação a mudanças.
 
 ---
 
-# 1️⃣7️⃣ Programação Funcional
+# 🏛️ Estágio 6 · Sistemas maiores
+
+> 🎯 **Objetivo:** Projetar sistemas que crescem: paralelismo, arquitetura e os trade-offs de cada escolha.
+> ✅ **Pronto pra seguir quando** você justifica uma decisão de arquitetura (monólito × microsserviços, cache, fila) com prós e contras.
+> 🔨 **Projeto do estágio:** a [[Desenvolvimento de Aplicativo para Gerenciamento de Conteúdo em Televisões|plataforma de conteúdo para TVs]]: várias telas atualizadas em tempo real, uploads grandes e processamento em fila.
+
+## Programação Funcional
 
 > Paradigma que trata a computação como avaliação de funções, evitando estado mutável.
 
@@ -335,9 +441,7 @@ nome: Programação
 - [ ] [[Memoization]] — guarda o resultado de chamadas de função pra não recalcular o mesmo valor de novo.
 - [ ] [[Funções Puras]] — funções que sempre retornam o mesmo resultado para a mesma entrada e não têm efeitos colaterais.
 
----
-
-# 1️⃣8️⃣ Concorrência
+## Concorrência
 
 > Como executar múltiplas tarefas "ao mesmo tempo", de forma correta e eficiente.
 
@@ -354,9 +458,7 @@ nome: Programação
 - [ ] [[Event Loop]] — mecanismo (ex: no JavaScript) que gerencia a execução de código assíncrono numa única thread.
 - [ ] [[Promises/Futures]] — representam um valor que ainda não existe, mas vai existir quando uma operação assíncrona terminar.
 
----
-
-# 1️⃣9️⃣ Arquitetura de Software
+## Arquitetura de Software
 
 > Como organizar as peças de um sistema em larga escala.
 
@@ -371,27 +473,44 @@ nome: Programação
 - [ ] [[CQRS]] — separa as operações de leitura das operações de escrita em modelos diferentes, otimizando cada uma.
 - [ ] [[API Gateway]] — ponto único de entrada que roteia, autentica e agrega requisições para os microsserviços.
 
+## Conceitos Gerais
+
+> Termos que aparecem em praticamente qualquer discussão técnica de sistemas.
+
+- [ ] [[Acoplamento]] — o quanto um componente depende de outro; quanto menor, mais fácil de manter e testar.
+- [ ] [[Coesão]] — o quanto os elementos de um módulo estão relacionados entre si; alta coesão é desejável.
+- [ ] [[Escalabilidade]] — capacidade de um sistema lidar com o aumento de carga/usuários.
+- [ ] [[Disponibilidade]] — o quanto do tempo um sistema está funcionando e acessível (ex: "99.9% de uptime").
+- [ ] [[Consistência]] — garantia de que todos os nós/réplicas de um sistema mostram os mesmos dados.
+- [ ] [[Estado]] — a condição/dados atuais que um sistema ou componente mantém em um dado momento.
+- [ ] [[Dependência]] — quando um componente precisa de outro para funcionar.
+- [ ] [[Cache]] — armazenar temporariamente um resultado pra evitar recalcular/rebuscar o mesmo dado repetidamente.
+- [ ] [[Lazy Loading]] — carregar dados/recursos só quando realmente são necessários, economizando recursos.
+- [ ] [[Eager Loading]] — carregar todos os dados relacionados de uma vez, evitando múltiplas idas ao banco.
+
 ---
 
-# 2️⃣0️⃣ Sistemas Operacionais
+# ⚙️ Estágio 7 · Por baixo dos panos
+
+> 🎯 **Objetivo:** Entender o que acontece entre o seu código e o hardware.
+> ✅ **Pronto pra seguir quando** você explica o que acontece desde digitar uma URL até a página aparecer, passando por SO, rede e CPU.
+> 🔨 **Projeto do estágio:** a [[Plataforma de Análise de Vulnerabilidades de Segurança para Websites]]: checar DNS, TLS, portas e cabeçalhos de um site autorizado.
+
+## Sistemas Operacionais
 
 > O software que gerencia o hardware e serve de base para todos os programas.
 
-- [ ] [[Kernel]] — núcleo do sistema operacional, gerencia o hardware e os recursos do computador.
-- [ ] [[Processos]] — programas em execução, cada um com sua própria memória isolada.
-- [ ] [[Threads]] — linhas de execução dentro de um processo, mais leves que processos.
+- [ ] [[Kernel]] — núcleo do sistema operacional, gerencia o hardware e os recursos do computador. (Processos e threads você já viu em Concorrência.)
 - [ ] [[Escalonamento]] — como o SO decide qual processo/thread executa em qual momento na CPU.
-- [ ] [[Stack]] — memória usada para chamadas de função e variáveis locais, organizada como uma pilha.
-- [ ] [[Heap]] — memória usada para alocação dinâmica, gerenciada manualmente ou por garbage collector.
+- [ ] [[Stack (Memória)]] — memória usada para chamadas de função e variáveis locais, organizada como uma pilha.
+- [ ] [[Heap (Memória)]] — memória usada para alocação dinâmica, gerenciada manualmente ou por garbage collector.
 - [ ] [[Garbage Collector]] — mecanismo automático que libera memória de objetos que não são mais usados.
 - [ ] [[Sistema de Arquivos]] — como o SO organiza e armazena arquivos e pastas no disco.
 - [ ] [[Permissões]] — regras que controlam quem pode ler, escrever ou executar um arquivo/recurso.
 - [ ] [[IPC (Comunicação entre Processos)]] — mecanismos para processos diferentes trocarem dados entre si (pipes, sockets, memória compartilhada).
 - [ ] [[Virtualização]] — criar "computadores virtuais" dentro de um físico, isolando ambientes de execução.
 
----
-
-# 2️⃣1️⃣ Redes
+## Redes
 
 > Como computadores se conectam e trocam dados entre si.
 
@@ -412,9 +531,7 @@ nome: Programação
 - [ ] [[CDN]] — rede de servidores espalhados geograficamente que entrega conteúdo mais rápido, perto do usuário.
 - [ ] [[Proxy Reverso]] — servidor que fica na frente de outros servidores, recebendo requisições e redirecionando internamente.
 
----
-
-# 2️⃣2️⃣ Fundamentos da Computação
+## Fundamentos da Computação
 
 > Como o computador realmente representa e processa informação por baixo dos panos.
 
@@ -429,9 +546,7 @@ nome: Programação
 - [ ] [[Ponto Flutuante]] — forma de representar números decimais no computador, com limitações de precisão.
 - [ ] [[Complemento de Dois]] — técnica usada para representar números negativos em binário.
 
----
-
-# 2️⃣3️⃣ Arquitetura de Computadores
+## Arquitetura de Computadores
 
 > Como os componentes físicos do computador funcionam e se comunicam.
 
@@ -440,13 +555,11 @@ nome: Programação
 - [ ] [[Clock]] — o "relógio" que sincroniza os ciclos de execução da CPU (medido em Hz/GHz).
 - [ ] [[Pipeline]] — técnica que executa partes de várias instruções simultaneamente pra aumentar a performance da CPU.
 - [ ] [[RAM]] — memória volátil de acesso rápido, onde ficam os dados que o programa usa em execução.
-- [ ] [[Cache]] — memória pequena e muito rápida, guarda dados usados com frequência pra evitar acessar a RAM toda hora.
+- [ ] [[Cache da CPU]] — memória pequena e muito rápida, guarda dados usados com frequência pra evitar acessar a RAM toda hora.
 - [ ] [[SSD]] — armazenamento persistente baseado em memória flash, muito mais rápido que HDs tradicionais.
 - [ ] [[Barramentos]] — "estradas" que conectam e transportam dados entre os componentes do computador.
 
----
-
-# 2️⃣4️⃣ Compiladores
+## Compiladores
 
 > Como o código que você escreve vira algo que o computador executa.
 
@@ -461,77 +574,14 @@ nome: Programação
 
 ---
 
-# 2️⃣5️⃣ DevOps
+# 🤖 Estágio 8 · IA no desenvolvimento ⭐
 
-> Práticas que unem desenvolvimento e operações para entregar software mais rápido e com mais qualidade.
+> 🎯 **Objetivo:** Usar IA como ferramenta de trabalho e construir aplicações com modelos de linguagem.
+> ✅ **Pronto pra seguir quando** você usa IA para acelerar sem aceitar código que não entende, e tem um projeto que chama uma LLM.
+> 🔨 **Projeto do estágio:** o [[Desenvolvimento de Aplicativo para Leitura e Aprendizado Interativo|app de leitura com IA]]: RAG sobre PDFs, resumos e perguntas geradas por capítulo.
+> 💡 Dá pra começar em paralelo a partir do Estágio 2: use IA para tirar dúvidas, nunca para pular o desafio.
 
-- [ ] [[estudos/Programação/25 - DevOps/Docker/README]] — ferramenta que empacota uma aplicação e suas dependências em containers isolados e portáveis.
-- [ ] [[Containers]] — ambientes isolados e leves que rodam uma aplicação de forma consistente em qualquer máquina.
-- [ ] [[Images]] — "moldes" imutáveis usados para criar containers.
-- [ ] [[Dockerfile]] — arquivo de instruções que define como construir uma imagem Docker.
-- [ ] [[Docker Compose]] — ferramenta para definir e rodar múltiplos containers juntos com um único arquivo de configuração.
-- [ ] [[Volumes]] — mecanismo do Docker para persistir dados fora do ciclo de vida do container.
-- [ ] [[Networks]] — configuração de rede entre containers, permitindo que eles se comuniquem.
-- [ ] [[CI/CD]] — automação que integra (CI), testa e entrega (CD) código continuamente, reduzindo erros manuais.
-- [ ] [[GitHub Actions]] — ferramenta de automação de workflows (CI/CD) integrada ao GitHub.
-- [ ] [[Deploy]] — processo de colocar uma nova versão do software em produção.
-- [ ] [[Pipelines]] — sequência automatizada de etapas (build, teste, deploy) que o código passa até chegar em produção.
-- [ ] [[Rollback]] — reverter para uma versão anterior do sistema quando um deploy dá problema.
-- [ ] [[Kubernetes]] — orquestrador de containers, gerencia escala, disponibilidade e deploy de aplicações em containers automaticamente.
-- [ ] [[Infraestrutura como Código (IaC)]] — definir servidores/infraestrutura em arquivos de código (ex: Terraform), em vez de configurar manualmente.
-- [ ] [[Cloud Computing]] — usar servidores e serviços de terceiros (AWS, Azure, GCP) sob demanda, em vez de infraestrutura própria.
-
----
-
-# 2️⃣6️⃣ Observabilidade
-
-> Capacidade de entender o que está acontecendo dentro de um sistema em produção.
-
-- [ ] [[Logs]] — registros textuais de eventos que aconteceram no sistema.
-- [ ] [[Métricas]] — valores numéricos coletados ao longo do tempo (ex: uso de CPU, tempo de resposta).
-- [ ] [[Tracing]] — rastreia uma requisição através de vários serviços, mostrando onde o tempo foi gasto.
-- [ ] [[Monitoramento]] — observação contínua da saúde e desempenho do sistema.
-- [ ] [[Alertas]] — notificações automáticas disparadas quando algo sai do esperado (ex: erro acima do normal).
-
----
-
-# 2️⃣7️⃣ Engenharia de Software
-
-> Processos e práticas para planejar, construir e entregar software de forma organizada.
-
-- [ ] [[Requisitos]] — o que o sistema precisa fazer, levantado junto com quem vai usá-lo.
-- [ ] [[Casos de Uso]] — descrição de como um usuário interage com o sistema pra atingir um objetivo.
-- [ ] [[User Stories]] — descrição curta de uma funcionalidade do ponto de vista do usuário ("Como X, quero Y, para Z").
-- [ ] [[Scrum]] — framework ágil que organiza o trabalho em ciclos curtos (sprints) com papéis e cerimônias bem definidos.
-- [ ] [[Kanban]] — método visual de gestão de fluxo de trabalho usando um quadro com colunas (a fazer, fazendo, feito).
-- [ ] [[Sprint]] — período de tempo fixo (geralmente 1-4 semanas) onde um time entrega um incremento do produto.
-- [ ] [[Backlog]] — lista priorizada de tudo que precisa ser feito no projeto.
-- [ ] [[Estimativas]] — previsão do esforço/tempo necessário para entregar uma tarefa.
-- [ ] [[Documentação]] — registros escritos que explicam como o sistema funciona, pra outros devs (e você mesmo) entenderem depois.
-- [ ] [[Metodologias Ágeis]] — abordagens (Scrum, Kanban, XP) que priorizam entregas incrementais e adaptação a mudanças.
-
----
-
-# 2️⃣8️⃣ Conceitos Gerais
-
-> Termos que aparecem em praticamente qualquer discussão técnica de sistemas.
-
-- [ ] [[Acoplamento]] — o quanto um componente depende de outro; quanto menor, mais fácil de manter e testar.
-- [ ] [[Coesão]] — o quanto os elementos de um módulo estão relacionados entre si; alta coesão é desejável.
-- [ ] [[Escalabilidade]] — capacidade de um sistema lidar com o aumento de carga/usuários.
-- [ ] [[Disponibilidade]] — o quanto do tempo um sistema está funcionando e acessível (ex: "99.9% de uptime").
-- [ ] [[Consistência]] — garantia de que todos os nós/réplicas de um sistema mostram os mesmos dados.
-- [ ] [[Estado]] — a condição/dados atuais que um sistema ou componente mantém em um dado momento.
-- [ ] [[Dependência]] — quando um componente precisa de outro para funcionar.
-- [ ] [[Serialização]] — converter uma estrutura de dados/objeto em um formato que pode ser armazenado ou transmitido.
-- [ ] [[Desserialização]] — o processo inverso: transformar dados serializados de volta em objetos usáveis.
-- [ ] [[Cache]] — armazenar temporariamente um resultado pra evitar recalcular/rebuscar o mesmo dado repetidamente.
-- [ ] [[Lazy Loading]] — carregar dados/recursos só quando realmente são necessários, economizando recursos.
-- [ ] [[Eager Loading]] — carregar todos os dados relacionados de uma vez, evitando múltiplas idas ao banco.
-
----
-
-# 2️⃣9️⃣ IA no Desenvolvimento ⭐🧭
+## IA no Desenvolvimento ⭐
 
 > Como programar com IA de verdade, sem perder o controle do que vai pro repositório. Os tópicos estão em ordem de estudo: base, uso no dia a dia, agentes e fluxo avançado.
 
@@ -560,9 +610,7 @@ nome: Programação
 - [ ] [[Agentes em Paralelo]] — rodar vários agentes ao mesmo tempo, cada um em sua branch, e juntar os resultados depois.
 - [ ] [[IA no Fluxo do Time]] — usar IA em PRs, code review e documentação respeitando as regras da empresa (privacidade, licenças, padrões do time).
 
----
-
-# 3️⃣0️⃣ Construindo com IA ⭐🧭
+## Construindo com IA ⭐
 
 > LLMs, RAG e agentes: como criar produtos que usam IA. Os tópicos estão em ordem de estudo, da primeira chamada à API até agentes em produção. Pré-requisitos: HTTP e APIs e JSON.
 
@@ -596,9 +644,13 @@ nome: Programação
 
 ---
 
-# ♾️ Transversais (estudar em paralelo, do dia 1 ao fim)
+# ♾️ Em paralelo (do dia 1 ao fim)
 
-## 🔸 Matemática
+> 🎯 **Objetivo:** A base que sustenta tudo: matemática para algoritmos, soft skills para trabalhar em time.
+> ✅ **Pronto pra seguir quando** não tem fim: um tópico por semana, intercalado com os estágios.
+> 💡 Inglês ganhou uma trilha própria: [[Inglês]].
+
+## Matemática
 
 > A base teórica que sustenta algoritmos, estruturas de dados e ciência da computação.
 
@@ -610,16 +662,7 @@ nome: Programação
 - [ ] [[Álgebra Linear]] — vetores e matrizes, base fundamental para computação gráfica e machine learning.
 - [ ] [[Matemática Discreta]] — o "guarda-chuva" que cobre lógica, grafos e combinatória, base teórica da ciência da computação.
 
-## 🔸 Inglês Técnico
-
-> A maior parte da documentação, discussões e vagas de programação são em inglês.
-
-- [ ] [[Glossário de Programação]] — vocabulário essencial de termos técnicos usados no dia a dia.
-- [ ] [[Siglas Técnicas]] — abreviações comuns na área (API, SDK, CLI, IDE, etc.) e o que significam.
-- [ ] [[Vocabulário Técnico]] — palavras frequentes em código e documentação (fetch, parse, render, deploy...).
-- [ ] [[Ler Documentação]] — habilidade de entender documentação oficial em inglês, essencial pra resolver problemas por conta própria.
-
-## 🔸 Soft Skills
+## Soft Skills
 
 > Habilidades comportamentais que fazem tanta diferença quanto o conhecimento técnico.
 

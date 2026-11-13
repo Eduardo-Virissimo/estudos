@@ -10,24 +10,41 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Shell padrão do Linux e linguagem pra **automatizar o terminal**. Se você digitou a mesma sequência de comandos duas vezes, ela vira script: shebang, variáveis, `if`, `for` e pipes.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é Bash?
+## 🎯 Objetivos
 
-O **Bash** (*Bourne-Again SHell*) é um shell e linguagem de script usado em sistemas Linux e disponível em macOS e Windows (via WSL ou Git Bash). Ele interpreta os comandos digitados no [[estudos/Programação/01 - Ferramentas/Terminal/README|Terminal]] e permite escrever **scripts** que automatizam tarefas: backups, deploys, processamento de arquivos, etc.
+Ao terminar esta nota, você consegue:
 
-### Uma História Breve 📜
-
-O Bash foi criado por **Brian Fox** em **1989** para o projeto GNU, como substituto livre do shell Bourne (`sh`) — daí o trocadilho "Bourne-Again". Tornou-se o shell padrão da maioria das distribuições Linux. No macOS, o shell padrão passou a ser o **Zsh** a partir do Catalina (2019), mas o Bash continua disponível e muito usado em scripts.
+- Escrever e executar um script com shebang e permissão de execução
+- Usar variáveis, `if` e `for` para automatizar uma tarefa repetida
+- Deixar scripts seguros com aspas e `set -euo pipefail`
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧭 Onde isso se encaixa
+
+- **Antes:** [[Terminal]]
+- **Depois:** [[Regex]] · [[SSH]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é Bash?
+
+O **Bash** (*Bourne-Again SHell*) é um shell e linguagem de script usado em sistemas Linux e disponível em macOS e Windows (via WSL ou Git Bash). Ele interpreta os comandos digitados no [[Terminal]] e permite escrever **scripts** que automatizam tarefas: backups, deploys, processamento de arquivos, etc.
+
+> [!note]- 📜 Um pouco de história
+> O Bash foi criado por **Brian Fox** em **1989** para o projeto GNU, como substituto livre do shell Bourne (`sh`) — daí o trocadilho "Bourne-Again". Tornou-se o shell padrão da maioria das distribuições Linux. No macOS, o shell padrão passou a ser o **Zsh** a partir do Catalina (2019), mas o Bash continua disponível e muito usado em scripts.
+
+---
+
+## 🧱 Conceitos-chave
 
 ### Conceito 1: Scripts e shebang
 
@@ -78,7 +95,7 @@ comando >> saida.log 2>&1               # anexa saída e erros
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -106,7 +123,7 @@ echo "Backup criado em $destino"
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 Arquivo `~/.bashrc` (executado ao abrir um shell interativo), onde ficam aliases e variáveis:
 
@@ -124,7 +141,7 @@ source ~/.bashrc
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Use `set -euo pipefail` em scripts
 
@@ -140,23 +157,7 @@ O [ShellCheck](https://www.shellcheck.net/) analisa seus scripts e aponta erros 
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `#!/usr/bin/env bash` | Define o interpretador do script |
-| `$variavel` | Usa o valor de uma variável |
-| `$(comando)` | Usa a saída de um comando |
-| `if [ ... ]; then` | Condicional |
-| `for x in lista; do` | Laço de repetição |
-| `\|` | Pipe: saída → entrada |
-| `>` / `>>` | Redireciona (sobrescreve / anexa) |
-| `chmod +x` | Torna arquivo executável |
-| `$1`, `$2` | Argumentos passados ao script |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: "Permission denied" ao executar o script
 
@@ -205,18 +206,39 @@ O [ShellCheck](https://www.shellcheck.net/) analisa seus scripts e aponta erros 
 > [!question]- Por que escrever `"$arquivo"` com aspas?
 > Sem aspas, um nome com espaço (`meu arquivo.txt`) vira dois argumentos e o comando quebra.
 
+> [!question]- `#!/usr/bin/env bash`
+> shebang: diz qual interpretador roda o script
+
+> [!question]- `$(comando)`
+> substituição de comando: usa a saída do comando como valor
+
+> [!question]- `$1` / `$@`
+> primeiro argumento / todos os argumentos do script
+
+> [!question]- `chmod +x script.sh`
+> dá permissão de execução
+
+> [!question]- `source ~/.bashrc`
+> recarrega as configurações no shell atual
+
+> [!question]- Erro com `^M` ou `\r`
+> arquivo com quebra de linha CRLF (Windows); converter pra LF
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
-
-`#!/usr/bin/env bash`::shebang: diz qual interpretador roda o script
-`$(comando)`::substituição de comando: usa a saída do comando como valor
-`$1` / `$@`::primeiro argumento / todos os argumentos do script
-`chmod +x script.sh`::dá permissão de execução
-`source ~/.bashrc`::recarrega as configurações no shell atual
-Erro com `^M` ou `\r`::arquivo com quebra de linha CRLF (Windows); converter pra LF
+| Comando/Sintaxe | Função |
+|-----------------|--------|
+| `#!/usr/bin/env bash` | Define o interpretador do script |
+| `$variavel` | Usa o valor de uma variável |
+| `$(comando)` | Usa a saída de um comando |
+| `if [ ... ]; then` | Condicional |
+| `for x in lista; do` | Laço de repetição |
+| `\|` | Pipe: saída → entrada |
+| `>` / `>>` | Redireciona (sobrescreve / anexa) |
+| `chmod +x` | Torna arquivo executável |
+| `$1`, `$2` | Argumentos passados ao script |
 
 ---
 
@@ -235,7 +257,7 @@ Erro com `^M` ou `\r`::arquivo com quebra de linha CRLF (Windows); converter pra
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [ ] Escrever 3 pequenos scripts para tarefas do seu dia a dia
 - [ ] Aprender funções e argumentos (`$1`, `$@`)
@@ -244,7 +266,7 @@ Erro com `^M` ou `\r`::arquivo com quebra de linha CRLF (Windows); converter pra
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 📖 Livros:
 - *The Linux Command Line* (William Shotts) - Inclui uma parte dedicada a shell scripting

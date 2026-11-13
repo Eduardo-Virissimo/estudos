@@ -10,26 +10,43 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Uma mini-linguagem pra descrever **padrões de texto** (CEP, e-mail, data). Serve pra buscar, validar e substituir em massa. 80% do uso: classes (`\d`, `[a-z]`), quantificadores (`+`, `{n}`), âncoras (`^ $`) e grupos `( )`.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é Regex?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Ler e escrever padrões com classes de caracteres e quantificadores
+- Capturar partes do texto com grupos e alternância
+- Evitar o erro clássico do quantificador guloso (*greedy*)
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** [[Terminal]]
+- **Depois:** [[Bash]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é Regex?
 
 **Regex** (*regular expression*, ou expressão regular) é uma sequência de caracteres que descreve um **padrão de texto**. Em vez de procurar uma palavra exata, você procura "qualquer coisa que se pareça com isto": um e-mail, um CPF, um número de telefone, uma data.
 
 É usada em buscas, validação de formulários, substituições em massa, análise de logs e extração de dados.
 
-### Uma História Breve 📜
-
-A base teórica vem do matemático **Stephen Kleene**, que nos anos 1950 formalizou as "linguagens regulares". Nos anos 1960-70, **Ken Thompson** levou a ideia para ferramentas Unix como editores de texto e o `grep` (nome vem de `g/re/p`: *global / regular expression / print*). Hoje quase toda linguagem de programação tem suporte a regex, com pequenas variações de sintaxe entre elas.
+> [!note]- 📜 Um pouco de história
+> A base teórica vem do matemático **Stephen Kleene**, que nos anos 1950 formalizou as "linguagens regulares". Nos anos 1960-70, **Ken Thompson** levou a ideia para ferramentas Unix como editores de texto e o `grep` (nome vem de `g/re/p`: *global / regular expression / print*). Hoje quase toda linguagem de programação tem suporte a regex, com pequenas variações de sintaxe entre elas.
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Conceito 1: Literais e metacaracteres
 
@@ -73,7 +90,7 @@ a|b       a OU b
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -109,7 +126,7 @@ Uma validação simples de e-mail (didática, não cobre todos os casos possíve
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 **Flags** comuns (variam por linguagem):
 
@@ -123,7 +140,7 @@ No VS Code, ative a busca com regex em `Ctrl + F` e clique no ícone `.*` (ou `A
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Teste em tempo real
 
@@ -145,23 +162,7 @@ Texto: <b>um</b> e <b>dois</b>
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `.` | Qualquer caractere |
-| `\d` / `\w` / `\s` | Dígito / palavra / espaço |
-| `[a-z]` | Classe de caracteres |
-| `^` / `$` | Início / fim |
-| `*` `+` `?` | Quantificadores |
-| `{n,m}` | Quantidade exata ou faixa |
-| `( )` | Grupo de captura |
-| `\|` | Alternância (ou) |
-| `\b` | Limite de palavra |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: O padrão casa mais do que deveria
 
@@ -212,19 +213,42 @@ Crie uma expressão regular para cada item e teste no regex101.com:
 > [!question]- Escreva um padrão para hora `HH:MM` de 00:00 a 23:59.
 > `^([01]\d|2[0-3]):[0-5]\d$`
 
+> [!question]- `\d`
+> qualquer dígito (0-9)
+
+> [!question]- `\w`
+> letra, número ou `_`
+
+> [!question]- `\s`
+> espaço em branco (espaço, tab, quebra de linha)
+
+> [!question]- `+` vs `*`
+> `+` = um ou mais · `*` = zero ou mais
+
+> [!question]- `[^0-9]`
+> qualquer caractere que **não** seja dígito
+
+> [!question]- `\b`
+> limite de palavra
+
+> [!question]- Flag `i`
+> ignora maiúsculas/minúsculas
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
-
-`\d`::qualquer dígito (0-9)
-`\w`::letra, número ou `_`
-`\s`::espaço em branco (espaço, tab, quebra de linha)
-`+` vs `*`::`+` = um ou mais · `*` = zero ou mais
-`[^0-9]`::qualquer caractere que **não** seja dígito
-`\b`::limite de palavra
-Flag `i`::ignora maiúsculas/minúsculas
+| Comando/Sintaxe | Função |
+|-----------------|--------|
+| `.` | Qualquer caractere |
+| `\d` / `\w` / `\s` | Dígito / palavra / espaço |
+| `[a-z]` | Classe de caracteres |
+| `^` / `$` | Início / fim |
+| `*` `+` `?` | Quantificadores |
+| `{n,m}` | Quantidade exata ou faixa |
+| `( )` | Grupo de captura |
+| `\|` | Alternância (ou) |
+| `\b` | Limite de palavra |
 
 ---
 
@@ -243,7 +267,7 @@ Flag `i`::ignora maiúsculas/minúsculas
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [ ] Resolver os exercícios acima no regex101
 - [ ] Praticar com [RegexOne](https://regexone.com) (tutorial interativo)
@@ -252,7 +276,7 @@ Flag `i`::ignora maiúsculas/minúsculas
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 📖 Livros:
 - *Mastering Regular Expressions* (Jeffrey Friedl) - Referência aprofundada sobre o tema

@@ -39,12 +39,20 @@ export class AbaConfig extends PluginSettingTab {
         if (nums.length >= 2) { s.intervalos = nums; await salvar(); }
       }));
     this.numero(el, "Semanas no calendário de atividade", s.semanasNoCalendario, 4, 52, async (n) => { s.semanasNoCalendario = n; await salvar(); });
+    new Setting(el).setName("Faixas de cor do calendário (minutos)").setDesc("Separadas por vírgula. Ex.: 25, 50 → menos de 25, menos de 50, 50 ou mais.")
+      .addText((t) => t.setValue(s.faixasCalendario.join(", ")).onChange(async (v) => {
+        const nums = v.split(",").map((x) => Number(x.trim())).filter((n) => Number.isFinite(n) && n > 0).sort((a, b) => a - b);
+        if (nums.length) { s.faixasCalendario = nums; await salvar(); }
+      }));
+
+    new Setting(el).setName("Sessão de estudo").setHeading();
+    this.numero(el, "Meta semanal (minutos, 0 = sem meta)", s.metaSemanalMin, 0, 10000, async (n) => { s.metaSemanalMin = n; await salvar(); });
+    this.numero(el, "Limite de uma sessão (minutos)", s.sessaoMaxMin, 1, 1440, async (n) => { s.sessaoMaxMin = n; await salvar(); });
 
     new Setting(el).setName("Experiência (XP)").setHeading();
     const rotulos: Record<keyof XPConfig, string> = {
       escrito: "Nota no nível escrito", praticado: "Nota no nível praticado", projeto: "Nota usada em projeto",
-      topico: "Tópico marcado numa trilha", diario: "Dia registrado no diário", caixa: "Cada caixa de revisão alcançada",
-      tarefa: "Tarefa de missão concluída",
+      topico: "Tópico marcado numa trilha", diario: "Dia de estudo (com minutos > 0)", dezMinutos: "A cada 10 minutos estudados", caixa: "Cada caixa de revisão alcançada",
     };
     for (const k of Object.keys(rotulos) as (keyof XPConfig)[]) {
       this.numero(el, rotulos[k], s.xp[k], 0, 1000, async (n) => { s.xp[k] = n; await salvar(); });

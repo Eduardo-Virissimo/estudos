@@ -10,26 +10,43 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Ferramenta pra testar e explorar APIs: você monta a requisição (método, URL, headers, body), envia e vê a resposta. Organize em **coleções**, use **ambientes** pras variáveis e escreva testes simples.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é Postman?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Montar uma requisição HTTP completa (método, headers, body)
+- Organizar requisições em coleções com ambientes e variáveis
+- Escrever testes automáticos simples nas respostas
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** [[HTTP]]
+- **Depois:** [[Insomnia]] · [[Status Codes]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é Postman?
 
 O **Postman** é uma plataforma para **testar, explorar e documentar APIs** sem precisar escrever código. Você monta requisições HTTP (GET, POST, PUT, DELETE...), envia para um servidor e vê a resposta (status, cabeçalhos, corpo) numa interface gráfica.
 
 Além do teste manual, permite organizar requisições em **coleções**, usar **variáveis**, escrever **testes automatizados** e compartilhar com o time.
 
-### Uma História Breve 📜
-
-O Postman começou em **2012** como uma extensão do Chrome criada por **Abhinav Asthana** para facilitar o teste de APIs. Cresceu até virar um aplicativo desktop próprio e hoje é uma plataforma completa para o ciclo de vida de APIs (design, testes, documentação, monitoramento).
+> [!note]- 📜 Um pouco de história
+> O Postman começou em **2012** como uma extensão do Chrome criada por **Abhinav Asthana** para facilitar o teste de APIs. Cresceu até virar um aplicativo desktop próprio e hoje é uma plataforma completa para o ciclo de vida de APIs (design, testes, documentação, monitoramento).
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Conceito 1: Requisição HTTP
 
@@ -64,7 +81,7 @@ Aba **Authorization** suporta Bearer Token, Basic Auth, API Key, OAuth 2.0, entr
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -102,7 +119,7 @@ pm.environment.set("token", json.token);
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 Exemplo da estrutura de um ambiente (exportado em JSON):
 
@@ -120,7 +137,7 @@ Exemplo da estrutura de um ambiente (exportado em JSON):
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Use ambientes desde o início
 
@@ -136,21 +153,7 @@ Adicione descrições e exemplos. A coleção vira documentação viva para o ti
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `{{variavel}}` | Usa uma variável de ambiente/coleção |
-| `pm.test()` | Define um teste |
-| `pm.response.json()` | Lê o corpo da resposta como JSON |
-| `pm.environment.set()` | Salva variável de ambiente |
-| `pm.expect()` | Faz asserções (estilo Chai) |
-| **Send** | Envia a requisição |
-| **Collection Runner** | Executa uma coleção inteira |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: Erro de conexão ao chamar uma API local
 
@@ -202,17 +205,34 @@ Usando https://jsonplaceholder.typicode.com:
 > [!question]- Escreva um teste que verifica se o status é 200.
 > `pm.test("Status 200", () => pm.response.to.have.status(200));`
 
+> [!question]- Sintaxe de variável no Postman
+> `{{nome}}`
+
+> [!question]- GET vs POST
+> GET busca dados · POST envia/cria
+
+> [!question]- Status 2xx / 4xx / 5xx
+> sucesso / erro do cliente / erro do servidor
+
+> [!question]- Status 404
+> recurso não encontrado
+
+> [!question]- Salvar o token via script
+> `pm.environment.set("token", valor)`
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
-
-Sintaxe de variável no Postman::`{{nome}}`
-GET vs POST::GET busca dados · POST envia/cria
-Status 2xx / 4xx / 5xx::sucesso / erro do cliente / erro do servidor
-Status 404::recurso não encontrado
-Salvar o token via script::`pm.environment.set("token", valor)`
+| Comando/Sintaxe | Função |
+|-----------------|--------|
+| `{{variavel}}` | Usa uma variável de ambiente/coleção |
+| `pm.test()` | Define um teste |
+| `pm.response.json()` | Lê o corpo da resposta como JSON |
+| `pm.environment.set()` | Salva variável de ambiente |
+| `pm.expect()` | Faz asserções (estilo Chai) |
+| **Send** | Envia a requisição |
+| **Collection Runner** | Executa uma coleção inteira |
 
 ---
 
@@ -231,7 +251,7 @@ Salvar o token via script::`pm.environment.set("token", valor)`
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [ ] Instalar o Postman e criar uma conta (ou usar o modo offline, se disponível)
 - [ ] Testar uma API real que você use ou esteja estudando
@@ -240,7 +260,7 @@ Salvar o token via script::`pm.environment.set("token", valor)`
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 💻 Sites e Documentação:
 - [Postman Learning Center](https://learning.postman.com) - Documentação e tutoriais oficiais

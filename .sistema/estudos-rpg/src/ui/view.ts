@@ -2,16 +2,19 @@
 
 import { Component, ItemView, Notice, type WorkspaceLeaf } from "obsidian";
 import { aposEsquecer, aposLembrar } from "../domain/review.ts";
-import type { Missao, NotaEstudo, Tarefa, Topico } from "../domain/types.ts";
+import type { NotaEstudo, Topico } from "../domain/types.ts";
 import type EstudosRPG from "../main.ts";
 import type { Acoes, Ctx, EstadoUI } from "./context.ts";
 import * as S from "./sections.ts";
+import { ConquistasModal } from "./conquistasModal.ts";
 import { TopicosModal } from "./topicosModal.ts";
 
 export const VIEW_FICHA = "estudos-rpg-ficha";
 
 export class FichaView extends ItemView {
-  private estado: EstadoUI = { perguntaIdx: null, mostrarResposta: false };
+  private estado: EstadoUI = { revisando: null, perguntaIdx: 0, mostrarResposta: false, trilha: null };
+  /** A animação de entrada só roda no primeiro desenho (não a cada clique). */
+  private jaDesenhou = false;
   private desinscrever: (() => void) | null = null;
 
   constructor(leaf: WorkspaceLeaf, private plugin: EstudosRPG) {
@@ -26,6 +29,8 @@ export class FichaView extends ItemView {
     this.contentEl.addClass("erpg-host");
     this.desinscrever = this.plugin.aoAtualizar(() => this.desenhar());
     this.desenhar();
+    // Cronômetro da sessão: só troca o texto, sem redesenhar a ficha.
+    this.registerInterval(window.setInterval(() => S.tique(this.contentEl, this.plugin.sessaoInicio), 1000));
   }
 
   override async onClose() {
@@ -45,7 +50,7 @@ export class FichaView extends ItemView {
   /**
    * Redesenha a ficha. Layout de tela única:
    *   [ faixa do topo: nível · XP · status · conquistas · sessão ]
-   *   [ Missão / Atividade | Pergunta do dia / Revisar | Trilhas ]
+   *   [ Próximos passos / Atividade | Revisar | Trilhas ]
    * Em telas pequenas o CSS empilha as colunas (aí a página rola).
    */
   desenhar() {
@@ -62,18 +67,19 @@ export class FichaView extends ItemView {
       return;
     }
 
-    const pagina = el.createDiv({ cls: "erpg" });
+    const pagina = el.createDiv({ cls: this.jaDesenhou ? "erpg" : "erpg is-entrada" });
+    this.jaDesenhou = true;
     S.ficha(pagina, ctx);
     const grade = pagina.createDiv({ cls: "erpg-grade-principal" });
     const colA = grade.createDiv({ cls: "erpg-col is-a" });
-    S.missao(colA, ctx);
+    S.proximos(colA, ctx);
     S.cronica(colA, ctx);
     const colB = grade.createDiv({ cls: "erpg-col is-b" });
-    S.oraculo(colB, ctx);
     S.revisao(colB, ctx);
     S.mapa(grade.createDiv({ cls: "erpg-col is-c" }), ctx);
 
     el.scrollTop = rolagem;
+    S.tique(el, this.plugin.sessaoInicio);
   }
 
   /** Dono dos renderizadores de Markdown do desenho atual; trocado a cada desenho. */
@@ -98,23 +104,29 @@ export class FichaView extends ItemView {
       await this.plugin.atualizarAgora();
     },
 
-    alternarTarefa: async (m: Missao, t: Tarefa) => {
-      await this.plugin.writer.alternarLinha(m.caminho, t.linha, t.raw);
-      await this.plugin.atualizarAgora();
-    },
-
-    revisar: async (n: NotaEstudo, lembrou: boolean) => {
+    revisar: async (n: NotaEstudo, lembrou: boolean, proxima: string | null) => {
       const { intervalos } = this.plugin.config;
       const caixa = lembrou ? aposLembrar({ caixa: n.caixa, revisado: n.revisado }, intervalos) : aposEsquecer();
       const hoje = this.plugin.hoje();
       await this.plugin.writer.propriedades(n.caminho, { caixa, revisado: hoje });
       new Notice(lembrou ? `${n.label}: caixa ${caixa}, volta em ${intervalos[caixa] ?? "?"} dia(s).` : `${n.label} volta amanhã.`);
+      Object.assign(this.estado, { revisando: proxima, perguntaIdx: 0, mostrarResposta: false });
       await this.plugin.atualizarAgora();
     },
 
-    iniciarDia: async () => {
+    revisarNota: (caminho) => {
+      Object.assign(this.estado, { revisando: caminho, perguntaIdx: 0, mostrarResposta: false });
+      this.desenhar();
+    },
+
+    abrirDiario: async () => {
       await this.plugin.abrirNoCentro(await this.plugin.writer.diario(this.plugin.hoje()));
     },
+    iniciarSessao: () => this.plugin.iniciarSessao(),
+    encerrarSessao: () => this.plugin.encerrarSessao(),
+    descartarSessao: () => this.plugin.descartarSessao(),
+    sessaoInicio: () => this.plugin.sessaoInicio,
+    abrirConquistas: () => new ConquistasModal(this.plugin, this.criarCtx).open(),
 
     abrirTopicos: (alvo) => new TopicosModal(this.plugin, this.criarCtx, alvo).open(),
 

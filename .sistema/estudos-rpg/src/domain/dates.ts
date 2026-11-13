@@ -41,3 +41,9 @@ export function relativo(iso: string, hoje: string): string {
   if (n === -1) return "ontem";
   return n > 0 ? `em ${n} dias` : `há ${-n} dias`;
 }
+
+/** Dia da semana de uma data: 0 = segunda ... 6 = domingo. */
+export function diaDaSemana(iso: string): number {
+  const [y, m, d] = iso.split("-").map(Number) as [number, number, number];
+  return (new Date(y, m - 1, d).getDay() + 6) % 7;
+}

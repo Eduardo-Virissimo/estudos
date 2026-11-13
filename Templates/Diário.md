@@ -1,6 +1,6 @@
 ---
 data: {{date}}
-minutos: 25
+minutos: 0
 ---
 
 # 📓 {{date}}

@@ -5,9 +5,9 @@
 //         a verdade está sempre nas suas notas.
 
 import { MarkdownView, Notice, Plugin, TFile, debounce } from "obsidian";
-import { hojeISO } from "./domain/dates.ts";
+import { hojeISO, toISO } from "./domain/dates.ts";
 import { avaliarConquistas, calcularProgresso, type Conquista, type Progresso } from "./domain/progress.ts";
-import { aposEsquecer, aposLembrar, infoRevisao, normalizarCaixa, ordenarFila } from "./domain/review.ts";
+import { aposEsquecer, aposLembrar, caixaMax, infoRevisao, normalizarCaixa, ordenarFila } from "./domain/review.ts";
 import { NIVEIS, type Nivel, type Snapshot } from "./domain/types.ts";
 import { mergeSettings, type Settings } from "./settings.ts";
 import { AbaConfig } from "./ui/settingsTab.ts";
@@ -25,6 +25,8 @@ export default class EstudosRPG extends Plugin {
   config!: Settings;
   writer!: Writer;
   dados: Dados | null = null;
+  /** Início da sessão de estudo em andamento (ms), ou null. Salvo no data.json: sobrevive a um reload. */
+  sessaoInicio: number | null = null;
 
   private indexer!: Indexer;
   private ouvintes = new Set<() => void>();
@@ -33,7 +35,10 @@ export default class EstudosRPG extends Plugin {
   private pendente = false;
 
   override async onload() {
-    this.config = mergeSettings(await this.loadData());
+    const salvo = (await this.loadData()) as Record<string, unknown> | null;
+    this.config = mergeSettings(salvo);
+    const ini = salvo?.sessaoInicio;
+    this.sessaoInicio = typeof ini === "number" && Number.isFinite(ini) && ini <= Date.now() ? ini : null;
     this.indexer = new Indexer(this.app, () => this.config);
     this.writer = new Writer(this.app, () => this.config);
 
@@ -54,6 +59,8 @@ export default class EstudosRPG extends Plugin {
     this.registerEvent(this.app.vault.on("rename", (_f, antigo) => { this.indexer.esquecer(antigo); agendar(); }));
     // Virou o dia com o Obsidian aberto? Recalcula sequência, revisões e pergunta do dia.
     this.registerInterval(window.setInterval(() => { if (this.dados && this.dados.snap.hoje !== this.hoje()) void this.atualizarAgora(); }, 60_000));
+    // Cronômetro da sessão na barra de status (precisão de minuto basta ali).
+    this.registerInterval(window.setInterval(() => { if (this.sessaoInicio) this.atualizarStatus(); }, 15_000));
 
     this.app.workspace.onLayoutReady(async () => {
       await this.atualizarAgora();
@@ -87,7 +94,7 @@ export default class EstudosRPG extends Plugin {
         try {
           const snap = await this.indexer.construir(this.hoje());
           const prog = calcularProgresso(snap, this.config.xp, this.config.titulos);
-          const conquistas = avaliarConquistas(snap, prog);
+          const conquistas = avaliarConquistas(snap, prog, { caixaFinal: caixaMax(this.config.intervalos) });
           this.anunciar(this.dados, { snap, prog, conquistas });
           this.dados = { snap, prog, conquistas };
           this.atualizarStatus();
@@ -105,7 +112,12 @@ export default class EstudosRPG extends Plugin {
   private anunciar(antes: Dados | null, depois: Dados) {
     if (!antes) return; // primeira leitura: nada a anunciar
     const delta = depois.prog.xp - antes.prog.xp;
-    if (delta > 0) new Notice(`✦ +${delta} XP`, 2500);
+    if (delta > 0) {
+      // De onde veio: as partes que cresceram (ex.: "+10 XP · tópico").
+      const nomes: Record<keyof Dados["prog"]["partes"], string> = { notas: "nota", topicos: "tópico", diario: "dia de estudo", estudo: "tempo de estudo", revisao: "revisão" };
+      const fontes = (Object.keys(nomes) as (keyof typeof nomes)[]).filter((k) => depois.prog.partes[k] > antes.prog.partes[k]).map((k) => nomes[k]);
+      new Notice(`✦ +${delta} XP${fontes.length ? ` · ${fontes.join(", ")}` : ""}`, 3000);
+    }
     if (depois.prog.nivel > antes.prog.nivel) new Notice(`⚜ Subiu de nível! Nível ${depois.prog.nivel} · ${depois.prog.titulo}`, 6000);
     const tinha = new Set(antes.conquistas.filter((c) => c.ok).map((c) => c.id));
     for (const c of depois.conquistas) if (c.ok && !tinha.has(c.id)) new Notice(`🏆 Troféu conquistado: ${c.nome}`, 6000);
@@ -114,7 +126,8 @@ export default class EstudosRPG extends Plugin {
   private atualizarStatus() {
     if (!this.statusEl || !this.dados) return;
     const p = this.dados.prog;
-    this.statusEl.setText(`⚜ Nv ${p.nivel} · ${p.xp}/${p.xpProximo} XP${p.sequencia ? ` · 🔥${p.sequencia}` : ""}`);
+    const sessao = this.sessaoInicio ? ` · ⏱ ${this.minutosSessao()} min` : "";
+    this.statusEl.setText(`⚜ Nv ${p.nivel} · ${p.xp}/${p.xpProximo} XP${p.sequencia ? ` · 🔥${p.sequencia}` : ""}${sessao}`);
     this.statusEl.setAttr("aria-label", "Abrir a ficha do herói");
   }
 
@@ -144,13 +157,71 @@ export default class EstudosRPG extends Plugin {
   }
 
   async salvarConfig() {
-    await this.saveData(this.config);
+    await this.persistir();
     await this.atualizarAgora();
+  }
+
+  private async persistir() {
+    await this.saveData({ ...this.config, sessaoInicio: this.sessaoInicio });
+  }
+
+  // ------------------------------------------------------------ sessão de estudo (cronômetro)
+  /** Minutos inteiros da sessão atual (0 se não há sessão). */
+  minutosSessao(agora = Date.now()): number {
+    return this.sessaoInicio ? Math.max(0, Math.floor((agora - this.sessaoInicio) / 60_000)) : 0;
+  }
+
+  /** Começa a cronometrar e abre o diário de hoje (pra anotar o que está estudando). */
+  async iniciarSessao() {
+    if (this.sessaoInicio) return;
+    this.sessaoInicio = Date.now();
+    await this.persistir();
+    this.atualizarStatus();
+    this.ouvintes.forEach((fn) => fn());
+    await this.abrirNoCentro(await this.writer.diario(this.hoje()));
+  }
+
+  /**
+   * Para o cronômetro e soma os minutos no diário do dia em que a sessão COMEÇOU.
+   * E se a sessão ficou ligada esquecida? Conta no máximo `sessaoMaxMin`.
+   */
+  async encerrarSessao() {
+    const inicio = this.sessaoInicio;
+    if (!inicio) return;
+    let min = this.minutosSessao();
+    this.sessaoInicio = null;
+    await this.persistir();
+    if (min < 1) {
+      new Notice("Sessão com menos de 1 minuto: não contou.");
+    } else {
+      if (min > this.config.sessaoMaxMin) {
+        new Notice(`Sessão de ${min} min passou do limite: contei ${this.config.sessaoMaxMin} min. Ajuste no diário se precisar.`, 8000);
+        min = this.config.sessaoMaxMin;
+      }
+      const total = await this.writer.somarMinutos(toISO(new Date(inicio)), min);
+      new Notice(`⏱ +${min} min de estudo (${total} min no dia)`, 4000);
+    }
+    await this.atualizarAgora();
+  }
+
+  /** Para o cronômetro sem contar nada. */
+  async descartarSessao() {
+    if (!this.sessaoInicio) return;
+    this.sessaoInicio = null;
+    await this.persistir();
+    new Notice("Sessão descartada.");
+    this.atualizarStatus();
+    this.ouvintes.forEach((fn) => fn());
   }
 
   // ------------------------------------------------------------ comandos (Ctrl+P)
   private registrarComandos() {
     this.addCommand({ id: "abrir-ficha", name: "Abrir a ficha do herói", callback: () => this.abrirFicha() });
+
+    this.addCommand({
+      id: "sessao", name: "Iniciar/encerrar a sessão de estudo",
+      callback: () => (this.sessaoInicio ? this.encerrarSessao() : this.iniciarSessao()),
+    });
 
     this.addCommand({
       id: "diario-hoje", name: "Abrir/criar o diário de hoje",

@@ -21,6 +21,8 @@ export interface Topico {
 export interface Regiao {
   nome: string;
   nivelTitulo: 1 | 2;
+  /** Último título `#` acima desta região (ex.: "Estágio 1 · Primeiros passos"). Agrupa regiões `##` no mapa. */
+  grupo: string;
   destaque: boolean;
   desc: string;
   topicos: Topico[];
@@ -31,28 +33,6 @@ export interface Trilha {
   caminho: string;
   nome: string;
   regioes: Regiao[];
-}
-
-export interface Tarefa {
-  texto: string;
-  feita: boolean;
-  linha: number;
-  raw: string;
-}
-
-export interface Fase {
-  num: number;
-  titulo: string;
-  entrega: string;
-  tarefas: Tarefa[];
-}
-
-/** Uma nota com `tipo: missao` (ex.: Projeto-guia). */
-export interface Missao {
-  caminho: string;
-  nome: string;
-  prioridade: number;
-  fases: Fase[];
 }
 
 /** Uma nota de estudo: qualquer nota com a propriedade `nivel`. */
@@ -83,7 +63,6 @@ export interface DiaDiario {
 export interface Snapshot {
   hoje: string;
   trilhas: Trilha[];
-  missoes: Missao[];
   notas: NotaEstudo[];
   perguntas: Pergunta[];
   diario: Map<string, DiaDiario>;

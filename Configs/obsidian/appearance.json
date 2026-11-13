@@ -2,8 +2,7 @@
   "theme": "obsidian",
   "enabledCssSnippets": [
     "custom-rainbow-colors",
-    "cursor-smooth",
-    "homepage-dashboard"
+    "cursor-smooth"
   ],
   "cssTheme": "AnuPpuccin",
   "showRibbon": false,

@@ -10,26 +10,43 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Cliente de API (alternativa ao Postman) pra montar requisições HTTP e GraphQL sem escrever código. O que mais importa: organizar em pastas, usar **ambientes** com variáveis (`{{ _.base_url }}`) e encadear respostas.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é Insomnia?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Reproduzir no Insomnia uma coleção feita no Postman
+- Encadear requisições (usar a resposta de uma na outra)
+- Fazer uma consulta GraphQL
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** [[Postman]]
+- **Depois:** [[GraphQL]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é Insomnia?
 
 O **Insomnia** é um cliente de APIs usado para **enviar requisições e inspecionar respostas**, sendo uma alternativa ao [[Postman]]. Tem interface limpa e direta, e suporta **REST**, **GraphQL**, **gRPC**, WebSocket e outros protocolos.
 
 Como no Postman, você organiza requisições em coleções, usa variáveis de ambiente, configura autenticação e compartilha o trabalho com o time.
 
-### Uma História Breve 📜
-
-O Insomnia foi criado por **Gregory Schier** por volta de **2015**, inicialmente como projeto de código aberto. Mais tarde foi adquirido pela **Kong** (empresa de API gateways), que mantém o desenvolvimento. O foco sempre foi oferecer uma experiência mais simples e rápida para testar APIs.
+> [!note]- 📜 Um pouco de história
+> O Insomnia foi criado por **Gregory Schier** por volta de **2015**, inicialmente como projeto de código aberto. Mais tarde foi adquirido pela **Kong** (empresa de API gateways), que mantém o desenvolvimento. O foco sempre foi oferecer uma experiência mais simples e rápida para testar APIs.
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Conceito 1: Requisições e pastas
 
@@ -72,7 +89,7 @@ query {
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -97,7 +114,7 @@ Fluxo de login + rota protegida:
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 Ajustes úteis nas preferências do app (Preferences):
 
@@ -114,7 +131,7 @@ Ajustes úteis nas preferências do app (Preferences):
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Aprenda o autocompletar de variáveis
 
@@ -130,20 +147,7 @@ Ela mostra detalhes da requisição e da resposta, útil para entender erros de 
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `{{ _.variavel }}` | Usa variável do ambiente |
-| **New Request** | Cria uma requisição |
-| **Send** | Envia a requisição |
-| **Environments** | Gerencia ambientes |
-| **Response tags** | Usa dados de respostas anteriores |
-| **Import / Export** | Move coleções entre ferramentas |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: Erro de certificado SSL ao testar um servidor local
 
@@ -192,17 +196,33 @@ Ela mostra detalhes da requisição e da resposta, útil para entender erros de 
 > [!question]- Pra que serve a aba Timeline?
 > Mostra a requisição crua: headers enviados, redirecionamentos e a resposta. É onde se depura.
 
+> [!question]- Sintaxe de variável no Insomnia
+> `{{ _.nome }}`
+
+> [!question]- Ambiente
+> conjunto de variáveis (JSON) que você troca com um clique
+
+> [!question]- Header de token
+> `Authorization: Bearer <token>`
+
+> [!question]- Insomnia suporta GraphQL?
+> Sim, com autocompletar a partir do schema
+
+> [!question]- Status 401
+> não autenticado: token ausente, inválido ou expirado
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
-
-Sintaxe de variável no Insomnia::`{{ _.nome }}`
-Ambiente::conjunto de variáveis (JSON) que você troca com um clique
-Header de token::`Authorization: Bearer <token>`
-Insomnia suporta GraphQL?::Sim, com autocompletar a partir do schema
-Status 401::não autenticado: token ausente, inválido ou expirado
+| Comando/Sintaxe | Função |
+|-----------------|--------|
+| `{{ _.variavel }}` | Usa variável do ambiente |
+| **New Request** | Cria uma requisição |
+| **Send** | Envia a requisição |
+| **Environments** | Gerencia ambientes |
+| **Response tags** | Usa dados de respostas anteriores |
+| **Import / Export** | Move coleções entre ferramentas |
 
 ---
 
@@ -221,7 +241,7 @@ Status 401::não autenticado: token ausente, inválido ou expirado
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [ ] Instalar o Insomnia e testar uma API pública
 - [ ] Experimentar uma query GraphQL
@@ -230,7 +250,7 @@ Status 401::não autenticado: token ausente, inválido ou expirado
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 💻 Sites e Documentação:
 - [Documentação do Insomnia](https://docs.insomnia.rest) - Guias oficiais

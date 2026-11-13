@@ -10,26 +10,43 @@ revisado:
 > [!tip] ⚡ Em 30 segundos
 > Protocolo pra acessar outra máquina com tudo **criptografado**. No dia a dia: `ssh user@host`, chave `ed25519` em vez de senha e `~/.ssh/config` pra criar apelidos. Também é como você autentica no GitHub.
 >
-> **Como estudar esta nota:** tente o [[#🔨 Desafio prático|desafio]] *antes* de ler. Travou? Leia só a parte que precisa. No fim, responda o [[#🧠 Me teste|Me teste]] sem olhar.
+> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> Mude `nivel` nas propriedades: `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Atualize `revisado` com a data sempre que revisar.
+> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
-## O que é SSH?
+## 🎯 Objetivos
+
+Ao terminar esta nota, você consegue:
+
+- Explicar o modelo cliente/servidor e o par de chaves
+- Acessar uma máquina remota por chave (com passphrase), sem senha
+- Entender o aviso de fingerprint e criar atalhos no `~/.ssh/config`
+
+---
+
+## 🧭 Onde isso se encaixa
+
+- **Antes:** [[Terminal]]
+- **Depois:** [[GitHub e Pull Requests]]
+- **Trilha:** [[Roadmap]]
+
+---
+
+## 💡 O que é SSH?
 
 O **SSH** (*Secure Shell*) é um protocolo que permite acessar e controlar outro computador remotamente de forma **segura**. Toda a comunicação (comandos, senhas, arquivos) é **criptografada**, o que impede que alguém no meio do caminho leia ou altere os dados.
 
 Ele é usado para administrar servidores, transferir arquivos, fazer deploys e até autenticar no GitHub.
 
-### Uma História Breve 📜
-
-O SSH foi criado em **1995** por **Tatu Ylönen**, na Finlândia, após um ataque de captura de senhas na rede da universidade dele. Ele substituiu protocolos inseguros como **Telnet** e **rlogin**, que enviavam tudo em texto puro. A implementação livre **OpenSSH** (projeto OpenBSD, 1999) é hoje a mais usada, e já vem incluída em Linux, macOS e Windows.
+> [!note]- 📜 Um pouco de história
+> O SSH foi criado em **1995** por **Tatu Ylönen**, na Finlândia, após um ataque de captura de senhas na rede da universidade dele. Ele substituiu protocolos inseguros como **Telnet** e **rlogin**, que enviavam tudo em texto puro. A implementação livre **OpenSSH** (projeto OpenBSD, 1999) é hoje a mais usada, e já vem incluída em Linux, macOS e Windows.
 
 ---
 
-## Conceitos Fundamentais 🎯
+## 🧱 Conceitos-chave
 
 ### Conceito 1: Cliente e servidor
 
@@ -58,7 +75,7 @@ Na primeira conexão, o SSH mostra a **impressão digital** do servidor e pergun
 
 ---
 
-## Como Usar na Prática 🛠️
+## 🛠️ Exemplos guiados
 
 ### Exemplo 1: Uso Básico
 
@@ -90,7 +107,7 @@ ssh -L 5433:localhost:5432 ana@servidor
 
 ---
 
-## Configurações Recomendadas ⚙️
+## ⚙️ Configuração recomendada
 
 Arquivo `~/.ssh/config` para criar atalhos de conexão:
 
@@ -110,7 +127,7 @@ ssh meu-servidor
 
 ---
 
-## Dicas de Ouro 💎
+## 💎 Boas práticas
 
 ### 1. Prefira chave a senha
 
@@ -131,22 +148,7 @@ chmod 600 ~/.ssh/id_ed25519
 
 ---
 
-## Comandos e Sintaxe Essenciais 📋
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `ssh user@host` | Conecta a um servidor |
-| `ssh-keygen` | Gera par de chaves |
-| `ssh-copy-id user@host` | Instala sua chave pública no servidor |
-| `scp origem destino` | Copia arquivos via SSH |
-| `sftp user@host` | Sessão interativa de transferência |
-| `ssh -L local:host:remota` | Cria túnel (port forwarding) |
-| `ssh -i caminho/chave` | Escolhe a chave a usar |
-| `ssh -v` | Modo verbose para depurar |
-
----
-
-## Problemas Comuns e Soluções 🔧
+## 🔧 Erros comuns e como resolver
 
 ### Problema: "Permission denied (publickey)"
 
@@ -198,18 +200,38 @@ chmod 600 ~/.ssh/id_ed25519
 > [!question]- Pra que colocar passphrase na chave?
 > Se alguém copiar o arquivo da chave, ainda vai precisar da frase. O `ssh-agent` evita digitar toda hora.
 
+> [!question]- Porta padrão do SSH
+> 22
+
+> [!question]- `ssh-keygen -t ed25519`
+> gera um par de chaves moderno
+
+> [!question]- `ssh-copy-id user@host`
+> instala sua chave pública no servidor
+
+> [!question]- `scp arq user@host:/caminho`
+> copia arquivo via SSH
+
+> [!question]- Permissões de `~/.ssh` e da chave privada
+> 700 na pasta, 600 na chave
+
+> [!question]- `ssh -T git@github.com`
+> testa sua autenticação SSH no GitHub
+
 ---
 
-## 🃏 Flashcards
+## 📋 Cola rápida
 
-#flashcards/ferramentas
-
-Porta padrão do SSH::22
-`ssh-keygen -t ed25519`::gera um par de chaves moderno
-`ssh-copy-id user@host`::instala sua chave pública no servidor
-`scp arq user@host:/caminho`::copia arquivo via SSH
-Permissões de `~/.ssh` e da chave privada::700 na pasta, 600 na chave
-`ssh -T git@github.com`::testa sua autenticação SSH no GitHub
+| Comando/Sintaxe | Função |
+|-----------------|--------|
+| `ssh user@host` | Conecta a um servidor |
+| `ssh-keygen` | Gera par de chaves |
+| `ssh-copy-id user@host` | Instala sua chave pública no servidor |
+| `scp origem destino` | Copia arquivos via SSH |
+| `sftp user@host` | Sessão interativa de transferência |
+| `ssh -L local:host:remota` | Cria túnel (port forwarding) |
+| `ssh -i caminho/chave` | Escolhe a chave a usar |
+| `ssh -v` | Modo verbose para depurar |
 
 ---
 
@@ -228,7 +250,7 @@ Permissões de `~/.ssh` e da chave privada::700 na pasta, 600 na chave
 
 ---
 
-## Próximos Passos ✅
+## ➡️ Próximos passos
 
 - [ ] Gerar sua primeira chave e cadastrá-la no GitHub
 - [ ] Criar um arquivo `~/.ssh/config` com seus servidores
@@ -237,7 +259,7 @@ Permissões de `~/.ssh` e da chave privada::700 na pasta, 600 na chave
 
 ---
 
-## Recursos Recomendados 📚
+## 📚 Recursos
 
 ### 📖 Livros:
 - *SSH Mastery* (Michael W. Lucas) - Guia prático e direto sobre OpenSSH
