@@ -640,6 +640,18 @@ nome: Programação
 - [ ] [[JIT]] — compilação durante a execução: como o V8 transforma o JavaScript mais usado em código de máquina rápido.
 - [ ] [[Linkagem]] — etapa que junta diferentes módulos/bibliotecas compilados em um único executável final.
 
+## C (opcional)
+
+> A linguagem que mostra na prática o que este estágio explica: memória, ponteiros e compilação, sem nada fazendo por você. Projeto sugerido: reescrever em C a lista em memória do [[Gerenciador de Tarefas no Terminal]] e comparar com a versão em TypeScript.
+
+- [ ] [[Compilando C com gcc]] — do arquivo `.c` ao executável: pré-processador, compilação e linkagem, na prática.
+- [ ] [[Tipos e Memória em C]] — `int`, `char`, `float` e `sizeof`: quantos bytes cada coisa ocupa e o que acontece quando estoura.
+- [ ] [[Ponteiros]] — variáveis que guardam o endereço de outra; `&` e `*`, e por que o JavaScript esconde isso de você.
+- [ ] [[Arrays e Strings em C]] — arrays de tamanho fixo e strings terminadas em `\0`, a origem de muitos bugs de segurança.
+- [ ] [[malloc e free]] — pedir e devolver memória do Heap à mão; vazamento de memória e uso depois do `free`.
+- [ ] [[Structs em C]] — agrupar dados num tipo próprio, o "objeto" sem métodos que existia antes das classes.
+- [ ] [[Depurando C com gdb e Valgrind]] — achar onde o programa quebrou (`gdb`) e onde a memória vazou ou foi corrompida (Valgrind).
+
 ---
 
 # 🤖 Estágio 8 · IA no desenvolvimento ⭐
