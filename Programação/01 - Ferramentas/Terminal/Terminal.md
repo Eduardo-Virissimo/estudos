@@ -172,6 +172,32 @@ Digite o começo do nome de arquivos e comandos e aperte `Tab`. Economiza digita
 # 6. Apague b.txt e c.txt
 ```
 
+**Pronto quando:** `ls -la` mostra `a.txt` e `d.txt` (sem `b.txt` e `c.txt`), e `cat d.txt` mostra `teste`, sem você ter aberto o Explorer nenhuma vez.
+
+---
+
+## 🚀 Projeto
+
+> [!example] O seu terminal de trabalho
+> Deixar o terminal do jeito que você vai usar todo dia neste roadmap: abre no lugar certo, com os shells certos e atalhos pros comandos que você repete.
+>
+> **Tempo:** 1 sessão
+
+**O mínimo:**
+- [ ] Windows Terminal com 2 perfis: PowerShell e Git Bash, e o Git Bash como padrão
+- [ ] Um perfil "Estudos" que já abre na pasta do vault (`startingDirectory`)
+- [ ] 3 aliases no `~/.bashrc` pra coisas que você faz toda hora (ex: `ll`, `gs` = `git status`, `vault` = `cd` pro vault)
+- [ ] Saber abrir, dividir (`Alt + Shift + D`) e fechar painéis só pelo teclado
+
+**Se quiser ir além:**
+- Um prompt que mostra a branch do Git (ex: Starship)
+- O mesmo alias no `$PROFILE` do [[PowerShell]]
+- Tema e fonte com ligaduras (ex: Cascadia Code)
+
+**Pronto quando:** um atalho abre o terminal já na pasta do vault e `gs` mostra o `git status` do vault.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+
 ---
 
 ## 🧠 Me teste

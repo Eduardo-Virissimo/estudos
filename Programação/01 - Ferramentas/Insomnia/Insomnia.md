@@ -175,6 +175,32 @@ Ela mostra detalhes da requisição e da resposta, útil para entender erros de 
 5. Anote o que achou mais simples ou mais confuso em relação ao Postman
 ```
 
+**Pronto quando:** as 3 requisições funcionam trocando só o ambiente, sem nenhuma URL escrita à mão, e você anotou pelo menos uma diferença real entre Insomnia e Postman.
+
+---
+
+## 🚀 Projeto
+
+> [!example] Coleção da API do GitHub
+> Explorar uma API real e autenticada antes de construir a sua no Estágio 4: tokens, variáveis, paginação e respostas de erro de verdade.
+>
+> **Tempo:** 1 sessão
+
+**O mínimo:**
+- [ ] Coleção "GitHub" com ambiente contendo `base_url` = `https://api.github.com` e um `token` (gerado em Settings → Developer settings, só com permissão de leitura)
+- [ ] Requisições: seu usuário (`GET /user`), seus repositórios (`GET /user/repos?per_page=5&page=1`) e as issues de um repositório seu
+- [ ] Ver uma resposta de erro de propósito: token errado (401) e repositório inexistente (404)
+- [ ] Exportar a coleção **sem o token** e guardar no repositório de um projeto seu
+
+**Se quiser ir além:**
+- Encadear: pegar o `login` da resposta de `/user` e usar na URL da próxima requisição
+- Criar uma issue com `POST` (token com permissão de escrita, num repositório de teste)
+- Ler os headers `x-ratelimit-remaining` e entender o [[Rate Limiting]]
+
+**Pronto quando:** a coleção funciona trocando só o token no ambiente, e o arquivo exportado não tem nenhum segredo dentro ([[Gestão de Secrets]]).
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+
 ---
 
 ## 🧠 Me teste

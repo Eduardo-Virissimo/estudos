@@ -133,10 +133,9 @@ nome: Inglês
 
 ## Ler e escrever no trabalho
 
+- [ ] [[Vocabulário Técnico]] — os verbos e palavras que mais aparecem em código, erros e documentação (fetch, parse, throw, deploy...), e o seu glossário pessoal.
+- [ ] [[Siglas Técnicas]] — API, CLI, CI/CD e as abreviações de code review (LGTM, PTAL, nit, WIP): o que significam e como se fala.
 - [ ] [[Ler Documentação]] — habilidade de entender documentação oficial em inglês, essencial pra resolver problemas por conta própria.
-- [ ] [[Vocabulário Técnico]] — palavras frequentes em código e documentação (fetch, parse, render, deploy...).
-- [ ] [[Siglas Técnicas]] — abreviações comuns na área (API, SDK, CLI, IDE, etc.) e o que significam.
-- [ ] [[Glossário de Programação]] — vocabulário essencial de termos técnicos usados no dia a dia.
 - [ ] [[Inglês em Commits, Issues e PRs]] — escrever mensagens curtas, claras e no padrão (imperativo: "Fix login bug").
 
 ## Falar no trabalho

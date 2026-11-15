@@ -161,6 +161,32 @@ Crie perfis (ex.: "Python", "Web") com extensões e configurações diferentes p
 6. Abra o terminal integrado e rode: node index.js
 ```
 
+**Pronto quando:** salvar o arquivo mal formatado deixa ele arrumado sozinho e `node index.js` roda no terminal integrado sem você sair do VS Code.
+
+---
+
+## 🚀 Projeto
+
+> [!example] VS Code pronto pro Estágio 1
+> Um editor configurado pra TypeScript que você vai usar em todos os desafios: erros aparecendo na linha, formatação ao salvar e Git na barra lateral.
+>
+> **Tempo:** 1 sessão
+
+**O mínimo:**
+- [ ] Extensões: ESLint, Prettier, Error Lens e GitLens
+- [ ] `settings.json` com `editor.formatOnSave`, `editor.defaultFormatter` = Prettier e `files.autoSave` = `onFocusChange`
+- [ ] Um perfil (Profiles) chamado "TypeScript" só com essas extensões
+- [ ] Usar sem mouse: `Ctrl + P` (abrir arquivo), `Ctrl + Shift + P` (comandos), `F2` (renomear), `F12` (ir pra definição), `Ctrl + '` (terminal)
+
+**Se quiser ir além:**
+- Um snippet próprio (ex: `main` → estrutura de `async function main()` com `.catch`)
+- Configurar o debugger com `F5` pra rodar um `.ts` com `tsx`
+- Sincronizar as configurações com a sua conta (Settings Sync)
+
+**Pronto quando:** num projeto TypeScript, um erro de tipo aparece escrito na própria linha (Error Lens) e o arquivo se formata ao salvar.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+
 ---
 
 ## 🧠 Me teste

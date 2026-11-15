@@ -217,6 +217,32 @@ Instala exatamente o que está no lockfile, de forma limpa e reproduzível.
 # 7. Olhe o package.json e o package-lock.json gerados
 ```
 
+**Pronto quando:** depois de apagar o `node_modules`, um `npm install` deixa tudo funcionando de novo, e você sabe dizer por que o `dayjs` está em `dependencies` e o `prettier` em `devDependencies`.
+
+---
+
+## 🚀 Projeto
+
+> [!example] Um comando seu, instalável
+> Transformar um script seu num comando de terminal de verdade, como os pacotes que você instala do npm. É o mesmo caminho que o [[Gerenciador de Tarefas no Terminal]] vai seguir.
+>
+> **Tempo:** 1 sessão
+
+**O mínimo:**
+- [ ] Um projeto com `package.json` contendo `name`, `version`, `"type": "module"` e o campo `"bin"` apontando pro seu script
+- [ ] O script começa com `#!/usr/bin/env node`
+- [ ] `npm link` e o comando funcionando de qualquer pasta (ex: `ola Ana`)
+- [ ] Scripts `dev`, `build` e `start`, e uma dependência de verdade (ex: `dayjs`) usada no código
+
+**Se quiser ir além:**
+- Rodar `npm outdated` e `npm audit` e entender a saída
+- Experimentar o mesmo projeto com `pnpm` e comparar o tamanho do `node_modules`
+- Publicar no npm com um nome com escopo (`@seu-usuario/ola`) e instalar em outro PC
+
+**Pronto quando:** num terminal novo, em outra pasta, digitar o nome do comando roda o seu código.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+
 ---
 
 ## 🧠 Me teste

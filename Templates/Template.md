@@ -76,6 +76,8 @@ Ao terminar esta nota, você consegue:
 
 ## 🚀 Projeto
 
+**📍 Onde fazer:** [quase sempre 📦 repo próprio `nome-do-repo`; 🧰 se a ferramenta mora em outro lugar (`$PROFILE`, `.sistema/scripts/`); 📁 `Práticas/[NOME DO TÓPICO]/projeto/` só se ainda é pequeno e vai ser promovido depois]
+
 > [!example] [Nome do projeto]
 > [O que é e por que ele ensina mais que o desafio. De preferência algo que você vai **usar** depois: no vault, no seu PC, num projeto seu.]
 >

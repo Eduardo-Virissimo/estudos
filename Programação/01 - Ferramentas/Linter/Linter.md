@@ -187,6 +187,32 @@ Assim ninguém mescla código que quebre as regras do projeto, mesmo sem ter o e
 # 6. Corrija os erros (alguns com --fix)
 ```
 
+**Pronto quando:** `npx eslint .` termina sem nenhum erro nem aviso, e você sabe explicar o que cada regra que disparou estava protegendo.
+
+---
+
+## 🚀 Projeto
+
+> [!example] ESLint no projeto modelo TypeScript
+> Ligar o linter de verdade no projeto que você vai copiar pros próximos, com as regras que pegam os bugs que as notas do Estágio 1 avisam.
+>
+> **Tempo:** 1 sessão
+
+**O mínimo:**
+- [ ] `eslint.config.js` com `@eslint/js` + `typescript-eslint` (modo `recommendedTypeChecked`)
+- [ ] Regras ligadas: `eqeqeq`, `@typescript-eslint/no-explicit-any`, `@typescript-eslint/no-floating-promises` (o `await` esquecido de [[Async e Await]])
+- [ ] Script `"lint": "eslint ."` no `package.json`
+- [ ] O projeto passando com zero erros
+
+**Se quiser ir além:**
+- Rodar só nos arquivos do commit com lint-staged ([[Git Hooks]])
+- Rodar no GitHub Actions a cada PR ([[GitHub Actions]])
+- Desligar uma regra só numa linha, com comentário explicando o porquê
+
+**Pronto quando:** `npm run lint` passa, e um `async` sem `await` ou um `==` colocado de propósito fazem o lint falhar.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+
 ---
 
 ## 🧠 Me teste

@@ -36,6 +36,22 @@ O método segue o que a pesquisa sobre aprendizagem mostra que funciona:
 | Uma nota de estudo nova | Crio a partir do [Template](Templates/Template.md) (já vem com `nivel: escrito`). O nome do arquivo é o nome do tópico (ex.: `Git Básico.md`), pra os links `[[Git Básico]]` funcionarem. |
 | Uma trilha nova (Matemática, Design…) | Nota com `tipo: trilha`. Títulos `#` viram estágios, `##` viram módulos, e cada `- [ ] [[Nota]] — descrição` vira um tópico. |
 | Uma pergunta pra revisão | Callout `> [!question]- Pergunta` com a resposta na linha `> …` de baixo, dentro da nota. |
+| Um desafio ou projeto | Logo abaixo do título 🔨 / 🚀, uma linha **📍 Onde fazer:** com o lugar, escolhido pela regra abaixo. |
+
+## 📍 Onde fazer os desafios e projetos
+
+Nem todo exercício cabe no vault, e nem todo merece um repositório no GitHub. Cada 🔨 *Desafio prático* e 🚀 *Projeto* diz onde fazer, numa linha **📍 Onde fazer:**. A regra:
+
+| Onde | Quando | Exemplos |
+|---|---|---|
+| 📁 **No vault**: `Programação/Práticas/<Nome da nota>/` | Exercício de 1 sessão, poucos arquivos, que roda com o que o [`Práticas/`](Programação/Práticas/README.md) já tem (TypeScript + `tsx`). Fica versionado junto com o estudo. | quiz no terminal, conversor de temperatura, classe `Cronometro`, script de Bash |
+| 🧪 **Laboratório**: `~/lab/<nome>` (fora do vault, sem GitHub) | Precisa de **`git init` próprio**, de **`npm init`/`npm install` só dele**, de **Docker**, ou é pra quebrar de propósito. Apague quando terminar. | conflitos de merge, `reset --hard`, ESLint do zero, compose com Mongo |
+| 📦 **Repositório próprio no GitHub** | Algo que você vai **usar** ou **evoluir** em várias sessões, que **outras notas continuam**, ou que entra no **portfólio**. README, `.gitignore` e commits no padrão desde o primeiro arquivo. | [[Gerenciador de Tarefas no Terminal\|tarefas]], `modelo-ts`, `kit-js`, tudo de *Ideias de Projetos* |
+| 🧰 **Onde a ferramenta mora** | Não gera código pra guardar: navegador, app, configuração do sistema, ou um script que serve o próprio vault (`.sistema/scripts/`). | DevTools, Postman, `~/.ssh`, `$PROFILE` |
+
+**Por que não tudo no vault:** um `git init` dentro do vault cria um repositório dentro de outro, e o Git e o backup automático do Obsidian se perdem; `node_modules` e volumes do Docker dentro do OneDrive deixam a sincronização lenta. **Por que não um repo pra cada exercício:** 50 repositórios de 20 minutos poluem o GitHub e escondem os projetos que importam.
+
+**Na dúvida:** comece no 📁 vault. Se crescer (ganhou dependências próprias, você quer usar no dia a dia, outra nota vai continuar dele), **promova** pra 📦 repo próprio: crie o repositório e leve o código. É o caminho do núcleo do gerenciador: nasce em `Práticas/` no projeto de [[Funções]] e vira o repo `tarefas` em [[Configurando um Projeto TypeScript]].
 
 Detalhes e o código do plugin: `.sistema/estudos-rpg/README.md`.
 
