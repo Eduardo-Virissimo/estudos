@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -183,6 +183,30 @@ Usando https://jsonplaceholder.typicode.com:
 5. Adicione um teste de status em cada requisição
 6. Rode tudo com o Collection Runner
 ```
+
+---
+
+## 🚀 Projeto
+
+> [!example] Coleção de uma API que você curte
+> O JSONPlaceholder é bom para treinar, mas é de mentira. Uma API de verdade tem paginação, erro e dado aninhado.
+>
+> **Tempo:** 1 a 2 sessões
+
+**O mínimo:**
+- [ ] Escolher uma API pública e gratuita de algo que você gosta (ex.: [PokéAPI](https://pokeapi.co), [Jikan](https://jikan.moe) para animes)
+- [ ] Coleção com 5 ou mais requisições em pastas, e ambiente com `base_url`
+- [ ] Encadear: uma requisição guarda um valor da resposta numa variável (`pm.environment.set`) e a próxima usa esse valor
+- [ ] Teste de status e de um campo do JSON em cada requisição, tudo verde no Collection Runner
+
+**Se quiser ir além:**
+- Exportar a coleção e rodar pelo terminal com o Newman
+- Provocar um erro de propósito (404, parâmetro inválido) e escrever o teste dele
+- Repetir no Insomnia: a nota [[Insomnia]] vira só a comparação
+
+**Pronto quando:** o Runner passa em tudo, e outra pessoa conseguiria importar a coleção e usar sem te perguntar nada.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 

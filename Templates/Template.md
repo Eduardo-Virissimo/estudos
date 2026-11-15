@@ -11,7 +11,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -71,6 +71,30 @@ Ao terminar esta nota, você consegue:
 3. [passo]
 
 **Pronto quando:** [como você sabe que deu certo]
+
+---
+
+## 🚀 Projeto
+
+> [!example] [Nome do projeto]
+> [O que é e por que ele ensina mais que o desafio. De preferência algo que você vai **usar** depois: no vault, no seu PC, num projeto seu.]
+>
+> **Tempo:** [1 a 3 sessões]
+
+**O mínimo:**
+- [ ] [requisito 1]
+- [ ] [requisito 2]
+- [ ] [requisito 3]
+
+**Se quiser ir além:**
+- [extra opcional]
+
+**Pronto quando:** [resultado que dá pra ver funcionando]
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+
+> [!tip] Esta nota precisa de projeto?
+> Só se o assunto se aprende de verdade **construindo algo maior** que o desafio (uma ferramenta, um script que você vai usar, algo que junta vários tópicos). Se o desafio já basta, **apague esta seção**. Desafio = exercício de 20-40 min. Projeto = 1 a 3 sessões, termina em algo que fica.
 
 ---
 

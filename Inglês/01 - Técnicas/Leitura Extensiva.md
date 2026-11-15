@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -85,6 +85,29 @@ Ao terminar esta nota, você consegue:
 4. Anote só as palavras que apareceram 3+ vezes e você ainda não entendeu: elas viram frases no [[Sentence Mining]].
 
 **Pronto quando:** você terminou 30 páginas e leu pelo menos uma sem parar nenhuma vez.
+
+---
+
+## 🚀 Projeto
+
+> [!example] Terminar um livro inteiro em inglês
+> As 30 páginas do desafio mostram o método. Terminar um livro é o que muda a sua relação com o inglês: é o primeiro de muitos.
+>
+> **Tempo:** algumas semanas, 15 min por dia
+
+**O mínimo:**
+- [ ] Escolher um livro no seu nível: um *graded reader*, ou um livro que você já leu em português
+- [ ] Uma meta de páginas por dia que caiba num dia ruim (ex.: 5)
+- [ ] Registro no Diário de bordo: data, páginas lidas e uma frase sobre o que aconteceu
+- [ ] Ler até o fim, sem dicionário durante a leitura
+
+**Se quiser ir além:**
+- Escolher um livro de algo que você ama: fantasia, RPG, um livro baseado em jogo
+- Ao terminar, escrever 5 linhas em inglês sobre o livro e corrigir com [[Output com Correção]]
+
+**Pronto quando:** você leu a última página.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 

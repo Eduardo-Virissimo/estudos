@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -174,6 +174,30 @@ Remove-Item *.tmp -WhatIf
 # 4. Exiba apenas Nome e Memória
 # 5. Exporte o resultado para processos.csv com Export-Csv
 ```
+
+---
+
+## 🚀 Projeto
+
+> [!example] Seu perfil do PowerShell ($PROFILE)
+> Funções suas que carregam em todo terminal. Você usa PowerShell todo dia: é onde o aprendizado vira atalho de verdade.
+>
+> **Tempo:** 1 a 2 sessões
+
+**O mínimo:**
+- [ ] Abrir o perfil: se `Test-Path $PROFILE` der `False`, crie com `New-Item $PROFILE -ItemType File -Force`; se der `True`, só edite (o `-Force` apagaria o que já existe)
+- [ ] Função `vault`, que entra na pasta do vault
+- [ ] Função `Novo-Estudo "Git Básico" -Area Programação`, que copia o `Templates/Template.md` para a área certa com o nome do tópico e troca `[NOME DO TÓPICO]` pelo nome. Se a nota já existir, avisa e não sobrescreve
+- [ ] Função `Backup-Obsidian`, que roda o `Configs/backup.ps1`
+
+**Se quiser ir além:**
+- `[CmdletBinding()]` e `[Parameter(Mandatory)]` nos parâmetros
+- Comentário de ajuda, para `Get-Help Novo-Estudo` funcionar
+- Autocompletar o `-Area` com as pastas que existem (`[ValidateSet]` ou `ArgumentCompleter`)
+
+**Pronto quando:** num terminal novo, `Novo-Estudo "Teste" -Area Programação` cria a nota e ela aparece no Obsidian.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 

@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -81,6 +81,28 @@ Ao terminar esta nota, você consegue:
 4. Dia 5: grave e compare com o original. Anote a maior diferença.
 
 **Pronto quando:** sua gravação do dia 5 soa visivelmente mais próxima do original que a do dia 1.
+
+---
+
+## 🚀 Projeto
+
+> [!example] Dublar uma cena
+> Shadowing com um objetivo divertido: no fim, você fala por cima da cena sem som, no ritmo do ator.
+>
+> **Tempo:** 2 semanas, 10 min por dia
+
+**O mínimo:**
+- [ ] Escolher 1 a 2 minutos de uma cena de série, filme ou jogo que tenha legenda ou transcrição em inglês
+- [ ] Fazer shadowing dela 10 min por dia durante 2 semanas
+- [ ] Gravar você dublando a cena sem som no 1º dia e no último
+
+**Se quiser ir além:**
+- Uma cena com dois personagens, fazendo as duas vozes
+- Mostrar o antes e depois para alguém
+
+**Pronto quando:** a gravação final acompanha o ritmo da cena sem você se perder no meio.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 

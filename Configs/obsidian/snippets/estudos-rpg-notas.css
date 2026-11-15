@@ -1,0 +1,238 @@
+/* =====================================================================
+   Estudos RPG · notas
+   Leva o visual do plugin estudos-rpg ("pixel moderno") para as notas .md:
+   mesma paleta, Jersey 15 nos títulos e Figtree no texto corrido.
+   Vale para o modo leitura e para o Live Preview/código-fonte.
+   Só mexe na área da nota: barra lateral, menus etc. continuam com o tema.
+   Para ajustar, mude as variáveis do primeiro bloco.
+   ===================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Jersey+15&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+
+.workspace-leaf-content[data-type="markdown"] {
+  /* Paleta (a mesma do plugin) */
+  --rpg-noite: #1a1c2c;
+  --rpg-painel: #22253a;
+  --rpg-painel-2: #2b2f4a;
+  --rpg-painel-3: #343a5c;
+  --rpg-borda: #3b4466;
+  --rpg-borda-2: #566c86;
+  --rpg-texto: #f4f4f4;
+  --rpg-suave: #a9bccc;
+  --rpg-apagado: #6d7c99;
+  --rpg-ouro: #ffcd75;
+  --rpg-ouro-escuro: #c4873a;
+  --rpg-chama: #ef7d57;
+  --rpg-ok: #38b764;
+  --rpg-ok-claro: #a7f070;
+  --rpg-raro: #41a6f6;
+  --rpg-epico: #b57cff;
+
+  --rpg-fonte-pixel: "Jersey 15", "Segoe UI", system-ui, sans-serif;
+  --rpg-fonte-texto: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --rpg-px: 3px;
+  --rpg-serrilha: polygon(
+    0 var(--rpg-px), var(--rpg-px) var(--rpg-px), var(--rpg-px) 0,
+    calc(100% - var(--rpg-px)) 0, calc(100% - var(--rpg-px)) var(--rpg-px), 100% var(--rpg-px),
+    100% calc(100% - var(--rpg-px)), calc(100% - var(--rpg-px)) calc(100% - var(--rpg-px)), calc(100% - var(--rpg-px)) 100%,
+    var(--rpg-px) 100%, var(--rpg-px) calc(100% - var(--rpg-px)), 0 calc(100% - var(--rpg-px))
+  );
+
+  /* Variáveis do próprio Obsidian (o tema lê estas) */
+  --background-primary: var(--rpg-noite);
+  --text-normal: var(--rpg-texto);
+  --text-muted: var(--rpg-suave);
+  --text-faint: var(--rpg-apagado);
+  --text-accent: var(--rpg-raro);
+  --text-accent-hover: var(--rpg-ouro);
+  --text-selection: rgba(65, 166, 246, 0.3);
+  --font-text-theme: var(--rpg-fonte-texto);
+  --font-text-size: 16px;
+  --line-height-normal: 1.65;
+  --bold-color: #ffffff;
+  --italic-color: var(--rpg-suave);
+  --link-color: var(--rpg-raro);
+  --link-color-hover: var(--rpg-ouro);
+  --link-unresolved-color: var(--rpg-chama);
+  --link-external-color: var(--rpg-epico);
+  --hr-color: var(--rpg-borda);
+  --code-background: var(--rpg-painel);
+  --code-normal: var(--rpg-texto);
+  --blockquote-border-color: var(--rpg-raro);
+  --list-marker-color: var(--rpg-ouro);
+  --checkbox-color: var(--rpg-ok-claro);
+  --checkbox-border-color: var(--rpg-borda-2);
+  --tag-background: var(--rpg-painel-2);
+  --tag-color: var(--rpg-ouro);
+  --table-border-color: var(--rpg-borda);
+  --table-header-background: var(--rpg-painel-2);
+  --text-highlight-bg: rgba(255, 205, 117, 0.28);
+
+  --h1-font: var(--rpg-fonte-pixel);
+  --h2-font: var(--rpg-fonte-pixel);
+  --h3-font: var(--rpg-fonte-pixel);
+  --h4-font: var(--rpg-fonte-pixel);
+  --h5-font: var(--rpg-fonte-pixel);
+  --h6-font: var(--rpg-fonte-pixel);
+  --h1-color: var(--rpg-ouro);
+  --h2-color: var(--rpg-raro);
+  --h3-color: var(--rpg-ok-claro);
+  --h4-color: var(--rpg-epico);
+  --h5-color: var(--rpg-chama);
+  --h6-color: var(--rpg-suave);
+  /* A Jersey é baixinha: os tamanhos vão um pouco acima do normal */
+  --h1-size: 2.6em;
+  --h2-size: 2.05em;
+  --h3-size: 1.7em;
+  --h4-size: 1.45em;
+  --h5-size: 1.3em;
+  --h6-size: 1.2em;
+  --h1-weight: 400;
+  --h2-weight: 400;
+  --h3-weight: 400;
+  --h4-weight: 400;
+  --h5-weight: 400;
+  --h6-weight: 400;
+  --inline-title-font: var(--rpg-fonte-pixel);
+  --inline-title-color: var(--rpg-ouro);
+  --inline-title-size: 3em;
+  --inline-title-weight: 400;
+}
+
+/* Fundo de "menu de jogo": grade de pontos discreta, igual à do plugin */
+.workspace-leaf-content[data-type="markdown"] :is(.markdown-reading-view, .markdown-source-view) {
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1.2px) 0 0 / 18px 18px,
+    var(--rpg-noite);
+}
+
+/* Texto corrido */
+.workspace-leaf-content[data-type="markdown"] :is(.markdown-rendered, .cm-content) {
+  font-family: var(--rpg-fonte-texto);
+}
+
+/* ---------- Títulos (fonte pixel) ---------- */
+.workspace-leaf-content[data-type="markdown"] :is(.inline-title, .markdown-rendered :is(h1, h2, h3, h4, h5, h6), .HyperMD-header, .cm-header) {
+  font-family: var(--rpg-fonte-pixel);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+.workspace-leaf-content[data-type="markdown"] .inline-title { color: var(--rpg-ouro); }
+/* H1 e H2 ganham um "chão" em blocos, como as barras do plugin */
+.workspace-leaf-content[data-type="markdown"] :is(.markdown-rendered h1, .HyperMD-header-1) {
+  padding-bottom: 0.15em;
+  border-bottom: 4px solid var(--rpg-ouro-escuro);
+}
+.workspace-leaf-content[data-type="markdown"] :is(.markdown-rendered h2, .HyperMD-header-2) {
+  padding-bottom: 0.1em;
+  border-bottom: 2px dashed var(--rpg-borda);
+}
+
+/* ---------- Ênfases ---------- */
+.workspace-leaf-content[data-type="markdown"] :is(.markdown-rendered mark, .cm-highlight) {
+  padding: 0 0.15em;
+  border-radius: 0;
+  background: var(--text-highlight-bg);
+  color: #ffffff;
+}
+
+/* ---------- Código ---------- */
+.workspace-leaf-content[data-type="markdown"] :is(.markdown-rendered :not(pre) > code, .cm-inline-code) {
+  padding: 0.1em 0.35em;
+  border-radius: 0;
+  background: var(--rpg-painel-2);
+  color: var(--rpg-ouro);
+  font-size: 0.9em;
+}
+.workspace-leaf-content[data-type="markdown"] :is(.markdown-rendered pre, .HyperMD-codeblock) {
+  border-radius: 0;
+  background: var(--rpg-painel);
+}
+.workspace-leaf-content[data-type="markdown"] .markdown-rendered pre {
+  border-left: 4px solid var(--rpg-borda-2);
+  clip-path: var(--rpg-serrilha);
+}
+
+/* ---------- Citação ---------- */
+.workspace-leaf-content[data-type="markdown"] .markdown-rendered blockquote {
+  padding: 0.6rem 0.9rem;
+  border-left: 4px solid var(--rpg-raro);
+  background: var(--rpg-painel-2);
+  color: var(--rpg-suave);
+}
+
+/* ---------- Callouts: cantos serrilhados, sem arredondar ---------- */
+.workspace-leaf-content[data-type="markdown"] .callout {
+  border: 0;
+  border-left: 4px solid rgb(var(--callout-color));
+  border-radius: 0;
+  background: var(--rpg-painel-2);
+  clip-path: var(--rpg-serrilha);
+}
+.workspace-leaf-content[data-type="markdown"] .callout-title {
+  font-family: var(--rpg-fonte-pixel);
+  font-size: 1.25em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Listas: marcador quadrado, como um pixel ---------- */
+.workspace-leaf-content[data-type="markdown"] .markdown-rendered ul > li:not(.task-list-item) { list-style-type: square; }
+.workspace-leaf-content[data-type="markdown"] .list-bullet::after {
+  width: 6px;
+  height: 6px;
+  border-radius: 0;
+  background-color: var(--rpg-ouro);
+}
+
+/* ---------- Caixas de marcar ---------- */
+.workspace-leaf-content[data-type="markdown"] input[type="checkbox"] {
+  border: 2px solid var(--rpg-borda-2);
+  border-radius: 0;
+  background-color: var(--rpg-noite);
+}
+.workspace-leaf-content[data-type="markdown"] input[type="checkbox"]:checked {
+  border-color: var(--rpg-ok-claro);
+  background-color: var(--rpg-ok-claro);
+}
+.workspace-leaf-content[data-type="markdown"] input[type="checkbox"]:checked::after { background-color: var(--rpg-noite); }
+.workspace-leaf-content[data-type="markdown"] :is(.markdown-rendered li.is-checked, .HyperMD-task-line[data-task="x"]) {
+  color: var(--rpg-apagado);
+}
+
+/* ---------- Linha horizontal em blocos ---------- */
+.workspace-leaf-content[data-type="markdown"] .markdown-rendered hr {
+  height: 4px;
+  border: 0;
+  background: repeating-linear-gradient(90deg, var(--rpg-borda) 0 8px, transparent 8px 14px);
+}
+
+/* ---------- Tabelas ---------- */
+.workspace-leaf-content[data-type="markdown"] .markdown-rendered table { border-collapse: collapse; }
+.workspace-leaf-content[data-type="markdown"] .markdown-rendered th {
+  background: var(--rpg-painel-2);
+  color: var(--rpg-ouro);
+  font-family: var(--rpg-fonte-pixel);
+  font-size: 1.15em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.workspace-leaf-content[data-type="markdown"] .markdown-rendered :is(th, td) { border: 2px solid var(--rpg-borda); }
+.workspace-leaf-content[data-type="markdown"] .markdown-rendered tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.025); }
+
+/* ---------- Tags ---------- */
+.workspace-leaf-content[data-type="markdown"] :is(.markdown-rendered a.tag, .cm-hashtag) {
+  border: 0;
+  border-radius: 0;
+  background: var(--rpg-painel-2);
+  color: var(--rpg-ouro);
+}
+
+/* ---------- Imagens e embeds sem arredondar ---------- */
+.workspace-leaf-content[data-type="markdown"] .markdown-rendered img { border-radius: 0; }
+.workspace-leaf-content[data-type="markdown"] .markdown-embed {
+  border: 0;
+  border-left: 4px solid var(--rpg-borda-2);
+  border-radius: 0;
+  background: var(--rpg-painel);
+}

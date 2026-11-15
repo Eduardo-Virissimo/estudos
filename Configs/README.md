@@ -95,4 +95,6 @@ O painel de estudos é o plugin **`estudos-rpg`**, feito por mim. O código-font
 
 - **Num PC novo, não precisa compilar nada:** o `restaurar.ps1` já coloca o plugin pronto.
 - **Para mexer no código:** instale o [Node.js](https://nodejs.org) (versão 22+) e siga o `README.md` do plugin (`npm install` e `npm run build`).
-- Não depende de Dataview nem de snippet CSS. As fontes (Rajdhani e Barlow) vêm do Google Fonts; sem internet, usa a fonte do sistema.
+- Não depende de Dataview nem de snippet CSS. As fontes (Jersey 15 e Figtree) vêm do Google Fonts; sem internet, usa a fonte do sistema.
+- **Mexer no visual do plugin:** edite o `styles.css` do código-fonte (`.sistema/estudos-rpg/`), não o instalado. O build copia o de lá por cima dos outros dois.
+- O snippet `estudos-rpg-notas.css` leva o mesmo visual (paleta e fontes) para as notas `.md`. É opcional: desligado, as notas usam o tema normal.

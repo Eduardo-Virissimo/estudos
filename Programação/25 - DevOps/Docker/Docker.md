@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -417,6 +417,30 @@ CMD ["node", "server.js"]
    # Veja os logs da aplicação
    docker-compose logs app -f
    ```
+
+---
+
+## 🚀 Projeto
+
+> [!example] Colocar um projeto seu num container
+> No desafio o app só imprime uma mensagem. Aqui é um servidor de verdade, com banco, dados que persistem e configuração por ambiente.
+>
+> **Tempo:** 2 a 3 sessões
+
+**O mínimo:**
+- [ ] Escolher um projeto seu com servidor. O do roadmap é o [[Plataforma de Matchmaking para Duos em Jogos|Matchmaking]]; se ainda não existir, uma API Express de uma rota serve
+- [ ] `Dockerfile` e `.dockerignore` (sem `node_modules` na imagem)
+- [ ] `docker compose up` sobe o app e o banco, e os dados sobrevivem a um `docker compose down` (volume)
+- [ ] Configuração por `.env`: nenhuma senha no código nem no compose
+
+**Se quiser ir além:**
+- Build em múltiplas etapas, comparando o tamanho da imagem antes e depois com `docker images`
+- `healthcheck` no banco e o app esperando ele ficar pronto
+- Publicar a imagem no Docker Hub ou no GitHub Container Registry
+
+**Pronto quando:** você clona o repositório numa pasta limpa, roda `docker compose up` e funciona sem ter Node nem banco instalados.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 

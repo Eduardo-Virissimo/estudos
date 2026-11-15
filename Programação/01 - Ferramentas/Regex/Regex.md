@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -191,6 +191,30 @@ Crie uma expressão regular para cada item e teste no regex101.com:
 4. Todas as palavras que começam com maiúscula
 5. Uma URL que começa com http:// ou https://
 ```
+
+---
+
+## 🚀 Projeto
+
+> [!example] Caçador de perguntas do vault
+> É exatamente o que o plugin Estudos RPG faz por baixo: achar as perguntas `[!question]` com regex. Aqui você faz a sua versão.
+>
+> **Tempo:** 1 a 2 sessões
+
+**O mínimo:**
+- [ ] Script (PowerShell com `Select-String`, ou Node) que lê todos os `.md` do vault
+- [ ] Uma regex que extrai o título de cada `> [!question]- ...`
+- [ ] Lista quantas perguntas cada nota tem, da maior para a menor
+- [ ] Outra regex que acha sobras do template, como `[NOME DO TÓPICO]` ou `[Pergunta 1: ...]`, **sem** pegar `[[wikilinks]]` nem `[links](url)`: essa é a parte difícil
+
+**Se quiser ir além:**
+- Capturar também a resposta (as linhas `> ` logo abaixo) com grupos de captura
+- Comparar a sua regex com a do plugin em `.sistema/estudos-rpg/src/domain/parse.ts`: o que a dele trata que a sua não trata?
+- Exportar o resultado para CSV
+
+**Pronto quando:** o total de perguntas que o seu script conta bate com o que a Ficha do herói mostra.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 

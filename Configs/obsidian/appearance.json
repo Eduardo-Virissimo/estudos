@@ -2,7 +2,8 @@
   "theme": "obsidian",
   "enabledCssSnippets": [
     "custom-rainbow-colors",
-    "cursor-smooth"
+    "cursor-smooth",
+    "estudos-rpg-notas"
   ],
   "cssTheme": "AnuPpuccin",
   "showRibbon": false,

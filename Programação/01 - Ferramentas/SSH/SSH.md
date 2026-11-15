@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -178,6 +178,30 @@ chmod 600 ~/.ssh/id_ed25519
 # 6. Opcional: adicione a chave pública na sua conta do GitHub
 #    e teste com: ssh -T git@github.com
 ```
+
+---
+
+## 🚀 Projeto
+
+> [!example] Vault no GitHub por SSH, com commits Verified
+> Troca a autenticação do seu próprio repositório. Se algo der errado, o push para, então você só termina quando entendeu de verdade.
+>
+> **Tempo:** 1 sessão
+
+**O mínimo:**
+- [ ] Chave `ed25519` com senha (passphrase), guardada pelo `ssh-agent` do Windows (`Get-Service ssh-agent`)
+- [ ] Chave pública cadastrada no GitHub, e `ssh -T git@github.com` respondendo com o seu usuário
+- [ ] Remote do vault trocado para SSH: `git remote set-url origin git@github.com:Eduardo-Virissimo/estudos.git`
+- [ ] Um push saindo pelo plugin Git do Obsidian
+
+**Se quiser ir além:**
+- Assinar os commits com a mesma chave (`git config gpg.format ssh`, `user.signingkey`, `commit.gpgsign true`) e ver o selo **Verified** no GitHub
+- Um `Host github` no `~/.ssh/config`
+- Atualizar a seção Git e GitHub do `Configs/README.md` com o novo jeito
+
+**Pronto quando:** o push sai sem pedir login e o último commit aparece como **Verified** no GitHub.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 

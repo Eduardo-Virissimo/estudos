@@ -492,6 +492,8 @@
   font-size: 15px;
 }
 .erpg-host .erpg-busca input::placeholder { color: var(--apagado); }
+/* O foco já aparece na borda da caixa (:focus-within); tira o contorno do plugin e o brilho padrão do Obsidian */
+.erpg-host .erpg-busca input:is(:focus, :focus-visible) { outline: none; box-shadow: none; }
 
 .is-mapa .erpg-rola > .erpg-rotulo { margin: 0.2rem 0 0.4rem; }
 .is-mapa .erpg-rola > .erpg-rotulo:not(:first-child) { margin-top: 0.9rem; }

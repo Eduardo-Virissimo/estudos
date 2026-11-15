@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -198,6 +198,30 @@ Desative as regras de estilo do linter que duplicam o formatter (no ESLint, use 
 # 5. Crie um .prettierrc e mude tabWidth para 4, depois salve de novo
 # 6. Rode npx prettier --check . e veja o resultado
 ```
+
+---
+
+## 🚀 Projeto
+
+> [!example] Seu kit inicial de projeto JS
+> Fecha a sequência Gerenciador de Pacotes → Linter → Formatter num repositório que você reaproveita em todo projeto novo.
+>
+> **Tempo:** 1 a 2 sessões
+
+**O mínimo:**
+- [ ] Repositório `kit-js` com `package.json` e os scripts `lint`, `format` e `check` (lint + `prettier --check`)
+- [ ] ESLint e Prettier juntos sem brigar (`eslint-config-prettier`)
+- [ ] `.editorconfig` e `.vscode/settings.json` com formatar ao salvar
+- [ ] README curto: como começar um projeto a partir do kit
+
+**Se quiser ir além:**
+- Marcar como **Template repository** no GitHub e começar o próximo projeto por ele
+- Rodar o `check` antes de cada commit (`husky` + `lint-staged`)
+- Adicionar TypeScript quando chegar em [[TypeScript]]
+
+**Pronto quando:** você cria um projeto novo a partir do kit e está tudo funcionando em menos de 2 minutos.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 

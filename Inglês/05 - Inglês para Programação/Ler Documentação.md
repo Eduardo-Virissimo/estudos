@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -102,6 +102,29 @@ Exceptions
 4. Anote: em qual seção achou, quanto tempo levou e quais palavras eram novas (essas vão pro [[Sentence Mining]]).
 
 **Pronto quando:** você achou a resposta em menos de 5 minutos, sem traduzir a página.
+
+---
+
+## 🚀 Projeto
+
+> [!example] Um projetinho do zero, só com a doc em inglês
+> No desafio você acha uma resposta. Aqui você constrói algo inteiro tendo a documentação como única professora.
+>
+> **Tempo:** 1 a 2 sessões
+
+**O mínimo:**
+- [ ] Escolher algo pequeno e novo para você, com boa documentação oficial: um bot de Discord ([discord.js](https://discordjs.guide)) ou um plugin de Obsidian "Hello world" ([docs.obsidian.md](https://docs.obsidian.md))
+- [ ] Regra: só a doc oficial em inglês (Getting Started, Guide, API Reference). Sem tutorial em português e sem tradutor
+- [ ] Fazer funcionar: o bot responde um comando, ou o plugin mostra um aviso
+- [ ] Levar as palavras novas para o [[Sentence Mining]]
+
+**Se quiser ir além:**
+- Resolver uma dúvida pela **API Reference**, não pelo guia
+- Se achar um erro na doc, abrir uma issue em inglês no repositório dela
+
+**Pronto quando:** funciona, e você sabe dizer em que página da doc estava cada coisa que usou.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 

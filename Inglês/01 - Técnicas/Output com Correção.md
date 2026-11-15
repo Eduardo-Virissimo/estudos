@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -88,6 +88,29 @@ Anote cada erro corrigido no Diário de bordo. Toda semana, olhe a lista e escol
 4. No fim da semana, circule os 3 tipos de erro que mais apareceram.
 
 **Pronto quando:** você sabe quais são os seus 3 erros mais comuns.
+
+---
+
+## 🚀 Projeto
+
+> [!example] O README do seu plugin, em inglês
+> Um texto que vai existir de verdade, sobre algo que você conhece melhor que ninguém: o seu plugin Estudos RPG.
+>
+> **Tempo:** 2 a 3 sessões
+
+**O mínimo:**
+- [ ] Escrever do zero em inglês, sem traduzir do português: o que o plugin é, como instalar e como usar
+- [ ] Seções curtas e frases simples
+- [ ] Passar cada seção pelo prompt de correção e levar os erros para o caderno de erros
+- [ ] Salvar como `README.en.md` em `.sistema/estudos-rpg/`
+
+**Se quiser ir além:**
+- Pedir para a IA apontar só o que soa "não nativo" e reescrever essas partes você mesmo
+- Escrever em inglês a descrição (About) do repositório no GitHub
+
+**Pronto quando:** alguém que só fala inglês conseguiria instalar e usar o plugin lendo só o seu README.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 

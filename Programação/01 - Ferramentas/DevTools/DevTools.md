@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -176,6 +176,29 @@ Evita que arquivos antigos em cache atrapalhem seus testes enquanto desenvolve.
 4. Na aba Network, descubra qual arquivo carregado é o maior
 5. Rode o Lighthouse e anote uma sugestão de melhoria
 ```
+
+---
+
+## 🚀 Projeto
+
+> [!example] Abrir o capô do próprio Obsidian
+> O Obsidian é feito com Electron, ou seja, é um Chrome por dentro. `Ctrl + Shift + I` abre as DevTools nele, e você pode investigar o seu próprio plugin.
+>
+> **Tempo:** 1 sessão
+
+**O mínimo:**
+- [ ] Em **Elements**, achar o painel da Ficha do herói (classe `erpg-host`)
+- [ ] Em **Styles**, mudar uma cor da paleta ao vivo (ex.: `--ouro`) e ver a Ficha mudar
+- [ ] No **Console**, rodar `app.vault.getMarkdownFiles().length` e explorar `app.plugins.plugins["estudos-rpg"]`
+- [ ] Em **Sources**, abrir o `main.js` do plugin, pôr um breakpoint no código que roda ao clicar em "Lembrei" e ver as variáveis quando ele para
+
+**Se quiser ir além:**
+- Na aba **Performance**, gravar a abertura da Ficha e ver qual função demora mais
+- Levar uma mudança de CSS que você gostou para o `styles.css` do código-fonte (`.sistema/estudos-rpg/`)
+
+**Pronto quando:** você explica qual função do plugin roda quando clica em "Lembrei", porque viu ela parar no breakpoint.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 

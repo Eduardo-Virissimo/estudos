@@ -13,7 +13,7 @@ revisado:
 > **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
 
 > [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
 
 ---
 
@@ -184,6 +184,30 @@ O [ShellCheck](https://www.shellcheck.net/) analisa seus scripts e aponta erros 
 # 4. Crie uma pasta com o nome da extensão (mkdir -p)
 # 5. Mova o arquivo para a pasta correspondente
 ```
+
+---
+
+## 🚀 Projeto
+
+> [!example] status-estudos.sh: o painel do seu vault no terminal
+> Um script que você roda de verdade, num lugar com armadilhas reais: nomes de pasta com espaço e acento.
+>
+> **Tempo:** 1 a 2 sessões
+
+**O mínimo:**
+- [ ] Recebe a pasta do vault como argumento; sem argumento, usa a pasta atual
+- [ ] Conta quantas notas estão em cada `nivel` (`escrito`, `praticado`, `projeto`) com `grep` e um `for`
+- [ ] Lista as notas que nunca foram revisadas (linha `revisado:` vazia)
+- [ ] Usa `set -euo pipefail` e aspas em todas as variáveis (sem elas, `Inglês/01 - Técnicas` quebra o script)
+
+**Se quiser ir além:**
+- Opção `-a Inglês` para filtrar por área, com `getopts`
+- Saída colorida: verde para `projeto`, amarelo para `praticado`
+- Passar no ShellCheck sem nenhum aviso
+
+**Pronto quando:** no Git Bash, `./status-estudos.sh` mostra algo como `escrito: 21 · praticado: 2 · projeto: 0`.
+
+> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
 
 ---
 
