@@ -5,92 +5,70 @@ revisado:
 
 # Rotina de Estudo de Inglês
 
-> *"Você não sobe ao nível dos seus objetivos; você cai ao nível dos seus hábitos."*
+Todo começo de ano, alguém decide que agora vai: duas horas de inglês por dia. Compra o livro, baixa os aplicativos, monta uma planilha. Na primeira semana, cumpre. Na segunda, falha um dia por cansaço, e outro porque surgiu um compromisso. Na terceira, já parou. E conclui, de novo, que "não tem jeito pra idiomas".
 
-> [!tip] ⚡ Em 30 segundos
-> Idioma é jogo de **volume e constância**. Um plano bom é pequeno o bastante pra fazer num dia ruim. A base: **30 min/dia** divididos em input, revisão e output, e um dia por semana pra conversar. Use o cronômetro da Ficha do herói pra registrar.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Não é falta de jeito. É que o plano estava errado desde o começo. Aprender um idioma é um jogo de **volume e constância**, não de intensidade. O que conta é a soma de muitos dias, e não o tamanho de cada dia. E daí vem a regra que guia esta nota inteira: **um plano bom é pequeno o bastante pra você fazer até num dia ruim.**
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+A base é um bloco de **30 minutos por dia**, dividido em revisão, input e output, mais um momento por semana pra conversar com alguém. E o truque que mais faz diferença, que salva o hábito nos piores dias, é ter uma **versão mínima**, pra nunca quebrar a corrente. Use o cronômetro da Ficha do herói pra registrar as sessões. Ajuda ter lido [[Como Aprender Inglês]] e feito o [[Diagnóstico de Nível]].
 
----
+## Trinta minutos, numa ordem certa
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Montar uma rotina diária de 30 min com as 3 partes (input, revisão, output)
-- Encaixar inglês em tempo "morto" (ônibus, louça, academia)
-- Ajustar a rotina quando ela não estiver funcionando, em vez de abandonar
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Como Aprender Inglês]] · [[Diagnóstico de Nível]]
-- **Depois:** [[Input Compreensível]] · [[Sentence Mining]]
-- **Trilha:** [[Inglês]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. O bloco diário de 30 minutos
+O bloco diário tem quatro partes, e a ordem delas importa:
 
 | Ordem | O quê | Tempo | Por quê |
 |---|---|---|---|
-| 1 | Revisar flashcards do dia | 5–10 min | Revisão espaçada só funciona se for **todo dia** |
-| 2 | Input (vídeo, podcast, leitura) | 15–20 min | O motor da aquisição |
-| 3 | Guardar 3–5 frases novas | 3 min | Alimenta os flashcards de amanhã |
-| 4 | Output curto (shadowing ou áudio de 1 min) | 5 min | Tira o inglês da cabeça e põe na boca |
+| 1 | Revisar os flashcards do dia | 5 a 10 min | revisão espaçada só funciona se for **todo dia** |
+| 2 | Input (vídeo, podcast, leitura) | 15 a 20 min | o motor da aquisição |
+| 3 | Guardar 3 a 5 frases novas | 3 min | alimenta os flashcards de amanhã |
+| 4 | Output curto ([[Shadowing]] ou um áudio de 1 minuto) | 5 min | tira o inglês da cabeça e põe na boca |
 
-### 2. A semana
+Por que a revisão vem **primeiro**, antes da parte mais gostosa? Porque ela **acumula**. Os flashcards que você não revisa hoje não somem: voltam amanhã, junto com os de amanhã. Três dias sem revisar viram uma montanha de cartões atrasados, e é exatamente nesse momento que a maioria das pessoas desiste do Anki. Começando pela revisão, a parte mais importante do dia já está feita, mesmo que todo o resto dê errado.
 
-| Dia | Foco extra |
+E repare como o ciclo se fecha sozinho: o input de hoje gera as frases novas, que viram os flashcards de amanhã, que você revisa primeiro amanhã ([[Sentence Mining]] explica como escolher essas frases).
+
+## A versão mínima
+
+Vai ter dia ruim. Sem tempo, cansado, doente, viajando. Pra esses dias, tenha uma **versão mínima** já decidida: só os flashcards, cinco minutos.
+
+Parece pouco demais, e é de propósito. Pense no que realmente derruba um hábito. Não é um dia fraco. É o **dia zero**: aquele em que você não faz nada, que vira dois dias, que vira uma semana, e aí você já "parou". Manter a corrente com cinco minutos, num dia péssimo, vale muito mais do que um dia perfeito seguido de uma semana parado. O hábito continua vivo, e amanhã você volta pro bloco inteiro.
+
+Mais duas regras ajudam a não abandonar. A primeira: **mesmo horário, mesmo gatilho.** Algo como "depois do café, abro o Anki". O hábito novo se prende a uma coisa que você já faz todo dia, e para de depender de lembrar ou de ter vontade. A segunda: **mude o conteúdo, não o hábito.** Enjoou do podcast? Troque de podcast. Não pare de ouvir.
+
+## Comece pequeno
+
+Voltando ao plano de duas horas do começo: ele durou uma semana. Comece com **30 minutos**, e só aumente quando estiver fácil manter. É melhor um hábito pequeno que dura um ano do que um grande que dura uma semana.
+
+E um cuidado com a parte do output. Dos quatro passos do bloco, ele é o que mais dá vontade de pular: é o mais desconfortável, porque você ouve os próprios erros. Mas input sem output dá um resultado muito específico: você entende tudo, e não consegue falar nada. Os cinco minutos de output não são opcionais.
+
+## A semana, e o tempo que sobra
+
+O bloco diário é a base, mas a semana tem mais algumas peças:
+
+| Quando | Foco extra |
 |---|---|
-| Seg–Sex | Bloco diário |
-| 1x na semana | **Conversa** (aula, tandem, amigo) ou um texto corrigido |
-| Fim de semana | Só input por prazer (série, jogo, livro). Descanso também conta. |
+| Segunda a sexta | o bloco diário |
+| Uma vez por semana | **conversa** (aula, tandem, um amigo) ou um texto corrigido ([[Output com Correção]]) |
+| Fim de semana | só input por prazer: série, jogo, livro. Descanso também conta. |
 
-### 3. Inglês no tempo "morto"
+E existe uma fonte enorme de tempo que quase ninguém aproveita: o **tempo morto**. O ônibus, a louça, a academia, a fila do banco. Coloque um **podcast** ou um **audiobook** nesses momentos. Só isso pode somar mais de cinco horas de input por semana, sem tirar tempo de mais nada.
 
-Ônibus, louça, academia, fila: **podcast ou audiobook**. Isso sozinho pode somar 5+ horas de input por semana sem tirar tempo de nada.
+## O essencial
 
-### 4. Regras pra não abandonar
+1. Constância vale mais que intensidade. O plano tem que caber num dia ruim.
+2. O bloco de 30 minutos: flashcards → input → guardar frases → output curto.
+3. Revisão primeiro, porque ela acumula.
+4. Versão mínima pros dias ruins: cinco minutos de flashcards. Nunca o dia zero.
+5. Mesmo horário, mesmo gatilho. Enjoou? Troque o conteúdo, não o hábito.
 
-- **Versão mínima:** no dia ruim, faça só os flashcards (5 min). Manter a corrente vale mais que um dia perfeito.
-- **Mesmo horário, mesmo gatilho:** "depois do café, abro o Anki".
-- **Mude o conteúdo, não o hábito:** enjoou do podcast? Troque o podcast, não pare.
+## Agora é com você
 
----
+Cumpra a rotina por sete dias seguidos. Escolha o horário e o gatilho (algo como "depois do almoço"). Defina o seu conteúdo de input da semana: um podcast ou um canal no seu nível. Instale o Anki e crie um baralho "Inglês". Faça o bloco diário com o cronômetro da Ficha do herói ligado. E no sétimo dia, escreva aqui embaixo o que funcionou e o que não funcionou. Você terminou quando a Ficha mostrar sete dias seguidos 🔥.
 
-## 🔧 Pegadinhas
-
-- **Plano ambicioso demais.** 2 h/dia dura uma semana. Comece com 30 min e aumente.
-- **Pular a revisão.** Flashcard acumula: 3 dias sem revisar viram 300 cartões e você desiste. Revise primeiro, sempre.
-- **Só consumir, nunca produzir.** Input é a base, mas sem output você entende tudo e não fala nada.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** cumprir a rotina por 7 dias seguidos.
-
-1. Escolha o horário e o gatilho ("depois do almoço").
-2. Defina seu conteúdo de input da semana (1 podcast ou canal no seu nível).
-3. Instale o Anki e crie um baralho "Inglês".
-4. Faça o bloco diário com o cronômetro da Ficha ligado.
-5. No 7º dia, escreva no Diário de bordo o que funcionou e o que não funcionou.
-
-**Pronto quando:** a Ficha mostra 7 dias seguidos 🔥.
+Daqui, siga pro [[Input Compreensível]] e pro [[Sentence Mining]], as duas técnicas que alimentam o bloco diário.
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Quais são as 4 partes do bloco diário de 30 min, e em que ordem?
 > Revisar flashcards → input → guardar frases novas → output curto.
@@ -101,33 +79,36 @@ Ao terminar esta nota, você consegue:
 > [!question]- O que fazer num dia ruim, sem tempo?
 > A versão mínima: só os flashcards (5 min). Manter a sequência é mais importante que fazer tudo.
 
+> [!question]- Por que um plano de 2 horas por dia costuma falhar?
+> Porque não cabe nos dias ruins: o primeiro dia zero vira uma semana parada, e o hábito morre.
+
+> [!question]+ Num dia sem tempo, o que fazer?
+> - a) Pular o dia, sem culpa
+> - b) O mínimo: revisar os flashcards (uns 5-10 min) pra não perder a sequência
+> - c) Compensar com o dobro no dia seguinte
+> - d) Assistir um filme sem legenda
+>
+> > [!check]- Resposta
+> > **b)** A constância vale mais que a intensidade. Os flashcards acumulam se pular, e o mínimo mantém o hábito vivo.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Situação | Faça |
 |---|---|
 | Dia normal | Bloco de 30 min |
 | Dia ruim | Só flashcards (5 min) |
-| Tempo morto | Podcast/audiobook |
+| Tempo morto | Podcast ou audiobook |
 | 1x por semana | Conversa ou texto corrigido |
 | Enjoou | Troque o conteúdo, não o hábito |
 
----
+**Pra ler:** *Hábitos Atômicos*, de James Clear, explica por que hábitos pequenos e presos a um gatilho duram, e por que "nunca falhar duas vezes" é a regra mais importante. E o [Anki](https://apps.ankiweb.net/) é o programa de flashcards com revisão espaçada do primeiro passo do bloco.
 
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar.
+## Minhas anotações
 
 **Minha rotina (horário e gatilho):**
 - 
 
 **O que funcionou / o que não funcionou na primeira semana:**
-- 
-
----
-
-## 📚 Recursos
-
-- *Atomic Habits* (Hábitos Atômicos), James Clear: como criar hábitos que duram
-- [Anki](https://apps.ankiweb.net/): flashcards com revisão espaçada
+-

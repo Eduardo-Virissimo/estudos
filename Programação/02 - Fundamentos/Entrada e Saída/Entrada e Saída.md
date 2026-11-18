@@ -5,60 +5,76 @@ revisado:
 
 # Entrada e Saída
 
-> *"Um programa que não recebe nada e não mostra nada é só um aquecedor de CPU."*
+Você escreveu uma calculadora de IMC. O peso e a altura estão fixos no código, `const peso = 70`, e toda vez que quer calcular pra outra pessoa, abre o arquivo, muda o número, salva e roda de novo. Funciona, mas não é um programa de verdade: é um cálculo que só você consegue usar.
 
-> [!tip] ⚡ Em 30 segundos
-> **Entrada** é como o programa recebe dados (teclado, argumentos do terminal, arquivo, rede); **saída** é como ele mostra o resultado (tela, arquivo, resposta HTTP). No Node.js, o básico é `console.log` pra sair, `process.argv` pra receber argumentos e `readline` pra perguntar ao usuário. Toda entrada chega como **texto**: converter e validar é com você.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Um programa útil **conversa com o mundo**. Ele **recebe** dados de fora (a entrada) e **mostra** um resultado (a saída). No Node.js, isso se faz com três ferramentas: `console.log` pra mostrar, `process.argv` pra receber o que foi digitado junto com o comando, e `readline` pra fazer perguntas e esperar a resposta.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Mas antes das ferramentas, a ideia que mais evita bugs nesta nota inteira: **tudo o que chega de fora é texto, e pode vir errado.** Converter e validar é trabalho seu, não do usuário. Se você só levar uma coisa daqui, leve essa. Pra acompanhar, ajuda já conhecer [[Variáveis e Tipos de Dados]] e o [[Terminal]].
 
----
+## Dois canais de saída
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Mostrar dados no terminal com `console.log`, `console.error` e `console.table`
-- Receber argumentos na linha de comando com `process.argv`
-- Fazer perguntas ao usuário com `readline` e validar a resposta
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Variáveis e Tipos de Dados]] · [[Terminal]]
-- **Depois:** [[Estruturas Condicionais]] · [[Ler e Escrever Arquivos]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. Saída: a família `console`
+`console.log` você já conhece: mostra algo no terminal. O que quase ninguém sabe no começo é que um programa tem **dois canais de saída separados**:
 
 ```ts
 console.log("Olá", 42, { nivel: 3 }); // saída normal (stdout)
 console.error("Deu ruim");             // saída de erro (stderr)
-console.table([{ nome: "Ana", xp: 120 }, { nome: "Bia", xp: 80 }]);
+console.table([{ nome: "Ana", xp: 120 }, { nome: "Bia", xp: 80 }]); // uma tabela bonita
 ```
 
-`stdout` e `stderr` são canais separados: no [[Bash]], `2>` redireciona só os erros.
+No terminal os dois aparecem igualzinho, então pra que separar? Porque quem usa o seu programa pode querer tratar cada um de um jeito. Imagine que você salva um relatório num arquivo com `npx tsx relatorio.ts > saida.txt`. O `>` pega **só o stdout**: o resultado vai pro arquivo, e as mensagens de erro continuam aparecendo na tela, sem sujar o relatório. Se você tivesse usado `console.log` pro erro, a mensagem "arquivo não encontrado" iria parar no meio do relatório, e ninguém ia perceber.
 
-### 2. Entrada por argumentos: `process.argv`
+A regra é fácil: **resultado vai no `console.log`, problema vai no `console.error`.** (No [[Bash]], o `2>` redireciona só os erros.)
+
+## Toda entrada chega como texto
+
+Não importa se o usuário digitou `10` no teclado ou passou `10` junto com o comando: o programa recebe a **string** `"10"`, nunca o número. E isso causa um dos bugs mais clássicos de quem está começando:
 
 ```ts
-// npx tsx somar.ts 10 5
-const args = process.argv.slice(2); // ["10", "5"]  (as 2 primeiras são o node e o arquivo)
-const [a, b] = args.map(Number);
+const a = "10";
+const b = "5";
+console.log(a + b);                  // "105"  ← juntou os textos
+console.log(Number(a) + Number(b));  // 15     ← agora sim
+```
+
+Com strings, o `+` não soma, **junta**. Então, toda vez que algo vem de fora, você faz duas coisas: **converte** (`Number(...)`) e **valida**. Porque o usuário pode digitar "abc", deixar em branco, ou escrever `1,75` com vírgula, do jeito brasileiro.
+
+```ts
+const resposta = "  1,75 ";
+const altura = Number(resposta.trim().replace(",", ".")); // 1.75
+
+if (Number.isNaN(altura) || altura <= 0) {
+  console.error("Altura inválida");
+}
+```
+
+O `.trim()` tira os espaços das pontas, e o `.replace(",", ".")` aceita a vírgula. E o `Number("abc")` não dá erro: ele devolve `NaN` (*Not a Number*), um valor especial que quer dizer "isso não é um número". Por isso a checagem com `Number.isNaN`.
+
+"Ninguém vai digitar letra num campo de idade" é a frase que vem antes de todo bug de entrada. Sempre pense em três casos: o **vazio**, o **não numérico**, e o **fora do intervalo** (uma idade negativa, uma altura de 175 metros).
+
+## Argumentos: dados junto com o comando
+
+Quando você roda `git commit -m "mensagem"`, o `-m` e a `"mensagem"` são **argumentos**: informações passadas junto com o comando. Os seus programas também podem receber argumentos, e eles chegam no `process.argv`:
+
+```ts
+// rodando: npx tsx somar.ts 10 5
+console.log(process.argv);
+// [ "C:\\...\\node.exe", "C:\\...\\somar.ts", "10", "5" ]
+```
+
+Repare que vieram quatro coisas, não duas. As duas primeiras posições são **sempre** o caminho do Node e o caminho do seu arquivo. Os argumentos de verdade começam na terceira posição. Por isso, o jeito de pegar eles é cortar as duas primeiras com `.slice(2)`:
+
+```ts
+const [a, b] = process.argv.slice(2).map(Number);
 console.log(a + b); // 15
 ```
 
-Bom pra scripts e ferramentas de linha de comando (CLIs): `git commit -m "msg"` funciona assim.
+Se você esquecer o `slice(2)`, o seu "primeiro argumento" vira o caminho do `node.exe`, e `Number(...)` disso dá `NaN`. É um erro que confunde muito na primeira vez.
 
-### 3. Entrada interativa: `readline`
+Argumentos são ótimos pra ferramentas que você roda de uma vez, sem conversa: `npx tsx converter.ts 30 C` e pronto, o resultado aparece.
+
+## Perguntar e esperar a resposta
+
+Às vezes o programa precisa **conversar**: fazer uma pergunta, esperar você responder, e continuar. Pra isso existe o `readline`:
 
 ```ts
 import * as readline from "node:readline/promises";
@@ -74,30 +90,13 @@ async function main() {
 main();
 ```
 
-> O `async`/`await` você entende em [[Async e Await]]. Por enquanto, copie a estrutura: perguntas sempre com `await rl.question(...)` dentro do `main`.
+O `createInterface` liga o programa ao teclado (`input`) e à tela (`output`). O `rl.question` mostra a pergunta e **espera** você apertar Enter. E o `await` é o que faz o programa ficar parado esperando a resposta, em vez de seguir em frente. Você vai entender o `await` a fundo em [[Async e Await]]. Por enquanto, copie a estrutura: perguntas sempre com `await rl.question(...)`, dentro de uma função `async`.
 
-### 4. Validar sempre
+E repare no `rl.close()` no final. Se você esquecer, o programa mostra a mensagem de boas-vindas e... fica ali, pendurado no terminal, sem terminar. Enquanto o `readline` está aberto, o Node acha que ainda pode chegar mais coisa do teclado e fica esperando. Fechou as perguntas, feche o `readline`.
 
-Tudo que vem de fora é texto e pode vir errado:
+## Voltando à calculadora
 
-```ts
-const resposta = await rl.question("Idade: ");
-const idade = Number(resposta);
-if (resposta.trim() === "" || Number.isNaN(idade) || idade < 0) {
-  console.error("Idade inválida");
-  process.exitCode = 1; // sinaliza erro pra quem chamou o programa
-}
-```
-
-### 5. Código de saída
-
-Todo programa termina com um número: `0` = deu certo, qualquer outro = erro. Scripts, [[Git Hooks]] e CI leem esse número. Use `process.exitCode = 1` quando algo falhar.
-
----
-
-## 🛠️ Exemplo guiado
-
-Uma calculadora de IMC que aceita argumentos **ou** pergunta se eles não vierem:
+Agora dá pra transformar aquela calculadora de IMC num programa de verdade. Um padrão muito usado: aceitar os dados por argumento (rápido, pra quem já sabe usar) e, se eles não vierem, **perguntar**.
 
 ```ts
 import * as readline from "node:readline/promises";
@@ -119,43 +118,43 @@ async function main() {
     altura = await lerNumero(rl, "Altura (m): ");
     rl.close();
   }
-  const imc = peso / altura ** 2;
-  console.log(`IMC: ${imc.toFixed(1)}`);
+  console.log(`IMC: ${(peso / altura ** 2).toFixed(1)}`);
 }
 
 main();
 ```
 
-Repare: aceitar `1,75` (vírgula) é pensar no usuário brasileiro.
+Olhe com carinho o `lerNumero`. Quando a resposta é inválida, ele não quebra o programa: avisa no `console.error` e **pergunta de novo**, até vir algo que faça sentido. E aceita `1,75` com vírgula. É pensar em quem vai usar.
 
----
+## O número que todo programa devolve
 
-## 🔧 Pegadinhas
+Tem uma última saída, que você não vê, mas que outros programas leem. Todo programa, quando termina, devolve um número pro sistema, o **código de saída**. **`0` quer dizer que deu certo**; qualquer outro número quer dizer erro. Scripts, [[Git Hooks]] e a CI usam esse número pra decidir se continuam ou se param.
 
-- **Esquecer que a entrada é texto.** `"10" + "5"` é `"105"`. Converta com `Number()`.
-- **Esquecer o `rl.close()`.** O programa fica "pendurado" esperando mais entrada.
-- **Esquecer o `.slice(2)` no `process.argv`.** As duas primeiras posições são o caminho do Node e do arquivo.
-- **Não tratar espaço e vírgula.** Use `.trim()` e, pra decimais, `.replace(",", ".")`.
-- **Usar `console.log` pra erro.** Use `console.error`: assim quem redireciona a saída não mistura erro com resultado.
+```ts
+if (!entradaValida) {
+  console.error("Entrada inválida");
+  process.exitCode = 1; // termina sinalizando erro
+}
+```
 
----
+No Bash, `echo $?` logo depois de rodar um comando mostra o código de saída dele.
 
-## 🔨 Desafio prático
+## O essencial
 
-**Objetivo:** um "quiz" de 3 perguntas no terminal.
+1. Tudo o que vem de fora é string: converta com `Number()` e valide (vazio, `NaN`, fora do intervalo).
+2. Resultado no `console.log`, erro no `console.error`.
+3. Argumentos: `process.argv.slice(2)`.
+4. Perguntas: `await rl.question(...)`, e `rl.close()` no fim.
 
-1. Pergunte 3 coisas com `readline` (ex: capital do Brasil, 7 × 8, ano atual).
-2. Compare cada resposta (ignorando maiúsculas e espaços: `.trim().toLowerCase()`).
-3. No fim, mostre a pontuação e uma tabela com `console.table` (pergunta, sua resposta, certa?).
-4. Se acertou menos de 2, termine com `process.exitCode = 1`.
+## Agora é com você
 
-**Pronto quando:** responder `" BRASÍLIA "` conta como certo e, no [[Bash]], `npx tsx quiz.ts; echo $?` mostra `1` quando você vai mal.
+Faça um **quiz de 3 perguntas** no terminal: a capital do Brasil, quanto é 7 × 8, e o ano atual. Pergunte com `readline` e compare cada resposta ignorando maiúsculas e espaços (`.trim().toLowerCase()`). No fim, mostre a pontuação e uma tabela com `console.table` (a pergunta, a sua resposta, se acertou). Se acertar menos de 2, termine com `process.exitCode = 1`. Você terminou quando responder `" BRASÍLIA "` contar como certo e, no [[Bash]], `npx tsx quiz.ts; echo $?` mostrar `1` quando você for mal de propósito.
+
+Daqui, siga pras [[Estruturas Condicionais]], que vão deixar o programa tomar decisões com essas respostas, ou pra [[Ler e Escrever Arquivos]], a outra grande forma de entrada e saída.
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Por que usar `process.argv.slice(2)`?
 > Porque as duas primeiras posições do `process.argv` são o caminho do Node e do arquivo; os argumentos do usuário começam na terceira.
@@ -172,47 +171,35 @@ Repare: aceitar `1,75` (vírgula) é pensar no usuário brasileiro.
 > [!question]- O que significa o código de saída 0?
 > Que o programa terminou com sucesso. Qualquer outro número indica erro.
 
+> [!question]+ Você roda `node soma.js 2 3` e o código faz `process.argv[2] + process.argv[3]`. O que aparece?
+> - a) `5`
+> - b) `"23"`
+> - c) `NaN`
+> - d) `undefined`
+>
+> > [!check]- Resposta
+> > **b)** Tudo que chega por argumento ou teclado é **string**. `"2" + "3"` concatena. Converta antes com `Number(...)` e valide se deu `NaN`.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Sintaxe | O que faz |
 |---|---|
-| `console.log(x)` | mostra na saída normal |
-| `console.error(x)` | mostra na saída de erro |
-| `console.table(lista)` | mostra uma tabela |
-| `process.argv.slice(2)` | argumentos do terminal |
-| `await rl.question("?")` | pergunta e espera a resposta |
-| `rl.close()` | encerra a leitura |
-| `process.exitCode = 1` | termina indicando erro |
+| `console.log(x)` | Mostra na saída normal |
+| `console.error(x)` | Mostra na saída de erro |
+| `console.table(lista)` | Mostra uma tabela |
+| `process.argv.slice(2)` | Os argumentos do terminal |
+| `await rl.question("?")` | Pergunta e espera a resposta |
+| `rl.close()` | Encerra a leitura |
+| `process.exitCode = 1` | Termina indicando erro |
 
----
+**Pra ler:** a documentação do Node tem a parte de [readline com promises](https://nodejs.org/api/readline.html#promises-api) e a de [process.argv](https://nodejs.org/api/process.html#processargv), curtas e com exemplos. O [MDN sobre console](https://developer.mozilla.org/pt-BR/docs/Web/API/console) mostra métodos que você nem imaginava, como `console.group` e `console.time`.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```ts
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [Node.js · readline](https://nodejs.org/api/readline.html#promises-api)
-- [Node.js · process.argv](https://nodejs.org/api/process.html#processargv)
-- [MDN · console](https://developer.mozilla.org/pt-BR/docs/Web/API/console)

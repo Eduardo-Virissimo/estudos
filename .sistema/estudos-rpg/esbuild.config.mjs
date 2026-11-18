@@ -40,6 +40,7 @@ const ctx = await esbuild.context({
   target: "es2022",
   outfile: path.join(here, "dist", "main.js"),
   external: ["obsidian", "electron", "@codemirror/*", "@lezer/*"],
+  loader: { ".svg": "text" }, // ícones da Pixel Icon Library entram como texto (ver src/ui/pixel.ts)
   sourcemap: watch ? "inline" : false,
   minify: false, // código legível no main.js instalado: ajuda a depurar
   logLevel: "info",

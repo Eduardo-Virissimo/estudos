@@ -5,111 +5,58 @@ revisado:
 
 # SSH
 
-> *"Um túnel seguro entre você e qualquer máquina do mundo."*
+Em algum momento, o seu programa vai sair do seu computador e morar num servidor: uma máquina em algum datacenter, sem tela e sem teclado, que fica ligada 24 horas por dia. E aí surge a pergunta: como você entra nela? Como roda um comando, olha um log, atualiza o programa, se ela está a centenas de quilômetros?
 
-> [!tip] ⚡ Em 30 segundos
-> Protocolo pra acessar outra máquina com tudo **criptografado**. No dia a dia: `ssh user@host`, chave `ed25519` em vez de senha e `~/.ssh/config` pra criar apelidos. Também é como você autentica no GitHub.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+A resposta é o **SSH** (*Secure Shell*): um jeito de abrir um terminal em outro computador, pela rede, com tudo **criptografado**. Os comandos, as senhas e os arquivos viajam embaralhados, e ninguém no meio do caminho (o Wi-Fi do café, o provedor de internet) consegue ler.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+E mesmo antes de ter um servidor, você já vai usar SSH: é o jeito mais comum de se autenticar no GitHub sem digitar senha a cada `git push`.
 
----
+Tudo no SSH gira em torno de uma ideia que, quando você entende, o resto fica fácil: **o par de chaves.** Uma chave privada, que nunca sai do seu computador, e uma pública, que você entrega pros lugares onde quer entrar.
 
-## 🎯 Objetivos
+## O cadeado e a chave
 
-Ao terminar esta nota, você consegue:
-
-- Explicar o modelo cliente/servidor e o par de chaves
-- Acessar uma máquina remota por chave (com passphrase), sem senha
-- Entender o aviso de fingerprint e criar atalhos no `~/.ssh/config`
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Terminal]]
-- **Depois:** [[GitHub e Pull Requests]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 💡 O que é SSH?
-
-O **SSH** (*Secure Shell*) é um protocolo que permite acessar e controlar outro computador remotamente de forma **segura**. Toda a comunicação (comandos, senhas, arquivos) é **criptografada**, o que impede que alguém no meio do caminho leia ou altere os dados.
-
-Ele é usado para administrar servidores, transferir arquivos, fazer deploys e até autenticar no GitHub.
-
-> [!note]- 📜 Um pouco de história
-> O SSH foi criado em **1995** por **Tatu Ylönen**, na Finlândia, após um ataque de captura de senhas na rede da universidade dele. Ele substituiu protocolos inseguros como **Telnet** e **rlogin**, que enviavam tudo em texto puro. A implementação livre **OpenSSH** (projeto OpenBSD, 1999) é hoje a mais usada, e já vem incluída em Linux, macOS e Windows.
-
----
-
-## 🧱 Conceitos-chave
-
-### Conceito 1: Cliente e servidor
-
-Você usa o **cliente SSH** (`ssh`) para se conectar a um **servidor SSH** (`sshd`) rodando na máquina remota, normalmente na **porta 22**.
-
-```bash
-ssh usuario@endereco-do-servidor
-```
-
-### Conceito 2: Autenticação por par de chaves
-
-Você gera um par de chaves:
-
-- **Chave privada**: fica só com você. **Nunca compartilhe.**
-- **Chave pública**: pode ser copiada para os servidores onde você quer entrar.
+Em vez de senha, o SSH usa um par de chaves, que você gera no seu computador:
 
 ```bash
 ssh-keygen -t ed25519 -C "seu@email.com"
 ```
 
-Isso cria (por padrão) `~/.ssh/id_ed25519` (privada) e `~/.ssh/id_ed25519.pub` (pública).
+O `ed25519` é o tipo de chave (o moderno e recomendado), e o `-C` é só um comentário pra você reconhecer a chave depois. O comando cria dois arquivos em `~/.ssh/`:
 
-### Conceito 3: Fingerprint e `known_hosts`
+- **`id_ed25519`**, a chave **privada**.
+- **`id_ed25519.pub`**, a chave **pública** (repare no `.pub`).
 
-Na primeira conexão, o SSH mostra a **impressão digital** do servidor e pergunta se você confia. Se aceitar, ela é salva em `~/.ssh/known_hosts`. Se mudar depois, o SSH avisa, protegendo contra ataques de interceptação.
+A melhor forma de entender a diferença entre elas é pensar em um **cadeado e a sua chave**. A chave pública é o **cadeado**: você pode fazer quantas cópias quiser e distribuir pros servidores e pro GitHub, que instalam ele na porta. A chave privada é a **única chave** que abre esses cadeados, e ela nunca sai do seu bolso. Qualquer pessoa pode ver o cadeado sem problema nenhum. Só você abre.
 
----
+Com essa imagem, a pergunta clássica "qual chave vai pro servidor?" se responde sozinha: a **pública**, o `.pub`. Ela vai pro arquivo `~/.ssh/authorized_keys` do servidor, ou nas configurações de SSH do GitHub. Já a privada, se você mandar pra alguém, essa pessoa entra em tudo como se fosse você. **Nunca compartilhe, nunca cole em lugar nenhum.**
 
-## 🛠️ Exemplos guiados
-
-### Exemplo 1: Uso Básico
+Pra instalar o seu "cadeado" num servidor, existe um comando pronto:
 
 ```bash
-# Conectar
-ssh ana@192.168.0.10
-
-# Conectar em outra porta
-ssh -p 2222 ana@192.168.0.10
-
-# Copiar sua chave pública para o servidor
 ssh-copy-id ana@192.168.0.10
 ```
 
-### Exemplo 2: Caso de Uso Real
+Na hora de gerar a chave, o `ssh-keygen` pergunta por uma **passphrase**, uma frase-senha. Vale a pena colocar: se alguém um dia copiar o arquivo da sua chave privada, ainda vai precisar da frase pra usar. E pra você não ter que digitar essa frase a cada conexão, existe o `ssh-agent`, que guarda ela enquanto você está logado.
 
-Copiar arquivos e criar um túnel:
+Tem mais um detalhe que confunde no Linux e no macOS: o SSH **se recusa a usar** uma chave que outras pessoas do computador conseguem ler. Parece implicância, mas é proteção: se outros usuários podem ler a sua chave, ela não é mais secreta. As permissões certas são estas:
 
 ```bash
-# Enviar arquivo para o servidor
-scp relatorio.pdf ana@servidor:/home/ana/
-
-# Baixar uma pasta
-scp -r ana@servidor:/var/log/app ./logs
-
-# Túnel: acessa a porta 5432 do servidor como se fosse local na 5433
-ssh -L 5433:localhost:5432 ana@servidor
+chmod 700 ~/.ssh               # a pasta: só você
+chmod 600 ~/.ssh/id_ed25519    # a chave privada: só você lê e escreve
 ```
 
----
+## Conectando
 
-## ⚙️ Configuração recomendada
+Com a chave no lugar, entrar num servidor é um comando:
 
-Arquivo `~/.ssh/config` para criar atalhos de conexão:
+```bash
+ssh ana@192.168.0.10           # usuário@endereço
+ssh -p 2222 ana@192.168.0.10   # numa porta diferente (o padrão é a 22)
+```
+
+Você roda o **cliente** (`ssh`), que conversa com o **servidor** SSH que está rodando na outra máquina, normalmente na porta 22. Se der certo, o prompt muda, e tudo o que você digitar a partir dali roda lá.
+
+Digitar usuário, endereço e porta toda vez cansa rápido. Pra isso existe o arquivo `~/.ssh/config`, onde você cria **apelidos**:
 
 ```text
 Host meu-servidor
@@ -119,95 +66,74 @@ Host meu-servidor
     IdentityFile ~/.ssh/id_ed25519
 ```
 
-Depois basta usar:
+E a partir daí, é só `ssh meu-servidor`.
+
+Pra testar se o GitHub reconhece a sua chave:
 
 ```bash
-ssh meu-servidor
+ssh -T git@github.com
+# Hi seu-usuario! You've successfully authenticated...
 ```
 
----
+O erro que você mais vai ver no começo é este: `Permission denied (publickey)`. Ele quer dizer que o servidor não aceitou nenhuma das suas chaves. As suspeitas, em ordem: a chave pública não está no `authorized_keys` do servidor (ou não foi cadastrada no GitHub); as permissões de `~/.ssh` estão erradas; ou o SSH está oferecendo outra chave. Pra ver o que está acontecendo, rode com `-v` (de *verbose*): `ssh -v ana@servidor` mostra cada chave que foi tentada.
 
-## 💎 Boas práticas
+## O aviso que você nunca ignora
 
-### 1. Prefira chave a senha
+Esta é a parte mais importante da nota do ponto de vista de segurança.
 
-Chaves são muito mais difíceis de quebrar. Em servidores, considere desativar login por senha (`PasswordAuthentication no` no `sshd_config`) depois de testar a chave.
+Na primeira vez que você conecta num servidor, o SSH mostra a **impressão digital** dele (o *fingerprint*, um código único daquele servidor) e pergunta se você confia. Se você responder sim, ele guarda essa impressão em `~/.ssh/known_hosts`. Nas próximas vezes, o SSH confere em silêncio se é o mesmo servidor. Até que um dia aparece isto:
 
-### 2. Proteja a chave privada com passphrase
+```text
+WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
+```
 
-Se alguém copiar o arquivo, ainda precisará da frase-senha. Use o `ssh-agent` para não digitá-la toda hora.
+A impressão digital mudou. Isso pode significar duas coisas. Uma é inofensiva: o servidor foi reinstalado e ganhou uma identidade nova. A outra não: **alguém está se passando pelo servidor** pra interceptar a sua conexão, um ataque chamado *man-in-the-middle*. O SSH não tem como saber qual das duas é, então ele para tudo e avisa.
 
-### 3. Permissões importam
-
-A pasta `~/.ssh` deve ser `700` e a chave privada `600`, senão o SSH recusa usar.
+A tentação é pesquisar o erro, achar o comando que faz ele sumir, e seguir em frente. **Não faça isso às cegas.** Confirme com quem cuida do servidor se ele foi mesmo reinstalado. Só então remova a entrada antiga:
 
 ```bash
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/id_ed25519
+ssh-keygen -R endereco-do-servidor
 ```
 
----
+## Mais coisas que passam pelo SSH
 
-## 🔧 Erros comuns e como resolver
-
-### Problema: "Permission denied (publickey)"
-
-**Solução:**
-1. Confirme que a chave pública está em `~/.ssh/authorized_keys` no servidor.
-2. Verifique as permissões de `~/.ssh` e da chave privada.
-3. Rode `ssh -v user@host` para ver qual chave está sendo tentada.
-
-### Problema: "WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!"
-
-**Solução:**
-1. Confirme se o servidor foi realmente reinstalado/alterado (não ignore o aviso às cegas).
-2. Se for legítimo, remova a entrada antiga: `ssh-keygen -R endereco-do-servidor`.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** Configurar acesso por chave e um atalho de conexão.
+Já que existe uma conexão segura entre os dois computadores, dá pra mandar mais do que comandos por ela. O `scp` copia arquivos:
 
 ```bash
-# 1. Gere uma chave: ssh-keygen -t ed25519
-# 2. Veja a chave pública: cat ~/.ssh/id_ed25519.pub
-# 3. Se tiver acesso a um servidor (ou uma VM local), rode ssh-copy-id
-# 4. Conecte sem senha
-# 5. Crie um Host no ~/.ssh/config e conecte pelo apelido
-# 6. Opcional: adicione a chave pública na sua conta do GitHub
-#    e teste com: ssh -T git@github.com
+scp relatorio.pdf ana@servidor:/home/ana/   # envia um arquivo
+scp -r ana@servidor:/var/log/app ./logs      # baixa uma pasta inteira
 ```
 
----
+E existe um truque mais avançado, que parece mágica na primeira vez: o **túnel**. Ele faz uma porta do servidor aparecer como se estivesse no seu computador.
 
-## 🚀 Projeto
+```bash
+ssh -L 5433:localhost:5432 ana@servidor
+```
 
-> [!example] Vault no GitHub por SSH, com commits Verified
-> Troca a autenticação do seu próprio repositório. Se algo der errado, o push para, então você só termina quando entendeu de verdade.
->
-> **Tempo:** 1 sessão
+Enquanto esse comando estiver rodando, conectar em `localhost:5433` no seu computador é o mesmo que conectar no banco de dados que está na porta 5432 do servidor, com tudo passando pela conexão criptografada. É assim que se acessa um banco de produção sem deixar ele exposto pra internet.
 
-**O mínimo:**
-- [ ] Chave `ed25519` com senha (passphrase), guardada pelo `ssh-agent` do Windows (`Get-Service ssh-agent`)
-- [ ] Chave pública cadastrada no GitHub, e `ssh -T git@github.com` respondendo com o seu usuário
-- [ ] Remote do vault trocado para SSH: `git remote set-url origin git@github.com:Eduardo-Virissimo/estudos.git`
-- [ ] Um push saindo pelo plugin Git do Obsidian
+Por fim, num servidor que é seu, depois de testar que a chave funciona, dá pra **desligar o login por senha** (`PasswordAuthentication no` no arquivo `sshd_config`). Chaves são muito mais difíceis de quebrar que senhas, e assim quem não tem uma chave cadastrada simplesmente não entra, nem tentando milhões de senhas.
 
-**Se quiser ir além:**
-- Assinar os commits com a mesma chave (`git config gpg.format ssh`, `user.signingkey`, `commit.gpgsign true`) e ver o selo **Verified** no GitHub
-- Um `Host github` no `~/.ssh/config`
-- Atualizar a seção Git e GitHub do `Configs/README.md` com o novo jeito
+Uma curiosidade: o SSH foi criado em 1995 por Tatu Ylönen, na Finlândia, depois que um ataque roubou senhas na rede da universidade dele. Ele substituiu o Telnet, que mandava tudo, inclusive as senhas, como texto puro pela rede. Hoje a versão livre, o **OpenSSH**, já vem instalada no Linux, no macOS e no Windows.
 
-**Pronto quando:** o push sai sem pedir login e o último commit aparece como **Verified** no GitHub.
+## O essencial
 
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+1. A chave privada nunca sai do seu computador. A pública (`.pub`) é a que vai pro servidor e pro GitHub.
+2. `ssh usuario@endereco` conecta; o `~/.ssh/config` cria apelidos.
+3. `Permission denied (publickey)`: confira o `authorized_keys`, as permissões (700/600) e use `ssh -v`.
+4. `REMOTE HOST IDENTIFICATION HAS CHANGED` é um alarme. Confirme antes de apagar a entrada.
+
+## Agora é com você
+
+Gere a sua chave com `ssh-keygen -t ed25519`, olhe a pública com `cat ~/.ssh/id_ed25519.pub`, cadastre no GitHub e teste com `ssh -T git@github.com`. Se tiver acesso a um servidor ou a uma máquina virtual, instale a chave com `ssh-copy-id`, conecte sem senha, e crie um apelido no `~/.ssh/config`.
+
+Depois, um projeto que mexe no seu próprio dia a dia: **passar o vault a usar SSH no GitHub, com commits Verified.** Gere uma chave `ed25519` com passphrase e deixe o `ssh-agent` do Windows guardando ela (`Get-Service ssh-agent` mostra se ele está rodando). Cadastre a pública no GitHub e confira com `ssh -T git@github.com`. Troque o remote do vault pra SSH com `git remote set-url origin git@github.com:Eduardo-Virissimo/estudos.git`, e faça um push sair pelo plugin Git do Obsidian. Se algo estiver errado, o push simplesmente para, então você só termina quando entendeu de verdade. Pra ir além, use a mesma chave pra **assinar os commits** (`git config gpg.format ssh`, `user.signingkey` e `commit.gpgsign true`) e veja o selo **Verified** aparecer no GitHub, e atualize a seção de Git do `Configs/README.md` com o jeito novo. Você terminou quando o push sair sem pedir login e o último commit aparecer como Verified.
+
+O próximo passo é [[GitHub e Pull Requests]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
 
 > [!question]- Qual chave vai pro servidor: a pública ou a privada?
 > A **pública** (`.pub`). A privada nunca sai da sua máquina.
@@ -242,52 +168,37 @@ chmod 600 ~/.ssh/id_ed25519
 > [!question]- `ssh -T git@github.com`
 > testa sua autenticação SSH no GitHub
 
+> [!question]+ Pra acessar um servidor sem senha, qual arquivo você copia para ele?
+> - a) `~/.ssh/id_ed25519`
+> - b) `~/.ssh/id_ed25519.pub`
+> - c) `~/.ssh/known_hosts`
+> - d) `~/.ssh/config`
+>
+> > [!check]- Resposta
+> > **b)** Vai a **pública** (`.pub`), que entra no `authorized_keys` do servidor. A privada nunca sai do seu PC: quem tem ela entra como você.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
-| Comando/Sintaxe | Função |
-|-----------------|--------|
+| Comando | O que faz |
+|---|---|
 | `ssh user@host` | Conecta a um servidor |
-| `ssh-keygen` | Gera par de chaves |
+| `ssh-keygen -t ed25519` | Gera um par de chaves |
 | `ssh-copy-id user@host` | Instala sua chave pública no servidor |
 | `scp origem destino` | Copia arquivos via SSH |
 | `sftp user@host` | Sessão interativa de transferência |
-| `ssh -L local:host:remota` | Cria túnel (port forwarding) |
-| `ssh -i caminho/chave` | Escolhe a chave a usar |
-| `ssh -v` | Modo verbose para depurar |
+| `ssh -L local:host:remota` | Cria um túnel |
+| `ssh -i caminho/chave` | Escolhe qual chave usar |
+| `ssh -v` | Mostra os detalhes, pra depurar |
+| `ssh-keygen -R host` | Remove um servidor do `known_hosts` |
 
----
+**Pra ler:** a [documentação do GitHub sobre SSH](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh) está em português e leva pela mão, do gerar a chave até testar. Pra entender a fundo, *SSH Mastery*, de Michael W. Lucas, é curto e prático. E os [manuais do OpenSSH](https://www.openssh.com/manual.html) são a referência oficial.
 
-## 📓 Diário de bordo
+## Minhas anotações
 
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+**O que eu entendi, com as minhas palavras:**
+- 
 
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
--
-
-**O que me confundiu / onde eu errei:**
--
-
-**Onde eu usei de verdade:**
--
-
----
-
-## ➡️ Próximos passos
-
-- [ ] Gerar sua primeira chave e cadastrá-la no GitHub
-- [ ] Criar um arquivo `~/.ssh/config` com seus servidores
-- [ ] Aprender túneis (port forwarding)
-- [ ] Usar a extensão Remote - SSH do [[VS Code]]
-
----
-
-## 📚 Recursos
-
-### 📖 Livros:
-- *SSH Mastery* (Michael W. Lucas) - Guia prático e direto sobre OpenSSH
-
-### 💻 Sites e Documentação:
-- [OpenSSH](https://www.openssh.com/manual.html) - Manuais oficiais
-- [Documentação do GitHub sobre SSH](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh) - Configuração com GitHub
+**Onde eu travei:**
+- 

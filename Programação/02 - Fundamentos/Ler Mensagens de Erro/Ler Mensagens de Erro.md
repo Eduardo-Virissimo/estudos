@@ -5,39 +5,15 @@ revisado:
 
 # Ler Mensagens de Erro
 
-> *"A mensagem de erro não é uma bronca. É uma pista."*
+Você roda o programa e o terminal se enche de texto vermelho. Dez linhas, caminhos de arquivo estranhos, palavras em inglês, números soltos. O primeiro impulso é fechar o terminal, copiar tudo e colar em algum lugar perguntando "o que é isso?".
 
-> [!tip] ⚡ Em 30 segundos
-> Iniciante vê um erro vermelho e entra em pânico; dev experiente **lê**. Quase toda mensagem diz três coisas: **o tipo** do erro (`TypeError`), **o que** aconteceu (`Cannot read properties of undefined (reading 'nome')`) e **onde** (`tarefas.ts:12:18`). Ler com calma resolve a maioria dos problemas antes de você precisar perguntar pra alguém.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Só que tem uma coisa que separa quem está começando de quem já se vira sozinho, e não é decorar mais comandos. É que **o iniciante entra em pânico com o erro, e o experiente lê.** A mensagem de erro não é uma bronca. É o computador tentando te contar exatamente o que deu errado, e quase sempre ele conta.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Quase toda mensagem de erro diz três coisas: **o tipo** do erro, **o que** aconteceu, e **onde**. Ler com calma resolve a maioria dos problemas antes de você precisar perguntar pra alguém. Esta nota ensina a ler, e depois ensina o raciocínio pra ir do erro até o bug.
 
----
+## As três partes
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Achar na mensagem o tipo do erro, a descrição e o arquivo/linha
-- Distinguir erro do TypeScript (antes de rodar) de erro em tempo de execução
-- Seguir um roteiro de investigação antes de pedir ajuda
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Funções]] · [[Terminal]]
-- **Depois:** [[Stack Trace]] · [[Debugging]] · [[Como Fazer Boas Perguntas]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. Anatomia de um erro
+Olhe um erro de verdade, sem pressa:
 
 ```text
 /home/ana/tarefas/src/main.ts:12
@@ -49,55 +25,17 @@ TypeError: Cannot read properties of undefined (reading 'toUpperCase')
     at ...node:internal...                               ← ignore
 ```
 
-| Parte | O que diz |
-|---|---|
-| `TypeError` | **tipo**: usou um valor do jeito errado |
-| `Cannot read properties of undefined (reading 'toUpperCase')` | **o quê**: `tarefa.titulo` é `undefined` |
-| `main.ts:12:29` | **onde**: arquivo, linha 12, coluna 29 |
-| linhas `at ...` | **o caminho**: a pilha de chamadas ([[Stack Trace]]) |
+Parece um bloco assustador, mas ele tem só três informações.
 
-Leia **a primeira linha do seu código** na pilha (ignore `node:internal` e `node_modules`).
+O **tipo** é `TypeError`: você usou um valor do jeito errado. O **o quê** é a frase depois dos dois pontos: `Cannot read properties of undefined (reading 'toUpperCase')`. Traduzindo: "não consigo ler propriedades de `undefined` (tentando ler `toUpperCase`)". Ou seja, você tentou chamar `.toUpperCase()` em alguma coisa que é `undefined`, e olhando a linha, essa coisa é `tarefa.titulo`. E o **onde** é `main.ts:12:29`: arquivo `main.ts`, linha 12, coluna 29. O erro até desenha um `^` apontando o lugar.
 
-### 2. Os erros de execução mais comuns
+As linhas que começam com `at` são a **pilha de chamadas** (a [[Stack Trace]]): o caminho que o programa percorreu até chegar no erro. A de cima é onde explodiu; a de baixo é quem chamou essa função; e assim por diante. Muitas vezes a pilha tem dezenas de linhas, e a dica de ouro é: **procure a primeira linha que é do seu código**, e ignore o que vem de `node:internal` ou `node_modules`.
 
-| Erro | Tradução | Causa típica |
-|---|---|---|
-| `TypeError: Cannot read properties of undefined (reading 'x')` | tentou ler `.x` de algo vazio | dado não carregou, índice errado, faltou `?.` |
-| `TypeError: x is not a function` | chamou algo que não é função | nome errado, import errado, esqueceu de exportar |
-| `ReferenceError: x is not defined` | variável não existe aqui | erro de digitação, fora do [[Escopo]] |
-| `SyntaxError: Unexpected token` | código mal escrito | faltou `}`, `)` ou vírgula; JSON inválido |
-| `RangeError: Maximum call stack size exceeded` | recursão sem fim | faltou caso base ([[Recursão]]) |
-| `Error: ENOENT: no such file or directory` | arquivo não existe | caminho errado, pasta atual errada |
-| `Error: Cannot find module 'x'` | import não encontrado | pacote não instalado (`npm install`) ou caminho errado |
+O erro mais comum na hora de ler é ler só a primeira palavra. "Deu TypeError" não ajuda ninguém, nem você. A resposta está na frase inteira. Leia tudo, devagar, em voz alta se precisar.
 
-### 3. Erro do TypeScript (antes de rodar)
+## O erro mostra o sintoma, não a causa
 
-O TypeScript avisa **no editor**, sublinhado em vermelho, e no `tsc`:
-
-```text
-src/main.ts:8:15 - error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
-```
-
-- `TS2345` é o código: pesquise "TS2345" pra ver explicações.
-- Leia de trás pra frente: "o **parâmetro** espera `number`, você passou `string`".
-- Mensagens longas de tipo: leia a **última** linha, que é a causa mais específica.
-
-### 4. Roteiro de investigação
-
-1. **Leia a mensagem inteira**, devagar, em voz alta se precisar.
-2. **Vá na linha** indicada (no [[VS Code]], `Ctrl + clique` no caminho do erro).
-3. **Pergunte:** que valor eu esperava aqui? Que valor tem de verdade? (`console.log` antes da linha)
-4. **Reproduza** com o menor caso possível.
-5. **Pesquise** a mensagem exata, sem seus nomes de variável: `"Cannot read properties of undefined" reading`.
-6. Ainda travado? Pergunte com contexto: [[Como Fazer Boas Perguntas]].
-
-### 5. A linha do erro nem sempre é a do bug
-
-O erro aparece onde o valor ruim foi **usado**, não onde ele foi **criado**. Se `tarefa` é `undefined` na linha 12, o bug pode estar na linha 5, onde você buscou a tarefa errada. Volte o caminho.
-
----
-
-## 🛠️ Exemplo guiado
+Esta é a parte mais importante da nota. Repare neste código:
 
 ```ts
 const tarefas = [{ titulo: "Estudar" }, { titulo: "Treinar" }];
@@ -113,38 +51,72 @@ TypeError: Cannot read properties of undefined (reading 'titulo')
     at main.ts:3:26
 ```
 
-1. **O quê:** `tarefas[i]` é `undefined` quando tentou ler `.titulo`.
-2. **Quando:** depois de mostrar os 2 itens, ou seja, na 3ª volta (`i = 2`).
-3. **Por quê:** `tarefas[2]` não existe; o laço vai até `i <= length`.
-4. **Correção:** `i < tarefas.length` (ou `for...of`, que não tem esse problema).
+O erro aponta a linha 3. Mas olhe pra linha 3: ela está certa! `tarefas[i].titulo` é exatamente o que você queria escrever. Então vamos investigar, como um detetive.
 
----
+**O quê?** `tarefas[i]` era `undefined` quando o código tentou ler o `.titulo`. **Quando?** O programa mostrou os dois títulos e só depois quebrou, então foi na terceira volta, com `i = 2`. **Por quê?** Porque `tarefas[2]` não existe: a lista só tem as posições 0 e 1. O laço vai até `i <= length`, uma volta a mais do que devia. E a **correção** está na **linha 2**, não na 3: `i < tarefas.length`, ou um `for...of`, que nem tem esse problema.
 
-## 🔧 Pegadinhas
+Esse é o raciocínio que você vai usar a vida inteira: **o erro aparece onde o valor ruim foi usado, não onde ele foi criado.** A mensagem mostra o sintoma. Você volta pelo caminho até achar onde o valor ficou errado.
 
-- **Ler só a primeira palavra.** "Deu TypeError" não ajuda ninguém; a frase toda é que tem a resposta.
-- **Corrigir o sintoma.** Pôr `?.` em tudo esconde o erro, não resolve. Descubra **por que** o valor veio vazio.
-- **Olhar só pro `node_modules`.** O erro costuma estourar dentro de uma biblioteca, mas o culpado é o valor que **você** passou. Ache a primeira linha sua na pilha.
-- **Vários erros de TypeScript em cascata.** Corrija o **primeiro**; muitas vezes os outros somem junto.
-- **Copiar a mensagem pra IA sem ler.** Leia primeiro. Se ainda assim precisar, mande a mensagem inteira + o trecho do código.
+E daí vem uma tentação perigosa. Colocar `?.` em tudo (`tarefas[i]?.titulo`) faz o erro sumir. Mas o bug continua lá, só que agora escondido: o programa segue em frente com dados errados, e o problema vai aparecer de outro jeito, mais tarde, mais difícil de achar. Descubra **por que** o valor veio vazio.
 
----
+## Um roteiro pra quando travar
 
-## 🔨 Desafio prático
+Quando um erro aparecer, siga esta ordem, e você vai se surpreender com quantas vezes ele se resolve antes do passo 5:
 
-**Objetivo:** provocar e consertar 5 erros de propósito.
+1. **Leia a mensagem inteira.**
+2. **Vá na linha indicada.** No [[VS Code]], `Ctrl + clique` no caminho do erro abre o arquivo direto na linha certa.
+3. **Pergunte:** que valor eu esperava aqui, e que valor tem de verdade? Um `console.log` logo antes da linha responde.
+4. **Reproduza com o menor caso possível.** Vá tirando tudo o que não importa, até o erro aparecer em 3 linhas. Muitas vezes, nesse processo, você já descobre a causa.
+5. **Pesquise a mensagem exata**, sem os seus nomes de variável: `"Cannot read properties of undefined" reading`.
+6. **Ainda travado?** Pergunte com contexto: a mensagem inteira, o trecho do código, e o que você já tentou. A nota [[Como Fazer Boas Perguntas]] fala disso.
 
-1. Crie `erros.ts` e provoque, um de cada vez: `ReferenceError`, `TypeError` de undefined, `x is not a function`, `RangeError` (recursão sem fim) e `ENOENT` (ler um arquivo que não existe com `fs.readFileSync`).
-2. Pra cada um, anote: tipo, a frase do "o quê", arquivo:linha, e a causa em 1 linha.
-3. Faça um erro de TypeScript (`const n: number = "5"`) e anote o código `TS....`.
+Isso vale também pra IA. Colar o erro sem ler tira de você justamente a habilidade que esta nota quer desenvolver. Leia primeiro. Se precisar de ajuda, mande a mensagem **inteira** e o trecho do código, e não só "deu erro".
 
-**Pronto quando:** você tem uma tabelinha com os 6 erros e consegue dizer a causa de cada um só olhando a mensagem.
+## Os erros que você mais vai ver
+
+Alguns erros aparecem tanto que vale conhecer a tradução de cada um. Saber o que eles querem dizer já te leva até a metade da solução:
+
+| Erro | Tradução | Causa típica |
+|---|---|---|
+| `TypeError: Cannot read properties of undefined (reading 'x')` | tentou ler `.x` de algo vazio | dado não carregou, índice errado |
+| `TypeError: x is not a function` | chamou algo que não é função | nome errado, import errado, esqueceu de exportar |
+| `ReferenceError: x is not defined` | essa variável não existe aqui | erro de digitação, fora do [[Escopo]] |
+| `SyntaxError: Unexpected token` | código mal escrito | faltou `}`, `)` ou vírgula; JSON inválido |
+| `RangeError: Maximum call stack size exceeded` | recursão sem fim | faltou o caso base ([[Recursão]]) |
+| `Error: ENOENT: no such file or directory` | o arquivo não existe | caminho errado, pasta atual errada |
+| `Error: Cannot find module 'x'` | o import não foi encontrado | pacote não instalado (`npm install`) ou caminho errado |
+
+Uma observação sobre bibliotecas: muitas vezes o erro estoura lá dentro do `node_modules`, e dá vontade de culpar a biblioteca. Mas quase sempre o culpado é o valor que **você** passou pra ela. Ache a primeira linha sua na pilha.
+
+## Os erros do TypeScript
+
+O TypeScript tem uma vantagem enorme: ele avisa **antes** do programa rodar, sublinhando em vermelho no editor (ou no `tsc`). A mensagem tem outra cara:
+
+```text
+src/main.ts:8:15 - error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+```
+
+O `TS2345` é o código do erro, e pesquisar "TS2345" traz explicações prontas. E essas mensagens ficam mais fáceis se você ler de trás pra frente: "o **parâmetro** espera `number`, e você passou uma `string`". Quando a mensagem de tipo for muito longa, cheia de tipos aninhados, a **última** linha costuma ser a causa mais específica.
+
+E um detalhe que poupa tempo: um erro de tipo costuma gerar vários outros em cascata, depois dele. Corrija o **primeiro** da lista, e muitas vezes os outros somem junto.
+
+## O essencial
+
+1. Toda mensagem tem tipo, o quê e onde. Leia a frase inteira.
+2. Na pilha, procure a primeira linha do seu código.
+3. O erro mostra onde o valor ruim foi usado; o bug está onde ele foi criado. Volte o caminho.
+4. Não esconda o sintoma com `?.`. Descubra por que veio vazio.
+5. No TypeScript, corrija o primeiro erro da lista.
+
+## Agora é com você
+
+Provoque cinco erros **de propósito**, num arquivo `erros.ts`, um de cada vez: um `ReferenceError`, um `TypeError` de `undefined`, um `x is not a function`, um `RangeError` (uma recursão sem fim) e um `ENOENT` (lendo um arquivo que não existe com `fs.readFileSync`). Pra cada um, anote o tipo, a frase do "o quê", o arquivo e a linha, e a causa em uma linha. Depois provoque um erro de TypeScript (`const n: number = "5"`) e anote o código `TS....`. Você terminou quando tiver uma tabelinha com os 6 erros e conseguir dizer a causa de cada um só olhando a mensagem. Quebrar as coisas de propósito é a forma mais rápida de perder o medo delas.
+
+Daqui, siga pra [[Stack Trace]], [[Debugging]] e [[Como Fazer Boas Perguntas]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Quais são as três informações principais de uma mensagem de erro?
 > O tipo (`TypeError`), a descrição do que aconteceu e o local (arquivo:linha:coluna).
@@ -161,52 +133,42 @@ TypeError: Cannot read properties of undefined (reading 'titulo')
 > [!question]- O que fazer quando a pilha mostra muitas linhas de `node_modules`?
 > Procurar a primeira linha que é do seu código: normalmente o problema é o valor que você passou pra biblioteca.
 
+> [!question]- Por que colocar `?.` em tudo não resolve o bug?
+> O erro some, mas o valor continua errado; o problema aparece depois, escondido e mais difícil de achar.
+
 > [!question]- O que significa `ENOENT`?
 > "Error NO ENTry": o arquivo ou pasta não existe no caminho informado.
 
+> [!question]+ `TypeError: Cannot read properties of undefined (reading 'nome')`. Qual o problema?
+> - a) A propriedade `nome` não existe no objeto
+> - b) O objeto antes de `.nome` é `undefined`
+> - c) `nome` é `undefined`
+> - d) Falta importar `nome`
+>
+> > [!check]- Resposta
+> > **b)** O erro é ao **ler de** `undefined`: em `usuario.nome`, quem é `undefined` é o `usuario`. Se só faltasse `nome`, o resultado seria `undefined`, sem erro.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Erro | Primeiro suspeito |
 |---|---|
-| `Cannot read properties of undefined` | dado vazio, índice errado |
-| `is not a function` | nome/import errado |
-| `is not defined` | digitação, escopo |
-| `Unexpected token` | faltou `}` `)` `,` ou JSON inválido |
-| `Maximum call stack` | recursão sem caso base |
-| `ENOENT` | caminho do arquivo |
+| `Cannot read properties of undefined` | Dado vazio, índice errado |
+| `is not a function` | Nome ou import errado |
+| `is not defined` | Digitação, escopo |
+| `Unexpected token` | Faltou `}` `)` `,` ou JSON inválido |
+| `Maximum call stack` | Recursão sem caso base |
+| `ENOENT` | Caminho do arquivo |
 | `Cannot find module` | `npm install` / caminho do import |
-| `TS2345` | tipo do argumento errado |
+| `TS2345` | Tipo do argumento errado |
 
----
+**Pra ler:** a [referência de erros do MDN](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Errors) tem uma página pra cada mensagem do JavaScript, com o que causa e como corrigir; vale abrir sempre que aparecer uma nova. Pros erros de sistema, como ENOENT e EACCES, a [lista do Node.js](https://nodejs.org/api/errors.html#common-system-errors).
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-> Um erro de verdade que você teve, a mensagem e o que era.
-
-```text
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [MDN · Referência de erros JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Errors): cada mensagem explicada
-- [Node.js · Common system errors](https://nodejs.org/api/errors.html#common-system-errors) (ENOENT, EACCES...)

@@ -10,6 +10,7 @@ Transforma o vault de estudos numa **ficha de RPG**: nível e XP, cronômetro de
 | Uma nota de trilha (ex.: Roadmap, Inglês, Matemática) | `tipo: trilha` (e opcional `nome: …`) | Uma **aba** no mapa e uma linha em *Próximos passos*. `#` = estágio (agrupa), `##` = região/módulo, cada `- [ ] [[Nota]] — descrição` = um tópico. Sem `##`, cada `#` vira uma região. |
 | Uma nota `YYYY-MM-DD.md` na pasta do diário | `minutos` > 0 (o cronômetro preenche sozinho) | Um dia no calendário, na sequência 🔥 e XP a cada 10 min |
 | Um callout `> [!question]- Pergunta` com `> resposta` | em uma nota de estudo | Uma pergunta que aparece quando a nota cai na **revisão** |
+| O mesmo callout com linhas `> - a) ...` e, aninhado, `> > [!check]- Resposta` / `> > **b)** explicação` | em uma nota de estudo | Uma pergunta de **múltipla escolha**: você clica na alternativa (ou tecla **A-E**) e a ficha diz se acertou |
 
 **Sessão de estudo:** o botão *Iniciar sessão* (topo da ficha, ou `Ctrl+P` → *Iniciar/encerrar a sessão de estudo*) cronometra; *Encerrar* soma os minutos no diário do dia. O cronômetro sobrevive a fechar o Obsidian. Abrir o diário sem estudar não conta.
 
@@ -22,6 +23,8 @@ E se…
 - **…a propriedade estiver errada** (`caixa: abc`, data inválida)? É ignorada com segurança.
 - **…eu editar a trilha enquanto a ficha está aberta?** Marcar um tópico confere se a linha ainda é a mesma antes de gravar.
 - **…virar o dia com o Obsidian aberto?** A cada minuto o plugin confere a data e recalcula.
+- **…tiver dezenas de notas nunca revisadas?** A fila de hoje mostra todas as revisões vencidas, mas só **10 notas novas por dia** (Configurações → *Notas novas por dia*; 0 = sem limite). O resto entra nos próximos dias.
+- **…eu quiser revisar só no teclado?** No modo revisão: **Espaço** mostra/esconde a resposta, **→** vai para a próxima pergunta, **1** = Lembrei, **2** = Esqueci, **A-E** escolhem a alternativa nas perguntas de múltipla escolha.
 - **…esquecer o cronômetro ligado?** Conta no máximo o limite de sessão (Configurações) e avisa.
 - **…o template do diário sumir?** Ele cria o diário com um modelo mínimo.
 - **…o vault estiver vazio?** Cada seção mostra o que criar para começar.
@@ -49,9 +52,12 @@ src/
     topicosModal.ts    janela com os tópicos de uma região e a busca
     conquistasModal.ts janela com todas as conquistas e o progresso
     dom.ts             botões, painéis, barras
-    pixel.ts           ícones em pixel art 9×9 (desenhe com "#" e ".")
+    pixel.ts           ícones em pixel art (Pixel Icon Library/HackerNoon, 24×24): mapa nome → SVG
+    svgPath.ts         converte o SVG do ícone em caminhos (testado em test/icones.test.ts)
+    nitidez.ts         tamanho do pixel do ícone para ficar nítido em qualquer zoom
     settingsTab.ts     tela de configurações
 test/domain.test.ts  testes das regras do jogo
+test/icones.test.ts  testes do conversor de ícones (roda em todos os SVGs da biblioteca)
 styles.css           tema "pixel moderno" (paleta de console, fonte Jersey 15)
 ```
 

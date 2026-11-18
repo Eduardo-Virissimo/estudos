@@ -5,140 +5,93 @@ revisado:
 
 # [NOME DO TÓPICO]
 
-> [!tip] ⚡ Em 30 segundos
-> [Que problema isso resolve, em 2 ou 3 linhas. Se não couber, você ainda não entendeu, e tudo bem: volte aqui depois.]
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+%%
+COMO ESCREVER ESTA NOTA (este bloco some no modo leitura; apague quando terminar)
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Esta nota é um CAPÍTULO, não uma ficha. Ela se lê de cima a baixo, como um bom livro ou artigo.
+Exemplo pronto pra copiar o tom: [[Bash]].
 
----
+- Comece por um problema ou cena real ("toda sexta você faz X... na terceira semana, erra"). Nada de "X é...".
+  Diga já no começo por que vale aprender isso, e cite a nota pré-requisito no meio do texto, se houver.
+- Títulos (##) contam a história e só aparecem quando o assunto muda de verdade. Sem emoji, sem selo.
+  Bom: "Variáveis, e o espaço que apaga o arquivo errado". Ruim: "🔴 Variáveis".
+- Prioridade vai no TEXTO: "isto é o mais importante da nota", "se esquecer tudo, lembre disto", "curiosidade, pode pular".
+- O porquê antes do como. Analogia quando ajudar. Código no meio da conversa, sempre comentado em volta.
+- O erro comum entra na história, no momento em que você cometeria ("aí você roda e aparece Permission denied. Calma...").
+  Caixa ([!warning]) só pra coisa perigosa de verdade (perder dados, apagar arquivo).
+- Escreva como quem conversa com um amigo: frases curtas, segunda pessoa, sem lista onde caberia um parágrafo.
+- Use exemplos que voltam: um caso do começo que a nota vai resolvendo aos poucos.
+- Feche com "O essencial" (3 a 5 itens) e "Agora é com você" (desafio e, se fizer sentido, um projeto, em texto corrido).
+- Fixo em toda nota: o 🧠 Me teste (a Ficha do herói lê as perguntas de lá). O resto é opcional.
+%%
 
-## 🎯 Objetivos
+[Abertura: a cena ou o problema. Por que isso importa. Uma ideia-chave que a pessoa leva da nota.]
 
-Ao terminar esta nota, você consegue:
+## [Título que conta o primeiro passo]
 
-- [verbo de ação + o quê: "configurar...", "explicar a diferença entre...", "resolver..."]
-- [objetivo 2]
-- [objetivo 3]
-
-> Objetivo bom é verificável: dá pra responder "consigo ou não consigo?". "Entender X" não serve; "explicar X pra alguém sem olhar" serve.
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[nota que precisa vir antes]]
-- **Depois:** [[o que esta nota destrava]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-[Os 20% que resolvem 80% dos casos. Nada de história nem lista de vantagens: só o que você precisa pra começar a usar hoje. Um conceito por subtítulo, cada um com um exemplo.]
+[Texto explicando, com exemplo comentado.]
 
 ```[linguagem]
-// o exemplo mais simples que funciona
+// o exemplo mais simples que mostra a ideia
 ```
 
----
+## [Título que conta o próximo passo]
 
-## 🛠️ Exemplo meu
+[Texto.]
 
-[Código que **você** escreveu e rodou, de preferência de um projeto seu. Copiado da internet não vale.]
+## O essencial
 
-```[linguagem]
+Se for guardar só [N] coisas desta nota:
 
-```
+1. [ideia]
+2. [ideia]
+3. [ideia]
 
----
+## Agora é com você
 
-## 🔧 Pegadinhas
-
-- [Erro comum 1 e como evitar]
-- [Erro comum 2 e como evitar]
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** [algo concreto que dá pra terminar em 20-40 min]
-
-1. [passo]
-2. [passo]
-3. [passo]
-
-**Pronto quando:** [como você sabe que deu certo]
-
----
-
-## 🚀 Projeto
-
-**📍 Onde fazer:** [quase sempre 📦 repo próprio `nome-do-repo`; 🧰 se a ferramenta mora em outro lugar (`$PROFILE`, `.sistema/scripts/`); 📁 `Práticas/[NOME DO TÓPICO]/projeto/` só se ainda é pequeno e vai ser promovido depois]
-
-> [!example] [Nome do projeto]
-> [O que é e por que ele ensina mais que o desafio. De preferência algo que você vai **usar** depois: no vault, no seu PC, num projeto seu.]
->
-> **Tempo:** [1 a 3 sessões]
-
-**O mínimo:**
-- [ ] [requisito 1]
-- [ ] [requisito 2]
-- [ ] [requisito 3]
-
-**Se quiser ir além:**
-- [extra opcional]
-
-**Pronto quando:** [resultado que dá pra ver funcionando]
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
-
-> [!tip] Esta nota precisa de projeto?
-> Só se o assunto se aprende de verdade **construindo algo maior** que o desafio (uma ferramenta, um script que você vai usar, algo que junta vários tópicos). Se o desafio já basta, **apague esta seção**. Desafio = exercício de 20-40 min. Projeto = 1 a 3 sessões, termina em algo que fica.
+[Um desafio de 20-40 min, em texto corrido: o que fazer, o que vai precisar usar, como saber que terminou.
+Se fizer sentido, um projeto maior que você usaria de verdade.
+Diga onde fazer: 📁 `Programação/Práticas/[NOME]/` no vault · 🧪 `~/lab/nome` · 📦 repo próprio.
+Termine apontando os próximos passos: [[próxima nota]].]
 
 ---
 
 ## 🧠 Me teste
 
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
+%% Perguntas abertas na maioria (tirar da cabeça fixa mais). 1 ou 2 de múltipla escolha nas pegadinhas: erradas que você cometeria de verdade, letra certa variando, e a letra certa no começo da resposta (é assim que a Ficha corrige). %%
 
-> [!question]- [Pergunta 1: "qual a diferença entre X e Y?"]
+> [!question]- [Pergunta aberta: "qual a diferença entre X e Y?"]
 > [Resposta]
 
-> [!question]- [Pergunta 2: "quando eu usaria X?"]
+> [!question]- [Pergunta aberta: "deu o erro Z. O que checar?"]
 > [Resposta]
 
-> [!question]- [Pergunta 3: "deu o erro Z. O que checar?"]
-> [Resposta]
+> [!question]+ [Pergunta de múltipla escolha sobre a pegadinha]
+> - a) [erro comum]
+> - b) [certa]
+> - c) [outra confusão comum]
+> - d) [outra confusão comum]
+>
+> > [!check]- Resposta
+> > **b)** [por que a b) está certa e por que a confusão mais comum está errada]
 
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
-| Comando/Sintaxe | O que faz |
-|-----------------|-----------|
-| `exemplo`       |           |
+%% Opcional. Tabela só em notas de comando ou sintaxe, onde você volta pra consultar.
+Leituras: 2 a 4, em texto, dizendo POR QUE vale. Só link que foi aberto e conferido. %%
 
----
+| Sintaxe | O que faz |
+|---|---|
+| `exemplo` | |
 
-## 📓 Diário de bordo
+**Pra ler:** [Recurso, e por que vale.]
 
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+## Minhas anotações
 
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [Documentação oficial](url)
-- [Um tutorial interativo ou vídeo que valeu a pena](url)

@@ -5,39 +5,13 @@ revisado:
 
 # Paradigmas de Programação
 
-> *"Uma linguagem que não muda o jeito como você pensa sobre programação não vale a pena aprender."* (Alan Perlis)
+Peça um café de dois jeitos. No primeiro, você explica tudo: "pegue a xícara, coloque 15 gramas de pó, esquente a água a 92 graus, despeje devagar, em círculos...". No segundo, você só diz: "um café, por favor", e deixa quem sabe resolver. Os dois jeitos funcionam e chegam no mesmo café. Mas são **formas diferentes de pensar** o pedido.
 
-> [!tip] ⚡ Em 30 segundos
-> Paradigma é um **estilo de organizar o código**. **Imperativo:** você diz passo a passo como fazer. **Declarativo:** você diz o que quer e alguém resolve o como (SQL, HTML). **Orientado a objetos:** dados e comportamento juntos em objetos. **Funcional:** funções puras que transformam dados sem alterá-los. TypeScript é **multiparadigma**: no dia a dia você mistura os quatro.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Na programação, essas formas de pensar têm nome: **paradigmas**. Um paradigma é um estilo de organizar o código, um jeito de pensar a solução. Você vai ouvir falar de quatro: o **imperativo**, em que você diz passo a passo como fazer; o **declarativo**, em que você diz o que quer e alguém resolve o como; o **orientado a objetos**, que junta os dados e o comportamento em objetos; e o **funcional**, feito de funções puras que transformam dados sem alterar nada.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+O TypeScript é **multiparadigma**: no dia a dia você mistura todos. E a ideia mais importante desta nota é justamente essa, então vale dizer logo: **nenhum é o certo.** O que importa é saber qual deles deixa cada trecho mais claro. Ajuda ter passado por [[Funções]] e [[Estruturas de Repetição]].
 
----
-
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Explicar a diferença entre imperativo e declarativo com um exemplo
-- Reconhecer código orientado a objetos e código funcional
-- Escrever o mesmo problema em dois paradigmas e dizer qual ficou mais claro
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Funções]] · [[Estruturas de Repetição]]
-- **Depois:** [[Classes]] (OO, Estágio 3) · [[Funções Puras]] (funcional, Estágio 6) · [[SQL]] (declarativo)
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-O mesmo problema em cada estilo: **somar o XP das tarefas concluídas.**
+Pra comparar de verdade, vamos resolver o mesmo problema em cada estilo: **somar o XP das tarefas concluídas**.
 
 ```ts
 const tarefas = [
@@ -47,7 +21,9 @@ const tarefas = [
 ];
 ```
 
-### 1. Imperativo: o passo a passo
+## Como fazer, ou o que você quer
+
+Esta é a distinção que você mais vai usar, a do café. No estilo **imperativo**, você controla cada passo e cada variável que muda:
 
 ```ts
 let total = 0;
@@ -58,21 +34,40 @@ for (const t of tarefas) {
 }
 ```
 
-Você controla cada passo e cada variável que muda. É como o computador realmente funciona. Bom pra lógica com muitos detalhes; fica verboso pra transformações simples.
-
-### 2. Declarativo / Funcional: o que você quer
+No estilo **declarativo**, você descreve o resultado que quer:
 
 ```ts
 const total = tarefas
-  .filter((t) => t.concluida)   // só as concluídas
-  .reduce((soma, t) => soma + t.xp, 0); // somadas
+  .filter((t) => t.concluida)              // só as concluídas
+  .reduce((soma, t) => soma + t.xp, 0);    // somadas
 ```
 
-Você descreve **o resultado**, não o laço. **Funcional** acrescenta: funções puras, nada é alterado (cria-se dados novos), funções passadas como valor. Aparece em `map`/`filter`/`reduce`, React e muito do JavaScript moderno.
+O segundo se lê quase como uma frase: "das tarefas, as concluídas, somadas". Você não vê o laço nem a variável mudando, porque o `filter` e o `reduce` cuidam disso por baixo.
 
-Outros exemplos declarativos que você vai usar: **SQL** (`SELECT * FROM tarefas WHERE concluida`), **HTML**, **CSS**, arquivos **YAML** do Docker.
+Qual é melhor? Depende. O imperativo é como o computador realmente funciona, e brilha quando a lógica tem muitos detalhes, passos e casos especiais. O declarativo é mais curto e mais claro pra transformações simples.
 
-### 3. Orientado a objetos: objetos que sabem se cuidar
+E você já usa coisas declarativas sem perceber. O **SQL** (`SELECT * FROM tarefas WHERE concluida`) é declarativo: você diz quais dados quer, e o banco decide como buscar. O **HTML** e o **CSS** também: você descreve a página, e o navegador desenha. Até os arquivos **YAML** do Docker.
+
+Mais um exemplo, pra fixar: "os nomes das tarefas pendentes, em maiúsculas".
+
+```ts
+// imperativo
+const pendentes: string[] = [];
+for (const t of tarefas) {
+  if (!t.concluida) pendentes.push(t.titulo.toUpperCase());
+}
+
+// declarativo / funcional
+const pendentes2 = tarefas
+  .filter((t) => !t.concluida)
+  .map((t) => t.titulo.toUpperCase());
+```
+
+Os dois dão `["TREINAR"]`.
+
+## Objetos que cuidam de si mesmos
+
+A ideia da **orientação a objetos** é juntar os **dados** e as **ações** sobre esses dados num mesmo lugar: um objeto que "sabe se cuidar".
 
 ```ts
 class ListaDeTarefas {
@@ -93,9 +88,25 @@ class ListaDeTarefas {
 }
 ```
 
-Dados (`tarefas`) e comportamento (`adicionar`, `xpTotal`) moram juntos, e o `private` impede que alguém de fora bagunce a lista. Bom pra modelar "coisas" com regras próprias. Estudado a fundo em [[Classes]] e [[Encapsulamento]].
+A lista (`tarefas`) e o que se faz com ela (`adicionar`, `concluir`, `xpTotal`) moram juntos. E repare no `private`: ele impede que alguém de fora bagunce a lista diretamente. A única forma de mexer nela é pelos métodos, e são os métodos que garantem as regras. É um estilo ótimo pra modelar "coisas" que têm regras próprias, e você vai estudar a fundo em [[Classes]] e [[Encapsulamento]].
 
-### 4. Resumo
+Um mal-entendido comum: achar que orientação a objetos é "usar classe". Uma classe com tudo público e só uns `get` e `set` não é orientação a objetos, é um objeto com burocracia. O ponto central é o objeto **proteger** as próprias regras.
+
+## Funções que não mexem em nada
+
+O estilo **funcional** é um tipo de declarativo com regras extras. As funções são **puras**: mesma entrada, mesma saída, sem efeito colateral (você viu isso em [[Funções]]). **Nada é alterado**: em vez de mudar uma lista, você cria uma lista nova. E as **funções são valores**: você passa função pra função, como no `map`, no `filter` e nos callbacks.
+
+Esse estilo está por toda parte no JavaScript moderno: nos métodos `map`, `filter` e `reduce`, no React, e em boa parte das bibliotecas atuais.
+
+## Nenhum é o certo
+
+Paradigma não é time de futebol, e ninguém precisa escolher um lado. Um código bom em TypeScript costuma misturar: **funções puras pras regras** (funcional), **classes quando existe um estado com regras próprias** (orientado a objetos), e **laços imperativos quando a lógica é cheia de passos e exceções**.
+
+A pergunta certa nunca é "qual paradigma eu sigo?". É "qual jeito deixa **este trecho** mais claro?".
+
+E cuidado com a moda. Quando você aprende `map`, `filter` e `reduce`, dá vontade de usar em tudo, e o estilo funcional vira sinônimo de "código moderno". Mas encadear seis `map`, `filter` e `reduce` com lógica complicada dentro fica ilegível, e um `for` claro vence fácil. Pior ainda é misturar sem querer: um `map` que também altera uma variável de fora (um `total += ...` lá dentro) pega o pior dos dois mundos.
+
+Pra ter uma visão geral dos quatro lado a lado:
 
 | Paradigma | Ideia central | Você vê em |
 |---|---|---|
@@ -104,57 +115,24 @@ Dados (`tarefas`) e comportamento (`adicionar`, `xpTotal`) moram juntos, e o `pr
 | Orientado a objetos | objetos com estado e métodos | classes, Java, C# |
 | Funcional | funções puras, dados imutáveis | `map`/`reduce`, React |
 
-### 5. Não é time de futebol
+Numa entrevista ou no trabalho, vale muito mais mostrar o mesmo problema resolvido em dois estilos, e saber dizer por que escolheu um, do que recitar essas definições.
 
-Nenhum é "o certo". Código bom em TypeScript costuma usar **funções puras pras regras**, **objetos/classes quando há estado com regras** e **imperativo quando a lógica é cheia de passos**. Escolha o que deixa cada trecho mais claro.
+## O essencial
 
----
+1. Imperativo diz como fazer; declarativo diz o que você quer.
+2. Orientação a objetos junta dados e ações, e o objeto protege as próprias regras.
+3. Funcional: funções puras, nada é alterado, funções como valor.
+4. Nenhum é o certo. Escolha o que deixa cada trecho mais claro.
 
-## 🛠️ Exemplo guiado
+## Agora é com você
 
-Mesmo problema, "nomes das tarefas pendentes em maiúsculas":
+Um problema, três estilos. Dada uma lista de alunos `{ nome, nota }`, gere os nomes dos aprovados (nota ≥ 7) em ordem alfabética. Resolva primeiro com `for` (imperativo), depois com `filter`, `map` e `sort` (funcional), e por fim com uma classe `Turma` com um método `aprovados()` (orientado a objetos). No fim, escreva em duas linhas qual achou mais fácil de ler, e por quê. Você terminou quando as três versões derem o mesmo resultado e você conseguir explicar a diferença pra alguém.
 
-```ts
-// imperativo
-const pendentes: string[] = [];
-for (const t of tarefas) {
-  if (!t.concluida) pendentes.push(t.titulo.toUpperCase());
-}
-
-// funcional
-const pendentes2 = tarefas
-  .filter((t) => !t.concluida)
-  .map((t) => t.titulo.toUpperCase());
-```
-
-Os dois dão `["TREINAR"]`. O funcional lê como uma frase: "das tarefas, filtre as não concluídas e mapeie pro título em maiúsculas".
-
----
-
-## 🔧 Pegadinhas
-
-- **Achar que funcional é sempre melhor.** Encadear 6 `map`/`filter`/`reduce` com lógica complexa fica ilegível. Um `for` claro vence.
-- **Achar que OO é "usar classe".** Classe com tudo público e só getters/setters não é orientação a objetos; é um objeto com burocracia.
-- **Misturar no mesmo trecho.** Um `map` que também altera variáveis de fora (`total += ...` dentro do `map`) pega o pior dos dois mundos.
-- **Decorar definição.** Na entrevista e no trabalho, vale mais mostrar o mesmo problema nos dois estilos do que recitar conceitos.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** um problema, três estilos.
-
-1. Dada uma lista de alunos `{ nome, nota }`, gere os nomes dos aprovados (nota ≥ 7) em ordem alfabética.
-2. Resolva com `for` (imperativo), com `filter`/`map`/`sort` (funcional) e com uma classe `Turma` com método `aprovados()` (OO).
-3. Escreva em 2 linhas qual achou mais fácil de ler e por quê.
-
-**Pronto quando:** as três versões dão o mesmo resultado e você consegue explicar a diferença pra alguém.
+Daqui, cada paradigma tem a sua continuação: [[Classes]] (orientação a objetos, no Estágio 3), [[Funções Puras]] (funcional, no Estágio 6) e [[SQL]] (declarativo).
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Qual a diferença entre imperativo e declarativo?
 > Imperativo diz como fazer, passo a passo; declarativo diz o que você quer e deixa o como pra linguagem ou ferramenta.
@@ -171,43 +149,32 @@ Os dois dão `["TREINAR"]`. O funcional lê como uma frase: "das tarefas, filtre
 > [!question]- TypeScript é de qual paradigma?
 > Multiparadigma: dá pra programar de forma imperativa, funcional e orientada a objetos, e no dia a dia se mistura.
 
+> [!question]+ Qual destes trechos é **declarativo**?
+> - a) `for (let i = 0; i < l.length; i++) if (l[i] > 0) r.push(l[i])`
+> - b) `l.filter(x => x > 0)`
+> - c) `let i = 0; while (i < l.length) { ...; i++ }`
+> - d) `r[r.length] = l[i]`
+>
+> > [!check]- Resposta
+> > **b)** Declarativo diz **o que** quer ("os positivos") e não **como** percorrer. Os laços com índice descrevem passo a passo: imperativo.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
-| Estilo | Cara do código |
+| Estilo | A cara do código |
 |---|---|
 | Imperativo | `for` + `if` + `total += x` |
 | Funcional | `.filter().map().reduce()` |
-| OO | `class X { private dados; metodo() {} }` |
+| Orientado a objetos | `class X { private dados; metodo() {} }` |
 | Declarativo | `SELECT ... WHERE ...` |
 
----
+**Pra ler:** o capítulo [Array methods](https://javascript.info/array-methods) do javascript.info é a porta de entrada do estilo funcional: `map`, `filter`, `reduce` e `sort`, com exercícios. E o [verbete de programação funcional do MDN](https://developer.mozilla.org/en-US/docs/Glossary/Functional_programming) dá a definição curta e os conceitos relacionados.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```ts
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [MDN · Programação funcional (glossário)](https://developer.mozilla.org/en-US/docs/Glossary/Functional_programming)
-- [javascript.info · Array methods](https://javascript.info/array-methods): `map`, `filter`, `reduce` e `sort`, a porta de entrada do estilo funcional

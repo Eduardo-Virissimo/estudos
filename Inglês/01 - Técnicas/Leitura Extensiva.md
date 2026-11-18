@@ -5,115 +5,73 @@ revisado:
 
 # Leitura Extensiva
 
-> *"Quem lê muito não precisa decorar vocabulário: ele vem sozinho."*
+Lembra das leituras de inglês da escola? Um texto difícil, uma lista de perguntas no fim, e o dicionário aberto do lado. Cada linha tinha três palavras desconhecidas. Você levava uma aula inteira pra entender um parágrafo, e saía com a certeza de que ler em inglês é um sofrimento.
 
-> [!tip] ⚡ Em 30 segundos
-> **Leitura extensiva** é ler **muito**, **rápido** e **por prazer**, em textos onde você conhece quase todas as palavras (cerca de 98%). O oposto da leitura *intensiva* da escola (texto difícil, dicionário em cada linha). É a forma mais rápida de ganhar vocabulário e ler sem traduzir na cabeça.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Existe outro jeito de ler, e ele é quase o contrário. A **leitura extensiva** é ler **muito**, **rápido** e **por prazer**, em textos onde você conhece quase todas as palavras, uns 98% delas. Sem dicionário, sem parar, como você lê em português.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+À primeira vista, parece "fácil demais pra ensinar". Se eu já conheço quase tudo, o que vou aprender? Mas é justamente o volume de texto fácil que fixa as estruturas e o vocabulário, e que ensina você a ler **sem traduzir na cabeça**. É a forma mais rápida que existe de ganhar vocabulário, e esta nota explica por quê. Ela é uma aplicação direta do [[Input Compreensível]].
 
----
+## Dois jeitos de ler
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Diferenciar leitura extensiva de intensiva e saber quando usar cada uma
-- Escolher um livro no nível certo com o teste das palavras por página
-- Ler sem parar no dicionário a cada palavra
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Input Compreensível]]
-- **Depois:** [[Sentence Mining]] · [[Ler Documentação]]
-- **Trilha:** [[Inglês]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. Extensiva × intensiva
+Existem duas leituras, e elas servem pra coisas diferentes:
 
 | | Extensiva | Intensiva |
 |---|---|---|
-| Texto | Fácil (você conhece ~98% das palavras) | Difícil |
-| Ritmo | Rápido, sem parar | Devagar, analisando |
-| Dicionário | Quase nunca | O tempo todo |
-| Objetivo | Volume, fluidez, vocabulário | Entender um trecho específico |
-| Proporção | A maior parte da leitura | Um pouco, de vez em quando |
+| Texto | fácil (você conhece ~98% das palavras) | difícil |
+| Ritmo | rápido, sem parar | devagar, analisando cada frase |
+| Dicionário | quase nunca | o tempo todo |
+| Objetivo | volume, fluidez, vocabulário | entender um trecho específico |
+| Quanto | a maior parte da leitura | um pouco, de vez em quando |
 
-### 2. As regras da leitura extensiva
+A escola ensinou quase só a intensiva, e é por isso que tanta gente associa ler em inglês com sofrimento. A extensiva é outra experiência: parece ler em português, só que mais devagar no começo.
 
-1. **Fácil:** no máximo 2–3 palavras desconhecidas por página.
-2. **Muito:** a meta é páginas, não profundidade. Um livro por mês já muda seu nível.
-3. **Por prazer:** chato? Largue e pegue outro. Sem culpa.
-4. **Sem dicionário:** deduza pelo contexto. Só pare se a palavra aparecer várias vezes e travar a história.
-5. **Sem tradução na cabeça:** se precisa traduzir, o texto está difícil.
+E por que ela funciona tão bem? Pense no que acontece com as palavras enquanto você lê um livro inteiro. Cada palavra que você **já conhece** aparece de novo, e de novo, em frases diferentes, e vai se fixando cada vez mais. E as poucas palavras **novas** aparecem várias vezes ao longo do livro, cada vez num contexto um pouco diferente. Na primeira vez, você não sabe o que ela é. Na terceira, já desconfia. Na quinta, entende, sem nunca ter aberto o dicionário. Foi exatamente assim que você aprendeu a maioria das palavras que conhece em português: lendo, e não decorando listas.
 
-### 3. O que ler em cada nível
+## As regras do jogo
+
+A leitura extensiva tem cinco regras, e cada uma tem um porquê.
+
+O texto tem que ser **fácil**: no máximo duas ou três palavras desconhecidas por página. Mais que isso, troque de livro, porque você voltou pra leitura intensiva sem perceber. A meta é **muito**, e se mede em **páginas**, não em profundidade: um livro por mês já muda o seu nível. Tem que ser **por prazer**: achou o livro chato? Largue e pegue outro, sem culpa nenhuma. Você só vai ler todo dia se gostar do que está lendo. **Sem dicionário**: deduza pelo contexto, e só pare pra procurar se a palavra aparecer várias vezes e travar a história. E **sem tradução na cabeça**: se você precisa traduzir frase por frase pra entender, o texto está difícil demais.
+
+Duas tentações pra resistir. A primeira é **achar que texto fácil não ensina**. Ler uma coisa que você entende quase toda parece perda de tempo. Mas é exatamente esse volume que fixa a língua. O texto difícil, que parece mais "produtivo", ensina menos, porque você passa mais tempo decifrando do que lendo.
+
+A segunda é **marcar todas as palavras novas**, pra procurar depois. Isso transforma a leitura numa caça ao tesouro e quebra o prazer. Marque só as que se **repetem** e travam a leitura. O resto, o próprio volume resolve.
+
+## O que ler
 
 | Nível | Material |
 |---|---|
-| A1–B1 | **Graded readers** (livros adaptados por nível: Penguin Readers, Oxford Bookworms, Cambridge) |
-| B1–B2 | Livros juvenis (*Harry Potter*, *Percy Jackson*), webcomics, Reddit sobre seus hobbies |
-| B2+ | Qualquer livro, blogs técnicos, newsletters |
+| A1 a B1 | **graded readers**: livros adaptados por nível (Penguin Readers, Oxford Bookworms, Cambridge) |
+| B1 a B2 | livros juvenis (*Harry Potter*, *Percy Jackson*), webcomics, Reddit sobre os seus hobbies |
+| B2 em diante | qualquer livro, blogs técnicos, newsletters |
 
-> **Truque:** leia em inglês um livro que você **já leu** em português. Você já sabe a história, então entende muito mais.
+Os **graded readers** são a grande ferramenta do começo. São histórias completas, com começo, meio e fim, escritas com um vocabulário limitado de propósito, e marcadas por nível. Você pega o do seu nível, e consegue ler um livro inteiro sem dicionário. A sensação de terminar o primeiro é inesquecível.
 
----
+E um truque que funciona muito bem: leia em inglês um livro que você **já leu em português**. Você já sabe a história, então o contexto faz metade do trabalho, e você entende muito mais do que esperava.
 
-## 🔧 Pegadinhas
+O erro mais comum aqui é **começar pelo livro que você sempre quis ler**, aquele romance enorme, original, sem adaptação. Se ele for difícil demais, a leitura vira intensiva, e você larga no capítulo dois, desanimado. Comece **abaixo** do seu nível, e vá subindo. O livro dos sonhos vai estar esperando quando você chegar lá.
 
-- **Escolher o livro "que eu sempre quis ler".** Se for difícil demais, vira leitura intensiva e você larga. Comece abaixo do seu nível.
-- **Marcar todas as palavras novas.** Marque só as que se repetem; o resto o volume resolve.
-- **Achar que fácil "não ensina".** É justamente o texto fácil, em volume, que fixa as estruturas.
+Sobre quanto e quando: não precisa ser muito por dia. Quinze a vinte minutos todo dia valem mais que uma tarde inteira por semana. Ler antes de dormir é um ótimo gatilho pro hábito. E o mais importante de tudo é **terminar livros**: cada livro terminado dá uma sensação de progresso que um capítulo solto nunca dá.
 
----
+## O essencial
 
-## 🔨 Desafio prático
+1. Extensiva: muito texto fácil, rápido, por prazer, sem dicionário. É ela que dá fluência.
+2. No máximo 2 ou 3 palavras novas por página. Mais que isso, troque de livro.
+3. Texto fácil ensina: o volume fixa o que você conhece e revela o que é novo.
+4. Comece com graded readers, ou um livro que já leu em português. Sempre um pouco abaixo do seu nível.
+5. Livro chato? Largue. O que importa é ler todo dia e terminar livros.
 
-**Objetivo:** ler 30 páginas em uma semana.
+## Agora é com você
 
-1. Faça o teste: abra uma página de um *graded reader* do seu nível (ou um pouco abaixo).
-2. Conte as palavras desconhecidas. Mais de 3? Desça um nível.
-3. Leia 5 páginas por dia, sem dicionário.
-4. Anote só as palavras que apareceram 3+ vezes e você ainda não entendeu: elas viram frases no [[Sentence Mining]].
+Leia 30 páginas em uma semana. Abra uma página de um *graded reader* do seu nível (ou um pouco abaixo) e conte as palavras desconhecidas; se passar de três, desça um nível. Leia cinco páginas por dia, sem dicionário. E anote só as palavras que apareceram três ou mais vezes e que você ainda não entendeu: elas viram frases no [[Sentence Mining]]. Você terminou quando tiver lido as 30 páginas, e pelo menos uma delas sem parar nenhuma vez.
 
-**Pronto quando:** você terminou 30 páginas e leu pelo menos uma sem parar nenhuma vez.
+Depois, o projeto que muda a sua relação com o inglês: **terminar um livro inteiro.** As 30 páginas mostram o método; o livro inteiro é o primeiro de muitos. Escolha um no seu nível (um *graded reader*, ou um que você já leu em português) e defina uma meta de páginas por dia que caiba até num dia ruim, como cinco. Registre aqui embaixo cada sessão: a data, as páginas, e uma frase sobre o que aconteceu na história. E leia até o fim, sem dicionário. Você terminou quando ler a última página. Se quiser ir além, escolha um livro de algo que você ama (fantasia, RPG, um livro baseado num jogo), e quando terminar, escreva cinco linhas em inglês sobre ele e corrija com o [[Output com Correção]].
 
----
-
-## 🚀 Projeto
-
-> [!example] Terminar um livro inteiro em inglês
-> As 30 páginas do desafio mostram o método. Terminar um livro é o que muda a sua relação com o inglês: é o primeiro de muitos.
->
-> **Tempo:** algumas semanas, 15 min por dia
-
-**O mínimo:**
-- [ ] Escolher um livro no seu nível: um *graded reader*, ou um livro que você já leu em português
-- [ ] Uma meta de páginas por dia que caiba num dia ruim (ex.: 5)
-- [ ] Registro no Diário de bordo: data, páginas lidas e uma frase sobre o que aconteceu
-- [ ] Ler até o fim, sem dicionário durante a leitura
-
-**Se quiser ir além:**
-- Escolher um livro de algo que você ama: fantasia, RPG, um livro baseado em jogo
-- Ao terminar, escrever 5 linhas em inglês sobre o livro e corrigir com [[Output com Correção]]
-
-**Pronto quando:** você leu a última página.
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+Daqui, siga pro [[Sentence Mining]] e pra [[Ler Documentação]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Qual a diferença entre leitura extensiva e intensiva?
 > Extensiva: muito texto fácil, rápido, por prazer, sem dicionário. Intensiva: pouco texto difícil, devagar, analisando cada parte.
@@ -127,32 +85,35 @@ Ao terminar esta nota, você consegue:
 > [!question]- Quando vale parar pra procurar uma palavra?
 > Quando ela se repete várias vezes e impede de entender a história. O resto o contexto e o volume resolvem.
 
+> [!question]- Por que texto fácil ensina, se você já conhece quase tudo?
+> Porque o volume fixa as palavras que você conhece, e as novas aparecem várias vezes em contextos diferentes até ficarem claras.
+
+> [!question]+ Qual a diferença entre leitura extensiva e intensiva?
+> - a) Extensiva é ler muito, fácil e sem parar; intensiva é ler pouco, devagar, analisando
+> - b) Extensiva é ler livros longos; intensiva, artigos curtos
+> - c) Extensiva é ler em voz alta
+> - d) Não há diferença
+>
+> > [!check]- Resposta
+> > **a)** Na extensiva o foco é volume e prazer, quase sem dicionário. Na intensiva você destrincha cada frase. As duas servem, mas a fluência vem da extensiva.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Pergunta | Resposta |
 |---|---|
 | Quanto deve ser fácil? | ≤ 2–3 palavras novas por página |
-| Quanto ler? | 5–10 páginas/dia |
+| Quanto ler? | 5–10 páginas por dia |
 | Livro chato? | Largue |
 | Palavra nova? | Deduza; só procure se repetir |
 
----
+**Pra ler:** a [Extensive Reading Foundation](https://erfoundation.org/) tem um guia da técnica e listas de *graded readers* por nível. As três coleções mais conhecidas são a Penguin Readers, a Oxford Bookworms e a Cambridge English Readers; qualquer uma serve pra começar.
 
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar.
+## Minhas anotações
 
 **Livros que li (título, nível, páginas):**
 - 
 
 **O que me confundiu / onde eu errei:**
-- 
-
----
-
-## 📚 Recursos
-
-- [Extensive Reading Foundation](https://erfoundation.org/): guia e lista de *graded readers* por nível
-- Penguin Readers, Oxford Bookworms, Cambridge English Readers
+-

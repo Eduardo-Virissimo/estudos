@@ -5,56 +5,19 @@ revisado:
 
 # Insomnia
 
-> *"Menos cerimônia, mais requisições."*
+Se você já passou pela nota do [[Postman]], conhece a ideia: em vez de escrever código só pra ver se uma API responde, você usa um programa onde monta a requisição, aperta **Send** e vê a resposta. O **Insomnia** faz exatamente isso, e a pergunta honesta é: por que aprender um segundo?
 
-> [!tip] ⚡ Em 30 segundos
-> Cliente de API (alternativa ao Postman) pra montar requisições HTTP e GraphQL sem escrever código. O que mais importa: organizar em pastas, usar **ambientes** com variáveis (`{{ _.base_url }}`) e encadear respostas.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Porque cada um tem o seu jeito, e você vai encontrar os dois por aí. O Insomnia aposta numa interface mais enxuta, com menos botões e menos coisa no caminho, e trabalha bem com **REST**, **GraphQL** e outros protocolos. Muita gente prefere ele justamente por isso.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Esta nota não repete o básico (método, URL, headers, body, códigos de status como 401 e 404): isso está no [[Postman]] e vale igual aqui. O que importa no Insomnia são três coisas: os **ambientes**, o **encadeamento** de respostas, e a aba **Timeline**, que é onde você descobre o que deu errado.
 
----
+Pra se situar, faça a primeira requisição: clique em **New Request**, escolha `GET`, cole `https://jsonplaceholder.typicode.com/posts/1` e clique em **Send**. A resposta aparece do lado, nas abas **Preview**, **Header** e **Timeline**. Conforme a coleção crescer, organize em **pastas**, uma pra cada parte da API.
 
-## 🎯 Objetivos
+## Ambientes: a mesma requisição em lugares diferentes
 
-Ao terminar esta nota, você consegue:
+Uma API costuma existir em mais de um lugar: no seu computador enquanto você desenvolve, num servidor de testes, e em produção. As requisições são as mesmas, só muda o endereço (e o token). Escrever a URL inteira em cada requisição significa editar todas elas quando você troca de lugar.
 
-- Reproduzir no Insomnia uma coleção feita no Postman
-- Encadear requisições (usar a resposta de uma na outra)
-- Fazer uma consulta GraphQL
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Postman]]
-- **Depois:** [[GraphQL]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 💡 O que é Insomnia?
-
-O **Insomnia** é um cliente de APIs usado para **enviar requisições e inspecionar respostas**, sendo uma alternativa ao [[Postman]]. Tem interface limpa e direta, e suporta **REST**, **GraphQL**, **gRPC**, WebSocket e outros protocolos.
-
-Como no Postman, você organiza requisições em coleções, usa variáveis de ambiente, configura autenticação e compartilha o trabalho com o time.
-
-> [!note]- 📜 Um pouco de história
-> O Insomnia foi criado por **Gregory Schier** por volta de **2015**, inicialmente como projeto de código aberto. Mais tarde foi adquirido pela **Kong** (empresa de API gateways), que mantém o desenvolvimento. O foco sempre foi oferecer uma experiência mais simples e rápida para testar APIs.
-
----
-
-## 🧱 Conceitos-chave
-
-### Conceito 1: Requisições e pastas
-
-Cada requisição define método, URL, headers, body e autenticação. Você pode agrupá-las em pastas dentro de uma coleção.
-
-### Conceito 2: Ambientes
-
-Definidos em JSON, permitem variar valores conforme o contexto (local, staging, produção).
+O Insomnia resolve isso com **ambientes**. Um ambiente é um JSON com os valores que mudam:
 
 ```json
 {
@@ -63,20 +26,39 @@ Definidos em JSON, permitem variar valores conforme o contexto (local, staging, 
 }
 ```
 
-Uso na URL e nos headers:
+E nas requisições, você usa as variáveis com esta sintaxe, que tem um detalhe esquisito, o `_.` antes do nome:
 
 ```text
 {{ _.base_url }}/usuarios
 Authorization: Bearer {{ _.token }}
 ```
 
-### Conceito 3: Encadeamento de requisições
+Crie um ambiente pra cada lugar (local, testes, produção) e troque no seletor no topo da tela. Todas as requisições mudam de uma vez. Num campo qualquer, digitar `_.` ou apertar `Ctrl + Espaço` mostra as variáveis disponíveis.
 
-É possível usar dados da resposta de uma requisição em outra (ex.: pegar o token do login e usar nas demais) com as **Response tags** (`Response → Body Attribute`).
+Quando uma variável aparece vazia, quase sempre é uma destas duas coisas: o ambiente certo não está selecionado lá no topo, ou o JSON do ambiente tem um erro bobo, como uma vírgula sobrando no último item. Comece olhando por aí.
 
-### Conceito 4: GraphQL
+## Encadeamento: o token que se renova sozinho
 
-O Insomnia tem um editor de queries com autocompletar a partir do schema.
+Este é o recurso que faz você gostar do Insomnia. O cenário é clássico: você faz login, a API devolve um token, e todas as outras requisições precisam dele. O token expira, você faz login de novo, copia, cola no ambiente... e repete isso vinte vezes por dia.
+
+O Insomnia deixa uma requisição **puxar um valor direto da resposta de outra**, usando as **Response tags**:
+
+1. Crie o `POST {{ _.base_url }}/login`, com o e-mail e a senha no body.
+2. Na próxima requisição, vá em **Auth** e escolha **Bearer Token**.
+3. No campo do token, em vez de colar um valor, insira a tag **Response → Body Attribute**, apontando pra requisição de login e pro campo `token` da resposta dela.
+4. Envie `GET {{ _.base_url }}/perfil`.
+
+Agora o token vem sempre fresco do último login, e você nunca mais copia nada.
+
+## Timeline: o que realmente aconteceu
+
+Quando um erro não faz sentido, a aba **Timeline** é onde você olha. Ela mostra a requisição crua, do jeito que aconteceu: tudo o que foi enviado, cada cabeçalho, os redirecionamentos, a conexão segura (TLS) e a resposta sem nenhum enfeite. Coisas que as outras abas escondem aparecem ali. O caso típico é o servidor redirecionando você pra outro endereço sem você perceber, e a resposta que chega não é a que você esperava.
+
+Um erro comum ao testar uma API rodando no seu computador é o de **certificado SSL**. Em desenvolvimento, prefira simplesmente `http://localhost`. Se precisar mesmo de HTTPS local, configure o certificado, ou desligue a validação nas preferências **só pra testes locais**. Nunca faça isso pra testar uma API real, porque é justamente essa validação que garante que você está falando com o servidor certo.
+
+## GraphQL, e trazer coleções prontas
+
+Um dos pontos fortes do Insomnia é o editor de **GraphQL**. No GraphQL, em vez de várias URLs, a API tem uma só, e você escreve exatamente quais campos quer na resposta:
 
 ```graphql
 query {
@@ -87,125 +69,30 @@ query {
 }
 ```
 
----
+O Insomnia lê o schema da API e **autocompleta os campos** enquanto você digita, o que transforma explorar uma API GraphQL desconhecida numa coisa fácil.
 
-## 🛠️ Exemplos guiados
+E se você já tem uma coleção no Postman, ou a API tem uma especificação **OpenAPI**, dá pra importar: as requisições chegam prontas.
 
-### Exemplo 1: Uso Básico
+Uma curiosidade: o Insomnia foi criado por Gregory Schier por volta de 2015, como projeto de código aberto, com a proposta de ser mais simples e rápido que as alternativas. Depois foi comprado pela Kong, uma empresa de ferramentas de API.
 
-```text
-1. Crie uma nova requisição (New Request)
-2. Escolha GET e cole: https://jsonplaceholder.typicode.com/posts/1
-3. Clique em Send
-4. Inspecione a resposta nas abas Preview, Header e Timeline
-```
+## O essencial
 
-### Exemplo 2: Caso de Uso Real
+1. É a mesma ideia do Postman; o que muda é a interface e a sintaxe.
+2. Variáveis de ambiente se escrevem `{{ _.nome }}`. Variável vazia: confira o ambiente selecionado e o JSON.
+3. Response tags puxam valores (como o token) da resposta de outra requisição.
+4. Erro estranho? Olhe a Timeline.
 
-Fluxo de login + rota protegida:
+## Agora é com você
 
-```text
-1. POST {{ _.base_url }}/login com body JSON {"email": "...", "senha": "..."}
-2. Na requisição seguinte, em Auth escolha Bearer Token
-3. No campo do token, use a tag de resposta apontando para o campo "token"
-   do login (Response → Body Attribute)
-4. Envie GET {{ _.base_url }}/perfil
-```
+Refaça no Insomnia o que você fez no Postman, pra comparar de verdade: crie uma coleção "Estudo API", um ambiente com `base_url = https://jsonplaceholder.typicode.com`, e as requisições `GET /posts`, `GET /posts/1` e `POST /posts`, todas usando `{{ _.base_url }}`. Você terminou quando as três funcionarem sem nenhuma URL escrita à mão e você tiver anotado pelo menos uma diferença real entre as duas ferramentas.
 
----
+Depois, explore uma **API real e autenticada**: a do GitHub. É um ótimo treino antes de construir a sua no Estágio 4, porque tem tokens, paginação e erros de verdade. Crie uma coleção "GitHub" com um ambiente contendo `base_url = https://api.github.com` e um `token` (gerado em Settings → Developer settings, só com permissão de leitura). Monte as requisições do seu usuário (`GET /user`), dos seus repositórios (`GET /user/repos?per_page=5&page=1`) e das issues de um repositório seu. Provoque erros de propósito, com um token errado (401) e um repositório que não existe (404). Por fim, exporte a coleção **sem o token** e guarde no repositório de um projeto. Você terminou quando a coleção funcionar trocando só o token no ambiente e o arquivo exportado não tiver nenhum segredo dentro (veja [[Gestão de Secrets]]). Se quiser ir além, encadeie o `login` que vem de `/user` na URL da próxima requisição, crie uma issue com `POST` num repositório de teste, e leia o header `x-ratelimit-remaining` pra entender o [[Rate Limiting]].
 
-## ⚙️ Configuração recomendada
-
-Ajustes úteis nas preferências do app (Preferences):
-
-```json
-{
-    "Tema": "claro/escuro conforme preferência",
-    "Seguir redirecionamentos": true,
-    "Validar certificados SSL": true,
-    "Timeout de requisição": "ajuste conforme sua API"
-}
-```
-
-> Nomes das opções podem variar entre versões. Confira em *Preferences*.
-
----
-
-## 💎 Boas práticas
-
-### 1. Aprenda o autocompletar de variáveis
-
-Digite `_.` ou use `Ctrl + Espaço` nos campos para ver as variáveis disponíveis.
-
-### 2. Importe de outras ferramentas
-
-O Insomnia consegue importar coleções (por exemplo, exportadas do Postman) e specs OpenAPI, o que facilita a migração.
-
-### 3. Use a aba Timeline para depurar
-
-Ela mostra detalhes da requisição e da resposta, útil para entender erros de header, redirecionamento ou TLS.
-
----
-
-## 🔧 Erros comuns e como resolver
-
-### Problema: Erro de certificado SSL ao testar um servidor local
-
-**Solução:**
-1. Prefira usar `http://localhost` em desenvolvimento, se possível.
-2. Se precisar de HTTPS local, configure o certificado ou desative a validação **só para testes** nas preferências.
-
-### Problema: Variável de ambiente aparece vazia
-
-**Solução:**
-1. Confirme se o ambiente correto está selecionado no topo.
-2. Verifique a sintaxe do JSON do ambiente (vírgulas e aspas).
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** Reproduzir no Insomnia o fluxo que você fez no Postman e comparar.
-
-```text
-1. Crie uma coleção "Estudo API"
-2. Cadastre um ambiente com base_url = https://jsonplaceholder.typicode.com
-3. Crie requisições GET /posts, GET /posts/1 e POST /posts
-4. Use {{ _.base_url }} nas URLs
-5. Anote o que achou mais simples ou mais confuso em relação ao Postman
-```
-
-**Pronto quando:** as 3 requisições funcionam trocando só o ambiente, sem nenhuma URL escrita à mão, e você anotou pelo menos uma diferença real entre Insomnia e Postman.
-
----
-
-## 🚀 Projeto
-
-> [!example] Coleção da API do GitHub
-> Explorar uma API real e autenticada antes de construir a sua no Estágio 4: tokens, variáveis, paginação e respostas de erro de verdade.
->
-> **Tempo:** 1 sessão
-
-**O mínimo:**
-- [ ] Coleção "GitHub" com ambiente contendo `base_url` = `https://api.github.com` e um `token` (gerado em Settings → Developer settings, só com permissão de leitura)
-- [ ] Requisições: seu usuário (`GET /user`), seus repositórios (`GET /user/repos?per_page=5&page=1`) e as issues de um repositório seu
-- [ ] Ver uma resposta de erro de propósito: token errado (401) e repositório inexistente (404)
-- [ ] Exportar a coleção **sem o token** e guardar no repositório de um projeto seu
-
-**Se quiser ir além:**
-- Encadear: pegar o `login` da resposta de `/user` e usar na URL da próxima requisição
-- Criar uma issue com `POST` (token com permissão de escrita, num repositório de teste)
-- Ler os headers `x-ratelimit-remaining` e entender o [[Rate Limiting]]
-
-**Pronto quando:** a coleção funciona trocando só o token no ambiente, e o arquivo exportado não tem nenhum segredo dentro ([[Gestão de Secrets]]).
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+O próximo passo natural é o [[GraphQL]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
 
 > [!question]- Pra que servem os ambientes?
 > Pra trocar entre dev/produção (URL, token) sem editar requisição por requisição.
@@ -214,10 +101,10 @@ Ela mostra detalhes da requisição e da resposta, útil para entender erros de 
 > Com **encadeamento**: uma *template tag* (Response) que lê um campo da resposta do login, ou salvando o token numa variável de ambiente.
 
 > [!question]- Uma variável aparece vazia. O que checar?
-> Se o ambiente certo está **selecionado**, se o nome está escrito igual e se a sintaxe é `{{ _.nome }}`.
+> Se o ambiente certo está **selecionado**, se o nome está escrito igual, se a sintaxe é `{{ _.nome }}` e se o JSON do ambiente não tem erro.
 
 > [!question]- Erro de certificado SSL ao testar um servidor local. O que fazer?
-> Desativar a validação de certificado nas preferências, **só** para desenvolvimento local.
+> Usar `http://localhost`, ou desativar a validação de certificado nas preferências, **só** para desenvolvimento local.
 
 > [!question]- Pra que serve a aba Timeline?
 > Mostra a requisição crua: headers enviados, redirecionamentos e a resposta. É onde se depura.
@@ -237,47 +124,34 @@ Ela mostra detalhes da requisição e da resposta, útil para entender erros de 
 > [!question]- Status 401
 > não autenticado: token ausente, inválido ou expirado
 
+> [!question]+ Você tem a URL da API local e a de produção. Qual o jeito certo de alternar entre as duas?
+> - a) Duplicar todas as requisições, uma pasta pra cada servidor
+> - b) Criar uma variável `base_url` em dois ambientes e trocar o ambiente
+> - c) Editar a URL de cada requisição antes de usar
+> - d) Salvar as duas URLs num header
+>
+> > [!check]- Resposta
+> > **b)** Ambientes guardam os valores que mudam (URL, token). As requisições usam `{{ _.base_url }}` e você só troca o ambiente no seletor.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `{{ _.variavel }}` | Usa variável do ambiente |
-| **New Request** | Cria uma requisição |
-| **Send** | Envia a requisição |
-| **Environments** | Gerencia ambientes |
-| **Response tags** | Usa dados de respostas anteriores |
+| Recurso | O que faz |
+|---|---|
+| `{{ _.variavel }}` | Usa uma variável do ambiente |
+| **New Request** / **Send** | Cria / envia uma requisição |
+| **Environments** | Gerencia os ambientes |
+| **Response tags** | Usa dados da resposta de outra requisição |
+| **Timeline** | Mostra a requisição e a resposta cruas |
 | **Import / Export** | Move coleções entre ferramentas |
 
----
+**Pra ler:** a [documentação do Insomnia](https://docs.insomnia.rest) é curta e direta; a parte de "Environments" e "Template tags" é a que mais vale. E o [JSONPlaceholder](https://jsonplaceholder.typicode.com) é uma API falsa e gratuita, perfeita pra treinar sem medo de quebrar nada.
 
-## 📓 Diário de bordo
+## Minhas anotações
 
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+**O que eu entendi, com as minhas palavras:**
+- 
 
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
--
-
-**O que me confundiu / onde eu errei:**
--
-
-**Onde eu usei de verdade:**
--
-
----
-
-## ➡️ Próximos passos
-
-- [ ] Instalar o Insomnia e testar uma API pública
-- [ ] Experimentar uma query GraphQL
-- [ ] Importar uma coleção do [[Postman]] e comparar
-- [ ] Decidir qual ferramenta usar no seu fluxo diário
-
----
-
-## 📚 Recursos
-
-### 💻 Sites e Documentação:
-- [Documentação do Insomnia](https://docs.insomnia.rest) - Guias oficiais
-- [JSONPlaceholder](https://jsonplaceholder.typicode.com) - API falsa para treinar
+**Onde eu travei:**
+- 

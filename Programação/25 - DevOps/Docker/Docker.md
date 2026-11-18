@@ -5,448 +5,236 @@ revisado:
 
 # Docker
 
-> *"Funciona na minha máquina? Então empacota a sua máquina junto."*
+Você termina a sua API, manda o repositório pra um colega, e ele responde: "não roda aqui". Você confere: na sua máquina, funciona perfeitamente. Depois de meia hora de investigação, descobrem que ele tem o Node 18 e você o 22, que ele não instalou o banco de dados, e que uma variável de ambiente estava configurada só no seu computador. Esse diálogo tem até nome no mundo da programação: **"na minha máquina funciona"**.
 
-> [!tip] ⚡ Em 30 segundos
-> Empacota sua aplicação com tudo que ela precisa numa **imagem**, que roda igual em qualquer máquina como **container**. O Dockerfile descreve uma imagem; o docker-compose sobe vários containers juntos (API + banco).
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+O **Docker** existe pra acabar com ele. A ideia é empacotar a sua aplicação **junto com tudo o que ela precisa** (a versão certa do Node, as bibliotecas, as configurações) num pacote chamado **imagem**. E essa imagem roda igualzinha em qualquer computador que tenha Docker, como um **container**. O seu colega não precisa instalar Node, nem banco, nem nada: só o Docker.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Duas peças fazem isso acontecer. O **Dockerfile** é a receita de uma imagem. E o **docker compose** sobe vários containers juntos, como a sua API e o banco de dados, já conversando entre si. No fim desta nota, você vai conseguir clonar um projeto numa pasta limpa, rodar um comando, e ver tudo funcionando, sem ter nada instalado. Ajuda já conhecer o [[Terminal]] e o [[Gerenciador de Pacotes]].
 
----
+## A caixa de tamanho padrão
 
-## 🎯 Objetivos
+O nome vem dos **contêineres de navio**. Antes deles, carregar um navio era um caos: cada carga tinha um formato, um peso, um jeito de amarrar. O contêiner trouxe uma caixa de tamanho padrão, que qualquer navio, trem ou caminhão sabe carregar, não importa o que vai dentro. O Docker faz a mesma coisa com programas: uma caixa padrão, que qualquer computador com Docker sabe rodar.
 
-Ao terminar esta nota, você consegue:
+Pra usar o Docker, você precisa separar dois conceitos que no começo parecem a mesma coisa:
 
-- Explicar a diferença entre **imagem** e **container**
-- Escrever um Dockerfile enxuto (com `.dockerignore` e multi-stage)
-- Subir aplicação + banco juntos com Docker Compose e resolver problemas de porta e rede
+| | Imagem | Container |
+|---|---|---|
+| O que é | o pacote, a receita pronta | o programa rodando, criado a partir da imagem |
+| Muda? | não: é fixa (imutável) | sim: tem estado enquanto roda, e é descartável |
+| Comparação | a planta da casa | a casa construída |
 
----
+A **imagem** é o molde, e nunca muda. O **container** é o programa rodando, criado a partir dela. E uma imagem pode virar vários containers ao mesmo tempo, do mesmo jeito que uma classe vira vários objetos ([[Classes no TypeScript]]).
 
-## 🧭 Onde isso se encaixa
+Talvez você esteja pensando em máquinas virtuais, que também isolam programas. A diferença é de peso. Uma máquina virtual simula um computador **inteiro**, com um sistema operacional completo dentro: é pesada, e leva minutos pra ligar. Um container **compartilha** o núcleo do sistema operacional do seu computador, e isola só a aplicação: é leve, e liga em segundos.
 
-- **Antes:** [[Terminal]] · [[Gerenciador de Pacotes]]
-- **Depois:** [[Docker Compose]] · [[CI/CD]]
-- **Trilha:** [[Roadmap]]
+## A receita da imagem
 
----
-
-## 💡 O que é Docker?
-
-**Docker** é uma plataforma de virtualização baseada em containers que permite empacotar, executar e gerenciar aplicações de forma consistente em qualquer ambiente. Diferente das máquinas virtuais tradicionais (VMs), os containers do Docker compartilham o kernel do sistema operacional do host, tornando-os mais leves, rápidos e eficientes em recursos.
-
-### Funcionamento Básico
-
-Imagine que você desenvolveu um site web usando Node.js, mas no servidor de produção só existe Python instalado. Com Docker, você pode "empacotar" seu site junto com todas as dependências (Node.js, bibliotecas, etc.) em um container, garantindo que funcione exatamente da mesma forma em qualquer lugar.
-
-Os containers são criados a partir de **imagens** — templates leves e imutáveis que definem todo o ambiente necessário para sua aplicação.
-
-> [!note]- 📜 Um pouco de história
-> O Docker nasceu dentro da **dotCloud**, uma empresa de hospedagem (PaaS) fundada por **Solomon Hykes**, que usava containers internamente. O nome e a metáfora vêm dos **contêineres de navio**: uma caixa padrão que qualquer navio, trem ou caminhão sabe carregar, não importa o que vai dentro.
->
-> - **Antes do Docker**: o isolamento já existia em partes — `chroot` (Unix, 1979), FreeBSD Jails (2000), Solaris Zones (2004), *cgroups* no kernel Linux (2007-2008) e o **LXC** (2008).
-> - **2013 (março)**: Solomon Hykes apresenta o Docker na PyCon e o projeto vira código aberto.
-> - **2013 (outubro)**: a dotCloud muda de nome para **Docker, Inc.**
-> - **2014**: sai o Docker 1.0; o Docker troca o LXC pela sua própria biblioteca (*libcontainer*); o Compose surge a partir do projeto Fig.
-> - **2015**: nasce a **OCI** (Open Container Initiative), que padroniza o formato de imagens e containers.
->
-> O que o Docker trouxe de novo não foi o container em si, mas deixá-lo **fácil**: um `Dockerfile` legível, imagens em camadas e um registro público (Docker Hub) para compartilhar.
-
----
-
-## 🧱 Conceitos-chave
-
-### Dockerfile
-
-O **Dockerfile** é um arquivo de texto com instruções para criar uma imagem Docker. Cada linha cria uma camada na imagem final.
+O **Dockerfile** é um arquivo de texto com a receita da imagem, um passo por linha:
 
 ```dockerfile
-# Exemplo básico de Dockerfile para aplicação Node.js
+# Base: Node 22, na versão alpine (bem pequena)
+FROM node:22-alpine
 
-FROM node:18-alpine            # Base: imagem do Node.js 18 Alpine (leve)
+# Pasta de trabalho dentro do container
+WORKDIR /app
 
-WORKDIR /app                  # Define o diretório de trabalho
+# Copia SÓ os arquivos de dependências primeiro...
+COPY package*.json ./
+# ...e instala
+RUN npm ci
 
-COPY package*.json ./         # Copia package.json e package-lock.json
+# Agora copia o resto do código
+COPY . .
 
-RUN npm install               # Instala dependências
+# Documenta a porta que a aplicação usa
+EXPOSE 3000
 
-COPY . .                      # Copia todo o código fonte
-
-EXPOSE 3000                   # Expor a porta da aplicação
-
-CMD ["node", "server.js"]     # Comando para iniciar a aplicação
+# Comando que roda quando o container liga
+CMD ["node", "server.js"]
 ```
 
-### Imagens vs Containers
+Lendo de cima pra baixo: comece de uma imagem que já tem o Node 22; crie uma pasta `/app`; copie os arquivos de dependências e instale; copie o resto do código; e, quando o container ligar, rode o servidor.
 
-| Característica | Imagem Docker | Container Docker |
-|----------------|---------------|------------------|
-| Natureza | Template/Template estático | Instância executável dinâmica |
-| Estado | Imutável | Efêmero (muda durante execução) |
-| Uso | Criação de ambientes | Execução da aplicação |
+Agora, repare na ordem esquisita do meio. Por que copiar o `package.json`, instalar, e **só depois** copiar o código? Por que não copiar tudo de uma vez?
 
-### Dockerfile vs docker-compose.yml
+A resposta é a parte mais inteligente do Docker. Cada linha do Dockerfile cria uma **camada** na imagem, e o Docker guarda essas camadas em cache. No próximo build, se nada mudou numa camada, ele simplesmente reaproveita a que já tinha. E pense no que muda com frequência no seu projeto: o código muda o tempo todo; as dependências quase nunca. Copiando primeiro só o `package.json`, a camada do `npm ci`, que é a mais lenta, fica guardada, e só roda de novo quando as dependências mudam. Se você copiasse tudo de uma vez, qualquer mudança numa linha de código obrigaria o Docker a reinstalar todas as dependências, a cada build.
 
-O **Dockerfile** cria uma única imagem para um serviço, enquanto o **docker-compose.yml** define múltiplos serviços (servidor DB, aplicação frontend, backend, cache) e como eles se comunicam.
+Pra criar a imagem e rodar um container dela:
+
+```bash
+docker build -t minha-api .     # cria a imagem a partir do Dockerfile desta pasta
+docker run -p 3000:3000 -d minha-api
+```
+
+E crie também um `.dockerignore`, na mesma pasta, pra não copiar lixo pra dentro da imagem:
+
+```text
+.git
+node_modules/
+.env
+dist/
+```
+
+Sem ele, o `COPY . .` leva o `node_modules` e o `.git` pra dentro da imagem, o que deixa o build lento e a imagem enorme. E, pior, pode levar o `.env`, com as suas senhas, pra dentro de uma imagem que talvez você publique.
+
+Um detalhe de sintaxe que causa erros estranhos: no Dockerfile, um comentário só vale no **começo** da linha. Um `FROM node:22-alpine  # base` dá erro, porque o Docker tenta ler o `# base` como parte da instrução.
+
+## Portas: do container pro seu computador
+
+Este é o tropeço mais comum de quem começa, então vale com calma. Um container tem a sua própria rede, isolada do seu computador. A sua aplicação pode estar rodando na porta 3000 **dentro** do container, mas o seu navegador não enxerga isso até você ligar uma porta do seu computador a ela:
+
+```bash
+docker run -p 8080:3000 minha-api
+#             ^^^^ ^^^^
+#     no seu PC    dentro do container
+```
+
+O formato é sempre `-p PORTA_DO_PC:PORTA_DO_CONTAINER`. Neste exemplo, você acessa `localhost:8080` no navegador, e o Docker encaminha pra porta 3000 do container.
+
+E quando o container está rodando, mas o `localhost` não responde de jeito nenhum? Confira três coisas, nesta ordem. Você passou o `-p`? A porta da direita é a que a aplicação **realmente** usa dentro do container? E, a mais traiçoeira: a aplicação escuta em `0.0.0.0`, e não só em `localhost`? Dentro do container, `localhost` quer dizer **só o próprio container**. Um servidor que escuta apenas em `localhost` recusa qualquer conexão vinda de fora dele, inclusive a do seu navegador.
+
+## Vários containers juntos
+
+Uma aplicação de verdade raramente é uma peça só. Ela tem a API, o banco de dados, às vezes um cache. Subir cada parte com um `docker run` cheio de opções é trabalhoso, e fácil de errar. O **docker compose** descreve tudo num arquivo só:
 
 ```yaml
-# docker-compose.yml - exemplo de ambiente completo
-
-version: '3.8'
-
+# compose.yaml (ou docker-compose.yml)
 services:
-  app:
+  api:
     build: .
     ports:
       - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://app:senha-de-dev@db:5432/app
     depends_on:
       - db
-  
+
   db:
-    image: postgres:15-alpine
+    image: postgres:16-alpine
     environment:
-      POSTGRES_PASSWORD: exemplo
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: senha-de-dev
+      POSTGRES_DB: app
     volumes:
       - pgdata:/var/lib/postgresql/data
-  
+
 volumes:
   pgdata:
 ```
 
----
-
-## 🛠️ Exemplos guiados
-
-### Exemplo 1: Uso Básico — Criando e Executando um Container
-
-**Passo 1: Criar o Dockerfile** (`Dockerfile`):
-
-```dockerfile
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y python3-pip
-WORKDIR /app
-COPY app.py .
-CMD ["python3", "app.py"]
+```bash
+docker compose up -d     # sobe tudo em segundo plano
+docker compose logs -f   # acompanha os logs
+docker compose down      # para e remove os containers
 ```
 
-**Passo 2: Criar a imagem**:
+Dois detalhes desse arquivo merecem atenção. O primeiro está na `DATABASE_URL`: o endereço do banco é **`db`**, o nome do serviço. O compose cria uma rede onde cada serviço encontra o outro **pelo nome**.
+
+E isso resolve um erro que todo mundo comete. Você tenta conectar a API no banco usando `localhost`, e não funciona. Pelo mesmo motivo da seção anterior: dentro do container da API, `localhost` é **a própria API**, não o seu computador, nem o banco. Use o nome do serviço. E um cuidado extra: o `depends_on` só garante que o banco **liga** antes da API, não que ele já está **pronto** pra receber conexões (o Postgres leva alguns segundos pra se preparar). A API precisa saber tentar de novo se falhar no começo.
+
+O segundo detalhe é o `volumes`. Containers são descartáveis: tudo o que fica dentro deles some quando são removidos. Isso é ótimo pra aplicação, e péssimo pro banco de dados. Um **volume** guarda os dados do banco **fora** do container, então eles sobrevivem a um `down` seguido de um `up`.
+
+Se você encontrar tutoriais antigos, vai ver o comando `docker-compose`, com hífen, e uma linha `version: '3.8'` no topo do arquivo. Hoje o comando é `docker compose`, com espaço, e a linha `version` é ignorada.
+
+## O dia a dia
+
+Alguns comandos que você vai usar o tempo todo:
 
 ```bash
-docker build -t meu-contador-app .
+docker ps                      # containers rodando
+docker ps -a                   # todos, inclusive os parados
+docker logs -f <id>            # acompanha os logs de um container
+docker exec -it <id> sh        # abre um terminal dentro do container
+docker compose exec db psql -U app -d app   # entra no banco do compose
+docker system prune -a         # limpa imagens e containers sem uso ⚠️
 ```
 
-**Passo 3: Executar o container**:
+O `exec -it ... sh` é a ferramenta de investigação: você entra no container e olha os arquivos, as variáveis, o que está rodando, como se estivesse lá dentro.
 
-```bash
-docker run -p 8080:5000 -d meu-contador-app
-```
-
-- `-p 8080:5000`: Mapeia a porta 8080 do host para a 5000 do container
-- `-d`: Executa em modo detached (background)
-
-### Exemplo 2: Caso de Uso Real — API com Banco de Dados PostgreSQL
-
-**Dockerfile da aplicação**:
+E quando a imagem começar a ficar grande (é comum uma imagem ingênua passar de 1 GB), três práticas resolvem. Use **imagens base pequenas**: as versões `alpine` ou `slim` têm uma fração do tamanho das completas. Use o **multi-stage**: uma imagem pra **construir**, com todas as ferramentas, e outra, enxuta, pra **rodar**, que recebe só o resultado do build.
 
 ```dockerfile
-FROM python:3.11-slim
-
-WORKDIR /app
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
-
-EXPOSE 8000
-
-CMD ["python", "main.py"]
-```
-
-**docker-compose.yml para ambiente completo**:
-
-```yaml
-version: '3.8'
-
-services:
-  web:
-    build: .
-    ports:
-      - "8000:8000"
-    environment:
-      - DATABASE_URL=postgres://appuser:mysupersecretpassword@db:5432/mydb
-      - REDIS_URL=redis://cache:6379
-    depends_on:
-      - db
-      - cache
-  
-  db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: appuser
-      POSTGRES_PASSWORD: mysupersecretpassword
-      POSTGRES_DB: mydb
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-  
-  cache:
-    image: redis:7-alpine
-    volumes:
-      - redisdata:/data
-
-volumes:
-  pgdata:
-  redisdata:
-```
-
-**Comandos para iniciar o ambiente**:
-
-```bash
-docker-compose up -d           # Inicia todos os serviços no background
-
-# Acessar o terminal do banco de dados
-docker-compose exec db psql -U appuser -d mydb
-
-# Ver logs de todos os containers
-docker-compose logs -f
-
-# Parar tudo
-docker-compose down
-```
-
----
-
-## ⚙️ Configuração recomendada
-
-### .dockerignore — Excluindo Arquivos do Build
-
-Crie um arquivo `.dockerignore` na mesma pasta do Dockerfile para evitar copiar arquivos desnecessários:
-
-```dockerfile
-# .dockerignore
-.git
-.gitignore
-__pycache__/
-*.pyc
-.env
-node_modules/
-.DS_Store
-```
-
-### docker-compose.yml — Variáveis de Ambiente
-
-Use variáveis de ambiente para configurar seu container dinamicamente:
-
-```yaml
-services:
-  api:
-    environment:
-      - DEBUG=false
-      - NODE_ENV=production
-      - API_PORT=3000
-```
-
----
-
-## 💎 Boas práticas
-
-### 1. Use Imagens Multi-Stage para Reduzir Tamanho
-
-Crie imagens menores usando estágios separados no Dockerfile:
-
-```dockerfile
-# Estágio 1: Build (com todas as ferramentas de compilação)
-FROM node:18-alpine AS builder
+# Estágio 1: build, com todas as ferramentas
+FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
 
-# Estágio 2: Produção (apenas o necessário)
+# Estágio 2: produção, só o necessário
 FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 ```
 
-### 2. Não Rode Containers como Root
-
-Sempre defina um usuário não-root para segurança:
+E **não rode como root**. Por padrão, o processo dentro do container roda como administrador, o que é um risco se alguém conseguir invadir a aplicação. Defina um usuário comum:
 
 ```dockerfile
-RUN useradd -m appuser
+RUN adduser -D appuser
 USER appuser
 ```
 
-### 3. Otimize com `.dockerignore`
+E nada de senha de produção escrita no `compose.yaml`: use variáveis de ambiente e um `.env` fora do Git.
 
-Arquivos grandes e desnecessários (`.git`, `node_modules`) aumentam significativamente o tempo de build.
+Uma curiosidade pra fechar: o Docker nasceu em 2013, dentro da dotCloud, uma empresa de hospedagem fundada por Solomon Hykes. A ideia de isolar processos já existia havia décadas no Unix e no Linux. A novidade do Docker foi tornar isso **fácil**: um Dockerfile legível, imagens em camadas, e um lugar público pra compartilhar imagens, o Docker Hub.
 
----
+## O essencial
 
-## 🔧 Erros comuns e como resolver
+1. Imagem é a receita fixa; container é a imagem rodando. Uma imagem vira vários containers.
+2. No Dockerfile, copie o `package.json` e instale antes de copiar o código: a camada lenta fica em cache.
+3. `-p PC:CONTAINER` liga as portas. A aplicação precisa escutar em `0.0.0.0`.
+4. Dentro de um container, `localhost` é o próprio container. No compose, use o nome do serviço.
+5. Volume guarda dados fora do container. `.dockerignore` mantém `node_modules`, `.git` e `.env` fora da imagem.
 
-### Problema: Container não conecta ao banco de dados
+## Agora é com você
 
-**Solução:**
-1. Verifique se o container do banco está rodando antes de iniciar a aplicação
-2. Use nomes de serviço (não IPs) para conexões dentro do mesmo `docker-compose`
-3. Adicione `depends_on` no docker-compose.yml
-4. Para produção, use variáveis de ambiente com senhas fortes
-
-```yaml
-# Exemplo correto:
-environment:
-  DATABASE_URL: postgres://user:password@db:5432/mydb
-```
-
-### Problema: Container roda mas a porta não responde no localhost
-
-**Solução:**
-1. Verifique o mapeamento de portas: `docker port [container]`
-2. Confirme se a aplicação está escutando na porta correta dentro do container
-3. Em produção, use variáveis de ambiente para definir a porta dinâmica
+Comece com um ambiente de desenvolvimento simples: uma aplicação Node com um banco de dados, subindo junto pelo compose, com o código montado como volume pra recarregar quando você salva. Crie uma pasta, um `package.json` com um script `start`, e este `Dockerfile`:
 
 ```dockerfile
-# Melhor prática:
-ENV PORT=3000
-EXPOSE ${PORT}
-CMD ["node", "server.js"]
+FROM node:22-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install && npm install -g nodemon
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
 ```
 
-### Problema: Imagem muito grande (>1GB)
+E este `compose.yaml`:
 
-**Solução:**
-1. Use imagens base `alpine` ou `slim` ao invés de versões completas
-2. Implemente builds multi-stage no Dockerfile
-3. Adicione `.dockerignore` para excluir arquivos grandes
-4. Execute regularmente: `docker system prune -a`
+```yaml
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URI: mongodb://mongo:27017/minha-app
+    depends_on:
+      - mongo
+    volumes:
+      - .:/app   # monta o código pra recarregar ao salvar
 
----
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
 
-## 🔨 Desafio prático
+volumes:
+  mongo_data:
+```
 
-**Objetivo:** Criar um ambiente de desenvolvimento web completo usando Docker para uma aplicação Node.js com MongoDB.
+Suba tudo com `docker compose up -d`, confira com `docker compose ps`, entre no banco com `docker compose exec mongo mongosh` (e rode `show dbs` lá dentro), e acompanhe a aplicação com `docker compose logs app -f`.
 
-### Passo a passo:
+Depois, o projeto de verdade: **colocar um projeto seu num container**, com um servidor real, um banco, dados que persistem e configuração por ambiente. O do roadmap é a [[Plataforma de Matchmaking para Duos em Jogos|Matchmaking]]; se ainda não existir, uma API Express de uma rota só serve. Escreva o `Dockerfile` e o `.dockerignore` (sem `node_modules` na imagem). Faça o `docker compose up` subir o app e o banco, com um volume pra os dados sobreviverem a um `docker compose down`. E coloque a configuração num `.env`: nenhuma senha no código, nem no compose. Você terminou quando clonar o repositório numa pasta limpa, rodar `docker compose up`, e tudo funcionar sem ter Node nem banco instalados. Se quiser ir além, faça o build em múltiplas etapas e compare o tamanho da imagem antes e depois (`docker images` mostra), adicione um `healthcheck` no banco pra o app esperar ele ficar pronto, e publique a imagem no Docker Hub ou no GitHub Container Registry.
 
-1. **Crie os arquivos no diretório de trabalho**:
-
-   ```bash
-   mkdir docker-exercicio-nodemon-db
-   cd docker-exercicio-nodemon-db
-   ```
-
-2. **Crie o Dockerfile** (`Dockerfile`):
-
-   ```dockerfile
-   FROM node:18-alpine
-   
-   WORKDIR /app
-   
-   COPY package*.json ./
-   
-   RUN npm install
-   RUN npm install -g nodemon
-   
-   COPY . .
-   
-   EXPOSE 3000
-   
-   CMD ["npm", "start"]
-   ```
-
-3. **Crie o docker-compose.yml** (`docker-compose.yml`):
-
-   ```yaml
-   version: '3.8'
-   
-   services:
-     app:
-       build: .
-       ports:
-         - "3000:3000"
-       environment:
-         MONGO_URI: mongodb://mongo:27017/minha-app
-       depends_on:
-         - mongo
-       volumes:
-         - .:/app   # Mount para hot-reload
-   
-     mongo:
-       image: mongo:6.0
-       ports:
-         - "27017:27017"
-       volumes:
-         - mongo_data:/data/db
-   
-   volumes:
-     mongo_data:
-   ```
-
-4. **Crie um arquivo `package.json`** com scripts simples de testar:
-
-   ```json
-   {
-     "name": "docker-exemplo",
-     "version": "1.0.0",
-     "scripts": {
-       "start": "echo 'Node.js rodando no container!'",
-       "test": "echo 'Executando teste Docker...'"
-     }
-   }
-   ```
-
-5. **Execute os comandos**:
-
-   ```bash
-   # Inicia o ambiente completo
-   docker-compose up -d
-   
-   # Verifique se está rodando
-   docker-compose ps
-   
-   # Acesse o MongoDB
-   docker-compose exec mongo mongosh
-   > show dbs; use minha-app
-   
-   # Veja os logs da aplicação
-   docker-compose logs app -f
-   ```
-
----
-
-## 🚀 Projeto
-
-> [!example] Colocar um projeto seu num container
-> No desafio o app só imprime uma mensagem. Aqui é um servidor de verdade, com banco, dados que persistem e configuração por ambiente.
->
-> **Tempo:** 2 a 3 sessões
-
-**O mínimo:**
-- [ ] Escolher um projeto seu com servidor. O do roadmap é o [[Plataforma de Matchmaking para Duos em Jogos|Matchmaking]]; se ainda não existir, uma API Express de uma rota serve
-- [ ] `Dockerfile` e `.dockerignore` (sem `node_modules` na imagem)
-- [ ] `docker compose up` sobe o app e o banco, e os dados sobrevivem a um `docker compose down` (volume)
-- [ ] Configuração por `.env`: nenhuma senha no código nem no compose
-
-**Se quiser ir além:**
-- Build em múltiplas etapas, comparando o tamanho da imagem antes e depois com `docker images`
-- `healthcheck` no banco e o app esperando ele ficar pronto
-- Publicar a imagem no Docker Hub ou no GitHub Container Registry
-
-**Pronto quando:** você clona o repositório numa pasta limpa, roda `docker compose up` e funciona sem ter Node nem banco instalados.
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+Daqui, siga pro [[Docker Compose]] e pra [[CI/CD]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
 
 > [!question]- Qual a diferença entre imagem e container?
 > A **imagem** é o molde imutável (a receita). O **container** é uma instância rodando dessa imagem. Uma imagem pode ter vários containers.
@@ -487,58 +275,49 @@ CMD ["node", "server.js"]
 > [!question]- `.dockerignore`
 > exclui arquivos do contexto de build
 
----
+> [!question]+ A API roda num container e o banco em outro, no mesmo `docker-compose`. Qual host usar na conexão com o banco?
+> - a) `localhost`
+> - b) `127.0.0.1`
+> - c) O nome do serviço do banco no compose (ex: `db`)
+> - d) O IP do seu PC
+>
+> > [!check]- Resposta
+> > **c)** Dentro do container, `localhost` é **o próprio container**. No compose, os serviços se acham pelo nome, numa rede criada sozinha.
 
-## 📋 Cola rápida
-
-| Comando | Função |
-|---------|--------|
-| `docker --version` | Verifica instalação do Docker |
-| `docker pull [IMAGE]` | Baixa uma imagem do Docker Hub |
-| `docker build -t NOME .` | Cria uma imagem a partir de um Dockerfile |
-| `docker run [OPÇÕES] [IMAGEM]` | Cria e executa um container |
-| `docker images` | Lista imagens locais |
-| `docker ps` | Lista containers rodando |
-| `docker ps -a` | Lista todos os containers (incluidos parados) |
-| `docker stop [ID/NAME]` | Para um container em execução |
-| `docker start [ID/NAME]` | Inicia um container parado |
-| `docker rm [ID/NAME]` | Remove um container parado |
-| `docker rmi [ID/IMAGE]` | Remove uma imagem local |
-| `docker logs [CONTAINER]` | Mostra logs do container |
-| `docker exec -it [CONTAINER] bash` | Entra no terminal do container |
-| `docker-compose up -d` | Inicia serviços definidos no docker-compose.yml |
-| `docker-compose down` | Para e remove todos os serviços |
-| `docker system prune -a` | Limpa imagens e containers não usados |
+> [!question]+ `docker run -p 8080:3000 api`. Em que endereço você acessa no navegador?
+> - a) `localhost:3000`
+> - b) `localhost:8080`
+> - c) `api:3000`
+> - d) `localhost:8080:3000`
+>
+> > [!check]- Resposta
+> > **b)** O formato é `-p PORTA_DO_PC:PORTA_DO_CONTAINER`. A app escuta na 3000 dentro do container, e você acessa pela 8080 no seu PC.
 
 ---
 
-## 📓 Diário de bordo
+## Pra consultar depois
 
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+| Comando | O que faz |
+|---|---|
+| `docker --version` | Confere a instalação |
+| `docker pull imagem` | Baixa uma imagem do Docker Hub |
+| `docker build -t nome .` | Cria uma imagem a partir do Dockerfile |
+| `docker run -p 8080:3000 -d nome` | Cria e roda um container |
+| `docker images` | Lista as imagens locais |
+| `docker ps` / `docker ps -a` | Containers rodando / todos |
+| `docker stop` / `docker start` / `docker rm` | Para / inicia / remove um container |
+| `docker rmi imagem` | Remove uma imagem |
+| `docker logs -f container` | Acompanha os logs |
+| `docker exec -it container sh` | Entra no terminal do container |
+| `docker compose up -d` / `down` | Sobe / derruba os serviços |
+| `docker system prune -a` | Limpa o que não está em uso ⚠️ |
 
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
--
+**Pra ler:** a [documentação oficial](https://docs.docker.com/) tem um guia "Get started" que monta uma aplicação do zero, passo a passo, e é o melhor próximo passo depois desta nota. E o livro *Docker Deep Dive*, de Nigel Poulton, explica o que acontece por dentro (camadas, redes, volumes) de um jeito muito acessível.
 
-**O que me confundiu / onde eu errei:**
--
+## Minhas anotações
 
-**Onde eu usei de verdade:**
--
+**O que eu entendi, com as minhas palavras:**
+- 
 
----
-
-## ➡️ Próximos passos
-
-- [ ] Instalar Docker Desktop no seu sistema operacional
-- [ ] Explorar Docker Hub para encontrar imagens oficiais de linguagens e frameworks
-- [ ] Criar um container com uma aplicação Python simples (Flask/Django)
-- [ ] Estudar orquestração com Kubernetes básico
-- [ ] Ler a documentação oficial: [docs.docker.com](https://docs.docker.com/)
-
----
-
-## 📚 Recursos
-
-### 📖 Livros:
-- *[Docker Deep Dive]*
-- *[Container Security Handbook]*
+**Onde eu travei:**
+- 

@@ -5,104 +5,45 @@ revisado:
 
 # Stash
 
-> *"Stash é a gaveta onde você enfia o trabalho pela metade quando alguém grita 'produção caiu!'."*
+Você está no meio do filtro de prioridade. Metade feito, nada commitado, três arquivos abertos. E chega a mensagem: "urgente, o comando `add` está quebrado na `main`!". Você precisa ir pra `main` agora. Mas commitar trabalho pela metade, com o código nem compilando, deixaria um commit quebrado no histórico. E se você tentar trocar de branch assim mesmo, o Git recusa.
 
-> [!tip] ⚡ Em 30 segundos
-> `git stash` **guarda** as mudanças que você ainda não commitou e deixa a pasta limpa, como no último commit. Aí você troca de branch, corrige o bug urgente, volta e roda `git stash pop` pra trazer o trabalho de volta. É uma pilha: dá pra guardar vários, listar e escolher qual aplicar. Use pra interrupções rápidas, não como lugar de guardar código por semanas.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+O `git stash` existe pra esse momento. Ele **guarda** as suas mudanças numa espécie de gaveta, e deixa a pasta limpa, como se você não tivesse mexido em nada. Você troca de branch, corrige o bug, volta, e roda `git stash pop` pra tirar tudo da gaveta e continuar de onde parou.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+É uma ferramenta pequena e muito útil, com um limite claro: ela é pra **interrupções rápidas**, não pra guardar código por semanas. E tem um detalhe que pega quase todo mundo na primeira vez, sobre arquivos novos, que esta nota faz questão de explicar. Ajuda ter passado por [[Branches, Merge e Conflitos]] e pelo [[Git Básico]].
 
----
+## Guardar e trazer de volta
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Guardar e recuperar mudanças com `stash push` e `stash pop`
-- Listar, nomear, inspecionar e apagar stashes
-- Incluir arquivos novos no stash e resolver conflito ao aplicar
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Branches, Merge e Conflitos]] · [[Git Básico]]
-- **Depois:** [[Desfazendo Mudanças (Reset e Revert)]] · [[Git Worktrees]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. O cenário
+O cenário clássico, do jeito que acontece:
 
 ```bash
 git switch feat/filtro
 # ...metade do filtro feito, nada commitado...
-# "Urgente: o add está quebrado na main!"
+# "Urgente: o comando add está quebrado na main!"
 git switch main
 # error: Your local changes would be overwritten by checkout. Please commit or stash them.
 ```
 
-### 2. Guardar e trazer de volta
+O Git não está sendo chato: está protegendo o seu trabalho. Se ele trocasse de branch com essas mudanças no caminho, elas iam se misturar com a `main`, ou se perder. E a própria mensagem de erro já sugere a solução, *stash them*:
 
 ```bash
-git stash push -m "filtro pela metade"   # guarda (com nome) e limpa a pasta
+git stash push -m "filtro pela metade"  # guarda e limpa a pasta
 git switch main
 # ...corrige, commita, push...
 git switch feat/filtro
-git stash pop                            # traz de volta e remove da pilha
+git stash pop                           # traz de volta e tira da gaveta
 ```
 
-`git stash` sozinho também funciona (sem mensagem). Dê nome: com 3 stashes, "WIP on feat" não diz nada.
+Pense numa mesa de trabalho. O stash é uma gaveta onde você joga tudo o que está espalhado em cima da mesa, pra liberar espaço pra uma tarefa urgente. Quando termina, abre a gaveta, coloca tudo de volta na mesa, e continua exatamente de onde parou.
 
-### 3. A pilha
+Um `git stash` sozinho, sem mensagem, também funciona. Mas dê um nome. Com três coisas guardadas, um "WIP on feat" não diz nada, e você não vai lembrar qual é qual.
 
-```bash
-git stash list
-# stash@{0}: On feat/filtro: filtro pela metade
-# stash@{1}: On main: teste de cor
+E um cuidado na volta: o `pop` aplica as mudanças **onde você está agora**. Se você esquecer de voltar pra `feat/filtro` antes, o filtro pela metade vai parar dentro da `main`. Confira a branch antes de dar o `pop`.
 
-git stash show -p stash@{1}    # ver o conteúdo
-git stash apply stash@{1}      # aplica e MANTÉM na pilha
-git stash pop stash@{1}        # aplica e REMOVE
-git stash drop stash@{1}       # apaga sem aplicar
-git stash clear                # apaga todos (⚠️ sem volta)
-```
+## O arquivo novo que ficou pra trás
 
-### 4. Arquivos novos (untracked)
+Agora o detalhe que pega quase todo mundo. Por padrão, o stash só guarda os arquivos que o Git **já conhece**, os que já foram commitados alguma vez. Um arquivo que você **acabou de criar** fica pra trás, na pasta, sem aviso nenhum.
 
-Por padrão o stash só guarda arquivos que o Git **já conhece**. Arquivo novo fica pra trás:
-
-```bash
-git stash push -u -m "com arquivos novos"   # -u = --include-untracked
-```
-
-### 5. Guardar só alguns arquivos
-
-```bash
-git stash push -m "só o css" src/estilo.css
-git stash push -p          # escolhe trecho por trecho (interativo)
-```
-
-### 6. Conflito ao aplicar
-
-Se o código mudou desde o stash, o `pop` pode conflitar. Resolva igual a merge ([[Branches, Merge e Conflitos]]). Com conflito, o `pop` **não remove** o stash da pilha: depois de resolver, `git stash drop`.
-
-### 7. Stash vira branch
-
-Guardou há tempo e o código andou muito?
-
-```bash
-git stash branch feat/retomada stash@{0}   # cria branch no commit de origem e aplica lá
-```
-
----
-
-## 🛠️ Exemplo guiado
+Veja acontecer:
 
 ```bash
 git init stash-lab && cd stash-lab
@@ -114,42 +55,71 @@ git status                        # app.txt modificado, novo.txt untracked
 
 git stash push -u -m "experimento"
 git status                        # limpo!
-cat app.txt                       # só "v1"
 
-git stash list                    # stash@{0}: On main: experimento
 git stash pop
 git status                        # tudo de volta, inclusive novo.txt
 ```
 
----
+O segredo está no `-u` (de *untracked*, "não rastreado"): ele faz o stash levar também os arquivos novos. Sem ele, o `novo.txt` continuaria na pasta, e iria junto com você pra outra branch, misturando o trabalho pela metade com a correção urgente. Então, na dúvida, use sempre `git stash push -u`.
 
-## 🔧 Pegadinhas
+## A pilha de stashes
 
-- **Esquecer o `-u`.** Arquivo novo não vai pro stash e continua na pasta (ou some da sua cabeça).
-- **Stash como arquivo morto.** Depois de uma semana ninguém lembra o que é `stash@{3}`. Se é trabalho que importa, faça um commit numa branch.
-- **`stash clear` / `drop` sem olhar.** Apaga de vez. (Dá pra caçar no `git fsck`, mas é sofrimento.)
-- **`pop` na branch errada.** Aplica as mudanças onde você está. Confira a branch antes.
-- **Alternativa melhor pra interrupções longas:** [[Git Worktrees]] (outra pasta, outra branch, sem guardar nada).
+Dá pra guardar mais de uma coisa. Os stashes ficam numa pilha, com o mais recente no topo:
 
----
+```bash
+git stash list
+# stash@{0}: On feat/filtro: filtro pela metade
+# stash@{1}: On main: teste de cor
 
-## 🔨 Desafio prático
+git stash show -p stash@{1}   # ver o conteúdo
+git stash apply stash@{1}     # aplica e MANTÉM na pilha
+git stash pop stash@{1}       # aplica e TIRA da pilha
+git stash drop stash@{1}      # apaga sem aplicar
+git stash clear               # apaga todos ⚠️
+```
 
-**Objetivo:** simular a interrupção urgente.
+A diferença entre o `apply` e o `pop` é pequena e útil. O `pop` tira da gaveta: aplica e apaga. O `apply` aplica, mas deixa uma cópia lá, o que serve quando você quer aplicar a mesma coisa em duas branches.
 
-1. Num repositório, crie a branch `feat/x` e faça mudanças sem commitar, incluindo 1 arquivo novo.
-2. Guarde tudo com nome (lembre do `-u`).
-3. Vá pra `main`, faça um commit de "hotfix" e volte.
-4. Recupere com `pop` e confirme que nada se perdeu.
-5. Faça 2 stashes, liste, inspecione o mais antigo com `show -p`, aplique ele e apague o outro.
+E aqui está o limite de que a nota falava no começo. É muito fácil transformar o stash num arquivo morto: você guarda uma coisa, guarda outra, e depois de uma semana ninguém lembra o que é o `stash@{3}`, nem se ele ainda importa. Se é um trabalho que vale a pena guardar por mais do que algumas horas, faça um commit numa branch. E lembre que o `drop` e o `clear` apagam **de vez**.
 
-**Pronto quando:** o trabalho voltou inteiro (inclusive o arquivo novo) e `git stash list` está vazio no fim.
+## Quando o pop dá conflito
+
+Se o código mudou desde que você guardou as coisas, o `pop` pode dar conflito, do mesmo jeito que um merge. Resolva igual a um merge ([[Branches, Merge e Conflitos]]). Só tem um detalhe: quando dá conflito, o `pop` **não tira** o stash da pilha, por segurança. Depois de resolver, apague você mesmo, com `git stash drop`.
+
+E se faz muito tempo que você guardou, e o código andou demais, existe um caminho mais tranquilo: transformar o stash numa branch nova.
+
+```bash
+git stash branch feat/retomada stash@{0}  # cria uma branch no ponto de origem e aplica lá
+```
+
+Ele cria a branch exatamente no commit onde você estava quando guardou, e aplica o stash lá, onde ele não conflita com nada.
+
+Pra fechar, dois truques. Dá pra guardar só **uma parte** das mudanças:
+
+```bash
+git stash push -m "só o css" src/estilo.css   # só este arquivo
+git stash push -p                              # escolhe trecho por trecho
+```
+
+E pra interrupções longas, existe uma alternativa melhor que o stash: as [[Git Worktrees]], que abrem outra branch em outra pasta, sem você precisar guardar nada.
+
+## O essencial
+
+1. `git stash push -m "nome"` guarda as mudanças e limpa a pasta; `git stash pop` traz de volta.
+2. Arquivos novos não vão por padrão: use `-u`.
+3. O `pop` aplica onde você está: confira a branch antes.
+4. `pop` tira da pilha; `apply` mantém uma cópia.
+5. Stash é pra interrupção curta. Trabalho que importa vira commit numa branch.
+
+## Agora é com você
+
+Simule a interrupção urgente. Num repositório, crie a branch `feat/x` e faça algumas mudanças sem commitar, incluindo um arquivo novo. Guarde tudo com um nome (e lembre do `-u`). Vá pra `main`, faça um commit de "hotfix", e volte. Recupere com `pop`, e confirme que nada se perdeu, inclusive o arquivo novo. Depois, faça dois stashes, liste, inspecione o mais antigo com `show -p`, aplique ele, e apague o outro. Você terminou quando o trabalho tiver voltado inteiro e o `git stash list` estiver vazio no fim.
+
+Daqui, siga pro [[Desfazendo Mudanças (Reset e Revert)]] e pras [[Git Worktrees]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Pra que serve o `git stash`?
 > Guardar temporariamente mudanças não commitadas e deixar a pasta limpa, pra trocar de branch ou fazer outra coisa, e recuperar depois.
@@ -163,50 +133,42 @@ git status                        # tudo de volta, inclusive novo.txt
 > [!question]- O que acontece com o stash se o `pop` der conflito?
 > Ele continua na pilha; depois de resolver o conflito, é preciso apagar com `git stash drop`.
 
+> [!question]- Por que conferir a branch antes do `pop`?
+> Porque ele aplica as mudanças onde você está; na branch errada, o trabalho pela metade vai parar lá.
+
 > [!question]- Quando é melhor um commit (ou worktree) em vez de stash?
 > Quando o trabalho vai ficar parado por mais que alguns minutos/horas: stash é pra interrupções curtas.
 
+> [!question]+ Você criou `novo.ts` (nunca adicionado) e rodou `git stash`. O que aconteceu com ele?
+> - a) Foi pro stash junto com o resto
+> - b) Ficou na pasta: stash ignora arquivo não rastreado por padrão
+> - c) Foi apagado
+> - d) Foi commitado
+>
+> > [!check]- Resposta
+> > **b)** Por padrão o stash só guarda arquivos rastreados. Pra incluir os novos, use `git stash -u`.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Comando | O que faz |
 |---|---|
-| `git stash push -m "nome"` | guardar |
-| `git stash push -u` | guardar incluindo arquivos novos |
-| `git stash list` | listar |
-| `git stash show -p stash@{n}` | ver conteúdo |
-| `git stash pop` | aplicar e remover |
-| `git stash apply stash@{n}` | aplicar e manter |
-| `git stash drop stash@{n}` | apagar um |
-| `git stash branch nome` | virar branch |
+| `git stash push -m "nome"` | Guardar |
+| `git stash push -u` | Guardar incluindo arquivos novos |
+| `git stash list` | Listar |
+| `git stash show -p stash@{n}` | Ver o conteúdo |
+| `git stash pop` | Aplicar e remover |
+| `git stash apply stash@{n}` | Aplicar e manter |
+| `git stash drop stash@{n}` | Apagar um |
+| `git stash branch nome` | Virar uma branch |
 
----
+**Pra ler:** o capítulo [Stashing and Cleaning do Pro Git](https://git-scm.com/book/pt-br/v2/Ferramentas-do-Git-Stashing-and-Cleaning) cobre o stash e o `git clean` com exemplos. E a [documentação do git stash](https://git-scm.com/docs/git-stash) lista todas as opções, pra quando você precisar de algo específico.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```bash
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [Pro Git · Stashing and Cleaning](https://git-scm.com/book/pt-br/v2/Ferramentas-do-Git-Stashing-and-Cleaning)
-- [Documentação · git stash](https://git-scm.com/docs/git-stash)

@@ -5,41 +5,15 @@ revisado:
 
 # Rebase e Cherry Pick
 
-> *"Nunca reescreva o histórico que outra pessoa já baixou."* (a regra de ouro do rebase)
+Você passou dois dias numa branch, e o histórico dela está assim: "começa filtro", "wip", "corrige typo", "agora vai", "agora vai mesmo". Enquanto isso, a `main` andou, e você precisa trazer as mudanças dela. Se fizer um merge, ganha mais um commit no meio da bagunça, e o desenho do histórico vira uma trança. Na hora de abrir o pull request, quem for revisar vai ter que ler o seu processo inteiro de tentativa e erro.
 
-> [!tip] ⚡ Em 30 segundos
-> **Rebase** pega os commits da sua branch e os **reaplica em cima** de outra base, como se você tivesse começado a partir da `main` mais nova: histórico **linear**, sem commits de merge. **Rebase interativo** (`-i`) deixa juntar, renomear, reordenar ou apagar commits antes de abrir o PR. **Cherry-pick** copia **um commit específico** de outra branch pra atual. Os dois **reescrevem** commits (geram hashes novos): use só em commits que ninguém mais tem.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Existe um jeito de arrumar tudo isso antes de mostrar pra alguém. O **rebase** pega os commits da sua branch e os **reaplica em cima** de outra base, como se você tivesse começado a partir da `main` mais nova. O resultado é um histórico em linha reta, sem commits de merge. O **rebase interativo** (`-i`) vai além: junta, renomeia, reordena ou apaga commits. E o **cherry-pick** copia **um commit específico** de uma branch pra outra.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+São ferramentas poderosas, e por isso mesmo elas têm **uma regra** que você não pode esquecer nunca: elas **reescrevem** commits. Então só se usa em commits que ninguém mais tem. Essa regra é o centro da nota. Ajuda ter passado por [[Branches, Merge e Conflitos]].
 
----
+## Trançado ou em linha reta
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Atualizar uma branch com `git rebase main` e explicar a diferença pro merge
-- Limpar commits com rebase interativo (squash, reword, drop)
-- Trazer um commit específico com `cherry-pick`, e saber quando **não** usar nada disso
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Branches, Merge e Conflitos]]
-- **Depois:** [[Desfazendo Mudanças (Reset e Revert)]] · [[Git Flow]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. Merge × rebase
-
-A `main` andou (commit `E`) enquanto você fazia `C` e `D`:
+O cenário: a `main` andou (com o commit `E`) enquanto você fazia o `C` e o `D` na sua branch.
 
 ```text
           C ── D   ← feat
@@ -47,7 +21,9 @@ A `main` andou (commit `E`) enquanto você fazia `C` e `D`:
 A ── B ── E        ← main
 ```
 
-**`git merge main`** (na feat): cria um commit de merge `M`. Preserva a história real, mas o grafo fica trançado.
+Você quer trazer o `E` pra sua branch. Existem dois jeitos, e eles deixam o histórico com caras bem diferentes.
+
+O **`git merge main`** cria um commit de merge, o `M`, que junta as duas linhas. Ele preserva a história exatamente como aconteceu, mas o desenho fica trançado:
 
 ```text
           C ── D ── M   ← feat
@@ -55,15 +31,13 @@ A ── B ── E        ← main
 A ── B ── E ───────
 ```
 
-**`git rebase main`** (na feat): "tira" `C` e `D`, coloca a feat em cima de `E` e reaplica como `C'` e `D'` (commits **novos**, hash diferente).
+Já o **`git rebase main`** faz uma coisa curiosa. Ele "tira" os seus commits do caminho, move a branch pra cima do `E`, e reaplica os seus commits, um por um, em cima dele:
 
 ```text
 A ── B ── E ── C' ── D'   ← feat
 ```
 
-Linha reta, como se você tivesse começado agora.
-
-### 2. Fazendo rebase
+Linha reta, como se você tivesse começado o trabalho agora, a partir da `main` mais nova. Mas repare nos apóstrofos: `C'` e `D'`. Eles **não são** os mesmos `C` e `D`. São commits **novos**, com o mesmo conteúdo, mas com identificadores (hashes) diferentes. Guarde esse detalhe, porque a regra de ouro inteira sai dele.
 
 ```bash
 git switch feat/filtro
@@ -71,32 +45,44 @@ git fetch origin
 git rebase origin/main
 ```
 
-Com conflito, ele para **em cada commit** que conflitar:
+E se der conflito? O rebase para **em cada commit** que conflitar, um de cada vez:
 
 ```bash
-# resolve os arquivos (igual a merge), depois:
+# resolve os arquivos (igual a um merge) e depois:
 git add arquivo.ts
-git rebase --continue     # vai pro próximo commit
-git rebase --abort        # ou desiste e volta tudo ao que era
+git rebase --continue   # segue pro próximo commit
+git rebase --abort      # ou desiste e volta tudo como era
 ```
 
-### 3. Depois do rebase: push com força (com cuidado)
+Um rebase parado no meio de um conflito assusta, porque você fica "entre dois lugares". Mas duas coisas te mantêm seguro: o `git status` sempre diz onde você está e o que falta, e o `git rebase --abort` volta tudo pro início, como se nada tivesse acontecido.
 
-Os commits mudaram de hash; o remoto recusa o push normal. Na **sua** branch:
+## A regra de ouro
+
+**Nunca faça rebase de commits que outras pessoas já têm.**
+
+Por quê? Lembra que o rebase cria commits **novos**? Imagine que um colega já baixou os seus `C` e `D`. Aí você faz um rebase e cria o `C'` e o `D'`. Agora ele tem os antigos, e você tem os novos. Pro Git, são commits completamente diferentes, que só por acaso têm o mesmo conteúdo. Quando vocês dois tentarem juntar o trabalho, aparecem commits duplicados e conflitos que não fazem sentido nenhum.
+
+Então a regra prática é: **na sua branch, que só você usa, rebase à vontade. Na `main` ou numa branch compartilhada, use merge.**
+
+E tem uma consequência. Depois de um rebase numa branch que você já tinha enviado pro GitHub, o push normal é recusado, porque os commits mudaram e o GitHub vê dois históricos diferentes. Na **sua** branch, você força o envio:
 
 ```bash
-git push --force-with-lease   # força, MAS falha se alguém tiver enviado algo que você não viu
+git push --force-with-lease
 ```
 
-Nunca `--force` na `main` ou em branch compartilhada.
+O `--force-with-lease` força, mas com uma proteção: ele **falha** se alguém tiver enviado alguma coisa pra essa branch que você ainda não viu. É a versão segura do `--force`. O `--force` puro apaga sem aviso o que outra pessoa tiver enviado. E, nunca é demais repetir, **nunca force na `main`**.
 
-### 4. Rebase interativo: arrumar antes do PR
+Se algum dia você perder commits num rebase que deu errado, não entre em pânico: o `git reflog` lista todos os lugares por onde você passou, e um `git reset --hard <hash>` te leva de volta. A nota [[Desfazendo Mudanças (Reset e Revert)]] mostra como.
+
+## Arrumando a casa antes da visita
+
+Agora a parte mais útil do dia a dia. Enquanto você trabalha, é completamente normal fazer commits como "wip" e "corrige typo". É assim que todo mundo trabalha. Mas antes de abrir o PR, dá pra arrumar a casa, com o **rebase interativo**:
 
 ```bash
-git rebase -i HEAD~4     # mexer nos últimos 4 commits
+git rebase -i HEAD~4   # mexer nos últimos 4 commits
 ```
 
-Abre um arquivo:
+Isso abre um arquivo com a lista dos commits:
 
 ```text
 pick a1b2c3d feat: adiciona filtro
@@ -105,16 +91,18 @@ pick 7a8b9c0 corrige typo
 pick 1d2e3f4 feat: adiciona testes do filtro
 ```
 
-Troque `pick` por:
+E você troca o `pick` de cada linha pelo que quer fazer com aquele commit:
 
 | Comando | O que faz |
 |---|---|
-| `pick` | mantém |
+| `pick` | mantém como está |
 | `reword` (`r`) | mantém, mas muda a mensagem |
-| `squash` (`s`) | junta com o commit de cima, combinando mensagens |
+| `squash` (`s`) | junta com o commit de cima, combinando as mensagens |
 | `fixup` (`f`) | junta com o de cima, descartando a mensagem |
 | `drop` (`d`) | apaga o commit |
 | (mudar a ordem das linhas) | reordena |
+
+Por exemplo:
 
 ```text
 pick a1b2c3d feat: adiciona filtro
@@ -123,36 +111,38 @@ fixup 7a8b9c0 corrige typo
 pick 1d2e3f4 feat: adiciona testes do filtro
 ```
 
-Resultado: 2 commits limpos em vez de 4.
+O "wip" e o "corrige typo" se fundem no commit do filtro, e as mensagens deles somem. O resultado: dois commits limpos, em vez de quatro. Quem revisar o PR vê uma história clara, e não o seu processo de tentativa e erro.
 
-> Atalho do dia a dia: commit de correção com `git commit --fixup=a1b2c3d` e depois `git rebase -i --autosquash main`: o Git já posiciona os fixups.
+E um atalho que você vai acabar usando: quando fizer um commit que corrige outro, use `git commit --fixup=a1b2c3d`. Depois, um `git rebase -i --autosquash main` já coloca o fixup no lugar certo sozinho, sem você precisar editar a lista.
 
-### 5. Cherry-pick: um commit só
+## Cherry-pick: um commit só
 
-Corrigiu um bug na sua branch e a `main` precisa da correção **agora**, sem o resto?
+Às vezes você quer **um commit específico** de outra branch, e não a branch inteira. O caso clássico: você corrigiu um bug na sua branch de funcionalidade, e a `main` precisa dessa correção **agora**, mas sem o resto da funcionalidade, que ainda não está pronta.
 
 ```bash
 git switch main
-git cherry-pick 7a8b9c0        # copia esse commit pra cá (com hash novo)
-git cherry-pick a1b2 d4e5      # vários
-git cherry-pick --abort        # se der conflito e quiser desistir
+git cherry-pick 7a8b9c0     # copia esse commit pra cá (com hash novo)
+git cherry-pick a1b2 d4e5   # vários de uma vez
+git cherry-pick --abort     # se der conflito e quiser desistir
 ```
 
-Usos típicos: levar um hotfix pra uma branch de release; resgatar um commit de uma branch abandonada.
+O nome vem de "colher cerejas": você escolhe só as que quer. Os usos típicos são levar um hotfix pra uma branch de release, ou resgatar um commit de uma branch abandonada.
 
-### 6. Quando usar o quê
+Mas o cherry-pick é ferramenta de exceção. Copiar commits entre branches com frequência gera duplicatas (o mesmo conteúdo em dois commits diferentes), e essas duplicatas viram conflito depois.
+
+Pra resumir quando usar cada uma dessas ferramentas:
 
 | Situação | Use |
 |---|---|
-| Atualizar **sua** branch local com a `main` | `rebase` (ou merge, se o time preferir) |
-| Limpar commits antes de abrir/atualizar o PR | `rebase -i` |
+| Atualizar **sua** branch com a `main` | `rebase` (ou merge, se o time preferir) |
+| Limpar commits antes de abrir ou atualizar o PR | `rebase -i` |
 | Juntar o PR na `main` | o botão do GitHub (merge, squash ou rebase, conforme a regra do time) |
 | Branch que outras pessoas usam | **merge**, nunca rebase |
-| Levar 1 correção pra outra branch | `cherry-pick` |
+| Levar uma correção pra outra branch | `cherry-pick` |
 
----
+## Vendo os hashes mudarem
 
-## 🛠️ Exemplo guiado
+Pra tornar a regra de ouro concreta, faça este experimento e olhe os hashes:
 
 ```bash
 git init rebase-lab && cd rebase-lab
@@ -169,37 +159,25 @@ git rebase main
 git log --oneline --graph --all   # linha reta: A - E - C' - D'
 ```
 
-Compare os hashes de C e D antes e depois: mudaram. É isso que "reescrever o histórico" quer dizer.
+Compare os hashes do C e do D antes e depois do rebase. Mudaram. É exatamente isso que "reescrever o histórico" quer dizer, e é por isso que reescrever o histórico de outra pessoa causa problemas.
 
----
+## O essencial
 
-## 🔧 Pegadinhas
+1. Merge junta com um commit de merge (trançado); rebase reaplica os seus commits em cima da base (linha reta).
+2. Rebase cria commits novos, com hashes novos.
+3. A regra de ouro: nunca faça rebase de commits que outras pessoas já têm.
+4. Depois de rebase na sua branch: `git push --force-with-lease`. Nunca force na `main`.
+5. `rebase -i` arruma os commits antes do PR; `cherry-pick` copia um commit só.
 
-- **Rebase em branch compartilhada.** Os colegas ficam com commits "fantasmas" que não existem mais. Só rebase no que é **só seu**.
-- **`--force` em vez de `--force-with-lease`.** Pode apagar o push de outra pessoa sem aviso.
-- **Entrar em pânico no meio do rebase.** `git status` diz onde você está; `git rebase --abort` volta ao início.
-- **Perdeu commits num rebase errado?** `git reflog` lista tudo por onde o `HEAD` passou; `git reset --hard <hash do reflog>` volta. Veja [[Desfazendo Mudanças (Reset e Revert)]].
-- **Cherry-pick demais.** Copiar commits entre branches toda hora gera duplicatas e conflitos depois. É ferramenta de exceção.
+## Agora é com você
 
----
+Limpe e atualize uma branch. Faça o experimento da seção anterior. Depois, na `feat`, faça três commits bagunçados ("wip", "typo", "agora vai"), e use o `rebase -i` pra transformar os três num só, com uma mensagem boa. Crie outra branch com um commit de correção, e traga **só ele** pra `main` com `cherry-pick`. Por fim, provoque um conflito durante um rebase e resolva com `--continue`. Você terminou quando o `git log --oneline --graph --all` mostrar um histórico linear e limpo, e você souber explicar por que os hashes mudaram.
 
-## 🔨 Desafio prático
-
-**Objetivo:** limpar e atualizar uma branch.
-
-1. Faça o exemplo guiado.
-2. Na `feat`, faça 3 commits bagunçados ("wip", "typo", "agora vai").
-3. Com `rebase -i`, transforme em 1 commit com mensagem boa.
-4. Crie outra branch com um commit de correção e traga **só ele** pra `main` com `cherry-pick`.
-5. Provoque um conflito durante um rebase e resolva com `--continue`.
-
-**Pronto quando:** `git log --oneline --graph --all` mostra um histórico linear e limpo, e você sabe dizer por que os hashes mudaram.
+Daqui, siga pro [[Desfazendo Mudanças (Reset e Revert)]] e pro [[Git Flow]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Qual a diferença entre merge e rebase?
 > Merge junta as duas linhas criando um commit de merge (preserva a história real); rebase reaplica seus commits em cima da outra base, criando commits novos e um histórico linear.
@@ -219,47 +197,35 @@ Compare os hashes de C e D antes e depois: mudaram. É isso que "reescrever o hi
 > [!question]- Por que `--force-with-lease` é melhor que `--force`?
 > Porque recusa o envio se o remoto tiver commits que você ainda não viu, evitando apagar o trabalho de outra pessoa.
 
+> [!question]+ Qual a regra de ouro do rebase?
+> - a) Nunca fazer rebase da `main`
+> - b) Não fazer rebase de commits que outras pessoas já puxaram
+> - c) Sempre usar `--force` depois
+> - d) Só fazer rebase com um commit
+>
+> > [!check]- Resposta
+> > **b)** Rebase **reescreve** commits (novos hashes). Na branch compartilhada, isso diverge do histórico dos outros. Na sua branch local, à vontade.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Comando | O que faz |
 |---|---|
-| `git rebase main` | reaplica a branch atual em cima da main |
-| `git rebase --continue` / `--abort` | seguir / desistir |
-| `git rebase -i HEAD~3` | editar os últimos 3 commits |
-| `git commit --fixup=hash` + `rebase -i --autosquash` | correção automática |
-| `git push --force-with-lease` | push depois de rebase (só branch sua) |
-| `git cherry-pick hash` | copiar um commit |
-| `git reflog` | onde o HEAD já esteve (salva-vidas) |
+| `git rebase main` | Reaplica a branch atual em cima da main |
+| `git rebase --continue` / `--abort` | Seguir / desistir |
+| `git rebase -i HEAD~3` | Editar os últimos 3 commits |
+| `git commit --fixup=hash` + `rebase -i --autosquash` | Correção automática |
+| `git push --force-with-lease` | Push depois do rebase (só na sua branch) |
+| `git cherry-pick hash` | Copiar um commit |
+| `git reflog` | Onde o HEAD já esteve (salva-vidas) |
 
----
+**Pra ler e treinar:** o [Learn Git Branching](https://learngitbranching.js.org/?locale=pt_BR) tem níveis inteiros de rebase e cherry-pick, e ver os commits "pulando" de lugar na tela é a melhor forma de entender. O capítulo de [Rebase do Pro Git](https://git-scm.com/book/pt-br/v2/Branches-no-Git-Rebase), em português, tem uma seção chamada "Os perigos do rebase" que explica a regra de ouro com um exemplo. E o artigo [Merging vs. Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing), da Atlassian, compara os dois com diagramas.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```bash
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [Pro Git · Rebase](https://git-scm.com/book/pt-br/v2/Branches-no-Git-Rebase)
-- [Learn Git Branching](https://learngitbranching.js.org/?locale=pt_BR): níveis de rebase e cherry-pick
-- [Atlassian · Merging vs. Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)

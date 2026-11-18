@@ -49,6 +49,9 @@ export interface NotaEstudo {
 export interface Pergunta {
   pergunta: string;
   resposta: string;
+  /** Múltipla escolha: alternativas (a, b, c...) e o índice da certa. */
+  alternativas?: string[];
+  correta?: number;
   caminho: string;
   nota: string;
 }

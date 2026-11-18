@@ -146,7 +146,7 @@ export const CONQUISTAS: DefConquista[] = [
   { id: "chama-7", icone: "flame-kindling", nome: "Fogo eterno", desc: "7 dias seguidos de estudo", raridade: "raro", progresso: (_, p) => [p.maiorSequencia, 7] },
   { id: "estudioso", icone: "book-open", nome: "Estudioso", desc: "10 dias de estudo no total", raridade: "raro", progresso: (s) => [s.diario.size, 10] },
   { id: "explorador", icone: "compass", nome: "Explorador", desc: "Avance em 5 regiões do mapa", raridade: "raro", progresso: (s) => [s.trilhas.flatMap((t) => t.regioes).filter((r) => r.topicos.some((x) => x.feito)).length, 5] },
-  { id: "maratona", icone: "timer", nome: "Maratona", desc: "2 horas de estudo num dia só", raridade: "raro", progresso: (s) => [Math.max(0, ...[...s.diario.values()].map((d) => d.minutos)), 120] },
+  { id: "maratona", icone: "clock", nome: "Maratona", desc: "2 horas de estudo num dia só", raridade: "raro", progresso: (s) => [Math.max(0, ...[...s.diario.values()].map((d) => d.minutos)), 120] },
   { id: "poliglota", icone: "languages", nome: "Duas frentes", desc: "Avance em 2 trilhas diferentes", raridade: "raro", progresso: (s) => [s.trilhas.filter((t) => t.regioes.some((r) => r.topicos.some((x) => x.feito))).length, 2] },
   { id: "projeto", icone: "castle", nome: "Construtor", desc: "Uma nota usada em projeto", raridade: "epico", progresso: (_, p) => [p.contagemNivel.projeto, 1] },
   { id: "regiao", icone: "flag", nome: "Conquistador", desc: "Conclua uma região inteira do mapa", raridade: "epico", progresso: (s) => melhorRegiao(s) },

@@ -5,115 +5,76 @@ revisado:
 
 # Linter
 
-> *"Um revisor de código que nunca se cansa e nunca esquece uma regra."*
-
-> [!tip] ⚡ Em 30 segundos
-> Analisa o código **sem rodar** e aponta bugs prováveis e más práticas (variável não usada, `==` em vez de `===`). Exemplo: ESLint. Comece com o `recommended`, rode no editor e na CI.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
-
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
-
----
-
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Configurar um linter a partir da config *recommended*
-- Corrigir problemas com autofix e entender cada regra
-- Explicar a diferença entre linter e formatter
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[VS Code]] · [[Gerenciador de Pacotes]]
-- **Depois:** [[Formatter]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 💡 O que é um Linter?
-
-Um **linter** é uma ferramenta que faz **análise estática** do código, ou seja, lê seu código sem executá-lo e aponta **erros potenciais, más práticas e problemas de estilo**. Exemplos: variável declarada e nunca usada, comparação suspeita, função muito complexa, import inexistente.
-
-Cada linguagem tem seus linters: **ESLint** (JavaScript/TypeScript), **Pylint**, **Flake8** e **Ruff** (Python), **Checkstyle** (Java), **ShellCheck** (Bash), entre outros.
-
-> [!note]- 📜 Um pouco de história
-> O termo vem do programa **lint**, criado por **Stephen C. Johnson** nos **Bell Labs** por volta de 1978 para encontrar problemas em código C que o compilador deixava passar. O nome faz referência à "pelugem" (*lint*) que se tira das roupas. Desde então, linters ficaram cada vez mais completos e hoje fazem parte do fluxo padrão de quase todo projeto.
-
----
-
-## 🧱 Conceitos-chave
-
-### Conceito 1: Regras (rules)
-
-Cada verificação é uma regra, que pode ser configurada como **desligada**, **aviso (warn)** ou **erro (error)**.
+Olhe estas duas linhas e tente achar o problema:
 
 ```javascript
-// Regra "no-unused-vars" acusaria esta variável
-const nome = "Ana";   // declarada mas nunca usada
+const nome = "Ana";
+if (idade == "18") { }
 ```
 
-### Conceito 2: Arquivo de configuração
+Nenhuma delas dá erro. O programa roda. Mas a primeira declara uma variável que nunca é usada (você esqueceu de alguma coisa?), e a segunda usa `==`, que em JavaScript converte os tipos antes de comparar, então `"18" == 18` dá `true` e um monte de bug passa escondido. Código assim é **certo e suspeito ao mesmo tempo**: o compilador não reclama, porque não tem nada errado na escrita, mas provavelmente não faz o que você queria.
 
-Define quais regras usar. No ESLint moderno (v9+), o formato padrão é o `eslint.config.js` (flat config). Versões anteriores usavam `.eslintrc`.
+É pra esse tipo de coisa que existe o **linter**: um programa que lê o seu código **sem rodar** e aponta bugs prováveis e más práticas. É como ter um revisor que nunca cansa, lendo cada linha enquanto você digita. Em JavaScript e TypeScript, o mais usado é o **ESLint**.
+
+O caminho pra usar bem é curto: **comece com as regras recomendadas, deixe os avisos aparecerem no editor, e rode também na CI, pra nada passar.**
+
+## Como ele funciona
+
+O que o linter faz se chama **análise estática**: ele lê o código como texto, sem executar nada, e compara com uma lista de **regras**. "Variável declarada e nunca usada" é uma regra. "Não use `==`" é outra. "Promise sem `await`" é outra.
+
+O nome tem uma história curiosa. Nos anos 70, nos Bell Labs, criaram um programa chamado **lint** pra achar problemas em código C que o compilador deixava passar. *Lint* é aquela pelugem que gruda na roupa e que você tira com uma escovinha. O programa tirava a "pelugem" do código.
+
+Cada linguagem tem os seus: **ESLint** pra JavaScript e TypeScript, **Ruff**, **Pylint** e **Flake8** pra Python, **Checkstyle** pra Java, e o **ShellCheck** pro [[Bash]].
+
+Pra começar com o ESLint:
+
+```bash
+npm install --save-dev eslint @eslint/js
+npx eslint .           # aponta os problemas
+npx eslint . --fix     # corrige sozinho o que for seguro corrigir
+```
+
+Mas o passo que mais faz diferença é outro: instalar a **extensão do ESLint no [[VS Code]]**. Com ela, os problemas aparecem sublinhados **enquanto você digita**. Isso importa porque o custo de corrigir um bug cresce com o tempo: no momento em que você escreve, é um segundo; depois que foi pro ar, pode ser uma tarde inteira.
+
+## Linter não é formatter
+
+Os dois vivem sendo confundidos, porque andam juntos. Mas fazem trabalhos bem diferentes.
+
+O **linter** cuida da **qualidade**: "essa variável nunca é usada", "esse `==` pode dar bug". O [[Formatter]] cuida da **aparência**: espaços, aspas, quebras de linha. O formatter nunca muda o que o código faz; o linter aponta o que pode estar errado no que ele faz. Você quer os dois.
+
+Só tem um ponto de atrito. O ESLint também tem algumas regras de estilo, e às vezes elas discordam do Prettier: um formata, o outro reclama da formatação, e você fica no meio. A solução é dar a cada um o seu trabalho: o pacote `eslint-config-prettier` desliga as regras de estilo do ESLint, e o estilo fica só com o formatter.
+
+## Regras e configuração
+
+Cada regra pode estar em três níveis: **desligada** (`off`), **aviso** (`warn`, sublinhado amarelo) ou **erro** (`error`, sublinhado vermelho, e o comando falha). No ESLint moderno, da versão 9 em diante, a configuração fica num arquivo `eslint.config.js`:
 
 ```javascript
 // eslint.config.js
 import js from "@eslint/js";
 
 export default [
-    js.configs.recommended,
+    js.configs.recommended,     // o conjunto de regras recomendado
     {
         rules: {
             "no-unused-vars": "warn",
-            "eqeqeq": "error"
+            "eqeqeq": "error"      // proíbe == e exige ===
         }
     }
 ];
 ```
 
-### Conceito 3: Linter vs Formatter
+O `js.configs.recommended` é um conjunto de regras escolhido pela própria equipe do ESLint. **Comece por ele** e só mude uma regra quando tiver um motivo. (Em tutoriais mais antigos você vai ver um arquivo `.eslintrc`: era o formato das versões anteriores.)
 
-- **Linter**: encontra erros e problemas de qualidade.
-- **[[Formatter]]**: só reorganiza a aparência do código (espaços, aspas, quebras de linha).
+Uma tentação que aparece logo: a regra reclama, você não entende por quê, e desliga. Resista. Quase toda regra existe porque alguém já perdeu horas com aquele bug. Entenda o motivo primeiro. Se for mesmo um caso pontual e justificado, desligue **só naquela linha**, com um comentário dizendo por quê:
 
-Usam-se juntos, cada um no seu papel.
-
-### Conceito 4: Autofix
-
-Muitas regras podem ser corrigidas automaticamente:
-
-```bash
-npx eslint . --fix
+```javascript
+// eslint-disable-next-line no-console -- log de diagnóstico, removido depois do deploy
+console.log(dados);
 ```
 
----
+## Rodando em todo lugar
 
-## 🛠️ Exemplos guiados
-
-### Exemplo 1: Uso Básico
-
-JavaScript com ESLint:
-
-```bash
-npm install --save-dev eslint @eslint/js
-npx eslint arquivo.js
-```
-
-Python com Ruff:
-
-```bash
-pip install ruff
-ruff check .
-```
-
-### Exemplo 2: Caso de Uso Real
-
-Integrar ao projeto via scripts do `package.json`:
+O linter só protege se ele roda. Coloque os comandos no `package.json`:
 
 ```json
 {
@@ -124,13 +85,9 @@ Integrar ao projeto via scripts do `package.json`:
 }
 ```
 
-No dia a dia: instale a extensão do ESLint no [[VS Code]] para ver sublinhados vermelhos/amarelos em tempo real e rode `npm run lint` antes de cada commit ou na CI.
+E faça ele rodar em três momentos: **no editor**, enquanto você digita; **antes do commit**, com [[Git Hooks]]; e **na CI**, a cada pull request. A CI é a garantia final: mesmo quem não configurou o editor não consegue juntar código que quebra as regras.
 
----
-
-## ⚙️ Configuração recomendada
-
-No `settings.json` do VS Code, para corrigir problemas ao salvar:
+No VS Code, dá pra fazer o ESLint corrigir o que for automático toda vez que você salva:
 
 ```json
 {
@@ -140,84 +97,28 @@ No `settings.json` do VS Code, para corrigir problemas ao salvar:
 }
 ```
 
----
+E se você ligar o linter num projeto antigo e aparecerem **3.000 avisos**? Não tente corrigir tudo de uma vez, porque você vai desistir na metade. Comece só com as regras de erro, rode `--fix` no que for seguro, e vá ligando o resto aos poucos, pasta por pasta.
 
-## 💎 Boas práticas
+No Python, o equivalente moderno é o **Ruff**: `pip install ruff` e `ruff check .`. Ele é absurdamente rápido e ainda formata o código.
 
-### 1. Comece com a configuração "recommended"
+## O essencial
 
-Todo linter importante traz um conjunto recomendado. Ajuste regra por regra só quando tiver motivo.
+1. O linter lê o código sem rodar e aponta o que é provavelmente um bug ou uma má prática.
+2. Linter cuida da qualidade; formatter cuida da aparência. Use os dois, com `eslint-config-prettier` pra não brigarem.
+3. Comece com as regras recomendadas. Regra desligada, só numa linha e com motivo.
+4. Rode no editor, antes do commit e na CI.
 
-### 2. Não desative regras por preguiça
+## Agora é com você
 
-Entenda por que a regra existe. Se precisar ignorar um caso pontual, use comentários localizados (ex.: `// eslint-disable-next-line regra`).
+Crie um projeto (`npm init -y`), instale `eslint` e `@eslint/js`, e monte o `eslint.config.js` com as regras recomendadas. Escreva um `index.js` cheio de pecados: uma variável que nunca é usada, um `==` no lugar de `===`. Rode `npx eslint .`, leia as mensagens com calma, e corrija (algumas com `--fix`). Você terminou quando o comando passar sem nenhum erro nem aviso, e você souber explicar o que cada regra que disparou estava protegendo.
 
-### 3. Rode na integração contínua
+Depois, ligue o linter de verdade no **projeto modelo TypeScript**, aquele que você vai copiar pros próximos. Use `@eslint/js` junto com `typescript-eslint` no modo `recommendedTypeChecked`, e ligue as regras que pegam os bugs que as notas do Estágio 1 avisam: `eqeqeq`, `@typescript-eslint/no-explicit-any` e `@typescript-eslint/no-floating-promises` (que pega o `await` esquecido de [[Async e Await]]). Crie o script `"lint": "eslint ."` e deixe o projeto passando com zero erros. Você terminou quando `npm run lint` passar, e um `async` sem `await` ou um `==` colocado de propósito fizerem o lint falhar. Se quiser ir além, rode o lint só nos arquivos do commit com lint-staged ([[Git Hooks]]) e a cada PR no [[GitHub Actions]].
 
-Assim ninguém mescla código que quebre as regras do projeto, mesmo sem ter o editor configurado.
-
----
-
-## 🔧 Erros comuns e como resolver
-
-### Problema: O linter e o formatter brigam entre si
-
-**Solução:**
-1. Use a configuração que desativa regras de estilo conflitantes (no caso do ESLint com Prettier, o pacote `eslint-config-prettier`).
-2. Deixe estilo para o formatter e qualidade para o linter.
-
-### Problema: Milhares de avisos num projeto antigo
-
-**Solução:**
-1. Comece só com regras de erro e vá aumentando aos poucos.
-2. Corrija por pastas ou use `--fix` onde for seguro.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** Configurar um linter e corrigir os problemas encontrados.
-
-```bash
-# 1. Crie um projeto: mkdir lint-teste && cd lint-teste && npm init -y
-# 2. Instale: npm install --save-dev eslint @eslint/js
-# 3. Crie eslint.config.js com a configuração recommended
-# 4. Crie um index.js com variável não usada e uso de == em vez de ===
-# 5. Rode npx eslint . e leia as mensagens
-# 6. Corrija os erros (alguns com --fix)
-```
-
-**Pronto quando:** `npx eslint .` termina sem nenhum erro nem aviso, e você sabe explicar o que cada regra que disparou estava protegendo.
-
----
-
-## 🚀 Projeto
-
-> [!example] ESLint no projeto modelo TypeScript
-> Ligar o linter de verdade no projeto que você vai copiar pros próximos, com as regras que pegam os bugs que as notas do Estágio 1 avisam.
->
-> **Tempo:** 1 sessão
-
-**O mínimo:**
-- [ ] `eslint.config.js` com `@eslint/js` + `typescript-eslint` (modo `recommendedTypeChecked`)
-- [ ] Regras ligadas: `eqeqeq`, `@typescript-eslint/no-explicit-any`, `@typescript-eslint/no-floating-promises` (o `await` esquecido de [[Async e Await]])
-- [ ] Script `"lint": "eslint ."` no `package.json`
-- [ ] O projeto passando com zero erros
-
-**Se quiser ir além:**
-- Rodar só nos arquivos do commit com lint-staged ([[Git Hooks]])
-- Rodar no GitHub Actions a cada PR ([[GitHub Actions]])
-- Desligar uma regra só numa linha, com comentário explicando o porquê
-
-**Pronto quando:** `npm run lint` passa, e um `async` sem `await` ou um `==` colocado de propósito fazem o lint falhar.
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+O próximo passo é o [[Formatter]], o parceiro do linter.
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
 
 > [!question]- Qual a diferença entre linter e formatter?
 > O **linter** acha problemas de qualidade e bugs prováveis. O **formatter** só arruma a aparência.
@@ -252,51 +153,34 @@ Assim ninguém mescla código que quebre as regras do projeto, mesmo sem ter o e
 > [!question]- O linter executa o código?
 > Não. A análise é estática.
 
+> [!question]+ Por que o ESLint costuma marcar `if (idade == "18")`?
+> - a) Porque `==` é mais lento que `===`
+> - b) Porque `==` converte os tipos antes de comparar e esconde bugs
+> - c) Porque comparar com string é proibido em JavaScript
+> - d) Porque falta ponto e vírgula
+>
+> > [!check]- Resposta
+> > **b)** `==` faz coerção: `0 == ""` e `"18" == 18` dão `true`. `===` compara valor **e** tipo, então o erro aparece em vez de passar escondido.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
-| Comando/Sintaxe | Função |
-|-----------------|--------|
+| Comando | O que faz |
+|---|---|
 | `npx eslint .` | Analisa o projeto (JavaScript/TypeScript) |
 | `npx eslint . --fix` | Corrige o que for possível automaticamente |
-| `ruff check .` | Analisa projeto Python com Ruff |
-| `pylint arquivo.py` | Analisa arquivo Python com Pylint |
+| `// eslint-disable-next-line regra -- motivo` | Ignora a regra só na próxima linha |
+| `ruff check .` | Analisa um projeto Python com Ruff |
+| `pylint arquivo.py` | Analisa um arquivo Python com Pylint |
 | `shellcheck script.sh` | Analisa scripts Bash |
-| `// eslint-disable-next-line` | Ignora a regra na próxima linha |
 
----
+**Pra ler:** a [documentação do ESLint](https://eslint.org/docs/latest/) tem a lista de regras, e cada uma explica o bug que evita com exemplos; abrir as regras que dispararem no seu código é a melhor forma de aprender. Pra Python, o [Ruff](https://docs.astral.sh/ruff/). E o livro *Clean Code*, de Robert C. Martin, discute muitas das práticas que os linters reforçam.
 
-## 📓 Diário de bordo
+## Minhas anotações
 
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+**O que eu entendi, com as minhas palavras:**
+- 
 
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
--
-
-**O que me confundiu / onde eu errei:**
--
-
-**Onde eu usei de verdade:**
--
-
----
-
-## ➡️ Próximos passos
-
-- [ ] Instalar o linter da linguagem que você mais estuda
-- [ ] Configurar a extensão no seu editor
-- [ ] Aprender a ajustar regras no arquivo de configuração
-- [ ] Combinar com um [[Formatter]] no mesmo projeto
-
----
-
-## 📚 Recursos
-
-### 📖 Livros:
-- *Clean Code* (Robert C. Martin) - Princípios de código limpo que os linters ajudam a reforçar
-
-### 💻 Sites e Documentação:
-- [ESLint](https://eslint.org/docs/latest/) - Documentação oficial
-- [Ruff](https://docs.astral.sh/ruff/) - Linter rápido para Python
-- [ShellCheck](https://www.shellcheck.net/) - Linter para shell scripts
+**Onde eu travei:**
+- 

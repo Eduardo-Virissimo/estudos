@@ -5,39 +5,53 @@ revisado:
 
 # Git Flow
 
-> *"O melhor fluxo de branches é o mais simples que o seu time consegue seguir."*
+Imagine um time de cinco pessoas trabalhando no mesmo projeto, sem ter combinado nada. Uma faz commit direto na `main`. Outra trabalha três semanas numa branch e tenta juntar tudo de uma vez. Uma terceira cria uma branch chamada `teste2-final`. Alguém sobe uma correção urgente que ninguém revisou, e ela quebra outra coisa. Não é que alguém esteja fazendo errado: é que cada um está fazendo de um jeito.
 
-> [!tip] ⚡ Em 30 segundos
-> Um **fluxo de branches** é o combinado do time sobre quais branches existem e como o código chega em produção. O **Git Flow** clássico tem `main` (produção), `develop` (integração) e branches de `feature/`, `release/` e `hotfix/`: organizado, mas pesado. Hoje a maioria dos times usa algo mais leve: o **GitHub Flow** (só `main` + branches curtas com PR) ou o **Trunk-Based** (commits pequenos e frequentes na `main`, com feature flags). Conheça o Git Flow porque ele aparece em entrevistas e em empresas grandes; use o GitHub Flow nos seus projetos.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Um **fluxo de branches** é o combinado do time sobre isso: quais branches existem, pra que serve cada uma, e qual o caminho que o código percorre até chegar em produção. O mais famoso é o **Git Flow** clássico, com várias branches fixas (`main`, `develop`, `feature/`, `release/`, `hotfix/`): muito organizado, mas pesado. Hoje, a maioria dos times usa algo mais leve: o **GitHub Flow**, só com a `main` e branches curtas com pull request, ou o **Trunk-Based**, com commits pequenos e frequentes direto na `main`.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+A recomendação desta nota, pra você não ficar em dúvida: **conheça o Git Flow**, porque ele aparece em entrevistas e em empresas grandes, **mas use o GitHub Flow nos seus projetos**. E o motivo vai ficar claro quando você vir os dois lado a lado. Ajuda ter passado por [[Branches, Merge e Conflitos]] e [[GitHub e Pull Requests]].
 
----
+## GitHub Flow: o caminho mais simples que funciona
 
-## 🎯 Objetivos
+É o fluxo que você vai usar nos seus projetos, e ele cabe num desenho:
 
-Ao terminar esta nota, você consegue:
+```text
+main   ●────●────●────●────●   (sempre pronta pra ir pro ar)
+        \  /  \  /  \  /
+         ●     ●     ●          (branches curtas: horas ou poucos dias, sempre com PR)
+```
 
-- Desenhar o Git Flow com suas 5 branches e explicar o papel de cada uma
-- Comparar Git Flow, GitHub Flow e Trunk-Based e escolher um pra cada situação
-- Proteger a `main` no GitHub pra garantir que tudo entre por PR
+O caminho tem quatro passos. Você cria uma branch a partir da `main`, como `feat/filtro`. Faz commits pequenos, envia, e abre o pull request cedo, mesmo antes de terminar. Espera a revisão e os testes automáticos ([[GitHub Actions]]) passarem. E faz o merge na `main`, que vai pro ar.
 
----
+Tudo isso gira em torno de **uma regra só**: **a `main` sempre funciona.** Qualquer coisa que entra nela passou por revisão e por testes, então, a qualquer momento, ela pode ir pra produção.
 
-## 🧭 Onde isso se encaixa
+E uma correção urgente? Segue exatamente o mesmo caminho: uma branch `fix/arquivo-vazio`, um PR, o merge, o deploy. Não tem caminho especial, e essa é justamente a graça.
 
-- **Antes:** [[Branches, Merge e Conflitos]] · [[GitHub e Pull Requests]] · [[Tags e Versionamento Semântico]]
-- **Depois:** [[CI/CD]] · [[Deploy]] · [[Ambientes (dev, staging, prod)]]
-- **Trilha:** [[Roadmap]]
+O inimigo de qualquer fluxo, esse incluído, é a **branch de semanas**. Ela acumula conflito, vira um PR gigante, e ninguém consegue revisar de verdade um PR com duas mil linhas. A saída é dividir a funcionalidade em PRs menores, que entram um de cada vez.
 
----
+## Proteja a main
 
-## 🧱 O mínimo pra usar
+Seja qual for o fluxo que o seu time escolher, existe uma configuração que vale fazer sempre. No GitHub, em Settings → Branches (ou nos **Rulesets**), crie uma regra pra `main` com três coisas ligadas:
 
-### 1. Git Flow clássico (Vincent Driessen, 2010)
+- [x] Exigir pull request antes do merge (com 1+ aprovação, em times)
+- [x] Exigir que os checks (testes, lint) passem
+- [x] Bloquear push forçado e exclusão
+
+Por que isso importa? Sem essa regra, um `git push --force` acidental de qualquer pessoa, numa sexta à noite, pode apagar o trabalho do time inteiro. Com ela, a regra "a `main` sempre funciona" deixa de depender da boa vontade e da atenção de cada um, e passa a ser garantida pela ferramenta.
+
+Outra coisa pra combinar com o time: o botão de merge do pull request tem três opções, e cada uma deixa o histórico de um jeito.
+
+| Opção | Resultado na `main` |
+|---|---|
+| **Merge commit** | todos os commits da branch, mais um commit de merge |
+| **Squash and merge** | a branch inteira vira **um commit só** (popular: 1 PR = 1 commit, histórico limpo) |
+| **Rebase and merge** | os commits da branch em linha reta, sem commit de merge |
+
+Escolham uma, e configurem o repositório pra só ela ficar disponível. Um histórico com metade dos PRs em squash e metade em merge commit vira bagunça.
+
+## O Git Flow clássico
+
+Agora o famoso. Criado por Vincent Driessen em 2010, ele tem cinco tipos de branch, cada uma com um papel:
 
 ```text
 main      ●───────────────●──────────●─────────   (só versões lançadas, com tag)
@@ -46,7 +60,7 @@ hotfix/     \           /   ●──────●              (correção ur
              \         /            \
 release/      \   ●───●              \            (preparando a versão: só correções)
                \ /     \              \
-develop    ●────●───●───●──────────────●───────   (integração do que vai pra próxima versão)
+develop    ●────●───●───●──────────────●───────   (onde as features se juntam)
                  \     /
 feature/          ●───●                           (uma funcionalidade)
 ```
@@ -54,71 +68,14 @@ feature/          ●───●                           (uma funcionalidade)
 | Branch | Sai de | Volta pra | Papel |
 |---|---|---|---|
 | `main` | – | – | o que está em produção; cada merge vira uma tag `vX.Y.Z` |
-| `develop` | `main` | – | onde as features se juntam |
+| `develop` | `main` | – | onde as funcionalidades se juntam |
 | `feature/*` | `develop` | `develop` | uma funcionalidade |
-| `release/*` | `develop` | `main` **e** `develop` | congela a versão: só correções, ajustes de número |
+| `release/*` | `develop` | `main` **e** `develop` | congela a versão: só correções e ajustes finais |
 | `hotfix/*` | `main` | `main` **e** `develop` | bug urgente em produção |
 
-**Bom pra:** software com versões lançadas de tempos em tempos (app de celular, desktop, biblioteca com várias versões mantidas).
-**Ruim pra:** sites e APIs com deploy várias vezes por dia: burocracia demais, branches longas, conflitos.
+A ideia é que a `main` só recebe versões prontas, a `develop` é onde o trabalho do dia a dia se junta, e as outras são temporárias, cada uma com uma missão.
 
-### 2. GitHub Flow (o padrão da maioria)
-
-```text
-main   ●────●────●────●────●   (sempre pronta pra deploy)
-        \  /  \  /  \  /
-         ●     ●     ●          (branches curtas: horas ou poucos dias, sempre com PR)
-```
-
-1. Crie uma branch a partir da `main` (`feat/filtro`).
-2. Commits pequenos, push, abra o PR cedo.
-3. Revisão + testes automáticos ([[GitHub Actions]]) passando.
-4. Merge na `main` → deploy.
-
-Uma regra: **a `main` sempre funciona.**
-
-### 3. Trunk-Based Development
-
-Todo mundo integra na `main` ("tronco") pelo menos uma vez por dia, com branches de horas (ou direto). Funcionalidade incompleta entra **desligada** por uma **feature flag**:
-
-```ts
-if (flags.novoFiltro) mostrarNovoFiltro();
-```
-
-Exige testes automáticos fortes e disciplina. É o que times de alto desempenho costumam usar.
-
-### 4. Qual escolher
-
-| Situação | Fluxo |
-|---|---|
-| Projeto pessoal / portfólio | GitHub Flow |
-| Time pequeno com deploy contínuo | GitHub Flow |
-| Time experiente, CI forte, muitos deploys por dia | Trunk-Based |
-| Versões lançadas e mantidas em paralelo (v1, v2) | Git Flow |
-
-### 5. Proteger a `main` (qualquer fluxo)
-
-GitHub → Settings → Branches (ou **Rulesets**) → regra pra `main`:
-
-- [x] Exigir pull request antes do merge (com 1+ aprovação, em times)
-- [x] Exigir que os checks (testes, lint) passem
-- [x] Bloquear push forçado e exclusão
-
-### 6. Estratégia de merge do PR
-
-O botão de merge no GitHub tem 3 opções. Combine com o time:
-
-| Opção | Resultado na `main` |
-|---|---|
-| **Merge commit** | todos os commits da branch + um commit de merge |
-| **Squash and merge** | a branch inteira vira **1 commit** (popular: histórico limpo, 1 PR = 1 commit) |
-| **Rebase and merge** | os commits da branch em linha reta, sem commit de merge |
-
----
-
-## 🛠️ Exemplo guiado
-
-Um hotfix no Git Flow, na mão:
+O detalhe que mais cai em entrevista: **o hotfix volta pra duas branches.** Pense no porquê. O bug está em produção, então a correção sai da `main`. Ela precisa voltar pra `main`, claro, pra consertar a produção. Mas também precisa voltar pra `develop`. Se não voltasse, a próxima versão, que vai sair da `develop`, traria o bug de volta, como se ninguém tivesse corrigido nada.
 
 ```bash
 git switch main
@@ -127,45 +84,57 @@ git switch -c hotfix/1.2.1
 git commit -am "fix: corrige crash ao abrir arquivo vazio"
 
 git switch main
-git merge --no-ff hotfix/1.2.1        # --no-ff: força o commit de merge pra registrar o hotfix
+git merge --no-ff hotfix/1.2.1
 git tag -a v1.2.1 -m "Hotfix: arquivo vazio"
 
 git switch develop
-git merge --no-ff hotfix/1.2.1        # a correção não pode se perder na próxima versão
+git merge --no-ff hotfix/1.2.1        # a correção não pode se perder
 git branch -d hotfix/1.2.1
 git push origin main develop --follow-tags
 ```
 
-O mesmo no GitHub Flow: branch `fix/arquivo-vazio` → PR → merge na `main` → deploy. Uma etapa em vez de cinco.
+Agora compare com o GitHub Flow, onde uma correção urgente é uma branch, um PR e um merge. Uma etapa contra cinco.
 
----
+Isso não quer dizer que o Git Flow seja ruim. Ele **é bom** pra software com versões lançadas de tempos em tempos, e às vezes mantidas em paralelo: um app de celular, um programa de desktop, uma biblioteca que tem a v1 e a v2 ao mesmo tempo. E **é ruim** pra sites e APIs que fazem deploy várias vezes por dia: burocracia demais, branches longas, conflitos. Usar o Git Flow "porque é o jeito profissional" num projeto com deploy contínuo só atrasa tudo. O fluxo certo é o que combina com o jeito que o software é entregue.
 
-## 🔧 Pegadinhas
+## Trunk-Based, e como escolher
 
-- **Usar Git Flow "porque é o profissional".** Pra deploy contínuo ele atrasa tudo. Escolha pelo jeito que o software é entregue.
-- **Hotfix que volta só pra `main`.** Na próxima release, o bug "ressuscita" vindo da `develop`.
-- **Branch de feature de semanas.** Qualquer fluxo sofre. Divida em PRs menores, use feature flag.
-- **`main` sem proteção.** Um `push --force` acidental apaga o trabalho do time.
-- **Misturar estratégias de merge.** Metade squash, metade merge commit: o histórico vira bagunça. Configure no repositório qual é permitida.
+Existe ainda um terceiro estilo, o mais radical. No **Trunk-Based Development**, todo mundo junta o código na `main` (o "tronco") pelo menos uma vez por dia, com branches que duram horas, ou até sem branch nenhuma.
 
----
+E uma funcionalidade que ainda não está pronta? Ela entra na `main` **desligada**, por uma **feature flag**:
 
-## 🔨 Desafio prático
+```ts
+if (flags.novoFiltro) mostrarNovoFiltro();
+```
 
-**Objetivo:** viver os dois fluxos.
+O código já está lá, em produção, mas ninguém vê nada até alguém ligar a flag. Isso exige testes automáticos fortes e muita disciplina, e é o estilo que os times de alto desempenho costumam usar.
 
-1. Num repositório de teste, simule o Git Flow: crie `develop`, 2 `feature/*`, uma `release/1.0.0` (merge na `main` com tag `v1.0.0`) e um `hotfix/1.0.1`.
-2. Veja o resultado em `git log --oneline --graph --all`.
-3. Num repositório seu no GitHub, configure a proteção da `main` (exigir PR e bloquear force push) e tente dar `git push` direto na `main`.
-4. Faça 2 PRs no GitHub Flow, um com **Squash and merge** e outro com **Merge commit**, e compare o histórico.
+Pra escolher, esta tabela resolve quase todo caso:
 
-**Pronto quando:** o push direto na `main` é recusado e você consegue explicar a diferença entre os dois desenhos.
+| Situação | Fluxo |
+|---|---|
+| Projeto pessoal ou portfólio | GitHub Flow |
+| Time pequeno, deploy contínuo | GitHub Flow |
+| Time experiente, CI forte, muitos deploys por dia | Trunk-Based |
+| Versões lançadas e mantidas em paralelo (v1, v2) | Git Flow |
+
+## O essencial
+
+1. Um fluxo de branches é o combinado do time sobre o caminho do código até produção.
+2. GitHub Flow: só a `main` e branches curtas com PR. A regra é: a `main` sempre funciona.
+3. Proteja a `main`: exigir PR, exigir os checks, bloquear force push.
+4. Git Flow: `main`, `develop`, `feature`, `release`, `hotfix`. O hotfix volta pra `main` e pra `develop`.
+5. Git Flow pra versões lançadas; GitHub Flow pra deploy contínuo; Trunk-Based pra times com CI forte.
+
+## Agora é com você
+
+Viva os dois fluxos. Num repositório de teste, simule o Git Flow inteiro: crie a `develop`, duas `feature/*`, uma `release/1.0.0` (com merge na `main` e a tag `v1.0.0`), e um `hotfix/1.0.1`. Veja o desenho resultante com `git log --oneline --graph --all`. Depois, num repositório seu no GitHub, configure a proteção da `main` (exigir PR e bloquear force push) e tente dar um `git push` direto nela. Por fim, faça dois PRs no GitHub Flow, um com **Squash and merge** e outro com **Merge commit**, e compare como o histórico ficou. Você terminou quando o push direto na `main` for recusado e você conseguir explicar a diferença entre os dois desenhos.
+
+Daqui, siga pra [[CI/CD]], [[Deploy]] e [[Ambientes (dev, staging, prod)]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Quais são as branches do Git Flow?
 > `main` (produção), `develop` (integração), `feature/*` (funcionalidades), `release/*` (preparação de versão) e `hotfix/*` (correções urgentes).
@@ -185,44 +154,35 @@ O mesmo no GitHub Flow: branch `fix/arquivo-vazio` → PR → merge na `main` �
 > [!question]- O que faz "Squash and merge"?
 > Junta todos os commits da branch do PR em um único commit na `main`.
 
+> [!question]- Por que proteger a `main` com regras no GitHub?
+> Pra a regra "a main sempre funciona" não depender da atenção de cada um: sem PR aprovado e checks passando, nada entra, e ninguém apaga o trabalho com force push.
+
+> [!question]+ No Git Flow, de onde sai e pra onde volta um **hotfix**?
+> - a) Sai da `develop` e volta só pra `develop`
+> - b) Sai da `main` e volta pra `main` **e** `develop`
+> - c) Sai de uma `feature` e volta pra `main`
+> - d) Sai da `main` e volta só pra `main`
+>
+> > [!check]- Resposta
+> > **b)** O bug está em produção, então sai da `main`. Volta pras duas pra correção não sumir na próxima release que sair da `develop`.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Fluxo | Branches | Ideal pra |
 |---|---|---|
-| Git Flow | main, develop, feature, release, hotfix | versões lançadas |
-| GitHub Flow | main + branches curtas com PR | web, deploy contínuo |
-| Trunk-Based | main + flags | times com CI forte |
-| Proteção da main | exigir PR, checks, bloquear force push | todos |
+| Git Flow | main, develop, feature, release, hotfix | Versões lançadas |
+| GitHub Flow | main + branches curtas com PR | Web, deploy contínuo |
+| Trunk-Based | main + feature flags | Times com CI forte |
+| Proteção da main | Exigir PR, checks, bloquear force push | Todos |
 
----
+**Pra ler:** o artigo original do Git Flow, [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/), vale pela história e por um detalhe: o próprio autor acrescentou, anos depois, uma nota recomendando fluxos mais simples pra software web. A página do [GitHub Flow na documentação do GitHub](https://docs.github.com/pt/get-started/using-github/github-flow) está em português e é curta. E o site [trunkbaseddevelopment.com](https://trunkbaseddevelopment.com/) explica o Trunk-Based com diagramas.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```text
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [A successful Git branching model (Vincent Driessen)](https://nvie.com/posts/a-successful-git-branching-model/): o artigo original, com a nota do autor recomendando fluxos mais simples pra web
-- [GitHub Docs · GitHub flow](https://docs.github.com/pt/get-started/using-github/github-flow)
-- [trunkbaseddevelopment.com](https://trunkbaseddevelopment.com/)

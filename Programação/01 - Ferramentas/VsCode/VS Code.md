@@ -5,102 +5,54 @@ revisado:
 
 # VS Code
 
-> *"O editor que cabe no seu fluxo de trabalho, não o contrário."*
+Observe alguém experiente programando no VS Code e repare numa coisa: a pessoa quase não usa o mouse. Abre arquivos sem procurar nas pastas, renomeia uma função no projeto inteiro de uma vez, edita dez linhas ao mesmo tempo. Parece que ela conhece centenas de atalhos. Na verdade, ela conhece uns cinco muito bem, e sabe como achar o resto.
 
-> [!tip] ⚡ Em 30 segundos
-> Editor leve e extensível. O que muda o jogo: **Command Palette** (`Ctrl + Shift + P`), poucos atalhos bem aprendidos, multi-cursor e configurações por workspace.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+O **VS Code** é o editor de código mais usado do mundo: gratuito, leve, e que cresce conforme você instala **extensões**, uma pra cada linguagem e ferramenta. E a diferença entre quem "usa" e quem "voa" nele não é saber tudo. É dominar poucas coisas: a **Command Palette**, que dá acesso a qualquer comando, um punhado de atalhos, o **multi-cursor**, e a diferença entre as configurações do **usuário** e as do **projeto**.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+## O único atalho que você precisa decorar
 
----
-
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Achar qualquer ação pela Command Palette em vez de decorar menus
-- Separar configurações de usuário e de workspace (projeto)
-- Escolher extensões e usar multi-cursor e atalhos essenciais
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Terminal]]
-- **Depois:** [[Linter]] · [[Formatter]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 💡 O que é VS Code?
-
-O **Visual Studio Code** (VS Code) é um editor de código-fonte gratuito, leve e extensível, criado pela Microsoft. Ele roda em Windows, macOS e Linux e suporta praticamente qualquer linguagem através de **extensões**.
-
-Diferente de uma IDE completa, ele começa enxuto e cresce conforme você instala o que precisa: depurador, terminal integrado, controle de versão com Git, autocomplete inteligente (IntelliSense) e muito mais.
-
-> [!note]- 📜 Um pouco de história
-> O VS Code foi lançado pela Microsoft em **2015**, construído sobre o framework **Electron** (tecnologia web empacotada como app desktop). O código-fonte base é aberto (projeto *Code - OSS*, licença MIT). Em poucos anos virou um dos editores mais usados do mundo, aparecendo no topo das pesquisas anuais de desenvolvedores do Stack Overflow.
-
----
-
-## 🧱 Conceitos-chave
-
-### Conceito 1: Command Palette
-
-É a central de comandos do editor. Praticamente tudo que o VS Code faz pode ser acessado por ela.
+Se você só aprender um atalho do VS Code, que seja este:
 
 ```text
 Ctrl + Shift + P   (Windows/Linux)
 Cmd  + Shift + P   (macOS)
 ```
 
-Digite o que quer fazer (ex.: "format document", "change language mode") e execute.
+Ele abre a **Command Palette**: uma caixa onde você escreve, em palavras, **o que quer fazer**. "format document", "change language mode", "toggle word wrap". Praticamente tudo o que o VS Code sabe fazer está ali. Você não precisa saber em qual menu fica cada coisa, nem lembrar o atalho: digita o que quer, e ela acha.
 
-### Conceito 2: Workspace e Pasta
+E tem um bônus que pouca gente percebe: do lado de cada comando, a Palette mostra **o atalho dele**. É assim que se aprende atalho sem decorar lista nenhuma. Você usa um comando pela Palette algumas vezes, vê o atalho ali do lado, e um dia, sem perceber, passa a usar direto.
 
-O VS Code trabalha melhor abrindo **uma pasta de projeto** (`File > Open Folder`). Cada projeto pode ter configurações próprias na pasta `.vscode/`.
+## Cinco atalhos e um superpoder
 
-### Conceito 3: Extensões
+Estes cinco já te deixam muito mais rápido:
 
-Funcionalidades extras instaladas pelo painel de extensões (`Ctrl + Shift + X`). Exemplos: Prettier, ESLint, GitLens, Live Share, Remote - SSH.
+| Atalho | O que faz |
+|---|---|
+| `Ctrl + P` | abre um arquivo pelo nome (digite só um pedaço) |
+| `Ctrl + Shift + P` | a Command Palette |
+| `Ctrl + D` | seleciona a próxima ocorrência da palavra (repita pra pegar mais) |
+| `` Ctrl + ` `` | abre e fecha o terminal integrado |
+| `F2` | renomeia uma variável ou função no projeto inteiro, sem errar nenhuma |
 
-### Conceito 4: Settings (User vs Workspace)
+O `F2` merece um comentário. Renomear com "buscar e substituir" é perigoso: se você renomeia `nome` pra `nomeCompleto`, o substituir também muda `sobrenome` pra `sobrenomeCompleto`. O `F2` entende o código e muda **só aquela variável**, em todos os arquivos onde ela é usada.
 
-- **User**: vale para todos os projetos.
-- **Workspace**: vale só para o projeto atual (fica em `.vscode/settings.json`).
+E o superpoder: o **multi-cursor**. `Alt + Clique` coloca cursores extras na tela, e tudo o que você digita sai em todos ao mesmo tempo. Com `Ctrl + D` repetido, você seleciona cada ocorrência de uma palavra e edita todas juntas. Na primeira vez que você transforma uma lista de vinte linhas em vinte linhas de código em dez segundos, nunca mais esquece.
 
----
+Juntando tudo, um dia de estudo fica assim: `Ctrl + P` pra abrir o arquivo, `` Ctrl + ` `` pra abrir o terminal e rodar o projeto, `F5` pra depurar com breakpoints, e `Ctrl + Shift + G` pra revisar as mudanças e fazer o commit.
 
-## 🛠️ Exemplos guiados
+E um conselho: **não tente decorar todos os atalhos.** Ninguém usa todos. Pratique esses cinco até virarem automáticos, e depois acrescente um por vez, quando sentir falta.
 
-### Exemplo 1: Uso Básico
+## As suas preferências e as do projeto
 
-Abrir um projeto direto pelo terminal:
+Aqui está a parte que mais confunde, e que mais importa quando você começa a trabalhar em projetos com outras pessoas. O VS Code tem **dois níveis** de configuração.
 
-```bash
-cd meu-projeto
-code .
-```
+As configurações de **usuário** (*User*) valem pra **todos** os projetos que você abrir. É onde vão as coisas de gosto pessoal: tamanho da fonte, tema, se o minimapa aparece.
 
-> Se o comando `code` não funcionar, abra a Command Palette e rode **"Shell Command: Install 'code' command in PATH"** (macOS) ou reinstale marcando a opção de adicionar ao PATH (Windows).
+As configurações de **projeto** (*Workspace*) valem **só pro projeto** aberto, e ficam num arquivo `.vscode/settings.json` dentro da pasta dele. É onde vão as regras do projeto: indentação de 2 espaços, qual formatador usar. Quando os dois níveis definem a mesma coisa, **o do projeto ganha**. E como esse arquivo fica dentro da pasta, ele pode ir pro Git, e todo mundo do time trabalha com as mesmas regras.
 
-### Exemplo 2: Caso de Uso Real
+Isso tem uma consequência prática: abra sempre **a pasta do projeto** (`File > Open Folder`, ou `code .` no terminal), não arquivos soltos. É assim que o VS Code sabe qual configuração de projeto usar.
 
-Fluxo de um dia de estudo:
-
-1. `Ctrl + P` para abrir um arquivo por nome.
-2. `Ctrl + `` ` `` para abrir o terminal integrado e rodar o projeto.
-3. `F5` para depurar com breakpoints.
-4. `Ctrl + Shift + G` para revisar e commitar mudanças no Git.
-
----
-
-## ⚙️ Configuração recomendada
-
-Abra com `Ctrl + Shift + P` → **"Preferences: Open User Settings (JSON)"**:
+Uma boa configuração inicial de usuário fica assim (`Ctrl + Shift + P` → "Preferences: Open User Settings (JSON)"):
 
 ```json
 {
@@ -114,84 +66,54 @@ Abra com `Ctrl + Shift + P` → **"Preferences: Open User Settings (JSON)"**:
 }
 ```
 
----
+Dessas, a que mais muda o seu dia é o `formatOnSave`: o código se arruma sozinho toda vez que você salva. A nota do [[Formatter]] explica o porquê.
 
-## 💎 Boas práticas
+## Extensões, sem exagero
 
-### 1. Aprenda poucos atalhos, mas bem
+O VS Code começa enxuto e cresce com extensões (`Ctrl + Shift + X`). Pra quase todo projeto JavaScript e TypeScript, quatro valem a pena: **ESLint**, que aponta bugs prováveis ([[Linter]]); **Prettier**, que formata ([[Formatter]]); **Error Lens**, que escreve os erros na própria linha em vez de esconder num sublinhado; e **GitLens**, que mostra quem mudou cada linha e quando.
 
-`Ctrl + P` (abrir arquivo), `Ctrl + Shift + P` (comandos) e `Ctrl + D` (selecionar próxima ocorrência) já te deixam muito mais rápido.
+O problema é que extensão vicia, e um dia o editor fica lento. Quase sempre a culpa é de extensão demais. Desative as que você não usa, e se não descobrir qual é a culpada, rode `Help > Start Extension Bisect`: ele vai desligando metade das extensões de cada vez, até achar a responsável.
 
-### 2. Multi-cursor
+Pra não precisar escolher, existem os **Profiles**: conjuntos separados de extensões e configurações. Um perfil "TypeScript", outro "Python", e você troca conforme o projeto. Cada um carrega só o que precisa.
 
-`Alt + Click` adiciona cursores extras. Perfeito para editar várias linhas ao mesmo tempo.
+## Abrindo pelo terminal
 
-### 3. Use Profiles
+O jeito mais rápido de abrir um projeto é pelo próprio terminal:
 
-Crie perfis (ex.: "Python", "Web") com extensões e configurações diferentes para não deixar o editor pesado.
-
----
-
-## 🔧 Erros comuns e como resolver
-
-### Problema: O comando `code .` não é reconhecido no terminal
-
-**Solução:**
-1. Reinstale o VS Code marcando "Add to PATH" (Windows) ou execute "Shell Command: Install 'code' command in PATH" (macOS).
-2. Feche e reabra o terminal.
-
-### Problema: O editor está lento
-
-**Solução:**
-1. Desative extensões que não está usando (`Extensions > Disable`).
-2. Use `Help > Start Extension Bisect` para descobrir qual extensão causa o problema.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** Configurar um ambiente de edição confortável e usar os principais atalhos.
-
-```text
-1. Instale o VS Code e abra uma pasta de projeto vazia.
-2. Instale as extensões Prettier e GitLens.
-3. Ative "editor.formatOnSave" nas configurações.
-4. Crie um arquivo index.js, escreva código mal formatado e salve.
-5. Veja o Prettier arrumar tudo automaticamente.
-6. Abra o terminal integrado e rode: node index.js
+```bash
+cd meu-projeto
+code .        # o ponto quer dizer "esta pasta"
 ```
 
-**Pronto quando:** salvar o arquivo mal formatado deixa ele arrumado sozinho e `node index.js` roda no terminal integrado sem você sair do VS Code.
+Se o terminal responder que `code` não é reconhecido, é porque o VS Code não está no PATH. No Windows, reinstale marcando a opção "Add to PATH". No macOS, rode "Shell Command: Install 'code' command in PATH" pela Command Palette. Depois, feche e abra o terminal de novo.
 
----
+Uma curiosidade: o VS Code foi lançado pela Microsoft em 2015, feito com Electron, que é tecnologia de site empacotada como programa. Ele é um **editor**, não uma **IDE** completa como o IntelliJ ou o Visual Studio: não vem com tudo pronto, começa leve e você monta o que precisa. É por isso que ele abre rápido e serve pra qualquer linguagem.
 
-## 🚀 Projeto
+## O essencial
 
-> [!example] VS Code pronto pro Estágio 1
-> Um editor configurado pra TypeScript que você vai usar em todos os desafios: erros aparecendo na linha, formatação ao salvar e Git na barra lateral.
->
-> **Tempo:** 1 sessão
+1. `Ctrl + Shift + P` faz qualquer coisa, e ensina os atalhos de brinde.
+2. `Ctrl + P`, `Ctrl + D`, `` Ctrl + ` `` e `F2` cobrem a maior parte do dia.
+3. Configuração de usuário vale pra tudo; a de projeto (`.vscode/settings.json`) vale só ali, ganha da outra e vai pro Git.
+4. Abra a pasta, não o arquivo solto. Editor lento: extensão demais.
 
-**O mínimo:**
-- [ ] Extensões: ESLint, Prettier, Error Lens e GitLens
-- [ ] `settings.json` com `editor.formatOnSave`, `editor.defaultFormatter` = Prettier e `files.autoSave` = `onFocusChange`
-- [ ] Um perfil (Profiles) chamado "TypeScript" só com essas extensões
-- [ ] Usar sem mouse: `Ctrl + P` (abrir arquivo), `Ctrl + Shift + P` (comandos), `F2` (renomear), `F12` (ir pra definição), `Ctrl + '` (terminal)
+## Agora é com você
 
-**Se quiser ir além:**
-- Um snippet próprio (ex: `main` → estrutura de `async function main()` com `.catch`)
-- Configurar o debugger com `F5` pra rodar um `.ts` com `tsx`
-- Sincronizar as configurações com a sua conta (Settings Sync)
+Abra uma pasta vazia, instale o Prettier e o GitLens, ligue o `editor.formatOnSave`, e crie um `index.js` com o código mais bagunçado que conseguir. Salve e veja ele se arrumar. Depois abra o terminal integrado e rode `node index.js`. Você terminou quando fizer tudo isso sem sair do VS Code.
 
-**Pronto quando:** num projeto TypeScript, um erro de tipo aparece escrito na própria linha (Error Lens) e o arquivo se formata ao salvar.
+O projeto desta nota é deixar o **VS Code pronto pro Estágio 1**, configurado pra TypeScript, com erros aparecendo na linha, formatação ao salvar e Git na barra lateral. Você já fez:
 
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+- [x] Extensões: ESLint, Prettier, Error Lens e GitLens
+- [x] `settings.json` com `editor.formatOnSave`, `editor.defaultFormatter` = Prettier e `files.autoSave` = `onFocusChange`
+- [x] Um perfil (Profiles) chamado "TypeScript" só com essas extensões
+- [x] Usar sem mouse: `Ctrl + P` (abrir arquivo), `Ctrl + Shift + P` (comandos), `F2` (renomear), `F12` (ir pra definição), `` Ctrl + ` `` (terminal)
+
+Se quiser ir além, crie um snippet seu (por exemplo, `main` virando a estrutura de uma `async function main()` com `.catch`), configure o `F5` pra depurar um `.ts` com `tsx`, e ligue o Settings Sync pra levar as configurações pra qualquer computador.
+
+Daqui, os próximos passos são o [[Linter]] e o [[Formatter]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
 
 > [!question]- Qual a diferença entre settings de User e de Workspace?
 > **User** vale pra tudo. **Workspace** fica em `.vscode/settings.json`, vale só pro projeto e tem prioridade.
@@ -201,6 +123,9 @@ Crie perfis (ex.: "Python", "Web") com extensões e configurações diferentes p
 
 > [!question]- Como editar várias linhas ao mesmo tempo?
 > Multi-cursor: `Alt + Click`, `Ctrl + D` (próxima ocorrência) ou `Ctrl + Alt + ↑/↓`.
+
+> [!question]- Por que usar `F2` em vez de buscar e substituir pra renomear?
+> O `F2` entende o código e muda só aquele símbolo; o substituir troca qualquer texto parecido (`nome` dentro de `sobrenome`).
 
 > [!question]- Pra que servem os Profiles?
 > Conjuntos separados de extensões e configurações (ex.: um perfil pra web, outro pra Python).
@@ -226,51 +151,44 @@ Crie perfis (ex.: "Python", "Web") com extensões e configurações diferentes p
 > [!question]- Renomear símbolo em todo o projeto
 > `F2`
 
+> [!question]+ Você quer que **só este projeto** use 2 espaços de indentação. Onde configurar?
+> - a) Settings de User
+> - b) Settings de Workspace (`.vscode/settings.json`)
+> - c) Num Profile novo
+> - d) Na extensão do Prettier, globalmente
+>
+> > [!check]- Resposta
+> > **b)** Workspace vale só pra pasta aberta e pode ir pro Git, então o time todo usa igual. User vale pra todos os projetos.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
-| Atalho (Windows/Linux) | Função |
-|-----------------|--------|
-| `Ctrl + P` | Abrir arquivo por nome |
+| Atalho (Windows/Linux) | O que faz |
+|---|---|
+| `Ctrl + P` | Abre arquivo pelo nome |
 | `Ctrl + Shift + P` | Command Palette |
-| `` Ctrl + ` `` | Abrir/fechar terminal integrado |
-| `Ctrl + B` | Mostrar/esconder barra lateral |
-| `Ctrl + D` | Selecionar próxima ocorrência |
-| `Alt + ↑ / ↓` | Mover linha |
-| `Shift + Alt + ↓` | Duplicar linha |
-| `Ctrl + /` | Comentar/descomentar |
-| `F2` | Renomear símbolo em todo o projeto |
+| `` Ctrl + ` `` | Abre/fecha o terminal integrado |
+| `Ctrl + B` | Mostra/esconde a barra lateral |
+| `Ctrl + D` | Seleciona a próxima ocorrência |
+| `Alt + ↑ / ↓` | Move a linha |
+| `Shift + Alt + ↓` | Duplica a linha |
+| `Ctrl + /` | Comenta/descomenta |
+| `F2` | Renomeia o símbolo no projeto inteiro |
+| `F12` | Vai pra definição |
 
----
+**Pra ler:** a [documentação oficial](https://code.visualstudio.com/docs) tem vídeos curtos de introdução que valem muito. O [PDF de atalhos pra Windows](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf) é ótimo pra imprimir e deixar do lado do teclado por uma semana. E o [Marketplace](https://marketplace.visualstudio.com/vscode) é onde você procura extensões.
 
-## 📓 Diário de bordo
+## Minhas anotações
 
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+**O que eu entendi, com as minhas palavras:**
+- 
 
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
--
+**Onde eu travei:**
+- 
 
-**O que me confundiu / onde eu errei:**
--
-
-**Onde eu usei de verdade:**
--
-
----
-
-## ➡️ Próximos passos
-
-- [ ] Instalar o VS Code e a extensão do seu primeiro idioma de programação
-- [ ] Configurar `settings.json` com formatação ao salvar
-- [ ] Aprender a usar o debugger (`launch.json`)
-- [ ] Explorar o Remote - SSH para editar arquivos em servidores
-
----
-
-## 📚 Recursos
-
-### 💻 Sites e Documentação:
-- [Documentação oficial](https://code.visualstudio.com/docs) - Guias completos de uso
-- [Atalhos de teclado (PDF oficial)](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf) - Cola de atalhos para Windows
-- [Marketplace de extensões](https://marketplace.visualstudio.com/vscode) - Catálogo de extensões
+**Checklist de progresso:**
+- [x] Instalar o VS Code e a extensão do seu primeiro idioma de programação
+- [x] Configurar `settings.json` com formatação ao salvar
+- [x] Aprender a usar o debugger (`launch.json`)
+- [x] Explorar o Remote - SSH para editar arquivos em servidores

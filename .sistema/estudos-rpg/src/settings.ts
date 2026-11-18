@@ -23,6 +23,8 @@ export interface Settings {
   pastasIgnoradas: string[];
   /** Dias até a próxima revisão para cada caixa (índice = caixa). */
   intervalos: number[];
+  /** Notas nunca revisadas que entram na fila por dia (0 = sem limite). */
+  novasPorDia: number;
   semanasNoCalendario: number;
   /** Minutos que separam as cores do calendário (ex.: [25, 50] = <25, <50, 50+). */
   faixasCalendario: number[];
@@ -40,6 +42,7 @@ export const DEFAULT_SETTINGS: Settings = {
   templateDiario: "estudos/Templates/Diário.md",
   pastasIgnoradas: ["estudos/Templates"],
   intervalos: [0, 1, 3, 7, 14, 30, 60],
+  novasPorDia: 10,
   semanasNoCalendario: 30,
   faixasCalendario: [25, 50],
   metaSemanalMin: 300,
@@ -67,6 +70,7 @@ export function mergeSettings(saved: unknown): Settings {
     templateDiario: typeof s.templateDiario === "string" ? s.templateDiario : d.templateDiario,
     pastasIgnoradas: Array.isArray(s.pastasIgnoradas) ? s.pastasIgnoradas.filter((x): x is string => typeof x === "string") : d.pastasIgnoradas,
     intervalos: listaDe(s.intervalos, (x): x is number => typeof x === "number" && x >= 0, d.intervalos, 2),
+    novasPorDia: typeof s.novasPorDia === "number" && s.novasPorDia >= 0 ? Math.floor(s.novasPorDia) : d.novasPorDia,
     semanasNoCalendario: typeof s.semanasNoCalendario === "number" ? s.semanasNoCalendario : d.semanasNoCalendario,
     faixasCalendario: listaDe(s.faixasCalendario, (x): x is number => typeof x === "number" && x > 0, d.faixasCalendario, 1).sort((a, b) => a - b),
     metaSemanalMin: typeof s.metaSemanalMin === "number" && s.metaSemanalMin >= 0 ? s.metaSemanalMin : d.metaSemanalMin,

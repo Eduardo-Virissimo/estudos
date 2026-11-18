@@ -5,57 +5,15 @@ revisado:
 
 # Formatter
 
-> *"Código bonito não é luxo, é consistência que ninguém precisa discutir."*
+Você abre um pull request pra corrigir um bug de uma linha. Quando o colega vai revisar, o Git mostra **duzentas linhas mudadas**. O que aconteceu? O seu editor usa 4 espaços, o dele usa 2, você prefere aspas duplas, ele simples, e ao salvar o arquivo, o seu editor "arrumou" tudo do seu jeito. A linha que importa está escondida no meio de cento e noventa e nove que só mudaram de aparência.
 
-> [!tip] ⚡ Em 30 segundos
-> Reescreve a **aparência** do código (espaços, aspas, quebras de linha) num padrão fixo, como o Prettier. Acaba com discussão de estilo no time: você salva, ele formata, pronto.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Esse problema tem uma solução tão simples que parece trapaça: deixar um programa decidir a aparência do código por todo mundo. Esse programa é o **formatter**. Ele reescreve espaços, aspas, quebras de linha e ponto e vírgula num padrão fixo, e **nunca muda o que o código faz**, só como ele parece. Em JavaScript e TypeScript, o mais usado é o **Prettier**.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+A ideia que vale levar desta nota: **você configura uma vez, o editor formata ao salvar, e você nunca mais pensa em formatação.** Nem você, nem ninguém do time.
 
----
+## O que muda (e o que não muda)
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Configurar formatação automática ao salvar
-- Versionar a configuração para o time inteiro formatar igual
-- Fazer linter e formatter trabalharem juntos sem conflito
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Linter]] · [[VS Code]]
-- **Depois:** [[Git Básico]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 💡 O que é um Formatter?
-
-Um **formatter** (formatador de código) reescreve automaticamente o seu código seguindo um **padrão visual fixo**: indentação, espaços, aspas, quebras de linha, vírgulas finais, etc. Ele **não muda o comportamento** do programa, só a aparência.
-
-Exemplos: **Prettier** (JavaScript, TypeScript, CSS, HTML, JSON, Markdown), **Black** e **Ruff format** (Python), **gofmt** (Go), **rustfmt** (Rust), **google-java-format** (Java).
-
-> [!note]- 📜 Um pouco de história
-> Antes dos formatters, equipes gastavam tempo em discussões sobre estilo (tabs vs espaços, onde colocar chaves). O **gofmt**, da linguagem Go, ajudou a popularizar a ideia de um único formato oficial. No ecossistema JavaScript, o **Prettier** (criado por James Long, por volta de 2017) tornou-se o padrão de fato, e o **Black** fez o mesmo no Python ("o formatador sem concessões").
-
----
-
-## 🧱 Conceitos-chave
-
-### Conceito 1: Formatter vs Linter
-
-- **Formatter**: cuida da **aparência** do código.
-- **[[Linter]]**: cuida da **qualidade e dos erros** potenciais.
-
-Os dois se complementam.
-
-### Conceito 2: Antes e depois
+Olhe o mesmo código antes e depois do Prettier:
 
 ```javascript
 // Antes
@@ -71,9 +29,43 @@ if (x == 1) {
 }
 ```
 
-### Conceito 3: Configuração mínima ("opinionated")
+Ficou bem mais legível: espaços em volta dos operadores, cada coisa na sua linha, aspas padronizadas. Mas repare num detalhe: o `==` continua lá. Em JavaScript, `==` é uma comparação traiçoeira (o certo quase sempre é `===`), e o formatter nem pisca. **Ele não corrige erros.** Achar o `==` suspeito é trabalho do [[Linter]]. Vale fixar a divisão: o formatter cuida da forma, o linter cuida do conteúdo.
 
-Formatters modernos têm poucas opções de propósito. O arquivo de configuração costuma ser pequeno:
+Cada linguagem tem o seu formatter: **Prettier** pra JavaScript, TypeScript, CSS, HTML, JSON e Markdown; **Black** ou **Ruff** pra Python; **gofmt** pra Go; **rustfmt** pra Rust. A ideia é a mesma em todos.
+
+## O jeito certo de usar: não pensar nele
+
+Se você precisa lembrar de rodar o formatter, um dia vai esquecer. O jeito certo é o editor formatar **toda vez que você salva**. Primeiro, instale o Prettier no projeto:
+
+```bash
+npm install --save-dev prettier
+```
+
+Depois, no [[VS Code]], instale a extensão Prettier e coloque isto no `settings.json`:
+
+```json
+{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+}
+```
+
+A partir daí, você escreve do jeito que sair, aperta `Ctrl + S`, e o código se arruma sozinho. É uma sensação libertadora na primeira semana: você para de alinhar chaves e contar espaços.
+
+Se um dia salvar e nada acontecer, as suspeitas são sempre as mesmas: não tem um formatter padrão definido (aquele `editor.defaultFormatter`), a extensão não está instalada ou não suporta esse tipo de arquivo, o arquivo está listado no `.prettierignore`, ou tem um erro de sintaxe que impede o Prettier de entender o código.
+
+Também dá pra rodar pelo terminal, o que é útil pra formatar um projeto inteiro de uma vez:
+
+```bash
+npx prettier --write .    # formata tudo
+npx prettier --check .    # só confere, sem mudar nada
+```
+
+O `--check` parece inútil à primeira vista, mas é ele que vai na **CI** (o robô que testa o código a cada push): ele falha se algum arquivo não estiver formatado, sem alterar nada. Assim, código fora do padrão nem chega na branch principal.
+
+## A configuração mora no repositório
+
+Agora vem a parte que faz isso funcionar num time. Se cada pessoa configurar o Prettier no próprio editor, cada uma vai formatar de um jeito, e voltamos às duzentas linhas do começo. Por isso, a configuração vai num arquivo `.prettierrc` **dentro do projeto, versionado no Git**:
 
 ```json
 {
@@ -84,66 +76,11 @@ Formatters modernos têm poucas opções de propósito. O arquivo de configuraç
 }
 ```
 
-(arquivo `.prettierrc`)
+Repare como ela é pequena. Os formatters modernos são **opinativos** (*opinionated*) de propósito: têm poucas opções, justamente pra ninguém reabrir a discussão de "tab ou espaço". Você escolhe uma vez, e a conversa acabou.
 
-### Conceito 4: Formatar ao salvar
+Pelo mesmo motivo, fixe a versão do Prettier no `package.json` como `devDependency` (o `npm install --save-dev` já faz isso). Versões diferentes às vezes formatam um pouco diferente, e aí o problema volta pela porta dos fundos.
 
-O fluxo ideal é o editor formatar o arquivo toda vez que você salva, sem esforço manual.
-
----
-
-## 🛠️ Exemplos guiados
-
-### Exemplo 1: Uso Básico
-
-Prettier (JavaScript):
-
-```bash
-npm install --save-dev prettier
-npx prettier --write .
-```
-
-Black (Python):
-
-```bash
-pip install black
-black .
-```
-
-### Exemplo 2: Caso de Uso Real
-
-Verificar formatação na CI sem alterar arquivos:
-
-```bash
-npx prettier --check .
-black --check .
-```
-
-E scripts no `package.json`:
-
-```json
-{
-    "scripts": {
-        "format": "prettier --write .",
-        "format:check": "prettier --check ."
-    }
-}
-```
-
----
-
-## ⚙️ Configuração recomendada
-
-No `settings.json` do [[VS Code]], com a extensão Prettier instalada:
-
-```json
-{
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-}
-```
-
-Arquivo `.prettierignore` para pular pastas geradas:
+E crie um `.prettierignore` pra ele pular o que não é seu, como pastas geradas:
 
 ```text
 node_modules
@@ -151,83 +88,32 @@ dist
 build
 ```
 
----
+## Ligando num projeto que já existe
 
-## 💎 Boas práticas
+Num projeto novo, o formatter entra desde o primeiro dia e ninguém sofre. Num projeto antigo, a primeira vez que você rodar `prettier --write .`, ele vai mudar **centenas de arquivos**. Tudo bem, desde que isso vá num **commit separado**, só de formatação, com uma mensagem tipo `style: formata o projeto com Prettier`. Se você misturar isso com uma mudança de lógica, ninguém mais acha a mudança real no meio de mil linhas reformatadas (nem você, daqui a seis meses, usando `git blame`).
 
-### 1. Coloque a config no repositório
+E se o projeto já tem um linter, desligue as regras de estilo dele que fazem o mesmo trabalho do formatter. Senão os dois brigam: um formata de um jeito, o outro reclama daquele jeito. No ESLint, quem faz isso é o pacote `eslint-config-prettier`.
 
-Assim todo mundo do projeto usa o mesmo formato, independente das configurações pessoais do editor.
+Uma curiosidade pra fechar: antes dos formatters, times perdiam horas de verdade discutindo estilo em code review. Quem mudou isso foi o **gofmt**, da linguagem Go, que trouxe a ideia de um formato oficial e único. No JavaScript, o Prettier (por volta de 2017) virou o padrão, e no Python o Black fez o mesmo, com o lema "o formatador sem concessões".
 
-### 2. Formate o projeto inteiro em um commit separado
+## O essencial
 
-Ao adotar um formatter num projeto existente, faça um commit só de formatação para não misturar com mudanças de lógica.
+1. O formatter muda só a aparência. Nunca o comportamento, e nunca corrige bug (isso é o linter).
+2. Configure pra formatar ao salvar e esqueça que ele existe.
+3. O `.prettierrc` e a versão do Prettier vão pro repositório, pra todo mundo formatar igual.
+4. `--check` na CI, `--write` pra formatar tudo, e formatação de projeto antigo num commit só dela.
 
-### 3. Evite conflito com o linter
+## Agora é com você
 
-Desative as regras de estilo do linter que duplicam o formatter (no ESLint, use `eslint-config-prettier`).
+Comece sentindo o efeito: com a extensão instalada e o formatar ao salvar ligado, crie um `.js` bem bagunçado (sem espaços, aspas misturadas, tudo numa linha) e salve. Depois crie um `.prettierrc`, mude o `tabWidth` pra 4, salve de novo e veja tudo se reajustar. Termine rodando `npx prettier --check .` pra ver como a CI enxergaria o projeto.
 
----
+Depois, feche a sequência [[Gerenciador de Pacotes]] → [[Linter]] → Formatter montando o seu **kit inicial de projeto JS**: um repositório `kit-js` que você reaproveita em todo projeto novo. Ele precisa de um `package.json` com os scripts `lint`, `format` e `check` (lint + `prettier --check`), ESLint e Prettier convivendo sem brigar, um `.editorconfig` e um `.vscode/settings.json` com formatar ao salvar, e um README curto explicando como começar a partir dele. Você terminou quando criar um projeto novo a partir do kit e estiver tudo funcionando em menos de 2 minutos. Se quiser ir além, marque o repositório como **Template repository** no GitHub, rode o `check` antes de cada commit com `husky` + `lint-staged`, e adicione TypeScript quando chegar em [[TypeScript]].
 
-## 🔧 Erros comuns e como resolver
-
-### Problema: O arquivo não formata ao salvar
-
-**Solução:**
-1. Confirme se há um formatter padrão definido (`editor.defaultFormatter`).
-2. Verifique se a extensão está instalada e se o tipo de arquivo é suportado.
-3. Veja se o arquivo não está listado no `.prettierignore`.
-
-### Problema: Cada pessoa do time gera um formato diferente
-
-**Solução:**
-1. Versione o `.prettierrc` (ou equivalente) no repositório.
-2. Fixe a versão do formatter no `package.json` para todos usarem a mesma.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** Configurar formatação automática ao salvar.
-
-```bash
-# 1. Instale a extensão Prettier no VS Code
-# 2. Ative "editor.formatOnSave" e defina o Prettier como formatter padrão
-# 3. Crie um arquivo .js bagunçado (sem espaços, aspas misturadas)
-# 4. Salve e observe a formatação automática
-# 5. Crie um .prettierrc e mude tabWidth para 4, depois salve de novo
-# 6. Rode npx prettier --check . e veja o resultado
-```
-
----
-
-## 🚀 Projeto
-
-> [!example] Seu kit inicial de projeto JS
-> Fecha a sequência Gerenciador de Pacotes → Linter → Formatter num repositório que você reaproveita em todo projeto novo.
->
-> **Tempo:** 1 a 2 sessões
-
-**O mínimo:**
-- [ ] Repositório `kit-js` com `package.json` e os scripts `lint`, `format` e `check` (lint + `prettier --check`)
-- [ ] ESLint e Prettier juntos sem brigar (`eslint-config-prettier`)
-- [ ] `.editorconfig` e `.vscode/settings.json` com formatar ao salvar
-- [ ] README curto: como começar um projeto a partir do kit
-
-**Se quiser ir além:**
-- Marcar como **Template repository** no GitHub e começar o próximo projeto por ele
-- Rodar o `check` antes de cada commit (`husky` + `lint-staged`)
-- Adicionar TypeScript quando chegar em [[TypeScript]]
-
-**Pronto quando:** você cria um projeto novo a partir do kit e está tudo funcionando em menos de 2 minutos.
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+O próximo passo é o [[Git Básico]], onde você vai ver na prática por que diffs limpos importam tanto.
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
 
 > [!question]- Qual a diferença entre formatter e linter?
 > O **formatter** cuida da aparência. O **linter** aponta problemas de qualidade e bugs prováveis (variável não usada, `==`).
@@ -239,7 +125,7 @@ Desative as regras de estilo do linter que duplicam o formatter (no ESLint, use 
 > Pra não misturar mudança de lógica com mudança de estilo. O review e o `git blame` ficam limpos.
 
 > [!question]- O arquivo não formata ao salvar. O que checar?
-> `editor.formatOnSave` ligado, o Prettier definido como formatter padrão, extensão instalada e se o arquivo tem erro de sintaxe.
+> `editor.formatOnSave` ligado, o Prettier definido como formatter padrão, extensão instalada, se o arquivo está no `.prettierignore` e se tem erro de sintaxe.
 
 > [!question]- O que faz `npx prettier --check .`?
 > Verifica se está tudo formatado **sem alterar nada**. Ideal pra CI.
@@ -262,49 +148,40 @@ Desative as regras de estilo do linter que duplicam o formatter (no ESLint, use 
 > [!question]- Formatter muda o comportamento do código?
 > Não. Só a aparência.
 
+> [!question]+ Qual destas coisas é trabalho do **formatter**, e não do linter?
+> - a) Avisar que uma variável foi declarada e nunca usada
+> - b) Trocar aspas simples por duplas e quebrar linhas longas
+> - c) Proibir `==` no lugar de `===`
+> - d) Detectar um `await` esquecido
+>
+> > [!check]- Resposta
+> > **b)** O formatter só mexe na **aparência** (espaços, aspas, quebras) e não muda o comportamento. As outras são regras de **qualidade**, trabalho do linter.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
-| Comando/Sintaxe | Função |
-|-----------------|--------|
+| Comando / arquivo | O que faz |
+|---|---|
 | `npx prettier --write .` | Formata todos os arquivos suportados |
 | `npx prettier --check .` | Só verifica, sem alterar |
-| `black .` | Formata projeto Python |
-| `black --check .` | Verifica formatação Python |
+| `black .` / `black --check .` | Formata / verifica um projeto Python |
 | `gofmt -w .` | Formata código Go |
-| `.prettierrc` | Arquivo de configuração do Prettier |
-| `.prettierignore` | Lista o que não deve ser formatado |
+| `.prettierrc` | Configuração do Prettier |
+| `.prettierignore` | O que não deve ser formatado |
 
----
+**Pra ler:** a [documentação do Prettier](https://prettier.io/docs/en/) é curta; a página "Rationale" explica por que ele tem tão poucas opções e vale a leitura. Pra Python, o [Black](https://black.readthedocs.io) é o clássico e o [Ruff Formatter](https://docs.astral.sh/ruff/formatter/) é a alternativa mais rápida.
 
-## 📓 Diário de bordo
+## Minhas anotações
 
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+**O que eu entendi, com as minhas palavras:**
+- 
 
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
--
+**Onde eu travei:**
+- 
 
-**O que me confundiu / onde eu errei:**
--
-
-**Onde eu usei de verdade:**
--
-
----
-
-## ➡️ Próximos passos
-
+**Checklist de progresso:**
 - [x] Instalar o formatter da sua linguagem principal
 - [x] Ativar formatação ao salvar no editor
 - [x] Adicionar `format:check` na integração contínua
 - [x] Combinar com um [[Linter]] no mesmo projeto
-
----
-
-## 📚 Recursos
-
-### 💻 Sites e Documentação:
-- [Prettier](https://prettier.io/docs/en/) - Documentação oficial
-- [Black](https://black.readthedocs.io) - Formatador oficial do ecossistema Python
-- [Ruff Formatter](https://docs.astral.sh/ruff/formatter/) - Alternativa rápida para Python

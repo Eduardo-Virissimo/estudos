@@ -5,39 +5,7 @@ revisado:
 
 # Promises
 
-> *"Uma Promise é um recibo: 'ainda não tenho o seu pedido, mas vou te avisar quando ficar pronto (ou se der errado)'."*
-
-> [!tip] ⚡ Em 30 segundos
-> Ler um arquivo, chamar uma API ou esperar um timer **demora**, e o JavaScript não fica parado esperando. Essas operações devolvem uma **Promise**: um objeto que representa um valor **futuro**. Ela começa **pendente** e termina **resolvida** (com o valor) ou **rejeitada** (com um erro). Você reage com `.then()` e `.catch()`, ou, do jeito moderno, com [[Async e Await]]. `Promise.all` roda várias ao mesmo tempo.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
-
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
-
----
-
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Explicar os três estados de uma Promise e por que o código não "espera" sozinho
-- Encadear `.then()`, tratar erro com `.catch()` e limpar com `.finally()`
-- Rodar várias operações em paralelo com `Promise.all` e `Promise.allSettled`
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Funções]] (callbacks) · [[Classes no TypeScript]]
-- **Depois:** [[Async e Await]] · [[Ler e Escrever Arquivos]] · [[Fetch API]] · [[Event Loop]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. O problema
+Olhe este código, que parece perfeitamente certo:
 
 ```ts
 import { readFile } from "node:fs/promises";
@@ -46,9 +14,30 @@ const conteudo = readFile("tarefas.json", "utf-8");
 console.log(conteudo); // Promise { <pending> } 😱 não é o texto!
 ```
 
-`readFile` devolve **na hora** uma Promise; o texto chega depois. O programa segue rodando enquanto o disco trabalha.
+Você pediu o conteúdo do arquivo, e recebeu uma coisa chamada `Promise { <pending> }`. Não é erro: o programa rodou. Mas também não é o texto que você queria. O que aconteceu?
 
-### 2. Os três estados
+Aconteceu que ler do disco **demora** (em tempo de computador, uma eternidade), e o JavaScript **não fica parado esperando**. Ele segue rodando o resto do programa. Então, em vez do texto, o `readFile` devolveu **na hora** uma **Promise**: um objeto que representa um valor que **vai chegar depois**. Ela começa **pendente**, e termina **resolvida** (com o valor) ou **rejeitada** (com um erro).
+
+Entender Promises é entender como o JavaScript lida com tudo o que demora: arquivos, internet, timers. E tem um bônus que vale muito: o `Promise.all` roda várias operações ao mesmo tempo, o que pode deixar um programa várias vezes mais rápido. Ajuda ter passado pelos callbacks em [[Funções]].
+
+## A senha da lanchonete
+
+Pense numa lanchonete. Você faz o pedido, e o atendente te entrega uma **senha**. A senha não é o lanche, mas é a promessa de que ele vai chegar. E enquanto o lanche não fica pronto, você não fica parado na frente do balcão: senta, conversa, mexe no celular. Quando o lanche fica pronto, chamam a sua senha.
+
+A Promise é a senha. E por que o JavaScript funciona assim, em vez de simplesmente esperar? Porque se ele parasse esperando cada leitura de disco ou cada chamada de internet, um servidor conseguiria atender uma pessoa por vez. Com a senha, ele atende todo mundo, e cada um recebe o seu lanche quando fica pronto.
+
+Pra pegar o valor quando ele chegar, você diz o que fazer com ele, usando o `.then` (ou o `await`, na próxima nota):
+
+```ts
+readFile("tarefas.json", "utf-8")
+  .then((texto) => console.log(texto)); // roda quando o texto chegar
+```
+
+Então, quando aparecer `Promise { <pending> }` onde você esperava um valor, a explicação é sempre a mesma: você guardou a senha, não o lanche. Faltou um `.then` ou um `await`.
+
+## Os três estados
+
+Toda Promise passa por estes estados:
 
 ```text
             ┌──► resolvida (fulfilled) → tem o valor
@@ -56,21 +45,69 @@ pendente ───┤
             └──► rejeitada (rejected)  → tem o erro
 ```
 
-Uma vez resolvida ou rejeitada, não muda mais.
-
-### 3. `.then`, `.catch`, `.finally`
+Ela nasce pendente e termina de um dos dois jeitos. E depois que resolve ou rejeita, não muda mais. Você reage a cada caso:
 
 ```ts
 readFile("tarefas.json", "utf-8")
-  .then((texto) => JSON.parse(texto))     // recebe o valor, retorna outro
-  .then((dados) => console.log(dados))    // recebe o que o anterior retornou
-  .catch((erro) => console.error("Falhou:", erro.message)) // qualquer erro da cadeia
-  .finally(() => console.log("Fim"));     // sempre roda
+  .then((texto) => JSON.parse(texto))     // recebe o valor e devolve outro
+  .then((dados) => console.log(dados))    // recebe o que o anterior devolveu
+  .catch((erro) => console.error("Falhou:", erro.message)) // erro de qualquer etapa
+  .finally(() => console.log("Fim"));     // roda sempre, deu certo ou não
 ```
 
-Cada `.then` devolve **uma nova Promise**, por isso dá pra encadear. Um único `.catch` no fim pega erro de qualquer etapa.
+Repare que dá pra encadear vários `.then`. Isso funciona porque cada `.then` devolve **uma nova Promise**: o valor que um devolve vira a entrada do próximo. E um único `.catch` no fim pega o erro de **qualquer** etapa da cadeia.
 
-### 4. A ordem de execução
+Duas armadilhas moram aqui. A primeira é esquecer o `return` dentro do `.then`: um `.then(t => { JSON.parse(t) })`, com chaves e sem `return`, passa `undefined` pra próxima etapa (é a mesma armadilha das arrow functions em [[Funções]]).
+
+A segunda é mais grave: **uma Promise rejeitada que ninguém trata.** Ela vira um `UnhandledPromiseRejection` e, no Node, **derruba o programa inteiro**. Por isso toda cadeia de Promises precisa terminar tratando o erro, com um `.catch`.
+
+## Várias ao mesmo tempo
+
+Esta é a parte que mais compensa entender. Se você precisa de três coisas que não dependem uma da outra, não faz sentido esperar uma terminar pra só então começar a próxima. Compare:
+
+```ts
+const esperar = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
+async function buscarUsuario(id: number) {
+  await esperar(500); // finge ser uma chamada de rede
+  return { id, nome: `usuario${id}` };
+}
+
+// uma depois da outra: ~1500 ms
+const a = await buscarUsuario(1);
+const b = await buscarUsuario(2);
+const c = await buscarUsuario(3);
+
+// todas juntas: ~500 ms
+const todos = await Promise.all([1, 2, 3].map(buscarUsuario));
+```
+
+O `Promise.all` dispara todas de uma vez e espera **todas** terminarem. Três vezes mais rápido, só mudando a forma de chamar. Voltando à lanchonete: é a diferença entre pedir um lanche, esperar, pedir o segundo, esperar, pedir o terceiro; ou pedir os três de uma vez. (O `await` que aparece aí é o assunto da próxima nota, [[Async e Await]], e é como se usa no dia a dia.)
+
+Existem algumas variações, pra situações diferentes:
+
+| Função | Resolve quando | Rejeita quando |
+|---|---|---|
+| `Promise.all` | **todas** resolverem | **qualquer uma** falhar |
+| `Promise.allSettled` | todas terminarem (sucesso ou erro) | nunca |
+| `Promise.race` | a primeira terminar | a primeira terminar com erro |
+| `Promise.any` | a primeira **resolver** | todas falharem |
+
+A diferença que mais importa é entre as duas primeiras. Com o `Promise.all`, se uma de dez falhar, você perde o resultado das outras nove, mesmo as que deram certo. Quando isso não pode acontecer, use o `allSettled`, que espera todas e conta o que aconteceu com cada uma:
+
+```ts
+const resultados = await Promise.allSettled(urls.map((u) => fetch(u)));
+for (const r of resultados) {
+  if (r.status === "fulfilled") console.log("ok", r.value.status);
+  else console.error("falhou", r.reason);
+}
+```
+
+E um cuidado: paralelizar sem limite também é um problema. Um `Promise.all` com dez mil requisições de uma vez sobrecarrega o servidor do outro lado, e você leva um bloqueio por [[Rate Limiting]]. Pra muitas operações, processe em lotes.
+
+## Em que ordem as coisas acontecem
+
+Olhe este código e tente prever a ordem:
 
 ```ts
 console.log("1");
@@ -80,11 +117,11 @@ console.log("1b");
 // 1, 1b, 2 (promise), 3 (timer)
 ```
 
-Código síncrono roda **todo** primeiro; depois as Promises; depois os timers. O porquê está em [[Event Loop]].
+Mesmo com tempo **zero**, o timer roda por último. A regra é: todo o código normal roda primeiro; depois, as Promises que já estão prontas; e só depois, os timers. O porquê disso, com o mecanismo inteiro, está na nota [[Event Loop]].
 
-### 5. Criando uma Promise
+## Criando uma Promise
 
-Raramente você cria (as bibliotecas já devolvem), mas ajuda a entender:
+Na maioria das vezes você só **usa** Promises que as bibliotecas devolvem. Mas criar uma, ao menos uma vez, ajuda muito a entender como elas funcionam:
 
 ```ts
 function esperar(ms: number): Promise<void> {
@@ -98,42 +135,13 @@ function sortear(): Promise<number> {
     else resolve(n);
   });
 }
-
-esperar(1000).then(() => console.log("1 segundo depois"));
 ```
 
-O tipo é `Promise<T>`: `T` é o que vem quando resolve.
+Quando você cria uma Promise, recebe duas funções: o `resolve`, que você chama com o valor quando der certo, e o `reject`, que você chama com o erro quando falhar. E o tipo `Promise<number>` diz o que vem quando ela resolve.
 
-### 6. Várias ao mesmo tempo
-
-```ts
-const [tarefas, config] = await Promise.all([
-  readFile("tarefas.json", "utf-8"),
-  readFile("config.json", "utf-8"),
-]);
-```
-
-| Função | Resolve quando | Rejeita quando |
-|---|---|---|
-| `Promise.all` | **todas** resolverem | **qualquer uma** falhar |
-| `Promise.allSettled` | todas terminarem (sucesso ou erro) | nunca |
-| `Promise.race` | a primeira terminar | a primeira terminar com erro |
-| `Promise.any` | a primeira **resolver** | todas falharem |
+Uma curiosidade histórica: antes das Promises, código assíncrono era feito com callbacks aninhados, uns dentro dos outros, a famosa "pirâmide do mal":
 
 ```ts
-const resultados = await Promise.allSettled(urls.map((u) => fetch(u)));
-for (const r of resultados) {
-  if (r.status === "fulfilled") console.log("ok", r.value.status);
-  else console.error("falhou", r.reason);
-}
-```
-
-> O `await` acima é de [[Async e Await]], a próxima nota. É assim que se usa no dia a dia.
-
-### 7. Callback → Promise: de onde viemos
-
-```ts
-// antigo: "callback hell"
 lerArquivo("a.txt", (erro, a) => {
   if (erro) return tratar(erro);
   lerArquivo("b.txt", (erro, b) => {
@@ -143,70 +151,35 @@ lerArquivo("a.txt", (erro, a) => {
 });
 ```
 
-Promises achataram essa pirâmide numa cadeia; `async`/`await` deixou com cara de código normal.
+As Promises achataram essa pirâmide numa cadeia de `.then`, e o `async`/`await` depois deixou tudo com cara de código normal. Você ainda vai encontrar esse estilo antigo em código mais velho.
 
----
+## O essencial
 
-## 🛠️ Exemplo guiado
+1. Uma Promise é a senha da lanchonete: o valor chega depois. `Promise { <pending> }` quer dizer que faltou `.then` ou `await`.
+2. Pendente, depois resolvida (com valor) ou rejeitada (com erro).
+3. Cada `.then` devolve uma Promise nova, por isso encadeia. Um `.catch` no fim pega tudo.
+4. Promise rejeitada sem tratamento derruba o programa no Node.
+5. Operações independentes: `Promise.all`. Se não pode perder as que deram certo: `allSettled`.
 
-Simulando chamadas lentas e comparando sequencial × paralelo:
+## Agora é com você
+
+Primeiro, um teste de previsão. Antes de rodar, escreva a ordem em que você acha que as letras aparecem:
 
 ```ts
-const esperar = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
-
-async function buscarUsuario(id: number) {
-  await esperar(500);                 // finge ser uma chamada de rede
-  return { id, nome: `usuario${id}` };
-}
-
-console.time("sequencial");
-const a = await buscarUsuario(1);
-const b = await buscarUsuario(2);
-const c = await buscarUsuario(3);
-console.timeEnd("sequencial");        // ~1500 ms
-
-console.time("paralelo");
-const todos = await Promise.all([1, 2, 3].map(buscarUsuario));
-console.timeEnd("paralelo");          // ~500 ms
+console.log("A");
+setTimeout(() => console.log("B"), 0);
+Promise.resolve().then(() => console.log("C"));
+new Promise<void>((r) => { console.log("D"); r(); }).then(() => console.log("E"));
+console.log("F");
 ```
 
-Se uma operação não depende da outra, rode junto.
+Depois, crie uma função `tentar(): Promise<string>` que, depois de 300 ms, resolve com `"ok"` ou rejeita, com 30% de chance. Rode dez delas com `Promise.allSettled` e conte quantas deram certo e quantas falharam. Depois rode com `Promise.all`, e veja o que acontece quando uma falha. Você terminou quando acertar a ordem (A, D, F, C, E, B) e souber explicar por que o `D` sai antes do `F`. (Uma dica: a função que você passa pro `new Promise` roda na hora.)
 
----
-
-## 🔧 Pegadinhas
-
-- **Usar o valor antes de chegar.** `const x = readFile(...)` é uma Promise, não o conteúdo. Use `.then` ou `await`.
-- **Esquecer de retornar dentro do `.then`.** `.then(t => { JSON.parse(t) })` passa `undefined` adiante. Retorne.
-- **Promise sem `.catch`.** Vira `UnhandledPromiseRejection` e, no Node, derruba o programa. Toda cadeia termina tratando o erro.
-- **`Promise.all` quando uma falha não deveria derrubar as outras.** Use `allSettled`.
-- **Paralelizar sem limite.** `Promise.all` com 10 mil requisições sobrecarrega o servidor (e você leva [[Rate Limiting]]). Processe em lotes.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** dominar a ordem e o paralelismo.
-
-1. Antes de rodar, escreva a ordem que você acha que aparece:
-   ```ts
-   console.log("A");
-   setTimeout(() => console.log("B"), 0);
-   Promise.resolve().then(() => console.log("C"));
-   new Promise<void>((r) => { console.log("D"); r(); }).then(() => console.log("E"));
-   console.log("F");
-   ```
-2. Crie `tentar(): Promise<string>` que, depois de 300 ms, resolve com `"ok"` ou rejeita com 30% de chance.
-3. Rode 10 com `Promise.allSettled` e conte sucessos e falhas.
-4. Rode com `Promise.all` e veja o que acontece quando uma falha.
-
-**Pronto quando:** você acertou a ordem (A, D, F, C, E, B) e sabe explicar por que o `D` sai antes do `F`.
+Daqui, siga pro [[Async e Await]], e depois pra [[Ler e Escrever Arquivos]], [[Fetch API]] e [[Event Loop]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Quais são os três estados de uma Promise?
 > Pendente, resolvida (fulfilled, com valor) e rejeitada (rejected, com erro).
@@ -226,48 +199,36 @@ Se uma operação não depende da outra, rode junto.
 > [!question]- Quando rodar operações em paralelo em vez de uma depois da outra?
 > Quando uma não depende do resultado da outra: o tempo total vira o da mais lenta, não a soma.
 
+> [!question]+ Você precisa de 3 requisições e quer o resultado de todas, mesmo que alguma falhe. Qual usar?
+> - a) `Promise.all`
+> - b) `Promise.allSettled`
+> - c) `Promise.race`
+> - d) Três `await` seguidos
+>
+> > [!check]- Resposta
+> > **b)** `Promise.all` rejeita na primeira falha e você perde as outras. `allSettled` espera todas e diz qual deu certo e qual falhou.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Sintaxe | O que faz |
 |---|---|
-| `Promise<T>` | tipo: valor futuro do tipo T |
-| `p.then(v => ...)` | reage ao valor |
-| `p.catch(e => ...)` | trata o erro |
-| `p.finally(() => ...)` | sempre roda |
-| `new Promise((resolve, reject) => ...)` | criar |
-| `Promise.all([...])` | todas, falha se uma falhar |
-| `Promise.allSettled([...])` | todas, com o status de cada |
-| `Promise.race([...])` | a primeira que terminar |
+| `Promise<T>` | Tipo: um valor futuro do tipo T |
+| `p.then(v => ...)` | Reage ao valor |
+| `p.catch(e => ...)` | Trata o erro |
+| `p.finally(() => ...)` | Sempre roda |
+| `new Promise((resolve, reject) => ...)` | Criar uma |
+| `Promise.all([...])` | Todas; falha se uma falhar |
+| `Promise.allSettled([...])` | Todas, com o status de cada |
+| `Promise.race([...])` | A primeira que terminar |
 
----
+**Pra ler e ver:** o capítulo [Promises, async/await](https://javascript.info/async) do javascript.info é, de longe, o melhor material sobre o assunto, e vale ler inteiro. O guia [Usando promises do MDN](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Using_promises) está em português. E o [Loupe](http://latentflip.com/loupe/) mostra, animado, a pilha, a fila e o event loop rodando: cole o exercício de ordem lá e veja acontecer.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```ts
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [javascript.info · Promises, async/await](https://javascript.info/async) (capítulo inteiro, o melhor material sobre o tema)
-- [MDN · Usando promises](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Using_promises)
-- [Loupe](http://latentflip.com/loupe/): visualize a pilha, a fila e o event loop rodando

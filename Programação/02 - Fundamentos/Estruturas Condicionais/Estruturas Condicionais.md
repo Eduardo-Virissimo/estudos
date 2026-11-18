@@ -5,39 +5,15 @@ revisado:
 
 # Estruturas Condicionais
 
-> *"Todo `if` é uma pergunta. Faça perguntas claras."*
+Pense em quantas decisões um caixa eletrônico toma antes de te entregar o dinheiro. O cartão é válido? A senha está certa? O valor é positivo? Tem saldo? Tem notas na máquina? Cada pergunta dessas leva a um caminho diferente: se a senha estiver errada, ele não pergunta o valor; se não tiver saldo, ele não conta as notas.
 
-> [!tip] ⚡ Em 30 segundos
-> Condicionais deixam o programa **tomar decisões**: `if` executa um bloco quando a condição é verdadeira, `else` quando não é, `else if` encadeia alternativas e `switch` escolhe entre muitos valores fixos. O segredo de condicional legível é o **retorno antecipado** (*early return*): tratar os casos de erro primeiro e deixar o caminho feliz sem aninhamento.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Programas são assim o tempo todo. As **estruturas condicionais** são o que deixa o programa **tomar decisões**: fazer uma coisa ou outra dependendo de uma condição. O `if` roda um bloco quando a condição é verdadeira, o `else if` encadeia alternativas, o `else` pega o que sobrou, e o `switch` escolhe entre muitos valores fixos.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Escrever um `if` é fácil, e você provavelmente já sabe. O que esta nota quer te ensinar é a parte difícil: **escrever condicionais que alguém consegue ler depois**. E o truque principal pra isso tem nome, **retorno antecipado**, e vai aparecer daqui a pouco. Ajuda já conhecer os [[Operadores e Expressões]].
 
----
+## O primeiro verdadeiro vence
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Escrever decisões com `if`, `else if` e `else` na ordem certa
-- Escolher entre `if`, `switch`, ternário e um objeto de consulta (*lookup*)
-- Reescrever `if`s aninhados usando retorno antecipado
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Operadores e Expressões]] · [[Entrada e Saída]]
-- **Depois:** [[Estruturas de Repetição]] · [[Funções]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. `if` / `else if` / `else`
+Uma nota vira conceito:
 
 ```ts
 const nota = 8.5;
@@ -53,51 +29,45 @@ if (nota >= 9) {
 }
 ```
 
-Testa **de cima pra baixo** e para no primeiro verdadeiro. Por isso a ordem importa: se `nota >= 5` viesse primeiro, quem tirou 10 ganharia "C".
+O JavaScript testa as condições **de cima pra baixo** e para no **primeiro** verdadeiro. Os outros nem são olhados. Com 8.5: é `>= 9`? Não. É `>= 7`? Sim. Mostra "B" e pula todo o resto.
 
-### 2. Combinando condições
+Isso parece óbvio, mas tem uma consequência que pega muita gente: **a ordem importa**. Se o `nota >= 5` viesse primeiro, quem tirou 10 cairia nele e ganharia um "C", porque 10 também é maior ou igual a 5. A regra é ir **da condição mais específica pra mais geral**.
+
+E um erro de digitação que todo mundo comete pelo menos uma vez: `if (x = 5)`. Com **um** igual só, isso não compara nada. Isso **atribui** 5 ao `x`, e como 5 é "verdadeiro", o `if` sempre entra. Comparação é com três iguais, `===`. O TypeScript e o [[Linter]] costumam te avisar, o que já é um bom motivo pra usar os dois.
+
+## Mais de uma condição
+
+Muitas decisões dependem de mais de uma coisa ao mesmo tempo, e pra isso existem três operadores:
 
 ```ts
-if (idade >= 18 && temDocumento) { /* entra */ }
-if (ehAdmin || ehDono) { /* pode editar */ }
-if (!estaLogado) { /* manda pro login */ }
+if (idade >= 18 && temDocumento) { /* entra: as duas precisam ser verdade */ }
+if (ehAdmin || ehDono) { /* pode editar: basta uma ser verdade */ }
+if (!estaLogado) { /* manda pro login: inverte a condição */ }
 ```
 
-### 3. `switch`: muitos valores fixos
+`&&` é "E", `||` é "OU", e `!` é "NÃO". Quando a condição começa a ficar comprida, um truque simples deixa tudo mais legível: **dê um nome pra ela**.
 
 ```ts
-switch (comando) {
-  case "add":
-    adicionar();
-    break;          // sem break, "cai" no próximo case
-  case "list":
-  case "ls":        // dois valores, mesma ação
-    listar();
-    break;
-  default:
-    console.error(`Comando desconhecido: ${comando}`);
-}
+const podeComprar = idade >= 18 && temCartao && !estaBloqueado;
+if (podeComprar) { /* ... */ }
 ```
 
-`switch` compara com `===`. Serve pra valores exatos, não pra faixas (`> 7`).
+Quem lê o `if` entende na hora o que está sendo decidido, sem precisar decifrar a expressão.
 
-### 4. Objeto de consulta: o `switch` sem `switch`
-
-Quando cada caso só devolve um valor, um objeto é mais curto e fácil de estender:
+E já que estamos falando de booleanos: repare que uma comparação **já é** um `true` ou `false`. Então isto aqui:
 
 ```ts
-const emojiPorNivel: Record<string, string> = {
-  escrito: "📝",
-  praticado: "🔨",
-  projeto: "🚀",
-};
-const emoji = emojiPorNivel[nivel] ?? "❓";
+if (idade >= 18) return true; else return false;
 ```
 
-### 5. Retorno antecipado (*guard clauses*)
+é só um jeito comprido de escrever `return idade >= 18;`.
+
+## Retorno antecipado: o que mais muda o seu código
+
+Se for guardar uma coisa desta nota, guarde esta. Olhe duas versões da mesma função, a do caixa eletrônico:
 
 ```ts
-// ❌ "pirâmide do mal"
+// ❌ a "pirâmide do mal": cada condição empurra o código pra direita
 function sacar(conta, valor) {
   if (conta) {
     if (valor > 0) {
@@ -109,7 +79,7 @@ function sacar(conta, valor) {
   } else { return "conta não existe"; }
 }
 
-// ✅ trata os problemas primeiro, caminho feliz no fim
+// ✅ trata os problemas primeiro, e o caminho feliz fica no fim
 function sacar(conta, valor) {
   if (!conta) return "conta não existe";
   if (valor <= 0) return "valor inválido";
@@ -120,56 +90,77 @@ function sacar(conta, valor) {
 }
 ```
 
----
+As duas fazem exatamente a mesma coisa. Mas na primeira, pra saber qual mensagem corresponde a qual problema, você precisa contar chaves e casar cada `else` com o seu `if`, lá em cima. Na segunda, a função se lê como uma lista de checagens: "não tem conta? Para. Valor inválido? Para. Sem saldo? Para. Passou por tudo? Saca."
 
-## 🛠️ Exemplo guiado
+Cada um desses `if` com `return` se chama **guard clause**, cláusula de guarda: ele protege a entrada da função, como um segurança na porta. O que sobra no fim é o caminho normal, sem nenhum aninhamento.
 
-Calcular o frete de uma loja:
+Mais um exemplo, calculando frete:
 
 ```ts
 function calcularFrete(valorCompra: number, estado: string, ehPremium: boolean): number {
   if (valorCompra <= 0) throw new Error("Compra inválida");
-  if (ehPremium || valorCompra >= 200) return 0;     // frete grátis
+  if (ehPremium || valorCompra >= 200) return 0; // frete grátis
 
   const fretePorRegiao: Record<string, number> = { SP: 15, RJ: 18, MG: 18 };
-  return fretePorRegiao[estado] ?? 30;               // outros estados: 30
+  return fretePorRegiao[estado] ?? 30;           // outros estados: 30
 }
-
-console.log(calcularFrete(250, "BA", false)); // 0
-console.log(calcularFrete(100, "SP", false)); // 15
-console.log(calcularFrete(100, "AM", false)); // 30
 ```
 
-Nenhum `else`, nenhum aninhamento, e adicionar um estado novo é mexer em uma linha.
+Nenhum `else`, nenhum aninhamento. E adicionar um estado novo é mexer numa linha só.
 
----
+## Muitos valores fixos: o switch
 
-## 🔧 Pegadinhas
+Quando você compara **a mesma variável** com vários valores exatos, uma escada de `else if` fica repetitiva. O `switch` organiza melhor:
 
-- **Ordem errada no `else if`.** Teste da condição mais específica pra mais geral.
-- **Esquecer o `break` no `switch`.** O código "cai" no próximo `case`. O [[Linter]] avisa (`no-fallthrough`).
-- **`if (x = 5)`.** Atribuição, não comparação. Use `===`.
-- **Comparar float com `===`.** `0.1 + 0.2 === 0.3` é `false`. Compare com margem ou use inteiros.
-- **`if` com `return true`/`false`.** `if (idade >= 18) return true; else return false;` é só `return idade >= 18;`.
+```ts
+switch (comando) {
+  case "add":
+    adicionar();
+    break;          // sem break, "cai" no próximo case
+  case "list":
+  case "ls":        // dois valores, a mesma ação
+    listar();
+    break;
+  default:
+    console.error(`Comando desconhecido: ${comando}`);
+}
+```
 
----
+O `switch` compara com `===`, então serve pra valores exatos (`"add"`, `3`), não pra faixas como `> 7`. O `default` é o "nenhum dos anteriores".
 
-## 🔨 Desafio prático
+E repare nos `break`. Eles existem por causa de um comportamento esquisito, herdado da linguagem C: sem o `break`, depois de rodar o `case` certo, o código **continua rodando os `case` de baixo**, até achar um `break` ou chegar no fim. Isso se chama *fall-through*. Às vezes é útil (é o que permite o `"list"` e o `"ls"` dividirem a mesma ação), mas na maioria das vezes é bug. O linter tem uma regra só pra isso, a `no-fallthrough`.
 
-**Objetivo:** um classificador de senha.
+Agora, quando cada caso só **devolve um valor**, existe um jeito ainda mais curto: um objeto de consulta.
 
-1. Escreva `forcaSenha(senha: string): string` que devolve `"fraca"`, `"média"` ou `"forte"`.
-2. Regras: menos de 8 caracteres → fraca; 8+ com número **e** letra maiúscula → forte; o resto → média. (Dica: `/[0-9]/.test(senha)` e `/[A-Z]/.test(senha)`, veja [[Regex]].)
-3. Use retorno antecipado, sem nenhum `else`.
-4. Teste com `"abc"`, `"abcdefgh"`, `"Abcdefg1"` e `""`.
+```ts
+const emojiPorNivel: Record<string, string> = {
+  escrito: "📝",
+  praticado: "🔨",
+  projeto: "🚀",
+};
+const emoji = emojiPorNivel[nivel] ?? "❓"; // ?? = valor padrão se não achar
+```
 
-**Pronto quando:** os 4 casos dão o resultado certo e a função não tem nenhum `if` dentro de outro `if`.
+Adicionar um nível novo é adicionar uma linha no objeto. A regra pra escolher: use `switch` quando cada caso **faz** coisas diferentes; use um objeto quando cada caso só **é** um valor diferente.
+
+Uma curiosidade que vai te salvar um dia: `0.1 + 0.2 === 0.3` dá `false` em JavaScript (e na maioria das linguagens). O computador guarda números decimais com pequenas imprecisões, e `0.1 + 0.2` vira `0.30000000000000004`. Pra dinheiro, trabalhe com centavos, em números inteiros. Pros outros casos, compare com uma margem: `Math.abs(a - b) < 0.0001`.
+
+## O essencial
+
+1. O primeiro `if` verdadeiro vence: do mais específico pro mais geral.
+2. Comparação é `===`. Um `=` só atribui.
+3. Trate os problemas primeiro, com `return` (guard clauses), e deixe o caminho normal no fim, sem aninhamento.
+4. `switch` pra muitos valores exatos (não esqueça o `break`); objeto de consulta quando cada caso só é um valor.
+
+## Agora é com você
+
+Escreva um **classificador de senha**: uma função `forcaSenha(senha: string): string` que devolve `"fraca"`, `"média"` ou `"forte"`. As regras: menos de 8 caracteres é fraca; 8 ou mais, com número **e** letra maiúscula, é forte; o resto é média. Pra testar se tem número e maiúscula, use `/[0-9]/.test(senha)` e `/[A-Z]/.test(senha)` (a nota de [[Regex]] explica). A regra de ouro: retorno antecipado, sem nenhum `else`. Teste com `"abc"`, `"abcdefgh"`, `"Abcdefg1"` e `""`. Você terminou quando os 4 casos derem o resultado certo e a função não tiver nenhum `if` dentro de outro `if`.
+
+Daqui, siga pras [[Estruturas de Repetição]] e pras [[Funções]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Por que a ordem dos `else if` importa?
 > Porque eles são testados de cima pra baixo e o primeiro verdadeiro vence. Condições gerais antes das específicas escondem as específicas.
@@ -189,45 +180,34 @@ Nenhum `else`, nenhum aninhamento, e adicionar um estado novo é mexer em uma li
 > [!question]- Quando trocar um `switch` por um objeto de consulta?
 > Quando cada caso só devolve um valor: `mapa[chave] ?? padrao` fica mais curto e fácil de estender.
 
+> [!question]+ `nota = 95`. O que este código mostra? `if (nota >= 60) "aprovado" else if (nota >= 90) "excelente"`
+> - a) `excelente`
+> - b) `aprovado`
+> - c) Os dois
+> - d) Nada
+>
+> > [!check]- Resposta
+> > **b)** O primeiro `if` verdadeiro ganha e os outros nem são testados. Por isso a condição mais específica (`>= 90`) vem **antes**.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Sintaxe | Quando usar |
 |---|---|
-| `if (c) { } else { }` | decisão com 2 caminhos |
-| `else if (c2)` | várias faixas em ordem |
-| `switch (x) { case v: ...; break; }` | muitos valores exatos |
-| `c ? a : b` | escolher entre 2 valores |
-| `mapa[chave] ?? padrao` | valor por chave |
-| `if (!ok) return` | retorno antecipado |
+| `if (c) { } else { }` | Decisão com 2 caminhos |
+| `else if (c2)` | Várias faixas, em ordem |
+| `switch (x) { case v: ...; break; }` | Muitos valores exatos |
+| `c ? a : b` | Escolher entre 2 valores |
+| `mapa[chave] ?? padrao` | Valor por chave |
+| `if (!ok) return` | Retorno antecipado |
 
----
+**Pra ler:** o artigo [Replace Nested Conditional with Guard Clauses](https://refactoring.guru/replace-nested-conditional-with-guard-clauses), do Refactoring Guru, mostra o retorno antecipado com um antes e depois ilustrado. A referência de [if...else](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/if...else) e [switch](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/switch) do MDN tira qualquer dúvida de sintaxe.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```ts
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [MDN · if...else](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/if...else) e [switch](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/switch)
-- [Refactoring Guru · Replace Nested Conditional with Guard Clauses](https://refactoring.guru/replace-nested-conditional-with-guard-clauses)

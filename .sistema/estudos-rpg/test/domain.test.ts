@@ -4,7 +4,7 @@ import { describe, it } from "node:test";
 import { addDias, diaDaSemana, diffDias, parseISO, relativo } from "../src/domain/dates.ts";
 import { parsePerguntas, parseTrilha, alternarCheckbox, limparTitulo } from "../src/domain/parse.ts";
 import { CONQUISTAS, calcularProgresso, maiorSequencia, nivelPara, sequencia, avaliarConquistas } from "../src/domain/progress.ts";
-import { aposLembrar, infoRevisao, normalizarCaixa } from "../src/domain/review.ts";
+import { aposEsquecer, aposLembrar, filaDoDia, infoRevisao, normalizarCaixa } from "../src/domain/review.ts";
 import type { Snapshot } from "../src/domain/types.ts";
 import { DEFAULT_SETTINGS, mergeSettings } from "../src/settings.ts";
 
@@ -61,6 +61,31 @@ describe("parse", () => {
     assert.deepEqual(p, [{ pergunta: "O que é `ls`?", resposta: "lista arquivos" }]);
   });
 
+  it("lê pergunta de múltipla escolha: alternativas, letra certa e explicação", () => {
+    const p = parsePerguntas([
+      "> [!question]+ Qual retorna `undefined`?",
+      "> - a) `n => n * 2`",
+      "> - b) `n => { n * 2 }`",
+      "> - c) `(n) => (n * 2)`",
+      ">",
+      "> > [!check]- Resposta",
+      "> > **b)** Com chaves precisa de `return`.",
+      "",
+      "> [!question]- Aberta?",
+      "> sim",
+    ].join("\n"));
+    assert.deepEqual(p, [
+      { pergunta: "Qual retorna `undefined`?", resposta: "**b)** Com chaves precisa de `return`.", alternativas: ["`n => n * 2`", "`n => { n * 2 }`", "`(n) => (n * 2)`"], correta: 1 },
+      { pergunta: "Aberta?", resposta: "sim" },
+    ]);
+  });
+
+  it("múltipla escolha sem letra certa válida vira pergunta sem correção automática", () => {
+    const p = parsePerguntas(["> [!question]+ X?", "> - a) um", "> - b) dois", "> > [!check]- Resposta", "> > **z)** nada"].join("\n"));
+    assert.equal(p[0]?.correta, undefined);
+    assert.deepEqual(p[0]?.alternativas, ["um", "dois"]);
+  });
+
   it("alterna checkbox e limpa títulos", () => {
     assert.equal(alternarCheckbox("- [ ] a"), "- [x] a");
     assert.equal(alternarCheckbox("- [X] a"), "- [ ] a");
@@ -76,10 +101,21 @@ describe("revisão", () => {
     assert.equal(infoRevisao({ caixa: 2, revisado: "2026-11-08" }, "2026-11-11", INT).vencida, true);
     assert.equal(infoRevisao({ caixa: 2, revisado: "2026-11-09" }, "2026-11-11", INT).vencida, false);
   });
-  it("lembrar sobe até o limite; primeira revisão entra na caixa 1", () => {
-    assert.equal(aposLembrar({ caixa: 0, revisado: null }, INT), 1);
+  it("lembrar sobe até o limite; na primeira revisão pula a caixa 1", () => {
+    assert.equal(aposLembrar({ caixa: 0, revisado: null }, INT), 2);
+    assert.notEqual(aposLembrar({ caixa: 0, revisado: null }, INT), aposEsquecer(), "lembrei e esqueci não podem dar o mesmo");
+    assert.equal(aposLembrar({ caixa: 0, revisado: null }, [0, 1]), 1, "com uma caixa só, não passa do limite");
     assert.equal(aposLembrar({ caixa: 3, revisado: "2026-11-01" }, INT), 4);
     assert.equal(aposLembrar({ caixa: 6, revisado: "2026-11-01" }, INT), 6);
+  });
+  it("fila do dia: vencidas todas, novas até o limite (descontando as feitas hoje)", () => {
+    const nova = { caixa: 0, revisado: null };
+    const velha = { caixa: 2, revisado: "2026-11-01" };
+    const fila = [nova, nova, nova, velha, nova];
+    assert.deepEqual(filaDoDia(fila, 2, 0), { hoje: [nova, nova, velha], adiadas: 2 });
+    assert.deepEqual(filaDoDia(fila, 2, 1), { hoje: [nova, velha], adiadas: 3 });
+    assert.deepEqual(filaDoDia(fila, 2, 5), { hoje: [velha], adiadas: 4 }, "limite estourado não fica negativo");
+    assert.deepEqual(filaDoDia(fila, 0, 9), { hoje: fila, adiadas: 0 }, "0 = sem limite");
   });
   it("caixa inválida vira 0 e caixa enorme é limitada", () => {
     assert.equal(normalizarCaixa("abc", INT), 0);
@@ -144,6 +180,9 @@ describe("configurações", () => {
     assert.equal(s.xp.escrito, 1);
     assert.equal(s.xp.caixa, DEFAULT_SETTINGS.xp.caixa);
     assert.deepEqual(s.intervalos, DEFAULT_SETTINGS.intervalos);
+    assert.equal(s.novasPorDia, DEFAULT_SETTINGS.novasPorDia);
+    assert.equal(mergeSettings({ novasPorDia: -3 }).novasPorDia, DEFAULT_SETTINGS.novasPorDia, "negativo é ignorado");
+    assert.equal(mergeSettings({ novasPorDia: 0 }).novasPorDia, 0, "0 (sem limite) é válido");
   });
   it("campos que não existem mais (do treino removido) e tipos errados são descartados", () => {
     const antiga = { perguntasPorTreino: 5, xp: { treino: 20, acerto: 5, diario: "x" }, abrirAoIniciar: "sim", titulos: [] };

@@ -11,6 +11,7 @@
     "test": "node --test \"test/**/*.test.ts\""
   },
   "devDependencies": {
+    "@hackernoon/pixel-icon-library": "1.1.0",
     "@types/node": "^24.19.2",
     "esbuild": "0.28.2",
     "obsidian": "1.14.4",

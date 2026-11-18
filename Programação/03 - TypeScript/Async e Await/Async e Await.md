@@ -5,39 +5,15 @@ revisado:
 
 # Async e Await
 
-> *"`await` não faz o computador esperar. Faz só a sua função esperar."*
+Na nota de [[Promises]], você aprendeu a lidar com coisas que demoram (ler um arquivo, chamar uma API) encadeando `.then`. Funciona, mas depois de três ou quatro passos o código começa a parecer uma escada de funções dentro de funções, e fica difícil de seguir. Ler o arquivo, depois transformar em JSON, depois filtrar, depois salvar, cada passo dentro do `.then` do anterior.
 
-> [!tip] ⚡ Em 30 segundos
-> `async`/`await` é o jeito moderno de usar [[Promises]] com cara de código normal, de cima pra baixo. Uma função `async` **sempre devolve uma Promise**; dentro dela, `await promessa` pausa **só aquela função** até o valor chegar, enquanto o resto do programa continua. Erros viram exceções comuns, tratadas com `try/catch`. Cuidado com o `await` em sequência quando as operações poderiam rodar juntas.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+O `async` e o `await` são o jeito moderno de usar essas mesmas Promises, só que escrevendo um código que se lê **de cima pra baixo**, como qualquer código normal. Não é uma tecnologia nova: por baixo, são as mesmas Promises. É uma forma mais humana de escrever.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Três ideias resumem a nota. Uma função `async` **sempre devolve uma Promise**. Dentro dela, o `await` **pausa só aquela função** até o valor chegar, enquanto o resto do programa continua livre. E os erros viram exceções comuns, tratadas com `try/catch`. Tem também um cuidado que vale muito: um `await` atrás do outro deixa o programa lento quando as operações poderiam rodar juntas.
 
----
+## Do .then pro await
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Escrever funções `async` e usar `await` em vez de `.then`
-- Tratar erros assíncronos com `try/catch/finally`
-- Evitar os erros clássicos: `await` esquecido, `await` em sequência desnecessário e `await` dentro de `forEach`
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Promises]]
-- **Depois:** [[Ler e Escrever Arquivos]] · [[Fetch API]] · [[Servidor HTTP com Node.js]] · [[Event Loop]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. De `.then` pra `await`
+Olhe a mesma função escrita dos dois jeitos:
 
 ```ts
 import { readFile } from "node:fs/promises";
@@ -49,7 +25,7 @@ function carregar() {
     .catch(() => []);
 }
 
-// com async/await: mesma coisa
+// com async/await
 async function carregar2() {
   try {
     const texto = await readFile("tarefas.json", "utf-8");
@@ -60,22 +36,32 @@ async function carregar2() {
 }
 ```
 
-### 2. As regras
+A segunda se lê como uma receita: "leia o arquivo; depois transforme em JSON; se der erro, devolva uma lista vazia". O `await` quer dizer "espere esta Promise terminar e me dê o valor dela".
 
-1. `await` só funciona **dentro de função `async`** (ou no topo de um módulo ES).
-2. Função `async` **sempre** devolve `Promise`: `async function f(): Promise<number> { return 1 }`.
-3. `await` em algo que não é Promise só devolve o valor (não quebra, mas não faz sentido).
-4. Quem chama uma função `async` **também** precisa de `await` pra pegar o valor.
+E é importante entender o "espere". O `await` pausa **só esta função**, não o programa. Lembra da lanchonete das [[Promises]], onde você pede, ganha uma senha, e espera ser chamado? O `await` é você esperando a sua senha. Mas a lanchonete continua atendendo todo mundo, e o programa continua respondendo a outras coisas. Nada trava.
+
+## A regra que mais confunde
+
+Se for guardar uma coisa desta nota, guarde esta: **uma função `async` sempre devolve uma Promise.** Mesmo quando parece que não:
 
 ```ts
 async function dobro(n: number): Promise<number> {
   return n * 2;
 }
+
 const x = dobro(5);        // Promise<number> 😱
 const y = await dobro(5);  // 10 ✅
 ```
 
-### 3. Erros com `try/catch`
+A função só devolve `n * 2`, um número simples. Mas como ela é `async`, o resultado chega embrulhado numa Promise. Por isso quem chama **também** precisa de `await` pra abrir o embrulho e pegar o valor.
+
+Isso tem uma consequência: o `async` "contagia" pra cima. Se uma função usa `await`, ela precisa ser `async`. E quem chama ela precisa de `await`, então também vira `async`. E assim por diante. As regras, juntas: o `await` só funciona **dentro de uma função `async`** (ou no topo de um módulo, como você vai ver adiante); uma função `async` **sempre** devolve uma Promise; e quem chama precisa de `await` pra pegar o valor.
+
+E o erro que isso gera é traiçoeiro, porque muitas vezes ele **não dá erro**. Sem o `await`, o código segue em frente com uma Promise no lugar do valor. O caso mais perigoso: um `if (existe())` sem `await` é **sempre verdadeiro**. Por quê? Porque uma Promise é um objeto, e todo objeto é truthy. O seu código acha que o arquivo existe, mesmo quando não existe. A regra `no-floating-promises` do [[Linter]] (com typescript-eslint) existe justamente pra pegar isso, e vale ligar.
+
+## Quando dá errado
+
+Quando uma Promise falha (é **rejeitada**), o `await` transforma isso num erro comum, lançado naquela linha. E você trata como qualquer outro erro, com `try/catch`:
 
 ```ts
 async function salvarSeguro(dados: unknown) {
@@ -92,34 +78,51 @@ async function salvarSeguro(dados: unknown) {
 }
 ```
 
-`reject` de uma Promise vira um `throw` na linha do `await`.
+Repare no tipo do `erro`: ele é `unknown`. É que em JavaScript dá pra lançar qualquer coisa como erro, até um texto ou um número. Por isso o `instanceof Error` antes de ler o `.message`.
 
-### 4. Top-level `await`
-
-Em módulos ES (`"type": "module"`), dá pra usar `await` direto no arquivo, fora de função:
+Agora, o conselho mais importante sobre erros: **trate só o erro que você espera, e deixe os outros subirem.**
 
 ```ts
-// src/main.ts
-const config = JSON.parse(await readFile("config.json", "utf-8"));
+async function carregar(): Promise<Tarefa[]> {
+  try {
+    return JSON.parse(await readFile("tarefas.json", "utf-8")) as Tarefa[];
+  } catch (erro) {
+    if (erro instanceof Error && "code" in erro && erro.code === "ENOENT") return []; // primeiro uso
+    throw erro; // qualquer outro erro: deixa subir
+  }
+}
 ```
 
-Em scripts CommonJS ou ambientes antigos, use o padrão `async function main() { ... } main();`.
+Na primeira vez que o programa roda, o arquivo não existe, e isso é **esperado**: vira uma lista vazia. Mas um JSON corrompido é um problema de verdade. Se você engolisse esse erro também, o programa ia achar que não tinha tarefa nenhuma, salvar uma lista vazia por cima, e você perderia tudo sem nenhum aviso.
 
-### 5. Sequencial × paralelo
+Por isso, desconfie de um `catch {}` vazio. Ele esconde bugs: o programa segue como se nada tivesse acontecido, e o problema aparece bem depois, sem pista nenhuma.
+
+E um detalhe técnico que pega até gente experiente: dentro de um `try`, escreva `return await x`, e não só `return x`. Sem o `await`, a Promise sai da função antes de terminar, e se ela falhar depois, o seu `catch` não está mais lá pra pegar.
+
+## Um de cada vez, ou todos juntos
+
+Este é o cuidado de desempenho. Olhe estas duas versões:
 
 ```ts
-// ❌ 3 segundos: espera um pra começar o outro (sem necessidade)
+// ❌ 3 segundos: espera um terminar pra começar o outro
 const a = await buscar("a");
 const b = await buscar("b");
 const c = await buscar("c");
 
-// ✅ 1 segundo: começa os três, espera todos
+// ✅ 1 segundo: começa os três e espera todos
 const [a2, b2, c2] = await Promise.all([buscar("a"), buscar("b"), buscar("c")]);
 ```
 
-Use sequencial **só quando** o próximo depende do anterior (`const user = await ...; const pedidos = await buscarPedidos(user.id)`).
+Se cada busca demora um segundo, a primeira versão leva três: ela espera a primeira terminar pra só então começar a segunda. Como o `await` deixa o código tão parecido com código normal, é fácil esquecer que dava pra fazer as três ao mesmo tempo. O `Promise.all` começa todas juntas e espera todas terminarem.
 
-### 6. Laços
+Um `await` atrás do outro só faz sentido quando o próximo passo **depende** do anterior:
+
+```ts
+const usuario = await buscarUsuario(id);
+const pedidos = await buscarPedidos(usuario.id); // precisa do usuário primeiro
+```
+
+Com laços, tem uma armadilha extra:
 
 ```ts
 // ❌ forEach não espera: dispara tudo e segue em frente
@@ -135,45 +138,21 @@ for (const f of arquivos) {
 await Promise.all(arquivos.map((f) => processar(f)));
 ```
 
-### 7. Timeout simples
+Por que o `forEach` não espera? Ele chama a função pra cada item e simplesmente ignora o que ela devolve. Como a função é `async`, ela devolve uma Promise, e o `forEach` joga a Promise fora sem esperar.
+
+## await fora de função
+
+Em módulos ES (com `"type": "module"` no `package.json`), dá pra usar o `await` direto no arquivo, fora de qualquer função. Isso se chama *top-level await*:
 
 ```ts
-const esperar = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
-
-// Node e navegadores modernos:
-const resposta = await fetch(url, { signal: AbortSignal.timeout(5000) }); // desiste em 5s
+const config = JSON.parse(await readFile("config.json", "utf-8"));
 ```
 
----
-
-## 🛠️ Exemplo guiado
-
-Um `main` assíncrono completo, com tratamento de erro e código de saída:
+Em projetos mais antigos, que não permitem isso, o padrão é colocar tudo numa função `main`:
 
 ```ts
-import { readFile, writeFile } from "node:fs/promises";
-
-interface Tarefa { id: number; titulo: string; concluida: boolean }
-const ARQUIVO = "tarefas.json";
-
-async function carregar(): Promise<Tarefa[]> {
-  try {
-    return JSON.parse(await readFile(ARQUIVO, "utf-8")) as Tarefa[];
-  } catch (erro) {
-    if (erro instanceof Error && "code" in erro && erro.code === "ENOENT") return []; // primeiro uso
-    throw erro; // outro erro: deixa subir
-  }
-}
-
-async function salvar(tarefas: Tarefa[]): Promise<void> {
-  await writeFile(ARQUIVO, JSON.stringify(tarefas, null, 2));
-}
-
 async function main() {
-  const tarefas = await carregar();
-  tarefas.push({ id: tarefas.length + 1, titulo: process.argv[2] ?? "Sem título", concluida: false });
-  await salvar(tarefas);
-  console.log(`${tarefas.length} tarefa(s) salvas`);
+  // ... seu código com await
 }
 
 main().catch((erro) => {
@@ -182,38 +161,27 @@ main().catch((erro) => {
 });
 ```
 
-Repare no `carregar`: arquivo inexistente é **esperado** (vira lista vazia); qualquer outro erro **sobe**. Engolir todos os erros esconderia um JSON corrompido.
+O `.catch` no fim garante que qualquer erro que ninguém tratou seja mostrado, e que o programa termine sinalizando falha.
 
----
+Mais duas dicas rápidas. Pra não esperar pra sempre uma resposta que não vem, use um timeout: `await fetch(url, { signal: AbortSignal.timeout(5000) })` desiste depois de 5 segundos. E uma questão de estilo: misturar `.then` e `await` no mesmo trecho funciona, mas confunde quem lê. Escolha um.
 
-## 🔧 Pegadinhas
+## O essencial
 
-- **Esquecer o `await`.** O código segue com uma `Promise` no lugar do valor; `if (await existe())` vs `if (existe())` (sempre true!). Ligue a regra `no-floating-promises` do [[Linter]] (typescript-eslint).
-- **`await` dentro de `forEach`.** Não espera. Use `for...of` ou `Promise.all` + `map`.
-- **`await` em série sem precisar.** Deixa tudo lento. Se não dependem um do outro, `Promise.all`.
-- **`catch` que engole tudo.** `catch {}` vazio esconde bugs. Trate o erro esperado e relance o resto.
-- **`return await` dentro de `try`.** Dentro de `try/catch`, `return await x` é necessário pra o `catch` pegar o erro; sem `try`, é redundante.
-- **Misturar `.then` e `await` no mesmo trecho.** Funciona, mas confunde. Escolha um.
+1. `async` sempre devolve uma Promise. Quem chama precisa de `await`.
+2. `await` pausa só aquela função, não o programa.
+3. Esquecer o `await` muitas vezes não dá erro: dá um valor errado. Ligue o `no-floating-promises`.
+4. Erros com `try/catch`: trate só o esperado e deixe o resto subir.
+5. Operações independentes: `Promise.all`. E `forEach` não espera `async`.
 
----
+## Agora é com você
 
-## 🔨 Desafio prático
+Construa um **verificador de sites** no terminal. Ele recebe URLs por argumento (`npx tsx verificar.ts https://github.com https://naoexiste.tld`), faz um `fetch` em cada uma com timeout de 5 segundos e mede quanto tempo levou (`performance.now()`). Rode **todas em paralelo** com `Promise.allSettled`, que espera todas terminarem mesmo que algumas falhem. Mostre uma tabela com `console.table` (a URL, o status ou o erro, e o tempo em ms), e termine com código de saída `1` se alguma falhou. Você terminou quando, com 3 URLs, o tempo total for próximo do da mais lenta (e não a soma das três), e a URL inválida aparecer como erro sem derrubar as outras.
 
-**Objetivo:** um "verificador de sites" no terminal.
-
-1. Receba URLs por argumento: `npx tsx verificar.ts https://github.com https://naoexiste.tld`.
-2. Pra cada uma, faça `fetch` com timeout de 5 s e meça o tempo (`performance.now()`).
-3. Rode **todas em paralelo** com `Promise.allSettled`.
-4. Mostre uma tabela (`console.table`) com URL, status (ou erro) e tempo em ms.
-5. Termine com código de saída `1` se alguma falhou.
-
-**Pronto quando:** com 3 URLs, o tempo total é próximo do da mais lenta (não a soma), e a URL inválida aparece como erro sem derrubar as outras.
+Daqui, siga pra [[Ler e Escrever Arquivos]], [[Fetch API]], [[Servidor HTTP com Node.js]] e [[Event Loop]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- O que uma função `async` sempre devolve?
 > Uma Promise, mesmo que você retorne um valor comum.
@@ -224,6 +192,9 @@ Repare no `carregar`: arquivo inexistente é **esperado** (vira lista vazia); qu
 > [!question]- Como tratar erro de um `await`?
 > Com `try/catch` em volta: uma Promise rejeitada vira um `throw` na linha do `await`.
 
+> [!question]- Por que `if (existe())` sem `await` é sempre verdadeiro?
+> Porque `existe()` devolve uma Promise, que é um objeto, e todo objeto é truthy.
+
 > [!question]- Por que `lista.forEach(async x => await f(x))` não espera?
 > Porque o `forEach` ignora as Promises que a função devolve. Use `for...of` com `await` ou `Promise.all(lista.map(f))`.
 
@@ -233,47 +204,44 @@ Repare no `carregar`: arquivo inexistente é **esperado** (vira lista vazia); qu
 > [!question]- O que é top-level await?
 > Poder usar `await` direto no topo de um arquivo de módulo ES, fora de qualquer função.
 
+> [!question]+ `async function idade() { return 30 }`. O que `idade()` devolve?
+> - a) `30`
+> - b) `Promise<number>` que resolve com 30
+> - c) `undefined`
+> - d) Erro, porque falta `await`
+>
+> > [!check]- Resposta
+> > **b)** Função `async` **sempre** devolve uma Promise, mesmo retornando um valor simples. Pra pegar o 30, use `await idade()`.
+
+> [!question]+ Por que `lista.forEach(async x => await salvar(x))` termina antes de salvar tudo?
+> - a) Porque `forEach` não espera as Promises que o callback devolve
+> - b) Porque `await` não funciona dentro de arrow function
+> - c) Porque `salvar` precisa de `.then`
+> - d) Porque `forEach` roda em outra thread
+>
+> > [!check]- Resposta
+> > **a)** `forEach` chama o callback e ignora o que ele devolve. Use `for...of` com `await` (em sequência) ou `await Promise.all(lista.map(salvar))` (em paralelo).
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Sintaxe | O que faz |
 |---|---|
-| `async function f(): Promise<T>` | função assíncrona |
-| `const v = await p` | espera o valor |
-| `try { await p } catch (e) { }` | trata erro |
-| `await Promise.all([a(), b()])` | em paralelo |
-| `for (const x of xs) await f(x)` | em sequência |
-| `main().catch(...)` | erro do topo |
-| `AbortSignal.timeout(5000)` | desistir depois de 5 s |
+| `async function f(): Promise<T>` | Função assíncrona |
+| `const v = await p` | Espera o valor |
+| `try { await p } catch (e) { }` | Trata o erro |
+| `await Promise.all([a(), b()])` | Em paralelo |
+| `for (const x of xs) await f(x)` | Em sequência |
+| `main().catch(...)` | Erro do topo do programa |
+| `AbortSignal.timeout(5000)` | Desistir depois de 5 s |
 
----
+**Pra ler:** o capítulo [Async/await](https://javascript.info/async-await) do javascript.info é a melhor explicação passo a passo, com exercícios no fim. A [referência do MDN sobre async function](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/async_function) está em português. E a página da regra [no-floating-promises](https://typescript-eslint.io/rules/no-floating-promises/) mostra exemplos de todos os jeitos de esquecer um `await`.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```ts
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [javascript.info · Async/await](https://javascript.info/async-await)
-- [MDN · async function](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/async_function)
-- [typescript-eslint · no-floating-promises](https://typescript-eslint.io/rules/no-floating-promises/)

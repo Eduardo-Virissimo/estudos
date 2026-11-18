@@ -38,6 +38,7 @@ export class AbaConfig extends PluginSettingTab {
         const nums = v.split(",").map((x) => Number(x.trim())).filter((n) => Number.isFinite(n) && n >= 0);
         if (nums.length >= 2) { s.intervalos = nums; await salvar(); }
       }));
+    this.numero(el, "Notas novas por dia na revisão (0 = sem limite)", s.novasPorDia, 0, 500, async (n) => { s.novasPorDia = n; await salvar(); });
     this.numero(el, "Semanas no calendário de atividade", s.semanasNoCalendario, 4, 52, async (n) => { s.semanasNoCalendario = n; await salvar(); });
     new Setting(el).setName("Faixas de cor do calendário (minutos)").setDesc("Separadas por vírgula. Ex.: 25, 50 → menos de 25, menos de 50, 50 ou mais.")
       .addText((t) => t.setValue(s.faixasCalendario.join(", ")).onChange(async (v) => {

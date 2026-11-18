@@ -5,81 +5,54 @@ revisado:
 
 # Branches, Merge e Conflitos
 
-> *"Conflito não é erro. É o Git sendo honesto: 'duas pessoas mexeram aqui, decida você'."*
+O seu projeto funciona. Está limpo, testado, bonito. E aí você tem uma ideia arriscada: reescrever o jeito como as tarefas são filtradas. Pode ficar ótimo, ou pode quebrar tudo. Sem nenhuma proteção, você mexeria direto no código que funciona, e se a ideia der errado, teria que desfazer tudo na mão, lembrando de cada linha que mudou.
 
-> [!tip] ⚡ Em 30 segundos
-> Uma **branch** é uma linha de trabalho paralela: você testa uma ideia sem mexer na `main`. Criar é instantâneo (`git switch -c nome`). Quando termina, **merge** junta a branch de volta. Se as duas linhas mudaram **as mesmas linhas** do mesmo arquivo, dá **conflito**: o Git marca o trecho com `<<<<<<<`, você escolhe o que fica, salva, `add` e `commit`. Assusta na primeira vez; vira rotina na décima.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+O Git tem uma resposta pra isso, e ela é uma das coisas mais úteis que ele faz. Uma **branch** é uma linha de trabalho paralela: você testa a ideia, ou desenvolve uma funcionalidade nova, sem encostar na `main`, que continua funcionando. Quando termina, o **merge** junta a branch de volta. Deu errado? Você apaga a branch, e é como se nada tivesse acontecido.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Só que às vezes, na hora de juntar, as duas linhas mudaram **as mesmas linhas** do mesmo arquivo. O Git não tem como saber qual delas está certa, e aí ele dá um **conflito**: marca o trecho e pede pra você decidir o que fica. Conflito assusta na primeira vez. Na décima, vira rotina. Esta nota quer te levar da primeira à décima. Ajuda já conhecer o [[Git Básico]] e o [[GitHub e Pull Requests]].
 
----
+## Uma linha paralela
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Criar, trocar, listar e apagar branches
-- Fazer merge e explicar a diferença entre fast-forward e merge commit
-- Resolver um conflito sem perder trabalho
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Git Básico]] · [[GitHub e Pull Requests]]
-- **Depois:** [[Rebase e Cherry Pick]] · [[Stash]] · [[Git Flow]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. O que é uma branch, de verdade
-
-Uma branch é só um **ponteiro** pra um commit, que anda sozinho quando você commita. `HEAD` aponta pra branch em que você está.
+Pense numa branch como uma estrada que sai da principal, segue paralela por um tempo, e mais adiante pode voltar a se juntar a ela:
 
 ```text
-          C ── D   ← feat/filtro (HEAD)
+          C ── D   ← feat/filtro (você está aqui)
          /
 A ── B ── E        ← main
 ```
 
-Por isso criar branch é instantâneo: não copia arquivo nenhum.
-
-### 2. Comandos
+E aqui vem uma surpresa sobre como isso funciona por dentro. Uma branch **não é uma cópia** do projeto. É só um **ponteiro**: um nome que aponta pra um commit, e que anda sozinho pra frente a cada commit novo que você faz. Por isso criar uma branch é instantâneo, mesmo num projeto gigante: nenhum arquivo é copiado. E o `HEAD` é o nome do lugar onde você está agora.
 
 ```bash
-git branch                     # lista (a atual tem *)
-git switch -c feat/filtro      # cria e troca (forma moderna)
-git switch main                # troca
-git branch -d feat/filtro      # apaga (só se já foi juntada)
-git branch -D feat/filtro      # apaga à força (perde commits não juntados!)
-git branch -a                  # inclui as remotas
+git branch                  # lista (a atual tem *)
+git switch -c feat/filtro   # cria e já troca pra ela
+git switch main             # troca de branch
+git branch -d feat/filtro   # apaga (só se já foi juntada)
+git branch -a               # inclui as branches do GitHub
 ```
 
-> Tutoriais antigos usam `git checkout -b`. Faz o mesmo que `git switch -c`.
+Em tutoriais mais antigos, você vai ver `git checkout -b nome`, que faz o mesmo que o `git switch -c nome`. E sobre os nomes: curtos, em minúsculas, com o tipo na frente, como `feat/filtro-prioridade`, `fix/titulo-vazio` ou `docs/readme`.
 
-**Nomes:** `feat/filtro-prioridade`, `fix/titulo-vazio`, `docs/readme`. Curtos, em minúsculas, com o tipo na frente.
+Duas armadilhas. A primeira: se você trocar de branch com mudanças que ainda não foram commitadas, o Git leva essas mudanças junto pra outra branch, ou se recusa a trocar, se elas conflitarem com o que tem lá. Commite antes, ou guarde temporariamente com o [[Stash]]. A segunda: o `git branch -D`, com D **maiúsculo**, apaga à força, mesmo uma branch com commits que nunca foram juntados em lugar nenhum. Dá pra recuperar com o `git reflog` por um tempo, mas é melhor não precisar.
 
-### 3. Merge
+## Juntando de volta
+
+Quando a branch está pronta, você volta pra branch que vai **receber** as mudanças e traz a outra:
 
 ```bash
-git switch main
-git merge feat/filtro
+git switch main          # vai pra branch que vai RECEBER
+git merge feat/filtro    # traz as mudanças da outra
 ```
 
-Dois resultados possíveis:
+O que acontece depende de uma coisa só: se a `main` andou ou não enquanto você trabalhava.
 
-**Fast-forward:** a `main` não andou desde que a branch saiu. O Git só move o ponteiro, sem commit novo.
+Se a `main` **ficou parada** desde que a sua branch saiu, o Git faz um **fast-forward** ("avanço rápido"). Ele simplesmente move o ponteiro da `main` pra frente, até onde a sua branch chegou, sem criar nenhum commit novo:
 
 ```text
 A ── B ── C ── D   ← main, feat/filtro
 ```
 
-**Merge commit:** as duas andaram. O Git cria um commit que junta as duas pontas.
+Se as **duas andaram**, o Git cria um **merge commit**: um commit especial, que junta as duas pontas numa só:
 
 ```text
           C ── D
@@ -87,16 +60,25 @@ A ── B ── C ── D   ← main, feat/filtro
 A ── B ── E ──── M   ← main
 ```
 
-### 4. Conflito: anatomia
+Uma boa prática: se a `main` andou enquanto você trabalhava, traga as mudanças dela pra **sua** branch primeiro, e resolva os conflitos lá, não na `main`. Assim a `main` só recebe coisa que já foi resolvida e testada:
 
-Você e a `main` mudaram a mesma linha:
+```bash
+git switch feat/filtro
+git merge main            # ou git rebase main (veja Rebase e Cherry Pick)
+```
+
+E um conselho que evita a maioria dos conflitos antes deles existirem: **branches curtas.** Quanto mais tempo uma branch fica separada, mais a `main` muda nesse meio tempo, e mais conflito aparece na volta. Uma branch de horas ou de poucos dias, com um pull request pequeno, quase nunca dá problema. Uma de três semanas quase sempre dá.
+
+## O conflito, sem pânico
+
+Esta é a parte que mais assusta, então vamos com calma. Você mudou uma linha na sua branch. Enquanto isso, alguém mudou **a mesma linha** na `main`. Na hora do merge, o Git não tem como saber qual das duas está certa, então ele para e te pergunta:
 
 ```text
 CONFLICT (content): Merge conflict in src/tarefas.ts
 Automatic merge failed; fix conflicts and then commit the result.
 ```
 
-O arquivo fica assim:
+E o arquivo fica assim:
 
 ```ts
 <<<<<<< HEAD
@@ -106,41 +88,23 @@ const LIMITE_TAREFAS = 100;
 >>>>>>> feat/filtro
 ```
 
-- Entre `<<<<<<< HEAD` e `=======`: o que está na branch onde você está (a `main`).
-- Entre `=======` e `>>>>>>>`: o que vem da branch que você está juntando.
+Esses símbolos estranhos são marcadores que o Git colocou no seu arquivo, e eles se leem assim. Entre o `<<<<<<< HEAD` e o `=======` está a versão da branch **onde você está**, a que está recebendo o merge. Entre o `=======` e o `>>>>>>> feat/filtro` está a versão que **está chegando**.
 
-### 5. Resolvendo
+Repare que nenhuma das duas está "errada": cada pessoa fez uma mudança que fazia sentido. O seu trabalho é decidir o que o código deve ser **depois** de juntar as duas. Os passos:
 
-1. `git status` lista os arquivos em conflito ("both modified").
-2. Abra cada um. Decida: fica um, fica o outro, ou **uma combinação** (`const LIMITE_TAREFAS = 50;`).
-3. **Apague os marcadores** `<<<<<<<`, `=======`, `>>>>>>>`.
-4. Rode o programa/testes: compila? funciona?
-5. `git add src/tarefas.ts` (marca como resolvido) e `git commit` (a mensagem de merge já vem pronta).
+1. Rode `git status`, que lista os arquivos em conflito como "both modified".
+2. Abra cada um e decida: fica um dos lados, o outro, ou **uma combinação dos dois**. Neste exemplo, talvez o certo seja `const LIMITE_TAREFAS = 50;`, o nome novo com o valor antigo.
+3. **Apague os marcadores**: os `<<<<<<<`, `=======` e `>>>>>>>`.
+4. Rode o programa e os testes. Compila? Funciona?
+5. `git add src/tarefas.ts`, que marca o arquivo como resolvido, e `git commit`. A mensagem de merge já vem pronta.
 
-No [[VS Code]], aparecem botões em cima do conflito: **Accept Current**, **Accept Incoming**, **Accept Both** e o **Merge Editor** de 3 painéis.
+No [[VS Code]], aparecem botões em cima de cada conflito: **Accept Current** (fica o seu), **Accept Incoming** (fica o que chega), **Accept Both** (os dois), e o **Merge Editor**, que mostra três painéis lado a lado. E se você se perder no meio, desistir é fácil: `git merge --abort` volta tudo como estava antes do merge, como se nada tivesse acontecido.
 
-Desistiu no meio? `git merge --abort` volta tudo como estava antes do merge.
+Três erros acontecem na hora de resolver. O primeiro é **commitar os marcadores**: um `<<<<<<<` esquecido no meio do código quebra tudo. Antes de commitar, busque por `<<<<<<<` no projeto inteiro. O segundo é **aceitar um lado sem ler**: clicar em "Accept Incoming" em tudo pode apagar a correção que outra pessoa fez. Leia os dois lados. E o terceiro é **resolver e não testar**: cada lado compilava sozinho, mas a combinação dos dois pode não compilar. Teste antes de commitar.
 
-### 6. Atualizando sua branch com a `main`
+## Provocando um de propósito
 
-A `main` andou enquanto você trabalhava? Traga as mudanças pra **sua** branch e resolva conflitos lá, não na `main`:
-
-```bash
-git switch feat/filtro
-git merge main            # ou: git rebase main (veja Rebase e Cherry Pick)
-```
-
-### 7. Evitando conflitos
-
-- Branches **curtas** (horas ou poucos dias), PRs pequenos.
-- `git pull` / atualizar a branch com frequência.
-- Não reformatar o arquivo inteiro junto com uma mudança de lógica (o [[Formatter]] no projeto todo resolve isso de vez).
-
----
-
-## 🛠️ Exemplo guiado
-
-Provocando um conflito de propósito:
+O melhor jeito de perder o medo de conflito é causar um, num lugar onde nada importa. Siga estes comandos:
 
 ```bash
 git init conflito && cd conflito
@@ -155,13 +119,8 @@ git switch main
 echo "cor = verde" > config.txt
 git commit -am "muda cor pra verde"
 
-git merge tema-escuro        # CONFLICT
-cat config.txt
-# <<<<<<< HEAD
-# cor = verde
-# =======
-# cor = preto
-# >>>>>>> tema-escuro
+git merge tema-escuro         # CONFLICT
+cat config.txt                # veja os marcadores
 
 echo "cor = preto" > config.txt   # decidiu: fica preto
 git add config.txt
@@ -169,35 +128,27 @@ git commit -m "Merge tema-escuro: mantém cor preta"
 git log --oneline --graph
 ```
 
----
+As duas branches mudaram a mesma linha, cada uma pra uma cor. O `git log --graph` no fim mostra o desenho das duas linhas se juntando.
 
-## 🔧 Pegadinhas
+E pra evitar conflitos no dia a dia, além das branches curtas: atualize a sua branch com a `main` com frequência, e nunca reformate um arquivo inteiro junto com uma mudança de lógica. Uma reformatação mexe em todas as linhas, e aí qualquer outra mudança no arquivo vira conflito. Um [[Formatter]] aplicado no projeto inteiro, num commit separado, resolve isso de vez.
 
-- **Commitar os marcadores.** `<<<<<<<` no código quebra tudo. Busque por `<<<<<<<` antes de commitar.
-- **Aceitar um lado sem ler.** "Accept Incoming" em tudo pode apagar a correção de outra pessoa. Leia os dois lados.
-- **Resolver e não testar.** Os dois lados compilavam sozinhos; a combinação pode não compilar.
-- **Trocar de branch com mudanças não commitadas.** O Git leva as mudanças junto ou se recusa a trocar. Commite ou use [[Stash]].
-- **Branch de semanas.** Quanto mais tempo separada, mais conflito. Junte cedo.
-- **`-D` sem pensar.** Apaga commits que não estão em lugar nenhum (dá pra recuperar com `git reflog`, por um tempo).
+## O essencial
 
----
+1. Uma branch é um ponteiro pra um commit, não uma cópia. Criar é instantâneo.
+2. `git switch -c nome` cria; `git merge nome` traz a outra branch pra onde você está.
+3. Fast-forward só move o ponteiro; merge commit junta duas linhas que andaram.
+4. Conflito: entre `<<<<<<< HEAD` e `=======` é o seu lado; depois, o que chega. Decida, apague os marcadores, teste, `git add`, `git commit`.
+5. `git merge --abort` desiste. Branches curtas evitam a maioria dos conflitos.
 
-## 🔨 Desafio prático
+## Agora é com você
 
-**Objetivo:** resolver 3 tipos de conflito.
+Resolva três tipos de conflito. Primeiro, reproduza o exemplo da seção anterior e resolva escolhendo **um** dos lados. Depois, crie outro conflito e resolva **combinando** os dois (por exemplo: uma branch muda o nome de uma variável, a outra muda o valor dela). Em seguida, provoque um conflito em **dois arquivos** ao mesmo tempo e resolva pelo Merge Editor do VS Code. Por fim, comece um merge com conflito e desista dele com `git merge --abort`. Você terminou quando o `git log --graph` mostrar os merges, nenhum arquivo tiver marcador esquecido, e você conseguir explicar, em cada caso, o que era o `HEAD` e o que era o outro lado.
 
-1. Reproduza o exemplo guiado e resolva escolhendo **um** lado.
-2. Faça outro conflito e resolva **combinando** os dois (ex: uma branch muda o nome, outra muda o valor).
-3. Faça um conflito em **2 arquivos** e resolva pelo Merge Editor do VS Code.
-4. Comece um merge com conflito e desista com `git merge --abort`.
-
-**Pronto quando:** `git log --graph` mostra os merges, nenhum arquivo tem marcador e você consegue explicar o que era `HEAD` e o que era o outro lado em cada caso.
+Daqui, siga pro [[Rebase e Cherry Pick]], pro [[Stash]] e pro [[Git Flow]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- O que é uma branch no Git?
 > Um ponteiro móvel pra um commit; anda sozinho a cada commit novo. Por isso criar uma é instantâneo.
@@ -217,48 +168,39 @@ git log --oneline --graph
 > [!question]- Como desistir de um merge com conflito?
 > `git merge --abort`.
 
+> [!question]- Por que branches de semanas dão mais conflito?
+> Porque a `main` muda muito nesse tempo, e quanto mais as duas linhas divergem, mais trechos coincidem na volta.
+
+> [!question]+ Num conflito, o que fica entre `<<<<<<< HEAD` e `=======`?
+> - a) A versão da branch que você está trazendo
+> - b) A versão da sua branch atual
+> - c) A versão do último commit da `main`
+> - d) O trecho que o Git já resolveu sozinho
+>
+> > [!check]- Resposta
+> > **b)** `HEAD` é onde você está agora. Entre `=======` e `>>>>>>> outra-branch` vem a versão que está chegando no merge.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Comando | O que faz |
 |---|---|
-| `git switch -c nome` | criar e trocar |
-| `git switch nome` | trocar |
-| `git branch` / `-a` | listar |
-| `git branch -d nome` | apagar (já juntada) |
-| `git merge nome` | juntar na atual |
-| `git merge --abort` | desistir do merge |
-| `git log --oneline --graph --all` | ver o desenho |
-| `git diff --name-only --diff-filter=U` | arquivos em conflito |
+| `git switch -c nome` | Cria e troca |
+| `git switch nome` | Troca |
+| `git branch` / `-a` | Lista |
+| `git branch -d nome` | Apaga (já juntada) |
+| `git merge nome` | Junta na atual |
+| `git merge --abort` | Desiste do merge |
+| `git log --oneline --graph --all` | Mostra o desenho |
+| `git diff --name-only --diff-filter=U` | Lista os arquivos em conflito |
 
----
+**Pra ler e treinar:** o [Learn Git Branching](https://learngitbranching.js.org/?locale=pt_BR) é um jogo, em português, que mostra as branches se desenhando enquanto você digita os comandos. Os níveis "Introdução" e "Rampa acima" cobrem esta nota inteira, e é a melhor forma de enxergar o que está acontecendo. O capítulo de [Branches do Pro Git](https://git-scm.com/book/pt-br/v2/Branches-no-Git-Branches-em-poucas-palavras), também em português, explica o "ponteiro" com desenhos. E a [documentação do VS Code sobre conflitos](https://code.visualstudio.com/docs/sourcecontrol/overview#_merge-conflicts) mostra o Merge Editor.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```bash
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [Pro Git · Branches](https://git-scm.com/book/pt-br/v2/Branches-no-Git-Branches-em-poucas-palavras)
-- [Learn Git Branching](https://learngitbranching.js.org/?locale=pt_BR): níveis "Introdução" e "Rampa acima"
-- [VS Code · Merge conflicts](https://code.visualstudio.com/docs/sourcecontrol/overview#_merge-conflicts)

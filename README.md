@@ -22,25 +22,39 @@ O método segue o que a pesquisa sobre aprendizagem mostra que funciona:
 
 1. **Abro a Ficha do herói** (plugin *Estudos RPG*, abre sozinho) e clico em **Iniciar sessão**: o cronômetro registra o tempo no diário.
 2. **Pego o próximo tópico** no painel *Próximos passos*. Os tópicos estão em ordem: cada um usa o anterior.
-3. **Pratico antes de ler** (*aprendizagem pela tentativa*): toda nota começa com 🎯 objetivos e tem um 🔨 *Desafio prático*. Tento primeiro, leio o que precisar depois.
-4. **Me testo sem olhar** (*recuperação ativa*): as perguntas 🧠 *Me teste* aparecem no painel **Revisar**, uma nota por vez.
-5. **Revejo no tempo certo** (*repetição espaçada*): "Lembrei" afasta a próxima revisão (1 → 3 → 7 → 14 → 30 → 60 dias); "Esqueci" traz de volta amanhã.
-6. **Explico com as minhas palavras** (*técnica Feynman*): a seção 📓 *Diário de bordo* de cada nota.
-7. **Intercalo**: um tópico de Programação e um de Inglês na mesma semana fixam mais que um bloco só.
-8. **Subo o nível**: 📝 escrito → 🔨 praticado → 🚀 usado em projeto (propriedade `nivel`).
+3. **Leio o resumo e os tópicos 🔴**: o resumo no topo diz do que se trata e lista o que é essencial. Os 🔴 eu domino antes de seguir; o resto leio no ritmo (legenda abaixo).
+4. **Pratico** (*aprender fazendo*): o 🔨 *Pratique* e, quando a nota tem, o 🚀 *Projeto*. Travou? Volto no tópico e tento de novo.
+5. **Me testo sem olhar** (*recuperação ativa*): as perguntas 🧠 *Me teste* aparecem no painel **Revisar**, uma nota por vez.
+6. **Revejo no tempo certo** (*repetição espaçada*): "Lembrei" afasta a próxima revisão (1 → 3 → 7 → 14 → 30 → 60 dias); "Esqueci" traz de volta amanhã.
+7. **Explico com as minhas palavras** (*técnica Feynman*): o 📓 *Diário* no fim da nota, em duas linhas.
+8. **Intercalo**: um tópico de Programação e um de Inglês na mesma semana fixam mais que um bloco só.
+9. **Subo o nível**: 📝 escrito → 🔨 praticado → 🚀 usado em projeto (propriedade `nivel`).
+
+### 🚦 O que cada selo quer dizer
+
+Cada tópico de uma nota tem um selo no título, pra eu saber onde pôr energia:
+
+| Selo | Quer dizer | Como estudo |
+|---|---|---|
+| 🔴 | **Tem que saber** | Leio com calma, faço o exemplo, e só sigo quando consigo explicar sem olhar. É o que cai no Me teste. |
+| 🟡 | **Bom saber** | Leio e entendo a ideia. Não preciso decorar: volto quando aparecer no código. |
+| ⚪ | **Só conhecer** | Só saber que existe e o nome, pra reconhecer quando esbarrar. |
+
+Fora os tópicos, toda nota tem o **Resumo** no topo e o **🧠 Me teste**. As outras seções (🔨 Pratique, 🚀 Projeto, 📋 Consulta rápida, 📚 Pra ir além, 📓 Diário) só aparecem quando o assunto pede.
 
 ## ➕ Como adicionar conteúdo
 
 | Quero… | Faço… |
 |---|---|
-| Uma nota de estudo nova | Crio a partir do [Template](Templates/Template.md) (já vem com `nivel: escrito`). O nome do arquivo é o nome do tópico (ex.: `Git Básico.md`), pra os links `[[Git Básico]]` funcionarem. |
+| Uma nota de estudo nova | Crio a partir do [Template](Templates/Template.md) (já vem com `nivel: escrito` e as instruções de escrita num comentário `%% %%`, que some no modo leitura). O nome do arquivo é o nome do tópico (ex.: `Git Básico.md`), pra os links `[[Git Básico]]` funcionarem. |
 | Uma trilha nova (Matemática, Design…) | Nota com `tipo: trilha`. Títulos `#` viram estágios, `##` viram módulos, e cada `- [ ] [[Nota]] — descrição` vira um tópico. |
 | Uma pergunta pra revisão | Callout `> [!question]- Pergunta` com a resposta na linha `> …` de baixo, dentro da nota. |
-| Um desafio ou projeto | Logo abaixo do título 🔨 / 🚀, uma linha **📍 Onde fazer:** com o lugar, escolhido pela regra abaixo. |
+| Uma pergunta de múltipla escolha | Callout `> [!question]+` com as alternativas `> - a) …` e a resposta num callout aninhado `> > [!check]- Resposta` começando pela letra (`> > **b)** …`). Só 1 ou 2 por nota, nas pegadinhas: ver o template. |
+| Um desafio ou projeto | Logo abaixo do título 🔨 *Pratique* / 🚀 *Projeto*, uma linha **📍 Onde fazer:** com o lugar, escolhido pela regra abaixo. |
 
 ## 📍 Onde fazer os desafios e projetos
 
-Nem todo exercício cabe no vault, e nem todo merece um repositório no GitHub. Cada 🔨 *Desafio prático* e 🚀 *Projeto* diz onde fazer, numa linha **📍 Onde fazer:**. A regra:
+Nem todo exercício cabe no vault, e nem todo merece um repositório no GitHub. Cada 🔨 *Pratique* e 🚀 *Projeto* diz onde fazer, numa linha **📍 Onde fazer:**. A regra:
 
 | Onde | Quando | Exemplos |
 |---|---|---|

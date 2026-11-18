@@ -6,6 +6,20 @@ import { desenharPixel } from "./pixel.ts";
 
 export type Variante = "primario" | "secundario" | "discreto";
 
+/** Teclas de atalho da revisão (o FichaView escuta e clica no botão com `data-atalho`). */
+export const TECLAS = {
+  espaco: { rotulo: "Espaço", aria: "Space" },
+  seta: { rotulo: "→", aria: "ArrowRight" },
+  "1": { rotulo: "1", aria: "1" },
+  "2": { rotulo: "2", aria: "2" },
+  a: { rotulo: "A", aria: "A" },
+  b: { rotulo: "B", aria: "B" },
+  c: { rotulo: "C", aria: "C" },
+  d: { rotulo: "D", aria: "D" },
+  e: { rotulo: "E", aria: "E" },
+} as const;
+export type Atalho = keyof typeof TECLAS;
+
 /** Ícone em pixel art; se não houver desenho para o nome, usa o Lucide do Obsidian. */
 export function icone(parent: HTMLElement, nome: string, cls = "erpg-ico"): HTMLElement {
   const span = parent.createSpan({ cls });
@@ -17,15 +31,15 @@ export function botao(
   parent: HTMLElement,
   texto: string,
   onClick: (ev: MouseEvent) => void | Promise<void>,
-  opts: { icone?: string; variante?: Variante; titulo?: string; pequeno?: boolean } = {},
+  opts: { icone?: string; variante?: Variante; titulo?: string; pequeno?: boolean; atalho?: Atalho } = {},
 ): HTMLButtonElement {
-  const b = parent.createEl("button", {
-    cls: `erpg-btn is-${opts.variante ?? "primario"}${opts.pequeno ? " is-sm" : ""}`,
-    attr: opts.titulo ? { "aria-label": opts.titulo, title: opts.titulo } : {},
-  });
+  const attr: Record<string, string> = opts.titulo ? { "aria-label": opts.titulo, title: opts.titulo } : {};
+  if (opts.atalho) Object.assign(attr, { "data-atalho": opts.atalho, "aria-keyshortcuts": TECLAS[opts.atalho].aria });
+  const b = parent.createEl("button", { cls: `erpg-btn is-${opts.variante ?? "primario"}${opts.pequeno ? " is-sm" : ""}`, attr });
   if (opts.icone) icone(b, opts.icone);
   if (texto) b.createSpan({ text: texto });
   else b.addClass("is-icone");
+  if (opts.atalho) b.createSpan({ cls: "erpg-tecla", text: TECLAS[opts.atalho].rotulo, attr: { "aria-hidden": "true" } });
   b.addEventListener("click", async (ev) => {
     if (b.disabled) return;
     b.disabled = true; // evita clique duplo gravando duas vezes

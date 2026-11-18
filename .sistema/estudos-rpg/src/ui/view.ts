@@ -10,9 +10,11 @@ import { ConquistasModal } from "./conquistasModal.ts";
 import { TopicosModal } from "./topicosModal.ts";
 
 export const VIEW_FICHA = "estudos-rpg-ficha";
+/** Ícone registrado pelo plugin (troféu em pixel, ver main.ts). */
+export const ICONE_FICHA = "estudos-rpg-icone";
 
 export class FichaView extends ItemView {
-  private estado: EstadoUI = { revisando: null, perguntaIdx: 0, mostrarResposta: false, trilha: null };
+  private estado: EstadoUI = { revisando: null, perguntaIdx: 0, mostrarResposta: false, escolha: null, trilha: null };
   /** A animação de entrada só roda no primeiro desenho (não a cada clique). */
   private jaDesenhou = false;
   private desinscrever: (() => void) | null = null;
@@ -23,7 +25,7 @@ export class FichaView extends ItemView {
 
   override getViewType() { return VIEW_FICHA; }
   override getDisplayText() { return "Ficha do herói"; }
-  override getIcon() { return "shield"; }
+  override getIcon() { return ICONE_FICHA; }
 
   override async onOpen() {
     this.contentEl.addClass("erpg-host");
@@ -31,6 +33,26 @@ export class FichaView extends ItemView {
     this.desenhar();
     // Cronômetro da sessão: só troca o texto, sem redesenhar a ficha.
     this.registerInterval(window.setInterval(() => S.tique(this.contentEl, this.plugin.sessaoInicio), 1000));
+    this.registerDomEvent(document, "keydown", (ev) => this.atalho(ev));
+  }
+
+  /**
+   * Atalhos da revisão (Espaço, →, 1, 2, A-E nas alternativas). Cada botão que aceita atalho tem `data-atalho`;
+   * aqui só "clicamos" nele, então a regra fica num lugar só (sections.ts).
+   * E se o foco estiver num campo, num botão ou numa janela? Não rouba a tecla.
+   */
+  private atalho(ev: KeyboardEvent) {
+    if (ev.ctrlKey || ev.metaKey || ev.altKey || ev.repeat) return;
+    if (this.app.workspace.getActiveViewOfType(FichaView) !== this) return;
+    if (document.body.querySelector(".modal-container")) return;
+    const alvo = ev.target instanceof Element ? ev.target : null;
+    if (alvo?.closest("input, textarea, select, [contenteditable=true]")) return;
+    const tecla = ev.key === " " ? "espaco" : ev.key === "ArrowRight" ? "seta" : ev.key.toLowerCase();
+    if (tecla === "espaco" && alvo?.closest("button, a")) return; // Espaço num botão focado já clica nele
+    const botao = this.contentEl.querySelector<HTMLButtonElement>(`[data-atalho="${tecla}"]`);
+    if (!botao || botao.disabled) return;
+    ev.preventDefault();
+    botao.click();
   }
 
   override async onClose() {
@@ -43,7 +65,7 @@ export class FichaView extends ItemView {
     if (!dados) return null;
     return {
       app: this.app, comp, settings: this.plugin.config, estado: this.estado, acoes: this.acoes,
-      snap: dados.snap, prog: dados.prog, conquistas: dados.conquistas,
+      snap: dados.snap, prog: dados.prog, conquistas: dados.conquistas, fila: this.plugin.filaHoje(),
     };
   };
 
@@ -109,13 +131,14 @@ export class FichaView extends ItemView {
       const caixa = lembrou ? aposLembrar({ caixa: n.caixa, revisado: n.revisado }, intervalos) : aposEsquecer();
       const hoje = this.plugin.hoje();
       await this.plugin.writer.propriedades(n.caminho, { caixa, revisado: hoje });
+      await this.plugin.contarRevisao(!n.revisado);
       new Notice(lembrou ? `${n.label}: caixa ${caixa}, volta em ${intervalos[caixa] ?? "?"} dia(s).` : `${n.label} volta amanhã.`);
-      Object.assign(this.estado, { revisando: proxima, perguntaIdx: 0, mostrarResposta: false });
+      Object.assign(this.estado, { revisando: proxima, perguntaIdx: 0, mostrarResposta: false, escolha: null });
       await this.plugin.atualizarAgora();
     },
 
     revisarNota: (caminho) => {
-      Object.assign(this.estado, { revisando: caminho, perguntaIdx: 0, mostrarResposta: false });
+      Object.assign(this.estado, { revisando: caminho, perguntaIdx: 0, mostrarResposta: false, escolha: null });
       this.desenhar();
     },
 

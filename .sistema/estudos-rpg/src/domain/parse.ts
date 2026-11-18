@@ -64,20 +64,49 @@ export function parseTrilha(texto: string, resolver: (alvo: string) => string | 
   return regioes.filter((r) => r.topicos.length > 0);
 }
 
+export interface PerguntaLida {
+  pergunta: string;
+  /** Pergunta aberta: a resposta. Múltipla escolha: a explicação (começa com `**b)**`). */
+  resposta: string;
+  /** Só em múltipla escolha: o texto de cada alternativa, na ordem a, b, c... */
+  alternativas?: string[];
+  /** Índice da alternativa certa; ausente se a explicação não começar com uma letra válida. */
+  correta?: number;
+}
+
+const ALTERNATIVA = /^-\s+([a-z])\)\s+(.*)$/;
+const juntar = (linhas: string[]) => linhas.join(" ").replace(/\s+/g, " ").trim();
+
 /**
  * Extrai perguntas de callouts `> [!question]- Pergunta` + linhas `> resposta`.
+ * Múltipla escolha: linhas `> - a) ...` e a explicação num callout aninhado
+ * `> > [!check]- Resposta` / `> > **b)** porque...`.
  * Ignora placeholders do template (`[Pergunta 1...]`).
  */
-export function parsePerguntas(texto: string): { pergunta: string; resposta: string }[] {
-  const out: { pergunta: string; resposta: string }[] = [];
+export function parsePerguntas(texto: string): PerguntaLida[] {
+  const out: PerguntaLida[] = [];
   const re = /^> \[!question\][-+]?[ \t]*(.+)\n((?:>.*(?:\n|$))*)/gm;
   const t = texto.replace(/\r\n/g, "\n");
   let m: RegExpExecArray | null;
   while ((m = re.exec(t))) {
     const pergunta = (m[1] ?? "").trim();
-    const resposta = (m[2] ?? "").split("\n").map((l) => l.replace(/^>\s?/, "")).join(" ").replace(/\s+/g, " ").trim();
+    const corpo = (m[2] ?? "").split("\n").map((l) => l.replace(/^>\s?/, ""));
+    const alternativas = corpo.map((l) => l.match(ALTERNATIVA)?.[2]?.trim()).filter((x): x is string => !!x);
+
+    let resposta: string;
+    let correta: number | undefined;
+    if (alternativas.length) {
+      const explicacao = corpo.filter((l) => /^>/.test(l) && !/^>\s?\[!/.test(l)).map((l) => l.replace(/^>\s?/, ""));
+      resposta = juntar(explicacao);
+      const letra = resposta.match(/^\**([a-z])\)/)?.[1];
+      const idx = letra ? letra.charCodeAt(0) - 97 : -1;
+      if (idx >= 0 && idx < alternativas.length) correta = idx;
+    } else {
+      resposta = juntar(corpo);
+    }
+
     if (!pergunta || /^\[.*\]$/.test(pergunta) || !resposta || /^\[.*\]$/.test(resposta)) continue;
-    out.push({ pergunta, resposta });
+    out.push(alternativas.length ? { pergunta, resposta, alternativas, ...(correta !== undefined && { correta }) } : { pergunta, resposta });
   }
   return out;
 }

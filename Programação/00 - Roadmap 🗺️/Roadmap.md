@@ -27,10 +27,10 @@ nome: Programação
 
 > O ferramental do dia a dia de quem programa.
 
-- [ ] [[Terminal]] — interface de linha de comando pra interagir diretamente com o sistema operacional.
+- [x] [[Terminal]] — interface de linha de comando pra interagir diretamente com o sistema operacional.
 - [ ] [[Bash]] — shell padrão em sistemas Linux/macOS, usado pra automatizar tarefas via linha de comando.
 - [ ] [[PowerShell]] — shell e linguagem de script do Windows, mais poderoso que o CMD tradicional.
-- [ ] [[VS Code]] — editor de código leve e extensível, um dos mais usados atualmente.
+- [x] [[VS Code]] — editor de código leve e extensível, um dos mais usados atualmente.
 - [ ] [[Gerenciador de Pacotes]] — ferramenta que instala e gerencia bibliotecas/dependências do projeto (ex: npm, pip, Maven).
 - [ ] [[Linter]] — ferramenta que analisa o código em busca de erros e problemas de estilo automaticamente.
 - [ ] [[Formatter]] — ferramenta que formata o código automaticamente seguindo um padrão (ex: Prettier).

@@ -5,55 +5,27 @@ revisado:
 
 # Output com Correção
 
-> *"Falar mostra o que você não sabe. Por isso funciona."*
+Você entende quase tudo de um vídeo em inglês. Lê documentação sem dificuldade. Aí, numa conversa, alguém te pergunta o que você fez no fim de semana, e você trava. As palavras estão todas ali, você as reconhece quando ouve, mas na hora de juntar uma frase, não sai. "Eu estava pensando em..." como é que diz isso mesmo?
 
-> [!tip] ⚡ Em 30 segundos
-> **Output** é falar e escrever. Ele não é só "usar" o que você adquiriu: é quando você **percebe o buraco** ("como diz isso mesmo?"), e esse buraco faz você prestar atenção no input depois. O output só melhora com **correção**: alguém (pessoa ou ferramenta) mostra o erro, e você foca nos erros que se **repetem**.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Esse buraco tem uma explicação, e ela é a razão de existir desta nota. **Output** é falar e escrever, e ele não serve só pra "usar" o que você já sabe. É falando que você **descobre o buraco**. E o buraco descoberto faz uma coisa poderosa: na próxima vez que você ouvir aquela estrutura num vídeo, vai prestar atenção nela, porque agora você sabe que precisa dela.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Mas tem um porém: output sozinho só repete os mesmos erros, todos os dias, até eles virarem hábito. Ele só melhora com **correção**, quando alguém (uma pessoa ou uma ferramenta) mostra o erro. E o foco da correção não é corrigir tudo: é atacar os erros que **se repetem**. Ajuda ter passado pelo [[Input Compreensível]], pelo [[Sentence Mining]] e pelo [[Shadowing]].
 
----
+## Por que falar ensina
 
-## 🎯 Objetivos
+Ouvindo e lendo, você **reconhece** a língua. É um trabalho passivo: as palavras chegam prontas, e você só precisa entender. Falando, você precisa **produzir**: escolher cada palavra, montar a ordem, conjugar. E é aí que aparecem as lacunas. A palavra que você entende quando ouve, mas não lembra na hora de falar. A frase que você sabe que existe, mas não sabe montar.
 
-Ao terminar esta nota, você consegue:
+Essas lacunas são valiosas, e não um sinal de fracasso. Depois de travar tentando dizer "eu estava pensando em...", você passa a **notar** essa estrutura (*I was thinking about...*) quando ela aparece num vídeo, e ela gruda, porque agora tem um lugar pra ela na sua cabeça. **O output dá direção pro input.** Sem ele, você ouve tudo com a mesma atenção difusa. Com ele, você ouve procurando as respostas que te faltaram.
 
-- Praticar output sozinho (diário, áudio) e com outras pessoas (aula, tandem)
-- Pedir uma correção útil a uma IA, sem que ela reescreva tudo
-- Manter um "caderno de erros" e atacar os 3 erros que mais se repetem
+E dá pra fazer output todo dia, sozinho, em cinco minutos. Um **diário de três frases**: o que você fez hoje, em inglês, simples e real. Um **áudio de um minuto**: conte um vídeo que você viu, ou explique uma coisa que estudou, e depois ouça. Ou **falar sozinho**: narrar o que você está fazendo (*"Now I'm opening VS Code..."*). Parece estranho, e treina muito.
 
----
+Duas coisas impedem a maioria das pessoas de começar. A primeira é **esperar o nível ficar bom** antes de falar. Mas o nível sobe **porque** você fala, e não o contrário. Comece no A2, errando. A segunda é o **medo de errar na frente dos outros**. Quem conversa em inglês com estrangeiros está acostumado a erros, e ninguém liga. O inglês é, de longe, a língua mais falada por **não nativos** no mundo: a maior parte das conversas em inglês acontece entre pessoas que também estão errando.
 
-## 🧭 Onde isso se encaixa
+## Pedindo correção do jeito certo
 
-- **Antes:** [[Input Compreensível]] · [[Sentence Mining]] · [[Shadowing]]
-- **Depois:** [[Conversação]] · [[Escrever Parágrafos]] · [[Inglês em Reuniões e Daily]]
-- **Trilha:** [[Inglês]]
+Uma IA corrige texto muito bem, mas **o pedido faz toda a diferença**. Se você pedir só "corrija meu texto", ela reescreve tudo, mais bonito, e você não aprende nada: recebe um texto melhor, e não sabe o que estava errado nem por quê.
 
----
-
-## 🧱 O mínimo pra usar
-
-### 1. Output sozinho (todo dia, 5 min)
-
-- **Diário de 3 frases:** o que você fez hoje, em inglês. Simples e real.
-- **Áudio de 1 minuto:** conte um vídeo que viu ou explique algo que estudou. Ouça depois.
-- **Falar sozinho:** narre o que está fazendo (*"Now I'm opening VS Code..."*). Parece estranho, treina muito.
-
-### 2. Output com gente (1x por semana)
-
-| Opção | Bom pra |
-|---|---|
-| Professor (italki, Preply) | Correção direta, nível iniciante |
-| Tandem (HelloTalk, Tandem) | Grátis: você ensina português e aprende inglês |
-| Comunidades (Discord de jogos, open source) | Inglês real, sobre algo que você gosta |
-
-### 3. Pedindo correção a uma IA (do jeito certo)
-
-Não peça "corrija meu texto": ela reescreve tudo e você não aprende. Use algo assim:
+Peça assim:
 
 ```
 Corrija meu texto em inglês. Regras:
@@ -64,59 +36,47 @@ Corrija meu texto em inglês. Regras:
 Texto: ...
 ```
 
-### 4. O caderno de erros
+Cada regra tem um motivo. A primeira é a mais importante: sem ela, a IA troca frases corretas por outras "melhores", e você não sabe mais o que era erro de verdade e o que era só estilo. A segunda, a lista, é a parte que ensina: ver o erro, a correção e o porquê, lado a lado. E a terceira alimenta o caderno de erros, da próxima seção.
 
-Anote cada erro corrigido no Diário de bordo. Toda semana, olhe a lista e escolha **os 3 que mais se repetem**. Na semana seguinte, preste atenção só neles. Corrigir tudo de uma vez não corrige nada.
+## O caderno de erros
 
----
+Anote cada erro corrigido aqui embaixo, em "Minhas anotações". E toda semana, olhe a lista e escolha **os três que mais se repetem**. Na semana seguinte, preste atenção **só neles**.
 
-## 🔧 Pegadinhas
+Por que só três, se você tem vinte erros anotados? Porque tentar corrigir tudo de uma vez não corrige nada. Ninguém consegue prestar atenção em vinte coisas ao mesmo tempo no meio de uma conversa. Com três, dá pra notar cada vez que você quase erra ("opa, de novo o *does*"), e em algumas semanas eles somem. Aí você escolhe os próximos três. É uma limpeza aos poucos, e funciona.
 
-- **Esperar o nível ficar bom pra começar a falar.** O nível sobe *porque* você fala. Comece no A2.
-- **Ter medo de errar na frente dos outros.** Quem fala inglês com estrangeiro está acostumado com erro. Ninguém liga.
-- **Pedir correção de tudo, sempre.** Na conversa, peça pra corrigirem só o que atrapalha o entendimento; o resto deixe pra escrita.
+Na conversa falada, a regra é um pouco diferente. Ser interrompido a cada frase trava a fala, e você para de tentar. Peça às pessoas pra corrigirem só o que **atrapalha o entendimento**, e deixe a correção detalhada pra escrita, onde dá tempo de pensar.
 
----
+## Output com gente, uma vez por semana
 
-## 🔨 Desafio prático
+O output sozinho é ótimo, mas conversar com alguém de verdade tem um valor que nenhum diário substitui: a pressão do tempo real, a resposta que você não esperava, o "pode repetir?". Uma vez por semana, procure gente:
 
-**Objetivo:** montar seu caderno de erros em uma semana.
+| Opção | Bom pra |
+|---|---|
+| Professor (italki, Preply) | correção direta, principalmente no começo |
+| Tandem (HelloTalk, Tandem) | grátis: você ensina português e aprende inglês |
+| Comunidades (Discord de jogos, open source) | inglês real, sobre algo que você gosta |
 
-1. Escreva 3 frases por dia sobre o seu dia, durante 5 dias.
-2. Passe cada texto pelo prompt de correção acima.
-3. Anote os erros no Diário de bordo.
-4. No fim da semana, circule os 3 tipos de erro que mais apareceram.
+E pra quem programa, existe uma forma de output com correção que é de graça e ainda conta pro portfólio: **contribuir num projeto open source.** Você escreve issues e pull requests em inglês, e as pessoas respondem, corrigem, discutem. A nota [[Inglês em Commits, Issues e PRs]] é sobre isso.
 
-**Pronto quando:** você sabe quais são os seus 3 erros mais comuns.
+## O essencial
 
----
+1. Falar e escrever revelam o que você não sabe, e isso direciona a sua atenção no input.
+2. Output sem correção repete os erros. Com correção, eles somem.
+3. Peça à IA: mantenha o que está certo, liste cada erro com o motivo, aponte o mais repetido.
+4. Caderno de erros: toda semana, os três mais frequentes, e foco só neles.
+5. Comece a falar agora, errando. O nível sobe porque você fala.
 
-## 🚀 Projeto
+## Agora é com você
 
-> [!example] O README do seu plugin, em inglês
-> Um texto que vai existir de verdade, sobre algo que você conhece melhor que ninguém: o seu plugin Estudos RPG.
->
-> **Tempo:** 2 a 3 sessões
+Monte o seu caderno de erros em uma semana. Escreva três frases por dia sobre o seu dia, durante cinco dias. Passe cada texto pelo prompt de correção acima, e anote os erros aqui embaixo. No fim da semana, circule os três tipos de erro que mais apareceram. Você terminou quando souber quais são os seus três erros mais comuns.
 
-**O mínimo:**
-- [ ] Escrever do zero em inglês, sem traduzir do português: o que o plugin é, como instalar e como usar
-- [ ] Seções curtas e frases simples
-- [ ] Passar cada seção pelo prompt de correção e levar os erros para o caderno de erros
-- [ ] Salvar como `README.en.md` em `.sistema/estudos-rpg/`
+Depois, um texto que vai existir de verdade: **o README do seu plugin, em inglês.** É sobre uma coisa que você conhece melhor que ninguém, o plugin Estudos RPG. Escreva do zero em inglês, **sem traduzir do português**: o que o plugin é, como instalar e como usar. Mantenha as seções curtas e as frases simples. Passe cada seção pelo prompt de correção, e leve os erros pro caderno. Salve como `README.en.md`, em `.sistema/estudos-rpg/`. Você terminou quando alguém que só fala inglês conseguir instalar e usar o plugin lendo só o seu README. Se quiser ir além, peça pra IA apontar só o que soa "não nativo", e reescreva essas partes você mesmo; e escreva em inglês a descrição (o "About") do repositório no GitHub.
 
-**Se quiser ir além:**
-- Pedir para a IA apontar só o que soa "não nativo" e reescrever essas partes você mesmo
-- Escrever em inglês a descrição (About) do repositório no GitHub
-
-**Pronto quando:** alguém que só fala inglês conseguiria instalar e usar o plugin lendo só o seu README.
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+Daqui, siga pra [[Conversação]], [[Escrever Parágrafos]] e [[Inglês em Reuniões e Daily]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Por que o output ajuda a aprender, além de "usar" a língua?
 > Porque ao falar/escrever você percebe o que não sabe; isso faz você notar essas estruturas no input depois.
@@ -127,24 +87,34 @@ Anote cada erro corrigido no Diário de bordo. Toda semana, olhe a lista e escol
 > [!question]- O que é o caderno de erros e como usar?
 > Uma lista dos erros corrigidos; toda semana você escolhe os 3 mais frequentes e foca só neles.
 
+> [!question]- Por que focar só em 3 erros por semana?
+> Porque ninguém presta atenção em muitos erros ao mesmo tempo; com 3, dá pra notar cada vez que quase erra, e eles somem.
+
 > [!question]- Cite uma forma de praticar conversa de graça.
 > Tandem (HelloTalk, Tandem): troca de idioma com nativos. Ou comunidades em inglês sobre seus hobbies.
 
+> [!question]+ Qual o jeito mais útil de pedir correção de um texto pra uma IA?
+> - a) "Corrija meu texto"
+> - b) "Corrija, liste cada erro com o motivo e mostre a versão natural"
+> - c) "Reescreva em inglês avançado"
+> - d) "Traduza pro português"
+>
+> > [!check]- Resposta
+> > **b)** Só a versão corrigida não ensina: você não vê o que errou. A lista com o motivo vai pro caderno de erros e vira revisão.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Frequência | Faça |
 |---|---|
-| Todo dia | 3 frases de diário ou áudio de 1 min |
-| 1x/semana | Conversa (aula, tandem) |
-| 1x/semana | Revisar o caderno de erros e escolher 3 |
+| Todo dia | 3 frases de diário ou um áudio de 1 min |
+| 1x por semana | Conversa (aula, tandem) |
+| 1x por semana | Revisar o caderno de erros e escolher 3 |
 
----
+**Pra usar:** o [italki](https://www.italki.com/) e o [Preply](https://preply.com/) têm professores e aulas só de conversação, em vários preços. O [HelloTalk](https://www.hellotalk.com/) e o [Tandem](https://tandem.net/) são pra troca de idiomas, de graça. E o [LanguageTool](https://languagetool.org/) é um corretor gramatical que funciona no navegador, bom pra textos curtos do dia a dia.
 
-## 📓 Diário de bordo
-
-> Esta parte é **sua**.
+## Minhas anotações
 
 **Caderno de erros** (original → corrigido):
 - 
@@ -152,12 +122,4 @@ Anote cada erro corrigido no Diário de bordo. Toda semana, olhe a lista e escol
 **Meus 3 erros mais comuns desta semana:**
 1. 
 2. 
-3. 
-
----
-
-## 📚 Recursos
-
-- [italki](https://www.italki.com/) e [Preply](https://preply.com/): professores e conversação
-- [HelloTalk](https://www.hellotalk.com/) e [Tandem](https://tandem.net/): troca de idiomas
-- [LanguageTool](https://languagetool.org/): corretor gramatical
+3.

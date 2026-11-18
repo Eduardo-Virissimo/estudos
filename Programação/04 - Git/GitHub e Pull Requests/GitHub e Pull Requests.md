@@ -5,88 +5,71 @@ revisado:
 
 # GitHub e Pull Requests
 
-> *"Pull request não é pedir permissão. É pedir uma segunda opinião antes de ser tarde."*
+Até aqui, o seu repositório Git morava num lugar só: o seu computador. Se o disco morrer amanhã, o histórico inteiro vai junto. Se você quiser mostrar o projeto pra alguém, não tem como. E se outra pessoa quiser ajudar, ela não tem onde pegar o código.
 
-> [!tip] ⚡ Em 30 segundos
-> **GitHub** hospeda repositórios Git na internet: backup, portfólio e o lugar onde times colaboram. Você liga o repositório local ao remoto (`origin`), envia commits com `git push` e baixa os dos outros com `git pull`. Pra propor uma mudança, você cria uma **branch**, envia e abre um **Pull Request (PR)**: uma página onde outras pessoas veem o diff, comentam, pedem ajustes e aprovam antes do **merge** na `main`.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+O **GitHub** resolve as três coisas de uma vez. Ele guarda repositórios Git na internet, e por isso serve de backup, de portfólio, e de lugar onde times colaboram. Você liga o repositório do seu computador ao do GitHub, envia os seus commits com `git push`, e baixa os dos outros com `git pull`.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+E quando você trabalha num projeto de time, aparece a peça mais importante desta nota: o **Pull Request**, ou PR. Pra propor uma mudança, você não mexe direto na `main`. Cria uma branch, envia, e abre um PR: uma página onde outras pessoas veem exatamente o que mudou, comentam, pedem ajustes e aprovam, antes de tudo ser juntado. É o jeito como quase todo software profissional é construído hoje. Ajuda ter passado pelo [[Git Básico]] e pelo [[SSH]].
 
----
+## Dois lugares, sincronizados à mão
 
-## 🎯 Objetivos
+Depois de ligar ao GitHub, o seu repositório passa a existir em dois lugares: o **local**, no seu computador, e o **remoto**, no GitHub, que por convenção se chama `origin`. E um detalhe que confunde no começo: eles **não se sincronizam sozinhos**. Você manda e busca as mudanças com comandos.
 
-Ao terminar esta nota, você consegue:
-
-- Publicar um repositório local no GitHub e sincronizar com `push` e `pull`
-- Abrir um Pull Request com título e descrição bons, e responder a uma revisão
-- Contribuir num repositório que não é seu usando fork
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Git Básico]] · [[SSH]] (autenticação)
-- **Depois:** [[Branches, Merge e Conflitos]] · [[Code Review]] · [[GitHub Actions]] · [[Portfólio e GitHub]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. Autenticação
-
-O GitHub não aceita mais senha no terminal. Duas opções:
-
-- **SSH** (recomendado): uma chave no seu PC, cadastrada no GitHub. Passo a passo em [[SSH]].
-- **HTTPS + GitHub CLI**: instale o `gh` e rode `gh auth login`; ele guarda o token por você.
-
-### 2. Repositório local → GitHub
+Pra ligar um projeto local a um repositório novo no GitHub:
 
 ```bash
 # crie um repositório VAZIO no site (sem README) e então:
 git remote add origin git@github.com:usuario/tarefas.git
-git push -u origin main         # -u liga a branch local à remota (só na primeira vez)
+git push -u origin main   # -u liga a branch local à remota (só na primeira vez)
 
-# com o GitHub CLI, tudo de uma vez:
+# ou, com o GitHub CLI, tudo de uma vez:
 gh repo create tarefas --public --source=. --push
 ```
 
-### 3. O dia a dia com o remoto
+E no dia a dia, quatro comandos:
 
 ```bash
-git push            # envia seus commits
-git pull            # baixa e junta os commits dos outros (fetch + merge)
-git fetch           # só baixa, sem mexer nos seus arquivos
-git remote -v       # pra onde aponta o origin
+git push        # envia seus commits pro GitHub
+git pull        # baixa os commits dos outros E junta com os seus
+git fetch       # só baixa, sem mexer nos seus arquivos
+git remote -v   # mostra pra onde o origin aponta
 ```
 
-**Regra:** `git pull` antes de começar a trabalhar, pra não construir em cima de código velho.
+A diferença entre `pull` e `fetch` vale entender. O `pull` é, na verdade, um `fetch` seguido de um merge: ele baixa e já junta com o seu trabalho. O `fetch` só traz as novidades, pra você olhar antes de decidir juntar.
 
-### 4. O fluxo de Pull Request
+Uma regra de ouro: **rode `git pull` antes de começar a trabalhar.** Assim você não passa uma tarde construindo em cima de código velho. E se um dia o `push` for recusado com uma mensagem dizendo `fetch first`, é exatamente isso que aconteceu: o GitHub tem commits que você não tem. Rode `git pull`, resolva os conflitos se houver, e depois tente o `push` de novo.
+
+Sobre o login: o GitHub não aceita mais senha no terminal. Você usa **SSH** (uma chave no seu computador, cadastrada no GitHub, com o passo a passo em [[SSH]]) ou o **GitHub CLI** (`gh auth login`, que guarda um token pra você).
+
+## O caminho de um Pull Request
+
+Em projeto de time, ninguém commita direto na `main`. O caminho é este:
 
 ```bash
-git switch -c feat/listar-tarefas      # 1. branch nova a partir da main
-# ... edita, commita ...
-git push -u origin feat/listar-tarefas # 2. envia a branch
-gh pr create --fill                    # 3. abre o PR (ou pelo botão no site)
+git switch -c feat/listar-tarefas       # 1. branch nova, a partir da main
+# ... edita e commita ...
+git push -u origin feat/listar-tarefas  # 2. envia a branch
+gh pr create --fill                     # 3. abre o PR (ou pelo botão no site)
 ```
 
-4. Alguém revisa: comenta linhas, sugere mudanças, aprova ou pede ajustes.
-5. Você ajusta **na mesma branch** (novos commits + `git push`): o PR atualiza sozinho.
-6. Aprovado → **merge** na `main` → apaga a branch.
+Depois de aberto, o PR ganha vida própria. Alguém revisa: comenta linhas específicas, sugere mudanças, aprova ou pede ajustes. Você faz os ajustes **na mesma branch**, com novos commits e `git push`, e o PR se atualiza sozinho, sem precisar abrir outro. Quando estiver aprovado, você faz o merge na `main` e apaga a branch.
 
-Mais sobre branches em [[Branches, Merge e Conflitos]].
+E depois do merge, atualize o seu computador:
 
-### 5. Um PR bom
+```bash
+git switch main && git pull           # traz o merge pra sua main local
+git branch -d feat/listar-tarefas     # apaga a branch local
+```
 
-- **Pequeno:** até ~300 linhas mudadas. PR de 2.000 linhas não é revisado, é aprovado no desespero.
-- **Um assunto só.** Correção de bug e refatoração em PRs separados.
-- **Título claro:** `feat: adiciona filtro por prioridade` (padrão de [[Conventional Commits]]).
-- **Descrição que responde:** o quê? por quê? como testar? tem print (se for tela)?
+Por que todo esse processo, em vez de commitar direto? Porque **um segundo par de olhos pega bugs que você não viu**. E porque a `main` fica sempre funcionando: nada entra nela sem ser revisado. Pra ninguém pular essa etapa sem querer, proteja a `main` no GitHub (Settings → Branches → exigir PR), como a nota [[Git Flow]] mostra.
+
+Um problema comum: se a `main` andou enquanto você trabalhava na sua branch, o PR fica com conflito. A solução é trazer a `main` pra sua branch e resolver lá, como em [[Branches, Merge e Conflitos]].
+
+## Um PR que dá vontade de revisar
+
+Abrir um PR é fácil. Abrir um PR que alguém consegue revisar de verdade é outra coisa. Algumas regras fazem toda a diferença.
+
+Seja **pequeno**: até umas 300 linhas mudadas. Um PR de 2.000 linhas não é revisado, é aprovado no desespero, porque ninguém tem energia pra ler tudo aquilo com atenção. Tenha **um assunto só**: uma correção de bug e uma refatoração vão em PRs separados. Dê um **título claro**, como `feat: adiciona filtro por prioridade`, no padrão dos [[Conventional Commits]]. E escreva uma **descrição que responda três perguntas**: o que muda, por que muda, e como testar (com um print, se mudar alguma tela).
 
 ```markdown
 ## O que muda
@@ -100,79 +83,48 @@ Com 30+ tarefas, ficou difícil achar as urgentes. Fecha #12.
 2. `npm run dev -- list --prioridade alta` → só a tarefa nova aparece
 ```
 
-`Fecha #12` (ou `Closes #12`) fecha a issue 12 automaticamente no merge.
+O `Fecha #12` (ou `Closes #12`) no meio da descrição faz uma coisa útil: fecha a issue número 12 automaticamente quando o PR for juntado. Um PR sem descrição nenhuma obriga o revisor a adivinhar o objetivo, e a revisão fica rasa.
 
-### 6. Revisando o PR de outra pessoa
+E quando for a sua vez de revisar o PR de outra pessoa, três atitudes ajudam muito. Comente sobre o **código**, nunca sobre a pessoa, e prefira perguntas: "o que acontece se a lista vier vazia?" funciona melhor que "isso está errado". Separe o que **bloqueia** (um bug, uma falha de segurança) do que é só **sugestão**; um `nit:` no começo do comentário avisa que é detalhe de gosto. E elogie o que ficou bom. A nota [[Code Review]] aprofunda.
 
-- Comente sobre o **código**, não sobre a pessoa. Faça perguntas: "o que acontece se a lista vier vazia?"
-- Separe o que **bloqueia** (bug, falha de segurança) do que é **sugestão** (`nit:` pra detalhe de gosto).
-- Elogie o que ficou bom. Mais em [[Code Review]].
+## Nunca suba segredos
 
-### 7. Fork: contribuir no que não é seu
+Isto merece uma seção só pra ele. Um arquivo `.env` ou um token num repositório público é encontrado por robôs em **minutos**. Existem programas varrendo o GitHub o tempo todo, procurando chaves e senhas expostas, pra usar antes que o dono perceba.
+
+Se aconteceu com você, o primeiro passo é **revogar a chave**: gerar uma nova e invalidar a antiga, no serviço de onde ela veio. Apagar o commit **não resolve**. O segredo continua no histórico, e alguém pode muito bem já ter copiado. A nota [[Gestão de Secrets]] fala disso com mais calma.
+
+## Contribuindo no que não é seu
+
+Num projeto de outra pessoa, você não tem permissão pra criar branches no repositório dela. A solução é o **fork**: uma cópia do repositório inteiro, só que na **sua** conta.
 
 ```bash
-gh repo fork dono/projeto --clone   # cópia na SUA conta + clone local
+gh repo fork dono/projeto --clone   # cópia na sua conta + clone local
 # branch → commits → push no seu fork → PR pro repositório original
 ```
 
-### 8. Issues
+Você trabalha no seu fork, e abre o PR de lá pro repositório original. E uma boa educação de código aberto: antes de mandar um PR grande num projeto alheio, abra (ou comente) uma **issue**, que é a lista de tarefas e bugs do repositório, pra combinar a ideia com quem cuida do projeto. Ninguém gosta de receber um PR enorme sobre algo que não estava nos planos.
 
-Lista de tarefas/bugs do repositório. Antes de abrir um PR grande num projeto alheio, abra (ou comente) uma issue pra combinar a ideia.
+E não esqueça do README, a "capa" do repositório. É a primeira coisa que qualquer pessoa vê, inclusive recrutadores. O mínimo: o que é, como instalar, como usar, e um print ou um GIF. A nota [[Portfólio e GitHub]] fala disso.
 
-### 9. README
+## O essencial
 
-A "capa" do repositório. Mínimo: o que é, como instalar, como usar, um print ou GIF. É o que recrutador vê primeiro ([[Portfólio e GitHub]]).
+1. Local e remoto (`origin`) não se sincronizam sozinhos: `push` envia, `pull` baixa e junta, `fetch` só baixa.
+2. `git pull` antes de começar. Push recusado com `fetch first`: faça pull primeiro.
+3. PR: branch, push, abrir o PR, revisão, ajustes na mesma branch, merge.
+4. PR bom: pequeno, um assunto, título claro, descrição com o quê, por quê e como testar.
+5. Segredo vazado: revogue primeiro. Apagar o commit não basta.
 
----
+## Agora é com você
 
-## 🛠️ Exemplo guiado
+Faça o ciclo completo de um PR, sozinho. Publique um repositório seu no GitHub (pode ser o modelo de [[Configurando um Projeto TypeScript]]) e escreva um README com o que é, como rodar e como usar. Crie uma issue "Adicionar X", uma branch, faça dois commits, e abra um PR com `Fecha #1` na descrição. Depois revise o seu próprio PR, comentando uma linha, corrija com um novo commit, e faça o merge. Por fim, atualize a `main` local e apague a branch. Você terminou quando a issue tiver sido fechada sozinha pelo merge, o PR mostrar a conversa, e a `main` local estar igual à remota (`git status` dizendo "up to date").
 
-Simulando revisão sozinho (funciona igual com um colega):
+E se quiser fazer o seu primeiro PR num projeto **real**, de outra pessoa, o [First Contributions](https://github.com/firstcontributions/first-contributions) existe exatamente pra isso, e te guia passo a passo.
 
-```bash
-git switch -c fix/titulo-vazio
-# corrige o bug: adicionar tarefa com título vazio
-git commit -am "fix: recusa tarefa com título vazio"
-git push -u origin fix/titulo-vazio
-gh pr create --title "fix: recusa tarefa com título vazio" --body "Antes, \`add \"\"\` criava uma tarefa sem nome."
-```
-
-No site: aba **Files changed** → clique numa linha → comente "e se o título for só espaços?" → corrija → `git commit -am "fix: considera título só com espaços como vazio"` → `git push` → o comentário vira **Outdated** → **Merge** → **Delete branch**.
-
-```bash
-git switch main && git pull     # traz o merge pra sua main local
-git branch -d fix/titulo-vazio  # apaga a branch local
-```
-
----
-
-## 🔧 Pegadinhas
-
-- **`rejected ... (fetch first)` no push.** O remoto tem commits que você não tem. `git pull` e depois `git push`.
-- **Commitar direto na `main` em projeto de time.** Proteja a `main` (Settings → Branches → exigir PR).
-- **Esquecer de atualizar a branch.** A `main` andou e seu PR ficou com conflito. Traga a `main` pra sua branch ([[Branches, Merge e Conflitos]]).
-- **Subir segredo.** `.env` ou token no GitHub público é roubado em minutos por robôs. Se aconteceu: **revogue a chave**, apagar o commit não basta. Veja [[Gestão de Secrets]].
-- **PR sem descrição.** O revisor precisa adivinhar o objetivo; a revisão fica rasa.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** o ciclo completo de PR, sozinho.
-
-1. Publique um repositório seu no GitHub (pode ser o modelo de [[Configurando um Projeto TypeScript]]).
-2. Escreva um README com o que é, como rodar e como usar.
-3. Crie uma issue "Adicionar X", uma branch, faça 2 commits e abra um PR com `Fecha #1` na descrição.
-4. Revise o próprio PR comentando uma linha, corrija com um novo commit e faça o merge.
-5. Atualize a `main` local e apague a branch.
-
-**Pronto quando:** a issue foi fechada sozinha pelo merge, o PR mostra a conversa e a `main` local está igual à remota (`git status` → "up to date").
+Daqui, siga pras [[Branches, Merge e Conflitos]], pro [[Code Review]], pro [[GitHub Actions]] e pro [[Portfólio e GitHub]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Qual a diferença entre `git fetch` e `git pull`?
 > `fetch` só baixa os commits do remoto; `pull` baixa e já junta (merge) na sua branch atual.
@@ -186,54 +138,54 @@ git branch -d fix/titulo-vazio  # apaga a branch local
 > [!question]- O que deve ter na descrição de um PR?
 > O que muda, por que muda e como testar (e prints, se mudar a tela).
 
+> [!question]- Por que um PR de 2.000 linhas é um problema?
+> Porque ninguém consegue revisar com atenção: acaba aprovado sem ser lido de verdade.
+
 > [!question]- Qual a diferença entre fork e branch?
 > Branch é uma linha de trabalho dentro do mesmo repositório; fork é uma cópia do repositório inteiro na sua conta, usada pra contribuir onde você não tem permissão.
 
 > [!question]- Subiu um token pro GitHub sem querer. Apagar o commit resolve?
 > Não. O token pode já ter sido copiado; é preciso revogá-lo e gerar outro.
 
+> [!question]+ Qual a diferença entre `git fetch` e `git pull`?
+> - a) Nenhuma
+> - b) `fetch` baixa as novidades sem mexer nos seus arquivos; `pull` baixa e já faz merge
+> - c) `fetch` envia, `pull` recebe
+> - d) `pull` só baixa branches novas
+>
+> > [!check]- Resposta
+> > **b)** `pull` = `fetch` + `merge` (ou rebase). Com `fetch` você vê o que mudou antes de juntar.
+
+> [!question]+ Você subiu um token pro GitHub sem querer. Qual o primeiro passo?
+> - a) Apagar o commit com `reset` e force push
+> - b) Revogar o token e gerar outro
+> - c) Deixar o repositório privado
+> - d) Adicionar o arquivo no `.gitignore`
+>
+> > [!check]- Resposta
+> > **b)** O token pode já ter sido copiado (robôs varrem o GitHub em minutos). Reescrever o histórico vem depois. O que protege é **revogar**.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Comando | O que faz |
 |---|---|
-| `git remote add origin url` | liga ao GitHub |
-| `git push -u origin main` | primeiro envio |
-| `git push` / `git pull` | enviar / baixar e juntar |
-| `git fetch` | só baixar |
-| `gh repo create nome --source=. --push` | criar repo e enviar |
-| `gh pr create --fill` | abrir PR |
-| `gh pr checkout 12` | baixar o PR 12 pra testar |
-| `gh repo fork dono/repo --clone` | fork + clone |
+| `git remote add origin url` | Liga ao GitHub |
+| `git push -u origin main` | Primeiro envio |
+| `git push` / `git pull` | Enviar / baixar e juntar |
+| `git fetch` | Só baixar |
+| `gh repo create nome --source=. --push` | Criar o repo e enviar |
+| `gh pr create --fill` | Abrir um PR |
+| `gh pr checkout 12` | Baixar o PR 12 pra testar |
+| `gh repo fork dono/repo --clone` | Fork + clone |
 
----
+**Pra ler:** a página [Sobre pull requests](https://docs.github.com/pt/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests), da documentação do GitHub, está em português e cobre o processo inteiro. O [manual do GitHub CLI](https://cli.github.com/manual/) vale pra quem prefere fazer tudo pelo terminal. E o [First Contributions](https://github.com/firstcontributions/first-contributions) guia o seu primeiro PR num projeto real.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```bash
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [GitHub Docs · Sobre pull requests](https://docs.github.com/pt/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)
-- [GitHub CLI](https://cli.github.com/manual/)
-- [First Contributions](https://github.com/firstcontributions/first-contributions): faça seu primeiro PR num projeto real, guiado

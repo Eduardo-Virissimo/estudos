@@ -5,72 +5,54 @@ revisado:
 
 # Vocabulário Técnico
 
-> *"Você já fala mais inglês do que imagina: todo dia você 'commita', 'deploya' e 'debuga'."*
+Leia três mensagens de erro, de três ferramentas diferentes: *Failed to fetch.* *Unexpected token in JSON at position 0.* *Request timed out.* Agora abra a documentação de uma biblioteca qualquer: *This method parses the input and returns...* Depois de algumas semanas lendo esse tipo de coisa, você percebe um padrão: são sempre as **mesmas palavras**, aparecendo em todo lugar, em combinações diferentes.
 
-> [!tip] ⚡ Em 30 segundos
-> Código, mensagens de erro e documentação usam um vocabulário **pequeno e muito repetido**: umas 150 palavras cobrem a maior parte do que você lê. A maioria são **verbos de ação** (*fetch*, *parse*, *render*, *throw*) e **substantivos de coisas do código** (*array*, *string*, *branch*, *request*). Aprender esses por grupo, com uma frase real de exemplo, faz a documentação e os erros pararem de assustar.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Esse é o grande segredo do vocabulário técnico. Código, mensagens de erro e documentação usam um vocabulário **pequeno e muito repetido**: umas 150 palavras cobrem a maior parte de tudo o que você vai ler. A maioria são **verbos de ação** (*fetch*, *parse*, *render*, *throw*) e **nomes de coisas do código** (*array*, *string*, *branch*, *request*).
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+E a melhor forma de aprender essas palavras é **por grupo**, cada uma com uma frase real de exemplo. Quando você conhece o grupo dos verbos de dados, o dos verbos de erro, e as palavras das mensagens de erro, a documentação e o terminal param de assustar, porque você passa a reconhecer as mesmas palavras em todo canto. Ajuda ter passado pelas [[Palavras de Alta Frequência]] e pelo [[Sentence Mining]].
 
----
+## Os verbos dos dados
 
-## 🎯 Objetivos
+São os verbos do que se faz **com os dados**: buscar, transformar, guardar.
 
-Ao terminar esta nota, você consegue:
-
-- Entender os verbos mais comuns de código e documentação sem traduzir
-- Ler uma mensagem de erro em inglês e dizer o que ela significa
-- Montar seu próprio glossário com frases reais dos projetos que você usa
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Palavras de Alta Frequência]] · [[Sentence Mining]]
-- **Depois:** [[Siglas Técnicas]] · [[Ler Documentação]] · [[Inglês em Commits, Issues e PRs]]
-- **Trilhas:** [[Inglês]] · [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. Verbos de dados
-
-| Verbo | Significa | Onde aparece |
+| Verbo | Quer dizer | Onde aparece |
 |---|---|---|
 | *fetch* | buscar (geralmente pela rede) | `fetch(url)` |
-| *parse* | interpretar um texto e transformar em estrutura | `JSON.parse` |
-| *serialize* / *stringify* | transformar estrutura em texto | `JSON.stringify` |
+| *parse* | ler um texto e transformar em estrutura | `JSON.parse` |
+| *serialize* / *stringify* | transformar uma estrutura em texto | `JSON.stringify` |
 | *store* / *save* / *persist* | guardar | "the data is persisted to disk" |
 | *load* / *read* | carregar / ler | `readFile` |
-| *retrieve* | recuperar (buscar algo guardado) | "retrieve a user by id" |
+| *retrieve* | recuperar algo que foi guardado | "retrieve a user by id" |
 | *update* / *delete* | atualizar / apagar | CRUD |
 | *filter* / *map* / *reduce* / *sort* | filtrar / transformar / juntar / ordenar | métodos de array |
 | *append* / *prepend* | adicionar no fim / no começo | `appendFile` |
 | *merge* | juntar | Git, objetos |
 
-### 2. Verbos de execução
+O par que mais confunde é o ***parse*** e o ***serialize***, e vale entender bem, porque eles aparecem o tempo todo. São caminhos **opostos**. O *parse* lê um **texto** e monta a **estrutura** a partir dele: `JSON.parse('{"a":1}')` transforma aquele texto num objeto de verdade. O *serialize* faz o contrário: pega a **estrutura** e escreve ela como **texto**, com o `JSON.stringify(obj)`. Na prática: você faz *parse* quando carrega um arquivo, e *serialize* quando salva.
 
-| Verbo | Significa |
+## Os verbos de quando o programa roda
+
+São os verbos do que o programa **faz** enquanto está rodando:
+
+| Verbo | Quer dizer |
 |---|---|
 | *run* / *execute* | rodar |
 | *call* / *invoke* | chamar (uma função) |
 | *return* | devolver |
 | *throw* / *raise* | lançar (um erro) |
 | *catch* / *handle* | capturar / tratar (um erro) |
-| *await* / *resolve* / *reject* | esperar / cumprir / rejeitar (Promises) |
+| *await* / *resolve* / *reject* | esperar / cumprir / rejeitar ([[Promises]]) |
 | *trigger* / *fire* | disparar (um evento) |
 | *render* | desenhar na tela |
 | *spawn* | criar (um processo) |
 | *hang* / *freeze* | travar |
 | *crash* | quebrar e fechar |
 
-### 3. Verbos do ciclo de trabalho
+Os erros, nessa linguagem, funcionam como uma bola. O código **lança** o erro (*throw*), e outro trecho **pega** ele (*catch*) pra tratar. Se ninguém pegar a bola, o programa **quebra** (*crash*). Com essa imagem na cabeça, um *Uncaught Error* passa a fazer sentido: é um erro que ninguém pegou.
 
-| Verbo | Significa |
+E existe um outro grupo, o dos verbos do **ciclo de trabalho**, que aparecem nas conversas do time, nos commits e na documentação de deploy:
+
+| Verbo | Quer dizer |
 |---|---|
 | *install* / *set up* / *configure* | instalar / preparar / configurar |
 | *build* / *compile* | gerar a versão final / compilar |
@@ -78,91 +60,67 @@ Ao terminar esta nota, você consegue:
 | *roll back* | voltar pra versão anterior |
 | *commit* / *push* / *pull* | gravar / enviar / baixar (Git) |
 | *review* / *approve* | revisar / aprovar |
-| *debug* / *troubleshoot* | caçar bug / investigar problema |
+| *debug* / *troubleshoot* | caçar um bug / investigar um problema |
 | *refactor* | reorganizar o código sem mudar o comportamento |
 | *bump* | subir (a versão): "bump version to 1.2.0" |
 | *deprecate* | marcar como obsoleto |
 
-### 4. Palavras de mensagens de erro
+Um detalhe cultural: muitos desses termos **não se traduzem**, nem entre quem fala português. Ninguém diz "empurrar" pro *push*, nem "galho" pra *branch*. São usados em inglês mesmo, no meio de uma frase em português ("faz o push na branch"). Então não perca tempo tentando traduzir: aprenda o termo em inglês, e use.
+
+## As palavras das mensagens de erro
 
 | Na mensagem | Quer dizer |
 |---|---|
-| *cannot read properties of undefined* | não dá pra ler propriedade de algo vazio |
-| *is not defined* / *is not a function* | não existe / não é função |
+| *cannot read properties of undefined* | não dá pra ler uma propriedade de algo vazio |
+| *is not defined* / *is not a function* | não existe / não é uma função |
 | *unexpected token* | apareceu um símbolo onde não devia |
-| *not found* / *no such file or directory* | não encontrado / arquivo não existe |
+| *not found* / *no such file or directory* | não encontrado / o arquivo não existe |
 | *permission denied* / *access denied* | sem permissão |
-| *timed out* | demorou demais e desistiu |
+| *timed out* | demorou demais, e desistiu de esperar |
 | *failed to* ... | falhou ao ... |
 | *expected X but received Y* | esperava X, recebeu Y |
 | *is not assignable to* | (TypeScript) o tipo não encaixa |
 | *possibly undefined* | pode estar vazio |
 
-Mais sobre como ler erros em [[Ler Mensagens de Erro]].
+As mensagens de erro são, provavelmente, o inglês mais útil que você vai aprender. Elas dizem exatamente o que está errado, e com essas poucas palavras você entende a maioria delas. Volte às três do começo da nota: *Failed to fetch* é "falhou ao buscar"; *Unexpected token in JSON* é "apareceu um símbolo inesperado no JSON"; *Request timed out* é "a requisição demorou demais". O jeito de ler um erro inteiro, com o tipo, a mensagem e o local, está em [[Ler Mensagens de Erro]].
 
-### 5. Falsos amigos técnicos
+## Falsos amigos e pronúncia
+
+Algumas palavras técnicas parecem português, e significam outra coisa:
 
 | Palavra | Não é | É |
 |---|---|---|
 | *actually* | atualmente | na verdade |
 | *eventually* | eventualmente | no fim das contas, mais cedo ou mais tarde |
 | *library* | livraria | biblioteca (de código) |
-| *issue* | emissão | problema / tarefa (no GitHub) |
+| *issue* | emissão | problema, tarefa (no GitHub) |
 | *assign* | assinar | atribuir |
-| *argument* | argumento de discussão | valor passado pra função |
+| *argument* | argumento de discussão | o valor passado pra uma função |
 | *support* | suportar (aguentar) | dar suporte, ser compatível com |
 
-Mais em [[Falsos Cognatos]].
+A nota [[Falsos Cognatos]] tem a lista completa. E alguns termos técnicos têm uma pronúncia que engana: *cache* é igual a *cash* (e não "cachê"), *null* é "nâl", *queue* é "kiú", *GUI* é "gúi". Na dúvida, o [YouGlish](https://youglish.com/) mostra devs de verdade falando cada um.
 
----
+E um conselho pra fechar: não espere saber todas essas palavras antes de começar a ler documentação. É exatamente o contrário. Você aprende essas palavras **lendo** erros e documentação de verdade, e guardando a frase onde achou cada uma, como o [[Sentence Mining]] ensina.
 
-## 🔧 Pegadinhas
+## O essencial
 
-- **Decorar lista solta.** Palavra sem frase some em uma semana. Guarde a **frase real** onde você achou ([[Sentence Mining]]).
-- **Traduzir termos que não se traduzem.** Ninguém diz "empurrar" pra `push` ou "galho" pra *branch*. Use o termo em inglês mesmo.
-- **Pronúncia inventada.** *Cache* é "kash" (não "cachê"), *null* é "nâl", *queue* é "kiu", *GUI* é "gúi" ou "dji-iú-ái". Confira no [YouGlish](https://youglish.com/).
-- **Achar que precisa saber tudo antes.** Você aprende essas palavras lendo erro e documentação de verdade. Comece já.
+1. O vocabulário técnico é pequeno e repetido: umas 150 palavras cobrem quase tudo.
+2. Aprenda por grupo: dados, execução, ciclo de trabalho, mensagens de erro.
+3. *Parse* transforma texto em estrutura; *serialize* faz o contrário.
+4. *Throw* lança o erro, *catch* pega; sem *catch*, *crash*.
+5. Muitos termos não se traduzem (*push*, *branch*). E cuidado com os falsos amigos (*actually*, *issue*).
 
----
+## Agora é com você
 
-## 🔨 Desafio prático
+Entenda dez mensagens reais sem tradutor. Junte dez mensagens em inglês que você já viu: erros do terminal, do TypeScript, do Git, do npm. Pra cada uma, escreva em português o que ela diz, e o que você faria a respeito. Sublinhe as palavras que você não sabia, e procure **só elas**. Leve as cinco mais úteis pro Anki, com a mensagem inteira como frase. Você terminou quando conseguir explicar as dez mensagens e tiver cinco cartões novos, com frases reais.
 
-**Objetivo:** entender 10 mensagens reais sem tradutor.
+Depois, comece um projeto que vai crescer junto com o roadmap: **o seu glossário vivo.** Ele nasce do que você lê de verdade, e não de uma lista pronta. Crie uma seção "Meu glossário" aqui embaixo, em "Minhas anotações" (ou uma tabela em outra nota), com a palavra, o significado, e a frase onde você achou. Toda semana, acrescente cinco palavras novas, vindas das notas do Roadmap, de mensagens de erro ou de documentação. E as que mais aparecem vão pro Anki. São uns 15 minutos por semana, durante o Estágio 1 inteiro. Você terminou quando o glossário tiver 40 ou mais palavras suas, e você conseguir ler os erros do terminal sem parar pra traduzir. Se quiser ir além, grave você falando cinco frases técnicas e compare a pronúncia com o YouGlish ([[Shadowing]]), e escreva o README de um projeto seu em inglês usando as palavras do glossário.
 
-1. Junte 10 mensagens em inglês que você já viu: erros do terminal, do TypeScript, do Git, do npm.
-2. Pra cada uma, escreva em português o que ela diz e o que você faria.
-3. Sublinhe as palavras que você não sabia e procure **só elas**.
-4. Leve as 5 mais úteis pro Anki, com a mensagem inteira como frase.
-
-**Pronto quando:** você explica as 10 mensagens e tem 5 cartões novos com frases reais.
-
----
-
-## 🚀 Projeto
-
-> [!example] O seu glossário vivo
-> Um glossário que nasce do que você lê de verdade, não de uma lista pronta. Cresce junto com o Roadmap.
->
-> **Tempo:** 15 min por semana, durante o Estágio 1 inteiro
-
-**O mínimo:**
-- [ ] Uma seção "Meu glossário" no 📓 Diário de bordo desta nota (ou uma tabela em outra nota), com palavra, significado e a frase onde você achou
-- [ ] Toda semana, 5 palavras novas vindas das notas do Roadmap, de mensagens de erro ou da documentação
-- [ ] As que mais aparecem vão pro Anki
-
-**Se quiser ir além:**
-- Gravar você falando 5 frases técnicas e comparar a pronúncia com o YouGlish ([[Shadowing]])
-- Escrever o README de um projeto seu em inglês usando as palavras do glossário
-
-**Pronto quando:** o glossário tem 40+ palavras suas e você lê os erros do terminal sem parar pra traduzir.
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+Daqui, siga pras [[Siglas Técnicas]], pra [[Ler Documentação]] e pro [[Inglês em Commits, Issues e PRs]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Qual a diferença entre *parse* e *serialize*?
 > *Parse* transforma texto em estrutura (ex: `JSON.parse`); *serialize*/*stringify* faz o contrário, estrutura em texto.
@@ -182,9 +140,27 @@ Mais em [[Falsos Cognatos]].
 > [!question]- O que é *bump* a version?
 > Subir o número da versão (ex: de 1.1.0 pra 1.2.0).
 
+> [!question]+ Num log, *request timed out* significa:
+> - a) A requisição foi recusada por falta de permissão
+> - b) A requisição demorou demais e desistiram de esperar a resposta
+> - c) O servidor retornou erro 500
+> - d) A requisição foi enviada duas vezes
+>
+> > [!check]- Resposta
+> > **b)** *Time out* = esgotar o tempo. A causa pode ser servidor lento, rede ou endereço errado, mas o sintoma é "não respondeu a tempo".
+
+> [!question]+ O que significa *parse* um JSON?
+> - a) Transformar o texto em objeto/dados
+> - b) Transformar o objeto em texto
+> - c) Enviar o JSON pra API
+> - d) Validar a senha
+>
+> > [!check]- Resposta
+> > **a)** *Parse* = ler texto e montar a estrutura (`JSON.parse`). O caminho inverso, de objeto pra texto, é *serialize* (`JSON.stringify`).
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Grupo | Palavras-chave |
 |---|---|
@@ -194,22 +170,12 @@ Mais em [[Falsos Cognatos]].
 | Erros | not found, denied, timed out, unexpected, expected...received |
 | Falsos amigos | actually, eventually, library, issue, assign |
 
----
+**Pra usar:** o [YouGlish](https://youglish.com/) mostra como devs falam cada termo em vídeos reais. O [glossário do MDN](https://developer.mozilla.org/en-US/docs/Glossary) tem definições curtas, em inglês simples, de centenas de termos da web, e é ótimo pra ler direto em inglês. E o [Cambridge Dictionary](https://dictionary.cambridge.org/) dá o significado, a pronúncia e exemplos de cada palavra.
 
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar.
+## Minhas anotações
 
 **Meu glossário** (palavra · significado · frase onde achei):
 - 
 
 **O que me confundiu / onde eu errei:**
-- 
-
----
-
-## 📚 Recursos
-
-- [YouGlish](https://youglish.com/): ouça como devs falam cada termo em vídeos reais
-- [MDN Glossary](https://developer.mozilla.org/en-US/docs/Glossary): definições curtas, em inglês simples, de termos da web
-- [Cambridge Dictionary](https://dictionary.cambridge.org/): significado + pronúncia + exemplos
+-

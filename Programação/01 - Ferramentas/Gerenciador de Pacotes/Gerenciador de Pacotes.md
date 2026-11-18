@@ -5,65 +5,15 @@ revisado:
 
 # Gerenciador de Pacotes
 
-> *"Não reinvente a roda: instale-a, versione-a e atualize-a."*
+Você precisa mostrar "há 3 dias" do lado de uma data no seu programa. Dá pra escrever isso do zero: calcular a diferença em milissegundos, converter pra dias, tratar horas, meses, anos, plural, fuso horário... ou dá pra usar uma biblioteca que alguém já escreveu, testou e que milhões de pessoas usam. Quase nenhum projeto de verdade é feito do zero. Ele é montado em cima de **pacotes**: código pronto pra validar dados, lidar com datas, criar servidores.
 
-> [!tip] ⚡ Em 30 segundos
-> Instala, atualiza e remove as bibliotecas do projeto (npm, pip...). Tudo gira em torno de dois arquivos: o **manifesto** (`package.json`) diz o que você quer; o **lockfile** diz exatamente o que foi instalado.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Só que pacotes trazem um problema novo. Eles têm versões, dependem de outros pacotes, que dependem de outros, e alguém precisa baixar tudo isso, na versão certa, em cada computador onde o projeto roda. Esse alguém é o **gerenciador de pacotes**: o **npm** no JavaScript, o **pip** no Python, e assim por diante.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Esta nota gira em torno de uma ideia que, quando você entende, resolve o clássico "na minha máquina funciona": **existe um arquivo que diz o que você quer, e outro que diz exatamente o que foi instalado.**
 
----
+## A lista de compras e o recibo
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Ler um manifesto (`package.json`) e as faixas de versão do SemVer (`^`, `~`)
-- Explicar pra que serve o lockfile e reproduzir um projeto do zero
-- Separar dependências de produção e de desenvolvimento
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Terminal]]
-- **Depois:** [[Linter]] · [[Formatter]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 💡 O que é um Gerenciador de Pacotes?
-
-Um **gerenciador de pacotes** é uma ferramenta que **instala, atualiza e remove bibliotecas e dependências** de um projeto. Em vez de baixar arquivos manualmente, você pede o pacote pelo nome e a ferramenta busca, resolve as versões compatíveis e instala tudo, incluindo as dependências do pacote.
-
-Exemplos por ecossistema:
-
-- **npm**, **yarn**, **pnpm**: JavaScript/Node.js
-- **pip** (e **uv**, **poetry**): Python
-- **Maven**, **Gradle**: Java
-- **NuGet**: .NET
-- **Cargo**: Rust
-- **Composer**: PHP
-
-Também existem gerenciadores de pacotes do **sistema operacional** (`apt`, `brew`, `winget`), que instalam programas, não bibliotecas de projeto.
-
-> [!note]- 📜 Um pouco de história
-> Gerenciadores de pacotes de sistema (como `dpkg`/`apt` no Debian) existem desde os anos 1990. Para linguagens de programação, o movimento cresceu com **CPAN** (Perl), **RubyGems**, **Maven** (Java, 2004) e **pip** (Python). O **npm** surgiu em **2010**, criado por Isaac Schlueter, e se tornou um dos maiores registros de pacotes do mundo.
-
----
-
-## 🧱 Conceitos-chave
-
-### Conceito 1: Manifesto de dependências
-
-Arquivo que lista o que o projeto precisa:
-
-- npm: `package.json`
-- pip: `requirements.txt` (ou `pyproject.toml`)
-- Maven: `pom.xml`
+Todo projeto JavaScript tem um `package.json`, o **manifesto**. Pense nele como uma lista de compras: o que o projeto precisa, e quais versões ele aceita.
 
 ```json
 {
@@ -77,79 +27,67 @@ Arquivo que lista o que o projeto precisa:
 }
 ```
 
-### Conceito 2: Versionamento semântico (SemVer)
+Repare no `^` antes da versão. Ele quer dizer que `^4.19.0` **não é uma versão exata**, é um intervalo: "a 4.19.0 ou qualquer uma mais nova, desde que comece com 4". As versões seguem o padrão [[Tags e Versionamento Semântico|SemVer]], `MAJOR.MINOR.PATCH`: o `^` aceita MINOR e PATCH novos, e o `~` aceita só PATCH.
 
-Versões no formato `MAJOR.MINOR.PATCH` (ex.: `4.19.2`):
+E é aqui que mora o problema. Se você instala hoje, pega a 4.19.0. Um colega instala daqui a um mês e pega a 4.21.0, que saiu nesse meio tempo. Duas máquinas, duas versões, e um bug que só aparece numa delas. Nenhum dos dois fez nada errado.
 
-- **MAJOR**: mudanças que quebram compatibilidade
-- **MINOR**: novas funcionalidades compatíveis
-- **PATCH**: correções de bugs
+Quem resolve isso é o **lockfile**, o `package-lock.json`. Se o manifesto é a lista de compras, o lockfile é o **recibo**: ele anota a versão **exata** de cada pacote que foi instalado, inclusive das dependências das dependências. Quando outra pessoa roda `npm install`, o npm segue o recibo, e todo mundo fica com as mesmas versões.
 
-No npm, `^4.19.0` aceita atualizações MINOR e PATCH; `~4.19.0` aceita só PATCH.
+| Arquivo | Diz | Quem escreve |
+|---|---|---|
+| `package.json` | o que você quer (intervalos) | você (e o `npm install x`) |
+| `package-lock.json` | o que foi instalado (exato) | o npm, sozinho |
 
-### Conceito 3: Lockfile
+Por isso, quando alguma coisa dá errado na instalação, resista à tentação de **apagar o lockfile pra "resolver"**. Funciona na hora, mas sem ele cada pessoa volta a instalar versões diferentes, e o problema que ele evitava volta junto.
 
-Arquivo que **trava as versões exatas** instaladas, garantindo que todos tenham o mesmo resultado: `package-lock.json` (npm), `yarn.lock`, `poetry.lock`, etc. **Deve ser versionado no Git.**
+Em outras linguagens a ideia é a mesma, só muda o nome dos arquivos: no Python, `requirements.txt` ou `pyproject.toml`, e com poetry existe o `poetry.lock`.
 
-### Conceito 4: Dependências de produção vs desenvolvimento
+## O que o programa precisa, e o que só você precisa
 
-Pacotes de runtime (`dependencies`) vs ferramentas usadas só no desenvolvimento, como [[Linter]] e [[Formatter]] (`devDependencies`).
+Olhe de novo o `package.json`: tem duas listas. Elas existem porque nem todo pacote é igual.
 
-### Conceito 5: Ambientes isolados (Python)
-
-Para não misturar pacotes entre projetos, use ambientes virtuais:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate      # Linux/macOS
-.venv\Scripts\Activate.ps1     # Windows (PowerShell)
-```
-
----
-
-## 🛠️ Exemplos guiados
-
-### Exemplo 1: Uso Básico
-
-npm:
+As **`dependencies`** são o que o programa precisa **pra rodar**. Um servidor precisa do `express`; o programa das datas precisa do `dayjs`. Já as **`devDependencies`** são o que **você** precisa pra programar, mas o programa não precisa pra funcionar: o [[Linter]], o [[Formatter]], o TypeScript, as ferramentas de teste.
 
 ```bash
-npm init -y
-npm install express
-npm install --save-dev eslint
+npm install dayjs        # vai pra dependencies
+npm install -D eslint    # o -D manda pra devDependencies
 ```
 
-pip:
+Por que separar? Quando o programa vai pro servidor de produção, só as `dependencies` são instaladas. O servidor não precisa do ESLint pra rodar, e cada pacote a menos é menos coisa pra baixar e menos código de terceiros rodando lá.
 
-```bash
-pip install requests
-pip freeze > requirements.txt
+## O que vai pro Git
+
+Depois do primeiro `npm install`, aparece uma pasta `node_modules` no projeto. É onde os pacotes ficam de verdade, e ela é **enorme**, facilmente centenas de megabytes. A boa notícia é que ela pode ser recriada a qualquer momento a partir dos dois arquivos que já vimos. Então a regra é:
+
+- `package.json` **vai** pro Git.
+- `package-lock.json` **vai** pro Git.
+- `node_modules/` **não vai**. Ela entra no `.gitignore`.
+
+```gitignore
+node_modules/
+.venv/
 ```
 
-### Exemplo 2: Caso de Uso Real
-
-Clonar um projeto e deixá-lo funcionando:
+Com isso, clonar o projeto de outra pessoa e deixar funcionando vira uma receita de quatro linhas:
 
 ```bash
 git clone https://github.com/usuario/projeto.git
 cd projeto
-npm install        # instala tudo do package.json / lockfile
+npm install        # recria o node_modules a partir do package.json e do lockfile
 npm run start
 ```
 
-Em Python:
+## npm install no dia a dia, npm ci na automação
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+Existem dois comandos que instalam as dependências, e a diferença entre eles é exatamente a diferença entre manifesto e lockfile.
 
----
+O **`npm install`** é o do dia a dia. Ele instala, e se precisar, **atualiza o lockfile**, por exemplo quando você acabou de adicionar um pacote novo.
 
-## ⚙️ Configuração recomendada
+O **`npm ci`** (de *clean install*) é pra automação, como a CI e os servidores. Ele apaga o `node_modules`, instala **exatamente** o que está no lockfile, e **falha** se o lockfile não bater com o `package.json`. Ele é mais rígido de propósito: na CI, você quer testar exatamente o que está no repositório, sem nenhuma atualização surpresa.
 
-Scripts úteis no `package.json`:
+## Atalhos do projeto
+
+O `package.json` guarda mais uma coisa útil: os comandos do projeto.
 
 ```json
 {
@@ -161,93 +99,49 @@ Scripts úteis no `package.json`:
 }
 ```
 
-`.gitignore` essencial (não versionar dependências instaladas):
+Você roda com `npm run lint` ou `npm run format` (o `start` e o `test` dispensam o `run`). Parece pouco, mas muda a experiência de chegar num projeto novo: ninguém precisa lembrar o comando completo de nada, é só abrir o `package.json` e ler.
 
-```text
-node_modules/
-.venv/
-```
+E quando você quer rodar uma ferramenta sem instalar no projeto, existe o `npx`: `npx prettier --check .` baixa e roda na hora.
 
----
+## Pacote é código de um estranho
 
-## 💎 Boas práticas
+Vale parar um segundo pra lembrar do óbvio: todo pacote que você instala é **código de outra pessoa rodando no seu computador**. Na maioria das vezes, tudo bem. Mas existem pacotes maliciosos publicados com nomes quase iguais aos famosos, esperando um erro de digitação. Antes de instalar algo, confira se é popular, se foi atualizado recentemente e qual a licença. E rode `npm audit` de vez em quando: ele lista vulnerabilidades conhecidas nos pacotes que você usa.
 
-### 1. Versione o lockfile, ignore a pasta de dependências
+Outro problema que você vai encontrar cedo ou tarde é o **conflito de versões**: dois pacotes exigem versões incompatíveis de um terceiro, e a instalação falha. A mensagem de erro parece um muro de texto, mas ela diz quem exige o quê. Leia, e normalmente a solução é atualizar o pacote mais velho. Apagar o `node_modules` e rodar `npm install` de novo fica como último recurso.
 
-`package-lock.json` vai para o Git; `node_modules/` não.
+## Fora do JavaScript
 
-### 2. Cuidado com pacotes desconhecidos
+Cada linguagem tem o seu gerenciador: **pip**, **uv** e **poetry** no Python, **Maven** e **Gradle** no Java, **NuGet** no .NET, **Cargo** no Rust, **Composer** no PHP. As ideias desta nota valem pra todos.
 
-Confira popularidade, manutenção e licença antes de instalar. Pacotes maliciosos ou abandonados existem. Use `npm audit` para checar vulnerabilidades conhecidas.
-
-### 3. Use `npm ci` na integração contínua
-
-Instala exatamente o que está no lockfile, de forma limpa e reproduzível.
-
----
-
-## 🔧 Erros comuns e como resolver
-
-### Problema: Conflito de versões entre dependências
-
-**Solução:**
-1. Leia a mensagem de erro para ver qual pacote exige qual versão.
-2. Atualize ou fixe as versões compatíveis.
-3. Como último recurso, reinstale do zero (apague `node_modules` e rode `npm install`).
-
-### Problema: "command not found: npm" / "pip não é reconhecido"
-
-**Solução:**
-1. Instale o Node.js (que traz o npm) ou o Python (que traz o pip).
-2. Verifique se estão no `PATH` e reabra o [[Terminal]].
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** Criar um projeto, instalar dependências e reproduzi-lo do zero.
+O Python tem uma particularidade: por padrão, ele instala os pacotes **no computador inteiro**, e dois projetos que precisam de versões diferentes de uma biblioteca acabam brigando. Por isso, todo projeto Python ganha o seu **ambiente virtual**, uma pasta isolada só com os pacotes dele:
 
 ```bash
-# 1. mkdir pacotes-teste && cd pacotes-teste && npm init -y
-# 2. Instale a biblioteca dayjs: npm install dayjs
-# 3. Instale prettier como dependência de dev: npm install -D prettier
-# 4. Crie index.js usando dayjs para imprimir a data de hoje
-# 5. Apague a pasta node_modules
-# 6. Rode npm install de novo e execute o index.js
-# 7. Olhe o package.json e o package-lock.json gerados
+python -m venv .venv
+.venv\Scripts\Activate.ps1     # Windows (PowerShell)
+source .venv/bin/activate      # Linux/macOS
+pip install -r requirements.txt
 ```
 
-**Pronto quando:** depois de apagar o `node_modules`, um `npm install` deixa tudo funcionando de novo, e você sabe dizer por que o `dayjs` está em `dependencies` e o `prettier` em `devDependencies`.
+E não confunda com os gerenciadores do **sistema operacional**, como `winget`, `apt` e `brew`. Eles instalam **programas** no computador (o Git, o Node, o VS Code), não bibliotecas de um projeto.
 
----
+## O essencial
 
-## 🚀 Projeto
+1. `package.json` diz o que você quer (intervalos); `package-lock.json` diz o que foi instalado (exato).
+2. `dependencies` é o que o programa precisa pra rodar; `devDependencies` (`-D`) é o que você precisa pra programar.
+3. Manifesto e lockfile vão pro Git; `node_modules` não.
+4. `npm install` no dia a dia, `npm ci` na CI.
 
-> [!example] Um comando seu, instalável
-> Transformar um script seu num comando de terminal de verdade, como os pacotes que você instala do npm. É o mesmo caminho que o [[Gerenciador de Tarefas no Terminal]] vai seguir.
->
-> **Tempo:** 1 sessão
+## Agora é com você
 
-**O mínimo:**
-- [ ] Um projeto com `package.json` contendo `name`, `version`, `"type": "module"` e o campo `"bin"` apontando pro seu script
-- [ ] O script começa com `#!/usr/bin/env node`
-- [ ] `npm link` e o comando funcionando de qualquer pasta (ex: `ola Ana`)
-- [ ] Scripts `dev`, `build` e `start`, e uma dependência de verdade (ex: `dayjs`) usada no código
+Faça o ciclo completo uma vez, com as mãos: crie uma pasta, rode `npm init -y`, instale o `dayjs` e, como dependência de desenvolvimento, o `prettier`. Escreva um `index.js` que usa o `dayjs` pra imprimir a data de hoje. Agora **apague a pasta `node_modules`**, rode `npm install` de novo e veja tudo voltar. Você terminou quando o programa funcionar depois disso e você souber explicar por que o `dayjs` está em `dependencies` e o `prettier` em `devDependencies`.
 
-**Se quiser ir além:**
-- Rodar `npm outdated` e `npm audit` e entender a saída
-- Experimentar o mesmo projeto com `pnpm` e comparar o tamanho do `node_modules`
-- Publicar no npm com um nome com escopo (`@seu-usuario/ola`) e instalar em outro PC
+Depois, um projeto curto e satisfatório: **transformar um script seu num comando de terminal de verdade**, igual aos que você instala do npm. O `package.json` precisa de `name`, `version`, `"type": "module"` e um campo `"bin"` apontando pro seu script, que começa com `#!/usr/bin/env node`. Rode `npm link`, e o comando passa a funcionar de qualquer pasta (`ola Ana`). Inclua os scripts `dev`, `build` e `start`, e use uma dependência de verdade no código. Você terminou quando, num terminal novo, em outra pasta, digitar o nome do comando rodar o seu código. É o mesmo caminho que o [[Gerenciador de Tarefas no Terminal]] vai seguir. Se quiser ir além, rode `npm outdated` e `npm audit` e entenda a saída, experimente o `pnpm` e compare o tamanho do `node_modules`, ou publique no npm com um nome com escopo (`@seu-usuario/ola`).
 
-**Pronto quando:** num terminal novo, em outra pasta, digitar o nome do comando roda o seu código.
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+Daqui, os próximos passos são o [[Linter]] e o [[Formatter]], as duas primeiras `devDependencies` que todo projeto ganha.
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
 
 > [!question]- Qual a diferença entre `package.json` e `package-lock.json`?
 > O `package.json` lista as dependências e as faixas de versão aceitas. O lockfile registra a versão **exata** instalada de cada pacote (e das dependências delas).
@@ -263,6 +157,9 @@ Instala exatamente o que está no lockfile, de forma limpa e reproduzível.
 
 > [!question]- Dependência de produção vs de desenvolvimento: dê exemplos.
 > Produção: o que o app usa rodando (`dayjs`, `express`). Dev: só pra desenvolver (`prettier`, `eslint`), instalado com `-D`.
+
+> [!question]- Por que apagar o lockfile não é uma boa forma de "resolver" um problema?
+> Sem ele, cada pessoa volta a instalar versões diferentes, e o "na minha máquina funciona" volta.
 
 > [!question]- `npm install -D pacote`
 > instala como dependência de desenvolvimento
@@ -282,54 +179,47 @@ Instala exatamente o que está no lockfile, de forma limpa e reproduzível.
 > [!question]- `npx`
 > executa um pacote sem instalá-lo globalmente
 
+> [!question]+ O `package.json` tem `"dayjs": "^1.4.2"`. Qual versão o `npm install` **pode** instalar?
+> - a) Só a `1.4.2`
+> - b) `1.4.9`, mas não `1.5.0`
+> - c) `1.9.0`, mas não `2.0.0`
+> - d) Qualquer uma, até a `2.3.0`
+>
+> > [!check]- Resposta
+> > **c)** `^` aceita MINOR e PATCH novos, mas não muda o MAJOR. Quem trava no MINOR (`1.4.x`) é o `~`.
+
+> [!question]+ No pipeline de CI, qual comando usar pra instalar as dependências?
+> - a) `npm install`, porque atualiza o lockfile se precisar
+> - b) `npm ci`, porque instala exatamente o que está no lockfile
+> - c) `npm update`, pra pegar as versões mais novas
+> - d) `npx install`
+>
+> > [!check]- Resposta
+> > **b)** `npm ci` apaga o `node_modules`, instala **exatamente** o lockfile e falha se ele não bate com o `package.json`. É o que garante que a CI testa o mesmo que você.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
-| Comando/Sintaxe | Função |
-|-----------------|--------|
+| Comando | O que faz |
+|---|---|
 | `npm install` | Instala as dependências do projeto |
-| `npm install pacote` | Adiciona um pacote |
-| `npm install -D pacote` | Adiciona como dependência de desenvolvimento |
+| `npm install pacote` / `-D pacote` | Adiciona um pacote / como dependência de dev |
 | `npm uninstall pacote` | Remove um pacote |
 | `npm update` | Atualiza dentro das faixas permitidas |
+| `npm outdated` | Mostra o que tem versão nova |
 | `npm audit` | Verifica vulnerabilidades |
 | `npm ci` | Instalação limpa a partir do lockfile |
-| `pip install pacote` | Instala pacote Python |
-| `pip install -r requirements.txt` | Instala lista de pacotes |
-| `pip freeze` | Lista versões instaladas |
-| `mvn install` | Compila e instala (Maven) |
+| `npm run nome` | Roda um script do `package.json` |
+| `pip install -r requirements.txt` | Instala a lista de pacotes Python |
+| `pip freeze` | Lista as versões instaladas |
 
----
+**Pra ler:** a [documentação do npm](https://docs.npmjs.com) tem uma parte "About semantic versioning" curta e clara. A [especificação do SemVer](https://semver.org/lang/pt-BR/) está em português e cabe numa leitura de dez minutos. Se for usar Python, a [documentação do pip](https://pip.pypa.io/en/stable/) cobre ambientes virtuais e `requirements.txt`.
 
-## 📓 Diário de bordo
+## Minhas anotações
 
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+**O que eu entendi, com as minhas palavras:**
+- 
 
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
--
-
-**O que me confundiu / onde eu errei:**
--
-
-**Onde eu usei de verdade:**
--
-
----
-
-## ➡️ Próximos passos
-
-- [ ] Praticar npm (ou pip) em um projeto pequeno
-- [ ] Entender SemVer e a diferença entre `^` e `~`
-- [ ] Aprender ambientes virtuais em Python
-- [ ] Conhecer alternativas modernas (pnpm, yarn, uv, poetry)
-
----
-
-## 📚 Recursos
-
-### 💻 Sites e Documentação:
-- [Documentação do npm](https://docs.npmjs.com) - Guia oficial
-- [pip](https://pip.pypa.io/en/stable/) - Documentação oficial do pip
-- [Maven](https://maven.apache.org/guides/) - Guias oficiais do Maven
-- [Semantic Versioning](https://semver.org/lang/pt-BR/) - Especificação do SemVer
+**Onde eu travei:**
+- 

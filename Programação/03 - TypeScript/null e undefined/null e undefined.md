@@ -5,57 +5,39 @@ revisado:
 
 # null e undefined
 
-> *"Inventei a referência nula em 1965. Foi o meu erro de um bilhão de dólares."* (Tony Hoare)
+Se você programar em JavaScript por tempo suficiente, uma mensagem de erro vai virar sua velha conhecida: `Cannot read properties of undefined`. Ela é, provavelmente, o erro mais comum de toda a linguagem. E ela sempre conta a mesma história: você tentou usar alguma coisa como se fosse um objeto, e ela era um **nada**.
 
-> [!tip] ⚡ Em 30 segundos
-> `undefined` é "ainda não tem valor" (variável sem valor, propriedade que não existe, função sem `return`); `null` é "propositalmente vazio". O erro mais comum do JavaScript, `Cannot read properties of undefined`, vem de usar um desses como se fosse um objeto. Três ferramentas resolvem: `?.` (acessa só se existir), `??` (valor padrão) e o **`strictNullChecks`** do TypeScript, que obriga você a tratar o vazio antes de usar.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+O JavaScript, curiosamente, tem **dois** jeitos de dizer "não tem nada aqui". O `undefined` quer dizer "ainda não tem valor": uma variável que nunca recebeu nada, uma propriedade que não existe, uma função sem `return`. O `null` quer dizer "vazio de propósito": alguém decidiu, conscientemente, que aquilo está vazio.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Três ferramentas resolvem quase todos os problemas com esses dois. O `?.`, que acessa alguma coisa só se ela existir. O `??`, que dá um valor padrão. E a mais importante, o **`strictNullChecks`** do TypeScript, que transforma aquele erro famoso, que só aparecia rodando, num aviso **enquanto você escreve**. Ajuda ter passado pelos [[Tipos Básicos do TypeScript]] e por [[Objetos e Arrays no JavaScript]].
 
----
+## De onde vem o nada
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Explicar a diferença entre `null` e `undefined` e de onde cada um aparece
-- Usar `?.` e `??` pra acessar dados que podem não existir
-- Tratar valores possivelmente vazios do jeito que o `strictNullChecks` exige, sem abusar do `!`
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Tipos Básicos do TypeScript]] · [[Objetos e Arrays no JavaScript]]
-- **Depois:** [[Interfaces e Type Aliases]] · [[Union Types e Narrowing]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. De onde vem cada um
+O `undefined` aparece sozinho, sem ninguém pedir, em muitas situações:
 
 ```ts
-let x;                         // undefined: declarada sem valor
+let x;                         // declarada sem valor
 const obj = { a: 1 };
-obj.b;                         // undefined: propriedade não existe (em JS puro)
-[1, 2][5];                     // undefined: índice não existe
-function f() {}  f();          // undefined: função sem return
-[1, 2].find((n) => n > 9);     // undefined: não achou
-
-const usuario = { apelido: null }; // null: alguém decidiu "vazio"
-document.querySelector("#nada");   // null: APIs do navegador usam null
+obj.b;                         // propriedade que não existe (em JS puro)
+[1, 2][5];                     // índice que não existe
+function f() {}  f();          // função sem return
+[1, 2].find((n) => n > 9);     // find que não achou nada
 ```
 
-**Regra prática pro seu código:** use `undefined` pra "não informado" (campos opcionais) e `null` só quando o "vazio de propósito" importa (ex: o usuário **apagou** o apelido).
+Já o `null` só aparece quando **alguém coloca** ele lá:
 
-### 2. `strictNullChecks`: o TypeScript te protege
+```ts
+const usuario = { apelido: null }; // alguém decidiu: sem apelido
+document.querySelector("#nada");   // APIs do navegador usam null pra "não achei"
+```
 
-Com `strict: true` ([[Configurando um Projeto TypeScript]]), `null` e `undefined` **não cabem** em outros tipos:
+Uma imagem ajuda a separar os dois. O `undefined` é uma gaveta que **nunca foi aberta**: você não sabe o que tem nela, porque ninguém colocou nada. O `null` é uma gaveta que alguém **abriu, esvaziou e deixou vazia de propósito**.
+
+E a diferença importa de verdade em alguns casos. Pense num usuário que **apagou** o apelido, e num que **nunca preencheu**. São situações diferentes, e às vezes o seu programa precisa saber qual é. A regra prática: use `undefined` pra "não informado" (os campos opcionais) e reserve o `null` pras vezes em que o "vazio de propósito" importa.
+
+## O TypeScript não deixa passar
+
+Com o `strict: true` ligado no projeto ([[Configurando um Projeto TypeScript]]), o TypeScript ativa uma checagem chamada `strictNullChecks`. Com ela, o `null` e o `undefined` **não cabem** em nenhum outro tipo, a menos que você diga explicitamente que cabem.
 
 ```ts
 let nome: string = undefined;      // ❌
@@ -65,117 +47,100 @@ const tarefa = tarefas.find((t) => t.id === 3); // tipo: Tarefa | undefined
 tarefa.titulo;                     // ❌ 'tarefa' is possibly 'undefined'
 ```
 
-O TypeScript transforma o bug de execução em erro de compilação. Você **tem** que decidir o que fazer quando não existir.
+Olhe a última linha com atenção, porque ela resume o valor dessa checagem. O `find` pode não achar nada, e aí devolve `undefined`. Sem o `strictNullChecks`, o `tarefa.titulo` compilaria tranquilamente, e explodiria rodando, com aquele erro famoso, no dia em que a tarefa 3 não existisse. Com a checagem, o TypeScript está te perguntando: "o `find` pode não achar nada; o que você quer fazer nesse caso?". E você **tem** que responder antes de seguir.
 
-### 3. Tratando: `if`, `?.` e `??`
-
-```ts
-// 1. if: quando o caminho muda
-if (!tarefa) {
-  console.error("Tarefa não encontrada");
-  return;
-}
-tarefa.titulo; // ✅ aqui o TS sabe que existe
-
-// 2. ?. (optional chaining): acessa só se existir, senão dá undefined
-const cidade = usuario?.endereco?.cidade;
-const primeiraTag = tarefa?.tags?.[0];
-callback?.();                // chama só se a função existir
-
-// 3. ?? (nullish coalescing): valor padrão só pra null/undefined
-const titulo = tarefa?.titulo ?? "(sem título)";
-const volume = config.volume ?? 50;  // mantém 0 se o usuário escolheu 0
-```
-
-### 4. Opcional em tipos
+Nos tipos, existem duas formas de dizer que alguma coisa pode faltar, e elas querem dizer coisas diferentes:
 
 ```ts
 type Tarefa = {
   titulo: string;
-  prazo?: string;            // pode não existir (tipo: string | undefined)
+  prazo?: string;             // pode nem existir (string | undefined)
   responsavel: string | null; // sempre existe, mas pode estar vazio
 };
+```
 
-function mostrarPrazo(t: Tarefa) {
-  return t.prazo ? `até ${t.prazo}` : "sem prazo";
+O `prazo?` é a gaveta que pode nem ter sido aberta. O `responsavel: string | null` é a gaveta que sempre está ali, e pode ter sido esvaziada.
+
+## Respondendo à pergunta
+
+Existem três ferramentas pra lidar com o vazio, cada uma pra uma situação.
+
+A primeira é o **`if`**, pra quando o caminho do programa muda. Se a coisa não existir, o programa faz outra coisa:
+
+```ts
+if (!tarefa) {
+  console.error("Tarefa não encontrada");
+  return;
+}
+tarefa.titulo; // ✅ daqui pra baixo, o TypeScript sabe que existe
+```
+
+A segunda é o **`?.`** (*optional chaining*), que acessa uma coisa só se ela existir. Se algo no caminho for `null` ou `undefined`, ele para e devolve `undefined`, em vez de dar erro:
+
+```ts
+const cidade = usuario?.endereco?.cidade; // undefined se faltar qualquer parte
+const primeiraTag = tarefa?.tags?.[0];
+callback?.();                             // chama só se a função existir
+```
+
+A terceira é o **`??`** (*nullish coalescing*), que dá um valor padrão. Ele troca o valor só se ele for `null` ou `undefined`:
+
+```ts
+const titulo = tarefa?.titulo ?? "(sem título)";
+const volume = config.volume ?? 50; // mantém o 0 se o usuário escolheu 0
+```
+
+E os dois juntos são poderosos: dá pra ler dados incompletos, cheios de buracos, sem escrever um `if` sequer.
+
+```ts
+function resumo(config: Config | undefined): string {
+  const tema = config?.tema ?? "escuro";
+  const minutos = config?.meta?.minutosPorDia ?? 30;
+  return `Tema ${tema}, meta de ${minutos} min/dia`;
 }
 ```
 
-### 5. `??=`: preencher se estiver vazio
+Duas armadilhas acompanham essas ferramentas. A primeira é usar o `||` no lugar do `??`. O `0 || 30` dá `30`, e o `"" || "x"` dá `"x"`: o `||` troca qualquer valor "falsy", inclusive o zero e o texto vazio, que muitas vezes são valores válidos (o volume que o usuário colocou no zero, como em [[Operadores e Expressões]]). Pra valor padrão, use `??`, que só troca o que realmente não existe.
 
-```ts
-config.tema ??= "escuro"; // só atribui se for null/undefined
-```
+A segunda é o **`?.` em tudo**. Se um valor **deveria** sempre existir, colocar `?.` nele não resolve nada: esconde o bug. Em vez de quebrar na hora, perto da causa, o `undefined` segue adiante pelo programa, e o erro aparece bem longe dali, onde ninguém entende de onde veio. Use o `?.` só quando "não existir" é um caso normal, esperado.
 
-### 6. O `!` (non-null assertion): "confia em mim"
+## O ! que pede pra confiar
+
+Você vai encontrar um ponto de exclamação no fim de algumas expressões:
 
 ```ts
 const el = document.querySelector("#app")!; // tira o null do tipo
 ```
 
-Não confere nada em execução. Se estiver errado, explode igual. Use só quando você **garante** que existe (ex: acabou de checar com `map.has()`). Na dúvida, `if`.
+O `!` diz ao TypeScript "eu garanto que isso existe, pode confiar". Só que ele não confere nada quando o programa roda. Se você estiver errado, o programa explode exatamente como explodiria sem ele. Use só quando você **sabe** que existe (por exemplo, logo depois de conferir com um `map.has()`). Espalhar `!` pelo código pra calar o compilador é o mesmo bug de antes, só que escondido. Na dúvida, um `if`.
 
-### 7. Checando os dois de uma vez
-
-```ts
-if (valor == null) { }   // a ÚNICA exceção aceita ao ===: pega null e undefined
-if (valor === null || valor === undefined) { } // mesma coisa, explícito
-```
-
----
-
-## 🛠️ Exemplo guiado
-
-Ler a configuração de um usuário que pode estar incompleta:
+E mais algumas ferramentas, menos usadas mas úteis. O `??=` preenche uma coisa só se ela estiver vazia:
 
 ```ts
-type Config = {
-  tema?: "claro" | "escuro";
-  meta?: { minutosPorDia?: number };
-  ultimoAcesso: string | null;
-};
-
-function resumo(config: Config | undefined): string {
-  const tema = config?.tema ?? "escuro";
-  const minutos = config?.meta?.minutosPorDia ?? 30;
-  const acesso = config?.ultimoAcesso ?? "nunca";
-  return `Tema ${tema}, meta de ${minutos} min/dia, último acesso: ${acesso}`;
-}
-
-resumo(undefined);                                     // tudo padrão
-resumo({ ultimoAcesso: null, meta: { minutosPorDia: 0 } }); // 0 min respeitado
+config.tema ??= "escuro"; // só atribui se tema for null ou undefined
 ```
 
-Nenhum `if`, nenhum crash, e o `0` não vira `30` (com `||` viraria).
+E existe um único caso em que o `==` (dois iguais, que você aprendeu a evitar) é aceito: `valor == null` pega o `null` **e** o `undefined` de uma vez só. É um atalho conhecido pra `valor === null || valor === undefined`.
 
----
+Dois detalhes que pegam pra fechar. O `typeof null` dá `"object"`, um erro histórico da linguagem, então checar `typeof x === "object"` deixa o `null` passar: complete com `&& x !== null`. E o JSON não tem `undefined`: `JSON.stringify({ a: undefined })` vira `{}`, e o campo simplesmente some. Se o vazio precisa ser salvo num arquivo, use `null`.
 
-## 🔧 Pegadinhas
+## O essencial
 
-- **`||` no lugar de `??`.** `0 || 30` é `30`, `"" || "x"` é `"x"`. Pra padrão, `??`.
-- **`!` espalhado pra calar o compilador.** É o mesmo bug de antes, só que escondido. Trate de verdade.
-- **`?.` em tudo.** Se um valor **deveria** existir, `?.` esconde o bug e o erro aparece longe. Use quando "não existir" é um caso válido.
-- **`typeof null === "object"`.** Checar `typeof x === "object"` deixa o `null` passar. Some `&& x !== null`.
-- **JSON não tem `undefined`.** `JSON.stringify({ a: undefined })` vira `{}`. Se o "vazio" precisa ser salvo, use `null`.
+1. `undefined` é "ainda não tem valor"; `null` é "vazio de propósito".
+2. Com `strictNullChecks`, o TypeScript obriga a tratar o vazio. `find` devolve `T | undefined`.
+3. `if` quando o caminho muda; `?.` pra acessar se existir; `??` pra valor padrão.
+4. `??` e não `||`, que apaga o `0` e o `""`. E `?.` só onde faltar é normal.
+5. O `!` não confere nada: prefira `if`.
 
----
+## Agora é com você
 
-## 🔨 Desafio prático
+Torne uma função à prova de vazio. Escreva `nomeDoResponsavel(projetos, idProjeto)`, em que cada projeto tem um `responsavel?: { nome: string; apelido?: string | null }`. Ela deve devolver o apelido; se não houver apelido, o nome; se não houver responsável, `"ninguém"`; e se o projeto não existir, `"projeto não encontrado"`. Sem nenhum `!`, sem nenhum `any`, com o `strict` ligado. Teste os quatro casos. Você terminou quando o `npm run check` passar e os quatro casos derem a resposta certa.
 
-**Objetivo:** tornar à prova de vazio.
-
-1. Escreva `nomeDoResponsavel(projetos, idProjeto)` onde cada projeto tem `responsavel?: { nome: string; apelido?: string | null }`.
-2. Retorne o apelido; se não tiver, o nome; se não houver responsável, `"ninguém"`; se o projeto não existir, `"projeto não encontrado"`.
-3. Sem `!`, sem `any`, com `strict` ligado.
-4. Teste os 4 casos.
-
-**Pronto quando:** `npm run check` passa e os 4 casos dão a resposta certa.
+Daqui, volte a [[Interfaces e Type Aliases]] e siga pros [[Union Types e Narrowing]], onde o "pode ser vazio" vira só mais um caso de união.
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Qual a diferença entre `null` e `undefined`?
 > `undefined` é "ainda não tem valor/não existe"; `null` é "vazio de propósito", atribuído por alguém.
@@ -195,47 +160,39 @@ Nenhum `if`, nenhum crash, e o `0` não vira `30` (com `||` viraria).
 > [!question]- Qual a diferença entre `prazo?: string` e `prazo: string | null`?
 > `prazo?` pode nem existir no objeto; `string | null` sempre existe, mas pode estar vazio.
 
+> [!question]- Por que colocar `?.` em tudo é perigoso?
+> Porque esconde o bug: o `undefined` segue adiante e o erro aparece longe da causa.
+
+> [!question]+ `const t = { prazo: null }`. Quanto vale `t.prazo?.length ?? 0`?
+> - a) Erro: não dá pra ler `length` de `null`
+> - b) `0`
+> - c) `null`
+> - d) `undefined`
+>
+> > [!check]- Resposta
+> > **b)** `?.` vê o `null` e para, devolvendo `undefined` em vez de dar erro. Depois o `??` troca o `undefined` por `0`.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Sintaxe | O que faz |
 |---|---|
-| `a?.b` | acessa se `a` existir |
-| `a?.[0]` / `f?.()` | índice / chamada opcional |
-| `a ?? padrao` | padrão só pra null/undefined |
-| `a ??= padrao` | preenche se vazio |
-| `campo?: T` | propriedade opcional |
-| `T \| null` | existe, mas pode ser vazio |
-| `x == null` | pega null e undefined |
-| `x!` | "confia" (evite) |
+| `a?.b` | Acessa se `a` existir |
+| `a?.[0]` / `f?.()` | Índice / chamada opcional |
+| `a ?? padrao` | Padrão só pra null/undefined |
+| `a ??= padrao` | Preenche se estiver vazio |
+| `campo?: T` | Propriedade opcional |
+| `T \| null` | Existe, mas pode estar vazio |
+| `x == null` | Pega null e undefined |
+| `x!` | "Confia em mim" (evite) |
 
----
+**Pra ler:** o capítulo [Optional chaining](https://javascript.info/optional-chaining) do javascript.info explica o `?.` com todos os casos de uso. E a seção sobre [null e undefined no TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#null-and-undefined) mostra o `strictNullChecks` em ação.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```ts
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [javascript.info · Optional chaining](https://javascript.info/optional-chaining)
-- [TypeScript Handbook · strictNullChecks](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#null-and-undefined)

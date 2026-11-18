@@ -4,14 +4,16 @@
 //         → a Ficha (e a barra de status) redesenham. Nada fica "salvo à parte":
 //         a verdade está sempre nas suas notas.
 
-import { MarkdownView, Notice, Plugin, TFile, debounce } from "obsidian";
+import { MarkdownView, Notice, Plugin, TFile, addIcon, debounce } from "obsidian";
 import { hojeISO, toISO } from "./domain/dates.ts";
 import { avaliarConquistas, calcularProgresso, type Conquista, type Progresso } from "./domain/progress.ts";
-import { aposEsquecer, aposLembrar, caixaMax, infoRevisao, normalizarCaixa, ordenarFila } from "./domain/review.ts";
+import { aposEsquecer, aposLembrar, caixaMax, filaDoDia, infoRevisao, normalizarCaixa, ordenarFila } from "./domain/review.ts";
 import { NIVEIS, type Nivel, type Snapshot } from "./domain/types.ts";
 import { mergeSettings, type Settings } from "./settings.ts";
+import { pixelDoIcone } from "./ui/nitidez.ts";
+import { svgParaObsidian } from "./ui/pixel.ts";
 import { AbaConfig } from "./ui/settingsTab.ts";
-import { FichaView, VIEW_FICHA } from "./ui/view.ts";
+import { FichaView, ICONE_FICHA, VIEW_FICHA } from "./ui/view.ts";
 import { Indexer } from "./vault/indexer.ts";
 import { Writer } from "./vault/writer.ts";
 
@@ -27,6 +29,8 @@ export default class EstudosRPG extends Plugin {
   dados: Dados | null = null;
   /** Início da sessão de estudo em andamento (ms), ou null. Salvo no data.json: sobrevive a um reload. */
   sessaoInicio: number | null = null;
+  /** Quantas notas NOVAS (nunca revisadas) já foram revisadas no dia `dia`. Salvo no data.json. */
+  private novas = { dia: "", qtd: 0 };
 
   private indexer!: Indexer;
   private ouvintes = new Set<() => void>();
@@ -39,11 +43,15 @@ export default class EstudosRPG extends Plugin {
     this.config = mergeSettings(salvo);
     const ini = salvo?.sessaoInicio;
     this.sessaoInicio = typeof ini === "number" && Number.isFinite(ini) && ini <= Date.now() ? ini : null;
+    const nv = salvo?.novasHoje as { dia?: unknown; qtd?: unknown } | undefined;
+    if (nv && typeof nv.dia === "string" && typeof nv.qtd === "number" && nv.qtd >= 0) this.novas = { dia: nv.dia, qtd: Math.floor(nv.qtd) };
     this.indexer = new Indexer(this.app, () => this.config);
     this.writer = new Writer(this.app, () => this.config);
 
     this.registerView(VIEW_FICHA, (leaf) => new FichaView(leaf, this));
-    this.addRibbonIcon("shield", "Abrir a ficha do herói", () => this.abrirFicha());
+    // Troféu em pixel na barra lateral e na aba da ficha.
+    addIcon(ICONE_FICHA, svgParaObsidian("trophy") ?? "");
+    this.addRibbonIcon(ICONE_FICHA, "Abrir a ficha do herói", () => this.abrirFicha());
     this.addSettingTab(new AbaConfig(this.app, this));
     this.registrarComandos();
 
@@ -62,6 +70,12 @@ export default class EstudosRPG extends Plugin {
     // Cronômetro da sessão na barra de status (precisão de minuto basta ali).
     this.registerInterval(window.setInterval(() => { if (this.sessaoInicio) this.atualizarStatus(); }, 15_000));
 
+    // Ícones em pixel nítidos em qualquer zoom: o CSS usa --erpg-px (ver ui/nitidez.ts).
+    // Mudar o zoom (Ctrl +/-) ou levar a janela para outro monitor dispara "resize".
+    const ajustarPixel = () => document.body.style.setProperty("--erpg-px", `${pixelDoIcone(window.devicePixelRatio)}px`);
+    ajustarPixel();
+    this.registerDomEvent(window, "resize", ajustarPixel);
+
     this.app.workspace.onLayoutReady(async () => {
       await this.atualizarAgora();
       if (this.config.abrirAoIniciar) await this.abrirFicha();
@@ -69,6 +83,7 @@ export default class EstudosRPG extends Plugin {
   }
 
   override onunload() {
+    document.body.style.removeProperty("--erpg-px");
     this.ouvintes.clear();
   }
 
@@ -162,7 +177,28 @@ export default class EstudosRPG extends Plugin {
   }
 
   private async persistir() {
-    await this.saveData({ ...this.config, sessaoInicio: this.sessaoInicio });
+    await this.saveData({ ...this.config, sessaoInicio: this.sessaoInicio, novasHoje: this.novas });
+  }
+
+  // ------------------------------------------------------------ revisão: limite de notas novas por dia
+  /** Notas novas já revisadas hoje (vira 0 sozinho quando o dia muda). */
+  novasFeitasHoje(): number {
+    return this.novas.dia === this.hoje() ? this.novas.qtd : 0;
+  }
+
+  /** Chamado depois de gravar uma revisão: se a nota era nova, conta no limite do dia. */
+  async contarRevisao(eraNova: boolean) {
+    if (!eraNova) return;
+    this.novas = { dia: this.hoje(), qtd: this.novasFeitasHoje() + 1 };
+    await this.persistir();
+  }
+
+  /** A fila de hoje (vencidas + novas até o limite), na ordem de revisão. */
+  filaHoje() {
+    const d = this.dados;
+    if (!d) return { hoje: [], adiadas: 0 };
+    const vencidas = ordenarFila(d.snap.notas.map((n) => ({ n, ...infoRevisao(n, d.snap.hoje, this.config.intervalos) })).filter((x) => x.vencida));
+    return filaDoDia(vencidas, this.config.novasPorDia, this.novasFeitasHoje());
   }
 
   // ------------------------------------------------------------ sessão de estudo (cronômetro)
@@ -231,10 +267,7 @@ export default class EstudosRPG extends Plugin {
     this.addCommand({
       id: "proxima-revisao", name: "Abrir a próxima nota para revisar",
       callback: () => {
-        const d = this.dados;
-        if (!d) return;
-        const fila = ordenarFila(d.snap.notas.map((n) => ({ n, ...infoRevisao(n, d.snap.hoje, this.config.intervalos) })).filter((x) => x.vencida));
-        const prox = fila[0];
+        const prox = this.filaHoje().hoje[0];
         if (!prox) { new Notice("Nenhuma revisão vencida hoje."); return; }
         void this.app.workspace.openLinkText(prox.n.caminho, "", "tab");
       },
@@ -265,6 +298,7 @@ export default class EstudosRPG extends Plugin {
       const estado = { caixa: normalizarCaixa(fm.caixa, this.config.intervalos), revisado: typeof fm.revisado === "string" ? fm.revisado : null };
       const caixa = lembrou ? aposLembrar(estado, this.config.intervalos) : aposEsquecer();
       await this.writer.propriedades(f.path, { caixa, revisado: this.hoje() });
+      await this.contarRevisao(!estado.revisado);
       new Notice(lembrou ? `Caixa ${caixa}: volta em ${this.config.intervalos[caixa] ?? "?"} dia(s).` : "Volta amanhã.");
     };
     naNota("lembrei", "Revisão: lembrei desta nota", revisarAtual(true));

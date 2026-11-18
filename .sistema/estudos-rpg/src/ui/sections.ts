@@ -4,7 +4,7 @@
 import { MarkdownRenderer } from "obsidian";
 import { addDias, diaDaSemana, diffDias, relativo } from "../domain/dates.ts";
 import type { Conquista } from "../domain/progress.ts";
-import { aposLembrar, infoRevisao, ordenarFila } from "../domain/review.ts";
+import { aposLembrar, infoRevisao } from "../domain/review.ts";
 import type { Topico, Trilha } from "../domain/types.ts";
 import type { Ctx } from "./context.ts";
 import { barra, botao, icone, ornamento, painel, vazio } from "./dom.ts";
@@ -36,35 +36,48 @@ export function ficha(root: HTMLElement, ctx: Ctx) {
   const { prog, settings } = ctx;
   const sec = root.createEl("header", { cls: "erpg-ficha" });
 
-  const brasao = sec.createDiv({ cls: "erpg-brasao", attr: { "aria-label": `Nível ${prog.nivel}` } });
+  // Brasão: o "retrato" do personagem, com moldura dupla de pixel
+  const moldura = sec.createDiv({ cls: "erpg-brasao-moldura" });
+  const brasao = moldura.createDiv({ cls: "erpg-brasao", attr: { "aria-label": `Nível ${prog.nivel}` } });
   brasao.createSpan({ cls: "erpg-brasao-rot", text: "Nv" });
   brasao.createSpan({ cls: "erpg-brasao-num", text: String(prog.nivel) });
 
   const id = sec.createDiv({ cls: "erpg-ficha-id" });
-  id.createEl("h1", { cls: "erpg-titulo", text: prog.titulo });
+  const nome = id.createDiv({ cls: "erpg-titulo-linha" });
+  nome.createEl("h1", { cls: "erpg-titulo", text: prog.titulo });
+  // E se já estiver no último título? Não mostra "próximo".
+  const proxTitulo = settings.titulos[Math.min(prog.nivel, settings.titulos.length - 1)];
+  if (proxTitulo && proxTitulo !== prog.titulo) nome.createSpan({ cls: "erpg-titulo-prox", text: `próximo: ${proxTitulo}` });
+
   const p = prog.partes;
   const origemXP = `De onde vem o XP — notas ${p.notas} · tópicos ${p.topicos} · dias ${p.diario} · tempo ${p.estudo} · revisões ${p.revisao}`;
   const xp = id.createDiv({ cls: "erpg-xp", attr: { title: origemXP } });
+  const xpCab = xp.createDiv({ cls: "erpg-xp-cab" });
+  xpCab.createSpan({ cls: "erpg-xp-rot", text: "XP" });
+  xpCab.createSpan({ cls: "erpg-xp-num", text: `${prog.xp} / ${prog.xpProximo}` });
   barra(xp, (prog.xp - prog.xpNivel) / (prog.xpProximo - prog.xpNivel), "erpg-barra is-xp", "Experiência até o próximo nível");
-  xp.createSpan({ cls: "erpg-xp-num", text: `${prog.xp} / ${prog.xpProximo} XP` });
+  xp.createDiv({ cls: "erpg-xp-falta", text: `faltam ${Math.max(0, prog.xpProximo - prog.xp)} XP para o nível ${prog.nivel + 1}` });
 
+  // Atributos como a tela de status de um RPG: ícone num bloco colorido, número grande, legenda.
+  // Valor zero fica "apagado", como item ainda não desbloqueado.
   const st = id.createDiv({ cls: "erpg-atributos" });
-  const atributo = (ic: string, valor: string | number, rot: string, cls = "", dica = `${valor} ${rot}`) => {
-    const a = st.createDiv({ cls: `erpg-atributo ${cls}`.trim(), attr: { title: dica } });
-    icone(a, ic);
-    a.createSpan({ cls: "erpg-atributo-val", text: String(valor) });
-    a.createSpan({ cls: "erpg-atributo-rot", text: rot });
+  const atributo = (ic: string, valor: string | number, rot: string, cor: string, zero: boolean, dica = `${valor} ${rot}`) => {
+    const a = st.createDiv({ cls: `erpg-atributo is-${cor}${zero ? " is-zero" : ""}`, attr: { title: dica } });
+    icone(a, ic, "erpg-ico erpg-atributo-ico");
+    const t = a.createDiv({ cls: "erpg-atributo-txt" });
+    t.createSpan({ cls: "erpg-atributo-val", text: String(valor) });
+    t.createSpan({ cls: "erpg-atributo-rot", text: rot });
     return a;
   };
-  atributo("flame", prog.sequencia, prog.sequencia === 1 ? "dia seguido" : "dias seguidos", prog.sequencia ? "is-chama" : "", `Sequência atual: ${prog.sequencia} · recorde: ${prog.maiorSequencia}`);
+  atributo("flame", prog.sequencia, prog.sequencia === 1 ? "dia seguido" : "dias seguidos", "chama", !prog.sequencia, `Sequência atual: ${prog.sequencia} · recorde: ${prog.maiorSequencia}`);
   if (settings.metaSemanalMin > 0) {
     const ok = prog.minutosSemana >= settings.metaSemanalMin;
-    const a = atributo("clock", `${prog.minutosSemana}/${settings.metaSemanalMin}`, "min na semana", `is-meta${ok ? " is-ok" : ""}`, `Meta semanal: ${prog.minutosSemana} de ${settings.metaSemanalMin} min · hoje ${prog.minutosHoje} min`);
+    const a = atributo("clock", `${prog.minutosSemana}/${settings.metaSemanalMin}`, "min na semana", ok ? "ok" : "meta", !prog.minutosSemana, `Meta semanal: ${prog.minutosSemana} de ${settings.metaSemanalMin} min · hoje ${prog.minutosHoje} min`);
     barra(a, prog.minutosSemana / settings.metaSemanalMin, "erpg-barra is-meta", "Meta semanal de minutos");
   }
-  atributo("scroll-text", prog.contagemNivel.escrito, "escritas");
-  atributo("hammer", prog.contagemNivel.praticado, "praticadas");
-  atributo("castle", prog.contagemNivel.projeto, "em projeto");
+  atributo("scroll-text", prog.contagemNivel.escrito, "escritas", "escrito", !prog.contagemNivel.escrito);
+  atributo("hammer", prog.contagemNivel.praticado, "praticadas", "praticado", !prog.contagemNivel.praticado);
+  atributo("castle", prog.contagemNivel.projeto, "em projeto", "projeto", !prog.contagemNivel.projeto);
 
   medalhas(sec, ctx);
   sessao(sec.createDiv({ cls: "erpg-ficha-acao" }), ctx);
@@ -76,14 +89,14 @@ function sessao(acao: HTMLElement, ctx: Ctx) {
   const { xp } = ctx.settings;
   if (inicio) {
     acao.addClass("is-rodando");
-    const b = botao(acao, "Encerrar", () => ctx.acoes.encerrarSessao(), { icone: "square", titulo: `Encerrar e somar os minutos no diário (+${xp.dezMinutos} XP a cada 10 min)` });
+    const b = botao(acao, "Encerrar", () => ctx.acoes.encerrarSessao(), { icone: "save", titulo: `Encerrar e somar os minutos no diário (+${xp.dezMinutos} XP a cada 10 min)` });
     b.createSpan({ cls: "erpg-timer", attr: { "data-erpg-timer": "" }, text: relogio(Date.now() - inicio) });
     botao(acao, "", () => {
       if (Date.now() - inicio >= 60_000 && !window.confirm("Descartar a sessão? Os minutos não vão contar.")) return;
       return ctx.acoes.descartarSessao();
     }, { icone: "x", variante: "discreto", pequeno: true, titulo: "Descartar a sessão (não conta)" });
   } else {
-    botao(acao, "Iniciar sessão", () => ctx.acoes.iniciarSessao(), { icone: "timer", titulo: `Cronometra o estudo · +${xp.dezMinutos} XP a cada 10 min${ctx.prog.estudouHoje ? "" : ` e +${xp.diario} XP pelo dia`}` });
+    botao(acao, "Iniciar sessão", () => ctx.acoes.iniciarSessao(), { icone: "play", titulo: `Cronometra o estudo · +${xp.dezMinutos} XP a cada 10 min${ctx.prog.estudouHoje ? "" : ` e +${xp.diario} XP pelo dia`}` });
   }
   botao(acao, "", () => ctx.acoes.abrirDiario(), { icone: "book-open", variante: "secundario", pequeno: true, titulo: "Abrir o diário de hoje" });
 }
@@ -92,18 +105,34 @@ function descConquista(c: Conquista): string {
   return `${c.nome} · ${RARIDADE[c.raridade]}\n${c.desc}\n${c.ok ? "✓ Conquistado" : `Progresso: ${c.atual}/${c.meta}`}`;
 }
 
-/** Conquistas como medalhas pequenas que "enchem" conforme o progresso. Clicar abre a lista completa. */
+/**
+ * Conquistas no topo, resumidas: o total e a PRÓXIMA a sair (a mais perto da meta).
+ * "Falta pouco" motiva mais que uma fileira de cadeados. Clicar abre a lista completa.
+ */
 function medalhas(parent: HTMLElement, ctx: Ctx) {
+  const total = ctx.conquistas.length;
   const ok = ctx.conquistas.filter((c) => c.ok).length;
-  const box = parent.createEl("button", { cls: "erpg-medalhas", attr: { "aria-label": `Conquistas: ${ok} de ${ctx.conquistas.length}. Abrir a lista.` } });
+  const prox = proximaConquista(ctx.conquistas);
+  const rotulo = `Conquistas: ${ok} de ${total}${prox ? `. Próxima: ${prox.nome}, ${prox.atual} de ${prox.meta}` : ""}. Abrir a lista.`;
+  const box = parent.createEl("button", { cls: "erpg-medalhas", attr: { "aria-label": rotulo, title: prox ? descConquista(prox) : "Todas as conquistas!" } });
   box.addEventListener("click", () => ctx.acoes.abrirConquistas());
-  box.createDiv({ cls: "erpg-rotulo", text: `Conquistas ${ok}/${ctx.conquistas.length}` });
-  const fila = box.createDiv({ cls: "erpg-medalhas-fila" });
-  for (const c of ctx.conquistas) {
-    const m = fila.createDiv({ cls: `erpg-medalha is-${c.raridade}${c.ok ? " is-ok" : ""}`, attr: { title: descConquista(c) } });
-    m.style.setProperty("--p", `${Math.round((c.atual / c.meta) * 100)}%`);
-    icone(m, c.ok ? c.icone : "lock");
-  }
+  const m = box.createDiv({ cls: `erpg-medalha is-${prox?.raridade ?? "lendario"}${prox ? "" : " is-ok"}` });
+  m.style.setProperty("--p", `${prox ? Math.round((prox.atual / prox.meta) * 100) : 100}%`);
+  icone(m, prox?.icone ?? "crown");
+  const info = box.createDiv({ cls: "erpg-medalhas-info" });
+  info.createDiv({ cls: "erpg-rotulo", text: `Conquistas ${ok}/${total}` });
+  if (prox) {
+    const linha = info.createDiv({ cls: "erpg-linha" });
+    linha.createSpan({ cls: "erpg-medalhas-nome", text: prox.nome });
+    barra(linha, prox.atual / prox.meta, "erpg-barra", `Progresso de ${prox.nome}`);
+    linha.createSpan({ cls: "erpg-num", text: `${prox.atual}/${prox.meta}` });
+  } else info.createDiv({ cls: "erpg-medalhas-nome", text: "Todas conquistadas!" });
+}
+
+/** A conquista não obtida mais perto da meta (empate: a de raridade mais baixa, que é mais fácil). */
+function proximaConquista(cs: Conquista[]): Conquista | undefined {
+  const ordem = ["comum", "raro", "epico", "lendario"];
+  return cs.filter((c) => !c.ok).sort((a, b) => b.atual / b.meta - a.atual / a.meta || ordem.indexOf(a.raridade) - ordem.indexOf(b.raridade))[0];
 }
 
 /** Lista completa das conquistas, por raridade (usada na janela de conquistas). */
@@ -163,24 +192,63 @@ function proximoTopico(t: Trilha) {
 }
 
 // ---------------------------------------------------------------- Revisão espaçada (com as perguntas das notas)
+/** "caixa N" é jargão do método Leitner: explica no hover. */
+function dicaCaixa(caixa: number, intervalos: number[]): string {
+  return `Caixa ${caixa} da revisão espaçada: quanto maior a caixa, mais longe a próxima revisão (esta volta a cada ${intervalos[caixa] ?? "?"} dia(s)).`;
+}
+
+const LETRAS_ATALHO = ["a", "b", "c", "d", "e"] as const;
+
+/**
+ * Alternativas clicáveis (ou tecla A-E). Ao escolher, marca a certa em verde, a escolhida errada
+ * em vermelho e abre a explicação. E se a nota não disser qual é a certa? Só abre a explicação.
+ */
+function alternativas(parent: HTMLElement, ctx: Ctx, alts: string[], correta: number | undefined, origem: string) {
+  const { estado } = ctx;
+  const respondida = estado.escolha !== null;
+  const lista = parent.createDiv({ cls: "erpg-alternativas", attr: { role: "group", "aria-label": "Alternativas" } });
+  alts.forEach((alt, k) => {
+    const letra = String.fromCharCode(97 + k);
+    let cls = "erpg-alt";
+    if (respondida && k === correta) cls += " is-certa";
+    else if (respondida && k === estado.escolha) cls += " is-errada";
+    const atalho = LETRAS_ATALHO[k];
+    const attr: Record<string, string> = { "aria-label": `Alternativa ${letra}` };
+    if (atalho && !respondida) Object.assign(attr, { "data-atalho": atalho, "aria-keyshortcuts": atalho.toUpperCase() });
+    const b = lista.createEl("button", { cls, attr });
+    b.disabled = respondida;
+    b.createSpan({ cls: "erpg-alt-letra", text: letra.toUpperCase() });
+    md(ctx, b.createSpan({ cls: "erpg-alt-texto" }), alt, origem);
+    b.addEventListener("click", () => {
+      estado.escolha = k;
+      estado.mostrarResposta = true;
+      ctx.acoes.redesenhar();
+    });
+  });
+}
+
 export function revisao(root: HTMLElement, ctx: Ctx) {
   const { snap, settings, estado } = ctx;
-  const infos = snap.notas.map((n) => ({ n, ...infoRevisao({ caixa: n.caixa, revisado: n.revisado }, snap.hoje, settings.intervalos) }));
-  const fila = ordenarFila(infos.filter((x) => x.vencida));
+  const { hoje: fila, adiadas } = ctx.fila;
   const qtdPerguntas = (caminho: string) => snap.perguntas.filter((p) => p.caminho === caminho).length;
 
   // E se a nota em revisão saiu da fila (revisada em outro lugar, apagada)? Volta para a lista.
   const pos = estado.revisando ? fila.findIndex((x) => x.n.caminho === estado.revisando) : -1;
   if (estado.revisando && pos < 0) estado.revisando = null;
 
-  const sub = !fila.length ? undefined : pos >= 0 ? `${pos + 1} de ${fila.length} na fila` : `${fila.length} na fila`;
+  const depois = adiadas ? ` · +${adiadas} depois` : "";
+  const sub = !fila.length ? undefined : pos >= 0 ? `${pos + 1} de ${fila.length} hoje` : `Hoje: ${fila.length}${depois}`;
   const corpo = painel(root, "repeat", "Revisar", sub, "is-revisao");
   if (!snap.notas.length) {
     vazio(corpo, "Nenhuma nota de estudo encontrada.", "Notas com a propriedade nivel (escrito, praticado ou projeto) entram aqui.");
     return;
   }
   if (!fila.length) {
-    const prox = infos.map((x) => x.proxima).filter((x): x is string => !!x).sort()[0];
+    if (adiadas) {
+      vazio(corpo, "Revisões de hoje feitas!", `Mais ${adiadas} ${adiadas === 1 ? "nota nova entra" : "notas novas entram"} nos próximos dias (${settings.novasPorDia} por dia, em Configurações).`);
+      return;
+    }
+    const prox = snap.notas.map((n) => infoRevisao(n, snap.hoje, settings.intervalos).proxima).filter((x): x is string => !!x).sort()[0];
     vazio(corpo, "Nada para revisar hoje.", prox ? `Próxima revisão ${relativo(prox, snap.hoje)}.` : undefined);
     return;
   }
@@ -194,7 +262,9 @@ export function revisao(root: HTMLElement, ctx: Ctx) {
 
     const origem = corpo.createEl("button", { cls: "erpg-origem", text: n.label, attr: { "aria-label": `Abrir a nota ${n.label}` } });
     origem.addEventListener("click", (ev) => ctx.acoes.abrirNota(n.caminho, ev.ctrlKey || ev.metaKey));
-    corpo.createDiv({ cls: "erpg-meta", text: atual.revisado ? `caixa ${atual.caixa} · revisada ${relativo(atual.revisado, snap.hoje)}` : "primeira revisão" });
+    corpo.createDiv(atual.revisado
+      ? { cls: "erpg-meta", text: `caixa ${atual.caixa} · revisada ${relativo(atual.revisado, snap.hoje)}`, attr: { title: dicaCaixa(atual.caixa, settings.intervalos) } }
+      : { cls: "erpg-meta", text: "primeira revisão" });
 
     if (perguntas.length) {
       const i = Math.min(estado.perguntaIdx, perguntas.length - 1);
@@ -202,10 +272,19 @@ export function revisao(root: HTMLElement, ctx: Ctx) {
       const area = corpo.createDiv({ cls: "erpg-rola erpg-cartao" });
       area.createDiv({ cls: "erpg-subtitulo", text: `Pergunta ${i + 1} de ${perguntas.length}` });
       md(ctx, area.createDiv({ cls: "erpg-pergunta" }), p.pergunta, n.caminho);
-      if (estado.mostrarResposta) md(ctx, area.createDiv({ cls: "erpg-resposta" }), p.resposta, n.caminho);
+      if (p.alternativas?.length) alternativas(area, ctx, p.alternativas, p.correta, n.caminho);
+      if (estado.mostrarResposta) {
+        const resp = area.createDiv({ cls: "erpg-resposta" });
+        const { escolha } = estado;
+        if (escolha !== null && p.correta !== undefined) {
+          const acertou = escolha === p.correta;
+          resp.createDiv({ cls: `erpg-veredito-alt ${acertou ? "is-certa" : "is-errada"}`, text: acertou ? "Acertou!" : `Errou. A certa é a ${String.fromCharCode(97 + p.correta)})` });
+        }
+        md(ctx, resp.createDiv(), p.resposta, n.caminho);
+      }
       const row = corpo.createDiv({ cls: "erpg-acoes" });
-      botao(row, estado.mostrarResposta ? "Esconder" : "Ver resposta", () => { estado.mostrarResposta = !estado.mostrarResposta; ctx.acoes.redesenhar(); }, { icone: "eye", pequeno: true, variante: "secundario" });
-      if (i < perguntas.length - 1) botao(row, "Próxima pergunta", () => { estado.perguntaIdx = i + 1; estado.mostrarResposta = false; ctx.acoes.redesenhar(); }, { icone: "arrow-right", pequeno: true, variante: "secundario" });
+      botao(row, estado.mostrarResposta ? "Esconder" : "Ver resposta", () => { estado.mostrarResposta = !estado.mostrarResposta; ctx.acoes.redesenhar(); }, { icone: "eye", pequeno: true, variante: "secundario", atalho: "espaco" });
+      if (i < perguntas.length - 1) botao(row, "Próxima pergunta", () => { estado.perguntaIdx = i + 1; estado.mostrarResposta = false; estado.escolha = null; ctx.acoes.redesenhar(); }, { icone: "arrow-right", pequeno: true, variante: "secundario", atalho: "seta" });
     } else {
       const v = corpo.createDiv({ cls: "erpg-rola erpg-cartao" });
       vazio(v, "Essa nota não tem perguntas.", "Abra, releia e diga se lembrou. Para se testar aqui, adicione na nota callouts “> [!question]- Pergunta” com a resposta embaixo.");
@@ -216,14 +295,15 @@ export function revisao(root: HTMLElement, ctx: Ctx) {
     const caixaSeLembrar = aposLembrar({ caixa: n.caixa, revisado: n.revisado }, settings.intervalos);
     const dias = settings.intervalos[caixaSeLembrar] ?? "?";
     const fim = corpo.createDiv({ cls: "erpg-acoes erpg-veredito" });
-    botao(fim, `Lembrei · ${dias}d`, () => ctx.acoes.revisar(n, true, proxima), { icone: "check", titulo: `Sobe para a caixa ${caixaSeLembrar}: volta em ${dias} dia(s)` });
-    botao(fim, "Esqueci · 1d", () => ctx.acoes.revisar(n, false, proxima), { icone: "rotate-ccw", variante: "secundario", titulo: "Volta para a caixa 1: revisa amanhã" });
-    if (proxima) botao(fim, "Pular", () => ctx.acoes.revisarNota(proxima), { variante: "discreto", pequeno: true, titulo: "Deixa esta para depois (continua na fila)" });
-    botao(fim, "Fila", () => ctx.acoes.revisarNota(null), { icone: "list", variante: "discreto", pequeno: true, titulo: "Voltar para a lista" });
+    botao(fim, `Lembrei · ${dias}d`, () => ctx.acoes.revisar(n, true, proxima), { icone: "check", titulo: `Sobe para a caixa ${caixaSeLembrar}: volta em ${dias} dia(s)`, atalho: "1" });
+    botao(fim, "Esqueci · 1d", () => ctx.acoes.revisar(n, false, proxima), { icone: "rotate-ccw", variante: "secundario", titulo: "Volta para a caixa 1: revisa amanhã", atalho: "2" });
+    const nav = fim.createDiv({ cls: "erpg-veredito-nav" });
+    if (proxima) botao(nav, "Pular", () => ctx.acoes.revisarNota(proxima), { variante: "discreto", pequeno: true, titulo: "Deixa esta para depois (continua na fila)" });
+    botao(nav, "Fila", () => ctx.acoes.revisarNota(null), { icone: "list", variante: "discreto", pequeno: true, titulo: "Voltar para a lista" });
     return;
   }
 
-  // ---- Lista da fila
+  // ---- Lista da fila de hoje: um único botão principal; cada linha também abre a revisão nela
   const topo = corpo.createDiv({ cls: "erpg-acoes" });
   const total = fila.reduce((a, x) => a + qtdPerguntas(x.n.caminho), 0);
   botao(topo, "Começar revisão", () => ctx.acoes.revisarNota(fila[0]!.n.caminho), { icone: "play" });
@@ -231,15 +311,17 @@ export function revisao(root: HTMLElement, ctx: Ctx) {
 
   const lista = corpo.createDiv({ cls: "erpg-revisoes erpg-rola" });
   for (const x of fila) {
-    const row = lista.createDiv({ cls: "erpg-revisao" });
-    const info = row.createDiv({ cls: "erpg-revisao-info" });
-    const nome = info.createEl("button", { cls: "erpg-link", text: x.n.label });
-    nome.addEventListener("click", (ev) => ctx.acoes.abrirNota(x.n.caminho, ev.ctrlKey || ev.metaKey));
     const q = qtdPerguntas(x.n.caminho);
-    const quando = x.revisado ? `caixa ${x.caixa} · ${relativo(x.revisado, snap.hoje)}` : "nunca revisada";
-    info.createDiv({ cls: "erpg-meta", text: q ? `${quando} · ${q} ${q === 1 ? "pergunta" : "perguntas"}` : quando });
-    botao(row.createDiv({ cls: "erpg-acoes" }), "Revisar", () => ctx.acoes.revisarNota(x.n.caminho), { pequeno: true, variante: "secundario" });
+    const quando = x.revisado ? `caixa ${x.caixa} · ${relativo(x.revisado, snap.hoje)}` : "nova";
+    const meta = q ? `${quando} · ${q} ${q === 1 ? "pergunta" : "perguntas"}` : quando;
+    const attr: Record<string, string> = { "aria-label": `Revisar ${x.n.label} (${meta})` };
+    if (x.revisado) attr.title = dicaCaixa(x.caixa, settings.intervalos);
+    const row = lista.createEl("button", { cls: "erpg-revisao", attr });
+    row.addEventListener("click", () => ctx.acoes.revisarNota(x.n.caminho));
+    row.createSpan({ cls: "erpg-revisao-nome", text: x.n.label });
+    row.createSpan({ cls: "erpg-meta", text: meta });
   }
+  if (adiadas) lista.createDiv({ cls: "erpg-dica erpg-revisoes-fim", text: `+${adiadas} ${adiadas === 1 ? "nota nova entra" : "notas novas entram"} nos próximos dias (${settings.novasPorDia} por dia).` });
 }
 
 // ---------------------------------------------------------------- Atividade (calendário)

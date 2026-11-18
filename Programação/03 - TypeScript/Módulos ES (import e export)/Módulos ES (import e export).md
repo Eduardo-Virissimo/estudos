@@ -5,39 +5,15 @@ revisado:
 
 # Módulos ES (import e export)
 
-> *"Cada arquivo é uma caixa fechada. `export` é a porta."*
+Na nota de [[Modularização]], você decidiu dividir o gerenciador de tarefas em vários arquivos: as regras num, o terminal noutro, o armazenamento num terceiro. Ótimo. Mas aí vem a pergunta prática: como o `main.ts` usa uma função que está no `regras.ts`? Os arquivos estão separados, e cada um não sabe nada do outro.
 
-> [!tip] ⚡ Em 30 segundos
-> Em JavaScript moderno, **cada arquivo é um módulo**: o que você cria nele é privado, a não ser que você **exporte** (`export`). Outro arquivo usa com `import`. Prefira **exports nomeados** (`export function salvar`), que o editor encontra e renomeia sem erro. No Node com TypeScript (`module: NodeNext` + `"type": "module"`), o caminho do import **precisa da extensão `.js`**, mesmo o arquivo sendo `.ts`.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+A resposta é o sistema de **módulos**. Em JavaScript moderno, **cada arquivo é um módulo**, e tudo o que você cria nele é privado, a não ser que você **exporte** com `export`. Outro arquivo usa o que foi exportado com `import`. A [[Modularização]] ensina **como** decidir onde cortar; esta nota é a sintaxe que faz os pedaços se encontrarem.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Duas coisas pra levar desde já. Prefira **exports nomeados** (`export function salvar`), e não o `export default`. E a pegadinha número um, que vai te pegar com certeza: no Node com TypeScript, **o caminho do import precisa da extensão `.js`**, mesmo o arquivo sendo `.ts`. Parece errado, e tem uma explicação. Ajuda ter passado pelo [[Configurando um Projeto TypeScript]].
 
----
+## Portas fechadas, portas abertas
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Exportar e importar funções, constantes e tipos entre arquivos
-- Escolher entre export nomeado e `export default`
-- Resolver os erros de import mais comuns no Node (extensão, `type: module`, CommonJS)
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Modularização]] · [[Configurando um Projeto TypeScript]]
-- **Depois:** [[Classes no TypeScript]] · [[Gerenciador de Pacotes]] · [[Organização de Pastas de um Projeto]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. Export nomeado (o padrão)
+Pense em cada arquivo como uma casa com todas as portas fechadas. O que está lá dentro só sai se você abrir uma porta, e o `export` é essa porta.
 
 ```ts
 // src/tarefas.ts
@@ -49,7 +25,7 @@ export function criar(id: number, titulo: string): Tarefa {
 
 export const LIMITE = 100;
 
-function segredo() {}   // sem export: privado deste arquivo
+function segredo() {}   // sem export: só existe dentro deste arquivo
 ```
 
 ```ts
@@ -59,58 +35,68 @@ import { criar, LIMITE, type Tarefa } from "./tarefas.js";
 const t: Tarefa = criar(1, "Estudar");
 ```
 
-### 2. Renomear e importar tudo
+Por que tudo começa privado? Porque assim cada arquivo decide o que os outros podem usar. A função `segredo` pode mudar à vontade, ser renomeada, até apagada, sem quebrar nada, já que ninguém de fora sabe que ela existe. É a ideia de "mostre pouco, esconda o resto" da [[Modularização]], agora com sintaxe.
+
+Na hora de importar, existem algumas variações úteis:
 
 ```ts
-import { criar as criarTarefa } from "./tarefas.js";
-import * as tarefas from "./tarefas.js";   // tarefas.criar(...), tarefas.LIMITE
+import { criar as criarTarefa } from "./tarefas.js"; // renomeia na chegada
+import * as tarefas from "./tarefas.js";             // tudo: tarefas.criar(...), tarefas.LIMITE
 ```
 
-### 3. `export default`
-
-```ts
-// src/config.ts
-export default { tema: "escuro", meta: 30 };
-
-// src/main.ts
-import config from "./config.js";   // o nome é você quem escolhe
-```
-
-> Prefira nomeados: com `default`, cada arquivo pode importar com um nome diferente, o editor não acha todos os usos e renomear vira caça ao tesouro. `default` ainda aparece em React e em algumas bibliotecas.
-
-### 4. `import type`: só tipos
+E pra tipos, use `import type`. Ele deixa claro que você está trazendo só um tipo (que some na compilação), e é obrigatório em projetos com a opção `verbatimModuleSyntax`:
 
 ```ts
 import type { Tarefa } from "./tarefas.js";
 import { criar, type Tarefa as T } from "./tarefas.js"; // misturado
 ```
 
-Deixa claro que é só tipo (some na compilação) e é exigido quando o projeto usa `verbatimModuleSyntax`.
-
-### 5. A extensão `.js` (a pegadinha nº 1)
+Existe também o **`export default`**, um export "principal" do arquivo, sem nome fixo:
 
 ```ts
-import { criar } from "./tarefas";      // ❌ no Node com NodeNext: precisa da extensão
-import { criar } from "./tarefas.js";   // ✅ (aponta pro .js que vai existir depois do tsc)
+// src/config.ts
+export default { tema: "escuro", meta: 30 };
+
+// src/main.ts
+import config from "./config.js"; // quem importa escolhe o nome
 ```
 
-O TypeScript entende que `./tarefas.js` se refere ao `./tarefas.ts`. Parece estranho, mas é o nome do arquivo que o Node vai carregar depois de compilar.
+Parece prático, e esse é justamente o problema. Com `default`, cada arquivo pode importar a mesma coisa com um nome diferente: um chama de `config`, outro de `cfg`, outro de `opcoes`. O editor não consegue mais achar todos os usos, e renomear vira caça ao tesouro. **Prefira os exports nomeados**, que têm o mesmo nome em todo lugar. (O `default` ainda aparece no React e em algumas bibliotecas, então você vai precisar reconhecer.)
 
-> Em projetos com bundler (Vite, Next.js), o import sem extensão funciona, porque a ferramenta resolve sozinha.
+Quando aparecer o erro "X is not exported", é uma de duas coisas: você esqueceu o `export` no arquivo de origem, ou misturou os dois tipos, importando com chaves algo que é `default` (ou o contrário).
 
-### 6. Pacotes e módulos nativos
+## O .js que confunde todo mundo
+
+Agora a pegadinha. Num projeto Node com TypeScript configurado do jeito moderno (`module: NodeNext` e `"type": "module"`), olhe isto:
 
 ```ts
-import { readFile } from "node:fs/promises";  // nativo do Node
-import { z } from "zod";                        // pacote do npm (node_modules)
-import { criar } from "./tarefas.js";          // arquivo seu (começa com ./ ou ../)
+import { criar } from "./tarefas";      // ❌ falta a extensão
+import { criar } from "./tarefas.js";   // ✅
 ```
 
-Sem `./`, o Node procura um pacote. Com `./`, um arquivo relativo **ao arquivo atual**.
+Mas o arquivo se chama `tarefas.ts`! Por que importar como `.js`?
 
-### 7. ESM × CommonJS
+Por causa de um detalhe de como o TypeScript trabalha: ele **não reescreve** os seus imports quando compila. O `main.ts` vira `main.js`, o `tarefas.ts` vira `tarefas.js`, e a linha do import continua **exatamente** como você escreveu. Quem roda o código no final é o Node, e o Node exige a extensão do arquivo **que vai existir** depois da compilação, o `.js`. O TypeScript, por sua vez, é esperto o bastante pra entender que `./tarefas.js` se refere ao `./tarefas.ts` enquanto você está programando.
 
-Você ainda vai ver o formato antigo do Node (**CommonJS**):
+Parece estranho. Todo mundo estranha. Mas é assim, e depois de uma semana você nem pensa mais nisso.
+
+O erro que aparece quando você esquece é o `ERR_MODULE_NOT_FOUND`, ou `Cannot find module './tarefas'`. Quase sempre é a extensão que faltou (ou um caminho relativo errado). Uma ressalva: em projetos com *bundler*, como o Vite ou o Next.js, o import sem extensão funciona, porque a própria ferramenta resolve.
+
+## De onde vem cada import
+
+O que vem depois do `from` diz ao Node **onde procurar**:
+
+```ts
+import { readFile } from "node:fs/promises";  // módulo nativo do Node
+import { z } from "zod";                        // pacote do npm (pasta node_modules)
+import { criar } from "./tarefas.js";          // arquivo seu
+```
+
+A regra é simples. **Com `./` ou `../`** no começo, é um arquivo seu, procurado a partir do arquivo **atual**. **Sem** isso, o Node procura um pacote instalado na pasta `node_modules`, ou um módulo nativo, que começa com `node:`.
+
+## O formato antigo
+
+Você ainda vai encontrar, em tutoriais e projetos mais velhos, o formato antigo de módulos do Node, o **CommonJS**:
 
 ```js
 const fs = require("fs");      // import antigo
@@ -120,12 +106,16 @@ module.exports = { criar };    // export antigo
 | | ES Modules (use) | CommonJS (legado) |
 |---|---|---|
 | Sintaxe | `import` / `export` | `require` / `module.exports` |
-| Ativa com | `"type": "module"` ou `.mjs` | padrão antigo ou `.cjs` |
-| Navegador | ✅ | ❌ |
+| Ativa com | `"type": "module"` no package.json, ou `.mjs` | padrão antigo, ou `.cjs` |
+| Funciona no navegador | ✅ | ❌ |
 
-Tutoriais antigos usam `require`. Em projeto novo, ESM.
+Em projeto novo, sempre ES Modules. Mas os dois formatos geram erros característicos quando se misturam, e vale reconhecer cada um. `Cannot use import statement outside a module` quer dizer que falta o `"type": "module"` no `package.json`. `require is not defined in ES module scope` é código antigo num projeto novo: troque o `require` por `import`. E `__dirname is not defined` aparece porque essa variável não existe em ES Modules; o equivalente moderno é o `import.meta.dirname` (Node 20.11 ou mais novo).
 
-### 8. Reexportar (arquivo "índice")
+## Dois cuidados
+
+O primeiro é o **import em círculo**. Se o arquivo A importa o B, e o B importa o A, algum dos dois recebe `undefined` no lugar do que esperava, e o erro aparece num lugar que não faz sentido nenhum. Quando isso acontecer, a solução é mover o que os dois compartilham pra um terceiro arquivo, que os dois importam.
+
+O segundo é sobre os **arquivos índice**. Um arquivo pode reexportar o que outros exportam, servindo de "porta da frente" de uma pasta:
 
 ```ts
 // src/dominio/index.ts
@@ -136,70 +126,25 @@ export { calcularXp } from "./xp.js";
 import { criar, calcularXp } from "./dominio/index.js";
 ```
 
-Útil pra expor a "porta da frente" de uma pasta. Não exagere: índices demais criam ciclos de import.
+É útil, mas não exagere: índices demais são a forma mais comum de criar, sem perceber, aqueles imports em círculo.
 
----
+## O essencial
 
-## 🛠️ Exemplo guiado
+1. Cada arquivo é um módulo, e tudo nele é privado até você exportar.
+2. Prefira exports nomeados; `default` deixa cada um importar com um nome diferente.
+3. No Node com TypeScript, o import leva `.js`, porque aponta pro arquivo que vai existir depois de compilar.
+4. Com `./`, é arquivo seu; sem, é pacote do `node_modules` ou nativo (`node:`).
+5. `import type` pra tipos. E import em círculo se resolve com um terceiro arquivo.
 
-Dividindo um script em 3 módulos:
+## Agora é com você
 
-```text
-src/
-  tarefas.ts     ← tipo + regras (puro)
-  formatar.ts    ← como mostrar
-  main.ts        ← junta
-```
+Modularize de verdade. Pegue o código do [[Funções#Agora é com você|núcleo do gerenciador de tarefas]] (ou qualquer script seu com três ou mais funções) e separe em `tipos.ts`, `regras.ts`, `formatar.ts` e `main.ts`, com exports nomeados e `import type` pros tipos. Depois, quebre de propósito e anote o que acontece em três casos: tirar o `.js` de um import, tirar um `export`, e tirar o `"type": "module"` do `package.json`. Rode `npm run check` e `npx tsx src/main.ts`. Você terminou quando tudo rodar, nenhum arquivo tiver mais de uma responsabilidade, e você souber explicar o que cada um dos três erros quis dizer.
 
-```ts
-// src/formatar.ts
-import type { Tarefa } from "./tarefas.js";
-
-export function linha(t: Tarefa): string {
-  return `${t.concluida ? "[x]" : "[ ]"} ${t.id}. ${t.titulo}`;
-}
-
-// src/main.ts
-import { criar } from "./tarefas.js";
-import { linha } from "./formatar.js";
-
-const lista = [criar(1, "Estudar"), criar(2, "Treinar")];
-lista.forEach((t) => console.log(linha(t)));
-```
-
-```bash
-npx tsx src/main.ts
-```
-
----
-
-## 🔧 Pegadinhas
-
-- **`ERR_MODULE_NOT_FOUND` / `Cannot find module './tarefas'`.** Faltou o `.js` no caminho (ou o caminho relativo está errado).
-- **`Cannot use import statement outside a module`.** Falta `"type": "module"` no `package.json`.
-- **`require is not defined in ES module scope`.** Código CommonJS num projeto ESM. Troque `require` por `import`.
-- **`X is not exported`.** Esqueceu o `export` ou é `default` e você importou com chaves (ou o contrário).
-- **Ciclo de import.** A importa B, B importa A: algo chega `undefined`. Mova o que é compartilhado pra um terceiro arquivo.
-- **`__dirname is not defined`.** Não existe em ESM. Use `import.meta.dirname` (Node 20.11+).
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** modularizar de verdade.
-
-1. Pegue o código do [[Funções#🚀 Projeto|núcleo do gerenciador de tarefas]] (ou qualquer script seu com 3+ funções).
-2. Separe em `tipos.ts`, `regras.ts`, `formatar.ts` e `main.ts`, com exports nomeados e `import type` pros tipos.
-3. Provoque e anote 3 erros: tirar o `.js`, tirar um `export`, tirar o `"type": "module"`.
-4. Rode `npm run check` e `npx tsx src/main.ts`.
-
-**Pronto quando:** tudo roda, nenhum arquivo tem mais de uma responsabilidade e você sabe o que cada um dos 3 erros significa.
+Daqui, siga pras [[Classes no TypeScript]], pro [[Gerenciador de Pacotes]] e pra [[Organização de Pastas de um Projeto]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- O que acontece com uma função que não tem `export`?
 > Fica privada do arquivo (módulo): outros arquivos não conseguem importá-la.
@@ -219,48 +164,36 @@ npx tsx src/main.ts
 > [!question]- Pra que serve `import type`?
 > Pra importar só tipos, que somem na compilação; deixa a intenção clara e evita imports desnecessários em execução.
 
+> [!question]+ Em `import { soma } from "./util.js"`, o arquivo de verdade é `util.ts`. Por que `.js`?
+> - a) É um erro: devia ser `.ts`
+> - b) O import aponta pro arquivo que vai **existir depois de compilar**
+> - c) O Node ignora a extensão
+> - d) `.js` é obrigatório só no Windows
+>
+> > [!check]- Resposta
+> > **b)** O TypeScript não reescreve os imports: eles saem como estão no `.js` compilado, e o Node exige a extensão em ES Modules.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Sintaxe | O que faz |
 |---|---|
-| `export function f()` | exporta nomeado |
-| `import { f } from "./a.js"` | importa nomeado |
-| `import { f as g }` | renomeia |
-| `import * as a from "./a.js"` | tudo num objeto |
-| `export default x` / `import x from` | export padrão |
-| `import type { T }` | só tipo |
-| `export * from "./a.js"` | reexporta |
-| `import.meta.dirname` | pasta do arquivo atual |
+| `export function f()` | Export nomeado |
+| `import { f } from "./a.js"` | Import nomeado |
+| `import { f as g }` | Renomeia na chegada |
+| `import * as a from "./a.js"` | Tudo num objeto |
+| `export default x` / `import x from` | Export padrão |
+| `import type { T }` | Só o tipo |
+| `export * from "./a.js"` | Reexporta |
+| `import.meta.dirname` | A pasta do arquivo atual |
 
----
+**Pra ler:** os capítulos [Modules, introduction](https://javascript.info/modules-intro) e [Export and Import](https://javascript.info/import-export) do javascript.info cobrem toda a sintaxe com calma. A [referência de módulos do TypeScript](https://www.typescriptlang.org/docs/handbook/modules/reference.html) explica a fundo a história do `.js`. E a [documentação de ES modules do Node](https://nodejs.org/api/esm.html) é a referência pro lado do Node.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```ts
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [javascript.info · Modules, introduction](https://javascript.info/modules-intro) e [Export and Import](https://javascript.info/import-export)
-- [TypeScript · Modules reference](https://www.typescriptlang.org/docs/handbook/modules/reference.html)
-- [Node.js · ECMAScript modules](https://nodejs.org/api/esm.html)

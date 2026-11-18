@@ -80,7 +80,7 @@ O ✅ do Estágio 1: você criou o projeto do zero, ele usa condições, laços 
 
 - [ ] Ler o enunciado inteiro e desenhar os comandos em [[Lógica de Programação|pseudocódigo]]
 - [ ] Criar o repositório e o projeto TypeScript
-- [ ] Fazer as regras puras ([[Funções#🚀 Projeto|o núcleo]]) e testar no `main`
+- [ ] Fazer as regras puras ([[Funções#Agora é com você|o núcleo]]) e testar no `main`
 - [ ] Ligar o armazenamento em JSON
 - [ ] Ligar a CLI
 - [ ] Publicar a `v1.0.0` no GitHub

@@ -5,89 +5,78 @@ revisado:
 
 # Terminal
 
-> *"A interface gráfica mostra o que você pode fazer. O terminal permite fazer qualquer coisa."*
+Todo tutorial de programação, cedo ou tarde, diz: "abra o terminal e rode este comando". E aí você abre uma janela preta, com um cursor piscando, sem botão nenhum, sem menu, sem dica do que fazer. É normal sentir que você voltou trinta anos no tempo.
 
-> [!tip] ⚡ Em 30 segundos
-> A janela onde você conversa com o sistema **digitando comandos**. Terminal ≠ shell: o terminal é a janela, o shell (Bash, PowerShell) é quem interpreta. A base: navegar (`cd`, `ls`), mexer em arquivos e encadear com pipes.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Mas tem um motivo pra todo dev passar boa parte do dia ali. O **terminal** é onde você conversa com o computador **digitando comandos**, em vez de clicar. E digitar, depois que você pega o jeito, é mais rápido, mais preciso e, principalmente, **repetível**: um comando que você digitou pode ser copiado, colado num tutorial, salvo num script, rodado mil vezes. É ali que você roda o projeto, usa o Git, instala pacotes e automatiza tarefas.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+A boa notícia é que o básico cabe numa tarde: saber **onde você está**, **andar entre pastas**, entender **a forma de um comando**, e **juntar comandos**. O resto é prática.
 
----
+## A janela e quem atende
 
-## 🎯 Objetivos
+Antes de tudo, três palavras que todo mundo confunde, e que fazem diferença quando um tutorial não funciona.
 
-Ao terminar esta nota, você consegue:
+O **terminal** é a **janela** onde você digita: o Windows Terminal, o iTerm2 no Mac. O **shell** é o **programa** que lê o que você digitou e executa: o Bash, o Zsh, o PowerShell. E **console** é um termo antigo, do tempo dos terminais físicos, que hoje se usa quase como sinônimo de terminal.
 
-- Navegar entre pastas usando caminhos relativos e absolutos
-- Ler qualquer comando como *comando + opções + argumentos*
-- Encadear comandos com pipe (`|`) e salvar a saída com `>`
+Uma comparação ajuda: o terminal é o telefone, e o shell é a pessoa que atende do outro lado. O mesmo telefone (Windows Terminal) pode ligar pra pessoas diferentes (PowerShell ou Git Bash), e cada uma entende os pedidos de um jeito um pouco diferente.
 
----
+E é por isso que importa. Quando um tutorial diz "rode `ls -la`", ele está falando com o **Bash**. Se você digitar isso no **PowerShell**, pode dar erro, não porque você errou, mas porque falou com a pessoa errada. As notas do [[Bash]] e do [[PowerShell]] mostram as diferenças.
 
-## 🧭 Onde isso se encaixa
+Uma curiosidade: os terminais nasceram nos anos 1960 e 70 como **aparelhos físicos**, teletipos e depois monitores como o DEC VT100, ligados a um computador central do tamanho de uma sala. Os terminais de hoje são programas que **imitam** esses aparelhos, e o jeito de funcionar continua o mesmo: texto entra, texto sai.
 
-- **Antes:** nada, é um ponto de partida.
-- **Depois:** [[Bash]] · [[PowerShell]]
-- **Trilha:** [[Roadmap]]
+## Você está sempre em algum lugar
 
----
-
-## 💡 O que é o Terminal?
-
-O **terminal** é uma interface de **linha de comando (CLI)**: você digita comandos em texto e o sistema operacional executa. Em vez de clicar em ícones e menus, você conversa diretamente com o computador.
-
-Três termos que costumam se confundir:
-
-- **Terminal (emulador de terminal)**: a janela onde você digita (ex.: Windows Terminal, iTerm2, GNOME Terminal).
-- **Shell**: o programa que interpreta os comandos (ex.: Bash, Zsh, PowerShell).
-- **Console**: termo antigo para o terminal físico/ligado direto ao sistema; hoje costuma ser usado como sinônimo.
-
-> [!note]- 📜 Um pouco de história
-> Os terminais surgiram nos anos 1960-70 como equipamentos físicos (teletipos e depois monitores como o DEC VT100) ligados a computadores centrais. Hoje são programas que **emulam** esses aparelhos, e o padrão de funcionamento se manteve: texto entra, texto sai.
-
----
-
-## 🧱 Conceitos-chave
-
-### Conceito 1: Diretório atual e caminhos
-
-Você sempre está "dentro" de uma pasta. Os caminhos podem ser **absolutos** (a partir da raiz) ou **relativos** (a partir de onde você está).
+A coisa mais importante pra entender o terminal é esta: **você está sempre dentro de uma pasta.** É como se estivesse andando pelo explorador de arquivos, só que sem ver. Todo comando age na pasta onde você está, a menos que você diga outra.
 
 ```bash
-pwd                 # mostra a pasta atual
-cd Documentos       # entra na pasta (caminho relativo)
-cd ..               # sobe um nível
-cd ~                # vai para a pasta do usuário
+pwd             # "onde estou?" (print working directory)
+ls              # o que tem aqui?
+cd Documentos   # entra na pasta Documentos
+cd ..           # sobe um nível, pra pasta de cima
+cd ~            # vai pra sua pasta de usuário
 ```
 
-### Conceito 2: Comando, opções e argumentos
+Muita confusão no começo vem de rodar um comando na pasta errada: o arquivo "não existe" porque ele está em outra pasta. Na dúvida, `pwd`.
+
+Pra dizer onde fica um arquivo, existem dois tipos de caminho, e a melhor forma de entender é pensar em dar direções pra alguém. "Rua das Flores, 100" funciona pra qualquer pessoa, de qualquer lugar da cidade: é um caminho **absoluto**, o endereço completo desde a raiz, como `/home/ana/projetos` ou `C:\Users\ana\projetos`. Já "segunda à direita" só funciona dependendo de onde a pessoa está: é um caminho **relativo**, a partir da pasta atual, como `projetos/tarefas` ou `../fotos` (sobe um nível e entra em `fotos`).
+
+E dois atalhos que mudam a sua vida no terminal, desde o primeiro dia. O **`Tab`** autocompleta nomes de pastas, arquivos e comandos: digite `cd Doc`, aperte `Tab`, e o resto aparece. Além de economizar digitação, evita erro de nome. E a **seta pra cima** traz de volta o último comando (no Bash, `Ctrl + R` busca no histórico por um trecho).
+
+## A forma de um comando
+
+Quase todo comando segue o mesmo formato, e quando você passa a enxergar ele, qualquer comando fica legível:
 
 ```bash
 ls -la /home/usuario
-# ls        -> comando
-# -la       -> opções (flags)
-# /home/... -> argumento
+# ls          → o comando (o que fazer)
+# -la         → as opções, ou flags (como fazer)
+# /home/...   → o argumento (em quê fazer)
 ```
 
-### Conceito 3: Entrada, saída e pipes
+Teste com um que você ainda vai usar muito: `git commit -m "mensagem"`. O comando é `git commit`, a opção é `-m` (de *message*), e `"mensagem"` é o valor dela.
 
-Você pode encadear comandos: a saída de um vira entrada do próximo.
+Agora a parte mais poderosa do terminal: **juntar comandos**. O `|`, chamado **pipe** (cano), pega a saída de um comando e entrega como entrada pro próximo:
 
 ```bash
-ls | grep ".txt"        # lista arquivos e filtra os .txt
-echo "olá" > arq.txt    # redireciona a saída para um arquivo
+ls | grep ".txt"               # lista os arquivos e filtra só os .txt
+grep -r "TODO" ./src | wc -l   # procura TODO no código e conta as linhas
+echo "olá" > arq.txt           # o > manda a saída pra um arquivo
 ```
 
----
+Cada comando faz uma coisa pequena e bem feita, e você monta coisas maiores encaixando eles, como peças de Lego. É uma filosofia que vem do Unix e que você vai reencontrar o tempo todo.
 
-## 🛠️ Exemplos guiados
+Uma advertência que merece ser dita com todas as letras: **no terminal, `rm` não manda pra lixeira. Ele apaga de vez.** Não tem "desfazer". Confira o caminho antes de apertar Enter, principalmente com `rm -rf`, que apaga pastas inteiras, com tudo dentro, sem perguntar nada.
 
-### Exemplo 1: Uso Básico
+## Quando o terminal não te entende
 
-Criar uma estrutura de projeto:
+Os dois erros que você mais vai ver no começo têm causas bem previsíveis.
+
+O primeiro é **"command not found"** (ou, no Windows, "não é reconhecido como um comando interno ou externo"). O shell procurou o programa e não achou. Confira se digitou o nome certo, e se o programa está mesmo instalado. Se estiver, o problema costuma ser o **PATH**: a lista de pastas onde o sistema procura programas. E tem uma pegadinha clássica: um programa que você acabou de instalar só aparece em terminais **abertos depois** da instalação. Antes de qualquer outra coisa, feche e abra o terminal de novo.
+
+O segundo é **"Permission denied"**: o comando existe, mas você não tem permissão pra fazer aquilo com aquele arquivo ou pasta. `ls -l` mostra as permissões. No Linux e no macOS, o `sudo` na frente executa o comando como administrador, mas use sabendo exatamente o que o comando faz, porque como administrador você também tem permissão pra estragar coisas.
+
+## Um pouco de dia a dia
+
+Pra sentir como isso vira rotina, aqui está a criação de um projeto novo, inteira pelo terminal:
 
 ```bash
 mkdir meu-projeto
@@ -96,20 +85,13 @@ touch index.js README.md
 ls
 ```
 
-### Exemplo 2: Caso de Uso Real
-
-Procurar onde uma função é usada no projeto e contar ocorrências:
+E uma das coisas mais úteis que você vai fazer: descobrir em quais arquivos uma função é usada.
 
 ```bash
-grep -rn "minhaFuncao" ./src
-grep -r "TODO" ./src | wc -l
+grep -rn "minhaFuncao" ./src   # -r procura nas subpastas, -n mostra a linha
 ```
 
----
-
-## ⚙️ Configuração recomendada
-
-No Windows, o **Windows Terminal** permite definir o perfil padrão e a aparência em um arquivo JSON (`settings.json`):
+No Windows, vale configurar o **Windows Terminal**: ele deixa escolher o shell que abre por padrão (PowerShell ou Git Bash), a fonte e as cores, num arquivo `settings.json`:
 
 ```json
 {
@@ -122,87 +104,33 @@ No Windows, o **Windows Terminal** permite definir o perfil padrão e a aparênc
 }
 ```
 
-> O GUID do perfil aparece no próprio arquivo de configurações.
+O GUID de cada perfil aparece no próprio arquivo de configurações.
 
----
+## O essencial
 
-## 💎 Boas práticas
+1. O terminal é a janela; o shell (Bash, PowerShell) é quem entende os comandos. Tutorial de Bash pode não funcionar no PowerShell.
+2. Você está sempre numa pasta. `pwd` mostra onde, `cd` anda, `ls` lista.
+3. Comando, opções, argumento: `ls -la /home`. E `|` junta comandos.
+4. `rm` apaga de vez. "Command not found": confira o nome, a instalação, e reabra o terminal.
 
-### 1. Use `Tab` para autocompletar
+## Agora é com você
 
-Digite o começo do nome de arquivos e comandos e aperte `Tab`. Economiza digitação e evita erros.
+Faça um exercício inteiro sem abrir o Explorer nenhuma vez: crie uma pasta `laboratorio` e entre nela, crie `a.txt`, `b.txt` e `c.txt`, escreva "teste" dentro do `a.txt` com `echo` e `>`, copie o `a.txt` pra `d.txt`, liste tudo com detalhes e apague `b.txt` e `c.txt`. Você terminou quando `ls -la` mostrar só `a.txt` e `d.txt`, e `cat d.txt` mostrar `teste`.
 
-### 2. Setas para cima e `Ctrl + R`
+O projeto desta nota é deixar **o seu terminal de trabalho** do jeito que você vai usar todo dia neste roadmap: abrindo no lugar certo, com os shells certos e com atalhos pros comandos que você repete. Você já fez:
 
-`↑` recupera comandos anteriores. `Ctrl + R` (no Bash/Zsh) busca no histórico por trecho digitado.
+- [x] Windows Terminal com 2 perfis: PowerShell e Git Bash, e o Git Bash como padrão
+- [x] Um perfil "Estudos" que já abre na pasta do vault (`startingDirectory`)
+- [x] 3 aliases no `~/.bashrc` pra coisas que você faz toda hora (ex: `ll`, `gs` = `git status`, `vault` = `cd` pro vault)
+- [x] Saber abrir, dividir (`Alt + Shift + D`) e fechar painéis só pelo teclado
 
-### 3. Cuidado com comandos destrutivos
+Se quiser ir além, configure um prompt que mostra a branch do Git (o Starship faz isso), crie os mesmos atalhos no `$PROFILE` do [[PowerShell]], e escolha uma fonte com ligaduras, como a Cascadia Code.
 
-`rm` não manda para a lixeira. Confira o caminho antes de apertar Enter, principalmente com `rm -rf`.
-
----
-
-## 🔧 Erros comuns e como resolver
-
-### Problema: "command not found" / "não é reconhecido como comando"
-
-**Solução:**
-1. Verifique se digitou o nome corretamente.
-2. Confirme se o programa está instalado.
-3. Verifique se ele está no `PATH` do sistema e reabra o terminal.
-
-### Problema: "Permission denied"
-
-**Solução:**
-1. Confira se você tem permissão no arquivo/pasta (`ls -l`).
-2. Se necessário, use `sudo` (Linux/macOS), sabendo exatamente o que o comando faz.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** Navegar e manipular arquivos usando só o terminal.
-
-```bash
-# 1. Crie uma pasta chamada laboratorio e entre nela
-# 2. Crie 3 arquivos: a.txt, b.txt, c.txt
-# 3. Escreva "teste" dentro de a.txt usando echo e >
-# 4. Copie a.txt para d.txt
-# 5. Liste tudo com detalhes
-# 6. Apague b.txt e c.txt
-```
-
-**Pronto quando:** `ls -la` mostra `a.txt` e `d.txt` (sem `b.txt` e `c.txt`), e `cat d.txt` mostra `teste`, sem você ter aberto o Explorer nenhuma vez.
-
----
-
-## 🚀 Projeto
-
-> [!example] O seu terminal de trabalho
-> Deixar o terminal do jeito que você vai usar todo dia neste roadmap: abre no lugar certo, com os shells certos e atalhos pros comandos que você repete.
->
-> **Tempo:** 1 sessão
-
-**O mínimo:**
-- [ ] Windows Terminal com 2 perfis: PowerShell e Git Bash, e o Git Bash como padrão
-- [ ] Um perfil "Estudos" que já abre na pasta do vault (`startingDirectory`)
-- [ ] 3 aliases no `~/.bashrc` pra coisas que você faz toda hora (ex: `ll`, `gs` = `git status`, `vault` = `cd` pro vault)
-- [ ] Saber abrir, dividir (`Alt + Shift + D`) e fechar painéis só pelo teclado
-
-**Se quiser ir além:**
-- Um prompt que mostra a branch do Git (ex: Starship)
-- O mesmo alias no `$PROFILE` do [[PowerShell]]
-- Tema e fonte com ligaduras (ex: Cascadia Code)
-
-**Pronto quando:** um atalho abre o terminal já na pasta do vault e `gs` mostra o `git status` do vault.
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+Daqui, o caminho natural é o [[Bash]] ou o [[PowerShell]], conforme o shell que você mais usa.
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
 
 > [!question]- Qual a diferença entre terminal e shell?
 > O **terminal** é a janela (Windows Terminal, iTerm2). O **shell** é o programa que interpreta os comandos (Bash, Zsh, PowerShell).
@@ -217,7 +145,7 @@ Digite o começo do nome de arquivos e comandos e aperte `Tab`. Economiza digita
 > O pipe `|` entrega a saída do `ls` como entrada do `grep`, que filtra só as linhas com `.txt`.
 
 > [!question]- Apareceu "não é reconhecido como comando". O que checar?
-> Digitação, se o programa está instalado e se ele está no `PATH`. Depois de mexer no PATH, reabra o terminal.
+> Digitação, se o programa está instalado e se ele está no `PATH`. Depois de instalar ou mexer no PATH, reabra o terminal.
 
 > [!question]- `pwd`
 > mostra a pasta atual
@@ -237,56 +165,55 @@ Digite o começo do nome de arquivos e comandos e aperte `Tab`. Economiza digita
 > [!question]- `rm` manda pra lixeira?
 > Não. Apaga direto, sem volta.
 
+> [!question]+ Em `git commit -m "fix" --amend`, o que é `-m`?
+> - a) O comando
+> - b) Uma opção (flag)
+> - c) O argumento principal
+> - d) Uma variável de ambiente
+>
+> > [!check]- Resposta
+> > **b)** `git commit` é o comando (com subcomando), `-m` e `--amend` são opções que mudam o comportamento, e `"fix"` é o valor da opção `-m`.
+
+> [!question]+ Você está em `/home/ana/projetos` e roda `cd ../fotos`. Onde vai parar?
+> - a) `/home/ana/projetos/fotos`
+> - b) `/home/ana/fotos`
+> - c) `/fotos`
+> - d) `/home/fotos`
+>
+> > [!check]- Resposta
+> > **b)** `..` sobe **um** nível (pra `/home/ana`) e de lá entra em `fotos`. É um caminho relativo: depende de onde você está.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
-| Comando/Sintaxe | Função |
-|-----------------|--------|
+| Comando | O que faz |
+|---|---|
 | `pwd` | Mostra a pasta atual |
-| `ls` | Lista arquivos e pastas |
-| `cd` | Muda de pasta |
-| `mkdir` | Cria pasta |
-| `touch` | Cria arquivo vazio |
+| `ls` / `ls -la` | Lista arquivos / com detalhes e ocultos |
+| `cd pasta` / `cd ..` / `cd ~` | Entra / sobe / vai pra home |
+| `mkdir` / `touch` | Cria pasta / arquivo vazio |
 | `cp` / `mv` | Copia / move (ou renomeia) |
-| `rm` | Remove arquivos |
+| `rm` / `rm -rf` | Apaga arquivo / pasta inteira (sem volta) |
 | `cat` | Mostra o conteúdo de um arquivo |
+| `grep -rn "texto" .` | Procura um texto nos arquivos |
 | `clear` | Limpa a tela |
 | `man comando` | Abre o manual (Linux/macOS) |
 
-> No PowerShell alguns desses nomes funcionam como apelidos (aliases) de cmdlets.
+No PowerShell, vários desses nomes funcionam como apelidos de cmdlets, mas com opções diferentes.
 
----
+**Pra ler:** *The Linux Command Line*, de William Shotts, é o melhor livro pra começar, e o autor disponibiliza [a versão online de graça](https://linuxcommand.org/tlcl.php). Pra configurar o Windows Terminal, a [documentação da Microsoft](https://learn.microsoft.com/windows/terminal/) é bem completa.
 
-## 📓 Diário de bordo
+## Minhas anotações
 
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+**O que eu entendi, com as minhas palavras:**
+- 
 
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
--
+**Onde eu travei:**
+- 
 
-**O que me confundiu / onde eu errei:**
--
-
-**Onde eu usei de verdade:**
--
-
----
-
-## ➡️ Próximos passos
-
-- [ ] Praticar os comandos básicos por alguns dias
-- [ ] Aprender sobre pipes e redirecionamentos
-- [ ] Estudar [[Bash]] ou [[PowerShell]], conforme seu sistema
-- [ ] Criar seu primeiro script automatizando uma tarefa
-
----
-
-## 📚 Recursos
-
-### 📖 Livros:
-- *The Linux Command Line* (William Shotts) - Introdução completa à linha de comando
-
-### 💻 Sites e Documentação:
-- [Windows Terminal (documentação)](https://learn.microsoft.com/windows/terminal/) - Configuração do Windows Terminal
-- [The Linux Command Line (versão online)](https://linuxcommand.org/tlcl.php) - Livro disponível gratuitamente
+**Checklist de progresso:**
+- [x] Praticar os comandos básicos por alguns dias
+- [x] Aprender sobre pipes e redirecionamentos
+- [x] Estudar [[Bash]] ou [[PowerShell]], conforme seu sistema
+- [x] Criar seu primeiro script automatizando uma tarefa

@@ -5,112 +5,90 @@ revisado:
 
 # Regex
 
-> *"Descreva o padrão uma vez e encontre-o em qualquer lugar."*
+Você tem um formulário com um campo de CEP e precisa checar se o que a pessoa digitou parece mesmo um CEP. Ou tem 300 arquivos onde as datas estão como `2026-10-27` e precisa trocar todas pra `27/10/2026`. Ou quer achar, num log enorme, todas as linhas com um número de pedido. Em nenhum desses casos você está procurando um **texto exato**. Você está procurando **qualquer coisa que se pareça com um padrão**.
 
-> [!tip] ⚡ Em 30 segundos
-> Uma mini-linguagem pra descrever **padrões de texto** (CEP, e-mail, data). Serve pra buscar, validar e substituir em massa. 80% do uso: classes (`\d`, `[a-z]`), quantificadores (`+`, `{n}`), âncoras (`^ $`) e grupos `( )`.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+É pra isso que existe a **regex** (expressão regular): uma mini-linguagem pra descrever padrões de texto. Com ela você busca, valida e substitui em massa, no código, no editor e no terminal.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
-
----
-
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Ler e escrever padrões com classes de caracteres e quantificadores
-- Capturar partes do texto com grupos e alternância
-- Evitar o erro clássico do quantificador guloso (*greedy*)
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Terminal]]
-- **Depois:** [[Bash]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 💡 O que é Regex?
-
-**Regex** (*regular expression*, ou expressão regular) é uma sequência de caracteres que descreve um **padrão de texto**. Em vez de procurar uma palavra exata, você procura "qualquer coisa que se pareça com isto": um e-mail, um CPF, um número de telefone, uma data.
-
-É usada em buscas, validação de formulários, substituições em massa, análise de logs e extração de dados.
-
-> [!note]- 📜 Um pouco de história
-> A base teórica vem do matemático **Stephen Kleene**, que nos anos 1950 formalizou as "linguagens regulares". Nos anos 1960-70, **Ken Thompson** levou a ideia para ferramentas Unix como editores de texto e o `grep` (nome vem de `g/re/p`: *global / regular expression / print*). Hoje quase toda linguagem de programação tem suporte a regex, com pequenas variações de sintaxe entre elas.
-
----
-
-## 🧱 Conceitos-chave
-
-### Conceito 1: Literais e metacaracteres
-
-Letras e números casam com eles mesmos. Alguns símbolos têm significado especial:
-
-```text
-.    qualquer caractere (exceto quebra de linha)
-^    início da linha
-$    fim da linha
-\    escapa um metacaractere (\. casa com ponto literal)
-```
-
-### Conceito 2: Classes de caracteres
-
-```text
-[abc]    a, b ou c
-[a-z]    qualquer letra minúscula
-[^0-9]   qualquer coisa que NÃO seja dígito
-\d       dígito         \D  não-dígito
-\w       letra/número/_ \W  oposto
-\s       espaço/tab/quebra de linha
-```
-
-### Conceito 3: Quantificadores
-
-```text
-*      zero ou mais
-+      um ou mais
-?      zero ou um (opcional)
-{3}    exatamente 3
-{2,5}  de 2 a 5
-```
-
-### Conceito 4: Grupos e alternância
-
-```text
-(abc)     agrupa e captura
-(?:abc)   agrupa sem capturar
-a|b       a OU b
-```
-
----
-
-## 🛠️ Exemplos guiados
-
-### Exemplo 1: Uso Básico
-
-Casar um CEP brasileiro no formato `88000-000`:
+E sim, à primeira vista ela parece um gato que andou no teclado. Mas tem um segredo: um padrão de regex se monta como uma frase. Pro CEP `88000-000`, você diria: "do começo, cinco dígitos, um hífen, três dígitos, e acabou". Em regex:
 
 ```regex
 ^\d{5}-\d{3}$
 ```
 
-Em JavaScript:
+Cada pedaço é uma tradução direta daquela frase. E quase tudo o que você vai fazer no dia a dia cabe em **quatro peças**: as que dizem **que tipo** de caractere, as que dizem **quantas vezes**, as que marcam **começo e fim**, e as que **capturam** pedaços. Vamos uma por uma.
 
-```javascript
-const cep = /^\d{5}-\d{3}$/;
-console.log(cep.test("88000-000")); // true
-console.log(cep.test("8800-0000")); // false
+Uma dica antes de começar: deixe o [regex101.com](https://regex101.com) aberto enquanto lê. Ele explica cada parte do padrão em tempo real e mostra o que casou.
+
+## Que tipo de caractere
+
+Letras e números comuns casam com eles mesmos: `abc` encontra "abc". A primeira peça, as **classes**, servem pra dizer "um caractere **deste tipo**", sem dizer qual:
+
+```text
+\d       um dígito (0 a 9)            \D  qualquer coisa que NÃO seja dígito
+\w       letra, número ou _           \W  o oposto
+\s       espaço, tab ou quebra        \S  o oposto
+.        QUALQUER caractere (menos quebra de linha)
+[abc]    a, b ou c
+[a-z]    qualquer letra minúscula
+[^0-9]   qualquer coisa que NÃO seja dígito (o ^ dentro dos colchetes inverte)
 ```
 
-### Exemplo 2: Caso de Uso Real
+Repare no padrão das letras: minúscula é a classe, maiúscula é o contrário dela.
 
-Extrair e reorganizar datas de `2026-10-27` para `27/10/2026` usando grupos:
+O ponto merece atenção, porque ele engana todo mundo. Você quer achar `site.com` e escreve exatamente isso. Funciona... mas também acha "siteXcom", porque o `.` não é um ponto, é "**qualquer caractere**". Pra dizer "um ponto de verdade", você **escapa** com uma barra: `site\.com`. O mesmo vale pra todos os símbolos que têm significado especial na regex: `\(`, `\$`, `\?`, `\+`.
+
+## Quantas vezes
+
+A segunda peça vem logo depois de um caractere ou classe e diz **quantas vezes** ele aparece:
+
+```text
+*      zero ou mais
++      um ou mais
+?      zero ou um (ou seja, opcional)
+{3}    exatamente 3
+{2,5}  de 2 a 5
+```
+
+Então `\d{5}` é "cinco dígitos", `\d+` é "um ou mais dígitos", e `-?` é "um hífen, se tiver".
+
+Os quantificadores têm uma personalidade que você precisa conhecer: eles são **gulosos**. O `.*` ("qualquer coisa, quantas vezes for") tenta pegar **o máximo possível**. Olhe o que acontece neste texto:
+
+```text
+<b>um</b> e <b>dois</b>
+```
+
+Você quer pegar cada trecho em negrito e escreve `<b>.*</b>`. Mas o resultado é o texto **inteiro**, do primeiro `<b>` até o último `</b>`, porque o `.*` foi comendo tudo até onde dava. Pra ele parar na primeira oportunidade, use a versão **preguiçosa**, com um `?` depois: `<b>.*?</b>` casa `<b>um</b>` e `<b>dois</b>` separadamente.
+
+## Começo e fim
+
+A terceira peça são as **âncoras**. Elas não casam nenhum caractere: marcam **posições**.
+
+```text
+^    início do texto (ou da linha)
+$    fim do texto (ou da linha)
+\b   borda de palavra
+```
+
+Parece um detalhe, mas este é o erro mais comum de validação com regex, e por isso é a coisa mais importante desta nota. Olhe:
+
+```javascript
+/\d{5}-\d{3}/.test("abc88000-000xyz");    // true  😱
+/^\d{5}-\d{3}$/.test("abc88000-000xyz");  // false ✅
+```
+
+Sem as âncoras, a regex procura o padrão **em qualquer lugar** do texto, e "abc88000-000xyz" tem um CEP ali no meio. Pra buscar, isso é o que você quer. Mas pra **validar** um campo, você quer que o texto **inteiro** seja o padrão. Toda regex de validação começa com `^` e termina com `$`.
+
+## Capturar e reorganizar
+
+A quarta peça são os parênteses, que fazem duas coisas: **agrupam** (pra aplicar um quantificador a vários caracteres de uma vez) e **capturam** (guardam o pedaço que casou, pra você usar depois).
+
+```text
+(abc)     agrupa e captura
+(?:abc)   agrupa SEM capturar
+a|b       a OU b
+```
+
+É aqui que a regex fica poderosa de verdade. Lembra das datas `2026-10-27` que precisavam virar `27/10/2026`?
 
 ```javascript
 const texto = "Entrega em 2026-10-27";
@@ -118,109 +96,59 @@ const resultado = texto.replace(/(\d{4})-(\d{2})-(\d{2})/, "$3/$2/$1");
 console.log(resultado); // "Entrega em 27/10/2026"
 ```
 
-Uma validação simples de e-mail (didática, não cobre todos os casos possíveis):
+Cada par de parênteses vira um grupo numerado, na ordem em que aparece: `$1` é o ano, `$2` o mês, `$3` o dia. Na substituição, você monta os pedaços na ordem que quiser. E isso funciona também no "substituir" do [[VS Code]], em milhares de arquivos de uma vez. É o tipo de coisa que economiza uma tarde inteira.
+
+O `(?:...)` existe pra quando você só precisa dos parênteses pra agrupar, sem guardar o pedaço. Por exemplo, `(?:ab)+` pra "ab repetido", quando você não vai usar o "ab" depois.
+
+## Usando de verdade
+
+No JavaScript, a regex se escreve entre barras, e depois da barra final vêm as **flags**, que mudam o comportamento:
+
+```javascript
+const cep = /^\d{5}-\d{3}$/;
+cep.test("88000-000");  // true
+cep.test("8800-0000");  // false
+```
+
+```text
+i   ignora maiúsculas e minúsculas
+g   global: todas as ocorrências, não só a primeira
+m   multilinha: ^ e $ valem pra cada linha
+```
+
+Se você precisar montar a regex a partir de uma string, com `new RegExp("\\d+")`, a barra tem que ser **dobrada**, porque a própria string também usa `\` pra coisas especiais. Com a forma literal (`/\d+/`), não precisa. Esse detalhe causa muita confusão quando alguém copia uma regex de um lugar pro outro.
+
+No VS Code, aperte `Ctrl + F` e clique no ícone `.*` (ou `Alt + R`) pra buscar e substituir com regex.
+
+E um conselho de método: **não escreva o padrão inteiro de uma vez.** Comece com o pedaço mais simples, teste, e vá acrescentando. Uma validação simples de e-mail, montada aos poucos, fica assim:
 
 ```regex
 ^[\w.+-]+@[\w-]+\.[\w.-]+$
 ```
 
----
+Lendo como frase: "do começo, letras, pontos, mais ou hífens; um arroba; um nome; um ponto; o resto; e fim". Ela é boa pra aprender, mas e-mail de verdade tem regras tão complicadas que, na prática, o melhor é validar o básico e mandar um e-mail de confirmação.
 
-## ⚙️ Configuração recomendada
+Uma curiosidade pra fechar: a teoria por trás das expressões regulares vem do matemático Stephen Kleene, nos anos 1950. Ken Thompson levou a ideia pras ferramentas do Unix, e o `grep` do terminal ganhou esse nome por causa de um comando de editor: `g/re/p`, *global / regular expression / print*.
 
-**Flags** comuns (variam por linguagem):
+## O essencial
 
-```text
-i   ignora maiúsculas/minúsculas
-g   global (todas as ocorrências)
-m   multilinha (^ e $ valem por linha)
-```
+1. Quatro peças: classes (`\d`, `[a-z]`, `.`), quantificadores (`+`, `*`, `?`, `{n}`), âncoras (`^`, `$`) e grupos (`( )`).
+2. Pra validar, sempre `^` no começo e `$` no fim.
+3. O `.` é qualquer caractere; pra um ponto de verdade, `\.`.
+4. `.*` é guloso; `.*?` para no primeiro.
+5. Grupos viram `$1`, `$2`... na substituição.
 
-No VS Code, ative a busca com regex em `Ctrl + F` e clique no ícone `.*` (ou `Alt + R`).
+## Agora é com você
 
----
+No regex101, escreva um padrão pra cada item: um telefone no formato `(48) 99999-9999`, uma placa de carro antiga `ABC-1234`, uma hora `HH:MM` de 00:00 a 23:59, todas as palavras que começam com maiúscula, e uma URL que começa com `http://` ou `https://`.
 
-## 💎 Boas práticas
+Depois, um projeto que conversa com o seu próprio vault: o **caçador de perguntas**. É exatamente o que o plugin Estudos RPG faz por baixo dos panos, e agora você faz a sua versão. Escreva um script (PowerShell com `Select-String`, ou Node) que lê todos os `.md` do vault, usa uma regex pra extrair o título de cada `> [!question]- ...`, e lista quantas perguntas cada nota tem, da maior pra menor. A parte difícil vem depois: outra regex que acha sobras de template, como `[NOME DO TÓPICO]`, **sem** pegar `[[wikilinks]]` nem `[links](url)`. Você terminou quando o total de perguntas que o seu script conta bater com o que a Ficha do herói mostra. Se quiser ir além, capture também a resposta (as linhas `> ` logo abaixo) com grupos, e compare a sua regex com a do plugin em `.sistema/estudos-rpg/src/domain/parse.ts`: o que a dele trata que a sua não trata?
 
-### 1. Teste em tempo real
-
-Use o [regex101.com](https://regex101.com), que explica cada parte do padrão e mostra os grupos capturados.
-
-### 2. Comece simples e vá refinando
-
-Construa o padrão aos poucos, testando a cada pedaço, em vez de escrever tudo de uma vez.
-
-### 3. Cuidado com o "guloso" (greedy)
-
-`.*` tenta casar o máximo possível. Para casar o mínimo, use `.*?` (preguiçoso).
-
-```text
-Texto: <b>um</b> e <b>dois</b>
-<b>.*</b>    casa tudo de uma vez
-<b>.*?</b>   casa cada trecho separadamente
-```
-
----
-
-## 🔧 Erros comuns e como resolver
-
-### Problema: O padrão casa mais do que deveria
-
-**Solução:**
-1. Verifique se `.*` está "guloso" demais e troque por `.*?`.
-2. Use âncoras `^` e `$` para exigir correspondência completa.
-
-### Problema: Um caractere especial não é encontrado
-
-**Solução:**
-1. Escape com barra invertida: `\.`, `\(`, `\$`.
-2. Lembre que em strings de algumas linguagens a barra precisa ser dobrada (`"\\d"`).
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** Escrever padrões para casos reais e testá-los.
-
-```text
-Crie uma expressão regular para cada item e teste no regex101.com:
-
-1. Um telefone no formato (48) 99999-9999
-2. Uma placa de carro no formato antigo: ABC-1234
-3. Uma hora no formato HH:MM (00:00 a 23:59)
-4. Todas as palavras que começam com maiúscula
-5. Uma URL que começa com http:// ou https://
-```
-
----
-
-## 🚀 Projeto
-
-> [!example] Caçador de perguntas do vault
-> É exatamente o que o plugin Estudos RPG faz por baixo: achar as perguntas `[!question]` com regex. Aqui você faz a sua versão.
->
-> **Tempo:** 1 a 2 sessões
-
-**O mínimo:**
-- [ ] Script (PowerShell com `Select-String`, ou Node) que lê todos os `.md` do vault
-- [ ] Uma regex que extrai o título de cada `> [!question]- ...`
-- [ ] Lista quantas perguntas cada nota tem, da maior para a menor
-- [ ] Outra regex que acha sobras do template, como `[NOME DO TÓPICO]` ou `[Pergunta 1: ...]`, **sem** pegar `[[wikilinks]]` nem `[links](url)`: essa é a parte difícil
-
-**Se quiser ir além:**
-- Capturar também a resposta (as linhas `> ` logo abaixo) com grupos de captura
-- Comparar a sua regex com a do plugin em `.sistema/estudos-rpg/src/domain/parse.ts`: o que a dele trata que a sua não trata?
-- Exportar o resultado para CSV
-
-**Pronto quando:** o total de perguntas que o seu script conta bate com o que a Ficha do herói mostra.
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+O próximo passo é o [[Bash]], onde `grep` e regex andam sempre juntos.
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
 
 > [!question]- Qual a diferença entre `.*` e `.*?`?
 > `.*` é **guloso**: casa o máximo possível. `.*?` é **preguiçoso**: casa o mínimo. Em `<b>um</b> e <b>dois</b>`, `<b>.*</b>` pega tudo de uma vez; `<b>.*?</b>` pega cada trecho.
@@ -258,54 +186,46 @@ Crie uma expressão regular para cada item e teste no regex101.com:
 > [!question]- Flag `i`
 > ignora maiúsculas/minúsculas
 
+> [!question]+ No texto `<b>um</b> e <b>dois</b>`, o que `<b>.*</b>` casa?
+> - a) `<b>um</b>`
+> - b) `<b>um</b> e <b>dois</b>` inteiro
+> - c) `um` e `dois` separados
+> - d) Nada, porque `.` não casa `<`
+>
+> > [!check]- Resposta
+> > **b)** `.*` é **guloso**: pega o máximo possível e vai até o último `</b>`. Pra parar no primeiro, use o preguiçoso `.*?`.
+
+> [!question]+ Qual padrão casa **só** a string `site.com`, e não `siteXcom`?
+> - a) `site.com`
+> - b) `site\.com`
+> - c) `site[.]*com`
+> - d) `site?com`
+>
+> > [!check]- Resposta
+> > **b)** O `.` sozinho casa qualquer caractere, então `site.com` também casa `siteXcom`. Escapado (`\.`) vira ponto literal.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
-| Comando/Sintaxe | Função |
-|-----------------|--------|
+| Sintaxe | O que faz |
+|---|---|
 | `.` | Qualquer caractere |
-| `\d` / `\w` / `\s` | Dígito / palavra / espaço |
-| `[a-z]` | Classe de caracteres |
-| `^` / `$` | Início / fim |
-| `*` `+` `?` | Quantificadores |
-| `{n,m}` | Quantidade exata ou faixa |
-| `( )` | Grupo de captura |
-| `\|` | Alternância (ou) |
-| `\b` | Limite de palavra |
+| `\d` / `\w` / `\s` | Dígito / letra-número-_ / espaço |
+| `[a-z]` / `[^0-9]` | Um caractere da lista / fora da lista |
+| `^` / `$` / `\b` | Início / fim / borda de palavra |
+| `*` `+` `?` | Zero ou mais / um ou mais / opcional |
+| `{n}` / `{n,m}` | Exatamente n / de n a m |
+| `( )` / `(?: )` | Grupo que captura / que não captura |
+| `\|` | Ou |
+| `.*?` | Versão preguiçosa |
 
----
+**Pra ler:** o [RegexOne](https://regexone.com) ensina com lições interativas curtas, ótimo pra fixar as quatro peças. O [guia de expressões regulares do MDN](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Regular_expressions) é a referência pro JavaScript. E se um dia você quiser ir fundo, *Mastering Regular Expressions*, de Jeffrey Friedl, é o livro definitivo.
 
-## 📓 Diário de bordo
+## Minhas anotações
 
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+**O que eu entendi, com as minhas palavras:**
+- 
 
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
--
-
-**O que me confundiu / onde eu errei:**
--
-
-**Onde eu usei de verdade:**
--
-
----
-
-## ➡️ Próximos passos
-
-- [ ] Resolver os exercícios acima no regex101
-- [ ] Praticar com [RegexOne](https://regexone.com) (tutorial interativo)
-- [ ] Aprender lookahead e lookbehind
-- [ ] Usar regex em buscas e substituições no seu editor
-
----
-
-## 📚 Recursos
-
-### 📖 Livros:
-- *Mastering Regular Expressions* (Jeffrey Friedl) - Referência aprofundada sobre o tema
-
-### 💻 Sites e Documentação:
-- [regex101](https://regex101.com) - Testador com explicação detalhada
-- [RegexOne](https://regexone.com) - Lições interativas
-- [MDN: Expressões regulares](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Regular_expressions) - Guia para JavaScript
+**Onde eu travei:**
+- 

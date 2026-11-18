@@ -5,39 +5,13 @@ revisado:
 
 # Utility Types
 
-> *"Uma fonte da verdade. Todo o resto, derivado."*
+O seu programa tem um tipo `Tarefa`, com seis campos. Mas na hora de criar uma tarefa nova, o usuário não informa o `id` nem a data de criação: o programa gera os dois. Então você escreve um segundo tipo, `NovaTarefa`, copiando quatro dos campos. Na tela de edição, todos os campos são opcionais, e nasce um terceiro tipo, `AtualizacaoTarefa`. Na lista resumida, só aparecem dois campos: um quarto tipo. Quatro tipos, todos parecidos, todos copiados à mão.
 
-> [!tip] ⚡ Em 30 segundos
-> **Utility types** são tipos prontos do TypeScript que **criam tipos novos a partir dos que já existem**: `Partial<T>` (tudo opcional), `Required<T>`, `Pick<T, "a" | "b">` (só esses campos), `Omit<T, "id">` (tudo menos), `Record<K, V>`, `Readonly<T>`, `ReturnType<typeof f>`, `Awaited<T>`. Com eles você escreve o tipo principal **uma vez** e deriva as variações (criar, atualizar, mostrar), sem copiar e colar campos que depois saem de sincronia.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Aí um dia a tarefa ganha um campo novo, `tags`. Você atualiza o `Tarefa`, e esquece de atualizar a `NovaTarefa`. O formulário de criação para de mandar as tags, e ninguém percebe por semanas.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+Os **utility types** existem pra isso. São tipos prontos do TypeScript que **criam tipos novos a partir dos que já existem**. Você escreve o tipo principal uma vez só, e deriva as variações dele: o que o usuário informa ao criar é `Omit<Tarefa, "id">`; o que pode mudar numa atualização é `Partial<...>`; o que aparece numa lista é `Pick<...>`. E aí, mudou o tipo principal, tudo o que deriva dele muda junto. Ajuda ter passado pelos [[Generics]] e por [[Interfaces e Type Aliases]].
 
----
-
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Derivar tipos de entrada (criar/atualizar) a partir do tipo principal com `Omit`, `Pick` e `Partial`
-- Usar `Record`, `Readonly`, `NonNullable`, `Exclude` e `Extract`
-- Extrair tipos de funções e valores com `ReturnType`, `Parameters`, `Awaited` e `typeof`
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Generics]] · [[Interfaces e Type Aliases]]
-- **Depois:** [[Validação com Zod]] · [[Rotas e Controllers]] · [[ORM]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-Tipo base pros exemplos:
+Pros exemplos, este é o tipo principal:
 
 ```ts
 interface Tarefa {
@@ -50,137 +24,150 @@ interface Tarefa {
 }
 ```
 
-### 1. `Omit` e `Pick`: escolher campos
+## Tirar e escolher campos
+
+Quando o usuário cria uma tarefa, ele não informa o `id` nem a `criadaEm`. Então o tipo da entrada é "uma `Tarefa`, **menos** esses dois campos". E é exatamente assim que se escreve:
 
 ```ts
-type NovaTarefa = Omit<Tarefa, "id" | "criadaEm">;  // o que o usuário informa ao criar
-type ResumoTarefa = Pick<Tarefa, "id" | "titulo">;  // o que aparece numa lista curta
+type NovaTarefa = Omit<Tarefa, "id" | "criadaEm">;
 
 function criar(dados: NovaTarefa): Tarefa {
   return { ...dados, id: Date.now(), criadaEm: new Date().toISOString() };
 }
 ```
 
-### 2. `Partial` e `Required`: opcional ou obrigatório
+O `Omit` **tira** campos. O oposto dele é o `Pick`, que **escolhe** só alguns:
 
 ```ts
-type AtualizacaoTarefa = Partial<Omit<Tarefa, "id" | "criadaEm">>; // muda só o que vier
+type ResumoTarefa = Pick<Tarefa, "id" | "titulo">; // só o que aparece numa lista curta
+```
+
+Pra não confundir os dois, lembre do inglês: *omit* é omitir (tira), *pick* é pegar (escolhe).
+
+Um cuidado com o `Omit`: se você errar o nome do campo, como `Omit<Tarefa, "idd">`, ele não reclama. Simplesmente não remove nada, e o seu tipo continua com o `id`. Pra conferir o resultado de qualquer utility type, passe o mouse por cima do nome do tipo no editor: ele mostra o tipo final, campo por campo.
+
+## Tudo opcional, ou tudo obrigatório
+
+Numa atualização, você quer mudar **só alguns** campos: marcar uma tarefa como concluída, sem precisar mandar o título de novo. O `Partial` deixa todos os campos opcionais:
+
+```ts
+type AtualizacaoTarefa = Partial<Omit<Tarefa, "id" | "criadaEm">>;
 
 function atualizar(t: Tarefa, mudancas: AtualizacaoTarefa): Tarefa {
   return { ...t, ...mudancas };
 }
-atualizar(tarefa, { concluida: true }); // ✅ só um campo
 
-type TarefaCompleta = Required<Tarefa>;  // prazo deixa de ser opcional
+atualizar(tarefa, { concluida: true }); // ✅ só um campo
 ```
 
-### 3. `Readonly`: ninguém altera
+Repare que os utility types se combinam: primeiro o `Omit` tira o que **não pode** mudar (ninguém deveria trocar o `id` de uma tarefa), e depois o `Partial` deixa o resto opcional. E o spread `{ ...t, ...mudancas }` aplica só o que veio, mantendo o resto.
+
+O contrário do `Partial` é o `Required`, que deixa tudo obrigatório:
+
+```ts
+type TarefaCompleta = Required<Tarefa>; // o prazo deixa de ser opcional
+```
+
+Só tem um limite no `Partial`: ele age no **primeiro nível**. Se a tarefa tivesse um objeto dentro, como `endereco: { cidade, uf }`, o `Partial` deixaria o `endereco` opcional, mas se você mandar um `endereco`, ele precisa vir completo, com cidade e uf.
+
+## Derive, não copie
+
+Esta é a ideia por trás de toda a nota, então vale olhar lado a lado:
+
+```ts
+// ❌ copiado à mão: vários lugares pra manter
+type CriarTarefaInput = { titulo: string; prioridade: "baixa" | "média" | "alta"; prazo?: string };
+type TarefaParaLista  = { id: number; titulo: string; concluida: boolean };
+
+// ✅ derivado: um lugar só
+type CriarTarefaInput     = Omit<Tarefa, "id" | "criadaEm" | "concluida">;
+type AtualizarTarefaInput = Partial<CriarTarefaInput> & { concluida?: boolean };
+type TarefaParaLista      = Pick<Tarefa, "id" | "titulo" | "concluida">;
+```
+
+Agora volte ao problema do começo e adicione um campo `tags` na `Tarefa`. Na versão copiada, você precisa lembrar de atualizar cada tipo, um por um, e em algum momento vai esquecer de um. Na versão derivada, os três já sabem do campo novo, sem você tocar neles.
+
+É o mesmo princípio que vale pro código: **uma fonte da verdade, e o resto deriva dela.**
+
+Só não exagere no encadeamento. Um `Partial<Pick<Omit<Required<T>, ...>>>` vira um enigma que ninguém consegue ler. Quando ficar comprido assim, dê nomes aos passos intermediários, como `type Editavel = ...`.
+
+## Pegando o tipo de outras coisas
+
+Às vezes a ordem é a inversa: o **valor** ou a **função** vem primeiro, e você quer o tipo deles.
+
+```ts
+const CONFIG_PADRAO = { tema: "escuro", meta: 30 };
+type Config = typeof CONFIG_PADRAO; // { tema: string; meta: number }
+
+function criarUsuario(nome: string, admin: boolean) {
+  return { nome, admin, criadoEm: new Date() };
+}
+type Usuario = ReturnType<typeof criarUsuario>; // o tipo do que ela devolve
+type Args = Parameters<typeof criarUsuario>;    // [nome: string, admin: boolean]
+```
+
+O `typeof`, quando aparece no lugar de um tipo, pega o tipo de um **valor**. E o `ReturnType` pega o tipo do que uma função devolve. Assim, se a função mudar, o tipo `Usuario` muda junto.
+
+Pra funções `async`, que devolvem uma `Promise`, o `Awaited` "abre" a promessa e te dá o que tem dentro:
+
+```ts
+async function carregar() { return [] as Tarefa[]; }
+type Carregado = Awaited<ReturnType<typeof carregar>>; // Tarefa[] (sem o Promise)
+```
+
+E pra pegar o tipo de **um campo só**, use colchetes:
+
+```ts
+type Prioridade = Tarefa["prioridade"]; // "baixa" | "média" | "alta"
+```
+
+## Dicionários, leitura e uniões
+
+O `Record<Chave, Valor>` é um dicionário. E quando as chaves são uma união, o TypeScript exige **todas** elas:
+
+```ts
+const cores: Record<Prioridade, string> = { baixa: "verde", média: "amarelo", alta: "vermelho" };
+```
+
+O `Readonly<T>` impede alterações:
 
 ```ts
 function mostrar(t: Readonly<Tarefa>) {
   t.titulo = "x"; // ❌ read-only
 }
-const CONFIG: Readonly<{ tema: string }> = { tema: "escuro" };
-const LISTA: readonly string[] = ["a", "b"]; // sem push/pop
+const LISTA: readonly string[] = ["a", "b"]; // sem push nem pop
 ```
 
-### 4. `Record`: dicionário com chaves conhecidas
+Ele é ótimo pra deixar claro, na assinatura, que uma função só vai **ler** a tarefa, não alterar. Mas lembre: ele só vale na compilação, e só no primeiro nível. Objetos lá dentro continuam alteráveis.
 
-```ts
-type Prioridade = Tarefa["prioridade"];              // "baixa" | "média" | "alta" (acesso por índice)
-const cores: Record<Prioridade, string> = { baixa: "verde", média: "amarelo", alta: "vermelho" };
-const contagem: Record<string, number> = {};
-```
-
-### 5. Mexendo em uniões: `Exclude`, `Extract`, `NonNullable`
+Por fim, três utility types que mexem em **uniões**:
 
 ```ts
 type Status = "a fazer" | "fazendo" | "feito" | "cancelado";
 type Ativo = Exclude<Status, "feito" | "cancelado">;  // "a fazer" | "fazendo"
 type Final = Extract<Status, "feito" | "cancelado">;  // "feito" | "cancelado"
-
-type TalvezNome = string | null | undefined;
-type Nome = NonNullable<TalvezNome>;                  // string
+type Nome  = NonNullable<string | null | undefined>;  // string
 ```
 
-### 6. Tipos tirados de funções e valores
+O `Exclude` tira opções de uma união, o `Extract` fica só com algumas, e o `NonNullable` tira o `null` e o `undefined`.
 
-```ts
-function criarUsuario(nome: string, admin: boolean) {
-  return { nome, admin, criadoEm: new Date() };
-}
+## O essencial
 
-type Usuario = ReturnType<typeof criarUsuario>;        // { nome: string; admin: boolean; criadoEm: Date }
-type Args = Parameters<typeof criarUsuario>;           // [nome: string, admin: boolean]
+1. Escreva o tipo principal uma vez e derive o resto. Mudou o principal, os derivados acompanham.
+2. `Omit` tira campos, `Pick` escolhe campos. Confira o resultado passando o mouse no editor.
+3. `Partial` deixa tudo opcional (bom pra atualizações), `Required` deixa tudo obrigatório.
+4. `typeof valor`, `ReturnType<typeof f>` e `Awaited` pegam tipos de valores e funções. `T["campo"]` pega o tipo de um campo.
+5. Encadeou demais? Dê nomes aos passos.
 
-async function carregar() { return [] as Tarefa[]; }
-type Carregado = Awaited<ReturnType<typeof carregar>>; // Tarefa[] (sem o Promise)
+## Agora é com você
 
-const CONFIG_PADRAO = { tema: "escuro", meta: 30 };
-type Config = typeof CONFIG_PADRAO;                    // { tema: string; meta: number }
-```
+Derive todos os tipos de um cadastro a partir de um só. Crie uma `interface Livro` com `id`, `titulo`, `autor`, `paginas`, `lido: boolean`, uma `nota?: 1 | 2 | 3 | 4 | 5` e o `adicionadoEm`. Agora derive, sem repetir nenhum campo: um `NovoLivro` (sem o `id` e sem o `adicionadoEm`), um `AtualizarLivro` (tudo opcional, menos o `id`) e um `CartaoLivro` (só o título, o autor e a nota). Escreva `adicionar(lista, dados: NovoLivro)` e `atualizar(lista, mudancas: AtualizarLivro)`. E então o teste final: adicione um campo `genero` no `Livro`, e veja onde o compilador passa a pedir o campo. Você terminou quando os três tipos derivados aparecerem certos no editor, e adicionar o `genero` exigir mudança **só** na função `adicionar` e nos dados de exemplo.
 
-`typeof` (no lugar de um tipo) pega o tipo de um **valor**. Útil quando o valor vem primeiro.
-
-### 7. Combinando: o padrão "criar / atualizar / mostrar"
-
-```ts
-type CriarTarefaInput   = Omit<Tarefa, "id" | "criadaEm" | "concluida">;
-type AtualizarTarefaInput = Partial<CriarTarefaInput> & { concluida?: boolean };
-type TarefaParaLista    = Pick<Tarefa, "id" | "titulo" | "concluida">;
-```
-
-Adicionou um campo `tags` em `Tarefa`? Os três tipos já sabem. Nada a sincronizar à mão.
-
----
-
-## 🛠️ Exemplo guiado
-
-Uma função de atualização segura, com campos protegidos:
-
-```ts
-type CamposProtegidos = "id" | "criadaEm";
-type Editavel = Omit<Tarefa, CamposProtegidos>;
-
-function editar<K extends keyof Editavel>(t: Tarefa, campo: K, valor: Editavel[K]): Tarefa {
-  return { ...t, [campo]: valor };
-}
-
-editar(tarefa, "titulo", "Novo título");  // ✅
-editar(tarefa, "prioridade", "urgente");  // ❌ "urgente" não é uma prioridade
-editar(tarefa, "id", 99);                 // ❌ id não é editável
-```
-
-[[Generics]] + `keyof` + `Omit` juntos: o compilador protege as regras do negócio.
-
----
-
-## 🔧 Pegadinhas
-
-- **`Partial` profundo.** `Partial<T>` só deixa opcional o primeiro nível; objetos aninhados continuam completos.
-- **`Readonly` raso e só em compilação.** Não impede mudar objetos internos nem protege em execução.
-- **`Omit` com chave errada não dá erro.** `Omit<Tarefa, "idd">` (com erro de digitação) passa sem aviso e não remove nada. Confira passando o mouse.
-- **Encadear demais.** `Partial<Pick<Omit<Required<T>, ...>>>` vira enigma. Dê nomes intermediários (`type Editavel = ...`).
-- **Copiar tipos em vez de derivar.** Duas definições "iguais" divergem no primeiro campo novo.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** derivar todos os tipos de um cadastro a partir de um só.
-
-1. Crie `interface Livro { id; titulo; autor; paginas; lido: boolean; nota?: 1|2|3|4|5; adicionadoEm }`.
-2. Derive, sem repetir campos: `NovoLivro` (sem id e adicionadoEm), `AtualizarLivro` (tudo opcional menos id), `CartaoLivro` (só titulo, autor e nota).
-3. Escreva `adicionar(lista, dados: NovoLivro)` e `atualizar(lista, mudancas: AtualizarLivro)`.
-4. Adicione o campo `genero` em `Livro` e veja onde o compilador passa a pedir o campo.
-
-**Pronto quando:** os 3 tipos derivados aparecem certos no editor e adicionar `genero` exige mudança **só** em `adicionar` e nos dados de exemplo.
+Daqui, siga pra [[Validação com Zod]], e mais adiante pras [[Rotas e Controllers]] e pro [[ORM]], onde esses tipos derivados aparecem o tempo todo.
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Qual a diferença entre `Pick` e `Omit`?
 > `Pick<T, K>` fica só com as chaves K; `Omit<T, K>` fica com todas, menos as K.
@@ -200,50 +187,39 @@ editar(tarefa, "id", 99);                 // ❌ id não é editável
 > [!question]- O que faz `Tarefa["prioridade"]`?
 > Acessa o tipo da propriedade `prioridade` de `Tarefa` (acesso por índice).
 
+> [!question]+ `type Dados = Omit<Tarefa, "id">`. O que `Dados` tem?
+> - a) Só o campo `id`
+> - b) Todos os campos de `Tarefa`, menos `id`
+> - c) Todos os campos, com `id` opcional
+> - d) Todos os campos, todos opcionais
+>
+> > [!check]- Resposta
+> > **b)** `Omit` **tira** campos e `Pick` **escolhe** campos. Deixar tudo opcional é o `Partial`.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Utility | Resultado |
 |---|---|
-| `Partial<T>` | tudo opcional |
-| `Required<T>` | tudo obrigatório |
-| `Readonly<T>` | tudo somente leitura |
-| `Pick<T, K>` | só as chaves K |
-| `Omit<T, K>` | tudo menos K |
-| `Record<K, V>` | dicionário |
-| `Exclude<U, X>` / `Extract<U, X>` | tirar / ficar com membros da união |
-| `NonNullable<T>` | sem null/undefined |
-| `ReturnType<typeof f>` / `Parameters<typeof f>` | retorno / parâmetros |
-| `Awaited<P>` | o valor dentro da Promise |
-| `T["campo"]` | tipo de uma propriedade |
+| `Partial<T>` | Tudo opcional |
+| `Required<T>` | Tudo obrigatório |
+| `Readonly<T>` | Tudo somente leitura |
+| `Pick<T, K>` | Só as chaves K |
+| `Omit<T, K>` | Tudo menos K |
+| `Record<K, V>` | Dicionário |
+| `Exclude<U, X>` / `Extract<U, X>` | Tirar / ficar com membros da união |
+| `NonNullable<T>` | Sem null/undefined |
+| `ReturnType<typeof f>` / `Parameters<typeof f>` | Retorno / parâmetros |
+| `Awaited<P>` | O valor dentro da Promise |
+| `T["campo"]` | O tipo de uma propriedade |
 
----
+**Pra ler e praticar:** a página de [Utility Types do TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/utility-types.html) lista todos, cada um com um exemplo curto. E o [Type Challenges](https://github.com/type-challenges/type-challenges) é uma coleção de exercícios de tipos, do fácil ao absurdo; um bom exercício é reimplementar o `Pick` e o `Omit` você mesmo, pra ver como eles funcionam por dentro.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```ts
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [TypeScript Handbook · Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
-- [Type Challenges](https://github.com/type-challenges/type-challenges): exercícios de tipos, do fácil ao absurdo

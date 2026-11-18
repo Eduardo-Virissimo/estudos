@@ -5,41 +5,19 @@ revisado:
 
 # Inglês em Commits, Issues e PRs
 
-> *"Seu GitHub é o primeiro texto em inglês que um recrutador lê de você."*
+Escrever um e-mail formal em inglês dá medo em muita gente. Mas escrever uma mensagem de commit? *Fix login bug.* Três palavras. E uma issue de bug segue sempre o mesmo roteiro, em qualquer projeto do mundo. E um comentário de revisão de código, depois que você conhece meia dúzia de frases, sai quase sozinho.
 
-> [!tip] ⚡ Em 30 segundos
-> Escrever em inglês no Git é mais fácil do que parece: frases **curtas**, sempre no mesmo formato e com os mesmos verbos. Commit no **imperativo** (*Add*, *Fix*, *Remove*: "Fix login bug", nunca "Fixed" nem "Fixing"); issue com **passos pra reproduzir, esperado e o que aconteceu**; PR com **o quê, por quê e como testar**; e comentários de review **educados e diretos**. É o inglês que você vai usar todo dia no trabalho, e dá pra praticar já, nos seus projetos.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Escrever em inglês no Git é muito mais fácil do que parece, porque é um inglês **curto e repetitivo**: sempre o mesmo formato, sempre os mesmos verbos. O commit vai no **imperativo** (*Fix login bug*, nunca *Fixed* nem *Fixing*). A issue de bug conta **os passos, o que era esperado, e o que aconteceu**. O pull request explica **o quê, por quê, e como testar**. E os comentários de revisão são **educados e diretos**.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+É exatamente o inglês que você vai usar todo dia num trabalho com um time de fora. E a melhor notícia: dá pra praticar ele **já**, nos seus próprios projetos, sem esperar o emprego. Ajuda ter passado pelo [[Imperativo]], pelo [[Vocabulário Técnico]], pelos [[Conventional Commits]] e pelo [[GitHub e Pull Requests]].
 
----
+## O commit, no imperativo
 
-## 🎯 Objetivos
+Existe um teste que resolve qualquer dúvida sobre como escrever a mensagem de um commit. Ela tem que completar a frase **"If applied, this commit will \_\_\_"**, "se aplicado, este commit vai...".
 
-Ao terminar esta nota, você consegue:
+*If applied, this commit will **fix login bug**.* ✅ · *...will **fixed** login bug* ❌
 
-- Escrever mensagens de commit em inglês no imperativo, no padrão Conventional Commits
-- Abrir uma issue de bug em inglês que outra pessoa consegue reproduzir
-- Escrever a descrição de um PR e comentários de review educados em inglês
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Imperativo]] · [[Vocabulário Técnico]] · [[Conventional Commits]] · [[GitHub e Pull Requests]]
-- **Depois:** [[Inglês em Reuniões e Daily]] · [[Code Review]]
-- **Trilhas:** [[Inglês]] · [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. Commits: imperativo, curto, sem ponto
-
-Teste: a frase completa **"If applied, this commit will \_\_\_"**.
+É por isso que o verbo vai na forma básica, como uma ordem ([[Imperativo]]): ***Add***, ***Fix***, ***Remove***. E curto, sem ponto final.
 
 | ❌ | ✅ |
 |---|---|
@@ -49,14 +27,14 @@ Teste: a frase completa **"If applied, this commit will \_\_\_"**.
 | `update readme` | `docs: add usage examples to README` |
 | `Removed unused stuff` | `chore: remove unused dependencies` |
 
-**Verbos que resolvem 90% dos commits:**
+O prefixo, como `fix:` ou `feat:`, vem do padrão [[Conventional Commits]]. E estes poucos verbos resolvem uns 90% das mensagens que você vai escrever:
 
 | Verbo | Pra quê |
 |---|---|
 | *Add* | algo novo |
 | *Fix* | corrigir |
 | *Remove* / *Drop* | tirar |
-| *Update* / *Bump* | atualizar / subir versão |
+| *Update* / *Bump* | atualizar / subir a versão |
 | *Rename* / *Move* | renomear / mover |
 | *Extract* / *Split* | separar em partes |
 | *Improve* / *Simplify* | melhorar / simplificar |
@@ -64,7 +42,13 @@ Teste: a frase completa **"If applied, this commit will \_\_\_"**.
 | *Prevent* / *Allow* | impedir / permitir |
 | *Replace X with Y* | trocar X por Y |
 
-### 2. Issue de bug
+O erro mais comum é usar o **passado**: *Fixed*, *Added*. Ele parece natural, porque em português a gente diria "corrigi o bug". Mas a convenção do Git é o imperativo, e é ele que você vai ver em todo projeto grande: *Fix*, *Add*.
+
+E um erro mais sutil é **traduzir palavra por palavra**. "Arrumei o bug do login" não vira *Arranged the login bug* (o *arrange* é "arrumar" no sentido de organizar). Em inglês, descreva **o que mudou**, e não o que você fez: `fix: login fails with valid password`.
+
+## Uma issue que se resolve sozinha
+
+Uma issue de bug boa tem um objetivo só: deixar **qualquer pessoa reproduzir** o bug, sem precisar te perguntar nada. E a estrutura dela é sempre a mesma, em qualquer projeto:
 
 ```markdown
 **Title:** `list` crashes when tasks.json is empty
@@ -84,9 +68,9 @@ The app crashes with `SyntaxError: Unexpected end of JSON input`.
 - tasks v1.1.0
 ```
 
-Título = o **sintoma**, no presente. Frases curtas. Sempre a mensagem de erro **exata**.
+Cada parte tem a sua regra. O **título** descreve o **sintoma**, no presente: *crashes*, *fails*, *shows*. O **Expected** é o que deveria acontecer; o **Actual** é o que aconteceu de verdade. E a mensagem de erro vai sempre **exata**, copiada e colada, nunca resumida com as suas palavras (o "deu um erro de JSON" não ajuda ninguém).
 
-### 3. Issue de funcionalidade
+Pra **pedir uma funcionalidade nova**, a estrutura muda: em vez de passos e erro, é problema e proposta.
 
 ```markdown
 **Title:** Add due dates to tasks
@@ -101,7 +85,7 @@ Add a `--due YYYY-MM-DD` option to `add`, and show overdue tasks in red on `list
 Using priority only, but it doesn't capture deadlines.
 ```
 
-### 4. Descrição de PR
+E a descrição de um **pull request** responde três perguntas: o quê, por quê, e como testar.
 
 ```markdown
 ## What
@@ -118,7 +102,16 @@ With 30+ tasks it's hard to find the urgent ones. Closes #12.
 Old tasks without priority default to `medium`.
 ```
 
-### 5. Comentários de review (educados e diretos)
+Repare que nenhum desses textos exige inglês avançado. São frases curtas, diretas, quase listas. O que dá trabalho é a estrutura, e ela é sempre a mesma.
+
+## Revisar com educação
+
+Esta é a parte que mais importa no dia a dia de um time, e onde o inglês de quem fala português pode soar rude sem querer. Em inglês, **as perguntas suavizam**. Um comentário escrito como afirmação pode soar como ataque; o mesmo conteúdo, escrito como pergunta, soa como colaboração.
+
+- *Wrong.* → ofende.
+- *I think this might not handle an empty list. What do you think?* → convida.
+
+As duas frases apontam o mesmo problema. Mas a primeira coloca a pessoa na defensiva, e a segunda abre uma conversa. Estas frases cobrem a maior parte das situações:
 
 | Intenção | Frase |
 |---|---|
@@ -126,81 +119,57 @@ Old tasks without priority default to `medium`.
 | perguntar | *What happens if the list is empty here?* |
 | detalhe pequeno | *nit: typo in "recieve" → "receive"* |
 | bloquear com motivo | *This would break existing JSON files. Could we add a migration?* |
-| elogiar | *Nice catch!* / *This is much cleaner, thanks!* |
+| elogiar | *Nice catch!* · *This is much cleaner, thanks!* |
 | aprovar | *LGTM 👍* |
 
-E respondendo ao revisor:
+O ***nit*** no começo de um comentário marca um detalhe pequeno, de gosto, que não bloqueia o PR (vem de *nitpick*, "implicar com detalhe"). E o ***LGTM*** é *looks good to me*, "pra mim está bom" (a nota [[Siglas Técnicas]] tem outras).
+
+E quando é **você** que recebe a revisão:
 
 | Situação | Frase |
 |---|---|
 | concordou e corrigiu | *Good point, fixed in a1b2c3d.* |
-| discorda com educação | *I considered that, but it would require X. Happy to change if you feel strongly.* |
+| discorda, com educação | *I considered that, but it would require X. Happy to change if you feel strongly.* |
 | vai fazer depois | *Agreed. I'll handle it in a follow-up PR.* |
 | não entendeu | *Could you clarify what you mean by...?* |
 
-### 6. Expressões que aparecem toda hora
+Um cuidado no sentido contrário: **não exagere no *please* e no *sorry***. Um *could you* já basta pra ser educado. E não peça desculpas por estar revisando o código de alguém: revisar é o seu trabalho, e o seu colega sabe disso.
 
-| Expressão | Significa |
+## O vocabulário que aparece toda hora
+
+Algumas expressões aparecem em quase toda conversa de PR e issue:
+
+| Expressão | Quer dizer |
 |---|---|
 | *as expected* | como esperado |
 | *out of scope* | fora do escopo deste PR |
-| *follow-up* | continuação (num PR/issue seguinte) |
+| *follow-up* | continuação, num PR ou issue seguinte |
 | *edge case* | caso de borda |
 | *breaking change* | mudança que quebra compatibilidade |
-| *works on my machine* | (piada) funciona aqui, mas não sei por quê aí não |
+| *works on my machine* | (piada) aqui funciona, e não sei por que aí não |
 | *blocked by #12* | depende da issue 12 |
 
----
+E um truque pra quando você não souber como escrever alguma coisa: **copie a construção de um PR de um projeto grande** no GitHub, como o TypeScript, o Node.js ou o VS Code. É um inglês revisado por centenas de pessoas, e você pode imitar à vontade.
 
-## 🔧 Pegadinhas
+## O essencial
 
-- **Passado no commit.** `Fixed`, `Added`. A convenção do Git é imperativo: `Fix`, `Add`.
-- **Traduzir palavra por palavra.** "Arrumei o bug do login" → ~~"Arranged the login bug"~~ → `fix: login fails with valid password`.
-- **Comentário seco que soa rude.** "Wrong." ofende; "I think this might not handle X, what do you think?" convida. Em inglês, perguntas suavizam.
-- **"Please" demais ou "sorry" demais.** Um "could you" basta. Não peça desculpas por fazer uma revisão.
-- **Inventar palavra.** Na dúvida, copie a construção de um PR de um projeto grande: é inglês revisado por centenas de pessoas.
+1. Commit no imperativo, completando "If applied, this commit will...": *Fix*, *Add*, nunca *Fixed*.
+2. Descreva o que mudou, não traduza o que você fez.
+3. Issue de bug: Steps to reproduce, Expected, Actual (com o erro exato), Environment.
+4. PR: What, Why, How to test.
+5. Revisão em forma de pergunta: *What do you think about...?* E *nit:* pra detalhe que não bloqueia.
 
----
+## Agora é com você
 
-## 🔨 Desafio prático
+Reescreva o seu próprio histórico em inglês. Pegue as últimas dez mensagens de commit de um projeto seu, e reescreva em inglês, no imperativo e no padrão [[Conventional Commits]] (só no papel; não precisa mexer no histórico de verdade). Depois escreva em inglês uma issue de bug de alguma coisa real sua, com os passos, o esperado e o que aconteceu. E peça pra uma IA corrigir os textos, com o prompt de [[Output com Correção]], anotando os erros que se repetiram. Você terminou quando as dez mensagens passarem no teste "If applied, this commit will..." e a issue tiver as quatro partes.
 
-**Objetivo:** reescrever o seu próprio histórico em inglês.
+Depois, o projeto que é portfólio e treino ao mesmo tempo: **um projeto seu 100% em inglês.** O [[Gerenciador de Tarefas no Terminal]] é um ótimo candidato. Escreva o README em inglês (*what it is*, *how to install*, *how to use*, com exemplos). Faça todos os commits em inglês, no imperativo. Abra três issues em inglês (pelo menos um bug e uma funcionalidade), e faça cada funcionalidade nova entrar por um PR com *What*, *Why* e *How to test*. E revise o seu próprio PR, deixando um comentário em inglês e respondendo a ele. Você terminou quando alguém que não fala português conseguir entender o projeto inteiro só pelo GitHub. Se quiser ir além, contribua com uma correção de documentação (um erro de digitação, por exemplo) num projeto open source em inglês, e configure o commitlint ([[Git Hooks]]) pra validar o formato das mensagens.
 
-1. Pegue as últimas 10 mensagens de commit de um projeto seu.
-2. Reescreva em inglês, no imperativo e no padrão [[Conventional Commits]] (só no papel; não precisa reescrever o histórico).
-3. Escreva em inglês uma issue de bug de algo real seu, com passos, esperado e atual.
-4. Peça pra uma IA corrigir os textos com o prompt de [[Output com Correção]] e anote os erros que se repetiram.
-
-**Pronto quando:** as 10 mensagens passam no teste "If applied, this commit will..." e a issue tem as 4 partes.
-
----
-
-## 🚀 Projeto
-
-> [!example] Um projeto seu 100% em inglês
-> Publicar um projeto com tudo em inglês: README, commits, issues e PRs. É portfólio e treino ao mesmo tempo.
->
-> **Tempo:** acompanha o projeto (o [[Gerenciador de Tarefas no Terminal]] é um ótimo candidato)
-
-**O mínimo:**
-- [ ] README em inglês: what it is, how to install, how to use, com exemplos
-- [ ] Todos os commits em inglês, no imperativo
-- [ ] 3 issues em inglês (pelo menos 1 bug e 1 feature) e cada funcionalidade nova entrando por PR com What / Why / How to test
-- [ ] Revisar o próprio PR deixando 1 comentário em inglês e respondendo
-
-**Se quiser ir além:**
-- Contribuir com uma correção de documentação (typo) num projeto open source em inglês
-- Configurar o commitlint ([[Git Hooks]]) pra validar o formato
-
-**Pronto quando:** alguém que não fala português entende o projeto inteiro só pelo GitHub.
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+Daqui, siga pro [[Inglês em Reuniões e Daily]] e pro [[Code Review]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Em que tempo verbal se escreve uma mensagem de commit em inglês?
 > No imperativo: *Add*, *Fix*, *Remove* (completa a frase "If applied, this commit will...").
@@ -220,9 +189,18 @@ E respondendo ao revisor:
 > [!question]- O que significa *out of scope*?
 > Fora do escopo: algo que não pertence a este PR/tarefa.
 
+> [!question]+ Qual mensagem de commit segue a convenção em inglês?
+> - a) *Fixed login bug*
+> - b) *Fix login redirect on expired session*
+> - c) *Fixing the bug of login*
+> - d) *I fixed the login*
+>
+> > [!check]- Resposta
+> > **b)** Imperativo, como se completasse "this commit will...": *Fix*, *Add*, *Remove*. E específico: diz **o que** foi corrigido.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Onde | Fórmula |
 |---|---|
@@ -234,22 +212,12 @@ E respondendo ao revisor:
 | Corrigiu | *Good point, fixed in abc123.* |
 | Aprovar | *LGTM* |
 
----
+**Pra ler:** o artigo [How to Write a Git Commit Message](https://cbea.ms/git-commit/), de Chris Beams, é o clássico sobre mensagens de commit, e explica o porquê do imperativo. O [Conventional Comments](https://conventionalcomments.org/) propõe rótulos pros comentários de revisão (*suggestion:*, *question:*, *nit:*), que deixam o tom claro. E a página [Creating an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue), do GitHub, mostra como criar templates de issue pro seu projeto.
 
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar.
+## Minhas anotações
 
 **Um commit, uma issue ou um comentário que eu escrevi em inglês:**
 - 
 
 **Erros que se repetiram:**
-- 
-
----
-
-## 📚 Recursos
-
-- [How to Write a Git Commit Message (Chris Beams)](https://cbea.ms/git-commit/)
-- [Conventional Comments](https://conventionalcomments.org/): rótulos pra comentários de review
-- [GitHub Docs · Creating an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue)
+-

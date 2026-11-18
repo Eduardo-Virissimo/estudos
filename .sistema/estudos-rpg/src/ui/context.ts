@@ -2,6 +2,7 @@
 
 import type { App, Component } from "obsidian";
 import type { Conquista, Progresso } from "../domain/progress.ts";
+import type { InfoRevisao } from "../domain/review.ts";
 import type { NotaEstudo, Snapshot, Topico } from "../domain/types.ts";
 import type { Settings } from "../settings.ts";
 
@@ -12,6 +13,8 @@ export interface EstadoUI {
   /** Pergunta atual da nota em revisão. */
   perguntaIdx: number;
   mostrarResposta: boolean;
+  /** Alternativa escolhida na pergunta de múltipla escolha atual, ou null. */
+  escolha: number | null;
   /** Trilha aberta no painel de trilhas (caminho), ou null = a primeira. */
   trilha: string | null;
 }
@@ -37,6 +40,9 @@ export interface Acoes {
   redesenhar(): void;
 }
 
+/** Uma nota na fila de revisão, com a situação dela. */
+export type ItemFila = InfoRevisao & { n: NotaEstudo };
+
 export interface Ctx {
   app: App;
   /** Dono dos renderizadores de Markdown (limpos ao redesenhar). */
@@ -44,6 +50,8 @@ export interface Ctx {
   snap: Snapshot;
   prog: Progresso;
   conquistas: Conquista[];
+  /** Fila de HOJE (vencidas + novas até o limite) e quantas novas ficaram para os próximos dias. */
+  fila: { hoje: ItemFila[]; adiadas: number };
   settings: Settings;
   estado: EstadoUI;
   acoes: Acoes;

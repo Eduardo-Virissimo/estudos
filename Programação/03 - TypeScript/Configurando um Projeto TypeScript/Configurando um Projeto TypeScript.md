@@ -5,39 +5,15 @@ revisado:
 
 # Configurando um Projeto TypeScript
 
-> *"Configure uma vez, direito, e esqueça."*
+Até aqui, você criava um `teste.ts` em qualquer pasta e rodava com `npx tsx teste.ts`. Funciona pra experimentar. Mas quando o programa cresce pra vários arquivos, ganha dependências, precisa ir pro Git e rodar em outro computador, o arquivo solto não basta mais. Você precisa de um **projeto**.
 
-> [!tip] ⚡ Em 30 segundos
-> Um projeto TypeScript é uma pasta com: `package.json` (nome, scripts e dependências), `tsconfig.json` (as regras do compilador), a pasta `src/` com o código e o `.gitignore`. Pra **desenvolver**, rode direto com `tsx`; pra **checar tipos**, `tsc --noEmit`; pra **gerar JavaScript**, `tsc`. Ligue o `strict: true` desde o primeiro dia.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Um projeto TypeScript de verdade é uma pasta organizada com quatro coisas: o `package.json` (o nome, os comandos e as dependências), o `tsconfig.json` (as regras do compilador), a pasta `src/` com o código, e o `.gitignore`. Montar isso parece burocracia na primeira vez. Mas você faz uma vez, guarda como modelo, e reusa pra sempre.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+E tem duas ideias nesta nota que valem mais que todo o resto. A primeira: existem **três jeitos de rodar** um projeto TypeScript, e **só dois deles conferem os tipos**. Confundir isso é como achar que o código está certo só porque rodou. A segunda: ligue o **`strict: true`** desde o primeiro dia. Ajuda já conhecer o [[Node.js]], o [[Gerenciador de Pacotes]] e o [[Terminal]].
 
----
+## Montando o projeto
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Criar um projeto TypeScript do zero, com `package.json`, `tsconfig.json` e `src/`
-- Explicar a diferença entre rodar com `tsx`, checar com `tsc --noEmit` e compilar com `tsc`
-- Criar scripts no `package.json` (`dev`, `check`, `build`, `start`)
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Node.js]] · [[Gerenciador de Pacotes]] · [[Terminal]]
-- **Depois:** [[Tipos Básicos do TypeScript]] · [[Módulos ES (import e export)]] · [[Linter]] · [[Formatter]]
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. Passo a passo
+A sequência inteira, do zero:
 
 ```bash
 mkdir tarefas && cd tarefas
@@ -48,13 +24,11 @@ mkdir src
 git init                                      # versionar desde o começo
 ```
 
-| Pacote | Pra quê |
-|---|---|
-| `typescript` | o compilador `tsc` |
-| `tsx` | roda `.ts` direto, rápido, sem gerar arquivos |
-| `@types/node` | os tipos do Node (`process`, `fs`...) pro editor entender |
+Três pacotes foram instalados, e cada um tem um papel. O **`typescript`** traz o compilador, o `tsc`, que confere os tipos e gera JavaScript. O **`tsx`** roda arquivos `.ts` direto, rápido, sem gerar nada. E o **`@types/node`** traz os tipos do próprio Node (`process`, `fs` e companhia), pra o editor e o compilador saberem que essas coisas existem.
 
-### 2. `package.json`
+Esse último merece uma nota: se um dia aparecer `Cannot find name 'process'`, é porque faltou o `@types/node`. Sem ele, o TypeScript simplesmente não sabe que o `process` existe.
+
+O `-D` instala tudo como **dependência de desenvolvimento**: coisas que você usa pra programar, mas que o programa não precisa pra rodar (o [[Gerenciador de Pacotes]] explica a diferença). O `package.json` fica assim:
 
 ```json
 {
@@ -75,12 +49,51 @@ git init                                      # versionar desde o começo
 }
 ```
 
-- `"type": "module"` → usa `import`/`export` moderno ([[Módulos ES (import e export)]]).
-- Rode os scripts com `npm run dev`, `npm run check`... (`start` e `test` dispensam o `run`).
+O `"type": "module"` liga o `import` e `export` modernos ([[Módulos ES (import e export)]]). E os `scripts` são atalhos que você roda com `npm run dev`, `npm run check` e `npm run build` (o `start` dispensa o `run`). A estrutura final fica assim:
 
-### 3. `tsconfig.json` enxuto e moderno
+```text
+tarefas/
+├── src/
+│   └── main.ts
+├── dist/              ← gerado, fora do Git
+├── node_modules/      ← gerado, fora do Git
+├── .gitignore
+├── package.json
+├── package-lock.json  ← vai pro Git (trava as versões)
+└── tsconfig.json
+```
 
-O `tsc --init` gera um arquivo gigante comentado. Esta é uma base boa pra projetos Node:
+## Rodou não quer dizer que está certo
+
+Esta é a parte que mais confunde, e a mais importante da nota. Existem três comandos, e eles fazem coisas bem diferentes:
+
+| Comando | Confere tipos? | Gera `.js`? | Quando usar |
+|---|---|---|---|
+| `npx tsx src/main.ts` | ❌ | ❌ | desenvolvendo, pela rapidez |
+| `npx tsc --noEmit` | ✅ | ❌ | antes do commit e na CI |
+| `npx tsc` | ✅ | ✅ (em `dist/`) | build pra produção |
+
+O `tsx` é rápido justamente porque **não confere nada**. Ele só apaga os tipos do código e executa o que sobra. Ou seja: um erro de tipo roda "normalmente", e só quebra quando aquela linha específica é executada. Olhe:
+
+```ts
+// src/main.ts
+const tarefas = ["Estudar", "Treinar"];
+const primeira = tarefas[5];
+console.log(primeira.toUpperCase());
+```
+
+```bash
+npm run dev     # roda e explode: Cannot read properties of undefined
+npm run check   # error TS18048: 'primeira' is possibly 'undefined'.
+```
+
+O `check` avisou **antes** de rodar, apontando a linha e o motivo: a posição 5 pode não existir. A correção seria algo como `primeira?.toUpperCase() ?? "Não existe tarefa 6"`.
+
+Então o fluxo do dia a dia fica assim: `npm run dev` enquanto você programa (e o editor vai mostrando os erros em vermelho), e `npm run check` antes de cada commit. Nunca confie no `tsx` pra dizer que os tipos estão certos. Ele não foi feito pra isso.
+
+## O tsconfig e a opção que importa
+
+O `tsc --init` gera um `tsconfig.json` gigante, com dezenas de opções comentadas. Você pode apagar quase tudo. Esta é uma base enxuta e moderna pra projetos Node:
 
 ```json
 {
@@ -100,25 +113,17 @@ O `tsc --init` gera um arquivo gigante comentado. Esta é uma base boa pra proje
 }
 ```
 
-| Opção | O que faz |
-|---|---|
-| `strict: true` | liga todas as checagens importantes (inclusive [[null e undefined\|strictNullChecks]]). **Nunca desligue.** |
-| `noUncheckedIndexedAccess` | `lista[0]` passa a ser `T \| undefined`: obriga a tratar índice que não existe |
-| `rootDir` / `outDir` | código em `src/`, JavaScript gerado em `dist/` |
-| `module: NodeNext` | segue as regras de módulos do Node |
-| `sourceMap` | erros apontam pra linha do `.ts`, não do `.js` |
+Duas opções aí fazem toda a diferença. O **`strict: true`** liga todas as checagens importantes de uma vez, inclusive a que obriga você a tratar [[null e undefined|null e undefined]]. Sem ela, o TypeScript deixa passar boa parte dos bugs que ele existe justamente pra pegar. E o **`noUncheckedIndexedAccess`** faz `lista[0]` ter o tipo `T | undefined`, porque o índice pode não existir. Foi ela que pegou o erro do exemplo anterior.
 
-### 4. Os três jeitos de "rodar"
+As outras são mais de encanamento. O `rootDir` e o `outDir` dizem que o código fica em `src/` e o JavaScript gerado vai pra `dist/`. O `module: NodeNext` segue as regras de módulos do Node. E o `sourceMap` faz os erros apontarem pra linha do seu `.ts`, e não do `.js` gerado.
 
-| Comando | Checa tipos? | Gera `.js`? | Quando |
-|---|---|---|---|
-| `npx tsx src/main.ts` | ❌ | ❌ | desenvolvendo, rapidez |
-| `npx tsc --noEmit` | ✅ | ❌ | antes do commit, no CI |
-| `npx tsc` | ✅ | ✅ (em `dist/`) | build pra produção |
+Vai chegar um dia em que o `strict` vai te irritar, apontando erro atrás de erro, e dá vontade de desligar "pra parar de reclamar". Não faça isso. Os erros continuam existindo; você só para de vê-los. E eles voltam, rodando, na pior hora.
 
-> ⚠️ O `tsx` **não** confere tipos: ele só apaga e executa. Um erro de tipo roda "normal". Por isso o script `check` existe: rode sempre antes de commitar.
+Um detalhe que estranha no começo: com `module: NodeNext`, os imports entre seus arquivos precisam da extensão **`.js`**, mesmo o arquivo sendo `.ts`. Fica `import { x } from "./tarefas.js"`. Parece errado, mas é assim mesmo, e o porquê está em [[Módulos ES (import e export)]].
 
-### 5. `.gitignore`
+## O que vai pro Git
+
+Antes do primeiro commit, crie o `.gitignore`:
 
 ```gitignore
 node_modules/
@@ -126,75 +131,29 @@ dist/
 .env
 ```
 
-`node_modules` se recria com `npm install`; `dist` com `npm run build`. Nenhum dos dois vai pro Git.
+O `node_modules/` tem centenas de megabytes e se recria inteiro com `npm install`. O `dist/` se recria com `npm run build`. E o `.env`, que guarda senhas e chaves, **nunca** vai pro Git.
 
-### 6. Estrutura final
+Já o `package-lock.json` **vai**: ele trava as versões exatas de cada pacote, pra que você, um colega e a CI instalem exatamente a mesma coisa.
 
-```text
-tarefas/
-├── src/
-│   └── main.ts
-├── dist/            ← gerado, fora do Git
-├── node_modules/    ← gerado, fora do Git
-├── .gitignore
-├── package.json
-├── package-lock.json  ← vai pro Git (trava as versões)
-└── tsconfig.json
-```
+Faça isso **antes** do primeiro commit. Commitar o `node_modules` sem querer coloca centenas de megabytes no histórico do repositório, e tirar de lá depois é bem mais difícil do que parece. Um `git status` que não mostra o `node_modules` é o sinal de que está tudo certo.
 
----
+## O essencial
 
-## 🛠️ Exemplo guiado
+1. Um projeto tem `package.json`, `tsconfig.json`, `src/` e `.gitignore`.
+2. `tsx` roda sem conferir tipos; `tsc --noEmit` só confere; `tsc` confere e gera o `dist/`.
+3. `npm run dev` enquanto programa, `npm run check` antes de cada commit.
+4. `strict: true` sempre ligado, e `noUncheckedIndexedAccess` também.
+5. `node_modules`, `dist` e `.env` ficam fora do Git; o `package-lock.json` vai.
 
-Ver o `check` salvando você:
+## Agora é com você
 
-```ts
-// src/main.ts
-const tarefas = ["Estudar", "Treinar"];
-const primeira = tarefas[5];
-console.log(primeira.toUpperCase());
-```
+Crie um **projeto modelo**, o `modelo-ts`, que você vai copiar pra começar todos os próximos. Siga o passo a passo, configure o `tsconfig.json` acima e os quatro scripts. Escreva um `src/main.ts` com um erro de tipo de propósito e confirme a diferença: o `dev` roda, o `check` acusa. Depois corrija, rode o `build`, rode o `start`, e abra o `dist/main.js` gerado pra ver no que o seu TypeScript se transformou. Por fim, faça o primeiro commit com o `.gitignore` certo. Você terminou quando o `npm run check` passar sem erros, o `npm start` rodar o JavaScript compilado, e o repositório não tiver `node_modules` nem `dist`.
 
-```bash
-npm run dev     # roda e explode: Cannot read properties of undefined
-npm run check   # error TS18048: 'primeira' is possibly 'undefined'.
-```
-
-Com `noUncheckedIndexedAccess`, o TypeScript avisou antes de rodar. Correção:
-
-```ts
-console.log(primeira?.toUpperCase() ?? "Não existe tarefa 6");
-```
-
----
-
-## 🔧 Pegadinhas
-
-- **`tsx` rodando código com erro de tipo.** Ele não checa. Rode `npm run check` (e ligue o TypeScript no editor).
-- **`Cannot find name 'process'`.** Falta o `@types/node`.
-- **Import sem extensão com `NodeNext`.** O Node exige a extensão: `import { x } from "./tarefas.js"` (sim, `.js`, mesmo o arquivo sendo `.ts`, porque é o nome que vai existir depois de compilar). Detalhes em [[Módulos ES (import e export)]].
-- **`strict: false` pra "parar de dar erro".** Os erros continuam existindo; você só para de ver.
-- **Commitar `node_modules`.** Centenas de MB no repositório. Confira o `.gitignore` antes do primeiro commit.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** um projeto modelo que você vai copiar pros próximos.
-
-1. Siga o passo a passo e crie o projeto `modelo-ts`.
-2. Configure o `tsconfig.json` acima e os 4 scripts.
-3. Escreva um `src/main.ts` com um erro de tipo proposital e confirme: `dev` roda, `check` acusa.
-4. Corrija, rode `build` e depois `start`. Confira o `dist/main.js` gerado.
-5. Primeiro commit com o `.gitignore` certo (`git status` não pode mostrar `node_modules`).
-
-**Pronto quando:** `npm run check` passa sem erros, `npm start` roda o JS compilado e o repositório não tem `node_modules` nem `dist`.
+Daqui, siga pros [[Tipos Básicos do TypeScript]] e pros [[Módulos ES (import e export)]], e depois volte ao modelo pra adicionar o [[Linter]] e o [[Formatter]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Qual a diferença entre `tsx`, `tsc --noEmit` e `tsc`?
 > `tsx` executa o TS direto sem checar tipos; `tsc --noEmit` só checa tipos; `tsc` checa e gera os `.js` na pasta de saída.
@@ -211,50 +170,38 @@ console.log(primeira?.toUpperCase() ?? "Não existe tarefa 6");
 > [!question]- O que faz `noUncheckedIndexedAccess`?
 > Faz `lista[i]` ter tipo `T | undefined`, obrigando a tratar o caso de o índice não existir.
 
-> [!question]- Pra que servem `rootDir` e `outDir`?
-> Dizer onde está o código-fonte (`src`) e onde o `tsc` deve colocar o JavaScript gerado (`dist`).
+> [!question]- Apareceu `Cannot find name 'process'`. O que falta?
+> O pacote `@types/node`, com os tipos do Node.
+
+> [!question]+ Qual comando **só checa os tipos**, sem gerar nenhum arquivo?
+> - a) `tsx main.ts`
+> - b) `tsc`
+> - c) `tsc --noEmit`
+> - d) `node main.ts`
+>
+> > [!check]- Resposta
+> > **c)** `tsx` roda sem checar tipos. `tsc` checa e gera `.js` no `outDir`. `tsc --noEmit` só checa: ideal pra CI e pra antes de commitar.
 
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Comando | O que faz |
 |---|---|
-| `npm init -y` | cria o `package.json` |
-| `npm i -D typescript tsx @types/node` | instala as ferramentas |
-| `npx tsc --init` | cria o `tsconfig.json` |
-| `npm run dev` | roda com recarga (`tsx watch`) |
-| `npm run check` | confere os tipos |
-| `npm run build` | gera `dist/` |
-| `npm start` | roda o JS gerado |
+| `npm init -y` | Cria o `package.json` |
+| `npm i -D typescript tsx @types/node` | Instala as ferramentas |
+| `npx tsc --init` | Cria o `tsconfig.json` |
+| `npm run dev` | Roda com recarga (`tsx watch`) |
+| `npm run check` | Confere os tipos |
+| `npm run build` | Gera o `dist/` |
+| `npm start` | Roda o JavaScript gerado |
 
----
+**Pra ler:** o [TSConfig Cheat Sheet do Total TypeScript](https://www.totaltypescript.com/tsconfig-cheat-sheet) diz, em uma página, qual configuração usar pra cada tipo de projeto, e explica o porquê de cada opção. A [referência oficial do tsconfig](https://www.typescriptlang.org/tsconfig) tem cada opção explicada com exemplo. E a [documentação do tsx](https://tsx.is/) é curta e direta.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```json
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [TypeScript · tsconfig reference](https://www.typescriptlang.org/tsconfig): cada opção explicada
-- [tsx](https://tsx.is/): documentação do executor
-- [Total TypeScript · TSConfig Cheat Sheet](https://www.totaltypescript.com/tsconfig-cheat-sheet): qual config usar pra cada tipo de projeto

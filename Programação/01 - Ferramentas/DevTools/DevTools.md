@@ -5,206 +5,89 @@ revisado:
 
 # DevTools
 
-> *"O navegador é também o seu laboratório."*
+Você clica no botão "Salvar" de um site e nada acontece. Nenhuma mensagem, nenhum erro, a página só fica ali parada. De fora, não dá pra saber se o botão está quebrado, se o servidor caiu ou se os dados foram salvos e a tela é que não atualizou.
 
-> [!tip] ⚡ Em 30 segundos
-> Ferramentas embutidas no navegador (`F12`) pra inspecionar HTML/CSS, rodar JS no **Console**, depurar com breakpoints e ver cada requisição na aba **Network**. É o primeiro lugar a olhar quando algo na página não funciona.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Só que todo navegador traz, escondida, uma caixa de ferramentas pra olhar a página **por dentro**. São as **DevTools**, e elas abrem com `F12` (ou `Ctrl + Shift + I`, ou botão direito em qualquer coisa → **Inspecionar**). Com elas você vê o HTML e o CSS de cada pedaço da tela, as mensagens e os erros do JavaScript, cada conversa que a página tem com o servidor, e o que o site guardou no seu navegador.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+A primeira vez assusta, porque são dezenas de abas e botões. A boa notícia é que **três abas resolvem quase tudo**: Elements, Console e Network. O resto você aprende quando precisar.
 
----
+## Elements: mexer na página sem tocar no código
 
-## 🎯 Objetivos
+A aba **Elements** mostra a página como o navegador a enxerga: uma árvore de elementos HTML (o **DOM**), e, do lado, o CSS que está sendo aplicado em cada um.
 
-Ao terminar esta nota, você consegue:
+Clique no ícone da setinha no canto superior esquerdo das DevTools (ou `Ctrl + Shift + C`) e depois em qualquer coisa da página, um título, por exemplo. A árvore pula direto pro elemento, e o painel **Styles** mostra cada regra de CSS que ele recebe. Agora mude a cor ali, ou o tamanho da fonte. A página muda na hora.
 
-- Inspecionar e editar HTML/CSS ao vivo na aba Elements
-- Depurar JavaScript no Console e com breakpoints
-- Analisar requisições na aba Network e a performance com Lighthouse
+É o jeito mais rápido de testar uma ideia de visual. Em vez de editar o arquivo, salvar e recarregar dez vezes, você ajusta ao vivo até ficar bom.
 
----
+O painel Styles também responde uma pergunta que todo mundo faz um dia: "por que meu CSS não está funcionando?". Se a sua regra aparece **riscada**, é porque outra regra, mais específica ou declarada depois, ganhou dela. Você vê exatamente qual.
 
-## 🧭 Onde isso se encaixa
+Só tem um detalhe que pega todo mundo na primeira vez: você passa vinte minutos acertando o visual, recarrega a página pra conferir e... tudo sumiu. **O que você muda nas DevTools é temporário.** Vale naquela aba até recarregar. Antes de recarregar, copie as mudanças pro seu código.
 
-- **Antes:** nada, é um ponto de partida.
-- **Depois:** [[HTTP]] · [[Debugging]]
-- **Trilha:** [[Roadmap]]
+E já que estamos aqui, `Ctrl + Shift + M` liga o **modo responsivo**, que simula a tela de um celular ou tablet. É assim que se testa um site no celular sem sair do computador.
 
----
+## Console: onde o JavaScript fala com você
 
-## 💡 O que são as DevTools?
+Voltando ao botão "Salvar" que não fazia nada. O primeiro lugar pra olhar é o **Console**.
 
-As **DevTools** (*Developer Tools*, ferramentas do desenvolvedor) são um conjunto de ferramentas **embutidas no navegador** para inspecionar, depurar e analisar páginas web. Com elas você vê o HTML e o CSS em tempo real, executa JavaScript no console, acompanha requisições de rede, mede performance e muito mais.
+Ele mostra tudo o que o JavaScript da página escreveu: os `console.log` que os desenvolvedores deixaram, os avisos em amarelo e, principalmente, os **erros em vermelho**. Quando uma página "não faz nada", quase sempre tem um erro aqui explicando o porquê, com o arquivo e a linha onde ele aconteceu. A nota [[Ler Mensagens de Erro]] ensina a ler esse tipo de mensagem.
 
-Estão disponíveis no Chrome, Edge, Firefox, Safari e outros, com pequenas diferenças de nomes e recursos.
-
-> [!note]- 📜 Um pouco de história
-> Antes das DevTools modernas, o **Firebug** (extensão do Firefox, meados dos anos 2000) popularizou a inspeção de páginas. Depois, navegadores passaram a trazer ferramentas nativas: o Chrome, por exemplo, incorporou as suas desde as primeiras versões, e elas evoluíram muito até hoje.
-
----
-
-## 🧱 Conceitos-chave
-
-### Como abrir
-
-```text
-F12
-Ctrl + Shift + I   (Windows/Linux)
-Cmd + Option + I   (macOS)
-Botão direito na página → Inspecionar
-```
-
-### Conceito 1: Elements (Elementos)
-
-Mostra a árvore do **DOM** e os estilos CSS aplicados. Você pode editar texto, atributos e regras de estilo e ver o resultado na hora.
-
-### Conceito 2: Console
-
-Exibe mensagens (`console.log`, erros e avisos) e permite executar JavaScript na página.
+O Console também funciona ao contrário: você pode **digitar JavaScript** e ele roda dentro da página, na hora.
 
 ```javascript
-console.log("Olá das DevTools");
-document.querySelectorAll("a").length;
+document.querySelectorAll("a").length   // quantos links tem nesta página?
+document.title = "Mudei o título"       // e funciona
 ```
 
-### Conceito 3: Sources (Fontes)
+Dois atalhos deixam isso muito mais útil. O `$0` é o último elemento que você selecionou na aba Elements: selecione um botão e digite `$0.textContent` pra ver o texto dele. E o `copy(qualquerCoisa)` copia um valor pra sua área de transferência, ótimo pra tirar dados de uma página.
 
-Permite ver os arquivos carregados, colocar **breakpoints** e depurar passo a passo.
+## Network: cada conversa com o servidor
 
-### Conceito 4: Network (Rede)
+Agora imagine o outro cenário: o Console está limpo, sem nenhum erro, mas a lista de produtos que deveria aparecer está vazia. O JavaScript rodou direitinho. Então o problema provavelmente está nos **dados**, e quem mostra os dados é a aba **Network**.
 
-Lista todas as requisições da página, com método, status, tamanho, tempo e conteúdo da resposta.
+Ela lista **toda requisição** que a página faz: o HTML, as imagens, os scripts e, o que mais importa, as chamadas de API, que é onde a página pede os dados pro servidor. Pra investigar:
 
-### Conceito 5: Application
+1. Abra a Network e recarregue a página (ela só grava o que acontece com ela aberta).
+2. Clique no filtro **Fetch/XHR**, que esconde imagens e scripts e deixa só as chamadas de API.
+3. Procure a requisição suspeita. Ela está em vermelho? Nem aparece na lista?
+4. Clique nela. Em **Headers** você vê o que foi pedido, em **Payload** os dados que foram enviados, e em **Response** o que o servidor respondeu.
 
-Mostra armazenamento do navegador: `localStorage`, `sessionStorage`, cookies, service workers e cache.
+O número do **status** já diz muito. Se começa com 4 (404, 401...), o erro foi de quem pediu: rota errada, falta de login, dados inválidos. Se começa com 5, o servidor quebrou. E se a requisição nem aparece, o JavaScript nunca chegou a pedir. A nota do [[Postman]] explica esses códigos com calma.
 
-### Conceito 6: Performance e Lighthouse
+Esta é a parte das DevTools que vale mais a pena dominar, porque é o raciocínio que você vai usar o resto da vida: **erro no Console é problema no código; Console limpo com tela errada é hora de olhar os dados na Network.**
 
-Analisam desempenho de carregamento e execução, e geram relatórios de performance, acessibilidade e boas práticas.
+Antes de sair da Network, ligue duas opções que estão no topo dela. A **Disable cache** impede o navegador de usar arquivos antigos guardados. Sem ela, você muda o código, recarrega, e o navegador mostra a versão de ontem, e você fica achando que sua mudança não funcionou (ela só vale com as DevTools abertas; pra forçar uma vez, `Ctrl + Shift + R`). A **Preserve log** mantém a lista quando a página muda de endereço, pra você não perder a requisição que aconteceu bem no momento do clique.
 
----
+E um truque que você vai usar muito: botão direito numa requisição → **Copy → Copy as cURL** copia ela como um comando de terminal, que você pode repetir, ajustar ou mandar pra alguém.
 
-## 🛠️ Exemplos guiados
+## Quando o console.log não basta
 
-### Exemplo 1: Uso Básico
+Às vezes você quer ver o código acontecendo, passo a passo. Pra isso existe a aba **Sources**, que mostra os arquivos de JavaScript da página. Clique no número de uma linha e ela ganha um **breakpoint**: quando o código passar por ali, ele **pausa**, e você vê o valor de cada variável naquele instante. Daí avança uma linha por vez. Na primeira vez que você usar, vai se perguntar por que passou tanto tempo espalhando `console.log` pelo código. Uma linha `debugger;` no seu próprio código faz a mesma coisa.
 
-Testar uma mudança de estilo sem editar o código:
+A aba **Application** é o lado oposto: mostra o que o site **guardou** no seu navegador. `localStorage`, `sessionStorage` e **cookies** ficam ali. É onde você confere se o login foi salvo, ou apaga tudo pra testar o site como um visitante novo.
 
-```text
-1. Abra qualquer site e pressione F12
-2. Na aba Elements, clique no ícone de seleção (seta) e escolha um elemento
-3. No painel Styles, altere uma cor ou tamanho
-4. Veja a mudança instantânea (recarregar a página desfaz)
-```
+Duas abas pra só saber que existem: **Performance** grava o que a página fez durante alguns segundos, pra descobrir o que está lento, e **Lighthouse** gera um relatório com nota de desempenho, acessibilidade e boas práticas, com sugestões do que melhorar.
 
-### Exemplo 2: Caso de Uso Real
+Uma curiosidade: quem popularizou a ideia de inspecionar páginas foi a extensão **Firebug**, do Firefox, em meados dos anos 2000. Ela fez tanto sucesso que todo navegador passou a trazer ferramentas próprias, que viraram as DevTools de hoje.
 
-Descobrir por que uma chamada de API falha:
+## O essencial
 
-```text
-1. Abra a aba Network e recarregue a página
-2. Use o filtro Fetch/XHR para ver só as chamadas de API
-3. Clique na requisição com erro (status 4xx/5xx em vermelho)
-4. Veja Headers, Payload e Response para entender o problema
-5. Se preciso, clique com o botão direito → Copy → Copy as cURL
-```
+1. `F12` abre. Elements, Console e Network resolvem quase tudo.
+2. Tudo o que você muda nas DevTools some ao recarregar. Copie pro código antes.
+3. Erro em vermelho no Console é problema no JavaScript.
+4. Console limpo e tela errada: abra a Network, filtre por Fetch/XHR, veja o status e a Response.
+5. Ligue "Disable cache" quando estiver desenvolvendo.
 
----
+## Agora é com você
 
-## ⚙️ Configuração recomendada
+Abra um site qualquer e faça uma visita guiada: inspecione o título principal e mude o texto e a cor dele; no Console, descubra quantos links a página tem; na Network, ache o maior arquivo carregado; e rode o Lighthouse pra anotar uma sugestão de melhoria.
 
-Atalhos e ajustes úteis (no ícone de engrenagem das DevTools → Settings):
+Depois, um passeio mais divertido: **abrir o capô do próprio Obsidian.** Ele é feito com Electron, que é um Chrome por dentro, então `Ctrl + Shift + I` abre as DevTools nele também. Em Elements, ache o painel da Ficha do herói (classe `erpg-host`) e mude uma cor da paleta ao vivo, como `--ouro`. No Console, rode `app.vault.getMarkdownFiles().length` e explore `app.plugins.plugins["estudos-rpg"]`. Em Sources, abra o `main.js` do plugin e ponha um breakpoint no código que roda ao clicar em "Lembrei". Você terminou quando conseguir explicar qual função roda nesse clique, porque viu ela parar no breakpoint. Se quiser ir além, grave a abertura da Ficha na aba Performance, ou leve uma mudança de CSS que você gostou pro `styles.css` em `.sistema/estudos-rpg/`.
 
-```json
-{
-    "Tema": "Dark ou conforme o sistema",
-    "Disable cache (while DevTools is open)": true,
-    "Preserve log": true,
-    "Device Toolbar": "Ctrl + Shift + M para simular celulares"
-}
-```
-
-> Os nomes exatos das opções podem mudar entre versões do navegador.
-
----
-
-## 💎 Boas práticas
-
-### 1. Use o modo responsivo
-
-`Ctrl + Shift + M` (Device Toolbar) simula telas de celular e tablet para testar layout.
-
-### 2. Marque "Disable cache" na aba Network
-
-Evita que arquivos antigos em cache atrapalhem seus testes enquanto desenvolve.
-
-### 3. Conheça `$0`, `$_` e `copy()` no console
-
-`$0` é o último elemento selecionado em Elements. `copy(objeto)` copia dados para a área de transferência.
-
----
-
-## 🔧 Erros comuns e como resolver
-
-### Problema: Minha alteração no CSS sumiu ao recarregar
-
-**Solução:**
-1. As edições nas DevTools são temporárias.
-2. Copie as mudanças para o seu código-fonte antes de recarregar.
-
-### Problema: A página continua mostrando a versão antiga
-
-**Solução:**
-1. Ative "Disable cache" na aba Network (com as DevTools abertas).
-2. Faça um recarregamento forçado: `Ctrl + Shift + R`.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** Praticar inspeção, console e rede em um site real.
-
-```text
-1. Abra um site e inspecione o título principal (Elements)
-2. Mude o texto e a cor dele pelas DevTools
-3. No Console, conte quantos links existem:
-   document.querySelectorAll("a").length
-4. Na aba Network, descubra qual arquivo carregado é o maior
-5. Rode o Lighthouse e anote uma sugestão de melhoria
-```
-
----
-
-## 🚀 Projeto
-
-> [!example] Abrir o capô do próprio Obsidian
-> O Obsidian é feito com Electron, ou seja, é um Chrome por dentro. `Ctrl + Shift + I` abre as DevTools nele, e você pode investigar o seu próprio plugin.
->
-> **Tempo:** 1 sessão
-
-**O mínimo:**
-- [ ] Em **Elements**, achar o painel da Ficha do herói (classe `erpg-host`)
-- [ ] Em **Styles**, mudar uma cor da paleta ao vivo (ex.: `--ouro`) e ver a Ficha mudar
-- [ ] No **Console**, rodar `app.vault.getMarkdownFiles().length` e explorar `app.plugins.plugins["estudos-rpg"]`
-- [ ] Em **Sources**, abrir o `main.js` do plugin, pôr um breakpoint no código que roda ao clicar em "Lembrei" e ver as variáveis quando ele para
-
-**Se quiser ir além:**
-- Na aba **Performance**, gravar a abertura da Ficha e ver qual função demora mais
-- Levar uma mudança de CSS que você gostou para o `styles.css` do código-fonte (`.sistema/estudos-rpg/`)
-
-**Pronto quando:** você explica qual função do plugin roda quando clica em "Lembrei", porque viu ela parar no breakpoint.
-
-> Terminou? Mude `nivel` para `projeto` e conte no 📓 Diário de bordo onde travou.
+Daqui, os próximos passos são [[HTTP]], pra entender de verdade o que a Network mostra, e [[Debugging]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa.
 
 > [!question]- Os dados da API não aparecem na tela. Qual aba você abre primeiro e o que olha?
 > **Network**: a requisição saiu? Qual o status (200, 404, 500)? O que veio no *Response*? Depois o **Console**, pra ver erros de JS.
@@ -214,6 +97,9 @@ Evita que arquivos antigos em cache atrapalhem seus testes enquanto desenvolve.
 
 > [!question]- Pra que serve marcar "Disable cache"?
 > Desliga o cache enquanto as DevTools estão abertas, pra não ver a versão antiga dos arquivos.
+
+> [!question]- Uma regra de CSS aparece riscada no painel Styles. O que isso quer dizer?
+> Que outra regra, mais específica ou declarada depois, sobrescreveu ela.
 
 > [!question]- O que é `$0` no Console?
 > O elemento selecionado por último na aba Elements.
@@ -239,49 +125,42 @@ Evita que arquivos antigos em cache atrapalhem seus testes enquanto desenvolve.
 > [!question]- Modo responsivo
 > `Ctrl + Shift + M`: simula telas de celular
 
----
-
-## 📋 Cola rápida
-
-| Comando/Sintaxe | Função |
-|-----------------|--------|
-| `F12` | Abre/fecha as DevTools |
-| `Ctrl + Shift + C` | Seleciona elemento na página |
-| `console.log()` | Imprime no console |
-| `console.table()` | Mostra dados em formato de tabela |
-| `debugger;` | Pausa a execução no código |
-| `$0` | Referência ao elemento selecionado |
-| `Ctrl + Shift + M` | Alterna modo dispositivo |
+> [!question]+ A lista de produtos não aparece na tela e o Console está limpo. Qual o primeiro lugar pra olhar?
+> - a) Aba Elements, procurando a `<div>` da lista
+> - b) Aba Network: a requisição da API, o status e a resposta
+> - c) Lighthouse, pra ver a performance
+> - d) Aba Application, apagando o localStorage
+>
+> > [!check]- Resposta
+> > **b)** Se não tem erro de JS, a suspeita é o dado: a requisição falhou (4xx/5xx), nem foi feita ou voltou vazia. A Network mostra isso. Elements mostraria só que a lista está vazia, sem dizer por quê.
 
 ---
 
-## 📓 Diário de bordo
+## Pra consultar depois
 
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
+| Atalho / comando | O que faz |
+|---|---|
+| `F12` | Abre e fecha as DevTools |
+| `Ctrl + Shift + C` | Seleciona um elemento na página |
+| `Ctrl + Shift + M` | Modo responsivo (celular, tablet) |
+| `Ctrl + Shift + R` | Recarrega ignorando o cache |
+| `console.log()` / `console.table()` | Imprime no Console / em forma de tabela |
+| `debugger;` | Pausa o código naquela linha |
+| `$0` | O elemento selecionado em Elements |
+| `copy(valor)` | Copia um valor pra área de transferência |
 
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
--
+**Pra ler:** a [documentação do Chrome DevTools](https://developer.chrome.com/docs/devtools) é ótima e cheia de exemplos, vale abrir a parte de Network. Se você usa Firefox, a [documentação dele](https://firefox-source-docs.mozilla.org/devtools-user/) cobre o mesmo. E o [MDN](https://developer.mozilla.org/pt-BR/) é a referência pra qualquer dúvida de HTML, CSS ou JavaScript que aparecer no caminho.
 
-**O que me confundiu / onde eu errei:**
--
+## Minhas anotações
 
-**Onde eu usei de verdade:**
--
+**O que eu entendi, com as minhas palavras:**
+- 
 
----
+**Onde eu travei:**
+- 
 
-## ➡️ Próximos passos
-
+**Checklist de progresso:**
 - [x] Explorar cada aba das DevTools do seu navegador principal
 - [x] Aprender a usar breakpoints na aba Sources
 - [x] Rodar o Lighthouse em um projeto seu
 - [x] Ler a documentação oficial do Chrome DevTools
-
----
-
-## 📚 Recursos
-
-### 💻 Sites e Documentação:
-- [Chrome DevTools](https://developer.chrome.com/docs/devtools) - Documentação oficial do Chrome
-- [Firefox Developer Tools](https://firefox-source-docs.mozilla.org/devtools-user/) - Documentação do Firefox
-- [MDN Web Docs](https://developer.mozilla.org/pt-BR/) - Referência geral de desenvolvimento web

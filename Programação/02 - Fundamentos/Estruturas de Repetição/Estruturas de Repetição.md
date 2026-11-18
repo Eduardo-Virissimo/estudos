@@ -5,48 +5,15 @@ revisado:
 
 # Estruturas de Repetição
 
-> *"Computador é bom em uma coisa: fazer a mesma coisa um milhão de vezes sem reclamar."*
+Você tem uma lista com o XP de cada sessão de estudo e quer saber o total. Com quatro sessões, dá pra escrever `xps[0] + xps[1] + xps[2] + xps[3]`. Com quarenta, já fica ridículo. Com uma lista que cresce todo dia, é impossível: você nem sabe quantos itens ela vai ter.
 
-> [!tip] ⚡ Em 30 segundos
-> Laços (*loops*) repetem um bloco de código. `for` clássico quando você sabe quantas vezes, `for...of` pra percorrer os itens de uma lista, `while` quando a repetição depende de uma condição que muda. `break` sai do laço, `continue` pula pra próxima volta. O erro clássico é o **laço infinito**: a condição nunca fica falsa.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Os **laços** (*loops*) existem pra isso: repetir um bloco de código quantas vezes for preciso, sem você escrever a mesma coisa várias vezes. Existem três principais, e cada um responde a uma pergunta diferente. O `for...of` é pra quando você quer fazer algo **com cada item** de uma lista. O `for` clássico é pra quando importa **contar** quantas vezes. E o `while` é pra quando a repetição depende de uma **condição que muda** ("enquanto o jogador tiver vida...").
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
+E a melhor notícia da nota: quase todo laço que você vai escrever na vida segue um de **quatro padrões**. Quando você aprende a reconhecer eles, escrever um laço vira algo automático. Se ainda não leu, as [[Estruturas Condicionais]] ajudam aqui.
 
----
+## Para cada item da lista
 
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Escolher entre `for`, `for...of` e `while` pra cada situação
-- Usar `break` e `continue` e evitar laço infinito
-- Acumular resultados num laço (soma, contagem, maior valor, nova lista)
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Estruturas Condicionais]]
-- **Depois:** [[Funções]] · [[Objetos e Arrays no JavaScript]] (métodos `map`, `filter`, `reduce`)
-- **Trilha:** [[Roadmap]]
-
----
-
-## 🧱 O mínimo pra usar
-
-### 1. `for` clássico: contador
-
-```ts
-for (let i = 1; i <= 5; i++) {
-  console.log(`Volta ${i}`);
-}
-//   início     condição   passo
-```
-
-### 2. `for...of`: cada item de uma lista
+Na maior parte do tempo, o que você quer é fazer alguma coisa com cada item de uma lista. É pra isso que existe o `for...of`:
 
 ```ts
 const tarefas = ["estudar", "treinar", "dormir"];
@@ -55,11 +22,36 @@ for (const tarefa of tarefas) {
 }
 ```
 
-Precisa do índice também? `for (const [i, tarefa] of tarefas.entries())`.
+Dá pra ler em voz alta: "para cada `tarefa` **de** `tarefas`, faça...". Em cada volta, `tarefa` vale um item, na ordem. Você não precisa saber quantos itens tem, nem mexer com índice: o laço cuida disso.
 
-> ⚠️ `for...in` percorre as **chaves** de um objeto, não os valores de um array. Pra arrays, use `for...of`.
+Se precisar da posição também, o `.entries()` entrega o par `[índice, item]`:
 
-### 3. `while`: enquanto a condição valer
+```ts
+for (const [i, tarefa] of tarefas.entries()) {
+  console.log(`${i + 1}. ${tarefa}`); // 1. estudar, 2. treinar...
+}
+```
+
+Cuidado com um primo de nome parecido, o `for...in`. Ele percorre as **chaves** de um objeto, e num array entrega os índices como texto (`"0"`, `"1"`), não os itens. É uma confusão que gera bugs estranhos. Pra listas, a resposta é sempre `for...of`.
+
+## Quando o número importa
+
+Às vezes o que importa não são os itens, é **contar**: de 1 a 10, as próximas 5 páginas, de 2 em 2. Pra isso existe o `for` clássico, que tem três partes separadas por `;`:
+
+```ts
+for (let i = 1; i <= 5; i++) {
+  console.log(`Volta ${i}`);
+}
+//   início      condição   passo
+```
+
+O **início** (`let i = 1`) roda uma vez só, antes de tudo. A **condição** (`i <= 5`) é testada antes de cada volta, e quando ela fica falsa, o laço acaba. E o **passo** (`i++`, que soma 1) roda no fim de cada volta.
+
+Esse laço tem uma armadilha tão comum que ganhou nome: o erro de **um a mais ou um a menos** (*off-by-one*). Arrays começam no índice **0**, então o último índice é `lista.length - 1`. Se você escreve `for (let i = 0; i <= lista.length; i++)`, com `<=`, o laço dá uma volta a mais e tenta ler um item que não existe, recebendo `undefined`. Use `<`, ou melhor ainda, use `for...of` e esqueça índices.
+
+## Enquanto valer
+
+O `while` repete **enquanto** uma condição for verdadeira. É o laço pra quando você não sabe de antemão quantas voltas vão ser:
 
 ```ts
 let vida = 100;
@@ -67,43 +59,72 @@ while (vida > 0) {
   vida -= 30;
   console.log(`Vida: ${vida}`);
 }
+// 70, 40, 10, -20 → para
 ```
 
-`do...while` executa **pelo menos uma vez** antes de testar (útil pra menus: "mostra, depois pergunta se continua").
-
-### 4. `break` e `continue`
+O uso mais comum no dia a dia é o **menu que se repete** até o usuário pedir pra sair:
 
 ```ts
-for (const n of [3, 8, -1, 5]) {
-  if (n < 0) break;        // para tudo
-  if (n % 2 === 0) continue; // pula os pares
-  console.log(n);           // 3
+while (true) {
+  const op = (await rl.question("[a]dicionar, [l]istar, [s]air: ")).trim();
+  if (op === "s") break;
+  // ... trata as outras opções
 }
 ```
 
-### 5. Os 4 padrões de acumulador
+Um `while (true)` assusta, mas com um `break` claro, logo no topo, é perfeitamente aceitável.
 
-Quase todo laço é um destes:
+Existe ainda o `do...while`, que roda **pelo menos uma vez** antes de testar a condição. É útil quando você precisa mostrar alguma coisa antes de perguntar se continua.
+
+E aqui mora o erro clássico dos laços: o **laço infinito**. Se nada lá dentro muda a condição, ela nunca fica falsa, e o programa trava. Um `while (i < 10)` sem nenhum `i++` dentro roda pra sempre. Se acontecer, não entre em pânico: `Ctrl + C` no [[Terminal]] para o programa.
+
+## Os quatro padrões
+
+Esta é a parte mais importante da nota. Quase todo laço que percorre uma lista está fazendo uma destas quatro coisas, e quando você reconhece o padrão, o laço se escreve sozinho:
 
 ```ts
 const xps = [120, 80, 200, 50];
 
-let soma = 0;                 // 1. somar
-for (const xp of xps) soma += xp;
+// 1. SOMAR: começa em 0 e vai somando
+let soma = 0;
+for (const xp of xps) soma += xp;              // 450
 
-let acima100 = 0;             // 2. contar
-for (const xp of xps) if (xp > 100) acima100++;
+// 2. CONTAR: começa em 0 e soma 1 quando a condição bate
+let acima100 = 0;
+for (const xp of xps) if (xp > 100) acima100++; // 2
 
-let maior = -Infinity;        // 3. maior/menor
-for (const xp of xps) if (xp > maior) maior = xp;
+// 3. MAIOR (ou menor): guarda o recorde e troca quando acha um melhor
+let maior = -Infinity;
+for (const xp of xps) if (xp > maior) maior = xp; // 200
 
-const dobrados: number[] = []; // 4. nova lista
-for (const xp of xps) dobrados.push(xp * 2);
+// 4. LISTA NOVA: começa vazia e vai adicionando
+const dobrados: number[] = [];
+for (const xp of xps) dobrados.push(xp * 2);   // [240, 160, 400, 100]
 ```
 
-Mais tarde você troca esses padrões por `reduce`, `filter` e `map` ([[Objetos e Arrays no JavaScript]]). Mas entenda o laço primeiro: é o que eles fazem por dentro.
+Repare que os quatro têm a mesma forma: **uma variável criada antes do laço** (o acumulador) e **uma atualização dentro dele**. O problema do começo da nota, somar o XP, é o padrão 1.
 
-### 6. Laço dentro de laço
+No padrão 3, um detalhe: por que `-Infinity` e não `0`? Porque se todos os números da lista forem negativos, nenhum é maior que 0, e o resultado sai 0, um número que nem está na lista. Comece em `-Infinity`, ou no primeiro item.
+
+Mais pra frente, em [[Objetos e Arrays no JavaScript]], você vai trocar esses laços por métodos prontos: `reduce` pra somar, `filter` pra selecionar, `map` pra criar uma lista nova. Mas entenda o laço primeiro, porque é exatamente isso que esses métodos fazem por dentro.
+
+## Controlando o laço por dentro
+
+Duas palavras deixam você interferir no laço enquanto ele roda:
+
+```ts
+for (const n of [3, 8, -1, 5]) {
+  if (n < 0) break;          // break: para o laço inteiro
+  if (n % 2 === 0) continue; // continue: pula pra próxima volta
+  console.log(n);            // só mostra 3
+}
+```
+
+O `break` sai do laço na hora. O `continue` abandona só a volta atual e segue pra próxima.
+
+Um conselho que vai te poupar de um bug misterioso: **não mexa na lista enquanto percorre ela.** Remover ou adicionar itens durante o `for...of` bagunça a contagem, e o laço pula elementos ou nunca termina. Se precisa tirar itens, monte uma lista nova só com o que fica (o padrão 4).
+
+E dá pra colocar um laço dentro do outro, por exemplo pra montar uma tabuada:
 
 ```ts
 for (let linha = 1; linha <= 3; linha++) {
@@ -113,67 +134,24 @@ for (let linha = 1; linha <= 3; linha++) {
 }
 ```
 
-Cuidado com o custo: 1.000 × 1.000 = 1 milhão de voltas ([[Big O]]).
+Só fique de olho no custo: o laço de dentro roda inteiro a cada volta do de fora. Duas listas de 1.000 itens viram 1 milhão de voltas. A nota de [[Big O]] fala disso.
 
----
+## O essencial
 
-## 🛠️ Exemplo guiado
+1. `for...of` pra cada item; `for` clássico pra contar; `while` pra "enquanto valer".
+2. Quatro padrões: somar, contar, achar o maior, montar lista nova. Acumulador antes, atualização dentro.
+3. Índices vão de `0` a `length - 1`: use `<`, não `<=`.
+4. Laço infinito é a condição que nunca muda. `Ctrl + C` salva.
 
-Menu que repete até o usuário sair:
+## Agora é com você
 
-```ts
-import * as readline from "node:readline/promises";
-import { stdin as input, stdout as output } from "node:process";
+Faça o jogo **"adivinhe o número"**. Sorteie um número de 1 a 100 com `Math.floor(Math.random() * 100) + 1`. Num `while`, peça um palpite e responda "maior", "menor" ou "acertou". Conte as tentativas e mostre no fim. E se o usuário digitar algo que não é número, avise e **não** conte como tentativa (use `continue`). Você terminou quando der pra jogar até acertar, uma entrada inválida não quebrar nada, e o total de tentativas estiver certo.
 
-async function main() {
-  const rl = readline.createInterface({ input, output });
-  const tarefas: string[] = [];
-
-  while (true) {
-    const op = (await rl.question("[a]dicionar, [l]istar, [s]air: ")).trim();
-    if (op === "s") break;
-    if (op === "a") tarefas.push(await rl.question("Tarefa: "));
-    else if (op === "l") {
-      for (const [i, t] of tarefas.entries()) console.log(`${i + 1}. ${t}`);
-    } else console.error("Opção inválida");
-  }
-
-  rl.close();
-}
-
-main();
-```
-
-`while (true)` + `break` é aceitável **quando a saída é clara** e está no topo do laço.
-
----
-
-## 🔧 Pegadinhas
-
-- **Laço infinito.** A variável da condição nunca muda (`while (i < 10)` sem `i++`). Se travar, `Ctrl + C` no [[Terminal]].
-- **Erro de um a mais/a menos (*off-by-one*).** Arrays começam no índice 0: o último é `lista.length - 1`. `i <= lista.length` passa do fim.
-- **Mudar a lista enquanto percorre.** Remover itens dentro do `for...of` pula elementos. Crie uma lista nova.
-- **`for...in` em array.** Dá os índices como texto (`"0"`, `"1"`). Use `for...of`.
-- **Começar o "maior" em 0.** Se todos forem negativos, dá errado. Comece em `-Infinity` ou no primeiro item.
-
----
-
-## 🔨 Desafio prático
-
-**Objetivo:** o jogo "adivinhe o número".
-
-1. Sorteie um número de 1 a 100: `Math.floor(Math.random() * 100) + 1`.
-2. Num `while`, peça um palpite e responda "maior", "menor" ou "acertou".
-3. Conte as tentativas e mostre no fim.
-4. Se o usuário digitar algo que não é número, avise e **não** conte como tentativa (`continue`).
-
-**Pronto quando:** dá pra jogar até acertar, entrada inválida não quebra nada e o total de tentativas está certo.
+Daqui, siga pras [[Funções]] e depois pra [[Objetos e Arrays no JavaScript]], onde os métodos `map`, `filter` e `reduce` substituem os quatro padrões.
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Quando usar `for`, `for...of` e `while`?
 > `for` quando sabe quantas vezes (contador); `for...of` pra percorrer os itens de uma lista; `while` quando depende de uma condição que muda durante a execução.
@@ -193,46 +171,38 @@ main();
 > [!question]- Quando usar `do...while`?
 > Quando o bloco precisa rodar pelo menos uma vez antes do teste (ex: mostrar um menu antes de perguntar se continua).
 
+> [!question]- Por que começar o "maior" em `-Infinity` e não em `0`?
+> Porque se todos os números forem negativos, nenhum supera o 0 e o resultado sai errado.
+
+> [!question]+ `for (const x in ["a", "b"])` percorre o quê?
+> - a) `"a"` e `"b"`
+> - b) `"0"` e `"1"` (os índices, como string)
+> - c) `0` e `1` (números)
+> - d) Dá erro em array
+>
+> > [!check]- Resposta
+> > **b)** `for...in` percorre as **chaves**. Pra pegar os valores de um array, use `for...of`.
+
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Sintaxe | Quando |
 |---|---|
 | `for (let i = 0; i < n; i++)` | n vezes |
-| `for (const x of lista)` | cada item |
-| `for (const [i, x] of lista.entries())` | item + índice |
-| `for (const chave in objeto)` | chaves de objeto |
-| `while (cond)` | enquanto valer |
-| `do { } while (cond)` | pelo menos uma vez |
-| `break` / `continue` | sair / pular volta |
+| `for (const x of lista)` | Cada item |
+| `for (const [i, x] of lista.entries())` | Item + índice |
+| `for (const chave in objeto)` | Chaves de um objeto |
+| `while (cond)` | Enquanto valer |
+| `do { } while (cond)` | Pelo menos uma vez |
+| `break` / `continue` | Sair / pular a volta |
 
----
+**Pra ler:** o capítulo [Loops: while and for](https://javascript.info/while-for) do javascript.info tem exercícios no fim de cada seção, ótimos pra treinar. O guia de [laços e iterações do MDN](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Loops_and_iteration) é a referência em português.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```ts
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [MDN · Laços e iterações](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Loops_and_iteration)
-- [javascript.info · Loops: while and for](https://javascript.info/while-for)

@@ -5,112 +5,88 @@ revisado:
 
 # Variáveis e Tipos de Dados
 
-> *"Dê nome às coisas e você começa a controlá-las."*
+Você pede ao usuário duas notas, `8` e `7`, e soma pra calcular a média. O programa responde que a soma é `87`. Não é um erro de matemática do computador. É que o que chegou do teclado não eram os números 8 e 7, eram os **textos** `"8"` e `"7"`, e somar textos é colar um no outro.
 
-> [!tip] ⚡ Em 30 segundos
-> Uma **variável** é um nome que aponta pra um valor guardado na memória. O **tipo** diz que espécie de valor é (número, texto, verdadeiro/falso) e, portanto, o que dá pra fazer com ele. Em TypeScript: `const` pra valor que não muda, `let` pra valor que muda, e **nunca** `var`. Converter tipo (`"10"` → `10`) é uma das fontes de bug mais comuns de JavaScript.
->
-> **Como estudar esta nota:** ① tente o [[#🔨 Desafio prático|desafio]] *antes* de ler (errar primeiro fixa mais) → ② leia só o que precisar → ③ responda o [[#🧠 Me teste|Me teste]] sem olhar → ④ escreva o 📓 Diário de bordo com as suas palavras.
+Esse bug resume a nota inteira. Uma **variável** é um nome que aponta pra um valor guardado na memória, como uma etiqueta colada numa caixa. E o **tipo** diz que espécie de valor está dentro da caixa (um número, um texto, um verdadeiro ou falso), e por isso diz o que dá pra fazer com ele: números se somam, textos se juntam. Quando o tipo não é o que você pensa, o programa faz uma coisa diferente da que você queria, e muitas vezes sem dar erro nenhum.
 
-> [!info] 📊 Nível
-> `escrito` → `praticado` (fez o desafio) → `projeto` (fez o [[#🚀 Projeto|projeto]] ou usou de verdade). Mude em `nivel` nas propriedades. A data de revisão é marcada sozinha pela Ficha do herói (painel **Revisar**).
-
----
-
-## 🎯 Objetivos
-
-Ao terminar esta nota, você consegue:
-
-- Escolher entre `const` e `let` e explicar por que `var` não se usa mais
-- Dizer o tipo de um valor com `typeof` e citar os tipos primitivos do JavaScript
-- Converter texto em número (e vice-versa) e tratar quando a conversão falha (`NaN`)
-
----
-
-## 🧭 Onde isso se encaixa
-
-- **Antes:** [[Lógica de Programação]]
-- **Depois:** [[Operadores e Expressões]] · [[Tipos Básicos do TypeScript]]
-- **Trilha:** [[Roadmap]]
+Duas regras práticas pra levar daqui desde já: em TypeScript, **`const` pra valor que não muda, `let` pra valor que muda, e nunca `var`**. E **`"10"` (texto) não é `10` (número)**: a conversão de tipos é a fonte de bug número um de quem começa em JavaScript. Ajuda ter passado pela [[Lógica de Programação]].
 
 > [!note] Como rodar os exemplos
-> Instale o [Node.js](https://nodejs.org/) (versão LTS), crie um arquivo `teste.ts` e rode `npx tsx teste.ts` no [[Terminal]]. O setup completo vem em [[Configurando um Projeto TypeScript]].
+> Esta é a primeira nota com código pra rodar. Instale o [Node.js](https://nodejs.org/) (versão LTS), crie um arquivo `teste.ts` e rode `npx tsx teste.ts` no [[Terminal]]. O setup completo de um projeto vem em [[Configurando um Projeto TypeScript]].
 
----
+## A etiqueta e a caixa
 
-## 🧱 O mínimo pra usar
-
-### 1. `const`, `let` (e por que não `var`)
+Pense numa variável como uma etiqueta colada numa caixa. A etiqueta é o nome; dentro da caixa está o valor. E existem dois tipos de etiqueta:
 
 ```ts
-const nome = "Ana";   // não pode ser reatribuída
-let pontos = 0;       // pode mudar
-pontos = pontos + 10; // ok
-// nome = "Bia";      // ❌ erro: Cannot assign to 'nome' because it is a constant
+const nome = "Ana";   // etiqueta presa: não pode trocar de caixa
+let pontos = 0;       // etiqueta que pode ser trocada
+pontos = pontos + 10; // ok: agora pontos vale 10
+// nome = "Bia";      // ❌ Cannot assign to 'nome' because it is a constant
 ```
 
-**Regra:** comece sempre com `const`. Troque pra `let` só quando precisar reatribuir. `var` é do JavaScript antigo e tem regras de [[Escopo]] confusas: não use.
+A regra é: **comece sempre com `const`**, e troque pra `let` só quando você realmente precisar mudar o valor depois, como num contador ou num total que vai somando. Por que essa preferência? Porque quando você lê `const`, sabe na hora que aquele valor nunca muda, e é uma coisa a menos pra acompanhar de cabeça enquanto lê o código. E na prática, a maioria das variáveis de um programa nunca muda.
 
-### 2. Os tipos primitivos
+E o `var`? É o jeito antigo do JavaScript, com regras de [[Escopo]] confusas que causam bugs difíceis de achar. Em código novo, não se usa.
+
+Agora, um detalhe da metáfora que confunde muita gente:
+
+```ts
+const lista = [];
+lista.push(1);   // funciona!
+```
+
+Como assim, se é `const`? É que o `const` prende **a etiqueta na caixa**, mas não tranca a caixa. Dá pra mexer no que está dentro dela. O que você não pode é trocar a caixa: `lista = [outra coisa]` dá erro.
+
+## Que tipo de coisa está na caixa
+
+Todo valor tem um tipo. Os que você vai usar o tempo todo são três:
 
 | Tipo | Exemplo | Pra quê |
 |---|---|---|
 | `string` | `"olá"`, `'olá'`, `` `olá ${nome}` `` | texto |
-| `number` | `42`, `3.14`, `-1` | qualquer número (inteiro ou decimal) |
-| `boolean` | `true`, `false` | sim/não |
-| `undefined` | `undefined` | "ainda não tem valor" |
-| `null` | `null` | "propositalmente vazio" |
-| `bigint` | `10n` | inteiros gigantes (raro) |
-| `symbol` | `Symbol("id")` | identificadores únicos (raro) |
+| `number` | `42`, `3.14`, `-1` | qualquer número, inteiro ou decimal |
+| `boolean` | `true`, `false` | sim ou não |
 
-Tudo que não é primitivo é **objeto** (arrays, funções, datas...). Veja [[Objetos e Arrays no JavaScript]].
+E dois que representam "nada", que você vai ver o tempo todo:
 
-### 3. Descobrindo o tipo
+| Tipo | Quer dizer |
+|---|---|
+| `undefined` | "ainda não tem valor" (variável criada e nunca preenchida) |
+| `null` | "vazio de propósito" (alguém decidiu que não tem valor) |
 
-```ts
-typeof "oi";      // "string"
-typeof 42;        // "number"
-typeof true;      // "boolean"
-typeof undefined; // "undefined"
-typeof null;      // "object"  ← bug histórico do JS, decore
-typeof [1, 2];    // "object"  ← use Array.isArray() pra arrays
-```
+A diferença entre esses dois "nadas" tem uma nota só pra ela, [[null e undefined]]. E tudo o que não é um desses tipos simples (os **primitivos**) é um **objeto**: listas, funções, datas. Isso fica pra [[Objetos e Arrays no JavaScript]].
 
-### 4. Template strings
+Pra juntar texto com valores, a forma mais confortável é a **template string**, escrita com crase e `${}`:
 
 ```ts
 const nivel = 3;
-console.log(`Você está no nível ${nivel}!`); // crase + ${}
+console.log(`Você está no nível ${nivel}!`);
 ```
 
-### 5. Conversão de tipos
+## O "8" que vira "87"
+
+Agora o bug do começo, com calma. Olhe estas duas linhas:
+
+```ts
+"5" + 3   // "53"  ← juntou como texto!
+"5" - 3   // 2     ← converteu pra número
+```
+
+O que está acontecendo? O `+` serve pra duas coisas no JavaScript: somar números **e juntar textos**. Se um dos lados é texto, ele junta. Já os outros operadores (`-`, `*`, `/`) só fazem sentido com números, então o JavaScript converte o texto sozinho. O resultado é um comportamento inconsistente, que confunde todo mundo.
+
+A solução é não depender disso: **converta você mesmo, explicitamente.**
 
 ```ts
 Number("10");       // 10
-Number("10abc");    // NaN  (Not a Number)
-Number("");         // 0    ← cuidado!
-parseInt("10px");   // 10   (lê até onde der)
+Number("10abc");    // NaN  (Not a Number: não deu pra converter)
+parseInt("10px");   // 10   (lê o número até onde der)
 parseFloat("3.5");  // 3.5
 String(42);         // "42"
 (42).toFixed(2);    // "42.00"
-Boolean("");        // false
-Boolean("0");       // true ← texto não vazio é sempre true
 ```
 
-Sempre cheque se a conversão deu certo:
-
-```ts
-const idade = Number(entrada);
-if (Number.isNaN(idade)) {
-  console.log("Isso não é um número");
-}
-```
-
----
-
-## 🛠️ Exemplo guiado
-
-Calcular o XP total a partir de valores que chegaram como texto (como chegam do teclado ou de um formulário):
+Quando isso importa? **Sempre que o valor vem de fora**: do teclado, de um formulário, de um arquivo. Tudo isso chega como texto, sem exceção. Olhe um exemplo somando XP a partir de valores que chegaram como texto, inclusive um inválido:
 
 ```ts
 const entradas = ["120", "80", "abc", "50"];
@@ -128,36 +104,45 @@ for (const e of entradas) {
 console.log(`XP total: ${total}`); // XP total: 250
 ```
 
-Sem o `Number(...)`, `"120" + "80"` daria `"12080"`: o `+` com texto **concatena**.
+Sem o `Number(...)`, `"120" + "80"` daria `"12080"`, o mesmo bug das notas.
 
----
+Dois detalhes dessa conversão que pegam muita gente. O primeiro: **`Number("")` dá zero**, e não `NaN`. Então um campo deixado em branco vira `0` e passa na validação sem ninguém perceber. Cheque o texto vazio antes de converter. O segundo: o `NaN` é o único valor do JavaScript que **não é igual a si mesmo**. `NaN === NaN` dá `false`. Por isso, pra saber se uma conversão falhou, use `Number.isNaN(x)`.
 
-## 🔧 Pegadinhas
+## Descobrindo o tipo
 
-- **`"5" + 3` é `"53"`, mas `"5" - 3` é `2`.** O `+` junta texto; os outros operadores convertem pra número. Converta explicitamente com `Number()`.
-- **`Number("")` é `0`, não `NaN`.** Campo vazio vira zero sem avisar. Cheque string vazia antes.
-- **`0.1 + 0.2 !== 0.3`.** Números decimais no computador são aproximados ([[Ponto Flutuante]]). Pra dinheiro, trabalhe em centavos (inteiros).
-- **`NaN === NaN` é `false`.** Use `Number.isNaN(x)`.
-- **`const` com objeto ainda deixa mudar o conteúdo.** `const lista = []; lista.push(1)` funciona: o que é constante é a *variável*, não o valor dentro.
+Quando estiver em dúvida sobre o que está na caixa, o `typeof` responde:
 
----
+```ts
+typeof "oi";      // "string"
+typeof 42;        // "number"
+typeof true;      // "boolean"
+typeof undefined; // "undefined"
+typeof null;      // "object"  ← um erro antigo do JavaScript
+typeof [1, 2];    // "object"  ← pra listas, use Array.isArray()
+```
 
-## 🔨 Desafio prático
+Repare no `typeof null` dando `"object"`. Não faz sentido nenhum, e não é você que entendeu errado: é um erro da primeira versão do JavaScript, de 1995, que nunca foi corrigido porque consertar quebraria sites antigos. É só decorar.
 
-**Objetivo:** um conversor de temperatura que não quebra com entrada ruim.
+E o `Boolean(valor)` mostra como um valor se comporta num `if`. `Boolean("")` dá `false`, mas `Boolean("0")` dá `true`, porque qualquer texto não vazio é verdadeiro. Os detalhes disso estão em [[Operadores e Expressões]], na parte de truthy e falsy.
 
-1. Crie `temperatura.ts` com uma variável `const entrada = "36.5"` (finja que veio do usuário).
-2. Converta pra número e calcule Fahrenheit: `F = C × 9/5 + 32`.
-3. Mostre com template string e 1 casa decimal: `36.5°C = 97.7°F`.
-4. Teste com `"abc"`, `""` e `"-40"` e trate cada caso.
+Duas curiosidades pra fechar. A primeira: `0.1 + 0.2` dá `0.30000000000000004`. O computador guarda números decimais de um jeito que nem sempre é exato ([[Ponto Flutuante]] explica por quê). Pra dinheiro, trabalhe em **centavos**, com números inteiros. A segunda: existem mais dois tipos primitivos que você quase não vai usar, o `bigint` (`10n`, pra inteiros gigantescos) e o `symbol` (identificadores únicos, usados por bibliotecas).
 
-**Pronto quando:** `"abc"` e `""` mostram uma mensagem de erro clara, e `"-40"` mostra `-40.0°C = -40.0°F`.
+## O essencial
+
+1. `const` por padrão, `let` quando precisar mudar, `var` nunca. O `const` não impede mexer dentro de uma lista.
+2. Os tipos do dia a dia: `string`, `number`, `boolean`, e os "nadas" `undefined` e `null`.
+3. Tudo o que vem de fora é texto. `"5" + 3` dá `"53"`: converta com `Number()`.
+4. Conversão que falha dá `NaN`; cheque com `Number.isNaN`. E `Number("")` dá `0`.
+
+## Agora é com você
+
+Faça um **conversor de temperatura que não quebra com entrada ruim**. Crie um `temperatura.ts` com uma variável `const entrada = "36.5"` (finja que veio do usuário). Converta pra número, calcule Fahrenheit (`F = C × 9/5 + 32`) e mostre com template string e uma casa decimal: `36.5°C = 97.7°F`. Depois teste com `"abc"`, `""` e `"-40"`, e trate cada caso. Você terminou quando `"abc"` e `""` mostrarem uma mensagem de erro clara, e `"-40"` mostrar `-40.0°C = -40.0°F` (sim, -40 é igual nas duas escalas).
+
+Daqui, siga pros [[Operadores e Expressões]] e pros [[Tipos Básicos do TypeScript]].
 
 ---
 
 ## 🧠 Me teste
-
-> Responda em voz alta (ou no papel) **antes** de abrir. Errou? Ótimo, é aí que fixa. Estas perguntas aparecem na **revisão** da Ficha do herói.
 
 > [!question]- Quando usar `const` e quando usar `let`?
 > `const` por padrão; `let` só quando a variável precisa ser reatribuída. `var` não se usa.
@@ -174,49 +159,47 @@ Sem o `Number(...)`, `"120" + "80"` daria `"12080"`: o `+` com texto **concatena
 > [!question]- O que `typeof null` retorna?
 > `"object"`, um bug antigo do JavaScript mantido por compatibilidade.
 
-> [!question]- `const lista = []` e depois `lista.push(1)`: dá erro?
-> Não. `const` impede reatribuir a variável (`lista = ...`), não mudar o conteúdo do array.
+> [!question]- Por que `Number("")` é perigoso numa validação?
+> Porque dá `0`, não `NaN`: um campo em branco passa como se fosse um número válido.
+
+> [!question]+ Quanto valem `"5" + 3` e `"5" - 3`?
+> - a) `8` e `2`
+> - b) `"53"` e `2`
+> - c) `"53"` e `"5-3"`
+> - d) `8` e `"2"`
+>
+> > [!check]- Resposta
+> > **b)** Com string, `+` **concatena**. `-` só existe pra números, então o JS converte `"5"` em 5.
+
+> [!question]+ `const lista = []; lista.push(1);` O que acontece?
+> - a) Erro: não pode alterar `const`
+> - b) Funciona: `const` impede trocar a variável, não mexer no conteúdo
+> - c) Funciona só se trocar por `let`
+> - d) Cria uma lista nova
+>
+> > [!check]- Resposta
+> > **b)** `const` trava a **referência** (não dá pra fazer `lista = [...]`), mas o array em si continua mutável.
 
 ---
 
-## 📋 Cola rápida
+## Pra consultar depois
 
 | Sintaxe | O que faz |
 |---|---|
-| `const x = 1` | variável que não pode ser reatribuída |
-| `let x = 1` | variável que pode mudar |
-| `typeof x` | tipo do valor, em texto |
-| `` `Olá ${nome}` `` | template string |
-| `Number("10")` | texto → número (`NaN` se falhar) |
-| `String(10)` / `n.toFixed(2)` | número → texto |
-| `Number.isNaN(x)` | checa conversão falha |
+| `const x = 1` | Variável que não pode ser reatribuída |
+| `let x = 1` | Variável que pode mudar |
+| `typeof x` | O tipo do valor, em texto |
+| `` `Olá ${nome}` `` | Template string |
+| `Number("10")` | Texto → número (`NaN` se falhar) |
+| `String(10)` / `n.toFixed(2)` | Número → texto |
+| `Number.isNaN(x)` | Checa uma conversão que falhou |
 
----
+**Pra ler:** os capítulos do javascript.info sobre [variáveis](https://javascript.info/variables) e [tipos de dados](https://javascript.info/types) são curtos, claros e têm exercícios. O [MDN sobre tipos e estruturas de dados](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Data_structures) é a referência completa, em português.
 
-## 🛠️ Exemplo meu
+## Minhas anotações
 
-```ts
-
-```
-
----
-
-## 📓 Diário de bordo
-
-> Esta parte é **sua**. Escreva com as suas palavras, depois de praticar. Nota curta e feia que você escreveu vale mais que nota bonita copiada.
-
-**Explicando pra um amigo** (3 linhas, sem olhar a nota):
+**O que eu entendi, com as minhas palavras:**
 - 
 
-**O que me confundiu / onde eu errei:**
+**Onde eu travei:**
 - 
-
-**Onde eu usei de verdade:**
-- 
-
----
-
-## 📚 Recursos
-
-- [MDN · Tipos e estruturas de dados](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Data_structures)
-- [javascript.info · Variáveis](https://javascript.info/variables) e [Tipos de dados](https://javascript.info/types)

@@ -149,7 +149,7 @@ var CONQUISTAS = [
   { id: "chama-7", icone: "flame-kindling", nome: "Fogo eterno", desc: "7 dias seguidos de estudo", raridade: "raro", progresso: (_, p) => [p.maiorSequencia, 7] },
   { id: "estudioso", icone: "book-open", nome: "Estudioso", desc: "10 dias de estudo no total", raridade: "raro", progresso: (s) => [s.diario.size, 10] },
   { id: "explorador", icone: "compass", nome: "Explorador", desc: "Avance em 5 regi\xF5es do mapa", raridade: "raro", progresso: (s) => [s.trilhas.flatMap((t) => t.regioes).filter((r) => r.topicos.some((x) => x.feito)).length, 5] },
-  { id: "maratona", icone: "timer", nome: "Maratona", desc: "2 horas de estudo num dia s\xF3", raridade: "raro", progresso: (s) => [Math.max(0, ...[...s.diario.values()].map((d) => d.minutos)), 120] },
+  { id: "maratona", icone: "clock", nome: "Maratona", desc: "2 horas de estudo num dia s\xF3", raridade: "raro", progresso: (s) => [Math.max(0, ...[...s.diario.values()].map((d) => d.minutos)), 120] },
   { id: "poliglota", icone: "languages", nome: "Duas frentes", desc: "Avance em 2 trilhas diferentes", raridade: "raro", progresso: (s) => [s.trilhas.filter((t) => t.regioes.some((r) => r.topicos.some((x) => x.feito))).length, 2] },
   { id: "projeto", icone: "castle", nome: "Construtor", desc: "Uma nota usada em projeto", raridade: "epico", progresso: (_, p) => [p.contagemNivel.projeto, 1] },
   { id: "regiao", icone: "flag", nome: "Conquistador", desc: "Conclua uma regi\xE3o inteira do mapa", raridade: "epico", progresso: (s) => melhorRegiao(s) },
@@ -180,11 +180,26 @@ function infoRevisao(e, hoje, intervalos) {
   return { ...e, proxima, vencida: diffDias(hoje, proxima) <= 0 };
 }
 function aposLembrar(e, intervalos) {
-  if (!e.revisado || e.caixa < 1) return 1;
+  if (!e.revisado || e.caixa < 1) return Math.min(caixaMax(intervalos), 2);
   return Math.min(caixaMax(intervalos), e.caixa + 1);
 }
 function aposEsquecer() {
   return 1;
+}
+function filaDoDia(fila, novasPorDia, novasFeitasHoje) {
+  const limite = novasPorDia > 0 ? Math.max(0, novasPorDia - novasFeitasHoje) : Infinity;
+  const hoje = [];
+  let novas = 0, adiadas = 0;
+  for (const x of fila) {
+    const nova = !x.revisado;
+    if (nova && novas >= limite) {
+      adiadas++;
+      continue;
+    }
+    if (nova) novas++;
+    hoje.push(x);
+  }
+  return { hoje, adiadas };
 }
 function ordenarFila(itens) {
   return [...itens].sort((a, b) => (a.proxima ?? "") < (b.proxima ?? "") ? -1 : (a.proxima ?? "") > (b.proxima ?? "") ? 1 : 0);
@@ -200,6 +215,7 @@ var DEFAULT_SETTINGS = {
   templateDiario: "estudos/Templates/Di\xE1rio.md",
   pastasIgnoradas: ["estudos/Templates"],
   intervalos: [0, 1, 3, 7, 14, 30, 60],
+  novasPorDia: 10,
   semanasNoCalendario: 30,
   faixasCalendario: [25, 50],
   metaSemanalMin: 300,
@@ -219,6 +235,7 @@ function mergeSettings(saved) {
     templateDiario: typeof s.templateDiario === "string" ? s.templateDiario : d.templateDiario,
     pastasIgnoradas: Array.isArray(s.pastasIgnoradas) ? s.pastasIgnoradas.filter((x) => typeof x === "string") : d.pastasIgnoradas,
     intervalos: listaDe(s.intervalos, (x) => typeof x === "number" && x >= 0, d.intervalos, 2),
+    novasPorDia: typeof s.novasPorDia === "number" && s.novasPorDia >= 0 ? Math.floor(s.novasPorDia) : d.novasPorDia,
     semanasNoCalendario: typeof s.semanasNoCalendario === "number" ? s.semanasNoCalendario : d.semanasNoCalendario,
     faixasCalendario: listaDe(s.faixasCalendario, (x) => typeof x === "number" && x > 0, d.faixasCalendario, 1).sort((a, b) => a - b),
     metaSemanalMin: typeof s.metaSemanalMin === "number" && s.metaSemanalMin >= 0 ? s.metaSemanalMin : d.metaSemanalMin,
@@ -231,6 +248,198 @@ function listaDe(v, valido, padrao, minimo) {
   if (!Array.isArray(v)) return [...padrao];
   const ok = v.filter(valido);
   return ok.length >= minimo ? ok : [...padrao];
+}
+
+// src/ui/nitidez.ts
+function pixelDoIcone(dpr) {
+  if (!Number.isFinite(dpr) || dpr <= 0) return 1;
+  const pixelsDaTela = Math.max(1, Math.round(dpr));
+  return pixelsDaTela / dpr;
+}
+
+// src/ui/svgPath.ts
+var FORMA = /<(path|polygon|rect)\b([^>]*?)\/?>/g;
+function attr(atributos, nome) {
+  return new RegExp(`\\s${nome}="([^"]*)"`).exec(atributos)?.[1];
+}
+function svgParaCaminhos(svg) {
+  const ds = [];
+  for (const [, tag, a = ""] of svg.matchAll(FORMA)) {
+    if (attr(a, "fill") === "none") continue;
+    if (tag === "path") {
+      const d = attr(a, "d");
+      if (d) ds.push(d);
+    } else if (tag === "polygon") {
+      const n = (attr(a, "points") ?? "").trim().split(/[\s,]+/).filter(Boolean);
+      if (n.length < 6 || n.length % 2) continue;
+      let d = `M${n[0]} ${n[1]}`;
+      for (let i = 2; i < n.length; i += 2) d += `L${n[i]} ${n[i + 1]}`;
+      ds.push(`${d}Z`);
+    } else {
+      const x = Number(attr(a, "x") ?? 0), y = Number(attr(a, "y") ?? 0);
+      const w = Number(attr(a, "width")), h = Number(attr(a, "height"));
+      if (![x, y, w, h].every(Number.isFinite) || w <= 0 || h <= 0) continue;
+      ds.push(`M${x} ${y}h${w}v${h}h${-w}Z`);
+    }
+  }
+  return ds;
+}
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/arrow-right-solid.svg
+var arrow_right_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Arrow_Right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="23 11 23 13 22 13 22 14 21 14 21 15 20 15 20 16 19 16 19 17 18 17 18 18 17 18 17 19 16 19 16 20 15 20 15 21 14 21 14 22 13 22 13 23 12 23 12 22 11 22 11 21 10 21 10 20 11 20 11 19 12 19 12 18 13 18 13 17 14 17 14 16 15 16 15 15 16 15 16 14 1 14 1 10 16 10 16 9 15 9 15 8 14 8 14 7 13 7 13 6 12 6 12 5 11 5 11 4 10 4 10 3 11 3 11 2 12 2 12 1 13 1 13 2 14 2 14 3 15 3 15 4 16 4 16 5 17 5 17 6 18 6 18 7 19 7 19 8 20 8 20 9 21 9 21 10 22 10 22 11 23 11"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/bolt-solid.svg
+var bolt_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Bolt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="21 10 21 11 20 11 20 12 19 12 19 13 18 13 18 14 17 14 17 15 16 15 16 16 15 16 15 17 14 17 14 18 13 18 13 19 12 19 12 20 11 20 11 21 10 21 10 22 9 22 9 23 8 23 8 21 9 21 9 18 10 18 10 14 3 14 3 13 4 13 4 12 5 12 5 11 6 11 6 10 7 10 7 9 8 9 8 8 9 8 9 7 10 7 10 6 11 6 11 5 12 5 12 4 13 4 13 3 14 3 14 2 15 2 15 1 16 1 16 3 15 3 15 6 14 6 14 10 21 10"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/book-solid.svg
+var book_solid_default = '<svg id="Book_Solid" data-name="Book Solid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,2V1H4V2H3V3H2V21H3v1H4v1H21V22h1V21H21V20H20V17h1V16h1V2ZM18,21H5V20H4V18H5V17H18Z"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/bullet-list-solid.svg
+var bullet_list_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Bullet_List" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="5" width="3" height="3"/><rect x="2" y="17" width="3" height="3"/><rect x="2" y="11" width="3" height="3"/><polygon points="23 6 23 7 22 7 22 8 10 8 10 7 9 7 9 6 10 6 10 5 22 5 22 6 23 6"/><polygon points="22 12 23 12 23 13 22 13 22 14 10 14 10 13 9 13 9 12 10 12 10 11 22 11 22 12"/><polygon points="22 18 23 18 23 19 22 19 22 20 10 20 10 19 9 19 9 18 10 18 10 17 22 17 22 18"/><g id="BG_copy_133"><rect width="24" height="24" fill="none"/></g></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/calender-solid.svg
+var calender_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Calender" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="6" y="1" width="2" height="1"/><rect x="16" y="1" width="2" height="1"/><path d="m22,5v-1h-3v-2h-1v5h-2V2h-1v2h-6v-2h-1v5h-2V2h-1v2h-3v1h-1v17h1v1h20v-1h1V5h-1Zm-1,3v3h-3v-3h3Zm0,8h-3v-3h3v3Zm0,5h-3v-3h3v3Zm-18-3h3v3h-3v-3Zm0-5h3v3h-3v-3Zm13,3h-3v-3h3v3Zm-5,0h-3v-3h3v3Zm-3,2h3v3h-3v-3Zm5,0h3v3h-3v-3Zm3-7h-3v-3h3v3Zm-5-3v3h-3v-3h3Zm-5,3h-3v-3h3v3Z"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/check-solid.svg
+var check_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="23 5 23 6 22 6 22 7 21 7 21 8 20 8 20 9 19 9 19 10 18 10 18 11 17 11 17 12 16 12 16 13 15 13 15 14 14 14 14 15 13 15 13 16 12 16 12 17 11 17 11 18 10 18 10 19 8 19 8 18 7 18 7 17 6 17 6 16 5 16 5 15 4 15 4 14 3 14 3 13 2 13 2 12 1 12 1 11 2 11 2 10 3 10 3 9 4 9 4 10 5 10 5 11 6 11 6 12 7 12 7 13 8 13 8 14 10 14 10 13 11 13 11 12 12 12 12 11 13 11 13 10 14 10 14 9 15 9 15 8 16 8 16 7 17 7 17 6 18 6 18 5 19 5 19 4 20 4 20 3 21 3 21 4 22 4 22 5 23 5"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/clock-solid.svg
+var clock_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22,9v-2h-1v-2h-1v-1h-1v-1h-2v-1h-2v-1h-6v1h-2v1h-2v1h-1v1h-1v2h-1v2h-1v6h1v2h1v2h1v1h1v1h2v1h2v1h6v-1h2v-1h2v-1h1v-1h1v-2h1v-2h1v-6h-1Zm-9,7v-1h-1v-1h-1V5h2v8h1v1h1v1h1v1h-1v1h-1v-1h-1Z"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/crown-solid.svg
+var crown_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Crown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="23 7 23 9 22 9 22 10 21 10 21 14 20 14 20 17 19 17 19 19 18 19 18 21 6 21 6 19 5 19 5 17 4 17 4 14 3 14 3 10 2 10 2 9 1 9 1 7 2 7 2 6 4 6 4 7 5 7 5 9 4 9 4 10 5 10 5 11 6 11 6 12 8 12 8 11 9 11 9 9 10 9 10 7 11 7 11 6 10 6 10 4 11 4 11 3 13 3 13 4 14 4 14 6 13 6 13 7 14 7 14 9 15 9 15 11 16 11 16 12 18 12 18 11 19 11 19 10 20 10 20 9 19 9 19 7 20 7 20 6 22 6 22 7 23 7"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/external-link-solid.svg
+var external_link_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="External_Link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="23 1 23 9 21 9 21 8 20 8 20 7 19 7 19 8 18 8 18 9 17 9 17 10 16 10 16 11 15 11 15 12 14 12 14 13 13 13 13 14 12 14 12 15 11 15 11 16 10 16 10 17 9 17 9 18 8 18 8 17 7 17 7 16 6 16 6 15 7 15 7 14 8 14 8 13 9 13 9 12 10 12 10 11 11 11 11 10 12 10 12 9 13 9 13 8 14 8 14 7 15 7 15 6 16 6 16 5 17 5 17 4 16 4 16 3 15 3 15 1 23 1"/><polygon points="20 15 20 22 19 22 19 23 2 23 2 22 1 22 1 5 2 5 2 4 11 4 11 7 4 7 4 20 17 20 17 15 20 15"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/eye-solid.svg
+var eye_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="16 11 16 13 15 13 15 14 14 14 14 15 13 15 13 16 11 16 11 15 10 15 10 14 9 14 9 13 8 13 8 11 10 11 10 10 11 10 11 8 13 8 13 9 14 9 14 10 15 10 15 11 16 11"/><path d="m22,11v-2h-1v-1h-1v-1h-1v-1h-2v-1H7v1h-2v1h-1v1h-1v1h-1v2h-1v2h1v2h1v1h1v1h1v1h2v1h10v-1h2v-1h1v-1h1v-1h1v-2h1v-2h-1Zm-4,2h-1v2h-1v1h-1v1h-2v1h-2v-1h-2v-1h-1v-1h-1v-2h-1v-2h1v-2h1v-1h1v-1h2v-1h2v1h2v1h1v1h1v2h1v2Z"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/fire-solid.svg
+var fire_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Fire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19,13v-3h-1v-1h-1v-3h-1v-2h-1v-1h-1v-1h-1v-1h-2v1h1v2h-1v2h-1v1h-1v1h-1v1h-1v1h-1v3h1v2h-1v-1h-1v-2h-1v2h-1v3h1v2h1v1h1v1h1v1h1v1h8v-1h1v-1h1v-1h1v-2h1v-5h-1Zm-2,7h-1v1h-2v1h-4v-1h-1v-4h1v-1h1v-1h1v-1h1v-3h-1v-1h-1v-1h1v1h2v2h1v5h-1v2h1v-1h1v-1h1v3Z"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/flag-checkered-solid.svg
+var flag_checkered_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Flag_Checkered" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="22 4 22 16 21 16 21 17 19 17 19 18 13 18 13 17 6 17 6 16 12 16 12 12 6 12 6 13 5 13 5 17 6 17 6 18 5 18 5 22 3 22 3 5 2 5 2 3 3 3 3 2 5 2 5 3 6 3 6 5 5 5 5 6 6 6 6 5 13 5 13 6 19 6 19 7 14 7 14 11 19 11 19 10 21 10 21 6 19 6 19 5 21 5 21 4 22 4"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/laptop-code-solid.svg
+var laptop_code_solid_default = '<svg id="Laptop_Code_Solid" data-name="Laptop Code Solid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="3 14 3 5 4 5 4 4 20 4 20 5 21 5 21 14 19 14 19 6 5 6 5 14 3 14"/><polygon points="10 11 11 11 11 13 9 13 9 12 8 12 8 11 7 11 7 9 8 9 8 8 9 8 9 7 11 7 11 9 10 9 10 11"/><polygon points="14 9 13 9 13 7 15 7 15 8 16 8 16 9 17 9 17 11 16 11 16 12 15 12 15 13 13 13 13 11 14 11 14 9"/><polygon points="23 15 23 18 22 18 22 19 21 19 21 20 3 20 3 19 2 19 2 18 1 18 1 15 23 15"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/lightbulb-solid.svg
+var lightbulb_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Lightbulb_On" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="1" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="1" y="16" width="1" height="1"/><rect x="2" y="15" width="1" height="1"/><rect x="3" y="14" width="1" height="1"/><rect x="22" y="16" width="1" height="1"/><rect x="21" y="15" width="1" height="1"/><rect x="20" y="14" width="1" height="1"/><rect x="21" y="1" width="1" height="1"/><rect x="20" y="2" width="1" height="1"/><rect x="19" y="3" width="1" height="1"/><rect x="1" y="8" width="2" height="1"/><polygon points="15 18 15 21 14 21 14 22 13 22 13 23 11 23 11 22 10 22 10 21 9 21 9 18 15 18"/><path d="m19,5h-1v-1h-1v-1h-1v-1h-2v-1h-4v1h-2v1h-1v1h-1v1h-1v2h-1v4h1v2h1v1h1v1h1v1h1v1h6v-1h1v-1h1v-1h1v-1h1v-2h1v-4h-1v-2Zm-12,2h1v-1h1v-1h1v-1h3v1h-3v1h-1v1h-1v2h-1v-2Z"/><rect x="21" y="8" width="2" height="1"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/location-pin-solid.svg
+var location_pin_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Location_Pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19,6v-2h-1v-1h-1v-1h-2v-1h-6v1h-2v1h-1v1h-1v2h-1v6h1v2h1v1h1v2h1v1h1v2h1v1h1v2h2v-2h1v-1h1v-2h1v-1h1v-2h1v-1h1v-2h1v-6h-1Zm-5,5h-1v1h-2v-1h-1v-1h-1v-2h1v-1h1v-1h2v1h1v1h1v2h-1v1Z"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/lock-solid.svg
+var lock_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Lock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21,12v-1h-3v-6h-1v-2h-1v-1h-2v-1h-4v1h-2v1h-1v2h-1v6h-3v1h-1v10h1v1h18v-1h1v-10h-1Zm-6-1h-6v-6h1v-1h4v1h1v6Z"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/pen-nib-solid.svg
+var pen_nib_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Pen_Nib" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="23 4 23 7 22 7 22 8 21 8 21 9 20 9 20 10 19 10 19 9 18 9 18 8 17 8 17 7 16 7 16 6 15 6 15 5 14 5 14 4 15 4 15 3 16 3 16 2 17 2 17 1 20 1 20 2 21 2 21 3 22 3 22 4 23 4"/><polygon points="18 11 19 11 19 12 18 12 18 15 17 15 17 18 16 18 16 19 14 19 14 20 11 20 11 21 8 21 8 22 5 22 5 23 3 23 3 22 4 22 4 21 5 21 5 20 6 20 6 19 7 19 7 18 8 18 8 17 9 17 9 16 12 16 12 13 11 13 11 12 8 12 8 15 7 15 7 16 6 16 6 17 5 17 5 18 4 18 4 19 3 19 3 20 2 20 2 21 1 21 1 19 2 19 2 16 3 16 3 13 4 13 4 10 5 10 5 8 6 8 6 7 9 7 9 6 12 6 12 5 13 5 13 6 14 6 14 7 15 7 15 8 16 8 16 9 17 9 17 10 18 10 18 11"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/pencil-ruler-solid.svg
+var pencil_ruler_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="_24px_Grid_copy_56" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="2 7 1 7 1 5 2 5 2 4 3 4 3 3 4 3 4 2 5 2 5 1 7 1 7 2 8 2 8 4 7 4 7 5 6 5 6 6 7 6 7 7 8 7 8 6 9 6 9 5 11 5 11 6 10 6 10 7 9 7 9 8 8 8 8 9 7 9 7 10 6 10 6 11 5 11 5 10 4 10 4 9 3 9 3 8 2 8 2 7"/><polygon points="13 17 12 17 12 18 11 18 11 19 10 19 10 20 9 20 9 21 8 21 8 22 7 22 7 23 1 23 1 17 2 17 2 16 3 16 3 15 4 15 4 14 5 14 5 13 6 13 6 12 7 12 7 11 8 11 8 10 9 10 9 9 10 9 10 8 11 8 11 7 12 7 12 6 14 6 14 7 15 7 15 8 16 8 16 9 17 9 17 10 18 10 18 12 17 12 17 13 16 13 16 14 15 14 15 15 14 15 14 16 13 16 13 17"/><polygon points="23 4 23 7 22 7 22 8 21 8 21 9 19 9 19 8 18 8 18 7 17 7 17 6 16 6 16 5 15 5 15 3 16 3 16 2 17 2 17 1 20 1 20 2 21 2 21 3 22 3 22 4 23 4"/><polygon points="22 17 23 17 23 19 22 19 22 20 21 20 21 21 20 21 20 22 19 22 19 23 17 23 17 22 16 22 16 21 15 21 15 20 14 20 14 19 13 19 13 18 14 18 14 17 15 17 15 16 16 16 16 15 17 15 17 14 18 14 18 13 19 13 19 15 18 15 18 16 17 16 17 17 18 17 18 18 19 18 19 17 20 17 20 16 22 16 22 17"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/play-solid.svg
+var play_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="PLay" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="22 11 22 13 21 13 21 14 20 14 20 15 18 15 18 16 16 16 16 17 15 17 15 18 13 18 13 19 11 19 11 20 10 20 10 21 8 21 8 22 6 22 6 23 3 23 3 22 2 22 2 2 3 2 3 1 6 1 6 2 8 2 8 3 10 3 10 4 11 4 11 5 13 5 13 6 15 6 15 7 16 7 16 8 18 8 18 9 20 9 20 10 21 10 21 11 22 11"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/question-circle-solid.svg
+var question_circle_solid_default = '<svg id="Question-Circle_Solid" data-name="Question-Circle Solid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9V7H21V5H20V4H19V3H17V2H15V1H9V2H7V3H5V4H4V5H3V7H2V9H1v6H2v2H3v2H4v1H5v1H7v1H9v1h6V22h2V21h2V20h1V19h1V17h1V15h1V9ZM13,19H11V17h2Zm3-8H15v1H14v1H13v2H11V12h1V11h1V10h1V8H13V7H11V8H10V9H8V7H9V6h1V5h4V6h1V7h1Z"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/refresh-solid.svg
+var refresh_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Refresh" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="23 14 23 15 22 15 22 17 21 17 21 19 20 19 20 20 19 20 19 21 17 21 17 22 15 22 15 23 9 23 9 22 7 22 7 21 5 21 5 20 3 20 3 21 2 21 2 22 1 22 1 14 9 14 9 15 8 15 8 16 7 16 7 18 8 18 8 19 10 19 10 20 14 20 14 19 16 19 16 18 17 18 17 17 18 17 18 15 19 15 19 14 23 14"/><polygon points="23 2 23 10 15 10 15 9 16 9 16 8 17 8 17 6 16 6 16 5 14 5 14 4 10 4 10 5 8 5 8 6 7 6 7 7 6 7 6 9 5 9 5 10 1 10 1 9 2 9 2 7 3 7 3 5 4 5 4 4 5 4 5 3 7 3 7 2 9 2 9 1 15 1 15 2 17 2 17 3 19 3 19 4 21 4 21 3 22 3 22 2 23 2"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/save-solid.svg
+var save_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Save" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22,7v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1H2v1h-1v20h1v1h20v-1h1V7h-1Zm-13,12v-4h1v-1h4v1h1v4h-1v1h-4v-1h-1Zm7-9H4v-6h12v6Z"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/search-solid.svg
+var search_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="16 17 15 17 15 18 13 18 13 19 7 19 7 18 5 18 5 17 4 17 4 16 3 16 3 15 2 15 2 13 1 13 1 7 2 7 2 5 3 5 3 4 4 4 4 3 5 3 5 2 7 2 7 1 13 1 13 2 15 2 15 3 16 3 16 4 17 4 17 5 18 5 18 7 19 7 19 13 18 13 18 15 17 15 17 16 16 16 16 17"/><polygon points="23 20 23 22 22 22 22 23 20 23 20 22 19 22 19 21 18 21 18 20 17 20 17 19 16 19 16 18 17 18 17 17 18 17 18 16 19 16 19 17 20 17 20 18 21 18 21 19 22 19 22 20 23 20"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/seedlings-solid.svg
+var seedlings_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Seedlings" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 11 13 11 13 22 11 22 11 15 7 15 7 14 5 14 5 13 4 13 4 12 3 12 3 10 2 10 2 8 1 8 1 5 6 5 6 6 8 6 8 7 10 7 10 8 11 8 11 9 12 9 12 11"/><polygon points="23 2 23 6 22 6 22 8 21 8 21 9 20 9 20 10 18 10 18 11 16 11 16 12 14 12 14 10 13 10 13 8 12 8 12 6 13 6 13 5 14 5 14 4 16 4 16 3 18 3 18 2 23 2"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/sitemap-solid.svg
+var sitemap_solid_default = '<svg id="Sitemap_Solid" data-name="Sitemap Solid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="23 17 23 21 22 21 22 22 18 22 18 21 17 21 17 17 18 17 18 16 19 16 19 13 13 13 13 16 14 16 14 17 15 17 15 21 14 21 14 22 10 22 10 21 9 21 9 17 10 17 10 16 11 16 11 13 5 13 5 16 6 16 6 17 7 17 7 21 6 21 6 22 2 22 2 21 1 21 1 17 2 17 2 16 3 16 3 12 4 12 4 11 11 11 11 8 9 8 9 2 15 2 15 8 13 8 13 11 20 11 20 12 21 12 21 16 22 16 22 17 23 17"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/sun-solid.svg
+var sun_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="17 10 17 14 16 14 16 15 15 15 15 16 14 16 14 17 10 17 10 16 9 16 9 15 8 15 8 14 7 14 7 10 8 10 8 9 9 9 9 8 10 8 10 7 14 7 14 8 15 8 15 9 16 9 16 10 17 10"/><path d="m21,11v-1h1v-1h1v-2h-3v-1h-2v-2h-1V1h-2v1h-1v1h-1v1h-2v-1h-1v-1h-1v-1h-2v3h-1v2h-2v1H1v2h1v1h1v1h1v2h-1v1h-1v1h-1v2h3v1h2v2h1v3h2v-1h1v-1h1v-1h2v1h1v1h1v1h2v-3h1v-2h2v-1h3v-2h-1v-1h-1v-1h-1v-2h1Zm-3,4h-1v1h-1v1h-1v1h-6v-1h-1v-1h-1v-1h-1v-6h1v-1h1v-1h1v-1h6v1h1v1h1v1h1v6Z"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/times-solid.svg
+var times_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Times" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="15 13 16 13 16 14 17 14 17 15 18 15 18 16 19 16 19 17 20 17 20 18 21 18 21 19 22 19 22 20 21 20 21 21 20 21 20 22 19 22 19 21 18 21 18 20 17 20 17 19 16 19 16 18 15 18 15 17 14 17 14 16 13 16 13 15 11 15 11 16 10 16 10 17 9 17 9 18 8 18 8 19 7 19 7 20 6 20 6 21 5 21 5 22 4 22 4 21 3 21 3 20 2 20 2 19 3 19 3 18 4 18 4 17 5 17 5 16 6 16 6 15 7 15 7 14 8 14 8 13 9 13 9 11 8 11 8 10 7 10 7 9 6 9 6 8 5 8 5 7 4 7 4 6 3 6 3 5 2 5 2 4 3 4 3 3 4 3 4 2 5 2 5 3 6 3 6 4 7 4 7 5 8 5 8 6 9 6 9 7 10 7 10 8 11 8 11 9 13 9 13 8 14 8 14 7 15 7 15 6 16 6 16 5 17 5 17 4 18 4 18 3 19 3 19 2 20 2 20 3 21 3 21 4 22 4 22 5 21 5 21 6 20 6 20 7 19 7 19 8 18 8 18 9 17 9 17 10 16 10 16 11 15 11 15 13"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/translate-solid.svg
+var translate_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Translate" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="19 16 19 17 14 17 14 16 15 16 15 14 18 14 18 16 19 16"/><polygon points="22 5 22 6 21 6 21 7 20 7 20 8 18 8 18 7 17 7 17 6 16 6 16 5 18 5 18 4 17 4 17 3 16 3 16 2 19 2 19 3 20 3 20 5 22 5"/><path d="m22,10v-1h-11v1h-1v12h1v1h11v-1h1v-12h-1Zm-1,11h-2v-3h-5v3h-2v-5h1v-2h1v-1h1v-1h1v-1h1v1h1v1h1v1h1v2h1v5Z"/><polygon points="7 7 7 8 6 8 6 9 4 9 4 7 7 7"/><polygon points="14 2 14 8 12 8 12 6 11 6 11 5 9 5 9 6 8 6 8 4 12 4 12 3 3 3 3 4 7 4 7 6 6 6 6 5 4 5 4 6 3 6 3 10 4 10 4 11 6 11 6 10 7 10 7 13 8 13 8 8 9 8 9 7 11 7 11 8 10 8 10 9 9 9 9 15 2 15 2 14 1 14 1 2 2 2 2 1 13 1 13 2 14 2"/><polygon points="6 19 6 20 7 20 7 21 8 21 8 22 5 22 5 21 4 21 4 19 2 19 2 18 3 18 3 17 4 17 4 16 6 16 6 17 7 17 7 18 8 18 8 19 6 19"/></svg>';
+
+// node_modules/@hackernoon/pixel-icon-library/icons/SVG/solid/trophy-solid.svg
+var trophy_solid_default = '<?xml version="1.0" encoding="UTF-8"?><svg id="Trophy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m18,4v-2H6v2H1v5h1v2h1v1h1v1h1v1h1v1h3v1h2v3h-4v3h10v-3h-4v-3h2v-1h3v-1h1v-1h1v-1h1v-1h1v-2h1v-5h-5ZM5,12v-1h-1v-2h-1v-3h2v1h1v2h1v3h1v1h-2v-1h-1Zm16-3h-1v2h-1v1h-1v1h-2v-1h1v-2h1v-3h1v-1h2v3Z"/></svg>';
+
+// src/ui/pixel.ts
+var GRADE = 24;
+var ICONES = {
+  // conquistas
+  sprout: seedlings_solid_default,
+  flame: fire_solid_default,
+  "flame-kindling": bolt_solid_default,
+  hammer: pencil_ruler_solid_default,
+  "book-open": book_solid_default,
+  compass: location_pin_solid_default,
+  clock: clock_solid_default,
+  languages: translate_solid_default,
+  castle: laptop_code_solid_default,
+  flag: flag_checkered_solid_default,
+  brain: lightbulb_solid_default,
+  sun: sun_solid_default,
+  crown: crown_solid_default,
+  lock: lock_solid_default,
+  // atributos e painéis
+  "scroll-text": pen_nib_solid_default,
+  repeat: question_circle_solid_default,
+  "calendar-days": calender_solid_default,
+  map: sitemap_solid_default,
+  trophy: trophy_solid_default,
+  // barra lateral e aba da ficha
+  // botões
+  play: play_solid_default,
+  save: save_solid_default,
+  x: times_solid_default,
+  check: check_solid_default,
+  eye: eye_solid_default,
+  "arrow-right": arrow_right_solid_default,
+  "external-link": external_link_solid_default,
+  "rotate-ccw": refresh_solid_default,
+  list: bullet_list_solid_default,
+  search: search_solid_default
+};
+var cache = /* @__PURE__ */ new Map();
+function caminhos(nome) {
+  const svg = ICONES[nome];
+  if (svg === void 0) return void 0;
+  let ds = cache.get(nome);
+  if (!ds) cache.set(nome, ds = svgParaCaminhos(svg));
+  return ds;
+}
+function svgParaObsidian(nome) {
+  const ds = caminhos(nome);
+  if (!ds) return void 0;
+  const escala = 100 / GRADE;
+  return `<g transform="scale(${escala})" fill="currentColor" stroke="none" shape-rendering="crispEdges">${ds.map((d) => `<path d="${d}"/>`).join("")}</g>`;
+}
+var SVG = "http://www.w3.org/2000/svg";
+function desenharPixel(el, nome) {
+  const ds = caminhos(nome);
+  if (!ds) return false;
+  const svg = document.createElementNS(SVG, "svg");
+  svg.setAttribute("viewBox", `0 0 ${GRADE} ${GRADE}`);
+  svg.setAttribute("shape-rendering", "crispEdges");
+  svg.setAttribute("aria-hidden", "true");
+  svg.classList.add("erpg-px");
+  for (const d of ds) {
+    const path = document.createElementNS(SVG, "path");
+    path.setAttribute("d", d);
+    path.setAttribute("fill", "currentColor");
+    svg.appendChild(path);
+  }
+  el.appendChild(svg);
+  return true;
 }
 
 // src/ui/settingsTab.ts
@@ -271,6 +480,10 @@ var AbaConfig = class extends import_obsidian.PluginSettingTab {
         await salvar();
       }
     }));
+    this.numero(el, "Notas novas por dia na revis\xE3o (0 = sem limite)", s.novasPorDia, 0, 500, async (n) => {
+      s.novasPorDia = n;
+      await salvar();
+    });
     this.numero(el, "Semanas no calend\xE1rio de atividade", s.semanasNoCalendario, 4, 52, async (n) => {
       s.semanasNoCalendario = n;
       await salvar();
@@ -341,365 +554,30 @@ var import_obsidian3 = require("obsidian");
 
 // src/ui/dom.ts
 var import_obsidian2 = require("obsidian");
-
-// src/ui/pixel.ts
-var N = 9;
-var PIXEL = {
-  flame: [
-    "....#....",
-    "....##...",
-    "...###...",
-    "..####.#.",
-    "..######.",
-    ".###.###.",
-    ".##...##.",
-    ".##...##.",
-    "..#####.."
-  ],
-  "flame-kindling": [
-    "....#....",
-    "...##....",
-    "...###...",
-    "..#####..",
-    "..##.##..",
-    "...###...",
-    ".........",
-    "##.....##",
-    "..#####.."
-  ],
-  sprout: [
-    ".........",
-    ".##...##.",
-    ".###.###.",
-    "..##.##..",
-    "....#....",
-    "....#....",
-    "....#....",
-    "..#####..",
-    ".#######."
-  ],
-  hammer: [
-    "..#####..",
-    ".#######.",
-    "..#####..",
-    "....#....",
-    "....#....",
-    "....#....",
-    "....#....",
-    "...###...",
-    "........."
-  ],
-  "book-open": [
-    ".#######.",
-    "##.....#.",
-    "##.###.#.",
-    "##.....#.",
-    "##.###.#.",
-    "##.....#.",
-    "##.....#.",
-    "#########",
-    ".#######."
-  ],
-  compass: [
-    "..#####..",
-    ".#.....#.",
-    "#...#...#",
-    "#..###..#",
-    "#.#####.#",
-    "#..###..#",
-    "#...#...#",
-    ".#.....#.",
-    "..#####.."
-  ],
-  timer: [
-    "...###...",
-    "....#....",
-    "..#####..",
-    ".#..#..#.",
-    "#...#...#",
-    "#...##..#",
-    "#.......#",
-    ".#.....#.",
-    "..#####.."
-  ],
-  clock: [
-    "..#####..",
-    ".#.....#.",
-    "#...#...#",
-    "#...#...#",
-    "#...###.#",
-    "#.......#",
-    "#.......#",
-    ".#.....#.",
-    "..#####.."
-  ],
-  languages: [
-    ".........",
-    ".#######.",
-    "#.......#",
-    "#.#.#.#.#",
-    "#.......#",
-    ".#######.",
-    "..##.....",
-    "..#......",
-    "........."
-  ],
-  castle: [
-    ".........",
-    "#.#.#.#.#",
-    "#########",
-    ".#######.",
-    ".#######.",
-    ".###.###.",
-    ".##...##.",
-    ".##...##.",
-    "........."
-  ],
-  flag: [
-    ".#.......",
-    ".######..",
-    ".#######.",
-    ".######..",
-    ".#.......",
-    ".#.......",
-    ".#.......",
-    ".#.......",
-    "###......"
-  ],
-  brain: [
-    "....#....",
-    "....#....",
-    "...###...",
-    "#########",
-    ".#######.",
-    "..#####..",
-    "..##.##..",
-    ".##...##.",
-    ".#.....#."
-  ],
-  sun: [
-    "....#....",
-    ".#.....#.",
-    "...###...",
-    "..#####..",
-    "#.#####.#",
-    "..#####..",
-    "...###...",
-    ".#.....#.",
-    "....#...."
-  ],
-  crown: [
-    ".........",
-    "#...#...#",
-    "##.###.##",
-    "#########",
-    "#########",
-    "#########",
-    ".........",
-    "#########",
-    "........."
-  ],
-  lock: [
-    "...###...",
-    "..#...#..",
-    "..#...#..",
-    ".#######.",
-    ".#######.",
-    ".###.###.",
-    ".###.###.",
-    ".#######.",
-    "........."
-  ],
-  search: [
-    ".####....",
-    "#....#...",
-    "#....#...",
-    "#....#...",
-    "#....#...",
-    ".####....",
-    ".....##..",
-    "......##.",
-    ".......##"
-  ],
-  square: [
-    ".........",
-    ".........",
-    "..#####..",
-    "..#####..",
-    "..#####..",
-    "..#####..",
-    "..#####..",
-    ".........",
-    "........."
-  ],
-  x: [
-    ".........",
-    ".##...##.",
-    ".###.###.",
-    "..#####..",
-    "...###...",
-    "..#####..",
-    ".###.###.",
-    ".##...##.",
-    "........."
-  ],
-  check: [
-    ".........",
-    ".......##",
-    "......###",
-    ".....###.",
-    "##..###..",
-    "###.##...",
-    ".#####...",
-    "..###....",
-    "...#....."
-  ],
-  eye: [
-    ".........",
-    ".........",
-    "..#####..",
-    ".#.....#.",
-    "#..###..#",
-    "#..###..#",
-    ".#.....#.",
-    "..#####..",
-    "........."
-  ],
-  "arrow-right": [
-    ".........",
-    ".....#...",
-    ".....##..",
-    "########.",
-    "#########",
-    "########.",
-    ".....##..",
-    ".....#...",
-    "........."
-  ],
-  "external-link": [
-    "....#####",
-    ".......##",
-    ".###..#.#",
-    ".#...#..#",
-    ".#..#....",
-    ".#.......",
-    ".#.....#.",
-    ".#######.",
-    "........."
-  ],
-  "rotate-ccw": [
-    "...#####.",
-    "#.#.....#",
-    "##......#",
-    "###.....#",
-    "........#",
-    "#.......#",
-    ".#.....#.",
-    "..#####..",
-    "........."
-  ],
-  list: [
-    ".........",
-    "#.######.",
-    ".........",
-    "#.######.",
-    ".........",
-    "#.######.",
-    ".........",
-    "#.######.",
-    "........."
-  ],
-  play: [
-    ".........",
-    ".##......",
-    ".####....",
-    ".######..",
-    ".#######.",
-    ".######..",
-    ".####....",
-    ".##......",
-    "........."
-  ],
-  repeat: [
-    "......#..",
-    ".#######.",
-    "#.....#..",
-    "#........",
-    "#.......#",
-    "........#",
-    "..#.....#",
-    ".#######.",
-    "..#......"
-  ],
-  "calendar-days": [
-    ".#.....#.",
-    "#########",
-    "#########",
-    "#.......#",
-    "#.#.#.#.#",
-    "#.......#",
-    "#.#.#.#.#",
-    "#.......#",
-    "#########"
-  ],
-  map: [
-    "#########",
-    "#.......#",
-    "#.##..#.#",
-    "#...#.#.#",
-    "#....#..#",
-    "#.##....#",
-    "#...#.###",
-    "#.......#",
-    "#########"
-  ],
-  "scroll-text": [
-    ".#######.",
-    "#.#.....#",
-    "##......#",
-    ".#.####.#",
-    ".#......#",
-    ".#.####.#",
-    ".#......#",
-    ".#.....##",
-    "..#######"
-  ]
+var TECLAS = {
+  espaco: { rotulo: "Espa\xE7o", aria: "Space" },
+  seta: { rotulo: "\u2192", aria: "ArrowRight" },
+  "1": { rotulo: "1", aria: "1" },
+  "2": { rotulo: "2", aria: "2" },
+  a: { rotulo: "A", aria: "A" },
+  b: { rotulo: "B", aria: "B" },
+  c: { rotulo: "C", aria: "C" },
+  d: { rotulo: "D", aria: "D" },
+  e: { rotulo: "E", aria: "E" }
 };
-var SVG = "http://www.w3.org/2000/svg";
-function desenharPixel(el, nome) {
-  const mapa2 = PIXEL[nome];
-  if (!mapa2) return false;
-  let d = "";
-  mapa2.forEach((linha, y) => {
-    for (let x = 0; x < N; x++) if (linha[x] === "#") d += `M${x} ${y}h1v1h-1z`;
-  });
-  const svg = document.createElementNS(SVG, "svg");
-  svg.setAttribute("viewBox", `0 0 ${N} ${N}`);
-  svg.setAttribute("shape-rendering", "crispEdges");
-  svg.setAttribute("aria-hidden", "true");
-  svg.classList.add("erpg-px");
-  const path = document.createElementNS(SVG, "path");
-  path.setAttribute("d", d);
-  path.setAttribute("fill", "currentColor");
-  svg.appendChild(path);
-  el.appendChild(svg);
-  return true;
-}
-
-// src/ui/dom.ts
 function icone(parent, nome, cls = "erpg-ico") {
   const span = parent.createSpan({ cls });
   if (!desenharPixel(span, nome)) (0, import_obsidian2.setIcon)(span, nome);
   return span;
 }
 function botao(parent, texto, onClick, opts = {}) {
-  const b = parent.createEl("button", {
-    cls: `erpg-btn is-${opts.variante ?? "primario"}${opts.pequeno ? " is-sm" : ""}`,
-    attr: opts.titulo ? { "aria-label": opts.titulo, title: opts.titulo } : {}
-  });
+  const attr2 = opts.titulo ? { "aria-label": opts.titulo, title: opts.titulo } : {};
+  if (opts.atalho) Object.assign(attr2, { "data-atalho": opts.atalho, "aria-keyshortcuts": TECLAS[opts.atalho].aria });
+  const b = parent.createEl("button", { cls: `erpg-btn is-${opts.variante ?? "primario"}${opts.pequeno ? " is-sm" : ""}`, attr: attr2 });
   if (opts.icone) icone(b, opts.icone);
   if (texto) b.createSpan({ text: texto });
   else b.addClass("is-icone");
+  if (opts.atalho) b.createSpan({ cls: "erpg-tecla", text: TECLAS[opts.atalho].rotulo, attr: { "aria-hidden": "true" } });
   b.addEventListener("click", async (ev) => {
     if (b.disabled) return;
     b.disabled = true;
@@ -757,33 +635,41 @@ function tique(root, inicio) {
 function ficha(root, ctx) {
   const { prog, settings } = ctx;
   const sec = root.createEl("header", { cls: "erpg-ficha" });
-  const brasao = sec.createDiv({ cls: "erpg-brasao", attr: { "aria-label": `N\xEDvel ${prog.nivel}` } });
+  const moldura = sec.createDiv({ cls: "erpg-brasao-moldura" });
+  const brasao = moldura.createDiv({ cls: "erpg-brasao", attr: { "aria-label": `N\xEDvel ${prog.nivel}` } });
   brasao.createSpan({ cls: "erpg-brasao-rot", text: "Nv" });
   brasao.createSpan({ cls: "erpg-brasao-num", text: String(prog.nivel) });
   const id = sec.createDiv({ cls: "erpg-ficha-id" });
-  id.createEl("h1", { cls: "erpg-titulo", text: prog.titulo });
+  const nome = id.createDiv({ cls: "erpg-titulo-linha" });
+  nome.createEl("h1", { cls: "erpg-titulo", text: prog.titulo });
+  const proxTitulo = settings.titulos[Math.min(prog.nivel, settings.titulos.length - 1)];
+  if (proxTitulo && proxTitulo !== prog.titulo) nome.createSpan({ cls: "erpg-titulo-prox", text: `pr\xF3ximo: ${proxTitulo}` });
   const p = prog.partes;
   const origemXP = `De onde vem o XP \u2014 notas ${p.notas} \xB7 t\xF3picos ${p.topicos} \xB7 dias ${p.diario} \xB7 tempo ${p.estudo} \xB7 revis\xF5es ${p.revisao}`;
   const xp = id.createDiv({ cls: "erpg-xp", attr: { title: origemXP } });
+  const xpCab = xp.createDiv({ cls: "erpg-xp-cab" });
+  xpCab.createSpan({ cls: "erpg-xp-rot", text: "XP" });
+  xpCab.createSpan({ cls: "erpg-xp-num", text: `${prog.xp} / ${prog.xpProximo}` });
   barra(xp, (prog.xp - prog.xpNivel) / (prog.xpProximo - prog.xpNivel), "erpg-barra is-xp", "Experi\xEAncia at\xE9 o pr\xF3ximo n\xEDvel");
-  xp.createSpan({ cls: "erpg-xp-num", text: `${prog.xp} / ${prog.xpProximo} XP` });
+  xp.createDiv({ cls: "erpg-xp-falta", text: `faltam ${Math.max(0, prog.xpProximo - prog.xp)} XP para o n\xEDvel ${prog.nivel + 1}` });
   const st = id.createDiv({ cls: "erpg-atributos" });
-  const atributo = (ic, valor, rot, cls = "", dica = `${valor} ${rot}`) => {
-    const a = st.createDiv({ cls: `erpg-atributo ${cls}`.trim(), attr: { title: dica } });
-    icone(a, ic);
-    a.createSpan({ cls: "erpg-atributo-val", text: String(valor) });
-    a.createSpan({ cls: "erpg-atributo-rot", text: rot });
+  const atributo = (ic, valor, rot, cor, zero, dica = `${valor} ${rot}`) => {
+    const a = st.createDiv({ cls: `erpg-atributo is-${cor}${zero ? " is-zero" : ""}`, attr: { title: dica } });
+    icone(a, ic, "erpg-ico erpg-atributo-ico");
+    const t = a.createDiv({ cls: "erpg-atributo-txt" });
+    t.createSpan({ cls: "erpg-atributo-val", text: String(valor) });
+    t.createSpan({ cls: "erpg-atributo-rot", text: rot });
     return a;
   };
-  atributo("flame", prog.sequencia, prog.sequencia === 1 ? "dia seguido" : "dias seguidos", prog.sequencia ? "is-chama" : "", `Sequ\xEAncia atual: ${prog.sequencia} \xB7 recorde: ${prog.maiorSequencia}`);
+  atributo("flame", prog.sequencia, prog.sequencia === 1 ? "dia seguido" : "dias seguidos", "chama", !prog.sequencia, `Sequ\xEAncia atual: ${prog.sequencia} \xB7 recorde: ${prog.maiorSequencia}`);
   if (settings.metaSemanalMin > 0) {
     const ok = prog.minutosSemana >= settings.metaSemanalMin;
-    const a = atributo("clock", `${prog.minutosSemana}/${settings.metaSemanalMin}`, "min na semana", `is-meta${ok ? " is-ok" : ""}`, `Meta semanal: ${prog.minutosSemana} de ${settings.metaSemanalMin} min \xB7 hoje ${prog.minutosHoje} min`);
+    const a = atributo("clock", `${prog.minutosSemana}/${settings.metaSemanalMin}`, "min na semana", ok ? "ok" : "meta", !prog.minutosSemana, `Meta semanal: ${prog.minutosSemana} de ${settings.metaSemanalMin} min \xB7 hoje ${prog.minutosHoje} min`);
     barra(a, prog.minutosSemana / settings.metaSemanalMin, "erpg-barra is-meta", "Meta semanal de minutos");
   }
-  atributo("scroll-text", prog.contagemNivel.escrito, "escritas");
-  atributo("hammer", prog.contagemNivel.praticado, "praticadas");
-  atributo("castle", prog.contagemNivel.projeto, "em projeto");
+  atributo("scroll-text", prog.contagemNivel.escrito, "escritas", "escrito", !prog.contagemNivel.escrito);
+  atributo("hammer", prog.contagemNivel.praticado, "praticadas", "praticado", !prog.contagemNivel.praticado);
+  atributo("castle", prog.contagemNivel.projeto, "em projeto", "projeto", !prog.contagemNivel.projeto);
   medalhas(sec, ctx);
   sessao(sec.createDiv({ cls: "erpg-ficha-acao" }), ctx);
 }
@@ -792,14 +678,14 @@ function sessao(acao, ctx) {
   const { xp } = ctx.settings;
   if (inicio) {
     acao.addClass("is-rodando");
-    const b = botao(acao, "Encerrar", () => ctx.acoes.encerrarSessao(), { icone: "square", titulo: `Encerrar e somar os minutos no di\xE1rio (+${xp.dezMinutos} XP a cada 10 min)` });
+    const b = botao(acao, "Encerrar", () => ctx.acoes.encerrarSessao(), { icone: "save", titulo: `Encerrar e somar os minutos no di\xE1rio (+${xp.dezMinutos} XP a cada 10 min)` });
     b.createSpan({ cls: "erpg-timer", attr: { "data-erpg-timer": "" }, text: relogio(Date.now() - inicio) });
     botao(acao, "", () => {
       if (Date.now() - inicio >= 6e4 && !window.confirm("Descartar a sess\xE3o? Os minutos n\xE3o v\xE3o contar.")) return;
       return ctx.acoes.descartarSessao();
     }, { icone: "x", variante: "discreto", pequeno: true, titulo: "Descartar a sess\xE3o (n\xE3o conta)" });
   } else {
-    botao(acao, "Iniciar sess\xE3o", () => ctx.acoes.iniciarSessao(), { icone: "timer", titulo: `Cronometra o estudo \xB7 +${xp.dezMinutos} XP a cada 10 min${ctx.prog.estudouHoje ? "" : ` e +${xp.diario} XP pelo dia`}` });
+    botao(acao, "Iniciar sess\xE3o", () => ctx.acoes.iniciarSessao(), { icone: "play", titulo: `Cronometra o estudo \xB7 +${xp.dezMinutos} XP a cada 10 min${ctx.prog.estudouHoje ? "" : ` e +${xp.diario} XP pelo dia`}` });
   }
   botao(acao, "", () => ctx.acoes.abrirDiario(), { icone: "book-open", variante: "secundario", pequeno: true, titulo: "Abrir o di\xE1rio de hoje" });
 }
@@ -809,16 +695,27 @@ ${c.desc}
 ${c.ok ? "\u2713 Conquistado" : `Progresso: ${c.atual}/${c.meta}`}`;
 }
 function medalhas(parent, ctx) {
+  const total = ctx.conquistas.length;
   const ok = ctx.conquistas.filter((c) => c.ok).length;
-  const box = parent.createEl("button", { cls: "erpg-medalhas", attr: { "aria-label": `Conquistas: ${ok} de ${ctx.conquistas.length}. Abrir a lista.` } });
+  const prox = proximaConquista(ctx.conquistas);
+  const rotulo2 = `Conquistas: ${ok} de ${total}${prox ? `. Pr\xF3xima: ${prox.nome}, ${prox.atual} de ${prox.meta}` : ""}. Abrir a lista.`;
+  const box = parent.createEl("button", { cls: "erpg-medalhas", attr: { "aria-label": rotulo2, title: prox ? descConquista(prox) : "Todas as conquistas!" } });
   box.addEventListener("click", () => ctx.acoes.abrirConquistas());
-  box.createDiv({ cls: "erpg-rotulo", text: `Conquistas ${ok}/${ctx.conquistas.length}` });
-  const fila = box.createDiv({ cls: "erpg-medalhas-fila" });
-  for (const c of ctx.conquistas) {
-    const m = fila.createDiv({ cls: `erpg-medalha is-${c.raridade}${c.ok ? " is-ok" : ""}`, attr: { title: descConquista(c) } });
-    m.style.setProperty("--p", `${Math.round(c.atual / c.meta * 100)}%`);
-    icone(m, c.ok ? c.icone : "lock");
-  }
+  const m = box.createDiv({ cls: `erpg-medalha is-${prox?.raridade ?? "lendario"}${prox ? "" : " is-ok"}` });
+  m.style.setProperty("--p", `${prox ? Math.round(prox.atual / prox.meta * 100) : 100}%`);
+  icone(m, prox?.icone ?? "crown");
+  const info = box.createDiv({ cls: "erpg-medalhas-info" });
+  info.createDiv({ cls: "erpg-rotulo", text: `Conquistas ${ok}/${total}` });
+  if (prox) {
+    const linha = info.createDiv({ cls: "erpg-linha" });
+    linha.createSpan({ cls: "erpg-medalhas-nome", text: prox.nome });
+    barra(linha, prox.atual / prox.meta, "erpg-barra", `Progresso de ${prox.nome}`);
+    linha.createSpan({ cls: "erpg-num", text: `${prox.atual}/${prox.meta}` });
+  } else info.createDiv({ cls: "erpg-medalhas-nome", text: "Todas conquistadas!" });
+}
+function proximaConquista(cs) {
+  const ordem = ["comum", "raro", "epico", "lendario"];
+  return cs.filter((c) => !c.ok).sort((a, b) => b.atual / b.meta - a.atual / a.meta || ordem.indexOf(a.raridade) - ordem.indexOf(b.raridade))[0];
 }
 function listaConquistas(parent, ctx) {
   const ordem = ["comum", "raro", "epico", "lendario"];
@@ -872,21 +769,52 @@ function proximoTopico(t) {
   }
   return null;
 }
+function dicaCaixa(caixa, intervalos) {
+  return `Caixa ${caixa} da revis\xE3o espa\xE7ada: quanto maior a caixa, mais longe a pr\xF3xima revis\xE3o (esta volta a cada ${intervalos[caixa] ?? "?"} dia(s)).`;
+}
+var LETRAS_ATALHO = ["a", "b", "c", "d", "e"];
+function alternativas(parent, ctx, alts, correta, origem) {
+  const { estado } = ctx;
+  const respondida = estado.escolha !== null;
+  const lista = parent.createDiv({ cls: "erpg-alternativas", attr: { role: "group", "aria-label": "Alternativas" } });
+  alts.forEach((alt, k) => {
+    const letra = String.fromCharCode(97 + k);
+    let cls = "erpg-alt";
+    if (respondida && k === correta) cls += " is-certa";
+    else if (respondida && k === estado.escolha) cls += " is-errada";
+    const atalho = LETRAS_ATALHO[k];
+    const attr2 = { "aria-label": `Alternativa ${letra}` };
+    if (atalho && !respondida) Object.assign(attr2, { "data-atalho": atalho, "aria-keyshortcuts": atalho.toUpperCase() });
+    const b = lista.createEl("button", { cls, attr: attr2 });
+    b.disabled = respondida;
+    b.createSpan({ cls: "erpg-alt-letra", text: letra.toUpperCase() });
+    md(ctx, b.createSpan({ cls: "erpg-alt-texto" }), alt, origem);
+    b.addEventListener("click", () => {
+      estado.escolha = k;
+      estado.mostrarResposta = true;
+      ctx.acoes.redesenhar();
+    });
+  });
+}
 function revisao(root, ctx) {
   const { snap, settings, estado } = ctx;
-  const infos = snap.notas.map((n) => ({ n, ...infoRevisao({ caixa: n.caixa, revisado: n.revisado }, snap.hoje, settings.intervalos) }));
-  const fila = ordenarFila(infos.filter((x) => x.vencida));
+  const { hoje: fila, adiadas } = ctx.fila;
   const qtdPerguntas = (caminho) => snap.perguntas.filter((p) => p.caminho === caminho).length;
   const pos = estado.revisando ? fila.findIndex((x) => x.n.caminho === estado.revisando) : -1;
   if (estado.revisando && pos < 0) estado.revisando = null;
-  const sub = !fila.length ? void 0 : pos >= 0 ? `${pos + 1} de ${fila.length} na fila` : `${fila.length} na fila`;
+  const depois = adiadas ? ` \xB7 +${adiadas} depois` : "";
+  const sub = !fila.length ? void 0 : pos >= 0 ? `${pos + 1} de ${fila.length} hoje` : `Hoje: ${fila.length}${depois}`;
   const corpo = painel(root, "repeat", "Revisar", sub, "is-revisao");
   if (!snap.notas.length) {
     vazio(corpo, "Nenhuma nota de estudo encontrada.", "Notas com a propriedade nivel (escrito, praticado ou projeto) entram aqui.");
     return;
   }
   if (!fila.length) {
-    const prox = infos.map((x) => x.proxima).filter((x) => !!x).sort()[0];
+    if (adiadas) {
+      vazio(corpo, "Revis\xF5es de hoje feitas!", `Mais ${adiadas} ${adiadas === 1 ? "nota nova entra" : "notas novas entram"} nos pr\xF3ximos dias (${settings.novasPorDia} por dia, em Configura\xE7\xF5es).`);
+      return;
+    }
+    const prox = snap.notas.map((n) => infoRevisao(n, snap.hoje, settings.intervalos).proxima).filter((x) => !!x).sort()[0];
     vazio(corpo, "Nada para revisar hoje.", prox ? `Pr\xF3xima revis\xE3o ${relativo(prox, snap.hoje)}.` : void 0);
     return;
   }
@@ -897,24 +825,34 @@ function revisao(root, ctx) {
     const perguntas = snap.perguntas.filter((p) => p.caminho === n.caminho);
     const origem = corpo.createEl("button", { cls: "erpg-origem", text: n.label, attr: { "aria-label": `Abrir a nota ${n.label}` } });
     origem.addEventListener("click", (ev) => ctx.acoes.abrirNota(n.caminho, ev.ctrlKey || ev.metaKey));
-    corpo.createDiv({ cls: "erpg-meta", text: atual.revisado ? `caixa ${atual.caixa} \xB7 revisada ${relativo(atual.revisado, snap.hoje)}` : "primeira revis\xE3o" });
+    corpo.createDiv(atual.revisado ? { cls: "erpg-meta", text: `caixa ${atual.caixa} \xB7 revisada ${relativo(atual.revisado, snap.hoje)}`, attr: { title: dicaCaixa(atual.caixa, settings.intervalos) } } : { cls: "erpg-meta", text: "primeira revis\xE3o" });
     if (perguntas.length) {
       const i = Math.min(estado.perguntaIdx, perguntas.length - 1);
       const p = perguntas[i];
       const area = corpo.createDiv({ cls: "erpg-rola erpg-cartao" });
       area.createDiv({ cls: "erpg-subtitulo", text: `Pergunta ${i + 1} de ${perguntas.length}` });
       md(ctx, area.createDiv({ cls: "erpg-pergunta" }), p.pergunta, n.caminho);
-      if (estado.mostrarResposta) md(ctx, area.createDiv({ cls: "erpg-resposta" }), p.resposta, n.caminho);
+      if (p.alternativas?.length) alternativas(area, ctx, p.alternativas, p.correta, n.caminho);
+      if (estado.mostrarResposta) {
+        const resp = area.createDiv({ cls: "erpg-resposta" });
+        const { escolha } = estado;
+        if (escolha !== null && p.correta !== void 0) {
+          const acertou = escolha === p.correta;
+          resp.createDiv({ cls: `erpg-veredito-alt ${acertou ? "is-certa" : "is-errada"}`, text: acertou ? "Acertou!" : `Errou. A certa \xE9 a ${String.fromCharCode(97 + p.correta)})` });
+        }
+        md(ctx, resp.createDiv(), p.resposta, n.caminho);
+      }
       const row = corpo.createDiv({ cls: "erpg-acoes" });
       botao(row, estado.mostrarResposta ? "Esconder" : "Ver resposta", () => {
         estado.mostrarResposta = !estado.mostrarResposta;
         ctx.acoes.redesenhar();
-      }, { icone: "eye", pequeno: true, variante: "secundario" });
+      }, { icone: "eye", pequeno: true, variante: "secundario", atalho: "espaco" });
       if (i < perguntas.length - 1) botao(row, "Pr\xF3xima pergunta", () => {
         estado.perguntaIdx = i + 1;
         estado.mostrarResposta = false;
+        estado.escolha = null;
         ctx.acoes.redesenhar();
-      }, { icone: "arrow-right", pequeno: true, variante: "secundario" });
+      }, { icone: "arrow-right", pequeno: true, variante: "secundario", atalho: "seta" });
     } else {
       const v = corpo.createDiv({ cls: "erpg-rola erpg-cartao" });
       vazio(v, "Essa nota n\xE3o tem perguntas.", "Abra, releia e diga se lembrou. Para se testar aqui, adicione na nota callouts \u201C> [!question]- Pergunta\u201D com a resposta embaixo.");
@@ -924,10 +862,11 @@ function revisao(root, ctx) {
     const caixaSeLembrar = aposLembrar({ caixa: n.caixa, revisado: n.revisado }, settings.intervalos);
     const dias = settings.intervalos[caixaSeLembrar] ?? "?";
     const fim = corpo.createDiv({ cls: "erpg-acoes erpg-veredito" });
-    botao(fim, `Lembrei \xB7 ${dias}d`, () => ctx.acoes.revisar(n, true, proxima), { icone: "check", titulo: `Sobe para a caixa ${caixaSeLembrar}: volta em ${dias} dia(s)` });
-    botao(fim, "Esqueci \xB7 1d", () => ctx.acoes.revisar(n, false, proxima), { icone: "rotate-ccw", variante: "secundario", titulo: "Volta para a caixa 1: revisa amanh\xE3" });
-    if (proxima) botao(fim, "Pular", () => ctx.acoes.revisarNota(proxima), { variante: "discreto", pequeno: true, titulo: "Deixa esta para depois (continua na fila)" });
-    botao(fim, "Fila", () => ctx.acoes.revisarNota(null), { icone: "list", variante: "discreto", pequeno: true, titulo: "Voltar para a lista" });
+    botao(fim, `Lembrei \xB7 ${dias}d`, () => ctx.acoes.revisar(n, true, proxima), { icone: "check", titulo: `Sobe para a caixa ${caixaSeLembrar}: volta em ${dias} dia(s)`, atalho: "1" });
+    botao(fim, "Esqueci \xB7 1d", () => ctx.acoes.revisar(n, false, proxima), { icone: "rotate-ccw", variante: "secundario", titulo: "Volta para a caixa 1: revisa amanh\xE3", atalho: "2" });
+    const nav = fim.createDiv({ cls: "erpg-veredito-nav" });
+    if (proxima) botao(nav, "Pular", () => ctx.acoes.revisarNota(proxima), { variante: "discreto", pequeno: true, titulo: "Deixa esta para depois (continua na fila)" });
+    botao(nav, "Fila", () => ctx.acoes.revisarNota(null), { icone: "list", variante: "discreto", pequeno: true, titulo: "Voltar para a lista" });
     return;
   }
   const topo = corpo.createDiv({ cls: "erpg-acoes" });
@@ -936,15 +875,17 @@ function revisao(root, ctx) {
   if (total) topo.createSpan({ cls: "erpg-dica", text: `${total} ${total === 1 ? "pergunta" : "perguntas"} pra se testar` });
   const lista = corpo.createDiv({ cls: "erpg-revisoes erpg-rola" });
   for (const x of fila) {
-    const row = lista.createDiv({ cls: "erpg-revisao" });
-    const info = row.createDiv({ cls: "erpg-revisao-info" });
-    const nome = info.createEl("button", { cls: "erpg-link", text: x.n.label });
-    nome.addEventListener("click", (ev) => ctx.acoes.abrirNota(x.n.caminho, ev.ctrlKey || ev.metaKey));
     const q = qtdPerguntas(x.n.caminho);
-    const quando = x.revisado ? `caixa ${x.caixa} \xB7 ${relativo(x.revisado, snap.hoje)}` : "nunca revisada";
-    info.createDiv({ cls: "erpg-meta", text: q ? `${quando} \xB7 ${q} ${q === 1 ? "pergunta" : "perguntas"}` : quando });
-    botao(row.createDiv({ cls: "erpg-acoes" }), "Revisar", () => ctx.acoes.revisarNota(x.n.caminho), { pequeno: true, variante: "secundario" });
+    const quando = x.revisado ? `caixa ${x.caixa} \xB7 ${relativo(x.revisado, snap.hoje)}` : "nova";
+    const meta = q ? `${quando} \xB7 ${q} ${q === 1 ? "pergunta" : "perguntas"}` : quando;
+    const attr2 = { "aria-label": `Revisar ${x.n.label} (${meta})` };
+    if (x.revisado) attr2.title = dicaCaixa(x.caixa, settings.intervalos);
+    const row = lista.createEl("button", { cls: "erpg-revisao", attr: attr2 });
+    row.addEventListener("click", () => ctx.acoes.revisarNota(x.n.caminho));
+    row.createSpan({ cls: "erpg-revisao-nome", text: x.n.label });
+    row.createSpan({ cls: "erpg-meta", text: meta });
   }
+  if (adiadas) lista.createDiv({ cls: "erpg-dica erpg-revisoes-fim", text: `+${adiadas} ${adiadas === 1 ? "nota nova entra" : "notas novas entram"} nos pr\xF3ximos dias (${settings.novasPorDia} por dia).` });
 }
 function cronica(root, ctx) {
   const { snap, settings } = ctx;
@@ -1139,13 +1080,14 @@ var TopicosModal = class extends import_obsidian5.Modal {
 
 // src/ui/view.ts
 var VIEW_FICHA = "estudos-rpg-ficha";
-var FichaView = class extends import_obsidian6.ItemView {
+var ICONE_FICHA = "estudos-rpg-icone";
+var FichaView = class _FichaView extends import_obsidian6.ItemView {
   constructor(leaf, plugin) {
     super(leaf);
     this.plugin = plugin;
   }
   plugin;
-  estado = { revisando: null, perguntaIdx: 0, mostrarResposta: false, trilha: null };
+  estado = { revisando: null, perguntaIdx: 0, mostrarResposta: false, escolha: null, trilha: null };
   /** A animação de entrada só roda no primeiro desenho (não a cada clique). */
   jaDesenhou = false;
   desinscrever = null;
@@ -1156,13 +1098,32 @@ var FichaView = class extends import_obsidian6.ItemView {
     return "Ficha do her\xF3i";
   }
   getIcon() {
-    return "shield";
+    return ICONE_FICHA;
   }
   async onOpen() {
     this.contentEl.addClass("erpg-host");
     this.desinscrever = this.plugin.aoAtualizar(() => this.desenhar());
     this.desenhar();
     this.registerInterval(window.setInterval(() => tique(this.contentEl, this.plugin.sessaoInicio), 1e3));
+    this.registerDomEvent(document, "keydown", (ev) => this.atalho(ev));
+  }
+  /**
+   * Atalhos da revisão (Espaço, →, 1, 2, A-E nas alternativas). Cada botão que aceita atalho tem `data-atalho`;
+   * aqui só "clicamos" nele, então a regra fica num lugar só (sections.ts).
+   * E se o foco estiver num campo, num botão ou numa janela? Não rouba a tecla.
+   */
+  atalho(ev) {
+    if (ev.ctrlKey || ev.metaKey || ev.altKey || ev.repeat) return;
+    if (this.app.workspace.getActiveViewOfType(_FichaView) !== this) return;
+    if (document.body.querySelector(".modal-container")) return;
+    const alvo = ev.target instanceof Element ? ev.target : null;
+    if (alvo?.closest("input, textarea, select, [contenteditable=true]")) return;
+    const tecla = ev.key === " " ? "espaco" : ev.key === "ArrowRight" ? "seta" : ev.key.toLowerCase();
+    if (tecla === "espaco" && alvo?.closest("button, a")) return;
+    const botao2 = this.contentEl.querySelector(`[data-atalho="${tecla}"]`);
+    if (!botao2 || botao2.disabled) return;
+    ev.preventDefault();
+    botao2.click();
   }
   async onClose() {
     this.desinscrever?.();
@@ -1179,7 +1140,8 @@ var FichaView = class extends import_obsidian6.ItemView {
       acoes: this.acoes,
       snap: dados.snap,
       prog: dados.prog,
-      conquistas: dados.conquistas
+      conquistas: dados.conquistas,
+      fila: this.plugin.filaHoje()
     };
   };
   /**
@@ -1234,12 +1196,13 @@ var FichaView = class extends import_obsidian6.ItemView {
       const caixa = lembrou ? aposLembrar({ caixa: n.caixa, revisado: n.revisado }, intervalos) : aposEsquecer();
       const hoje = this.plugin.hoje();
       await this.plugin.writer.propriedades(n.caminho, { caixa, revisado: hoje });
+      await this.plugin.contarRevisao(!n.revisado);
       new import_obsidian6.Notice(lembrou ? `${n.label}: caixa ${caixa}, volta em ${intervalos[caixa] ?? "?"} dia(s).` : `${n.label} volta amanh\xE3.`);
-      Object.assign(this.estado, { revisando: proxima, perguntaIdx: 0, mostrarResposta: false });
+      Object.assign(this.estado, { revisando: proxima, perguntaIdx: 0, mostrarResposta: false, escolha: null });
       await this.plugin.atualizarAgora();
     },
     revisarNota: (caminho) => {
-      Object.assign(this.estado, { revisando: caminho, perguntaIdx: 0, mostrarResposta: false });
+      Object.assign(this.estado, { revisando: caminho, perguntaIdx: 0, mostrarResposta: false, escolha: null });
       this.desenhar();
     },
     abrirDiario: async () => {
@@ -1320,6 +1283,8 @@ function parseTrilha(texto, resolver) {
   });
   return regioes.filter((r) => r.topicos.length > 0);
 }
+var ALTERNATIVA = /^-\s+([a-z])\)\s+(.*)$/;
+var juntar = (linhas) => linhas.join(" ").replace(/\s+/g, " ").trim();
 function parsePerguntas(texto) {
   const out = [];
   const re = /^> \[!question\][-+]?[ \t]*(.+)\n((?:>.*(?:\n|$))*)/gm;
@@ -1327,9 +1292,21 @@ function parsePerguntas(texto) {
   let m;
   while (m = re.exec(t)) {
     const pergunta = (m[1] ?? "").trim();
-    const resposta = (m[2] ?? "").split("\n").map((l) => l.replace(/^>\s?/, "")).join(" ").replace(/\s+/g, " ").trim();
+    const corpo = (m[2] ?? "").split("\n").map((l) => l.replace(/^>\s?/, ""));
+    const alternativas2 = corpo.map((l) => l.match(ALTERNATIVA)?.[2]?.trim()).filter((x) => !!x);
+    let resposta;
+    let correta;
+    if (alternativas2.length) {
+      const explicacao = corpo.filter((l) => /^>/.test(l) && !/^>\s?\[!/.test(l)).map((l) => l.replace(/^>\s?/, ""));
+      resposta = juntar(explicacao);
+      const letra = resposta.match(/^\**([a-z])\)/)?.[1];
+      const idx = letra ? letra.charCodeAt(0) - 97 : -1;
+      if (idx >= 0 && idx < alternativas2.length) correta = idx;
+    } else {
+      resposta = juntar(corpo);
+    }
     if (!pergunta || /^\[.*\]$/.test(pergunta) || !resposta || /^\[.*\]$/.test(resposta)) continue;
-    out.push({ pergunta, resposta });
+    out.push(alternativas2.length ? { pergunta, resposta, alternativas: alternativas2, ...correta !== void 0 && { correta } } : { pergunta, resposta });
   }
   return out;
 }
@@ -1504,6 +1481,8 @@ var EstudosRPG = class extends import_obsidian9.Plugin {
   dados = null;
   /** Início da sessão de estudo em andamento (ms), ou null. Salvo no data.json: sobrevive a um reload. */
   sessaoInicio = null;
+  /** Quantas notas NOVAS (nunca revisadas) já foram revisadas no dia `dia`. Salvo no data.json. */
+  novas = { dia: "", qtd: 0 };
   indexer;
   ouvintes = /* @__PURE__ */ new Set();
   statusEl = null;
@@ -1514,10 +1493,13 @@ var EstudosRPG = class extends import_obsidian9.Plugin {
     this.config = mergeSettings(salvo);
     const ini = salvo?.sessaoInicio;
     this.sessaoInicio = typeof ini === "number" && Number.isFinite(ini) && ini <= Date.now() ? ini : null;
+    const nv = salvo?.novasHoje;
+    if (nv && typeof nv.dia === "string" && typeof nv.qtd === "number" && nv.qtd >= 0) this.novas = { dia: nv.dia, qtd: Math.floor(nv.qtd) };
     this.indexer = new Indexer(this.app, () => this.config);
     this.writer = new Writer(this.app, () => this.config);
     this.registerView(VIEW_FICHA, (leaf) => new FichaView(leaf, this));
-    this.addRibbonIcon("shield", "Abrir a ficha do her\xF3i", () => this.abrirFicha());
+    (0, import_obsidian9.addIcon)(ICONE_FICHA, svgParaObsidian("trophy") ?? "");
+    this.addRibbonIcon(ICONE_FICHA, "Abrir a ficha do her\xF3i", () => this.abrirFicha());
     this.addSettingTab(new AbaConfig(this.app, this));
     this.registrarComandos();
     this.statusEl = this.addStatusBarItem();
@@ -1540,12 +1522,16 @@ var EstudosRPG = class extends import_obsidian9.Plugin {
     this.registerInterval(window.setInterval(() => {
       if (this.sessaoInicio) this.atualizarStatus();
     }, 15e3));
+    const ajustarPixel = () => document.body.style.setProperty("--erpg-px", `${pixelDoIcone(window.devicePixelRatio)}px`);
+    ajustarPixel();
+    this.registerDomEvent(window, "resize", ajustarPixel);
     this.app.workspace.onLayoutReady(async () => {
       await this.atualizarAgora();
       if (this.config.abrirAoIniciar) await this.abrirFicha();
     });
   }
   onunload() {
+    document.body.style.removeProperty("--erpg-px");
     this.ouvintes.clear();
   }
   hoje() {
@@ -1632,7 +1618,25 @@ var EstudosRPG = class extends import_obsidian9.Plugin {
     await this.atualizarAgora();
   }
   async persistir() {
-    await this.saveData({ ...this.config, sessaoInicio: this.sessaoInicio });
+    await this.saveData({ ...this.config, sessaoInicio: this.sessaoInicio, novasHoje: this.novas });
+  }
+  // ------------------------------------------------------------ revisão: limite de notas novas por dia
+  /** Notas novas já revisadas hoje (vira 0 sozinho quando o dia muda). */
+  novasFeitasHoje() {
+    return this.novas.dia === this.hoje() ? this.novas.qtd : 0;
+  }
+  /** Chamado depois de gravar uma revisão: se a nota era nova, conta no limite do dia. */
+  async contarRevisao(eraNova) {
+    if (!eraNova) return;
+    this.novas = { dia: this.hoje(), qtd: this.novasFeitasHoje() + 1 };
+    await this.persistir();
+  }
+  /** A fila de hoje (vencidas + novas até o limite), na ordem de revisão. */
+  filaHoje() {
+    const d = this.dados;
+    if (!d) return { hoje: [], adiadas: 0 };
+    const vencidas = ordenarFila(d.snap.notas.map((n) => ({ n, ...infoRevisao(n, d.snap.hoje, this.config.intervalos) })).filter((x) => x.vencida));
+    return filaDoDia(vencidas, this.config.novasPorDia, this.novasFeitasHoje());
   }
   // ------------------------------------------------------------ sessão de estudo (cronômetro)
   /** Minutos inteiros da sessão atual (0 se não há sessão). */
@@ -1696,10 +1700,7 @@ var EstudosRPG = class extends import_obsidian9.Plugin {
       id: "proxima-revisao",
       name: "Abrir a pr\xF3xima nota para revisar",
       callback: () => {
-        const d = this.dados;
-        if (!d) return;
-        const fila = ordenarFila(d.snap.notas.map((n) => ({ n, ...infoRevisao(n, d.snap.hoje, this.config.intervalos) })).filter((x) => x.vencida));
-        const prox = fila[0];
+        const prox = this.filaHoje().hoje[0];
         if (!prox) {
           new import_obsidian9.Notice("Nenhuma revis\xE3o vencida hoje.");
           return;
@@ -1732,6 +1733,7 @@ var EstudosRPG = class extends import_obsidian9.Plugin {
       const estado = { caixa: normalizarCaixa(fm.caixa, this.config.intervalos), revisado: typeof fm.revisado === "string" ? fm.revisado : null };
       const caixa = lembrou ? aposLembrar(estado, this.config.intervalos) : aposEsquecer();
       await this.writer.propriedades(f.path, { caixa, revisado: this.hoje() });
+      await this.contarRevisao(!estado.revisado);
       new import_obsidian9.Notice(lembrou ? `Caixa ${caixa}: volta em ${this.config.intervalos[caixa] ?? "?"} dia(s).` : "Volta amanh\xE3.");
     };
     naNota("lembrei", "Revis\xE3o: lembrei desta nota", revisarAtual(true));
