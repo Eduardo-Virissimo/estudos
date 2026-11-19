@@ -1,0 +1,16 @@
+{
+  "name": "estudos-site",
+  "private": true,
+  "type": "module",
+  "description": "Gerador do site do vault (GitHub Pages): Markdown do Obsidian -> HTML estático.",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "build": "node build.ts"
+  },
+  "dependencies": {
+    "highlight.js": "11.11.1",
+    "marked": "15.0.12"
+  }
+}
