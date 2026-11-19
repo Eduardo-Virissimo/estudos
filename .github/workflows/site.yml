@@ -1,0 +1,53 @@
+# Publica o vault no GitHub Pages com o gerador próprio (.sistema/site/build.ts).
+# Este arquivo precisa morar em .github/workflows/site.yml no repositório.
+# Roda a cada push na main (a cada backup do Obsidian Git) e pelo botão "Run workflow".
+name: Site (GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Um deploy por vez; um backup novo cancela o build antigo que ainda estiver rodando.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .sistema/site
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: .sistema/site/package-lock.json
+
+      - run: npm ci
+
+      - name: Gerar o site
+        run: node build.ts --out dist
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .sistema/site/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
