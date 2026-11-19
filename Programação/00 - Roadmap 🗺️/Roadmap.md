@@ -99,7 +99,7 @@ nome: Programação
 
 > 🎯 **Objetivo:** Escolher a estrutura e o algoritmo certos e saber quanto eles custam.
 > ✅ **Pronto pra seguir quando** você resolve exercícios fáceis/médios (LeetCode, Beecrowd) e explica o Big-O da sua solução.
-> 🔨 **Projeto do estágio:** implementar do zero, em TypeScript, pilha, fila, hash table e árvore de busca, e resolver 30 exercícios anotando o Big-O de cada solução.
+> 🔨 **Projeto do estágio:** o [[Estruturas de Dados do Zero]]: implementar do zero, em TypeScript, pilha, fila, hash table e árvore de busca, e resolver 30 exercícios anotando o Big-O de cada solução.
 
 ## Estruturas de Dados
 
