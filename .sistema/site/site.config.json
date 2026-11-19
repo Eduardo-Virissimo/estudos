@@ -1,4 +1,8 @@
 {
   "titulo": "Estudos",
-  "pastas": ["Programação", "Inglês", "Diário"]
+  "pastas": [
+    { "pasta": "Programação", "cor": "#1f5c99" },
+    { "pasta": "Inglês", "cor": "#0f7a55" },
+    { "pasta": "Diário", "cor": "#b5501a" }
+  ]
 }

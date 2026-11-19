@@ -15,7 +15,9 @@ import hljs from "highlight.js";
 
 // ---------- configuração ----------
 
-type Config = { titulo: string; pastas: string[] };
+/** Cada pasta publicada vira uma "coleção" com cor própria (faixa do topo, números, fichas). */
+type PastaConfig = string | { pasta: string; cor?: string };
+type Config = { titulo: string; pastas: PastaConfig[] };
 
 const aqui = import.meta.dirname;
 const arg = (nome: string) => {
@@ -26,14 +28,24 @@ const VAULT = path.resolve(arg("--vault") ?? path.join(aqui, "..", ".."));
 const SAIDA = path.resolve(arg("--out") ?? path.join(aqui, "dist"));
 const config: Config = JSON.parse(readFileSync(path.join(aqui, "site.config.json"), "utf8"));
 
+/** Cores de reserva (estilo coleções de livro de bolso) pra pasta sem "cor" no config. */
+const CORES_RESERVA = ["#1f5c99", "#0f7a55", "#b5501a", "#7a3b8f", "#a8283f", "#2f6f73"];
+const COR_VALIDA = /^#[0-9a-f]{6}$/i;
+const colecoes = config.pastas.map((c, i) => {
+  const pasta = typeof c === "string" ? c : c.pasta;
+  const pedida = typeof c === "string" ? undefined : c.cor;
+  if (pedida && !COR_VALIDA.test(pedida)) console.warn(`⚠️  Cor "${pedida}" de "${pasta}" não é #rrggbb, usando a de reserva.`);
+  return { pasta, cor: pedida && COR_VALIDA.test(pedida) ? pedida : CORES_RESERVA[i % CORES_RESERVA.length] };
+});
+
 /** Fontes hospedadas no próprio site (nada de Google Fonts): [pacote npm, arquivo]. */
 const FONTES: [string, string][] = [
-  ["@fontsource-variable/literata", "literata-latin-wght-normal.woff2"],
-  ["@fontsource-variable/literata", "literata-latin-ext-wght-normal.woff2"],
-  ["@fontsource-variable/literata", "literata-latin-wght-italic.woff2"],
-  ["@fontsource-variable/literata", "literata-latin-ext-wght-italic.woff2"],
-  ["@fontsource/caveat", "caveat-latin-600-normal.woff2"],
-  ["@fontsource/caveat", "caveat-latin-ext-600-normal.woff2"],
+  ["@fontsource-variable/source-serif-4", "source-serif-4-latin-opsz-normal.woff2"],
+  ["@fontsource-variable/source-serif-4", "source-serif-4-latin-ext-opsz-normal.woff2"],
+  ["@fontsource-variable/source-serif-4", "source-serif-4-latin-opsz-italic.woff2"],
+  ["@fontsource-variable/source-serif-4", "source-serif-4-latin-ext-opsz-italic.woff2"],
+  ["@fontsource-variable/source-sans-3", "source-sans-3-latin-wght-normal.woff2"],
+  ["@fontsource-variable/source-sans-3", "source-sans-3-latin-ext-wght-normal.woff2"],
   ["@fontsource-variable/jetbrains-mono", "jetbrains-mono-latin-wght-normal.woff2"],
   ["@fontsource-variable/jetbrains-mono", "jetbrains-mono-latin-ext-wght-normal.woff2"],
 ];
@@ -71,7 +83,9 @@ const slugAncora = (s: string) =>
 const textoPuro = (s: string) =>
   s.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, "$2").replace(/\[\[([^\]]+)\]\]/g, "$1").replace(/[`*_~]/g, "");
 
-const naturalmente = (a: string, b: string) => a.localeCompare(b, "pt-BR", { numeric: true, sensitivity: "base" });
+const plural = (n: number, um: string, varios: string) => `${n} ${n === 1 ? um : varios}`;
+
+const naturalmente =(a: string, b: string) => a.localeCompare(b, "pt-BR", { numeric: true, sensitivity: "base" });
 
 const decodificar = (s: string) => {
   try {
@@ -149,7 +163,7 @@ function varrer(relPasta: string) {
   }
 }
 
-for (const pasta of config.pastas) {
+for (const { pasta } of colecoes) {
   if (existsSync(path.join(VAULT, pasta))) varrer(pasta);
   else console.warn(`⚠️  Pasta "${pasta}" não existe no vault, pulando.`);
 }
@@ -368,7 +382,8 @@ function sumario(pasta: Pasta, de: string, alvo?: Pagina): string {
       return `<li><a href="${urlSegura(relativo(de, i.pagina.saida))}"${atualAttr}>${escapar(i.nome)}</a></li>`;
     }
     const total = emOrdem(i.pasta!).length;
-    return `<li><details${contem(i.pasta!, alvo) ? " open" : ""}><summary><span>${escapar(i.nome)}</span><span class="conta">${total}</span></summary>${sumario(i.pasta!, de, alvo)}</details></li>`;
+    const serie = pasta === arvore && colecoes.some((c) => c.pasta === i.nome) ? ` data-serie="${serieDe(i.nome)}"` : "";
+    return `<li><details${serie}${contem(i.pasta!, alvo) ? " open" : ""}><summary><span>${escapar(i.nome)}</span><span class="conta">${total}</span></summary>${sumario(i.pasta!, de, alvo)}</details></li>`;
   });
   return `<ul>${lis.join("")}</ul>`;
 }
@@ -384,39 +399,49 @@ function trilhaDe(p: Pagina) {
 const icone = {
   sumario: `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
   fechar: `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+  seguir: `<svg class="seta" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  voltar: `<svg class="seta" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   buscar: `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
 };
 
+/** Coleção (pasta de topo) de uma nota: dá a cor da faixa e o nome no topo. */
+const colecaoDe = (p?: Pagina) => (p ? colecoes.find((c) => p.rel.split("/")[0] === c.pasta) : undefined);
+const serieDe = (pasta: string) => slugSegmento(pasta);
+
 function moldura(o: { saida: string; titulo: string; classe: string; corpo: string; alvo?: Pagina }) {
   const raiz = raizDe(o.saida);
+  const colecao = colecaoDe(o.alvo);
   return `<!doctype html>
-<html lang="pt-BR" data-raiz="${raiz}"${o.alvo ? ` data-saida="${escapar(o.alvo.saida)}"` : ""}>
+<html lang="pt-BR" data-raiz="${raiz}"${o.alvo ? ` data-saida="${escapar(o.alvo.saida)}"` : ""}${colecao ? ` data-serie="${serieDe(colecao.pasta)}"` : ""}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="${CSP}">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="theme-color" content="#f6f8fb" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#11151d" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="${colecao?.cor ?? "#1b1b1b"}">
 <title>${escapar(o.titulo)}</title>
-<link rel="preload" href="${raiz}assets/fonts/literata-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${raiz}assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${raiz}assets/fonts/source-sans-3-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${raiz}assets/site.css">
+<link rel="stylesheet" href="${raiz}assets/colecoes.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📓</text></svg>">
 <script src="${raiz}assets/site.js" defer></script>
 </head>
 <body class="${o.classe}">
 <a class="pular" href="#conteudo">Pular para o texto</a>
 <header class="topo">
-  <a class="marca" href="${raiz}index.html">${escapar(config.titulo)}</a>
+  <a class="marca" href="${raiz}index.html">${escapar(colecao?.pasta ?? config.titulo)}</a>
   <button class="abrir-sumario" type="button" aria-controls="folha" aria-expanded="false">${icone.sumario}<span>Sumário</span></button>
   <div class="progresso" aria-hidden="true"></div>
 </header>
 <div class="folha" id="folha" role="dialog" aria-modal="true" aria-label="Sumário" hidden>
-  <div class="folha-topo">
-    <h2>Sumário</h2>
-    <button class="fechar-sumario" type="button" aria-label="Fechar o sumário">${icone.fechar}</button>
+  <div class="folha-cabeca">
+    <div class="folha-topo">
+      <h2>Sumário</h2>
+      <button class="fechar-sumario" type="button" aria-label="Fechar o sumário">${icone.fechar}</button>
+    </div>
+    <label class="busca">${icone.buscar}<input type="search" placeholder="Buscar uma nota" aria-label="Buscar uma nota" autocomplete="off" enterkeyhint="go"></label>
   </div>
-  <label class="busca">${icone.buscar}<input type="search" placeholder="Buscar uma nota" aria-label="Buscar uma nota" autocomplete="off" enterkeyhint="go"></label>
   <ul class="resultados" hidden></ul>
   <nav class="arvore" aria-label="Todas as notas">${sumario(arvore, o.saida, o.alvo)}</nav>
 </div>
@@ -428,36 +453,74 @@ ${o.corpo}
 `;
 }
 
+/** Posição da nota dentro da seção (a pasta logo abaixo do caderno), pra "capítulo 5 de 13". */
+function posicaoNaSecao(p: Pagina) {
+  const partes = p.rel.split("/");
+  let no = arvore;
+  for (const parte of partes.slice(0, Math.min(2, partes.length - 1))) no = no.pastas.get(parte) ?? no;
+  const lista = emOrdem(no);
+  return { n: lista.indexOf(p) + 1, total: lista.length };
+}
+
+const minutosDeLeitura = (md: string) =>
+  Math.max(1, Math.round(md.replace(/```[\s\S]*?```/g, " ").split(/\s+/).filter(Boolean).length / 200));
+
 function paginaDeNota(p: Pagina, html: string) {
   const { anterior, proxima } = vizinhos.get(p) ?? {};
-  const link = (alvo: Pagina | undefined, rotulo: string, classe: string) =>
-    alvo
-      ? `<a class="${classe}" href="${urlSegura(relativo(p.saida, alvo.saida))}" rel="${classe === "anterior" ? "prev" : "next"}"><span class="rotulo">${rotulo}</span><span class="nome">${escapar(alvo.nome)}</span></a>`
-      : `<span class="${classe} vazio"></span>`;
-  const trilha = trilhaDe(p);
-  const corpo = `${trilha.length ? `<p class="trilha">${trilha.map(escapar).join(`<span aria-hidden="true"> / </span>`)}</p>` : ""}
-<article class="nota">${html}</article>
-<nav class="vizinhos" aria-label="Notas vizinhas">${link(anterior, "Anterior", "anterior")}${link(proxima, "Próxima", "proxima")}</nav>`;
+  const href = (alvo: Pagina) => urlSegura(relativo(p.saida, alvo.saida));
+  const trilha = trilhaDe(p).slice(1); // o caderno já aparece na faixa do topo
+  const { n, total } = posicaoNaSecao(p);
+  const meta = [
+    trilha.length ? trilha.map(escapar).join(" › ") : "",
+    total > 1 && n > 0 ? `capítulo ${n} de ${total}` : "",
+    `${minutosDeLeitura(p.md)} min de leitura`,
+  ].filter(Boolean);
+  // O primeiro "# Título" da nota vira a capa do capítulo (e sai do corpo pra não repetir).
+  // Seção sem nada embaixo (ex.: "Minhas anotações" ainda em branco) vira espaço de escrita discreto.
+  const corpoNota = html
+    .replace(/^\s*<h1 id="[^"]*">[\s\S]*?<\/h1>\n?/, "")
+    .replace(/<h2 (id="[^"]*")>([\s\S]*?)<\/h2>\n?(?=\s*(?:<h[12][ >]|<hr>|$))/g, '<h2 $1 class="vazia">$2</h2>\n');
+  const posicaoDe = (alvo: Pagina) => {
+    const { n: i, total: t } = posicaoNaSecao(alvo);
+    return t > 1 && i > 0 ? `capítulo ${i} de ${t}` : "";
+  };
+  const corpo = `<header class="capitulo">
+  <h1>${escapar(p.titulo)}</h1>
+  <p class="meta">${meta.join(`<span aria-hidden="true"> · </span>`)}</p>
+</header>
+<article class="nota">${corpoNota}</article>
+<nav class="vizinhos" aria-label="Notas vizinhas">${
+    proxima
+      ? `<a class="proxima" href="${href(proxima)}" rel="next" aria-label="Próximo capítulo: ${escapar(proxima.nome)}"><span class="nome">${escapar(proxima.nome)}${icone.seguir}</span><span class="meta">${escapar(posicaoDe(proxima) || trilhaDe(proxima).slice(1).join(" › "))}</span></a>`
+      : ""
+  }${anterior ? `<a class="anterior" href="${href(anterior)}" rel="prev" aria-label="Capítulo anterior: ${escapar(anterior.nome)}">${icone.voltar}<span class="nome">${escapar(anterior.nome)}</span></a>` : ""}</nav>`;
   return moldura({ saida: p.saida, titulo: `${p.titulo} | ${config.titulo}`, classe: "pagina-nota", corpo, alvo: p });
 }
 
 function paginaInicial() {
   const saida = "index.html";
   const trilhas = paginas.filter((p) => p.campos.tipo === "trilha").sort((a, b) => naturalmente(a.nome, b.nome));
-  const notas = paginas.length;
+  // Cada caderno publicado vira uma "lombada" na cor da coleção, com as notas dele embaixo.
+  const capas = colecoes
+    .filter((c) => arvore.pastas.has(c.pasta))
+    .map((c) => {
+      const pasta = arvore.pastas.get(c.pasta)!;
+      const id = `col-${serieDe(c.pasta)}`;
+      return `<section class="colecao" data-serie="${serieDe(c.pasta)}" aria-labelledby="${id}">
+  <h2 class="lombada" id="${id}"><span>${escapar(c.pasta)}</span><span class="conta">${plural(emOrdem(pasta).length, "nota", "notas")}</span></h2>
+  <nav class="arvore" aria-label="${escapar(c.pasta)}">${sumario(pasta, saida)}</nav>
+</section>`;
+    });
   const corpo = `<section class="capa">
   <h1>${escapar(config.titulo)}</h1>
-  <p class="resumo">${notas} notas em ${cadernos.length} cadernos. Toque numa nota e leia como capítulo; as perguntas do fim abrem com um toque.</p>
-  <p class="continuar" hidden><a href="#"><span class="rotulo">Continuar lendo</span><span class="nome"></span></a></p>
+  <p class="resumo">${plural(paginas.length, "nota", "notas")} em ${plural(capas.length, "caderno", "cadernos")}</p>
+  <p class="continuar" hidden><a href="#" aria-label="Continuar de onde parou"><span class="nome"></span><span class="meta"></span></a></p>
 </section>
-${trilhas.length ? `<section class="trilhas">
-  <h2>Por onde começar</h2>
-  <ul>${trilhas.map((t) => `<li><a href="${urlSegura(t.saida)}"><span class="nome">${escapar(t.titulo)}</span><span class="caderno">${escapar(t.rel.split("/")[0])}</span></a></li>`).join("")}</ul>
+${trilhas.length ? `<section class="trilhas" aria-labelledby="comecar">
+  <h2 id="comecar">Por onde começar</h2>
+  <ul>${trilhas.map((t) => `<li data-serie="${serieDe(t.rel.split("/")[0])}"><a href="${urlSegura(t.saida)}"><span class="nome">${escapar(t.titulo)}</span><span class="caderno">${escapar(t.rel.split("/")[0])}</span></a></li>`).join("")}</ul>
 </section>` : ""}
-<section class="indice">
-  <h2>Todas as notas</h2>
-  <nav class="arvore" aria-label="Todas as notas">${sumario(arvore, saida)}</nav>
-</section>`;
+${capas.join("\n")}`;
   return moldura({ saida, titulo: config.titulo, classe: "pagina-inicial", corpo });
 }
 
@@ -491,6 +554,11 @@ gravar(
   JSON.stringify(paginas.map((p) => ({ t: p.nome, s: trilhaDe(p).join(" / "), u: p.saida }))),
 );
 gravar(".nojekyll", "");
+// Cor de cada coleção num arquivo próprio (a CSP não deixa estilo inline).
+gravar(
+  "assets/colecoes.css",
+  colecoes.map((c) => `[data-serie="${serieDe(c.pasta)}"] { --serie: ${c.cor}; }`).join("\n") + "\n",
+);
 
 console.log(`✅ ${paginas.length} notas e ${arquivos.length} arquivos -> ${SAIDA}`);
 if (linksQuebrados.size) {

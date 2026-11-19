@@ -1,0 +1,655 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-19T16:40:36.828Z",
+  "title": "Design System: Estudos",
+  "extensions": {
+    "colorMeta": {
+      "papel": {
+        "role": "neutral",
+        "displayName": "Papel",
+        "canonical": "#fbfaf7",
+        "tonalRamp": [
+          "#2f2b1d",
+          "#554c2f",
+          "#7d6d40",
+          "#a38f52",
+          "#b9a874",
+          "#cabe9b",
+          "#ddd7c6",
+          "#f4f3f0"
+        ]
+      },
+      "folha": {
+        "role": "neutral",
+        "displayName": "Folha",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#262626",
+          "#424242",
+          "#5e5e5e",
+          "#7a7a7a",
+          "#969696",
+          "#b3b3b3",
+          "#d1d1d1",
+          "#f2f2f2"
+        ]
+      },
+      "tinta": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "canonical": "#1b1b1b",
+        "tonalRamp": [
+          "#262626",
+          "#424242",
+          "#5e5e5e",
+          "#7a7a7a",
+          "#969696",
+          "#b3b3b3",
+          "#d1d1d1",
+          "#f2f2f2"
+        ]
+      },
+      "tinta-2": {
+        "role": "neutral",
+        "displayName": "Tinta Apagada",
+        "canonical": "#5c5a55",
+        "tonalRamp": [
+          "#272725",
+          "#454340",
+          "#62605b",
+          "#7f7c76",
+          "#9b9892",
+          "#b5b4b0",
+          "#d2d2d0",
+          "#f3f2f2"
+        ]
+      },
+      "fio": {
+        "role": "neutral",
+        "displayName": "Fio",
+        "canonical": "#dcd8cf",
+        "tonalRamp": [
+          "#2a2822",
+          "#4b4639",
+          "#6d6450",
+          "#8e8267",
+          "#a79d86",
+          "#bdb7a8",
+          "#d7d3cc",
+          "#f3f3f1"
+        ]
+      },
+      "codigo": {
+        "role": "neutral",
+        "displayName": "Papel de Código",
+        "canonical": "#f1eee7",
+        "tonalRamp": [
+          "#2d291f",
+          "#514833",
+          "#766847",
+          "#9b875a",
+          "#b1a17b",
+          "#c5baa0",
+          "#dad5c8",
+          "#f4f3f1"
+        ]
+      },
+      "sobre-serie": {
+        "role": "neutral",
+        "displayName": "Sobre a Série",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#262626",
+          "#424242",
+          "#5e5e5e",
+          "#7a7a7a",
+          "#969696",
+          "#b3b3b3",
+          "#d1d1d1",
+          "#f2f2f2"
+        ]
+      },
+      "serie-programacao": {
+        "role": "primary",
+        "displayName": "Azul Pelican",
+        "canonical": "#1f5c99",
+        "tonalRamp": [
+          "#142638",
+          "#1c4268",
+          "#225e9a",
+          "#297acb",
+          "#5296da",
+          "#85b3e0",
+          "#bad1e8",
+          "#eef2f7"
+        ],
+        "note": "Valor vem de site.config.json; chega como --serie em [data-serie=\"programacao\"]. No escuro, texto usa color-mix(in oklab, var(--serie) 50%, white)."
+      },
+      "serie-ingles": {
+        "role": "primary",
+        "displayName": "Verde Inglês",
+        "canonical": "#0f7a55",
+        "tonalRamp": [
+          "#113b2d",
+          "#166f50",
+          "#18a574",
+          "#1bda98",
+          "#46e7af",
+          "#7ce9c3",
+          "#b6ecd9",
+          "#edf7f4"
+        ],
+        "note": "Valor vem de site.config.json ([data-serie=\"ingles\"])."
+      },
+      "serie-diario": {
+        "role": "primary",
+        "displayName": "Laranja Diário",
+        "canonical": "#b5501a",
+        "tonalRamp": [
+          "#3a2012",
+          "#6d3518",
+          "#a24a1b",
+          "#d65f1f",
+          "#e37f4a",
+          "#e6a37f",
+          "#ebc9b7",
+          "#f7f1ed"
+        ],
+        "note": "Valor vem de site.config.json ([data-serie=\"diario\"])."
+      },
+      "serie-neutra": {
+        "role": "primary",
+        "displayName": "Neutro de Série",
+        "canonical": "#1b1b1b",
+        "tonalRamp": [
+          "#262626",
+          "#424242",
+          "#5e5e5e",
+          "#7a7a7a",
+          "#969696",
+          "#b3b3b3",
+          "#d1d1d1",
+          "#f2f2f2"
+        ]
+      },
+      "f-dica": {
+        "role": "secondary",
+        "displayName": "Verde-Água Dica",
+        "canonical": "#0d6e66",
+        "tonalRamp": [
+          "#113c38",
+          "#156f68",
+          "#17a69a",
+          "#1adbcb",
+          "#46e7da",
+          "#7ce9e0",
+          "#b6ece8",
+          "#edf7f7"
+        ]
+      },
+      "f-atencao": {
+        "role": "secondary",
+        "displayName": "Âmbar Atenção",
+        "canonical": "#9a5a00",
+        "tonalRamp": [
+          "#412b0b",
+          "#7b4c09",
+          "#b96e04",
+          "#f58f00",
+          "#fda830",
+          "#f8be6d",
+          "#f4d7ae",
+          "#f9f3ec"
+        ]
+      },
+      "f-perigo": {
+        "role": "secondary",
+        "displayName": "Vermelho Perigo",
+        "canonical": "#b3262f",
+        "tonalRamp": [
+          "#381517",
+          "#671d22",
+          "#99242b",
+          "#ca2b35",
+          "#d9545c",
+          "#df868b",
+          "#e8bbbd",
+          "#f7eeef"
+        ]
+      },
+      "h-palavra": {
+        "role": "tertiary",
+        "displayName": "Sintaxe: palavra-chave",
+        "canonical": "#7b2f9e",
+        "tonalRamp": [
+          "#2c1835",
+          "#4e2361",
+          "#702d8f",
+          "#9338bd",
+          "#ab5fce",
+          "#c08dd8",
+          "#d8bee4",
+          "#f4eff6"
+        ]
+      },
+      "h-texto": {
+        "role": "tertiary",
+        "displayName": "Sintaxe: string",
+        "canonical": "#2a6a30",
+        "tonalRamp": [
+          "#1b321d",
+          "#2a5b2e",
+          "#37853f",
+          "#46af4f",
+          "#6ac372",
+          "#95d09a",
+          "#c2e0c5",
+          "#eff5f0"
+        ]
+      },
+      "h-numero": {
+        "role": "tertiary",
+        "displayName": "Sintaxe: número",
+        "canonical": "#a2480d",
+        "tonalRamp": [
+          "#3d210f",
+          "#733812",
+          "#ab4e11",
+          "#e36512",
+          "#ee843f",
+          "#eda678",
+          "#efcbb4",
+          "#f8f1ed"
+        ]
+      },
+      "h-comentario": {
+        "role": "tertiary",
+        "displayName": "Sintaxe: comentário",
+        "canonical": "#686459",
+        "tonalRamp": [
+          "#282724",
+          "#47443e",
+          "#656257",
+          "#847f71",
+          "#9e9a8e",
+          "#b8b5ad",
+          "#d4d2ce",
+          "#f3f2f2"
+        ]
+      },
+      "h-funcao": {
+        "role": "tertiary",
+        "displayName": "Sintaxe: função",
+        "canonical": "#1f5c99",
+        "tonalRamp": [
+          "#142638",
+          "#1c4268",
+          "#225e9a",
+          "#297acb",
+          "#5296da",
+          "#85b3e0",
+          "#bad1e8",
+          "#eef2f7"
+        ]
+      },
+      "h-tipo": {
+        "role": "tertiary",
+        "displayName": "Sintaxe: tipo",
+        "canonical": "#8a5414",
+        "tonalRamp": [
+          "#3a2812",
+          "#6d4618",
+          "#a2641b",
+          "#d6821f",
+          "#e39d4a",
+          "#e6b77f",
+          "#ebd3b7",
+          "#f7f3ed"
+        ]
+      },
+      "papel-noite": {
+        "role": "neutral",
+        "displayName": "Grafite Quente",
+        "canonical": "#1a1917",
+        "tonalRamp": [
+          "#282725",
+          "#46433f",
+          "#646059",
+          "#827d73",
+          "#9d9990",
+          "#b7b4ae",
+          "#d3d2cf",
+          "#f3f2f2"
+        ]
+      },
+      "folha-noite": {
+        "role": "neutral",
+        "displayName": "Folha da Noite",
+        "canonical": "#222120",
+        "tonalRamp": [
+          "#272625",
+          "#444241",
+          "#615e5c",
+          "#7e7a77",
+          "#9a9693",
+          "#b5b3b0",
+          "#d2d1d0",
+          "#f2f2f2"
+        ]
+      },
+      "tinta-noite": {
+        "role": "neutral",
+        "displayName": "Tinta da Noite",
+        "canonical": "#e9e5dd",
+        "tonalRamp": [
+          "#2c2820",
+          "#4f4636",
+          "#72654b",
+          "#958360",
+          "#ac9e80",
+          "#c1b7a4",
+          "#d9d4ca",
+          "#f4f3f1"
+        ]
+      },
+      "tinta-2-noite": {
+        "role": "neutral",
+        "displayName": "Tinta Apagada da Noite",
+        "canonical": "#aaa59b",
+        "tonalRamp": [
+          "#282724",
+          "#47443e",
+          "#666157",
+          "#847e70",
+          "#9f998e",
+          "#b8b4ad",
+          "#d4d2ce",
+          "#f3f2f2"
+        ]
+      },
+      "fio-noite": {
+        "role": "neutral",
+        "displayName": "Fio da Noite",
+        "canonical": "#3a3835",
+        "tonalRamp": [
+          "#272625",
+          "#454340",
+          "#625f5a",
+          "#807c75",
+          "#9b9792",
+          "#b6b3af",
+          "#d3d1d0",
+          "#f3f2f2"
+        ]
+      },
+      "codigo-noite": {
+        "role": "neutral",
+        "displayName": "Código da Noite",
+        "canonical": "#252421",
+        "tonalRamp": [
+          "#282725",
+          "#46443f",
+          "#646159",
+          "#817e73",
+          "#9c9991",
+          "#b6b4af",
+          "#d3d2cf",
+          "#f3f2f2"
+        ]
+      },
+      "serie-neutra-noite": {
+        "role": "primary",
+        "displayName": "Neutro de Série da Noite",
+        "canonical": "#6b6862",
+        "tonalRamp": [
+          "#272725",
+          "#454340",
+          "#62605a",
+          "#807c75",
+          "#9b9892",
+          "#b6b4af",
+          "#d3d2d0",
+          "#f3f2f2"
+        ]
+      },
+      "estante-faixa-noite": {
+        "role": "neutral",
+        "displayName": "Faixa da Estante à Noite",
+        "canonical": "#2e2c29",
+        "tonalRamp": [
+          "#282725",
+          "#46433f",
+          "#645f59",
+          "#817c73",
+          "#9c9891",
+          "#b6b3af",
+          "#d3d1cf",
+          "#f3f2f2"
+        ]
+      },
+      "estante-fio-noite": {
+        "role": "neutral",
+        "displayName": "Fio da Estante à Noite",
+        "canonical": "#4a4743",
+        "tonalRamp": [
+          "#282625",
+          "#45433f",
+          "#635f5a",
+          "#807b74",
+          "#9c9791",
+          "#b6b3af",
+          "#d3d1cf",
+          "#f3f2f2"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Só o \"Estudos\" da capa do site."
+      },
+      "headline": {
+        "displayName": "Título do capítulo",
+        "purpose": "Capa do capítulo, centrado, seguido de fio curto."
+      },
+      "lombada": {
+        "displayName": "Lombada",
+        "purpose": "Nome do caderno na faixa da estante."
+      },
+      "title": {
+        "displayName": "Seção",
+        "purpose": "h2 da nota, aberto pelo toco de faixa."
+      },
+      "body": {
+        "displayName": "Texto corrido",
+        "purpose": "Corpo da nota em serifa; 17px dentro de fichas e boxes."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Posição, minutos e contagens, tabulares, em tinta apagada."
+      },
+      "label": {
+        "displayName": "Rótulo",
+        "purpose": "Botões, rótulos de box, Resposta, Abrir/Fechar. Funcional, nunca sobretítulo."
+      },
+      "code": {
+        "displayName": "Código",
+        "purpose": "Blocos e código em linha (0.82em), ligaduras desligadas."
+      }
+    },
+    "shadows": [
+      {
+        "name": "anel-foco-busca",
+        "value": "0 0 0 1px var(--serie-texto)",
+        "purpose": "Único box-shadow: dobra a borda da busca em foco. Não é elevação."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-saida",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Setas que giram (0.18s) e folha do sumário subindo (0.28s)."
+      },
+      {
+        "name": "folha-descer",
+        "value": "0.2s ease-in",
+        "purpose": "Folha do sumário descendo ao fechar."
+      },
+      {
+        "name": "reduzido",
+        "value": "transition: none",
+        "purpose": "prefers-reduced-motion desliga todas as transições."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "celular",
+        "value": "390px (referência; coluna única até 36rem + 2x16px)"
+      }
+    ],
+    "darkMode": {
+      "trigger": "prefers-color-scheme: dark",
+      "serieTexto": "color-mix(in oklab, var(--serie) 50%, white)",
+      "serieLeve": "color-mix(in oklab, var(--serie) 16%, var(--papel))",
+      "estante": "faixa #2e2c29 com border-bottom 1px #4a4743"
+    }
+  },
+  "components": [
+    {
+      "name": "Faixa do topo com Sumário",
+      "kind": "nav",
+      "refersTo": "faixa-topo",
+      "description": "Faixa chapada da coleção, presa no alto, com nome da coleção, botão Sumário e barra de progresso.",
+      "html": "<header class=\"ds-topo\"><a class=\"ds-marca\" href=\"#\">Programação</a><button class=\"ds-btn-sumario\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M5 6h14M5 12h14M5 18h9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg><span>Sumário</span></button><span class=\"ds-progresso\"></span></header>",
+      "css": ":host{--papel:#fbfaf7;--folha:#fff;--tinta:#1b1b1b;--tinta-2:#5c5a55;--fio:#dcd8cf;--codigo:#f1eee7;--sobre-serie:#fff;--serie:#1f5c99;--serie-fundo:var(--serie);--serie-texto:var(--serie);--serie-leve:color-mix(in oklab,var(--serie) 8%,#fbfaf7);--sans:\"Source Sans 3\",Arial,Helvetica,sans-serif;--serifa:\"Source Serif 4\",\"Times New Roman\",Times,serif;--mono:\"JetBrains Mono\",ui-monospace,Menlo,Consolas,monospace}.ds-topo{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;height:56px;padding:0 16px;background:var(--serie-fundo);color:var(--sobre-serie)}.ds-marca{color:inherit;font:700 18px/1 var(--sans);letter-spacing:.01em;text-decoration:none}.ds-btn-sumario{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border:1.5px solid currentColor;border-radius:0;background:transparent;color:inherit;font:700 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;cursor:pointer}.ds-btn-sumario:hover,.ds-btn-sumario:active{background:rgba(255,255,255,.16)}.ds-btn-sumario:focus-visible{outline:2px solid var(--sobre-serie);outline-offset:2px}.ds-progresso{position:absolute;left:0;bottom:0;width:40%;height:3px;background:var(--sobre-serie);opacity:.85}"
+    },
+    {
+      "name": "Capa do capítulo",
+      "kind": "custom",
+      "refersTo": "headline",
+      "description": "Título centrado em sans, fio curto, linha meta tabular, fio de 3px da coleção fechando.",
+      "html": "<div class=\"ds-capitulo\"><h1>Ler e Escrever Arquivos</h1><p class=\"ds-meta\">03 - TypeScript · capítulo 8 de 17 · 8 min de leitura</p></div>",
+      "css": ":host{--papel:#fbfaf7;--folha:#fff;--tinta:#1b1b1b;--tinta-2:#5c5a55;--fio:#dcd8cf;--codigo:#f1eee7;--sobre-serie:#fff;--serie:#1f5c99;--serie-fundo:var(--serie);--serie-texto:var(--serie);--serie-leve:color-mix(in oklab,var(--serie) 8%,#fbfaf7);--sans:\"Source Sans 3\",Arial,Helvetica,sans-serif;--serifa:\"Source Serif 4\",\"Times New Roman\",Times,serif;--mono:\"JetBrains Mono\",ui-monospace,Menlo,Consolas,monospace}.ds-capitulo{padding:36px 0 26px;border-bottom:3px solid var(--serie-fundo);text-align:center;background:var(--papel);color:var(--tinta)}.ds-capitulo h1{margin:0;font:700 38px/1.08 var(--sans);letter-spacing:-.015em;text-wrap:balance}.ds-capitulo h1::after{content:\"\";display:block;width:44px;height:1px;margin:18px auto 0;background:var(--tinta)}.ds-meta{margin:14px 0 0;color:var(--tinta-2);font:400 15px/1.45 var(--sans);font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Seção com toco de faixa",
+      "kind": "custom",
+      "refersTo": "title",
+      "description": "h2 aberto por um toco de 32x4px na cor da coleção; seção vazia vira espaço de escrever.",
+      "html": "<div class=\"ds-nota\"><h2>Por que a memória some</h2><p>Tudo o que estava em variáveis morava na memória.</p><h2 class=\"ds-vazia\">Minhas anotações</h2></div>",
+      "css": ":host{--papel:#fbfaf7;--folha:#fff;--tinta:#1b1b1b;--tinta-2:#5c5a55;--fio:#dcd8cf;--codigo:#f1eee7;--sobre-serie:#fff;--serie:#1f5c99;--serie-fundo:var(--serie);--serie-texto:var(--serie);--serie-leve:color-mix(in oklab,var(--serie) 8%,#fbfaf7);--sans:\"Source Sans 3\",Arial,Helvetica,sans-serif;--serifa:\"Source Serif 4\",\"Times New Roman\",Times,serif;--mono:\"JetBrains Mono\",ui-monospace,Menlo,Consolas,monospace}.ds-nota{background:var(--papel);color:var(--tinta);font:400 18px/1.65 var(--serifa)}.ds-nota h2{margin:24px 0 12px;font:700 24px/1.2 var(--sans);letter-spacing:-.01em}.ds-nota h2::before{content:\"\";display:block;width:32px;height:4px;margin-bottom:14px;background:var(--serie-fundo)}.ds-nota p{margin:0 0 18px}.ds-nota h2.ds-vazia{margin:28px 0 0;padding-bottom:34px;border-bottom:1px solid var(--fio);color:var(--tinta-2);font-size:18px;font-weight:600;background:linear-gradient(var(--fio),var(--fio)) left bottom 17px/100% 1px no-repeat}.ds-nota h2.ds-vazia::before{display:none}"
+    },
+    {
+      "name": "Ficha de pergunta e resposta",
+      "kind": "card",
+      "refersTo": "ficha-pergunta",
+      "description": "Ficha de revisão com fio da coleção em cima; resposta escondida até tocar, sobre fundo leve da coleção.",
+      "html": "<details class=\"ds-ficha\" open><summary>O que acontece com as variáveis quando o programa termina?</summary><div class=\"ds-corpo\"><details class=\"ds-resposta\"><summary>Resposta</summary><div class=\"ds-resp-corpo\">A memória é apagada; pra guardar, grave num arquivo.</div></details></div></details>",
+      "css": ":host{--papel:#fbfaf7;--folha:#fff;--tinta:#1b1b1b;--tinta-2:#5c5a55;--fio:#dcd8cf;--codigo:#f1eee7;--sobre-serie:#fff;--serie:#1f5c99;--serie-fundo:var(--serie);--serie-texto:var(--serie);--serie-leve:color-mix(in oklab,var(--serie) 8%,#fbfaf7);--sans:\"Source Sans 3\",Arial,Helvetica,sans-serif;--serifa:\"Source Serif 4\",\"Times New Roman\",Times,serif;--mono:\"JetBrains Mono\",ui-monospace,Menlo,Consolas,monospace}.ds-ficha{background:var(--folha);border:1px solid var(--fio);border-top:3px solid var(--serie-fundo);color:var(--tinta);font:400 17px/1.55 var(--serifa)}.ds-ficha>summary{display:flex;align-items:flex-start;gap:12px;min-height:52px;padding:14px 16px;font:600 17px/1.4 var(--sans);list-style:none;cursor:pointer}.ds-ficha>summary::-webkit-details-marker{display:none}.ds-ficha>summary::after{content:\"Abrir\";margin-left:auto;align-self:center;color:var(--serie-texto);font:700 12px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase}.ds-ficha[open]>summary::after{content:\"Fechar\";color:var(--tinta-2)}.ds-ficha[open]>summary{border-bottom:1px solid var(--fio)}.ds-ficha>summary:focus-visible,.ds-resposta>summary:focus-visible{outline:2px solid var(--serie-texto);outline-offset:2px}.ds-corpo{padding:14px 16px 16px}.ds-resposta>summary{display:inline-flex;align-items:center;gap:12px;min-height:40px;color:var(--serie-texto);font:700 13px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;list-style:none;cursor:pointer}.ds-resposta>summary::-webkit-details-marker{display:none}.ds-resposta>summary::after{content:\"\";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .18s cubic-bezier(.16,1,.3,1)}.ds-resposta[open]>summary::after{transform:rotate(225deg) translate(-1px,-1px)}.ds-resp-corpo{margin-top:4px;padding:12px 14px;background:var(--serie-leve)}"
+    },
+    {
+      "name": "Box de dica",
+      "kind": "card",
+      "refersTo": "f-dica",
+      "description": "Box com borda e fundo tingidos pela família (dica, atenção, perigo; nota e resumo na cor da coleção).",
+      "html": "<div class=\"ds-box\"><div class=\"ds-box-titulo\">Dica</div><p>Use JSON.stringify com indentação pra ler o arquivo depois.</p></div>",
+      "css": ":host{--papel:#fbfaf7;--folha:#fff;--tinta:#1b1b1b;--tinta-2:#5c5a55;--fio:#dcd8cf;--codigo:#f1eee7;--sobre-serie:#fff;--serie:#1f5c99;--serie-fundo:var(--serie);--serie-texto:var(--serie);--serie-leve:color-mix(in oklab,var(--serie) 8%,#fbfaf7);--sans:\"Source Sans 3\",Arial,Helvetica,sans-serif;--serifa:\"Source Serif 4\",\"Times New Roman\",Times,serif;--mono:\"JetBrains Mono\",ui-monospace,Menlo,Consolas,monospace}.ds-box{--cor:#0d6e66;padding:14px 16px;border:1px solid color-mix(in oklab,var(--cor) 35%,var(--fio));background:color-mix(in oklab,var(--cor) 6%,var(--papel));color:var(--tinta);font:400 17px/1.6 var(--serifa)}.ds-box-titulo{color:var(--cor);font:700 13px/1.35 var(--sans);letter-spacing:.1em;text-transform:uppercase}.ds-box p{margin:8px 0 0}"
+    },
+    {
+      "name": "Bloco de código",
+      "kind": "custom",
+      "refersTo": "code",
+      "description": "pre sangrando até a borda, papel de código, fio de 2px da coleção em cima.",
+      "html": "<pre class=\"ds-pre\"><code><span class=\"k\">const</span> dados = <span class=\"f\">JSON</span>.parse(texto); <span class=\"c\">// carrega</span></code></pre>",
+      "css": ":host{--papel:#fbfaf7;--folha:#fff;--tinta:#1b1b1b;--tinta-2:#5c5a55;--fio:#dcd8cf;--codigo:#f1eee7;--sobre-serie:#fff;--serie:#1f5c99;--serie-fundo:var(--serie);--serie-texto:var(--serie);--serie-leve:color-mix(in oklab,var(--serie) 8%,#fbfaf7);--sans:\"Source Sans 3\",Arial,Helvetica,sans-serif;--serifa:\"Source Serif 4\",\"Times New Roman\",Times,serif;--mono:\"JetBrains Mono\",ui-monospace,Menlo,Consolas,monospace}.ds-pre{margin:0;padding:16px;overflow-x:auto;background:var(--codigo);border-top:2px solid var(--serie-fundo);color:var(--tinta);font:400 14.5px/1.6 var(--mono);font-variant-ligatures:none}.ds-pre .k{color:#7b2f9e}.ds-pre .f{color:#1f5c99}.ds-pre .c{color:#686459;font-style:italic}"
+    },
+    {
+      "name": "Próximo capítulo",
+      "kind": "button",
+      "refersTo": "proximo-capitulo",
+      "description": "Faixa da coleção em largura total levando ao próximo capítulo; seta SVG.",
+      "html": "<a class=\"ds-proxima\" href=\"#\"><span class=\"ds-nome\">Tratando erros de arquivo <svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span><span class=\"ds-pmeta\">capítulo 9 de 17 · 6 min</span></a>",
+      "css": ":host{--papel:#fbfaf7;--folha:#fff;--tinta:#1b1b1b;--tinta-2:#5c5a55;--fio:#dcd8cf;--codigo:#f1eee7;--sobre-serie:#fff;--serie:#1f5c99;--serie-fundo:var(--serie);--serie-texto:var(--serie);--serie-leve:color-mix(in oklab,var(--serie) 8%,#fbfaf7);--sans:\"Source Sans 3\",Arial,Helvetica,sans-serif;--serifa:\"Source Serif 4\",\"Times New Roman\",Times,serif;--mono:\"JetBrains Mono\",ui-monospace,Menlo,Consolas,monospace}.ds-proxima{display:flex;flex-direction:column;gap:6px;padding:22px 16px;background:var(--serie-fundo);color:var(--sobre-serie);font-family:var(--sans);text-decoration:none}.ds-nome{display:flex;align-items:center;justify-content:space-between;gap:16px;font-weight:700;font-size:22px;line-height:1.2}.ds-pmeta{font-size:15px;opacity:.88;font-variant-numeric:tabular-nums}.ds-proxima:hover,.ds-proxima:active{filter:brightness(1.12)}.ds-proxima:focus-visible{outline:2px solid var(--serie-texto);outline-offset:2px}"
+    },
+    {
+      "name": "Lombada da estante",
+      "kind": "custom",
+      "refersTo": "lombada",
+      "description": "Cada caderno na capa do site: faixa chapada com nome e contagem tabular.",
+      "html": "<h2 class=\"ds-lombada\">Programação <span class=\"ds-conta\">100 notas</span></h2>",
+      "css": ":host{--papel:#fbfaf7;--folha:#fff;--tinta:#1b1b1b;--tinta-2:#5c5a55;--fio:#dcd8cf;--codigo:#f1eee7;--sobre-serie:#fff;--serie:#1f5c99;--serie-fundo:var(--serie);--serie-texto:var(--serie);--serie-leve:color-mix(in oklab,var(--serie) 8%,#fbfaf7);--sans:\"Source Sans 3\",Arial,Helvetica,sans-serif;--serifa:\"Source Serif 4\",\"Times New Roman\",Times,serif;--mono:\"JetBrains Mono\",ui-monospace,Menlo,Consolas,monospace}.ds-lombada{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0;padding:18px 16px 16px;background:var(--serie-fundo);color:var(--sobre-serie);font:700 26px/1.1 var(--sans);letter-spacing:-.01em}.ds-conta{font:600 13px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Continuar lendo com fitinha",
+      "kind": "card",
+      "refersTo": "continuar-lendo",
+      "description": "Cartão da última nota lida, com fio da coleção em cima e fitinha de marcador pendurada.",
+      "html": "<a class=\"ds-continuar\" href=\"#\"><span class=\"ds-cnome\">Ler e Escrever Arquivos</span><span class=\"ds-cmeta\">Programação · 03 - TypeScript</span></a>",
+      "css": ":host{--papel:#fbfaf7;--folha:#fff;--tinta:#1b1b1b;--tinta-2:#5c5a55;--fio:#dcd8cf;--codigo:#f1eee7;--sobre-serie:#fff;--serie:#1f5c99;--serie-fundo:var(--serie);--serie-texto:var(--serie);--serie-leve:color-mix(in oklab,var(--serie) 8%,#fbfaf7);--sans:\"Source Sans 3\",Arial,Helvetica,sans-serif;--serifa:\"Source Serif 4\",\"Times New Roman\",Times,serif;--mono:\"JetBrains Mono\",ui-monospace,Menlo,Consolas,monospace}.ds-continuar{position:relative;display:flex;flex-direction:column;gap:4px;padding:16px 52px 18px 16px;border:1px solid var(--fio);border-top:3px solid var(--serie-fundo);background:var(--folha);color:var(--tinta);text-decoration:none}.ds-continuar::after{content:\"\";position:absolute;top:-3px;right:18px;width:16px;height:30px;background:var(--serie-fundo);clip-path:polygon(0 0,100% 0,100% 100%,50% 74%,0 100%)}.ds-continuar:hover,.ds-continuar:active{background:var(--serie-leve)}.ds-continuar:focus-visible{outline:2px solid var(--serie-texto);outline-offset:2px}.ds-cnome{font:700 21px/1.25 var(--sans)}.ds-cmeta{color:var(--tinta-2);font:400 15px/1.4 var(--sans);font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Busca",
+      "kind": "input",
+      "refersTo": "busca",
+      "description": "Campo da folha do sumário: canto vivo, fio de 1px, foco na cor da coleção.",
+      "html": "<label class=\"ds-busca\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"6.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M16 16l4 4\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg><input type=\"search\" placeholder=\"Buscar nas notas\"></label>",
+      "css": ":host{--papel:#fbfaf7;--folha:#fff;--tinta:#1b1b1b;--tinta-2:#5c5a55;--fio:#dcd8cf;--codigo:#f1eee7;--sobre-serie:#fff;--serie:#1f5c99;--serie-fundo:var(--serie);--serie-texto:var(--serie);--serie-leve:color-mix(in oklab,var(--serie) 8%,#fbfaf7);--sans:\"Source Sans 3\",Arial,Helvetica,sans-serif;--serifa:\"Source Serif 4\",\"Times New Roman\",Times,serif;--mono:\"JetBrains Mono\",ui-monospace,Menlo,Consolas,monospace}.ds-busca{display:flex;align-items:center;gap:10px;padding:0 14px;border:1px solid var(--fio);background:var(--folha);color:var(--tinta-2)}.ds-busca:focus-within{border-color:var(--serie-texto);box-shadow:0 0 0 1px var(--serie-texto)}.ds-busca input{flex:1;min-width:0;height:48px;border:0;background:none;color:var(--tinta);font:400 17px var(--sans);outline:none}.ds-busca input::placeholder{color:var(--tinta-2)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A Coleção de Bolso",
+    "overview": "Cada caderno do vault é uma coleção de livros de bolso com cor própria, e cada nota é um capítulo. O papel é quase branco e a tinta quase preta; a única cor forte é a da coleção, aplicada chapada, sem gradiente, sem sombra, sem canto arredondado. É papel impresso numa tela de celular: uma coluna, texto em serifa de livro, interface e títulos em sans.\n\nA cor da coleção não é decoração, é endereço. Ela fecha a faixa do topo, abre cada seção como um toco de faixa, borda o código, encima as fichas de pergunta e vira lombada na estante. O leitor sempre sabe em que coleção está sem ler nenhum rótulo. Fora disso, a estrutura é feita de fios finos (1px) e um ou outro fio grosso (3px) na cor da coleção.\n\nDensidade de livro: margens laterais de 16px, corpo em 18px com entrelinha 1,65, seções arejadas. A interface some enquanto se lê; números (contagens, minutos, posição) são tabulares e discretos. À noite o papel vira grafite quente, nunca preto puro.",
+    "keyCharacteristics": [
+      "Cor chapada por coleção, vinda do `site.config.json`, como único acento.",
+      "Sem sombras, sem cantos arredondados: tudo é retângulo impresso.",
+      "Serifa (Source Serif 4) pro texto, sans (Source Sans 3) pra títulos e interface, mono (JetBrains Mono) pro código.",
+      "Fios de 1px pra estrutura; fio de 3px na cor da coleção pra fechar ou encimar um bloco.",
+      "Uma coluna de no máximo 36rem, pensada só pro celular."
+    ],
+    "rules": [
+      {
+        "name": "The Cor É Endereço Rule",
+        "body": "A cor da coleção só aparece chapada, em faixas, tocos, fios e marcadores; ela diz onde você está. Nunca vira gradiente, sombra ou fundo de parágrafo (o único tom leve é `--serie-leve`, pra resposta revelada e toque).",
+        "section": "colors"
+      },
+      {
+        "name": "The Estante Neutra Rule",
+        "body": "Na capa do site a faixa do topo é tinta, não cor: as cores ficam pras lombadas de cada caderno.",
+        "section": "colors"
+      },
+      {
+        "name": "The Serifa Lê, Sans Aponta Rule",
+        "body": "Tudo que se lê de ponta a ponta é serifa; tudo que se toca, se navega ou se conta é sans.",
+        "section": "typography"
+      },
+      {
+        "name": "The Número Tabular Rule",
+        "body": "Contagens, minutos e posição usam algarismos tabulares, em tinta apagada.",
+        "section": "typography"
+      },
+      {
+        "name": "The Papel Impresso Rule",
+        "body": "Nada flutua. Se um bloco precisa se destacar, ele ganha fio, folha ou faixa de cor, nunca sombra.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** tirar toda cor de coleção do `site.config.json` via `--serie` em `[data-serie]`, e usar `--serie-fundo` pra faixas/fios, `--serie-texto` pra texto e sublinhado, `--serie-leve` pra fundos leves.",
+      "**Do** abrir cada seção h2 com o toco de 32×4px na cor da coleção.",
+      "**Do** usar fio de 1px (fio) pra estrutura e fio de 3px da coleção pra fechar ou encimar um bloco (capa do capítulo, ficha, continuar lendo, cabeçalho do sumário).",
+      "**Do** fazer as faixas de cor (código, lombada, próximo capítulo) sangrarem até a borda com margem negativa de 16px.",
+      "**Do** manter algarismos tabulares em contagens, minutos e posição.",
+      "**Do** desenhar ícones e setas em SVG de traço 2px com `currentColor`.",
+      "**Do** sublinhar links com 1,5px na cor da coleção, a 3px do texto.",
+      "**Do** manter alvos de toque com pelo menos 44px."
+    ],
+    "donts": [
+      "**Don't** usar sombra, gradiente decorativo ou canto arredondado em nenhuma superfície.",
+      "**Don't** escrever cor de coleção à mão no CSS; uma coleção nova entra só pelo config.",
+      "**Don't** pôr a cor de coleção na faixa do topo da estante; ali a faixa é tinta.",
+      "**Don't** colocar sobretítulo ou rótulo de série acima do título do capítulo; a coleção já está na faixa e a posição vai na linha meta.",
+      "**Don't** usar texto em sans no corpo corrido nem serifa na interface.",
+      "**Don't** usar preto puro como fundo noturno; o papel da noite é grafite quente."
+    ]
+  }
+}

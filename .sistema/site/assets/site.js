@@ -10,7 +10,12 @@
   const lerGuardado = () => { try { return JSON.parse(localStorage.getItem(CHAVE) || "null"); } catch { return null; } };
 
   if (html.dataset.saida) {
-    guardar({ u: html.dataset.saida, t: $(".nota h1")?.textContent || document.title });
+    guardar({
+      u: html.dataset.saida,
+      t: $(".capitulo h1")?.textContent || document.title,
+      s: html.dataset.serie || "",
+      m: [$(".marca")?.textContent, $(".capitulo .meta")?.textContent?.split(" · ")[0]].filter(Boolean).join(" · "),
+    });
   }
   const continuar = $(".continuar");
   const ultima = lerGuardado();
@@ -18,7 +23,15 @@
     const a = continuar.querySelector("a");
     a.href = raiz + ultima.u;
     a.querySelector(".nome").textContent = ultima.t || ultima.u;
+    a.querySelector(".meta").textContent = typeof ultima.m === "string" ? ultima.m : "";
+    a.setAttribute("aria-label", `Continuar de onde parou: ${a.querySelector(".nome").textContent}`);
+    if (typeof ultima.s === "string" && /^[a-z0-9.-]+$/.test(ultima.s)) continuar.dataset.serie = ultima.s;
     continuar.hidden = false;
+    // A fitinha de "onde você parou" também aparece na estante, no link da nota.
+    const alvo = new URL(raiz + ultima.u, location.href).href;
+    for (const link of document.querySelectorAll("main .arvore a[href]")) {
+      if (link.href === alvo) link.classList.add("parou");
+    }
   }
 
   // ---------- folha do sumário ----------
