@@ -262,8 +262,7 @@ pre code { font-size: inherit; }
 .callout {
   --cor: var(--c-nota);
   margin: 0 0 16px;
-  border: 1px solid color-mix(in srgb, var(--cor) 30%, var(--borda));
-  border-left: 4px solid var(--cor);
+  border: 1px solid color-mix(in srgb, var(--cor) 35%, var(--borda));
   border-radius: 10px;
   background: color-mix(in srgb, var(--cor) 7%, var(--fundo));
   color: var(--texto);
