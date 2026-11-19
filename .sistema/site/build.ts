@@ -1,9 +1,10 @@
 /**
  * Gerador do site do vault: lê as notas do Obsidian e gera HTML estático pro GitHub Pages.
+ * O site é feito pra ser lido no celular (uma coluna só, sumário em folha de baixo pra cima).
  *
- *   node build.ts [--vault <pasta do vault>] [--out <pasta de saída>]
+ *   node build.ts [--vault <pasta do vault>] [--out <pasta de saída>] [--detalhes]
  *
- * O que entra no site está em site.config.json (título, nota inicial e pastas publicadas).
+ * O que entra no site está em site.config.json (título e pastas publicadas).
  * Suporta: [[links]] (com #seção e |apelido), ![[embeds]] de imagem, callouts (inclusive
  * aninhados e recolhíveis com + / -), comentários %% %%, frontmatter e código colorido.
  */
@@ -14,7 +15,7 @@ import hljs from "highlight.js";
 
 // ---------- configuração ----------
 
-type Config = { titulo: string; inicio: string; pastas: string[] };
+type Config = { titulo: string; pastas: string[] };
 
 const aqui = import.meta.dirname;
 const arg = (nome: string) => {
@@ -25,10 +26,35 @@ const VAULT = path.resolve(arg("--vault") ?? path.join(aqui, "..", ".."));
 const SAIDA = path.resolve(arg("--out") ?? path.join(aqui, "dist"));
 const config: Config = JSON.parse(readFileSync(path.join(aqui, "site.config.json"), "utf8"));
 
+/** Fontes hospedadas no próprio site (nada de Google Fonts): [pacote npm, arquivo]. */
+const FONTES: [string, string][] = [
+  ["@fontsource-variable/literata", "literata-latin-wght-normal.woff2"],
+  ["@fontsource-variable/literata", "literata-latin-ext-wght-normal.woff2"],
+  ["@fontsource-variable/literata", "literata-latin-wght-italic.woff2"],
+  ["@fontsource-variable/literata", "literata-latin-ext-wght-italic.woff2"],
+  ["@fontsource/caveat", "caveat-latin-600-normal.woff2"],
+  ["@fontsource/caveat", "caveat-latin-ext-600-normal.woff2"],
+  ["@fontsource-variable/jetbrains-mono", "jetbrains-mono-latin-wght-normal.woff2"],
+  ["@fontsource-variable/jetbrains-mono", "jetbrains-mono-latin-ext-wght-normal.woff2"],
+];
+
+/** Só scripts e estilos do próprio site; HTML solto numa nota não consegue rodar JavaScript. */
+const CSP = [
+  "default-src 'none'",
+  "script-src 'self'",
+  "style-src 'self'",
+  "font-src 'self'",
+  "img-src 'self' data: https:",
+  "connect-src 'self'",
+  "base-uri 'none'",
+  "form-action 'none'",
+].join("; ");
+
 // ---------- utilidades ----------
 
 const posix = path.posix;
 const IMAGENS = /\.(png|jpe?g|gif|webp|svg|avif)$/i;
+const ESQUEMAS_PERMITIDOS = /^(https?|mailto|tel):/i;
 
 const escapar = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -47,6 +73,14 @@ const textoPuro = (s: string) =>
 
 const naturalmente = (a: string, b: string) => a.localeCompare(b, "pt-BR", { numeric: true, sensitivity: "base" });
 
+const decodificar = (s: string) => {
+  try {
+    return decodeURI(s);
+  } catch {
+    return s;
+  }
+};
+
 /** Caminho relativo de uma página de saída até outra (ou até um arquivo). */
 const relativo = (de: string, para: string) => {
   const r = posix.relative(posix.dirname(de), para);
@@ -58,6 +92,17 @@ const raizDe = (saida: string) => {
 };
 const urlSegura = (p: string) => p.split("/").map(encodeURIComponent).join("/");
 
+function lerFrontmatter(bruto: string): { campos: Record<string, string>; corpo: string } {
+  const m = /^---\n([\s\S]*?)\n---\n?/.exec(bruto);
+  if (!m) return { campos: {}, corpo: bruto };
+  const campos: Record<string, string> = {};
+  for (const linha of m[1].split("\n")) {
+    const c = /^([\w-]+):\s*(.*)$/.exec(linha);
+    if (c) campos[c[1]] = c[2].trim().replace(/^["']|["']$/g, "");
+  }
+  return { campos, corpo: bruto.slice(m[0].length) };
+}
+
 // ---------- coleta das notas ----------
 
 type Pagina = {
@@ -65,13 +110,14 @@ type Pagina = {
   saida: string; // caminho no site, ex: "programacao/02-fundamentos/funcoes/funcoes.html"
   nome: string; //  nome do arquivo sem .md
   titulo: string;
+  campos: Record<string, string>;
   md: string;
 };
 type Arquivo = { rel: string; saida: string };
 
 const paginas: Pagina[] = [];
 const arquivos: Arquivo[] = [];
-const saidasUsadas = new Set<string>();
+const saidasUsadas = new Set<string>(["index.html"]);
 
 function saidaUnica(desejada: string) {
   let s = desejada;
@@ -80,12 +126,13 @@ function saidaUnica(desejada: string) {
   return s;
 }
 
-function lerNota(rel: string, saida: string) {
+function lerNota(rel: string) {
   const bruto = readFileSync(path.join(VAULT, rel), "utf8").replace(/\r\n?/g, "\n");
-  const md = bruto.replace(/^---\n[\s\S]*?\n---\n?/, ""); // tira o frontmatter
+  const { campos, corpo } = lerFrontmatter(bruto);
   const nome = posix.basename(rel).replace(/\.md$/i, "");
-  const h1 = /^# (.+)$/m.exec(md.replace(/```[\s\S]*?```/g, ""));
-  paginas.push({ rel, saida: saidaUnica(saida), nome, titulo: h1 ? textoPuro(h1[1]).trim() : nome, md });
+  const h1 = /^# (.+)$/m.exec(corpo.replace(/```[\s\S]*?```/g, ""));
+  const saida = saidaUnica(rel.replace(/\.md$/i, "").split("/").map(slugSegmento).join("/") + ".html");
+  paginas.push({ rel, saida, nome, titulo: h1 ? textoPuro(h1[1]).trim() : nome, campos, md: corpo });
 }
 
 function varrer(relPasta: string) {
@@ -93,7 +140,7 @@ function varrer(relPasta: string) {
     if (e.name.startsWith(".")) continue;
     const rel = posix.join(relPasta, e.name);
     if (e.isDirectory()) varrer(rel);
-    else if (/\.md$/i.test(e.name)) lerNota(rel, rel.replace(/\.md$/i, "").split("/").map(slugSegmento).join("/") + ".html");
+    else if (/\.md$/i.test(e.name)) lerNota(rel);
     else {
       const ext = posix.extname(e.name);
       const base = rel.slice(0, rel.length - ext.length).split("/").map(slugSegmento).join("/");
@@ -102,9 +149,6 @@ function varrer(relPasta: string) {
   }
 }
 
-saidasUsadas.add("index.html");
-lerNota(config.inicio, "index.html");
-paginas[0].saida = "index.html";
 for (const pasta of config.pastas) {
   if (existsSync(path.join(VAULT, pasta))) varrer(pasta);
   else console.warn(`⚠️  Pasta "${pasta}" não existe no vault, pulando.`);
@@ -135,7 +179,7 @@ function acharArquivo(alvo: string): Arquivo | undefined {
 
 // ---------- Markdown -> HTML ----------
 
-let atual: Pagina; //                   página sendo gerada (os links são relativos a ela)
+let atual: { saida: string; rel: string }; // página sendo gerada (os links são relativos a ela)
 let idsUsados = new Map<string, number>();
 const linksQuebrados = new Map<string, Set<string>>();
 
@@ -158,6 +202,16 @@ const ROTULOS: Record<string, string> = {
   example: "Exemplo", quote: "Citação", cite: "Citação",
 };
 
+/** Agrupa os tipos de callout em famílias visuais (o CSS estiliza a família, não cada tipo). */
+const FAMILIAS: Record<string, string> = {
+  question: "pergunta", help: "pergunta", faq: "pergunta",
+  success: "resposta", check: "resposta", done: "resposta",
+  tip: "dica", hint: "dica", important: "dica",
+  warning: "atencao", caution: "atencao", attention: "atencao",
+  danger: "perigo", error: "perigo", bug: "perigo", failure: "perigo", fail: "perigo", missing: "perigo",
+  abstract: "resumo", summary: "resumo", tldr: "resumo",
+};
+
 const md = new Marked({ gfm: true });
 
 md.use({
@@ -176,7 +230,7 @@ md.use({
     {
       name: "comentario",
       level: "inline",
-      start: (src) => src.indexOf("%%") >= 0 ? src.indexOf("%%") : undefined,
+      start: (src) => (src.indexOf("%%") >= 0 ? src.indexOf("%%") : undefined),
       tokenizer(src) {
         const m = /^%%[\s\S]*?%%/.exec(src);
         if (m) return { type: "comentario", raw: m[0] };
@@ -206,11 +260,12 @@ md.use({
           return `<img src="${urlSegura(relativo(atual.saida, a.saida))}" alt="${escapar(apelido ?? "")}" loading="lazy">`;
         }
 
-        const pagina = arquivo.trim() ? acharPagina(arquivo) : atual;
+        const pagina = arquivo.trim() ? acharPagina(arquivo) : undefined;
+        const mesma = !arquivo.trim() || pagina?.saida === atual.saida;
         const nomeVisivel = arquivo.trim() ? posix.basename(arquivo.trim()) : "";
         const texto = apelido?.trim() || [nomeVisivel, ancora?.trim()].filter(Boolean).join(" › ");
-        if (!pagina) return (anotarQuebrado(arquivo.trim()), `<span class="quebrado" title="Nota ainda não escrita">${escapar(texto)}</span>`);
-        const href = (pagina === atual ? "" : urlSegura(relativo(atual.saida, pagina.saida))) + (ancora ? "#" + encodeURIComponent(slugAncora(ancora)) : "");
+        if (!pagina && !mesma) return (anotarQuebrado(arquivo.trim()), `<span class="quebrado">${escapar(texto)}</span>`);
+        const href = (mesma ? "" : urlSegura(relativo(atual.saida, pagina!.saida))) + (ancora ? "#" + encodeURIComponent(slugAncora(ancora)) : "");
         return `<a class="interno" href="${href}">${escapar(texto)}</a>`;
       },
     },
@@ -232,9 +287,9 @@ md.use({
       if (!m) return false; // citação normal
       const tipo = m[1].toLowerCase();
       const corpo = token.text.slice(m[0].length);
-      const titulo = `<span class="callout-texto">${m[3].trim() ? (md.parseInline(m[3]) as string) : ROTULOS[tipo] ?? tipo}</span>`;
+      const titulo = `<span class="callout-texto">${m[3].trim() ? (md.parseInline(m[3]) as string) : escapar(ROTULOS[tipo] ?? tipo)}</span>`;
       const miolo = corpo.trim() ? `<div class="callout-corpo">${md.parse(corpo) as string}</div>` : "";
-      const atributos = `class="callout" data-callout="${escapar(tipo)}"`;
+      const atributos = `class="callout" data-callout="${escapar(tipo)}" data-familia="${FAMILIAS[tipo] ?? "nota"}"`;
       if (!m[2]) return `<div ${atributos}><div class="callout-titulo">${titulo}</div>${miolo}</div>\n`;
       return `<details ${atributos}${m[2] === "+" ? " open" : ""}><summary class="callout-titulo">${titulo}</summary>${miolo}</details>\n`;
     },
@@ -242,12 +297,14 @@ md.use({
     link({ href, title, tokens }) {
       const texto = this.parser.parseInline(tokens);
       const t = title ? ` title="${escapar(title)}"` : "";
-      if (/^[a-z][a-z0-9+.-]*:/i.test(href) || href.startsWith("#")) {
-        const fora = /^https?:/i.test(href) ? ` target="_blank" rel="noopener"` : "";
+      if (href.startsWith("#")) return `<a href="${escapar(href)}"${t}>${texto}</a>`;
+      if (ESQUEMAS_PERMITIDOS.test(href)) {
+        const fora = /^https?:/i.test(href) ? ` target="_blank" rel="noopener noreferrer"` : "";
         return `<a href="${escapar(href)}"${t}${fora}>${texto}</a>`;
       }
+      if (/^[a-z][a-z0-9+.-]*:/i.test(href)) return `<span>${texto}</span>`; // javascript:, data:, file:... viram texto
       // link Markdown pra outra nota: [texto](Pasta/Nota.md#seção)
-      const [caminho, ancora] = decodeURI(href).split(/#(.*)/s);
+      const [caminho, ancora] = decodificar(href).split(/#(.*)/s);
       const noVault = posix.normalize(posix.join(posix.dirname(atual.rel), caminho));
       const pagina = porCaminho.get(noVault.replace(/\.md$/i, "").toLowerCase()) ?? acharPagina(caminho);
       if (pagina) {
@@ -257,19 +314,18 @@ md.use({
       const arquivo = acharArquivo(noVault) ?? acharArquivo(caminho);
       if (arquivo) return `<a href="${urlSegura(relativo(atual.saida, arquivo.saida))}"${t}>${texto}</a>`;
       anotarQuebrado(caminho);
-      return `<span class="quebrado" title="Não publicado no site">${texto}</span>`;
+      return `<span class="quebrado">${texto}</span>`;
     },
   },
 });
 
-// ---------- menu lateral ----------
+// ---------- árvore (sumário) ----------
 
 type Pasta = { nome: string; pastas: Map<string, Pasta>; paginas: Pagina[] };
 const arvore: Pasta = { nome: "", pastas: new Map(), paginas: [] };
-for (const p of paginas.slice(1)) {
-  const partes = p.rel.split("/").slice(0, -1);
+for (const p of paginas) {
   let no = arvore;
-  for (const parte of partes) {
+  for (const parte of p.rel.split("/").slice(0, -1)) {
     if (!no.pastas.has(parte)) no.pastas.set(parte, { nome: parte, pastas: new Map(), paginas: [] });
     no = no.pastas.get(parte)!;
   }
@@ -280,73 +336,129 @@ for (const p of paginas.slice(1)) {
 const notaDaPasta = (pasta: Pasta) =>
   pasta.pastas.size === 0 && pasta.paginas.length === 1 && pasta.paginas[0].nome === pasta.nome ? pasta.paginas[0] : undefined;
 
-const contem = (pasta: Pasta, alvo: Pagina): boolean =>
-  pasta.paginas.includes(alvo) || [...pasta.pastas.values()].some((f) => contem(f, alvo));
-
-function menu(pasta: Pasta, pagina: Pagina): string {
-  type Item = { nome: string; html: string };
-  const link = (p: Pagina, nome: string): Item => ({
-    nome,
-    html: `<li><a href="${urlSegura(relativo(pagina.saida, p.saida))}"${p === pagina ? ' aria-current="page"' : ""}>${escapar(nome)}</a></li>`,
-  });
-  const itens: Item[] = pasta.paginas.map((p) => link(p, p.nome));
+type Item = { nome: string; pagina?: Pagina; pasta?: Pasta };
+function itensDe(pasta: Pasta): Item[] {
+  const itens: Item[] = pasta.paginas.map((p) => ({ nome: p.nome, pagina: p }));
   for (const sub of pasta.pastas.values()) {
     const unica = notaDaPasta(sub);
-    if (unica) itens.push(link(unica, sub.nome));
-    else itens.push({
-      nome: sub.nome,
-      html: `<li><details${contem(sub, pagina) ? " open" : ""}><summary>${escapar(sub.nome)}</summary>${menu(sub, pagina)}</details></li>`,
-    });
+    itens.push(unica ? { nome: sub.nome, pagina: unica } : { nome: sub.nome, pasta: sub });
   }
-  return `<ul>${itens.sort((a, b) => naturalmente(a.nome, b.nome)).map((i) => i.html).join("")}</ul>`;
+  return itens.sort((a, b) => naturalmente(a.nome, b.nome));
 }
 
-// ---------- página ----------
+/** Todas as notas de um caderno, na ordem do sumário (pra Anterior / Próxima). */
+function emOrdem(pasta: Pasta): Pagina[] {
+  return itensDe(pasta).flatMap((i) => (i.pagina ? [i.pagina] : emOrdem(i.pasta!)));
+}
+
+const cadernos = itensDe(arvore).filter((i) => i.pasta);
+const vizinhos = new Map<Pagina, { anterior?: Pagina; proxima?: Pagina }>();
+for (const c of cadernos) {
+  const lista = emOrdem(c.pasta!);
+  lista.forEach((p, i) => vizinhos.set(p, { anterior: lista[i - 1], proxima: lista[i + 1] }));
+}
+
+const contem = (pasta: Pasta, alvo?: Pagina): boolean =>
+  !!alvo && (pasta.paginas.includes(alvo) || [...pasta.pastas.values()].some((f) => contem(f, alvo)));
+
+function sumario(pasta: Pasta, de: string, alvo?: Pagina): string {
+  const lis = itensDe(pasta).map((i) => {
+    if (i.pagina) {
+      const atualAttr = i.pagina === alvo ? ' aria-current="page"' : "";
+      return `<li><a href="${urlSegura(relativo(de, i.pagina.saida))}"${atualAttr}>${escapar(i.nome)}</a></li>`;
+    }
+    const total = emOrdem(i.pasta!).length;
+    return `<li><details${contem(i.pasta!, alvo) ? " open" : ""}><summary><span>${escapar(i.nome)}</span><span class="conta">${total}</span></summary>${sumario(i.pasta!, de, alvo)}</details></li>`;
+  });
+  return `<ul>${lis.join("")}</ul>`;
+}
+
+// ---------- moldura das páginas ----------
 
 function trilhaDe(p: Pagina) {
   const partes = p.rel.split("/").slice(0, -1);
   if (partes.at(-1) === p.nome) partes.pop();
-  return partes.map(escapar).join(" <span aria-hidden=\"true\">›</span> ");
+  return partes;
 }
 
-function html(p: Pagina, corpo: string) {
-  const raiz = raizDe(p.saida);
-  const inicio = p.saida === "index.html";
+const icone = {
+  sumario: `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+  fechar: `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+  buscar: `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+};
+
+function moldura(o: { saida: string; titulo: string; classe: string; corpo: string; alvo?: Pagina }) {
+  const raiz = raizDe(o.saida);
   return `<!doctype html>
-<html lang="pt-BR" data-raiz="${raiz}">
+<html lang="pt-BR" data-raiz="${raiz}"${o.alvo ? ` data-saida="${escapar(o.alvo.saida)}"` : ""}>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${escapar(inicio ? config.titulo : `${p.titulo} · ${config.titulo}`)}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="${CSP}">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#f6f8fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11151d" media="(prefers-color-scheme: dark)">
+<title>${escapar(o.titulo)}</title>
+<link rel="preload" href="${raiz}assets/fonts/literata-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${raiz}assets/site.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📓</text></svg>">
 <script src="${raiz}assets/site.js" defer></script>
 </head>
-<body>
+<body class="${o.classe}">
+<a class="pular" href="#conteudo">Pular para o texto</a>
 <header class="topo">
-  <button class="botao-menu" type="button" aria-label="Abrir o menu" aria-expanded="false" aria-controls="lateral">
-    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-  </button>
   <a class="marca" href="${raiz}index.html">${escapar(config.titulo)}</a>
-  <div class="busca">
-    <input type="search" placeholder="Buscar nota…" aria-label="Buscar nota" autocomplete="off">
-    <ul class="resultados" hidden></ul>
-  </div>
+  <button class="abrir-sumario" type="button" aria-controls="folha" aria-expanded="false">${icone.sumario}<span>Sumário</span></button>
+  <div class="progresso" aria-hidden="true"></div>
 </header>
-<div class="layout">
-  <nav class="lateral" id="lateral" aria-label="Notas">
-    <a class="inicio${inicio ? " atual" : ""}" href="${raiz}index.html">🏠 Início</a>
-    ${menu(arvore, p)}
-  </nav>
-  <div class="veu" hidden></div>
-  <main class="conteudo">
-    ${inicio ? "" : `<p class="trilha">${trilhaDe(p)}</p>`}
-    <article>${corpo}</article>
-  </main>
+<div class="folha" id="folha" role="dialog" aria-modal="true" aria-label="Sumário" hidden>
+  <div class="folha-topo">
+    <h2>Sumário</h2>
+    <button class="fechar-sumario" type="button" aria-label="Fechar o sumário">${icone.fechar}</button>
+  </div>
+  <label class="busca">${icone.buscar}<input type="search" placeholder="Buscar uma nota" aria-label="Buscar uma nota" autocomplete="off" enterkeyhint="go"></label>
+  <ul class="resultados" hidden></ul>
+  <nav class="arvore" aria-label="Todas as notas">${sumario(arvore, o.saida, o.alvo)}</nav>
 </div>
+<main id="conteudo">
+${o.corpo}
+</main>
 </body>
 </html>
 `;
+}
+
+function paginaDeNota(p: Pagina, html: string) {
+  const { anterior, proxima } = vizinhos.get(p) ?? {};
+  const link = (alvo: Pagina | undefined, rotulo: string, classe: string) =>
+    alvo
+      ? `<a class="${classe}" href="${urlSegura(relativo(p.saida, alvo.saida))}" rel="${classe === "anterior" ? "prev" : "next"}"><span class="rotulo">${rotulo}</span><span class="nome">${escapar(alvo.nome)}</span></a>`
+      : `<span class="${classe} vazio"></span>`;
+  const trilha = trilhaDe(p);
+  const corpo = `${trilha.length ? `<p class="trilha">${trilha.map(escapar).join(`<span aria-hidden="true"> / </span>`)}</p>` : ""}
+<article class="nota">${html}</article>
+<nav class="vizinhos" aria-label="Notas vizinhas">${link(anterior, "Anterior", "anterior")}${link(proxima, "Próxima", "proxima")}</nav>`;
+  return moldura({ saida: p.saida, titulo: `${p.titulo} | ${config.titulo}`, classe: "pagina-nota", corpo, alvo: p });
+}
+
+function paginaInicial() {
+  const saida = "index.html";
+  const trilhas = paginas.filter((p) => p.campos.tipo === "trilha").sort((a, b) => naturalmente(a.nome, b.nome));
+  const notas = paginas.length;
+  const corpo = `<section class="capa">
+  <h1>${escapar(config.titulo)}</h1>
+  <p class="resumo">${notas} notas em ${cadernos.length} cadernos. Toque numa nota e leia como capítulo; as perguntas do fim abrem com um toque.</p>
+  <p class="continuar" hidden><a href="#"><span class="rotulo">Continuar lendo</span><span class="nome"></span></a></p>
+</section>
+${trilhas.length ? `<section class="trilhas">
+  <h2>Por onde começar</h2>
+  <ul>${trilhas.map((t) => `<li><a href="${urlSegura(t.saida)}"><span class="nome">${escapar(t.titulo)}</span><span class="caderno">${escapar(t.rel.split("/")[0])}</span></a></li>`).join("")}</ul>
+</section>` : ""}
+<section class="indice">
+  <h2>Todas as notas</h2>
+  <nav class="arvore" aria-label="Todas as notas">${sumario(arvore, saida)}</nav>
+</section>`;
+  return moldura({ saida, titulo: config.titulo, classe: "pagina-inicial", corpo });
 }
 
 // ---------- gerar ----------
@@ -357,21 +469,27 @@ const gravar = (rel: string, conteudo: string) => {
   mkdirSync(path.dirname(destino), { recursive: true });
   writeFileSync(destino, conteudo);
 };
+const copiar = (de: string, para: string) => {
+  mkdirSync(path.dirname(para), { recursive: true });
+  copyFileSync(de, para);
+};
 
 for (const p of paginas) {
   atual = p;
   idsUsados = new Map();
-  gravar(p.saida, html(p, md.parse(p.md) as string));
+  gravar(p.saida, paginaDeNota(p, md.parse(p.md) as string));
 }
-for (const a of arquivos) {
-  mkdirSync(path.dirname(path.join(SAIDA, a.saida)), { recursive: true });
-  copyFileSync(path.join(VAULT, a.rel), path.join(SAIDA, a.saida));
-}
-for (const nome of readdirSync(path.join(aqui, "assets"))) {
-  mkdirSync(path.join(SAIDA, "assets"), { recursive: true });
-  copyFileSync(path.join(aqui, "assets", nome), path.join(SAIDA, "assets", nome));
-}
-gravar("assets/busca.json", JSON.stringify(paginas.slice(1).map((p) => ({ t: p.nome, s: trilhaDe(p).replace(/<[^>]+>/g, ""), u: p.saida }))));
+atual = { saida: "index.html", rel: "" };
+gravar("index.html", paginaInicial());
+
+for (const a of arquivos) copiar(path.join(VAULT, a.rel), path.join(SAIDA, a.saida));
+for (const nome of readdirSync(path.join(aqui, "assets"))) copiar(path.join(aqui, "assets", nome), path.join(SAIDA, "assets", nome));
+for (const [pacote, arquivo] of FONTES) copiar(path.join(aqui, "node_modules", pacote, "files", arquivo), path.join(SAIDA, "assets", "fonts", arquivo));
+
+gravar(
+  "assets/busca.json",
+  JSON.stringify(paginas.map((p) => ({ t: p.nome, s: trilhaDe(p).join(" / "), u: p.saida }))),
+);
 gravar(".nojekyll", "");
 
 console.log(`✅ ${paginas.length} notas e ${arquivos.length} arquivos -> ${SAIDA}`);

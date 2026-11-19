@@ -1,6 +1,11 @@
 # Publica o vault no GitHub Pages com o gerador próprio (.sistema/site/build.ts).
 # Este arquivo precisa morar em .github/workflows/site.yml no repositório.
 # Roda a cada push na main (a cada backup do Obsidian Git) e pelo botão "Run workflow".
+#
+# Segurança:
+# - As ações de terceiros estão fixadas pelo commit (hash), não pela tag: ninguém troca o código por baixo.
+# - O job de build só pode LER o repositório; quem publica é o job de deploy, com permissão só pro Pages.
+# - npm ci instala exatamente o que está no package-lock.json (com hash de integridade de cada pacote).
 name: Site (GitHub Pages)
 
 on:
@@ -8,10 +13,7 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+permissions: {}
 
 # Um deploy por vez; um backup novo cancela o build antigo que ainda estiver rodando.
 concurrency:
@@ -21,33 +23,40 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     defaults:
       run:
         working-directory: .sistema/site
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 24
           cache: npm
           cache-dependency-path: .sistema/site/package-lock.json
 
-      - run: npm ci
+      - run: npm ci --ignore-scripts
 
       - name: Gerar o site
         run: node build.ts --out dist
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
           path: .sistema/site/dist
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5

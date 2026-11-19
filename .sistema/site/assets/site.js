@@ -1,23 +1,72 @@
-// Menu lateral (no celular) e busca por nome de nota.
+// Folha do sumário, busca, barra de leitura e "continuar lendo".
 (() => {
-  const raiz = document.documentElement.dataset.raiz || "";
+  const html = document.documentElement;
+  const raiz = html.dataset.raiz || "";
+  const $ = (s) => document.querySelector(s);
 
-  // ---------- menu ----------
-  const botao = document.querySelector(".botao-menu");
-  const veu = document.querySelector(".veu");
-  const alternar = (abrir) => {
-    document.body.classList.toggle("menu-aberto", abrir);
-    botao.setAttribute("aria-expanded", String(abrir));
-    botao.setAttribute("aria-label", abrir ? "Fechar o menu" : "Abrir o menu");
-  };
-  botao.addEventListener("click", () => alternar(!document.body.classList.contains("menu-aberto")));
-  veu.addEventListener("click", () => alternar(false));
-  document.addEventListener("keydown", (e) => e.key === "Escape" && alternar(false));
-  document.querySelector('.lateral a[aria-current="page"]')?.scrollIntoView({ block: "center" });
+  // ---------- guardar a última nota lida (só neste aparelho) ----------
+  const CHAVE = "estudos:ultima";
+  const guardar = (valor) => { try { localStorage.setItem(CHAVE, JSON.stringify(valor)); } catch {} };
+  const lerGuardado = () => { try { return JSON.parse(localStorage.getItem(CHAVE) || "null"); } catch { return null; } };
+
+  if (html.dataset.saida) {
+    guardar({ u: html.dataset.saida, t: $(".nota h1")?.textContent || document.title });
+  }
+  const continuar = $(".continuar");
+  const ultima = lerGuardado();
+  if (continuar && ultima && typeof ultima.u === "string" && /^[\w./%-]+\.html$/.test(ultima.u)) {
+    const a = continuar.querySelector("a");
+    a.href = raiz + ultima.u;
+    a.querySelector(".nome").textContent = ultima.t || ultima.u;
+    continuar.hidden = false;
+  }
+
+  // ---------- folha do sumário ----------
+  const folha = $("#folha");
+  const abrir = $(".abrir-sumario");
+  const fechar = $(".fechar-sumario");
+  let aberta = false;
+
+  function abrirFolha() {
+    if (aberta) return;
+    aberta = true;
+    folha.hidden = false;
+    document.body.classList.add("folha-aberta");
+    abrir.setAttribute("aria-expanded", "true");
+    history.pushState({ folha: true }, "");
+    const atual = folha.querySelector('a[aria-current="page"]');
+    requestAnimationFrame(() => {
+      atual?.scrollIntoView({ block: "center" });
+      fechar.focus({ preventScroll: true });
+    });
+  }
+
+  function fecharFolha(daHistoria) {
+    if (!aberta) return;
+    aberta = false;
+    folha.hidden = true;
+    document.body.classList.remove("folha-aberta");
+    abrir.setAttribute("aria-expanded", "false");
+    abrir.focus({ preventScroll: true });
+    if (!daHistoria && history.state?.folha) history.back();
+  }
+
+  abrir.addEventListener("click", abrirFolha);
+  fechar.addEventListener("click", () => fecharFolha(false));
+  addEventListener("popstate", () => fecharFolha(true)); // botão "voltar" do celular fecha a folha
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") fecharFolha(false); });
+  // Ao tocar num link da folha, ela some antes de navegar (sem deixar estado sobrando no histórico).
+  folha.addEventListener("click", (e) => {
+    const a = e.target.closest("a[href]");
+    if (!a || !aberta) return;
+    e.preventDefault();
+    aberta = false;
+    location.replace(a.href);
+  });
 
   // ---------- busca ----------
-  const campo = document.querySelector(".busca input");
-  const lista = document.querySelector(".resultados");
+  const campo = folha.querySelector(".busca input");
+  const lista = folha.querySelector(".resultados");
   const normalizar = (s) => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
   let notas = null;
   const carregar = () =>
@@ -34,42 +83,40 @@
 
   async function buscar() {
     const termos = normalizar(campo.value.trim()).split(/\s+/).filter(Boolean);
+    folha.classList.toggle("buscando", termos.length > 0);
     if (!termos.length) return (lista.hidden = true);
     const achadas = (await carregar())
       .filter((n) => termos.every((t) => n.chave.includes(t)))
-      .sort((a, b) => normalizar(a.t).indexOf(termos[0]) - normalizar(b.t).indexOf(termos[0]) || a.t.localeCompare(b.t, "pt-BR"))
-      .slice(0, 20);
+      .sort((a, b) => {
+        const pa = normalizar(a.t).indexOf(termos[0]), pb = normalizar(b.t).indexOf(termos[0]);
+        return (pa < 0) - (pb < 0) || pa - pb || a.t.localeCompare(b.t, "pt-BR");
+      })
+      .slice(0, 30);
     lista.replaceChildren(
       ...(achadas.length
         ? achadas.map((n) => el("li", {}, el("a", { href: raiz + n.u }, n.t, el("small", {}, n.s))))
-        : [el("li", { className: "vazio" }, "Nenhuma nota com esse nome.")]),
+        : [el("li", { className: "vazio" }, "Nenhuma nota com esse nome. Tente outra palavra.")]),
     );
     lista.hidden = false;
   }
 
   campo.addEventListener("input", buscar);
-  campo.addEventListener("focus", () => { carregar(); campo.value && buscar(); });
+  campo.addEventListener("focus", carregar);
   campo.addEventListener("keydown", (e) => {
-    const links = [...lista.querySelectorAll("a")];
-    const i = links.indexOf(document.activeElement);
-    if (e.key === "ArrowDown" && links.length) { e.preventDefault(); links[0].focus(); }
-    if (e.key === "Enter" && links.length && i < 0) location.href = links[0].href;
-    if (e.key === "Escape") { lista.hidden = true; campo.blur(); }
+    const primeiro = lista.querySelector("a");
+    if (e.key === "Enter" && primeiro) { e.preventDefault(); primeiro.click(); }
   });
-  lista.addEventListener("keydown", (e) => {
-    const links = [...lista.querySelectorAll("a")];
-    const i = links.indexOf(document.activeElement);
-    if (e.key === "ArrowDown") { e.preventDefault(); links[Math.min(i + 1, links.length - 1)].focus(); }
-    if (e.key === "ArrowUp") { e.preventDefault(); i <= 0 ? campo.focus() : links[i - 1].focus(); }
-    if (e.key === "Escape") { lista.hidden = true; campo.focus(); }
-  });
-  document.addEventListener("click", (e) => { if (!e.target.closest(".busca")) lista.hidden = true; });
 
-  // "/" foca a busca (no PC)
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "/" && document.activeElement !== campo && !e.target.closest("input, textarea")) {
-      e.preventDefault();
-      campo.focus();
-    }
-  });
+  // ---------- barra de leitura ----------
+  const barra = $(".progresso");
+  if (barra && html.dataset.saida) {
+    let pedido = false;
+    const atualizar = () => {
+      pedido = false;
+      const total = document.documentElement.scrollHeight - innerHeight;
+      barra.style.transform = `scaleX(${total > 0 ? Math.min(1, scrollY / total) : 0})`;
+    };
+    addEventListener("scroll", () => { if (!pedido) { pedido = true; requestAnimationFrame(atualizar); } }, { passive: true });
+    atualizar();
+  }
 })();
