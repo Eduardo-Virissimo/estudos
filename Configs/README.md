@@ -39,7 +39,7 @@ Dentro de `obsidian/`:
 Rode sempre que instalar/configurar um plugin, mudar tema ou mexer em CSS:
 
 ```powershell
-cd "$HOME\OneDrive\Documentos\Obsidian Vault\estudos\Configs"
+cd "$HOME\Documents\Obsidian Vault\estudos\Configs"
 powershell -ExecutionPolicy Bypass -File .\backup.ps1
 ```
 
@@ -55,13 +55,13 @@ Depois o plugin **Git** faz o commit e envia pro GitHub junto com as notas (ou `
 1. **Instale** o [Obsidian](https://obsidian.md/download) e o [Git](https://git-scm.com/download/win).
 2. **Baixe o vault**: crie a pasta `Obsidian Vault` e, dentro dela, clone o repositório:
    ```powershell
-   mkdir "$HOME\OneDrive\Documentos\Obsidian Vault"
-   cd "$HOME\OneDrive\Documentos\Obsidian Vault"
+   mkdir "$HOME\Documents\Obsidian Vault"
+   cd "$HOME\Documents\Obsidian Vault"
    git clone https://github.com/Eduardo-Virissimo/estudos.git
    ```
 3. **Com o Obsidian fechado**, rode:
    ```powershell
-   cd "$HOME\OneDrive\Documentos\Obsidian Vault\estudos\Configs"
+   cd "$HOME\Documents\Obsidian Vault\estudos\Configs"
    powershell -ExecutionPolicy Bypass -File .\restaurar.ps1
    ```
 4. Abra o Obsidian → **Open folder as vault** → escolha `Obsidian Vault` (a pasta **de cima**, não a `estudos`).

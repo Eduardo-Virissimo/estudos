@@ -1,170 +1,1100 @@
 {
-  "Configs/appearance.json": {
-    "mtime": 1793145081.1157322,
-    "seen": 1794446708.9638386,
-    "ast_hash": "cef56f43ef5aedad5e78dfc4b686a2b8",
-    "semantic_hash": "cef56f43ef5aedad5e78dfc4b686a2b8"
+  ".github/workflows/site.yml": {
+    "mtime": 1795067228.458465,
+    "seen": 1795068105.1488566,
+    "ast_hash": "cfb9c18dcba9559e47cbe2345547333b",
+    "semantic_hash": "cfb9c18dcba9559e47cbe2345547333b"
   },
-  "Configs/community-plugins.json": {
-    "mtime": 1793148480.4391656,
-    "seen": 1794446708.963843,
-    "ast_hash": "790f3a240f8181cc758fde584db60d27",
-    "semantic_hash": "790f3a240f8181cc758fde584db60d27"
+  ".sistema/estudos-rpg/esbuild.config.mjs": {
+    "mtime": 1794859249.1508732,
+    "seen": 1795068105.1488616,
+    "ast_hash": "6d2b3cb468413d70876d4657ff2ae21f",
+    "semantic_hash": "6d2b3cb468413d70876d4657ff2ae21f"
   },
-  "Configs/estudos-dashboard/main.js": {
-    "mtime": 1793148444.6329205,
-    "seen": 1794446708.963845,
-    "ast_hash": "012c19af270748103ff21eb199596f16",
-    "semantic_hash": "012c19af270748103ff21eb199596f16"
+  ".sistema/estudos-rpg/manifest.json": {
+    "mtime": 1794451471.1879842,
+    "seen": 1795068105.1488638,
+    "ast_hash": "234911947bca0e4e594f8a3d00fb3d9e",
+    "semantic_hash": "234911947bca0e4e594f8a3d00fb3d9e"
   },
-  "Configs/estudos-dashboard/manifest.json": {
-    "mtime": 1793148444.088506,
-    "seen": 1794446708.9638464,
-    "ast_hash": "dc774e7fdde3e8f41023fdaea9405b8d",
-    "semantic_hash": "dc774e7fdde3e8f41023fdaea9405b8d"
+  ".sistema/estudos-rpg/package.json": {
+    "mtime": 1794859152.5632718,
+    "seen": 1795068105.148865,
+    "ast_hash": "a85ee413669bdd38a0fa64e82da08322",
+    "semantic_hash": "a85ee413669bdd38a0fa64e82da08322"
+  },
+  ".sistema/estudos-rpg/src/domain/dates.ts": {
+    "mtime": 1794504253.6774867,
+    "seen": 1795068105.1488664,
+    "ast_hash": "58e8ef8f6938cb13e2cc2eeabb74ee2a",
+    "semantic_hash": "58e8ef8f6938cb13e2cc2eeabb74ee2a"
+  },
+  ".sistema/estudos-rpg/src/domain/parse.ts": {
+    "mtime": 1794966822.39424,
+    "seen": 1795068105.1488671,
+    "ast_hash": "29d9843358cbba118350b438d4b28277",
+    "semantic_hash": "29d9843358cbba118350b438d4b28277"
+  },
+  ".sistema/estudos-rpg/src/domain/progress.ts": {
+    "mtime": 1794859249.0088873,
+    "seen": 1795068105.148868,
+    "ast_hash": "db714a1c28390ce161884d4300cb8b83",
+    "semantic_hash": "db714a1c28390ce161884d4300cb8b83"
+  },
+  ".sistema/estudos-rpg/src/domain/review.ts": {
+    "mtime": 1794864866.0557525,
+    "seen": 1795068105.1488688,
+    "ast_hash": "fada5c7d04ae3a8f4a6fe377fc7ca36e",
+    "semantic_hash": "fada5c7d04ae3a8f4a6fe377fc7ca36e"
+  },
+  ".sistema/estudos-rpg/src/domain/types.ts": {
+    "mtime": 1794966839.223498,
+    "seen": 1795068105.1488695,
+    "ast_hash": "210e7f7af0fba07b4d3fefa9e4598c91",
+    "semantic_hash": "210e7f7af0fba07b4d3fefa9e4598c91"
+  },
+  ".sistema/estudos-rpg/src/main.ts": {
+    "mtime": 1794864895.5829816,
+    "seen": 1795068105.1488707,
+    "ast_hash": "fc67182dd9d016beae4c86af95fd4e74",
+    "semantic_hash": "fc67182dd9d016beae4c86af95fd4e74"
+  },
+  ".sistema/estudos-rpg/src/settings.ts": {
+    "mtime": 1794864878.7652354,
+    "seen": 1795068105.1488714,
+    "ast_hash": "90f090a54f3da06eb44f3574e1304147",
+    "semantic_hash": "90f090a54f3da06eb44f3574e1304147"
+  },
+  ".sistema/estudos-rpg/src/ui/conquistasModal.ts": {
+    "mtime": 1794504421.825515,
+    "seen": 1795068105.1488724,
+    "ast_hash": "436b25af21046a9578f0497b2ed15332",
+    "semantic_hash": "436b25af21046a9578f0497b2ed15332"
+  },
+  ".sistema/estudos-rpg/src/ui/context.ts": {
+    "mtime": 1794966839.2265253,
+    "seen": 1795068105.1488733,
+    "ast_hash": "0e46e206ebfc96b4ce62b25c374879ed",
+    "semantic_hash": "0e46e206ebfc96b4ce62b25c374879ed"
+  },
+  ".sistema/estudos-rpg/src/ui/dom.ts": {
+    "mtime": 1794966839.2336185,
+    "seen": 1795068105.148874,
+    "ast_hash": "c3817e2edcc7dff6f4787a5e5bd23396",
+    "semantic_hash": "c3817e2edcc7dff6f4787a5e5bd23396"
+  },
+  ".sistema/estudos-rpg/src/ui/nitidez.ts": {
+    "mtime": 1794859413.9036336,
+    "seen": 1795068105.148875,
+    "ast_hash": "e68c4c4205f40bf5da95931287a5b624",
+    "semantic_hash": "e68c4c4205f40bf5da95931287a5b624"
+  },
+  ".sistema/estudos-rpg/src/ui/pixel.ts": {
+    "mtime": 1794859247.847473,
+    "seen": 1795068105.1488757,
+    "ast_hash": "7ba28e6fc2d8392a347976edb1166e52",
+    "semantic_hash": "7ba28e6fc2d8392a347976edb1166e52"
+  },
+  ".sistema/estudos-rpg/src/ui/sections.ts": {
+    "mtime": 1794966869.4627259,
+    "seen": 1795068105.1488764,
+    "ast_hash": "b178106274e5a3c9b4c5beac4d9bd28a",
+    "semantic_hash": "b178106274e5a3c9b4c5beac4d9bd28a"
+  },
+  ".sistema/estudos-rpg/src/ui/settingsTab.ts": {
+    "mtime": 1794864878.76824,
+    "seen": 1795068105.1488774,
+    "ast_hash": "a3c7d2a7853cc318496e6f0bba872e65",
+    "semantic_hash": "a3c7d2a7853cc318496e6f0bba872e65"
+  },
+  ".sistema/estudos-rpg/src/ui/svg.d.ts": {
+    "mtime": 1794854515.8763356,
+    "seen": 1795068105.1488786,
+    "ast_hash": "fa5ee6fcd802d8bea457012db45339a2",
+    "semantic_hash": "fa5ee6fcd802d8bea457012db45339a2"
+  },
+  ".sistema/estudos-rpg/src/ui/svgPath.ts": {
+    "mtime": 1794859121.6430268,
+    "seen": 1795068105.1488793,
+    "ast_hash": "d02be5e3fe6c5eb79935a2c81e663f0b",
+    "semantic_hash": "d02be5e3fe6c5eb79935a2c81e663f0b"
+  },
+  ".sistema/estudos-rpg/src/ui/topicosModal.ts": {
+    "mtime": 1794452194.026454,
+    "seen": 1795068105.1488798,
+    "ast_hash": "c7d60818dcf76727d23295b4b358eef8",
+    "semantic_hash": "c7d60818dcf76727d23295b4b358eef8"
+  },
+  ".sistema/estudos-rpg/src/ui/view.ts": {
+    "mtime": 1794966839.2381253,
+    "seen": 1795068105.148881,
+    "ast_hash": "813bffb841eb9a6d3a4c756c45535437",
+    "semantic_hash": "813bffb841eb9a6d3a4c756c45535437"
+  },
+  ".sistema/estudos-rpg/src/vault/indexer.ts": {
+    "mtime": 1794505189.5445817,
+    "seen": 1795068105.148882,
+    "ast_hash": "d71fa76fd7568b6100d6479aabb0bb2a",
+    "semantic_hash": "d71fa76fd7568b6100d6479aabb0bb2a"
+  },
+  ".sistema/estudos-rpg/src/vault/writer.ts": {
+    "mtime": 1794504284.9156234,
+    "seen": 1795068105.1488829,
+    "ast_hash": "e07c93f581ebfef39f9ed1286ae80ef6",
+    "semantic_hash": "e07c93f581ebfef39f9ed1286ae80ef6"
+  },
+  ".sistema/estudos-rpg/test/domain.test.ts": {
+    "mtime": 1794966803.3026721,
+    "seen": 1795068105.1488838,
+    "ast_hash": "472d9b5114f2837a33c0e5658397db8c",
+    "semantic_hash": "472d9b5114f2837a33c0e5658397db8c"
+  },
+  ".sistema/estudos-rpg/test/icones.test.ts": {
+    "mtime": 1794859414.483971,
+    "seen": 1795068105.1488845,
+    "ast_hash": "93ce4eae4719dbb05231ecb4553a1fe8",
+    "semantic_hash": "93ce4eae4719dbb05231ecb4553a1fe8"
+  },
+  ".sistema/estudos-rpg/tsconfig.json": {
+    "mtime": 1794449964.0570776,
+    "seen": 1795068105.1488853,
+    "ast_hash": "0a227199c6f754cf644793ef050dc364",
+    "semantic_hash": "0a227199c6f754cf644793ef050dc364"
+  },
+  ".sistema/site/assets/site.js": {
+    "mtime": 1795067228.558099,
+    "seen": 1795068105.148886,
+    "ast_hash": "154b7965b17f16833573ca863f0bd2b5",
+    "semantic_hash": "154b7965b17f16833573ca863f0bd2b5"
+  },
+  ".sistema/site/build.ts": {
+    "mtime": 1795067228.5620987,
+    "seen": 1795068105.1488867,
+    "ast_hash": "f5a7e2b0e8b264136743df45cde7ca42",
+    "semantic_hash": "f5a7e2b0e8b264136743df45cde7ca42"
+  },
+  ".sistema/site/deploy.yml": {
+    "mtime": 1795067228.566108,
+    "seen": 1795068105.1488879,
+    "ast_hash": "f3d19be3bc57a7b3874562e0be9efe7f",
+    "semantic_hash": "f3d19be3bc57a7b3874562e0be9efe7f"
+  },
+  ".sistema/site/package.json": {
+    "mtime": 1795067228.5711162,
+    "seen": 1795068105.1488883,
+    "ast_hash": "d8b20ee740eb0314a1aac8b20bf5b017",
+    "semantic_hash": "d8b20ee740eb0314a1aac8b20bf5b017"
+  },
+  ".sistema/site/site.config.json": {
+    "mtime": 1795067228.5731194,
+    "seen": 1795068105.148889,
+    "ast_hash": "ffb0d38784e6688136d5d908f37282da",
+    "semantic_hash": "ffb0d38784e6688136d5d908f37282da"
+  },
+  "Configs/backup.ps1": {
+    "mtime": 1794451868.012412,
+    "seen": 1795068105.14889,
+    "ast_hash": "039bb12b399ace335ee61c49c38f4c4c",
+    "semantic_hash": "039bb12b399ace335ee61c49c38f4c4c"
+  },
+  "Configs/obsidian/app.json": {
+    "mtime": 1794599129.2173564,
+    "seen": 1795068105.148891,
+    "ast_hash": "0817faba3104f22d1348c977307ec9f5",
+    "semantic_hash": "0817faba3104f22d1348c977307ec9f5"
+  },
+  "Configs/obsidian/appearance.json": {
+    "mtime": 1794599245.1554837,
+    "seen": 1795068105.1488917,
+    "ast_hash": "0e60844a3ac0855a4a8b5e728020ac25",
+    "semantic_hash": "0e60844a3ac0855a4a8b5e728020ac25"
+  },
+  "Configs/obsidian/community-plugins.json": {
+    "mtime": 1794599129.5183222,
+    "seen": 1795068105.1488924,
+    "ast_hash": "1ceec8245a7291eaa55b0f33cb47a98e",
+    "semantic_hash": "1ceec8245a7291eaa55b0f33cb47a98e"
+  },
+  "Configs/obsidian/core-plugins.json": {
+    "mtime": 1794599128.7459872,
+    "seen": 1795068105.1488934,
+    "ast_hash": "7c877bea49eaeabb100563bd157b9051",
+    "semantic_hash": "7c877bea49eaeabb100563bd157b9051"
+  },
+  "Configs/obsidian/graph.json": {
+    "mtime": 1784584112.895,
+    "seen": 1795068105.1488945,
+    "ast_hash": "c40e01ba56fccac4c8f8577bf329f519",
+    "semantic_hash": "c40e01ba56fccac4c8f8577bf329f519"
+  },
+  "Configs/obsidian/hotkeys.json": {
+    "mtime": 1793048734.1295898,
+    "seen": 1795068105.1488953,
+    "ast_hash": "63b29c9934b138b87dd56c5e0b0b14db",
+    "semantic_hash": "63b29c9934b138b87dd56c5e0b0b14db"
+  },
+  "Configs/obsidian/plugins/estudos-rpg/main.js": {
+    "mtime": 1794967150.2103245,
+    "seen": 1795068105.148896,
+    "ast_hash": "723acbdf7ad24d6c9cbaf3d888220538",
+    "semantic_hash": "723acbdf7ad24d6c9cbaf3d888220538"
+  },
+  "Configs/obsidian/plugins/estudos-rpg/manifest.json": {
+    "mtime": 1794451471.1879842,
+    "seen": 1795068105.1488967,
+    "ast_hash": "234911947bca0e4e594f8a3d00fb3d9e",
+    "semantic_hash": "234911947bca0e4e594f8a3d00fb3d9e"
+  },
+  "Configs/restaurar.ps1": {
+    "mtime": 1794451725.8752925,
+    "seen": 1795068105.1488976,
+    "ast_hash": "ff43595985f4908ca926ef0153efd18b",
+    "semantic_hash": "ff43595985f4908ca926ef0153efd18b"
+  },
+  ".sistema/estudos-rpg/README.md": {
+    "mtime": 1794967147.9002225,
+    "seen": 1795068105.1488984,
+    "ast_hash": "4f02aa8dfa6ef577b66a53cd0bfa463f",
+    "semantic_hash": "4f02aa8dfa6ef577b66a53cd0bfa463f"
+  },
+  ".sistema/specs/2026-11-17-template-notas-design.md": {
+    "mtime": 1794968379.612745,
+    "seen": 1795068105.1488996,
+    "ast_hash": "a2e71ee126639411cd3ecea92709c8a5",
+    "semantic_hash": "a2e71ee126639411cd3ecea92709c8a5"
+  },
+  ".sistema/specs/2026-11-17-template-notas-plano.md": {
+    "mtime": 1794968446.239975,
+    "seen": 1795068105.1489005,
+    "ast_hash": "998ea212a5cf8791a99a8f7fdd65eb4e",
+    "semantic_hash": "998ea212a5cf8791a99a8f7fdd65eb4e"
+  },
+  "Configs/Extens\u00f5es.md": {
+    "mtime": 1794599247.8252287,
+    "seen": 1795068105.1489031,
+    "ast_hash": "826142994114ea08e513559259139216",
+    "semantic_hash": "826142994114ea08e513559259139216"
+  },
+  "Configs/README.md": {
+    "mtime": 1794599438.6900835,
+    "seen": 1795068105.1489046,
+    "ast_hash": "69c8098c9e41a176926b9877db418508",
+    "semantic_hash": "69c8098c9e41a176926b9877db418508"
+  },
+  "Di\u00e1rio/2026-11-19.md": {
+    "mtime": 1795062492.493789,
+    "seen": 1795068105.1489065,
+    "ast_hash": "e857cffdb140fce4e28c5f3d32c571f3",
+    "semantic_hash": "e857cffdb140fce4e28c5f3d32c571f3"
+  },
+  "Ingl\u00eas/00 - M\u00e9todo/Como Aprender Ingl\u00eas.md": {
+    "mtime": 1795015908.977348,
+    "seen": 1795068105.1489084,
+    "ast_hash": "d6ad4d7823c749ade7ab92c3e5af4d72",
+    "semantic_hash": "d6ad4d7823c749ade7ab92c3e5af4d72"
+  },
+  "Ingl\u00eas/00 - M\u00e9todo/Diagn\u00f3stico de N\u00edvel.md": {
+    "mtime": 1795015937.3139796,
+    "seen": 1795068105.1489098,
+    "ast_hash": "88205494f9ab4cc6c522337631e1da5b",
+    "semantic_hash": "88205494f9ab4cc6c522337631e1da5b"
+  },
+  "Ingl\u00eas/00 - M\u00e9todo/Rotina de Estudo de Ingl\u00eas.md": {
+    "mtime": 1795015966.71476,
+    "seen": 1795068105.1489115,
+    "ast_hash": "50f11e09b9d5977861a02c6af5572404",
+    "semantic_hash": "50f11e09b9d5977861a02c6af5572404"
+  },
+  "Ingl\u00eas/01 - T\u00e9cnicas/Input Compreens\u00edvel.md": {
+    "mtime": 1795016003.7526894,
+    "seen": 1795068105.148913,
+    "ast_hash": "b5ca22edc3857471cf7326eb3b987857",
+    "semantic_hash": "b5ca22edc3857471cf7326eb3b987857"
+  },
+  "Ingl\u00eas/01 - T\u00e9cnicas/Leitura Extensiva.md": {
+    "mtime": 1795016036.6761155,
+    "seen": 1795068105.1489143,
+    "ast_hash": "640821e1549f4d7df07c31cf570b6f40",
+    "semantic_hash": "640821e1549f4d7df07c31cf570b6f40"
+  },
+  "Ingl\u00eas/01 - T\u00e9cnicas/Output com Corre\u00e7\u00e3o.md": {
+    "mtime": 1795016073.6190681,
+    "seen": 1795068105.1489162,
+    "ast_hash": "caeffe6e36512396317919656f048c9c",
+    "semantic_hash": "caeffe6e36512396317919656f048c9c"
+  },
+  "Ingl\u00eas/01 - T\u00e9cnicas/Sentence Mining.md": {
+    "mtime": 1795016105.0438263,
+    "seen": 1795068105.1489174,
+    "ast_hash": "5061bbe6932e21a204004306c2e37baf",
+    "semantic_hash": "5061bbe6932e21a204004306c2e37baf"
+  },
+  "Ingl\u00eas/01 - T\u00e9cnicas/Shadowing.md": {
+    "mtime": 1795016138.249096,
+    "seen": 1795068105.148919,
+    "ast_hash": "85a780c7e29bf52754bdaf05a8f2d51e",
+    "semantic_hash": "85a780c7e29bf52754bdaf05a8f2d51e"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Artigos (a, an, the).md": {
+    "mtime": 1795016183.766061,
+    "seen": 1795068105.1489205,
+    "ast_hash": "35f8faec3addc949699388b9f2d8f2f8",
+    "semantic_hash": "35f8faec3addc949699388b9f2d8f2f8"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Falsos Cognatos.md": {
+    "mtime": 1795016225.3313577,
+    "seen": 1795068105.1489222,
+    "ast_hash": "9661e64496322fb4566c017d046c1361",
+    "semantic_hash": "9661e64496322fb4566c017d046c1361"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Futuro com Will e Going To.md": {
+    "mtime": 1795016263.3501287,
+    "seen": 1795068105.1489239,
+    "ast_hash": "535f162eeb65ed2e95b303afbe1320c6",
+    "semantic_hash": "535f162eeb65ed2e95b303afbe1320c6"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Imperativo.md": {
+    "mtime": 1795016299.3894298,
+    "seen": 1795068105.148925,
+    "ast_hash": "77a620eb8c6798a873d4c55b49fff79d",
+    "semantic_hash": "77a620eb8c6798a873d4c55b49fff79d"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/N\u00fameros, Datas e Horas.md": {
+    "mtime": 1795016343.893786,
+    "seen": 1795068105.148927,
+    "ast_hash": "3c6364fcd20c8b521b78d3124ef13329",
+    "semantic_hash": "3c6364fcd20c8b521b78d3124ef13329"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Palavras de Alta Frequ\u00eancia.md": {
+    "mtime": 1795016387.6414623,
+    "seen": 1795068105.1489289,
+    "ast_hash": "f1c21bff5339c63fb398e0b4f584d921",
+    "semantic_hash": "f1c21bff5339c63fb398e0b4f584d921"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Pares M\u00ednimos.md": {
+    "mtime": 1795016430.5259728,
+    "seen": 1795068105.1489303,
+    "ast_hash": "087a2d7691c432024703f8fc43d9de77",
+    "semantic_hash": "087a2d7691c432024703f8fc43d9de77"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Passado Simples.md": {
+    "mtime": 1795016473.3727944,
+    "seen": 1795068105.148932,
+    "ast_hash": "648603b11e792e79bb1d0611cb7f30d6",
+    "semantic_hash": "648603b11e792e79bb1d0611cb7f30d6"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Pedir Ajuda e Esclarecimento.md": {
+    "mtime": 1795016514.76098,
+    "seen": 1795068105.148934,
+    "ast_hash": "3d25079d2f9896915901cac6cee29553",
+    "semantic_hash": "3d25079d2f9896915901cac6cee29553"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Perguntas e Negativas.md": {
+    "mtime": 1795016558.079692,
+    "seen": 1795068105.1489353,
+    "ast_hash": "72d2d560fa5b11c6bcd419ce03e638c6",
+    "semantic_hash": "72d2d560fa5b11c6bcd419ce03e638c6"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Plural e Cont\u00e1veis \u00d7 Incont\u00e1veis.md": {
+    "mtime": 1795016601.420446,
+    "seen": 1795068105.1489372,
+    "ast_hash": "85b017aef3fd712072df1c84fc6175d3",
+    "semantic_hash": "85b017aef3fd712072df1c84fc6175d3"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Present Continuous.md": {
+    "mtime": 1795016640.2597647,
+    "seen": 1795068105.1489394,
+    "ast_hash": "43860d26ee750e7b225725e729e152db",
+    "semantic_hash": "43860d26ee750e7b225725e729e152db"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Presente Simples.md": {
+    "mtime": 1795016681.6903393,
+    "seen": 1795068105.148941,
+    "ast_hash": "1a8b42d61260f0365ed107b095bfaf83",
+    "semantic_hash": "1a8b42d61260f0365ed107b095bfaf83"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Pronomes e Possessivos.md": {
+    "mtime": 1795016724.0765872,
+    "seen": 1795068105.148943,
+    "ast_hash": "584faaef58b3d056e5b81c10cac6a212",
+    "semantic_hash": "584faaef58b3d056e5b81c10cac6a212"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Se Apresentar.md": {
+    "mtime": 1795016767.837626,
+    "seen": 1795068105.1489444,
+    "ast_hash": "f512557302ad4cbf97fd055a05ba8f80",
+    "semantic_hash": "f512557302ad4cbf97fd055a05ba8f80"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Sons do Ingl\u00eas e IPA.md": {
+    "mtime": 1795016819.5998423,
+    "seen": 1795068105.1489465,
+    "ast_hash": "43166e9aa7c7ce065b4c18e58f3e827a",
+    "semantic_hash": "43166e9aa7c7ce065b4c18e58f3e827a"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/There Is e There Are.md": {
+    "mtime": 1795016854.5974252,
+    "seen": 1795068105.1489482,
+    "ast_hash": "bdd5c184ffb17eb56d94cc0ee2ca6c54",
+    "semantic_hash": "bdd5c184ffb17eb56d94cc0ee2ca6c54"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Verbo To Be.md": {
+    "mtime": 1795016898.6634016,
+    "seen": 1795068105.1489499,
+    "ast_hash": "7c7cac5824956d006cb746c297db3ad4",
+    "semantic_hash": "7c7cac5824956d006cb746c297db3ad4"
+  },
+  "Ingl\u00eas/02 - Base (A1-A2)/Word Stress.md": {
+    "mtime": 1795016944.7320652,
+    "seen": 1795068105.1489513,
+    "ast_hash": "a9ce5c4d5ac61071afe3a1370db00351",
+    "semantic_hash": "a9ce5c4d5ac61071afe3a1370db00351"
+  },
+  "Ingl\u00eas/05 - Ingl\u00eas para Programa\u00e7\u00e3o/Ingl\u00eas em Commits, Issues e PRs.md": {
+    "mtime": 1795016987.248216,
+    "seen": 1795068105.1489532,
+    "ast_hash": "8689fb583a9c65ee540f6baa52c7792e",
+    "semantic_hash": "8689fb583a9c65ee540f6baa52c7792e"
+  },
+  "Ingl\u00eas/05 - Ingl\u00eas para Programa\u00e7\u00e3o/Ler Documenta\u00e7\u00e3o.md": {
+    "mtime": 1795017023.0202696,
+    "seen": 1795068105.148955,
+    "ast_hash": "60baf9c9a92987d209ec56ee52e95003",
+    "semantic_hash": "60baf9c9a92987d209ec56ee52e95003"
+  },
+  "Ingl\u00eas/05 - Ingl\u00eas para Programa\u00e7\u00e3o/Siglas T\u00e9cnicas.md": {
+    "mtime": 1795017059.2916467,
+    "seen": 1795068105.148957,
+    "ast_hash": "c109b5f309fb13dbbec6e729bd2a6bfe",
+    "semantic_hash": "c109b5f309fb13dbbec6e729bd2a6bfe"
+  },
+  "Ingl\u00eas/05 - Ingl\u00eas para Programa\u00e7\u00e3o/Vocabul\u00e1rio T\u00e9cnico.md": {
+    "mtime": 1795017101.140915,
+    "seen": 1795068105.148959,
+    "ast_hash": "b32444317136c3c6a466c3389476d3c4",
+    "semantic_hash": "b32444317136c3c6a466c3389476d3c4"
+  },
+  "Ingl\u00eas/Ingl\u00eas.md": {
+    "mtime": 1794779768.2033334,
+    "seen": 1795068105.1489604,
+    "ast_hash": "fa5acae2b912ffbba5e3d32044272de4",
+    "semantic_hash": "fa5acae2b912ffbba5e3d32044272de4"
   },
   "Programa\u00e7\u00e3o/00 - Roadmap \ud83d\uddfa\ufe0f/Roadmap.md": {
-    "mtime": 1794429586.0129929,
-    "seen": 1794446708.9638479,
-    "ast_hash": "c6c40668d673b59b6f2cb621449cc706",
-    "semantic_hash": "c6c40668d673b59b6f2cb621449cc706"
+    "mtime": 1795049260.030174,
+    "seen": 1795068105.1489618,
+    "ast_hash": "d553bc8b3da3bb36bbdb714b6b28422a",
+    "semantic_hash": "d553bc8b3da3bb36bbdb714b6b28422a"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/Bash/README.md": {
-    "mtime": 1794429524.9400203,
-    "seen": 1794446708.963849,
-    "ast_hash": "b551119cb1adaf3ad65f19c86e4f18a2",
-    "semantic_hash": "b551119cb1adaf3ad65f19c86e4f18a2"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/Bash/Bash.md": {
+    "mtime": 1795013637.200922,
+    "seen": 1795068105.148963,
+    "ast_hash": "e75a02c27e50ebbccc094ba64b392004",
+    "semantic_hash": "e75a02c27e50ebbccc094ba64b392004"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/DevTools/README.md": {
-    "mtime": 1794429524.9441578,
-    "seen": 1794446708.96385,
-    "ast_hash": "59aad8fd8fc52f2fe97c75acc5d6fbb9",
-    "semantic_hash": "59aad8fd8fc52f2fe97c75acc5d6fbb9"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/DevTools/DevTools.md": {
+    "mtime": 1795013796.5466197,
+    "seen": 1795068105.1489642,
+    "ast_hash": "f216cafc4e868a233495bbc7aa538d32",
+    "semantic_hash": "f216cafc4e868a233495bbc7aa538d32"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/Formatter/README.md": {
-    "mtime": 1794429524.9451854,
-    "seen": 1794446708.963851,
-    "ast_hash": "2192dbeedad6108c244914fbe8731fd7",
-    "semantic_hash": "2192dbeedad6108c244914fbe8731fd7"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/Formatter/Formatter.md": {
+    "mtime": 1795013834.9313834,
+    "seen": 1795068105.1489651,
+    "ast_hash": "301fa4e8eed4b8d9d5b209642daa7466",
+    "semantic_hash": "301fa4e8eed4b8d9d5b209642daa7466"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/Gerenciador de Pacotes/README.md": {
-    "mtime": 1794429524.9456964,
-    "seen": 1794446708.963852,
-    "ast_hash": "1d01dd0a920bddd75f071ee230c7c13c",
-    "semantic_hash": "1d01dd0a920bddd75f071ee230c7c13c"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/Gerenciador de Pacotes/Gerenciador de Pacotes.md": {
+    "mtime": 1795013881.6024268,
+    "seen": 1795068105.1489663,
+    "ast_hash": "e4a96166c224bd26eb48608c58c36ca8",
+    "semantic_hash": "e4a96166c224bd26eb48608c58c36ca8"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/Insomnia/README.md": {
-    "mtime": 1794429524.946725,
-    "seen": 1794446708.9638531,
-    "ast_hash": "8d2be620dcc20906faca46dc224e4c01",
-    "semantic_hash": "8d2be620dcc20906faca46dc224e4c01"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/Insomnia/Insomnia.md": {
+    "mtime": 1795013916.0999513,
+    "seen": 1795068105.1489675,
+    "ast_hash": "5a27413e54a0cc121d4ba0c689f198d0",
+    "semantic_hash": "5a27413e54a0cc121d4ba0c689f198d0"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/Linter/README.md": {
-    "mtime": 1794429524.9487512,
-    "seen": 1794446708.963854,
-    "ast_hash": "f8f8b0fbf1ac783941f0b65f2738bac8",
-    "semantic_hash": "f8f8b0fbf1ac783941f0b65f2738bac8"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/Linter/Linter.md": {
+    "mtime": 1795013951.1839402,
+    "seen": 1795068105.1489692,
+    "ast_hash": "3dfecc1e801ac4e9764473a83c21a8ae",
+    "semantic_hash": "3dfecc1e801ac4e9764473a83c21a8ae"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/Postman/README.md": {
-    "mtime": 1794429524.9472435,
-    "seen": 1794446708.963855,
-    "ast_hash": "31361560aade80b9a8c2f5249ecce297",
-    "semantic_hash": "31361560aade80b9a8c2f5249ecce297"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/Postman/Postman.md": {
+    "mtime": 1795013991.4607584,
+    "seen": 1795068105.1489706,
+    "ast_hash": "17c86fe3db1f5f84809728956cbcf2bb",
+    "semantic_hash": "17c86fe3db1f5f84809728956cbcf2bb"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/PowerShell/README.md": {
-    "mtime": 1794429524.943122,
-    "seen": 1794446708.9638562,
-    "ast_hash": "ff55f8faa29bf82dc5f47b100bcd563d",
-    "semantic_hash": "ff55f8faa29bf82dc5f47b100bcd563d"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/PowerShell/PowerShell.md": {
+    "mtime": 1795014031.2645423,
+    "seen": 1795068105.1489716,
+    "ast_hash": "e58d4fb88bef5518a85127c31f1ca711",
+    "semantic_hash": "e58d4fb88bef5518a85127c31f1ca711"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/Regex/README.md": {
-    "mtime": 1794429524.9379563,
-    "seen": 1794446708.9638572,
-    "ast_hash": "42009cc785690958e097c0ccaafc48f2",
-    "semantic_hash": "42009cc785690958e097c0ccaafc48f2"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/Regex/Regex.md": {
+    "mtime": 1795014074.6143413,
+    "seen": 1795068105.1489725,
+    "ast_hash": "53a8c244c085764c0a3feb56ab637641",
+    "semantic_hash": "53a8c244c085764c0a3feb56ab637641"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/SSH/README.md": {
-    "mtime": 1794429524.9410577,
-    "seen": 1794446708.9638581,
-    "ast_hash": "9954812e69a7463b05d975d8d8486779",
-    "semantic_hash": "9954812e69a7463b05d975d8d8486779"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/SSH/SSH.md": {
+    "mtime": 1795014118.5848594,
+    "seen": 1795068105.1489758,
+    "ast_hash": "d8ce4d7301d5e701dc4de527bc5e20c8",
+    "semantic_hash": "d8ce4d7301d5e701dc4de527bc5e20c8"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/Terminal/README.md": {
-    "mtime": 1794429524.9415762,
-    "seen": 1794446708.963859,
-    "ast_hash": "5d4565414a21f29d1c41e46ddb1efee7",
-    "semantic_hash": "5d4565414a21f29d1c41e46ddb1efee7"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/Terminal/Terminal.md": {
+    "mtime": 1795014165.1098616,
+    "seen": 1795068105.1489768,
+    "ast_hash": "2d2d4409bd6d72aa73a754a2a366fcaa",
+    "semantic_hash": "2d2d4409bd6d72aa73a754a2a366fcaa"
   },
-  "Programa\u00e7\u00e3o/01 - Ferramentas/VsCode/README.md": {
-    "mtime": 1794429524.949267,
-    "seen": 1794446708.9638603,
-    "ast_hash": "8d2c895be9245222d5156d8231fe5b74",
-    "semantic_hash": "8d2c895be9245222d5156d8231fe5b74"
+  "Programa\u00e7\u00e3o/01 - Ferramentas/VsCode/VS Code.md": {
+    "mtime": 1795014206.624129,
+    "seen": 1795068105.148978,
+    "ast_hash": "0371fcc729e7811944e3e81c432d9c24",
+    "semantic_hash": "0371fcc729e7811944e3e81c432d9c24"
   },
-  "Programa\u00e7\u00e3o/25 - DevOps/Docker/README.md": {
-    "mtime": 1794429535.8820896,
-    "seen": 1794446708.963861,
-    "ast_hash": "eeb4a130f09985d5315ffe8f03c712c5",
-    "semantic_hash": "eeb4a130f09985d5315ffe8f03c712c5"
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Entrada e Sa\u00edda/Entrada e Sa\u00edda.md": {
+    "mtime": 1795014245.2972322,
+    "seen": 1795068105.148979,
+    "ast_hash": "e000c7234f1d5d1e81f58f158684ad74",
+    "semantic_hash": "e000c7234f1d5d1e81f58f158684ad74"
   },
-  "Programa\u00e7\u00e3o/APIs/README.md": {
-    "mtime": 1793238409.4322813,
-    "seen": 1794446708.963862,
-    "ast_hash": "a1c5a0b87bb77f9a24c787e0dba1f357",
-    "semantic_hash": "a1c5a0b87bb77f9a24c787e0dba1f357"
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Escopo/Escopo.md": {
+    "mtime": 1795014281.3991292,
+    "seen": 1795068105.14898,
+    "ast_hash": "636312d4689f86f7f0952e0532755f78",
+    "semantic_hash": "636312d4689f86f7f0952e0532755f78"
+  },
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Estruturas Condicionais/Estruturas Condicionais.md": {
+    "mtime": 1795014319.145322,
+    "seen": 1795068105.148981,
+    "ast_hash": "735a78fa10d0c3290a157eb250c49e39",
+    "semantic_hash": "735a78fa10d0c3290a157eb250c49e39"
+  },
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Estruturas de Repeti\u00e7\u00e3o/Estruturas de Repeti\u00e7\u00e3o.md": {
+    "mtime": 1795014355.4862144,
+    "seen": 1795068105.148982,
+    "ast_hash": "25c945639dcd2bb93d5ddeecc440d653",
+    "semantic_hash": "25c945639dcd2bb93d5ddeecc440d653"
+  },
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Fun\u00e7\u00f5es/Fun\u00e7\u00f5es.md": {
+    "mtime": 1795014406.6363287,
+    "seen": 1795068105.1489828,
+    "ast_hash": "ed19ca8bb2ac580c8cf4401b6cdf3360",
+    "semantic_hash": "ed19ca8bb2ac580c8cf4401b6cdf3360"
+  },
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Ler Mensagens de Erro/Ler Mensagens de Erro.md": {
+    "mtime": 1795014447.3742871,
+    "seen": 1795068105.1489837,
+    "ast_hash": "4dc288222ce89d703f57d3572f47af27",
+    "semantic_hash": "4dc288222ce89d703f57d3572f47af27"
+  },
+  "Programa\u00e7\u00e3o/02 - Fundamentos/L\u00f3gica de Programa\u00e7\u00e3o/L\u00f3gica de Programa\u00e7\u00e3o.md": {
+    "mtime": 1795014484.8047035,
+    "seen": 1795068105.148985,
+    "ast_hash": "1971bde817d2f2dc6dbcd9aca55c5f4e",
+    "semantic_hash": "1971bde817d2f2dc6dbcd9aca55c5f4e"
+  },
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Modulariza\u00e7\u00e3o/Modulariza\u00e7\u00e3o.md": {
+    "mtime": 1795014518.096068,
+    "seen": 1795068105.1489859,
+    "ast_hash": "fe8806020589745c86f9dee42f4d78b5",
+    "semantic_hash": "fe8806020589745c86f9dee42f4d78b5"
+  },
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Nomes e Coment\u00e1rios/Nomes e Coment\u00e1rios.md": {
+    "mtime": 1795014557.7636454,
+    "seen": 1795068105.1489868,
+    "ast_hash": "31afaf938e24f9c24db606397e666279",
+    "semantic_hash": "31afaf938e24f9c24db606397e666279"
+  },
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Operadores e Express\u00f5es/Operadores e Express\u00f5es.md": {
+    "mtime": 1795014597.0747287,
+    "seen": 1795068105.148988,
+    "ast_hash": "0f3fe3e93083d6ae83ada8bf5bff4171",
+    "semantic_hash": "0f3fe3e93083d6ae83ada8bf5bff4171"
+  },
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Paradigmas de Programa\u00e7\u00e3o/Paradigmas de Programa\u00e7\u00e3o.md": {
+    "mtime": 1795014630.085166,
+    "seen": 1795068105.148989,
+    "ast_hash": "aa9079af059f5b1815525ec48159d3cb",
+    "semantic_hash": "aa9079af059f5b1815525ec48159d3cb"
+  },
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Recurs\u00e3o/Recurs\u00e3o.md": {
+    "mtime": 1795014666.646415,
+    "seen": 1795068105.14899,
+    "ast_hash": "f5b92e92e59f018a743e7b85093834f6",
+    "semantic_hash": "f5b92e92e59f018a743e7b85093834f6"
+  },
+  "Programa\u00e7\u00e3o/02 - Fundamentos/Vari\u00e1veis e Tipos de Dados/Vari\u00e1veis e Tipos de Dados.md": {
+    "mtime": 1795014706.7653713,
+    "seen": 1795068105.1489909,
+    "ast_hash": "9559f4a3a2e6cc6720157b958c2c2411",
+    "semantic_hash": "9559f4a3a2e6cc6720157b958c2c2411"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Async e Await/Async e Await.md": {
+    "mtime": 1795014748.8025234,
+    "seen": 1795068105.148992,
+    "ast_hash": "0cbc2f9276c696d2d4190706c1bff8b9",
+    "semantic_hash": "0cbc2f9276c696d2d4190706c1bff8b9"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Classes no TypeScript/Classes no TypeScript.md": {
+    "mtime": 1795014792.4791732,
+    "seen": 1795068105.148993,
+    "ast_hash": "d5e551f60cfc3bdafc553cff14467bab",
+    "semantic_hash": "d5e551f60cfc3bdafc553cff14467bab"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Configurando um Projeto TypeScript/Configurando um Projeto TypeScript.md": {
+    "mtime": 1795014831.118291,
+    "seen": 1795068105.148994,
+    "ast_hash": "827063b7d55fa573e9c4e7f231020f09",
+    "semantic_hash": "827063b7d55fa573e9c4e7f231020f09"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Datas e Fusos Hor\u00e1rios/Datas e Fusos Hor\u00e1rios.md": {
+    "mtime": 1795014873.5275116,
+    "seen": 1795068105.1489952,
+    "ast_hash": "a739775d7b27cb8f9b5ea46d57d4f20c",
+    "semantic_hash": "a739775d7b27cb8f9b5ea46d57d4f20c"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Generics/Generics.md": {
+    "mtime": 1795014913.4698024,
+    "seen": 1795068105.148996,
+    "ast_hash": "8febbeb13890c2fc32b5b15c4dd4b634",
+    "semantic_hash": "8febbeb13890c2fc32b5b15c4dd4b634"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Interfaces e Type Aliases/Interfaces e Type Aliases.md": {
+    "mtime": 1795014953.8626142,
+    "seen": 1795068105.1489973,
+    "ast_hash": "2d963ee1a1fa3ccf956269b38c748213",
+    "semantic_hash": "2d963ee1a1fa3ccf956269b38c748213"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/JavaScript e TypeScript/JavaScript e TypeScript.md": {
+    "mtime": 1795014990.3232508,
+    "seen": 1795068105.1489987,
+    "ast_hash": "e783ad6a65305278bf453a8a471f8fd8",
+    "semantic_hash": "e783ad6a65305278bf453a8a471f8fd8"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Ler e Escrever Arquivos/Ler e Escrever Arquivos.md": {
+    "mtime": 1795015035.07919,
+    "seen": 1795068105.1489997,
+    "ast_hash": "2f2298e2ddf409dcb09f78cdb2932bfd",
+    "semantic_hash": "2f2298e2ddf409dcb09f78cdb2932bfd"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Map e Set no JavaScript/Map e Set no JavaScript.md": {
+    "mtime": 1795015073.5227702,
+    "seen": 1795068105.1490011,
+    "ast_hash": "cd60e51781fbac989019aa8769d564ce",
+    "semantic_hash": "cd60e51781fbac989019aa8769d564ce"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/M\u00f3dulos ES (import e export)/M\u00f3dulos ES (import e export).md": {
+    "mtime": 1795015112.1473455,
+    "seen": 1795068105.1490023,
+    "ast_hash": "052029fde8ee20aae8b36ab763732eb5",
+    "semantic_hash": "052029fde8ee20aae8b36ab763732eb5"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Node.js/Node.js.md": {
+    "mtime": 1795015151.65632,
+    "seen": 1795068105.1490033,
+    "ast_hash": "1afcec451fbbc0e917770930ecf47a69",
+    "semantic_hash": "1afcec451fbbc0e917770930ecf47a69"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Objetos e Arrays no JavaScript/Objetos e Arrays no JavaScript.md": {
+    "mtime": 1795015197.7451687,
+    "seen": 1795068105.1490042,
+    "ast_hash": "404a518159e794f8f0a8437b3dc05522",
+    "semantic_hash": "404a518159e794f8f0a8437b3dc05522"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Promises/Promises.md": {
+    "mtime": 1795015237.805371,
+    "seen": 1795068105.1490054,
+    "ast_hash": "2229201ba17285bb2ed5b95cd0ed40c3",
+    "semantic_hash": "2229201ba17285bb2ed5b95cd0ed40c3"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Tipos B\u00e1sicos do TypeScript/Tipos B\u00e1sicos do TypeScript.md": {
+    "mtime": 1795015277.4728453,
+    "seen": 1795068105.1490064,
+    "ast_hash": "767605bd3d89bbca823332385784e1e3",
+    "semantic_hash": "767605bd3d89bbca823332385784e1e3"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Union Types e Narrowing/Union Types e Narrowing.md": {
+    "mtime": 1795015321.212254,
+    "seen": 1795068105.1490073,
+    "ast_hash": "32e1f1b85b43f749d1946ec7b3dc14b7",
+    "semantic_hash": "32e1f1b85b43f749d1946ec7b3dc14b7"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/Utility Types/Utility Types.md": {
+    "mtime": 1795015361.4319148,
+    "seen": 1795068105.1490083,
+    "ast_hash": "fff1f83d9dadeae8b3a87739da18351e",
+    "semantic_hash": "fff1f83d9dadeae8b3a87739da18351e"
+  },
+  "Programa\u00e7\u00e3o/03 - TypeScript/null e undefined/null e undefined.md": {
+    "mtime": 1795015400.912817,
+    "seen": 1795068105.1490095,
+    "ast_hash": "2c1b06a20e2e7ff558d6b843a89c319c",
+    "semantic_hash": "2c1b06a20e2e7ff558d6b843a89c319c"
+  },
+  "Programa\u00e7\u00e3o/04 - Git/Branches, Merge e Conflitos/Branches, Merge e Conflitos.md": {
+    "mtime": 1795015445.501136,
+    "seen": 1795068105.1490104,
+    "ast_hash": "90b004fd2c3425bb29bb9e3bc8e897ab",
+    "semantic_hash": "90b004fd2c3425bb29bb9e3bc8e897ab"
+  },
+  "Programa\u00e7\u00e3o/04 - Git/Conventional Commits/Conventional Commits.md": {
+    "mtime": 1795015484.249118,
+    "seen": 1795068105.1490116,
+    "ast_hash": "1b10f991975dc5eef02db033e925e029",
+    "semantic_hash": "1b10f991975dc5eef02db033e925e029"
+  },
+  "Programa\u00e7\u00e3o/04 - Git/Desfazendo Mudan\u00e7as (Reset e Revert)/Desfazendo Mudan\u00e7as (Reset e Revert).md": {
+    "mtime": 1795015528.1927807,
+    "seen": 1795068105.149013,
+    "ast_hash": "60d25a9a780d290c5da4edbb0c428d74",
+    "semantic_hash": "60d25a9a780d290c5da4edbb0c428d74"
+  },
+  "Programa\u00e7\u00e3o/04 - Git/Git B\u00e1sico/Git B\u00e1sico.md": {
+    "mtime": 1795015572.9621797,
+    "seen": 1795068105.149014,
+    "ast_hash": "a0ca115b50c2f6d84205483fdf86a283",
+    "semantic_hash": "a0ca115b50c2f6d84205483fdf86a283"
+  },
+  "Programa\u00e7\u00e3o/04 - Git/Git Flow/Git Flow.md": {
+    "mtime": 1795015614.0587158,
+    "seen": 1795068105.149015,
+    "ast_hash": "8899ffa3f0736b2a4cd4064260f57e33",
+    "semantic_hash": "8899ffa3f0736b2a4cd4064260f57e33"
+  },
+  "Programa\u00e7\u00e3o/04 - Git/Git Hooks/Git Hooks.md": {
+    "mtime": 1795015655.3334694,
+    "seen": 1795068105.1490161,
+    "ast_hash": "31e422c4a2d7c9b0c75dcb3ba6463b16",
+    "semantic_hash": "31e422c4a2d7c9b0c75dcb3ba6463b16"
+  },
+  "Programa\u00e7\u00e3o/04 - Git/GitHub e Pull Requests/GitHub e Pull Requests.md": {
+    "mtime": 1795015697.3325207,
+    "seen": 1795068105.149017,
+    "ast_hash": "6cc08d08716e3a5b989786cd4ba5b26e",
+    "semantic_hash": "6cc08d08716e3a5b989786cd4ba5b26e"
+  },
+  "Programa\u00e7\u00e3o/04 - Git/Rebase e Cherry Pick/Rebase e Cherry Pick.md": {
+    "mtime": 1795015739.0101707,
+    "seen": 1795068105.149018,
+    "ast_hash": "174f38a2de30f261600427527ccc38a1",
+    "semantic_hash": "174f38a2de30f261600427527ccc38a1"
+  },
+  "Programa\u00e7\u00e3o/04 - Git/Stash/Stash.md": {
+    "mtime": 1795015772.6717608,
+    "seen": 1795068105.1490188,
+    "ast_hash": "5a0ef17f2360d31b9b22a747a7cbe063",
+    "semantic_hash": "5a0ef17f2360d31b9b22a747a7cbe063"
+  },
+  "Programa\u00e7\u00e3o/04 - Git/Tags e Versionamento Sem\u00e2ntico/Tags e Versionamento Sem\u00e2ntico.md": {
+    "mtime": 1795015814.342388,
+    "seen": 1795068105.14902,
+    "ast_hash": "1b4547989c6843a65232e43512ddff3b",
+    "semantic_hash": "1b4547989c6843a65232e43512ddff3b"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Arrays/Arrays.md": {
+    "mtime": 1795047684.1140108,
+    "seen": 1795068105.149021,
+    "ast_hash": "b1aa533699e67e2e696c954d7d323863",
+    "semantic_hash": "b1aa533699e67e2e696c954d7d323863"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Deque/Deque.md": {
+    "mtime": 1795047985.3606079,
+    "seen": 1795068105.1490216,
+    "ast_hash": "7f2ac158e1fc38e9f208579f88a835cf",
+    "semantic_hash": "7f2ac158e1fc38e9f208579f88a835cf"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Filas/Filas.md": {
+    "mtime": 1795047904.1142468,
+    "seen": 1795068105.1490228,
+    "ast_hash": "417ef6d222e8d121c3eeae03dc004886",
+    "semantic_hash": "417ef6d222e8d121c3eeae03dc004886"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Grafos/Grafos.md": {
+    "mtime": 1795048344.7664564,
+    "seen": 1795068105.149024,
+    "ast_hash": "3320644194ac2b531c903360eb4f0cfd",
+    "semantic_hash": "3320644194ac2b531c903360eb4f0cfd"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Hash Table/Hash Table.md": {
+    "mtime": 1795049266.2699468,
+    "seen": 1795068105.1490257,
+    "ast_hash": "ea63319895e723837e66c4ee7257b945",
+    "semantic_hash": "ea63319895e723837e66c4ee7257b945"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Heap (Estrutura de Dados)/Heap (Estrutura de Dados).md": {
+    "mtime": 1795048261.7573082,
+    "seen": 1795068105.1490276,
+    "ast_hash": "0dcb15a198ce1d5a0e4c8b9afb90ca3d",
+    "semantic_hash": "0dcb15a198ce1d5a0e4c8b9afb90ca3d"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Listas Ligadas/Listas Ligadas.md": {
+    "mtime": 1795047902.840617,
+    "seen": 1795068105.1490295,
+    "ast_hash": "656537e45a312e864be5b0a219ac23fb",
+    "semantic_hash": "656537e45a312e864be5b0a219ac23fb"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Matrizes/Matrizes.md": {
+    "mtime": 1795047765.0968177,
+    "seen": 1795068105.1490316,
+    "ast_hash": "1475e1d4e688a15018779da04fa15216",
+    "semantic_hash": "1475e1d4e688a15018779da04fa15216"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Pilhas/Pilhas.md": {
+    "mtime": 1795047903.5365417,
+    "seen": 1795068105.1490333,
+    "ast_hash": "3e9b2aad318852f4e93f70921c6ee967",
+    "semantic_hash": "3e9b2aad318852f4e93f70921c6ee967"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Set/Set.md": {
+    "mtime": 1795047986.0965304,
+    "seen": 1795068105.1490347,
+    "ast_hash": "7862a0d988b5fe113e4f5e44c8e23272",
+    "semantic_hash": "7862a0d988b5fe113e4f5e44c8e23272"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Strings/Strings.md": {
+    "mtime": 1795047765.6034741,
+    "seen": 1795068105.1490362,
+    "ast_hash": "e5746548d99cdc17baa1f8686580f719",
+    "semantic_hash": "e5746548d99cdc17baa1f8686580f719"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Trie/Trie.md": {
+    "mtime": 1795048262.0953271,
+    "seen": 1795068105.149038,
+    "ast_hash": "a7fa5d997851b882d2e57a2c05802d86",
+    "semantic_hash": "a7fa5d997851b882d2e57a2c05802d86"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/Union-Find (Disjoint Set)/Union-Find (Disjoint Set).md": {
+    "mtime": 1795048262.5703673,
+    "seen": 1795068105.14904,
+    "ast_hash": "5d56fe2dd5b5f4b274c8a186531fbdba",
+    "semantic_hash": "5d56fe2dd5b5f4b274c8a186531fbdba"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/\u00c1rvore Bin\u00e1ria de Busca (BST)/\u00c1rvore Bin\u00e1ria de Busca (BST).md": {
+    "mtime": 1795048148.919199,
+    "seen": 1795068105.1490417,
+    "ast_hash": "5b870fe8b5b7a3beffe530fd4c7da5a9",
+    "semantic_hash": "5b870fe8b5b7a3beffe530fd4c7da5a9"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/\u00c1rvore Bin\u00e1ria/\u00c1rvore Bin\u00e1ria.md": {
+    "mtime": 1795048148.5947328,
+    "seen": 1795068105.1490428,
+    "ast_hash": "f3051ef809a8559d00b54e259765c5d2",
+    "semantic_hash": "f3051ef809a8559d00b54e259765c5d2"
+  },
+  "Programa\u00e7\u00e3o/05 - Estruturas de Dados/\u00c1rvores Balanceadas (AVL e Rubro-Negra)/\u00c1rvores Balanceadas (AVL e Rubro-Negra).md": {
+    "mtime": 1795048149.3565133,
+    "seen": 1795068105.1490443,
+    "ast_hash": "ca06901057131b4ab60ff1e13a89f669",
+    "semantic_hash": "ca06901057131b4ab60ff1e13a89f669"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/BFS (Busca em Largura)/BFS (Busca em Largura).md": {
+    "mtime": 1795048615.6207054,
+    "seen": 1795068105.1490455,
+    "ast_hash": "6bda8d7196a3511e6121efd6cd18d6ac",
+    "semantic_hash": "6bda8d7196a3511e6121efd6cd18d6ac"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Backtracking/Backtracking.md": {
+    "mtime": 1795048843.9079585,
+    "seen": 1795068105.1490462,
+    "ast_hash": "1b7db07a496f8f30f1daf501b2c80d12",
+    "semantic_hash": "1b7db07a496f8f30f1daf501b2c80d12"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Bellman-Ford e Floyd-Warshall/Bellman-Ford e Floyd-Warshall.md": {
+    "mtime": 1795048726.751457,
+    "seen": 1795068105.1490476,
+    "ast_hash": "e1939bde7c1415c0ce97e29c7e49d7cc",
+    "semantic_hash": "e1939bde7c1415c0ce97e29c7e49d7cc"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Busca Bin\u00e1ria/Busca Bin\u00e1ria.md": {
+    "mtime": 1795048345.640588,
+    "seen": 1795068105.1490486,
+    "ast_hash": "abaeaacac527aea23a20bb9b42f6fcd1",
+    "semantic_hash": "abaeaacac527aea23a20bb9b42f6fcd1"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Busca Linear/Busca Linear.md": {
+    "mtime": 1795048345.1254995,
+    "seen": 1795068105.1490495,
+    "ast_hash": "ae9bece8a6f7f9f348c920eba7b0896f",
+    "semantic_hash": "ae9bece8a6f7f9f348c920eba7b0896f"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/DFS (Busca em Profundidade)/DFS (Busca em Profundidade).md": {
+    "mtime": 1795048615.0975924,
+    "seen": 1795068105.1490507,
+    "ast_hash": "c0dc9334d664fd53852a4f494ac525d0",
+    "semantic_hash": "c0dc9334d664fd53852a4f494ac525d0"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Dijkstra/Dijkstra.md": {
+    "mtime": 1795048726.2181747,
+    "seen": 1795068105.1490517,
+    "ast_hash": "c920eb868fceccabd913733acee8caf2",
+    "semantic_hash": "c920eb868fceccabd913733acee8caf2"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Divide and Conquer/Divide and Conquer.md": {
+    "mtime": 1795049192.9702988,
+    "seen": 1795068105.149053,
+    "ast_hash": "d1d56893c6f7be94c59b0fc39d99f404",
+    "semantic_hash": "d1d56893c6f7be94c59b0fc39d99f404"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Greedy/Greedy.md": {
+    "mtime": 1795048995.6087523,
+    "seen": 1795068105.149054,
+    "ast_hash": "06e9248a4398507b1a38e141dedfd49d",
+    "semantic_hash": "06e9248a4398507b1a38e141dedfd49d"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Heap Sort/Heap Sort.md": {
+    "mtime": 1795048530.7837007,
+    "seen": 1795068105.1490552,
+    "ast_hash": "8caca020778c7b3cb329c228d8b6195a",
+    "semantic_hash": "8caca020778c7b3cb329c228d8b6195a"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Manipula\u00e7\u00e3o de Bits/Manipula\u00e7\u00e3o de Bits.md": {
+    "mtime": 1795049014.332826,
+    "seen": 1795068105.1490562,
+    "ast_hash": "30a113c67fd23f0b0a0c5fd30126b765",
+    "semantic_hash": "30a113c67fd23f0b0a0c5fd30126b765"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Merge Sort/Merge Sort.md": {
+    "mtime": 1795048530.4090726,
+    "seen": 1795068105.1490574,
+    "ast_hash": "51a6b0e17635289165498538a003ad64",
+    "semantic_hash": "51a6b0e17635289165498538a003ad64"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Ordena\u00e7\u00f5es Simples (Bubble, Selection, Insertion)/Ordena\u00e7\u00f5es Simples (Bubble, Selection, Insertion).md": {
+    "mtime": 1795048458.8145163,
+    "seen": 1795068105.1490588,
+    "ast_hash": "b79026b95d5066ab018b92a7a739a502",
+    "semantic_hash": "b79026b95d5066ab018b92a7a739a502"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Ordena\u00e7\u00f5es sem Compara\u00e7\u00e3o (Counting, Radix)/Ordena\u00e7\u00f5es sem Compara\u00e7\u00e3o (Counting, Radix).md": {
+    "mtime": 1795048531.3069966,
+    "seen": 1795068105.1490602,
+    "ast_hash": "25de62d2f99f1211fcb4549df3699695",
+    "semantic_hash": "25de62d2f99f1211fcb4549df3699695"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Programa\u00e7\u00e3o Din\u00e2mica/Programa\u00e7\u00e3o Din\u00e2mica.md": {
+    "mtime": 1795048844.394955,
+    "seen": 1795068105.1490614,
+    "ast_hash": "766c696a8b1f7b41f3fc09812b1ca4a5",
+    "semantic_hash": "766c696a8b1f7b41f3fc09812b1ca4a5"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Quick Sort/Quick Sort.md": {
+    "mtime": 1795048459.841545,
+    "seen": 1795068105.1490624,
+    "ast_hash": "020beb27113ad8d0d8e811793dfbdc22",
+    "semantic_hash": "020beb27113ad8d0d8e811793dfbdc22"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Sliding Window/Sliding Window.md": {
+    "mtime": 1795048996.0849352,
+    "seen": 1795068105.1490633,
+    "ast_hash": "e8d08e9ec5790fb0b10b2fee218eda0c",
+    "semantic_hash": "e8d08e9ec5790fb0b10b2fee218eda0c"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/Two Pointers/Two Pointers.md": {
+    "mtime": 1795049014.0298212,
+    "seen": 1795068105.1490643,
+    "ast_hash": "1596084337616cb8b1dd2abb973bfa6d",
+    "semantic_hash": "1596084337616cb8b1dd2abb973bfa6d"
+  },
+  "Programa\u00e7\u00e3o/06 - Algoritmos/\u00c1rvore Geradora M\u00ednima (Kruskal e Prim)/\u00c1rvore Geradora M\u00ednima (Kruskal e Prim).md": {
+    "mtime": 1795048727.3127701,
+    "seen": 1795068105.1490657,
+    "ast_hash": "7cf1a0f0930cf131a833ebc28aedcb8a",
+    "semantic_hash": "7cf1a0f0930cf131a833ebc28aedcb8a"
+  },
+  "Programa\u00e7\u00e3o/07 - Complexidade/Big O/Big O.md": {
+    "mtime": 1795049126.9231133,
+    "seen": 1795068105.1490667,
+    "ast_hash": "365a1d770a1a2a8b3ec6a565ed4fc358",
+    "semantic_hash": "365a1d770a1a2a8b3ec6a565ed4fc358"
+  },
+  "Programa\u00e7\u00e3o/07 - Complexidade/Complexidade Amortizada/Complexidade Amortizada.md": {
+    "mtime": 1795049138.424997,
+    "seen": 1795068105.1490679,
+    "ast_hash": "1fb60e149b8224396e4c5ec65f0bf880",
+    "semantic_hash": "1fb60e149b8224396e4c5ec65f0bf880"
+  },
+  "Programa\u00e7\u00e3o/07 - Complexidade/Trade-offs Tempo x Espa\u00e7o/Trade-offs Tempo x Espa\u00e7o.md": {
+    "mtime": 1795049127.8213563,
+    "seen": 1795068105.1490688,
+    "ast_hash": "690ad684cda1d99549a77fbe0dea7137",
+    "semantic_hash": "690ad684cda1d99549a77fbe0dea7137"
+  },
+  "Programa\u00e7\u00e3o/25 - DevOps/Docker/Docker.md": {
+    "mtime": 1795015874.708554,
+    "seen": 1795068105.1490793,
+    "ast_hash": "bde10a79223c5ce3de081090b55eb42b",
+    "semantic_hash": "bde10a79223c5ce3de081090b55eb42b"
   },
   "Programa\u00e7\u00e3o/Ideias de Projetos/Desenvolvimento de Aplicativo para Gerenciamento de Conte\u00fado em Televis\u00f5es.md": {
     "mtime": 1793683547.1747086,
-    "seen": 1794446708.9638631,
+    "seen": 1795068105.1490805,
     "ast_hash": "1a2d69063c4e77599dfb49242f4bd85a",
     "semantic_hash": "1a2d69063c4e77599dfb49242f4bd85a"
   },
   "Programa\u00e7\u00e3o/Ideias de Projetos/Desenvolvimento de Aplicativo para Leitura e Aprendizado Interativo.md": {
     "mtime": 1793236725.3583376,
-    "seen": 1794446708.963864,
+    "seen": 1795068105.149082,
     "ast_hash": "19a9ae0dda88eb735e07a5621d62f732",
     "semantic_hash": "19a9ae0dda88eb735e07a5621d62f732"
   },
+  "Programa\u00e7\u00e3o/Ideias de Projetos/Estruturas de Dados do Zero.md": {
+    "mtime": 1795047764.758077,
+    "seen": 1795068105.1490831,
+    "ast_hash": "4ce9b2b38c4d7be760ca8acead573753",
+    "semantic_hash": "4ce9b2b38c4d7be760ca8acead573753"
+  },
+  "Programa\u00e7\u00e3o/Ideias de Projetos/Gerenciador de Tarefas no Terminal.md": {
+    "mtime": 1795017111.0260224,
+    "seen": 1795068105.149084,
+    "ast_hash": "a02b193f0d915f9a23e63d5dbc9aaa10",
+    "semantic_hash": "a02b193f0d915f9a23e63d5dbc9aaa10"
+  },
   "Programa\u00e7\u00e3o/Ideias de Projetos/Plataforma SaaS para Cria\u00e7\u00e3o de RPGs Personalizados.md": {
     "mtime": 1793684923.0889046,
-    "seen": 1794446708.963865,
+    "seen": 1795068105.1490855,
     "ast_hash": "c441de86b3fe9e9cb8bb2a3af592132f",
     "semantic_hash": "c441de86b3fe9e9cb8bb2a3af592132f"
   },
   "Programa\u00e7\u00e3o/Ideias de Projetos/Plataforma de An\u00e1lise de Vulnerabilidades de Seguran\u00e7a para Websites.md": {
     "mtime": 1793684929.72613,
-    "seen": 1794446708.9638667,
+    "seen": 1795068105.1490865,
     "ast_hash": "e39ed77ea07fc2cfd384d0bfcc922ff6",
     "semantic_hash": "e39ed77ea07fc2cfd384d0bfcc922ff6"
   },
   "Programa\u00e7\u00e3o/Ideias de Projetos/Plataforma de Matchmaking para Duos em Jogos.md": {
-    "mtime": 1794429636.8764317,
-    "seen": 1794446708.9638677,
-    "ast_hash": "2f06185bca22d089a38b9a05d5c2f073",
-    "semantic_hash": "2f06185bca22d089a38b9a05d5c2f073"
+    "mtime": 1794505746.6701248,
+    "seen": 1795068105.1490877,
+    "ast_hash": "2e64a02dec3190ec450b475621d74497",
+    "semantic_hash": "2e64a02dec3190ec450b475621d74497"
   },
   "Programa\u00e7\u00e3o/Ideias de Projetos/Site de Roadmap para o Vault de Estudos.md": {
     "mtime": 1793684919.1238067,
-    "seen": 1794446708.9638686,
+    "seen": 1795068105.149089,
     "ast_hash": "55025d571af0707c75169f39c465b5ad",
     "semantic_hash": "55025d571af0707c75169f39c465b5ad"
   },
-  "Programa\u00e7\u00e3o/Template/Di\u00e1rio.md": {
-    "mtime": 1794429549.9940565,
-    "seen": 1794446708.9638698,
-    "ast_hash": "4c1981926431415f5da2dcb03399e32c",
-    "semantic_hash": "4c1981926431415f5da2dcb03399e32c"
-  },
-  "Programa\u00e7\u00e3o/Template/Template.md": {
-    "mtime": 1794429549.6988254,
-    "seen": 1794446708.9638705,
-    "ast_hash": "7bcce24c49c9043c13db989421a852b6",
-    "semantic_hash": "7bcce24c49c9043c13db989421a852b6"
-  },
   "README.md": {
-    "mtime": 1794429771.8254075,
-    "seen": 1794446708.9638715,
-    "ast_hash": "32692da91c690721e85619c906469c0f",
-    "semantic_hash": "32692da91c690721e85619c906469c0f"
+    "mtime": 1795060523.0060477,
+    "seen": 1795068105.1490903,
+    "ast_hash": "49b987d694a303203a4ed0db6ce8af77",
+    "semantic_hash": "49b987d694a303203a4ed0db6ce8af77"
+  },
+  "Templates/Di\u00e1rio.md": {
+    "mtime": 1794504281.9963856,
+    "seen": 1795068105.1490912,
+    "ast_hash": "082816a2728a2ef6f9d67a84cb2f3c1b",
+    "semantic_hash": "082816a2728a2ef6f9d67a84cb2f3c1b"
+  },
+  "Templates/Template.md": {
+    "mtime": 1795013736.118826,
+    "seen": 1795068105.1490922,
+    "ast_hash": "765f4af4545fc6d3fe4c5ea87df606d4",
+    "semantic_hash": "765f4af4545fc6d3fe4c5ea87df606d4"
   }
 }
