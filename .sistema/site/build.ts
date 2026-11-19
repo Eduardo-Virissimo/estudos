@@ -83,7 +83,13 @@ const slugAncora = (s: string) =>
 const textoPuro = (s: string) =>
   s.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, "$2").replace(/\[\[([^\]]+)\]\]/g, "$1").replace(/[`*_~]/g, "");
 
-const plural = (n: number, um: string, varios: string) => `${n} ${n === 1 ? um : varios}`;
+/** Desfaz o escapar() (e as entidades que o Marked gera) pra texto que vai pro JSON. */
+const semEntidades = (s: string) =>
+  s.replace(/&(?:#(\d+)|#x([\da-f]+)|(amp|lt|gt|quot|apos));/gi, (_, d, h, n) =>
+    d ? String.fromCodePoint(+d) : h ? String.fromCodePoint(parseInt(h, 16)) : ({ amp: "&", lt: "<", gt: ">", quot: '"', apos: "'" } as Record<string, string>)[n.toLowerCase()],
+  );
+
+const plural =(n: number, um: string, varios: string) => `${n} ${n === 1 ? um : varios}`;
 
 const naturalmente =(a: string, b: string) => a.localeCompare(b, "pt-BR", { numeric: true, sensitivity: "base" });
 
@@ -168,6 +174,41 @@ for (const { pasta } of colecoes) {
   else console.warn(`⚠️  Pasta "${pasta}" não existe no vault, pulando.`);
 }
 
+/**
+ * Tira do Markdown as seções que só têm "forma" e nenhum conteúdo, como o bloco do modelo
+ * "## Minhas anotações / **O que eu entendi:** / - " ainda em branco. No site não dá pra escrever,
+ * então uma seção dessas é só ruído. Uma seção conta como vazia quando, até o próximo título do
+ * mesmo nível (ou maior), só tem linha em branco, marcador sem texto, rótulo em negrito ou "---".
+ */
+function limparSecoesVazias(texto: string) {
+  const VAZIA = /^\s*(?:[-*+]\s*|\*\*[^*]+\*\*\s*|-{3,}\s*|%%.*%%\s*)?$/;
+  let linhas = texto.split("\n");
+  for (let mudou = true; mudou; ) {
+    mudou = false;
+    let cerca = false;
+    const titulos: { i: number; nivel: number }[] = [];
+    linhas.forEach((l, i) => {
+      if (/^\s*(```|~~~)/.test(l)) cerca = !cerca;
+      const h = !cerca && /^(#{1,6})\s+\S/.exec(l);
+      if (h) titulos.push({ i, nivel: h[1].length });
+    });
+    for (let t = titulos.length - 1; t >= 0; t--) {
+      const { i, nivel } = titulos[t];
+      const fim = titulos.slice(t + 1).find((o) => o.nivel <= nivel)?.i ?? linhas.length;
+      const filho = titulos[t + 1] && titulos[t + 1].i < fim; // tem subtítulo com algo embaixo
+      if (!filho && linhas.slice(i + 1, fim).every((l) => VAZIA.test(l))) {
+        linhas.splice(i, fim - i);
+        mudou = true;
+        break;
+      }
+    }
+  }
+  // "---" ou linhas em branco que sobraram no fim da nota
+  while (linhas.length && /^\s*(?:-{3,})?\s*$/.test(linhas.at(-1)!)) linhas.pop();
+  return linhas.join("\n") + "\n";
+}
+for (const p of paginas) p.md = limparSecoesVazias(p.md);
+
 // ---------- resolução de links (igual ao Obsidian: pelo nome mais curto) ----------
 
 const porNome = new Map<string, Pagina[]>();
@@ -185,6 +226,23 @@ function acharPagina(alvo: string): Pagina | undefined {
   const candidatas = porNome.get(posix.basename(t)) ?? [];
   return candidatas.find((p) => p.rel.toLowerCase().replace(/\.md$/i, "").endsWith(t)) ?? (t.includes("/") ? undefined : candidatas[0]);
 }
+
+/**
+ * Ordem de estudo: a ordem em que as notas aparecem nas trilhas (notas com "tipo: trilha", como
+ * o Roadmap). Uma nota também pode fixar a sua com "ordem: 3" no frontmatter. Quem não está em
+ * trilha nenhuma fica depois, em ordem alfabética.
+ */
+const ordemDeEstudo = new Map<Pagina, number>();
+{
+  let n = 0;
+  const trilhasOrdenadas = paginas.filter((p) => p.campos.tipo === "trilha").sort((a, b) => naturalmente(a.rel, b.rel));
+  for (const t of trilhasOrdenadas)
+    for (const m of t.md.replace(/```[\s\S]*?```/g, "").matchAll(/\[\[([^\]|#\n]+)/g)) {
+      const alvo = acharPagina(m[1]);
+      if (alvo && alvo !== t && !ordemDeEstudo.has(alvo)) ordemDeEstudo.set(alvo, n++);
+    }
+}
+const ordemFixa = (p: Pagina) => (/^\d+$/.test(p.campos.ordem ?? "") ? Number(p.campos.ordem) : undefined);
 
 function acharArquivo(alvo: string): Arquivo | undefined {
   const t = alvo.trim().toLowerCase();
@@ -226,7 +284,8 @@ const FAMILIAS: Record<string, string> = {
   abstract: "resumo", summary: "resumo", tldr: "resumo",
 };
 
-const md = new Marked({ gfm: true });
+// breaks: true = cada quebra de linha vira quebra de linha, igual ao Obsidian (sem "Strict line breaks").
+const md = new Marked({ gfm: true, breaks: true });
 
 md.use({
   extensions: [
@@ -301,9 +360,26 @@ md.use({
       if (!m) return false; // citação normal
       const tipo = m[1].toLowerCase();
       const corpo = token.text.slice(m[0].length);
+      const familia = FAMILIAS[tipo] ?? "nota";
+
+      // Resposta / gabarito: sempre fechada, aberta por um botão largo "Ver resposta".
+      if (familia === "resposta") {
+        const rotulo = m[3].trim() || ROTULOS[tipo] || "Resposta";
+        const botao = /^\S+$/.test(rotulo) ? `Ver ${rotulo.toLowerCase()}` : rotulo;
+        return `<details class="resposta"><summary>${md.parseInline(botao) as string}</summary><div class="resposta-corpo">${md.parse(corpo) as string}</div></details>\n`;
+      }
+      // Pergunta de revisão: a pergunta fica sempre à vista; a resposta (o corpo, ou um
+      // [!success]/[!check] aninhado nas de múltipla escolha) só aparece no "Ver resposta".
+      if (familia === "pergunta") {
+        const pergunta = m[3].trim() ? (md.parseInline(m[3]) as string) : escapar(ROTULOS[tipo] ?? "Pergunta");
+        let miolo = corpo.trim() ? (md.parse(corpo) as string) : "";
+        if (miolo && !miolo.includes('<details class="resposta">'))
+          miolo = `<details class="resposta"><summary>Ver resposta</summary><div class="resposta-corpo">${miolo}</div></details>\n`;
+        return `<div class="ficha"><p class="ficha-pergunta">${pergunta}</p>${miolo}</div>\n`;
+      }
       const titulo = `<span class="callout-texto">${m[3].trim() ? (md.parseInline(m[3]) as string) : escapar(ROTULOS[tipo] ?? tipo)}</span>`;
       const miolo = corpo.trim() ? `<div class="callout-corpo">${md.parse(corpo) as string}</div>` : "";
-      const atributos = `class="callout" data-callout="${escapar(tipo)}" data-familia="${FAMILIAS[tipo] ?? "nota"}"`;
+      const atributos = `class="callout" data-callout="${escapar(tipo)}" data-familia="${familia}"`;
       if (!m[2]) return `<div ${atributos}><div class="callout-titulo">${titulo}</div>${miolo}</div>\n`;
       return `<details ${atributos}${m[2] === "+" ? " open" : ""}><summary class="callout-titulo">${titulo}</summary>${miolo}</details>\n`;
     },
@@ -357,8 +433,21 @@ function itensDe(pasta: Pasta): Item[] {
     const unica = notaDaPasta(sub);
     itens.push(unica ? { nome: sub.nome, pagina: unica } : { nome: sub.nome, pasta: sub });
   }
-  return itens.sort((a, b) => naturalmente(a.nome, b.nome));
+  // Notas seguem a ordem de estudo (frontmatter "ordem", depois a trilha); pastas seguem o número do nome.
+  const chave = (i: Item) => (i.pagina ? ordemFixa(i.pagina) ?? ordemDeEstudo.get(i.pagina) : undefined);
+  return itens.sort((a, b) => {
+    const ka = chave(a), kb = chave(b);
+    if (a.pagina && b.pagina && (ka !== undefined || kb !== undefined)) {
+      if (ka === undefined) return 1;
+      if (kb === undefined) return -1;
+      if (ka !== kb) return ka - kb;
+    }
+    return naturalmente(a.nome, b.nome);
+  });
 }
+
+/** "02 - Fundamentos" -> "Fundamentos": o número só serve pra ordenar as pastas. */
+const semPrefixo = (nome: string) => nome.replace(/^\d+\s*-\s*/, "") || nome;
 
 /** Todas as notas de um caderno, na ordem do sumário (pra Anterior / Próxima). */
 function emOrdem(pasta: Pasta): Pagina[] {
@@ -383,7 +472,7 @@ function sumario(pasta: Pasta, de: string, alvo?: Pagina): string {
     }
     const total = emOrdem(i.pasta!).length;
     const serie = pasta === arvore && colecoes.some((c) => c.pasta === i.nome) ? ` data-serie="${serieDe(i.nome)}"` : "";
-    return `<li><details${serie}${contem(i.pasta!, alvo) ? " open" : ""}><summary><span>${escapar(i.nome)}</span><span class="conta">${total}</span></summary>${sumario(i.pasta!, de, alvo)}</details></li>`;
+    return `<li><details${serie}${contem(i.pasta!, alvo) ? " open" : ""}><summary><span>${escapar(semPrefixo(i.nome))}</span><span class="conta">${total}</span></summary>${sumario(i.pasta!, de, alvo)}</details></li>`;
   });
   return `<ul>${lis.join("")}</ul>`;
 }
@@ -401,7 +490,9 @@ const icone = {
   fechar: `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
   seguir: `<svg class="seta" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   voltar: `<svg class="seta" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  buscar: `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+  inicio: `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  revisar: `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="4" y="6" width="14" height="13" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 3h12v13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/><path d="M8 13l2.5 2.5L14.5 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  buscar: `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
 };
 
 /** Coleção (pasta de topo) de uma nota: dá a cor da faixa e o nome no topo. */
@@ -418,6 +509,7 @@ function moldura(o: { saida: string; titulo: string; classe: string; corpo: stri
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="${CSP}">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="only light">
 <meta name="theme-color" content="${colecao?.cor ?? "#1b1b1b"}">
 <title>${escapar(o.titulo)}</title>
 <link rel="preload" href="${raiz}assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -429,21 +521,30 @@ function moldura(o: { saida: string; titulo: string; classe: string; corpo: stri
 </head>
 <body class="${o.classe}">
 <a class="pular" href="#conteudo">Pular para o texto</a>
-<header class="topo">
-  <a class="marca" href="${raiz}index.html">${escapar(colecao?.pasta ?? config.titulo)}</a>
-  <button class="abrir-sumario" type="button" aria-controls="folha" aria-expanded="false">${icone.sumario}<span>Sumário</span></button>
-  <div class="progresso" aria-hidden="true"></div>
+${
+  colecao
+    ? `<header class="topo">
+  <a class="marca" href="${raiz}index.html" aria-label="${escapar(colecao.pasta)}: voltar ao início">${icone.inicio}<span>${escapar(colecao.pasta)}</span></a>
 </header>
+<div class="progresso" aria-hidden="true"></div>`
+    : ""
+}
+<nav class="barra" aria-label="Ações">
+  <button class="b-sumario" type="button" aria-controls="folha" aria-expanded="false">${icone.sumario}<span>Sumário</span></button>
+  <button class="b-buscar" type="button" aria-controls="folha">${icone.buscar}<span>Buscar</span></button>
+  ${o.alvo ? `<button class="b-revisar" type="button" hidden>${icone.revisar}<span>Revisar</span><span class="b-conta"></span></button>` : ""}
+</nav>
 <div class="folha" id="folha" role="dialog" aria-modal="true" aria-label="Sumário" hidden>
-  <div class="folha-cabeca">
-    <div class="folha-topo">
-      <h2>Sumário</h2>
-      <button class="fechar-sumario" type="button" aria-label="Fechar o sumário">${icone.fechar}</button>
-    </div>
-    <label class="busca">${icone.buscar}<input type="search" placeholder="Buscar uma nota" aria-label="Buscar uma nota" autocomplete="off" enterkeyhint="go"></label>
+  <div class="folha-topo">
+    <h2>Sumário</h2>
+    <button class="fechar-sumario" type="button" aria-label="Fechar o sumário">${icone.fechar}</button>
   </div>
   <ul class="resultados" hidden></ul>
   <nav class="arvore" aria-label="Todas as notas">${sumario(arvore, o.saida, o.alvo)}</nav>
+  <div class="folha-busca">
+    <label class="busca">${icone.buscar}<input type="search" placeholder="Buscar nota ou assunto" aria-label="Buscar nota ou assunto" autocomplete="off" enterkeyhint="search"></label>
+    <button class="limpar-busca" type="button" aria-label="Limpar a busca" hidden>${icone.fechar}</button>
+  </div>
 </div>
 <main id="conteudo">
 ${o.corpo}
@@ -465,21 +566,49 @@ function posicaoNaSecao(p: Pagina) {
 const minutosDeLeitura = (md: string) =>
   Math.max(1, Math.round(md.replace(/```[\s\S]*?```/g, " ").split(/\s+/).filter(Boolean).length / 200));
 
+/** Títulos de seção de cada nota (pra busca achar assuntos, não só nomes de nota). */
+const secoesDe = new Map<Pagina, { id: string; texto: string }[]>();
+
+/**
+ * Numa trilha (o Roadmap), cada "# Estágio" vira um bloco recolhível, com um índice no topo
+ * que mostra quantos tópicos de cada estágio já estão marcados como feitos.
+ */
+function estagiosRecolhiveis(html: string) {
+  const partes = html.split(/(?=<h1 id=")/);
+  if (partes.length < 2) return html;
+  const estagios = partes.slice(1).map((s) => {
+    const h = /^<h1 id="([^"]*)">([\s\S]*?)<\/h1>\n?/.exec(s)!;
+    const resto = s.slice(h[0].length);
+    const total = (resto.match(/<input[^>]*type="checkbox"/g) ?? []).length;
+    const feitos = (resto.match(/<input[^>]*checked[^>]*type="checkbox"|<input[^>]*type="checkbox"[^>]*checked/g) ?? []).length;
+    return { id: h[1], titulo: h[2], resto, total, feitos };
+  });
+  const conta = (e: (typeof estagios)[number]) => (e.total ? `<span class="conta">${e.feitos} de ${e.total}</span>` : "");
+  return `${partes[0]}<nav class="estagios" aria-label="Estágios"><ol>${estagios
+    .map((e) => `<li><a href="#${e.id}"><span>${e.titulo}</span>${conta(e)}</a></li>`)
+    .join("")}</ol></nav>
+${estagios
+  .map((e) => `<details class="estagio" id="${e.id}"><summary><span class="estagio-titulo" role="heading" aria-level="2">${e.titulo}</span>${conta(e)}</summary>${e.resto}</details>`)
+  .join("\n")}`;
+}
+
 function paginaDeNota(p: Pagina, html: string) {
   const { anterior, proxima } = vizinhos.get(p) ?? {};
   const href = (alvo: Pagina) => urlSegura(relativo(p.saida, alvo.saida));
   const trilha = trilhaDe(p).slice(1); // o caderno já aparece na faixa do topo
   const { n, total } = posicaoNaSecao(p);
   const meta = [
-    trilha.length ? trilha.map(escapar).join(" › ") : "",
+    trilha.length ? trilha.map((t) => escapar(semPrefixo(t))).join(" › ") : "",
     total > 1 && n > 0 ? `capítulo ${n} de ${total}` : "",
     `${minutosDeLeitura(p.md)} min de leitura`,
   ].filter(Boolean);
   // O primeiro "# Título" da nota vira a capa do capítulo (e sai do corpo pra não repetir).
-  // Seção sem nada embaixo (ex.: "Minhas anotações" ainda em branco) vira espaço de escrita discreto.
-  const corpoNota = html
-    .replace(/^\s*<h1 id="[^"]*">[\s\S]*?<\/h1>\n?/, "")
-    .replace(/<h2 (id="[^"]*")>([\s\S]*?)<\/h2>\n?(?=\s*(?:<h[12][ >]|<hr>|$))/g, '<h2 $1 class="vazia">$2</h2>\n');
+  let corpoNota = html.replace(/^\s*<h1 id="[^"]*">[\s\S]*?<\/h1>\n?/, "");
+  if (p.campos.tipo === "trilha") corpoNota = estagiosRecolhiveis(corpoNota);
+  secoesDe.set(
+    p,
+    [...corpoNota.matchAll(/<h([23]) id="([^"]*)">([\s\S]*?)<\/h\1>/g)].map((h) => ({ id: h[2], texto: semEntidades(h[3].replace(/<[^>]+>/g, "")).trim() })),
+  );
   const posicaoDe = (alvo: Pagina) => {
     const { n: i, total: t } = posicaoNaSecao(alvo);
     return t > 1 && i > 0 ? `capítulo ${i} de ${t}` : "";
@@ -491,7 +620,7 @@ function paginaDeNota(p: Pagina, html: string) {
 <article class="nota">${corpoNota}</article>
 <nav class="vizinhos" aria-label="Notas vizinhas">${
     proxima
-      ? `<a class="proxima" href="${href(proxima)}" rel="next" aria-label="Próximo capítulo: ${escapar(proxima.nome)}"><span class="nome">${escapar(proxima.nome)}${icone.seguir}</span><span class="meta">${escapar(posicaoDe(proxima) || trilhaDe(proxima).slice(1).join(" › "))}</span></a>`
+      ? `<a class="proxima" href="${href(proxima)}" rel="next" aria-label="Próximo capítulo: ${escapar(proxima.nome)}"><span class="nome">${escapar(proxima.nome)}${icone.seguir}</span><span class="meta">${escapar(posicaoDe(proxima) || trilhaDe(proxima).slice(1).map(semPrefixo).join(" › "))}</span></a>`
       : ""
   }${anterior ? `<a class="anterior" href="${href(anterior)}" rel="prev" aria-label="Capítulo anterior: ${escapar(anterior.nome)}">${icone.voltar}<span class="nome">${escapar(anterior.nome)}</span></a>` : ""}</nav>`;
   return moldura({ saida: p.saida, titulo: `${p.titulo} | ${config.titulo}`, classe: "pagina-nota", corpo, alvo: p });
@@ -513,7 +642,6 @@ function paginaInicial() {
     });
   const corpo = `<section class="capa">
   <h1>${escapar(config.titulo)}</h1>
-  <p class="resumo">${plural(paginas.length, "nota", "notas")} em ${plural(capas.length, "caderno", "cadernos")}</p>
   <p class="continuar" hidden><a href="#" aria-label="Continuar de onde parou"><span class="nome"></span><span class="meta"></span></a></p>
 </section>
 ${trilhas.length ? `<section class="trilhas" aria-labelledby="comecar">
@@ -549,9 +677,19 @@ for (const a of arquivos) copiar(path.join(VAULT, a.rel), path.join(SAIDA, a.sai
 for (const nome of readdirSync(path.join(aqui, "assets"))) copiar(path.join(aqui, "assets", nome), path.join(SAIDA, "assets", nome));
 for (const [pacote, arquivo] of FONTES) copiar(path.join(aqui, "node_modules", pacote, "files", arquivo), path.join(SAIDA, "assets", "fonts", arquivo));
 
+// Busca: as notas e os títulos de seção. Títulos que se repetem em muitas notas ("Me teste",
+// "Pra consultar depois"...) são do modelo, não assunto, e ficam de fora.
+const vezes = new Map<string, number>();
+for (const s of secoesDe.values()) for (const t of new Set(s.map((x) => x.texto.toLowerCase()))) vezes.set(t, (vezes.get(t) ?? 0) + 1);
+const repetido = (t: string) => (vezes.get(t.toLowerCase()) ?? 0) > Math.max(3, paginas.length * 0.1);
 gravar(
   "assets/busca.json",
-  JSON.stringify(paginas.map((p) => ({ t: p.nome, s: trilhaDe(p).join(" / "), u: p.saida }))),
+  JSON.stringify([
+    ...paginas.map((p) => ({ t: p.nome, s: trilhaDe(p).map(semPrefixo).join(" › "), u: p.saida })),
+    ...paginas.flatMap((p) =>
+      (secoesDe.get(p) ?? []).filter((s) => s.texto && !repetido(s.texto)).map((s) => ({ t: s.texto, s: p.nome, u: `${p.saida}#${s.id}`, k: 1 })),
+    ),
+  ]),
 );
 gravar(".nojekyll", "");
 // Cor de cada coleção num arquivo próprio (a CSP não deixa estilo inline).

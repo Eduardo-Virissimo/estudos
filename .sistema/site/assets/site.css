@@ -67,7 +67,7 @@
 }
 
 :root {
-  color-scheme: light;
+  color-scheme: only light; /* sempre claro, mesmo com o celular no tema escuro */
   --papel: #fbfaf7;
   --folha: #ffffff;
   --tinta: #1b1b1b;
@@ -105,34 +105,6 @@
   --serie-leve: color-mix(in oklab, var(--serie) 8%, var(--papel));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --papel: #1a1917;
-    --folha: #222120;
-    --tinta: #e9e5dd;
-    --tinta-2: #aaa59b;
-    --fio: #3a3835;
-    --codigo: #252421;
-
-    --f-dica: #5cc4b8;
-    --f-atencao: #e9a84b;
-    --f-perigo: #f08a8f;
-
-    --h-palavra: #cf9cf0;
-    --h-texto: #9bd28a;
-    --h-numero: #efa766;
-    --h-comentario: #9d988e;
-    --h-funcao: #8fb6e8;
-    --h-tipo: #e8c27a;
-  }
-  :root { --serie: #6b6862; }
-  :root, [data-serie] {
-    --serie-texto: color-mix(in oklab, var(--serie) 50%, white);
-    --serie-fundo: var(--serie);
-    --serie-leve: color-mix(in oklab, var(--serie) 16%, var(--papel));
-  }
-}
 
 * { box-sizing: border-box; }
 
@@ -178,79 +150,109 @@ a {
 
 /* ---------- faixa do topo (a cor da coleção) ---------- */
 
+/* Só o nome da coleção, como a faixa de cima da capa. Some ao descer a página e volta ao subir:
+   enquanto se lê, a tela é do texto. */
 .topo {
   position: sticky;
   top: 0;
   z-index: 20;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
   height: var(--topo);
   padding: env(safe-area-inset-top) var(--lado) 0;
   box-sizing: content-box;
   background: var(--serie-fundo);
   color: var(--sobre-serie);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.topo.escondido { transform: translateY(-100%); }
 
 .marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding: 8px 0;
+  min-height: 44px;
+  margin-left: -6px;
+  padding: 0 10px 0 4px;
   color: inherit;
   font: 700 18px/1 var(--sans);
   letter-spacing: 0.01em;
   text-decoration: none;
 }
-/* Na estante a faixa é a tinta: as cores ficam pras lombadas de cada caderno. */
-.pagina-inicial .topo { justify-content: flex-end; background: #1b1b1b; color: #fbfaf7; }
-.pagina-inicial .marca { display: none; } /* a capa logo abaixo já tem o título grande */
-@media (prefers-color-scheme: dark) {
-  .pagina-inicial .topo { background: #2e2c29; border-bottom: 1px solid #4a4743; }
-}
-.pagina-inicial .abrir-sumario:active { background: var(--codigo); }
+.marca span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.marca svg { flex: none; opacity: 0.85; }
+.marca:active { background: rgba(255, 255, 255, 0.16); }
 
-.abrir-sumario, .fechar-sumario {
+/* Fio de leitura, sempre no alto da tela (fica visível mesmo com a faixa escondida). */
+.progresso {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 25;
+  width: 100%;
+  height: 3px;
+  background: var(--serie-fundo);
+  transform-origin: left;
+  transform: scaleX(0);
+  pointer-events: none;
+}
+
+/* ---------- barra de ações (embaixo, no alcance do polegar) ---------- */
+
+.barra {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  padding: 0 calc(var(--lado) - 8px) env(safe-area-inset-bottom);
+  background: var(--folha);
+  border-top: 1px solid var(--fio);
+  font-family: var(--sans);
+}
+.barra button {
+  flex: 1;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 58px;
+  padding: 6px 4px;
+  border: 0;
+  background: none;
+  color: var(--tinta);
+  font: 600 13px/1.1 var(--sans);
+  cursor: pointer;
+}
+.barra button:active { background: var(--serie-leve); }
+.barra button[hidden] { display: none; }
+.barra .b-revisar { color: var(--serie-texto); }
+.b-conta { color: var(--tinta-2); font-weight: 400; font-size: 12px; font-variant-numeric: tabular-nums; }
+.b-conta:empty { display: none; }
+
+.fechar-sumario {
   display: inline-flex;
   flex: none;
   align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 0 14px;
-  border: 1.5px solid currentColor;
-  border-radius: 0;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--fio);
   background: transparent;
-  color: inherit;
-  font: 700 13px var(--sans);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  color: var(--tinta);
   cursor: pointer;
 }
-.abrir-sumario:active { background: rgba(255, 255, 255, 0.16); }
-.fechar-sumario { width: 44px; height: 44px; padding: 0; justify-content: center; border-color: var(--fio); color: var(--tinta); }
 .fechar-sumario:active { background: var(--serie-leve); }
-
-.progresso {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background: var(--sobre-serie);
-  opacity: 0.85;
-  transform-origin: left;
-  transform: scaleX(0);
-}
-.pagina-inicial .progresso { display: none; }
 
 /* ---------- coluna de leitura ---------- */
 
 main {
   max-width: calc(var(--coluna) + 2 * var(--lado));
   margin: 0 auto;
-  padding: 0 var(--lado) calc(48px + env(safe-area-inset-bottom));
+  padding: 0 var(--lado) calc(96px + env(safe-area-inset-bottom)); /* espaço pra barra de baixo */
 }
 
 /* Capa do capítulo: título em sans entre fios, como a etiqueta branca de uma capa de bolso. */
@@ -298,20 +300,10 @@ main {
   background: var(--serie-fundo);
 }
 .nota > h2:first-child, .nota > h1:first-child { margin-top: 8px; }
-/* Seção ainda em branco (as anotações pessoais do modelo): espaço de escrever, não título solto. */
-.nota h2.vazia {
-  margin: 28px 0 0;
-  padding-bottom: 34px;
-  border-bottom: 1px solid var(--fio);
-  color: var(--tinta-2);
-  font-size: 18px;
-  font-weight: 600;
-  background: linear-gradient(var(--fio), var(--fio)) left bottom 17px / 100% 1px no-repeat;
-}
-.nota h2.vazia::before { display: none; }
 .nota h3 { margin: 34px 0 8px; font: 700 20px/1.3 var(--sans); }
 .nota h4 { margin: 26px 0 6px; font: 700 18px/1.35 var(--sans); }
 .nota p, .nota ul, .nota ol { margin: 0 0 18px; }
+.nota p, .nota li { text-wrap: pretty; } /* sem palavra sozinha na última linha */
 .nota ul, .nota ol { padding-left: 24px; }
 .nota li + li { margin-top: 6px; }
 .nota li::marker { color: var(--serie-texto); font-family: var(--sans); font-weight: 700; }
@@ -324,8 +316,25 @@ main {
   color: var(--tinta-2);
   font-style: italic;
 }
-.nota input[type="checkbox"] { width: 18px; height: 18px; margin: 0 10px 0 0; accent-color: var(--serie-texto); vertical-align: -3px; }
+/* Caixinhas das listas de tarefas: desenhadas aqui, porque a do navegador sai apagada (desativada). */
+.nota input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0 10px 0 0;
+  border: 1.5px solid var(--tinta-2);
+  background: var(--folha);
+  vertical-align: -3px;
+  opacity: 1;
+}
+.nota input[type="checkbox"]:checked {
+  border-color: var(--serie-fundo);
+  background: var(--serie-fundo) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M4 9.5l3.2 3L14 5.5' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat;
+}
 .nota li:has(> input[type="checkbox"]) { list-style: none; margin-left: -24px; }
+.nota li:has(> input[type="checkbox"]:checked) { color: var(--tinta-2); }
 
 .quebrado { color: var(--tinta-2); text-decoration: underline dotted var(--fio); text-underline-offset: 3px; }
 
@@ -338,6 +347,13 @@ main {
   font: 15px/1.5 var(--sans);
   font-variant-numeric: tabular-nums;
   -webkit-overflow-scrolling: touch;
+  /* Sombra na borda quando a tabela continua pro lado (some quando chega ao fim). */
+  background:
+    linear-gradient(to right, var(--papel) 30%, transparent) left / 28px 100% no-repeat local,
+    linear-gradient(to left, var(--papel) 30%, transparent) right / 28px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(27, 27, 27, 0.16), transparent) left / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(27, 27, 27, 0.16), transparent) right / 12px 100% no-repeat scroll,
+    var(--papel);
 }
 .nota th, .nota td { padding: 9px 12px; border-bottom: 1px solid var(--fio); vertical-align: top; text-align: left; min-width: 7em; }
 .nota th { font-weight: 700; border-bottom: 1.5px solid var(--tinta); }
@@ -356,13 +372,20 @@ pre {
   margin: 0 calc(-1 * var(--lado)) 22px;
   padding: 16px var(--lado);
   overflow-x: auto;
-  background: var(--codigo);
   border-top: 2px solid var(--serie-fundo);
   line-height: 1.6;
   font-size: 14.5px;
   -webkit-overflow-scrolling: touch;
+  /* Sombra na borda direita enquanto ainda tem código pra rolar. */
+  background:
+    linear-gradient(to left, var(--codigo) 30%, transparent) right / 28px 100% no-repeat local,
+    radial-gradient(farthest-side at 100% 50%, rgba(27, 27, 27, 0.18), transparent) right / 14px 100% no-repeat scroll,
+    linear-gradient(to right, var(--codigo) 30%, transparent) left / 28px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(27, 27, 27, 0.18), transparent) left / 14px 100% no-repeat scroll,
+    var(--codigo);
 }
 pre code { font-size: inherit; }
+@media (max-width: 380px) { pre { font-size: 13.5px; } }
 
 .hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-built_in, .hljs-meta .hljs-keyword { color: var(--h-palavra); }
 .hljs-string, .hljs-regexp, .hljs-addition, .hljs-template-tag { color: var(--h-texto); }
@@ -380,65 +403,97 @@ summary.callout-titulo { cursor: pointer; list-style: none; }
 summary.callout-titulo::-webkit-details-marker { display: none; }
 .callout-corpo > :last-child { margin-bottom: 0; }
 
-/* Perguntas de revisão: fichas com o filete da coleção em cima. */
-.callout[data-familia="pergunta"] {
-  background: var(--folha);
+/* Perguntas de revisão: fichas. A pergunta fica à vista; embaixo, no alcance do polegar,
+   o botão largo "Ver resposta". Depois de ver: Acertei / Rever depois (guardado no aparelho). */
+.placar {
+  margin: -4px 0 16px;
+  color: var(--tinta-2);
+  font: 400 15px/1.4 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+.ficha {
+  position: relative;
+  margin: 0 0 14px;
   border: 1px solid var(--fio);
   border-top: 3px solid var(--serie-fundo);
-  font-size: 17px;
-  line-height: 1.55;
+  background: var(--folha);
+  scroll-margin-top: 24px;
+  transition: box-shadow 0.3s;
 }
-.callout[data-familia="pergunta"] + .callout[data-familia="pergunta"] { margin-top: -6px; }
-.callout[data-familia="pergunta"] > .callout-titulo {
-  min-height: 52px;
-  padding: 14px 16px;
-  font: 600 17px/1.4 var(--sans);
+.ficha.piscando { box-shadow: 0 0 0 3px color-mix(in oklab, var(--serie) 35%, transparent); }
+.nota .ficha-pergunta {
+  margin: 0;
+  padding: 16px 16px 14px;
+  font: 600 18px/1.4 var(--sans);
+  text-wrap: pretty;
 }
-.callout[data-familia="pergunta"] > summary.callout-titulo::after {
-  content: "Abrir";
-  flex: none;
-  align-self: center;
-  color: var(--serie-texto);
-  font: 700 12px/1 var(--sans);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.nota .ficha > ul, .nota .ficha > ol { margin: -2px 0 14px; padding: 0 16px; list-style: none; font-size: 17px; }
+.ficha > ul li + li, .ficha > ol li + li { margin-top: 6px; }
+.ficha[data-estado="ok"] { border-top-color: var(--f-dica); }
+.ficha[data-estado="ok"] .ficha-pergunta::after,
+.ficha[data-estado="rever"] .ficha-pergunta::after {
+  display: block;
+  margin-top: 6px;
+  font: 600 13px/1 var(--sans);
 }
-.callout[data-familia="pergunta"][open] > summary.callout-titulo::after { content: "Fechar"; color: var(--tinta-2); }
-.callout[data-familia="pergunta"][open] > .callout-titulo,
-.callout[data-familia="pergunta"]:not(details) > .callout-titulo { border-bottom: 1px solid var(--fio); }
-.callout[data-familia="pergunta"] > .callout-corpo { padding: 14px 16px 16px; }
-.callout[data-familia="pergunta"] .callout-corpo ul { padding-left: 0; list-style: none; }
-.callout[data-familia="pergunta"] .callout-corpo li + li { margin-top: 4px; }
+.ficha[data-estado="ok"] .ficha-pergunta::after { content: "Acertou da última vez"; color: var(--f-dica); }
+.ficha[data-estado="rever"] { border-top-color: var(--f-atencao); }
+.ficha[data-estado="rever"] .ficha-pergunta::after { content: "Marcada pra rever"; color: var(--f-atencao); }
 
-/* Resposta: escondida até tocar, num fundo leve da cor da coleção. */
-.callout[data-familia="resposta"] { margin: 14px 0 0; }
-.callout[data-familia="resposta"] > .callout-titulo {
-  display: inline-flex;
+details.resposta { margin: 0; }
+details.resposta > summary {
+  display: flex;
   align-items: center;
-  min-height: 40px;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 16px;
+  border-top: 1px solid var(--fio);
   color: var(--serie-texto);
-  font: 700 13px/1 var(--sans);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font: 700 16px/1.2 var(--sans);
+  list-style: none;
+  cursor: pointer;
 }
-.callout[data-familia="resposta"] > summary.callout-titulo::after {
+details.resposta > summary::-webkit-details-marker { display: none; }
+details.resposta > summary::after {
   content: "";
-  width: 7px;
-  height: 7px;
+  flex: none;
+  width: 8px;
+  height: 8px;
   border-right: 2px solid currentColor;
   border-bottom: 2px solid currentColor;
   transform: rotate(45deg) translateY(-2px);
   transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.callout[data-familia="resposta"][open] > summary.callout-titulo::after { transform: rotate(225deg) translate(-1px, -1px); }
-.callout[data-familia="resposta"] > .callout-corpo {
-  margin-top: 4px;
-  padding: 12px 14px;
+details.resposta[open] > summary::after { transform: rotate(225deg) translate(-1px, -1px); }
+details.resposta > summary:active { background: var(--serie-leve); }
+.resposta-corpo {
+  padding: 14px 16px 16px;
   background: var(--serie-leve);
-  font-family: var(--serifa);
-  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.6;
 }
-.callout > .callout-corpo .callout[data-familia="resposta"]:first-child { margin-top: 0; }
+.resposta-corpo > :last-child { margin-bottom: 0; }
+/* Gabarito fora de ficha (exercícios de inglês): mesma peça, com borda própria. */
+.nota > details.resposta { margin: 0 0 18px; border: 1px solid var(--fio); background: var(--folha); }
+.nota > details.resposta > summary { border-top: 0; }
+
+.ficha-acoes { display: flex; border-top: 1px solid var(--fio); }
+.ficha-acoes[hidden] { display: none; }
+.ficha-acoes button {
+  flex: 1;
+  min-height: 52px;
+  border: 0;
+  background: var(--folha);
+  color: var(--tinta);
+  font: 700 16px var(--sans);
+  cursor: pointer;
+}
+.ficha-acoes button + button { border-left: 1px solid var(--fio); }
+.ficha-acoes .acertei { color: var(--f-dica); }
+.ficha-acoes .rever { color: var(--f-atencao); }
+.ficha-acoes button:active { background: var(--serie-leve); }
+.ficha[data-estado="ok"] .acertei, .ficha[data-estado="rever"] .rever { background: var(--serie-leve); }
 
 /* Boxes de texto: nota, dica, atenção, perigo, resumo. */
 .callout:is([data-familia="nota"], [data-familia="dica"], [data-familia="atencao"], [data-familia="perigo"], [data-familia="resumo"]) {
@@ -491,10 +546,10 @@ summary.callout-titulo::-webkit-details-marker { display: none; }
 
 /* ---------- página inicial: a estante ---------- */
 
-.capa { padding: 40px 0 8px; }
+.capa { padding: calc(28px + env(safe-area-inset-top)) 0 8px; }
 .capa h1 {
   margin: 0;
-  font: 700 64px/0.95 var(--sans);
+  font: 700 44px/1 var(--sans);
   letter-spacing: -0.03em;
 }
 .capa .resumo {
@@ -656,30 +711,54 @@ summary.callout-titulo::-webkit-details-marker { display: none; }
 .folha[hidden] { display: flex; visibility: hidden; transform: translateY(100%); transition: transform 0.2s ease-in, visibility 0s 0.2s; }
 body.folha-aberta { overflow: hidden; }
 
-/* Título, fechar e busca ficam presos no alto enquanto a lista rola. */
-.folha-cabeca {
+/* Título e fechar presos no alto; a busca fica embaixo, no alcance do polegar (e logo acima do teclado). */
+.folha-topo {
   position: sticky;
   top: 0;
   z-index: 1;
-  margin: 0 calc(-1 * var(--lado));
-  padding: 8px var(--lado) 10px;
-  background: var(--papel);
-}
-.folha-topo {
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-height: var(--topo);
-  padding-bottom: 6px;
+  margin: 0 calc(-1 * var(--lado));
+  padding: 6px var(--lado);
   border-bottom: 3px solid var(--serie-fundo);
+  background: var(--papel);
 }
 .folha-topo h2 { margin: 0; font: 700 24px/1 var(--sans); letter-spacing: -0.01em; }
 
+.folha-busca {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: auto calc(-1 * var(--lado)) 0;
+  padding: 10px var(--lado) calc(10px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--fio);
+  background: var(--papel);
+}
+.limpar-busca {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--fio);
+  background: var(--folha);
+  color: var(--tinta);
+  cursor: pointer;
+}
+.limpar-busca[hidden] { display: none; }
+
 .busca {
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 14px 0 0;
+  min-width: 0;
   padding: 0 14px;
   border: 1px solid var(--fio);
   background: var(--folha);
@@ -699,7 +778,9 @@ body.folha-aberta { overflow: hidden; }
 .busca input::placeholder { color: var(--tinta-2); }
 .busca input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
 
-.resultados { list-style: none; margin: 0 0 24px; padding: 0; font-family: var(--sans); }
+.resultados { list-style: none; margin: 8px 0 24px; padding: 0; font-family: var(--sans); }
+.resultados mark { background: color-mix(in oklab, var(--serie) 18%, transparent); color: inherit; }
+.resultados a.secao { font-weight: 600; }
 .resultados a {
   display: block;
   padding: 11px 8px;
@@ -713,7 +794,52 @@ body.folha-aberta { overflow: hidden; }
 .resultados a:active, .resultados a:focus { background: var(--serie-leve); outline: none; }
 .resultados small { display: block; margin-top: 3px; color: var(--tinta-2); font-weight: 400; font-size: 14px; }
 .resultados .vazio { padding: 14px 8px; color: var(--tinta-2); }
-.folha .arvore { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
+.folha .arvore { padding: 8px 0 24px; }
+
+/* ---------- trilha (Roadmap): índice dos estágios e estágios recolhíveis ---------- */
+
+.estagios { margin: 8px 0 28px; font-family: var(--sans); }
+.estagios ol { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--fio); }
+.estagios a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--fio);
+  color: var(--tinta);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.estagios a span:first-child { flex: 1; min-width: 0; }
+.estagios .conta, .estagio .conta { flex: none; color: var(--tinta-2); font-weight: 400; font-size: 14px; font-variant-numeric: tabular-nums; }
+.estagio { margin: 0 0 12px; border-top: 3px solid var(--serie-fundo); scroll-margin-top: 12px; }
+.estagio > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+  padding: 10px 0;
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--sans);
+}
+.estagio > summary::-webkit-details-marker { display: none; }
+.estagio-titulo { flex: 1; min-width: 0; font: 700 22px/1.2 var(--sans); }
+.estagio > summary::after {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  border-right: 2px solid var(--tinta-2);
+  border-bottom: 2px solid var(--tinta-2);
+  transform: rotate(45deg) translateY(-2px);
+}
+.estagio[open] > summary::after { transform: rotate(225deg) translate(-1px, -1px); }
+.estagio[open] { padding-bottom: 20px; }
 .folha.buscando .arvore { display: none; }
 
 @media (prefers-reduced-motion: reduce) {

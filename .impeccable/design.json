@@ -306,141 +306,6 @@
           "#ebd3b7",
           "#f7f3ed"
         ]
-      },
-      "papel-noite": {
-        "role": "neutral",
-        "displayName": "Grafite Quente",
-        "canonical": "#1a1917",
-        "tonalRamp": [
-          "#282725",
-          "#46433f",
-          "#646059",
-          "#827d73",
-          "#9d9990",
-          "#b7b4ae",
-          "#d3d2cf",
-          "#f3f2f2"
-        ]
-      },
-      "folha-noite": {
-        "role": "neutral",
-        "displayName": "Folha da Noite",
-        "canonical": "#222120",
-        "tonalRamp": [
-          "#272625",
-          "#444241",
-          "#615e5c",
-          "#7e7a77",
-          "#9a9693",
-          "#b5b3b0",
-          "#d2d1d0",
-          "#f2f2f2"
-        ]
-      },
-      "tinta-noite": {
-        "role": "neutral",
-        "displayName": "Tinta da Noite",
-        "canonical": "#e9e5dd",
-        "tonalRamp": [
-          "#2c2820",
-          "#4f4636",
-          "#72654b",
-          "#958360",
-          "#ac9e80",
-          "#c1b7a4",
-          "#d9d4ca",
-          "#f4f3f1"
-        ]
-      },
-      "tinta-2-noite": {
-        "role": "neutral",
-        "displayName": "Tinta Apagada da Noite",
-        "canonical": "#aaa59b",
-        "tonalRamp": [
-          "#282724",
-          "#47443e",
-          "#666157",
-          "#847e70",
-          "#9f998e",
-          "#b8b4ad",
-          "#d4d2ce",
-          "#f3f2f2"
-        ]
-      },
-      "fio-noite": {
-        "role": "neutral",
-        "displayName": "Fio da Noite",
-        "canonical": "#3a3835",
-        "tonalRamp": [
-          "#272625",
-          "#454340",
-          "#625f5a",
-          "#807c75",
-          "#9b9792",
-          "#b6b3af",
-          "#d3d1d0",
-          "#f3f2f2"
-        ]
-      },
-      "codigo-noite": {
-        "role": "neutral",
-        "displayName": "Código da Noite",
-        "canonical": "#252421",
-        "tonalRamp": [
-          "#282725",
-          "#46443f",
-          "#646159",
-          "#817e73",
-          "#9c9991",
-          "#b6b4af",
-          "#d3d2cf",
-          "#f3f2f2"
-        ]
-      },
-      "serie-neutra-noite": {
-        "role": "primary",
-        "displayName": "Neutro de Série da Noite",
-        "canonical": "#6b6862",
-        "tonalRamp": [
-          "#272725",
-          "#454340",
-          "#62605a",
-          "#807c75",
-          "#9b9892",
-          "#b6b4af",
-          "#d3d2d0",
-          "#f3f2f2"
-        ]
-      },
-      "estante-faixa-noite": {
-        "role": "neutral",
-        "displayName": "Faixa da Estante à Noite",
-        "canonical": "#2e2c29",
-        "tonalRamp": [
-          "#282725",
-          "#46433f",
-          "#645f59",
-          "#817c73",
-          "#9c9891",
-          "#b6b3af",
-          "#d3d1cf",
-          "#f3f2f2"
-        ]
-      },
-      "estante-fio-noite": {
-        "role": "neutral",
-        "displayName": "Fio da Estante à Noite",
-        "canonical": "#4a4743",
-        "tonalRamp": [
-          "#282625",
-          "#45433f",
-          "#635f5a",
-          "#807b74",
-          "#9c9791",
-          "#b6b3af",
-          "#d3d1cf",
-          "#f3f2f2"
-        ]
       }
     },
     "typographyMeta": {
@@ -508,10 +373,8 @@
       }
     ],
     "darkMode": {
-      "trigger": "prefers-color-scheme: dark",
-      "serieTexto": "color-mix(in oklab, var(--serie) 50%, white)",
-      "serieLeve": "color-mix(in oklab, var(--serie) 16%, var(--papel))",
-      "estante": "faixa #2e2c29 com border-bottom 1px #4a4743"
+      "none": true,
+      "note": "Sempre claro (pedido do usuário, 2026-11-19): sem modo escuro; color-scheme only light."
     }
   },
   "components": [
@@ -598,7 +461,7 @@
   ],
   "narrative": {
     "northStar": "A Coleção de Bolso",
-    "overview": "Cada caderno do vault é uma coleção de livros de bolso com cor própria, e cada nota é um capítulo. O papel é quase branco e a tinta quase preta; a única cor forte é a da coleção, aplicada chapada, sem gradiente, sem sombra, sem canto arredondado. É papel impresso numa tela de celular: uma coluna, texto em serifa de livro, interface e títulos em sans.\n\nA cor da coleção não é decoração, é endereço. Ela fecha a faixa do topo, abre cada seção como um toco de faixa, borda o código, encima as fichas de pergunta e vira lombada na estante. O leitor sempre sabe em que coleção está sem ler nenhum rótulo. Fora disso, a estrutura é feita de fios finos (1px) e um ou outro fio grosso (3px) na cor da coleção.\n\nDensidade de livro: margens laterais de 16px, corpo em 18px com entrelinha 1,65, seções arejadas. A interface some enquanto se lê; números (contagens, minutos, posição) são tabulares e discretos. À noite o papel vira grafite quente, nunca preto puro.",
+    "overview": "Cada caderno do vault é uma coleção de livros de bolso com cor própria, e cada nota é um capítulo. O papel é quase branco e a tinta quase preta; a única cor forte é a da coleção, aplicada chapada, sem gradiente, sem sombra, sem canto arredondado. É papel impresso numa tela de celular: uma coluna, texto em serifa de livro, interface e títulos em sans.\n\nA cor da coleção não é decoração, é endereço. Ela fecha a faixa do topo, abre cada seção como um toco de faixa, borda o código, encima as fichas de pergunta e vira lombada na estante. O leitor sempre sabe em que coleção está sem ler nenhum rótulo. Fora disso, a estrutura é feita de fios finos (1px) e um ou outro fio grosso (3px) na cor da coleção.\n\nDensidade de livro: margens laterais de 16px, corpo em 18px com entrelinha 1,65, seções arejadas. A interface some enquanto se lê; números (contagens, minutos, posição) são tabulares e discretos. O site é sempre claro: não existe modo escuro (pedido do usuário em 2026-11-19).",
     "keyCharacteristics": [
       "Cor chapada por coleção, vinda do `site.config.json`, como único acento.",
       "Sem sombras, sem cantos arredondados: tudo é retângulo impresso.",
@@ -649,7 +512,7 @@
       "**Don't** pôr a cor de coleção na faixa do topo da estante; ali a faixa é tinta.",
       "**Don't** colocar sobretítulo ou rótulo de série acima do título do capítulo; a coleção já está na faixa e a posição vai na linha meta.",
       "**Don't** usar texto em sans no corpo corrido nem serifa na interface.",
-      "**Don't** usar preto puro como fundo noturno; o papel da noite é grafite quente."
+      "**Don't** criar modo escuro nem fundo preto: o usuário quer o site sempre no papel claro."
     ]
   }
 }

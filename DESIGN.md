@@ -22,15 +22,6 @@ colors:
   h-comentario: "#686459"
   h-funcao: "#1f5c99"
   h-tipo: "#8a5414"
-  papel-noite: "#1a1917"
-  folha-noite: "#222120"
-  tinta-noite: "#e9e5dd"
-  tinta-2-noite: "#aaa59b"
-  fio-noite: "#3a3835"
-  codigo-noite: "#252421"
-  serie-neutra-noite: "#6b6862"
-  estante-faixa-noite: "#2e2c29"
-  estante-fio-noite: "#4a4743"
 typography:
   display:
     fontFamily: "Source Sans 3, Arial, Helvetica, sans-serif"
@@ -139,7 +130,7 @@ Cada caderno do vault é uma coleção de livros de bolso com cor própria, e ca
 
 A cor da coleção não é decoração, é endereço. Ela fecha a faixa do topo, abre cada seção como um toco de faixa, borda o código, encima as fichas de pergunta e vira lombada na estante. O leitor sempre sabe em que coleção está sem ler nenhum rótulo. Fora disso, a estrutura é feita de fios finos (1px) e um ou outro fio grosso (3px) na cor da coleção.
 
-Densidade de livro: margens laterais de 16px, corpo em 18px com entrelinha 1,65, seções arejadas. A interface some enquanto se lê; números (contagens, minutos, posição) são tabulares e discretos. À noite o papel vira grafite quente, nunca preto puro.
+Densidade de livro: margens laterais de 16px, corpo em 18px com entrelinha 1,65, seções arejadas. A interface some enquanto se lê; números (contagens, minutos, posição) são tabulares e discretos. O site é sempre claro: não existe modo escuro (pedido do usuário em 2026-11-19), e a página declara `color-scheme: only light` pro navegador não escurecer sozinho.
 
 **Key Characteristics:**
 - Cor chapada por coleção, vinda do `site.config.json`, como único acento.
@@ -157,23 +148,22 @@ Papel e tinta neutros e quentes, mais uma cor de coleção por caderno; as cores
 - **Verde Inglês** (serie-ingles): a coleção Inglês, mesmos papéis.
 - **Laranja Diário** (serie-diario): a coleção Diário, mesmos papéis.
 
-As três chegam ao CSS como `--serie` num elemento `[data-serie]` (gerado em `assets/colecoes.css` a partir do config). Delas derivam três papéis: `--serie-fundo` (a cor pura, pra faixas e fios), `--serie-texto` (a cor pura no claro; misturada 50% com branco no escuro, pra texto e sublinhado legíveis) e `--serie-leve` (8% sobre o papel no claro, 16% no escuro, pra fundos de resposta e toque). Fora de uma coleção, a série cai no **Neutro de Série** (serie-neutra; à noite serie-neutra-noite). Uma coleção nova se acrescenta só no config; nenhuma cor de coleção vive no CSS.
+As três chegam ao CSS como `--serie` num elemento `[data-serie]` (gerado em `assets/colecoes.css` a partir do config). Delas derivam três papéis: `--serie-fundo` (a cor pura, pra faixas e fios), `--serie-texto` (hoje a própria cor pura, pra texto e sublinhado) e `--serie-leve` (8% sobre o papel, pra fundos de resposta e toque). Fora de uma coleção, a série cai no **Neutro de Série** (serie-neutra). Uma coleção nova se acrescenta só no config; nenhuma cor de coleção vive no CSS.
 
 ### Secondary
 - **Verde-Água Dica** (f-dica), **Âmbar Atenção** (f-atencao), **Vermelho Perigo** (f-perigo): cor dos boxes de dica, atenção e perigo. Tingem a borda (35% sobre o fio), o fundo (6% sobre o papel) e o rótulo do box. Os boxes "nota" e "resumo" usam a cor da coleção.
 
 ### Tertiary
-- **Sintaxe** (h-palavra, h-texto, h-numero, h-comentario, h-funcao, h-tipo): realce de código, só dentro de `pre`. Comentário sempre em itálico. Cada uma tem par noturno mais claro.
+- **Sintaxe** (h-palavra, h-texto, h-numero, h-comentario, h-funcao, h-tipo): realce de código, só dentro de `pre`. Comentário sempre em itálico.
 
 ### Neutral
-- **Papel** (papel): fundo de tudo. À noite, **Grafite Quente** (papel-noite).
-- **Folha** (folha): superfície um degrau acima do papel, pra fichas, "continuar lendo" e busca. À noite folha-noite.
-- **Tinta** (tinta): texto, fios curtos do título e do `hr`, fio grosso de cabeçalho de tabela. À noite tinta-noite.
+- **Papel** (papel): fundo de tudo.
+- **Folha** (folha): superfície um degrau acima do papel, pra fichas, "continuar lendo" e busca.
+- **Tinta** (tinta): texto, fios curtos do título e do `hr`, fio grosso de cabeçalho de tabela.
 - **Tinta Apagada** (tinta-2): meta, contagens, setas secundárias, citações, seções em branco.
 - **Fio** (fio): divisórias de 1px, bordas de ficha e de busca, linhas de lista.
 - **Papel de Código** (codigo): fundo de `pre` e de código em linha.
 - **Sobre a Série** (sobre-serie): texto e progresso sobre faixa colorida.
-- **Faixa da Estante**: na capa do site a faixa do topo é tinta sobre papel (tinta / papel); à noite estante-faixa-noite com um fio inferior estante-fio-noite, pra não sumir no grafite.
 
 ### Named Rules
 **The Cor É Endereço Rule.** A cor da coleção só aparece chapada, em faixas, tocos, fios e marcadores; ela diz onde você está. Nunca vira gradiente, sombra ou fundo de parágrafo (o único tom leve é `--serie-leve`, pra resposta revelada e toque).
@@ -195,7 +185,7 @@ As três chegam ao CSS como `--serie` num elemento `[data-serie]` (gerado em `as
 - **Title** (700, 24px, 1,2): seções (h2) da nota; h3 em 20px/1,3, h4 em 18px/1,35; títulos de bloco da capa em 22px.
 - **Body** (400, 18px, 1,65): texto corrido em serifa; dentro de fichas e boxes cai pra 17px. Negrito em 650.
 - **Meta** (400, 15px, 1,45, tabular): linha sob o título ("seção · capítulo N de M · X min de leitura"), meta do próximo capítulo e do "continuar lendo".
-- **Label** (700, 13px, 0,1em, maiúsculas): botões (Sumário), rótulos de box (Dica, Atenção), "Resposta", "Abrir/Fechar" das fichas, contagem da lombada (600). Sempre um rótulo funcional, nunca sobretítulo.
+- **Label** (700, 13px, 0,1em, maiúsculas): botões (Sumário), rótulos de box (Dica, Atenção), contagem da lombada (600). Sempre um rótulo funcional, nunca sobretítulo.
 - **Code** (14,5px, 1,6 em bloco; 0,82em em linha).
 
 ### Named Rules
@@ -227,46 +217,49 @@ Tudo é retângulo de canto vivo (0px), inclusive botões e campos. Formas recor
 ## Components
 
 ### Faixa do topo
-Faixa chapada da coleção, 56px, presa no alto. À esquerda o nome da coleção (sans 700, 18px), à direita o botão Sumário. Na base, barra de progresso de leitura (3px, sobre-série a 85%). Na capa do site a faixa é tinta, sem nome (a capa logo abaixo já traz "Estudos") e sem progresso.
+Faixa chapada da coleção, 56px, só nas notas. À esquerda, seta de voltar + nome da coleção (sans 700, 18px, alvo de 44px), que leva ao início. **Some ao descer a página e volta ao subir** (translateY, 0,22s, `cubic-bezier(0.16, 1, 0.3, 1)`): enquanto se lê, a tela é do texto. A capa do site não tem faixa.
+
+### Fio de leitura
+3px na cor da coleção, fixo no alto da tela (acima da faixa), cresce da esquerda conforme a leitura. Fica visível mesmo com a faixa escondida.
+
+### Barra de ações (embaixo)
+Fixa no rodapé, no alcance do polegar: folha com fio de 1px em cima, botões de 58px com ícone SVG de 20px sobre o rótulo em sans 600/13px. **Sumário** abre a folha; **Buscar** abre a folha já com o teclado na busca; **Revisar** (só em nota com perguntas, na cor da coleção) leva à primeira pergunta ainda não acertada e mostra o placar "1/9". O `main` reserva 96px embaixo pra barra.
 
 ### Botões
-- **Shape:** canto vivo (0px), borda de 1,5px em `currentColor`, fundo transparente.
-- **Sumário:** rótulo em versalete espaçado (label) com ícone SVG de 20px, 40px de altura, 14px de lado.
-- **Fechar:** quadrado de 44px com borda de fio e ícone em tinta.
+- **Shape:** canto vivo (0px), sem borda nos botões da barra; quadrados de 44–48px com borda de fio pra fechar e limpar.
 - **Toque:** sem hover (só celular); `:active` clareia o fundo (branco a 16% sobre a faixa; `--serie-leve` no papel). Foco: contorno de 2px em `--serie-texto` a 2px de distância.
 
 ### Capa do capítulo
-Título centrado (headline), fio curto de 44px em tinta, linha meta em tinta apagada com a seção e a posição ("03 - TypeScript · capítulo 8 de 17 · 8 min de leitura"). Um fio de 3px na cor da coleção fecha a capa. Não há rótulo de série colorido acima do título: a coleção já está na faixa.
+Título centrado (headline), fio curto de 44px em tinta, linha meta em tinta apagada com a seção sem o número da pasta, a posição na ordem de estudo e o tempo ("Fundamentos · capítulo 7 de 13 · 11 min de leitura"). Um fio de 3px na cor da coleção fecha a capa.
 
 ### Seções da nota
-Cada h2 abre com um toco de faixa de 32×4px na cor da coleção, 14px acima do texto. Uma seção sem conteúdo (como as anotações pessoais ainda em branco) vira **espaço de escrever**: título em 18px/600 na tinta apagada, sem toco, com duas linhas de pauta em fio por baixo.
+Cada h2 abre com um toco de faixa de 32×4px na cor da coleção, 14px acima do texto. Seções vazias do modelo (como "Minhas anotações" em branco) **não aparecem**: o gerador as tira antes de montar a página.
 
-### Código
-`pre` sangra até a borda, fundo de papel de código, fio de 2px na cor da coleção em cima, 16px de respiro. Código em linha tem fundo de papel de código e quebra em qualquer ponto.
+### Código e tabelas
+`pre` sangra até a borda, fundo de papel de código, fio de 2px na cor da coleção em cima, 16px de respiro; 13,5px em telas até 380px. Código e tabelas largos ganham **sombra na borda** enquanto ainda há conteúdo pra rolar pro lado (gradientes `local`/`scroll`), que some ao chegar no fim. Código em linha tem fundo de papel de código e quebra em qualquer ponto.
 
 ### Fichas de pergunta (signature)
-Ficha em folha, borda de fio de 1px e fio de 3px na cor da coleção em cima, como ficha de revisão. Pergunta em sans 600/17px, 52px de altura mínima; à direita "Abrir"/"Fechar" em label (cor da coleção quando fechada, tinta apagada quando aberta). Fichas seguidas se encostam. A **resposta** é um rótulo "Resposta" em label na cor da coleção com uma seta de canto que gira 180° (0,18s, `cubic-bezier(0.16, 1, 0.3, 1)`), e o corpo revelado em serifa sobre `--serie-leve`.
+Um padrão só pra pergunta aberta e de múltipla escolha. Ficha em folha, borda de fio de 1px e fio de 3px na cor da coleção em cima. A pergunta fica sempre à vista (sans 600/18px); alternativas logo abaixo em 17px. Embaixo, no alcance do polegar, a linha **"Ver resposta"** de 52px (sans 700/16px na cor da coleção, seta que gira 180°). A resposta abre em serifa 17px sobre `--serie-leve`. Depois de ver, aparecem **Acertei** (verde-dica) e **Rever depois** (âmbar-atenção), lado a lado, 52px. O estado fica guardado no aparelho e pinta o fio de cima da ficha (verde = acertou, âmbar = rever) com uma linha de estado sob a pergunta. Acima das fichas, um **placar** em meta ("1 de 9 certas · 2 pra rever"). Gabaritos fora de ficha usam a mesma linha "Ver gabarito" dentro de uma caixa de fio.
 
 ### Boxes (nota, dica, atenção, perigo, resumo)
 Retângulo com borda tingida e fundo levíssimo da cor da família, rótulo em label na mesma cor, corpo em 17px. Nota e resumo usam a cor da coleção.
 
 ### Navegação: próximo e anterior
+A ordem é a **ordem de estudo**: `ordem:` no frontmatter, senão a ordem em que a nota aparece na trilha (Roadmap), senão alfabética.
 - **Próximo capítulo:** faixa da coleção sangrando até a borda, nome em sans 700/22px com seta SVG de 22px à direita e meta abaixo a 88% de opacidade. Toque clareia (brightness 1,12).
 - **Anterior:** linha de 56px em tinta com seta de voltar em tinta apagada e fio de 1px embaixo.
 
+### Trilha (Roadmap)
+Depois da introdução, um **índice dos estágios** (linhas de 52px, sans 700/17px, contagem "2 de 52" de tópicos marcados, tabular, à direita). Cada estágio é um bloco recolhível: fio de 3px da coleção em cima, título em sans 700/22px, contagem e seta. Link pra uma seção dentro de um estágio fechado abre o estágio. Caixinhas de tarefa são desenhadas (18px, borda de 1,5px em tinta apagada; marcada = quadrado da coleção com visto branco) e o item feito fica em tinta apagada.
+
 ### Estante (capa do site)
-"Estudos" em display, resumo em meta; o cartão **Continuar lendo** (folha, fio de 1px, fio de 3px da coleção em cima, fitinha da coleção pendurada à direita); a lista **Por onde começar** com quadrado de cor por trilha; e cada caderno como **lombada**: faixa chapada sangrando até a borda com o nome em 26px e a contagem em label à direita, seguida da árvore de seções.
+"Estudos" em sans 700/44px, sem contadores; o cartão **Continuar de onde parou** (folha, fio de 1px, fio de 3px da coleção em cima, fitinha pendurada à direita), que volta pra **seção** onde você parou; a lista **Por onde começar** com quadrado de cor por trilha; e cada caderno como **lombada**: faixa chapada sangrando até a borda com o nome em 26px e a contagem em label à direita, seguida da árvore de seções (nomes de pasta sem o número).
 
 ### Árvore de notas e fitinha
-Linhas de 44px em sans 16px; seções são `details` com seta de canto que gira; sub-níveis recuados com fio de 1px à esquerda e texto em tinta apagada; contagens tabulares. A **fitinha** (12×22px, corte em V) pendurada no alto da linha marca a nota atual e a última lida; no cartão "continuar lendo" ela tem 16×30px.
+Linhas de 44px em sans 16px; seções são `details` com seta de canto que gira; sub-níveis recuados com fio de 1px à esquerda e texto em tinta apagada; contagens tabulares. A **fitinha** (12×22px, corte em V) pendurada no alto da linha marca a nota atual e a última lida; no cartão "continuar" ela tem 16×30px.
 
-### Inputs / Fields
-- **Busca:** campo de 48px em folha, borda de fio de 1px, canto vivo, ícone de lupa SVG de 18px em tinta apagada.
-- **Focus:** borda e anel de 1px em `--serie-texto`.
-- **Checkbox de tarefa:** 18px, `accent-color` da coleção.
-
-### Folha do sumário
-Cobre a tela, sobe de baixo (0,28s, `cubic-bezier(0.16, 1, 0.3, 1)`; desce em 0,2s ease-in). Cabeçalho preso com título em sans 24px, fechar e fio de 3px da coleção; cada caderno de topo leva um quadrado de 14px da sua cor. Com movimento reduzido, nenhuma transição.
+### Folha do sumário e busca
+Cobre a tela, sobe de baixo (0,28s, `cubic-bezier(0.16, 1, 0.3, 1)`; desce em 0,2s ease-in). Em cima, preso: título em sans 24px, fechar e fio de 3px da coleção. **Embaixo, presa, a busca** (campo de 48px em folha, borda de fio, lupa SVG; botão de limpar de 48px quando há texto), logo acima do teclado. A busca acha notas e **títulos de seção** (os títulos do modelo que se repetem em muitas notas ficam de fora), marca o trecho encontrado com fundo leve da coleção e diz "seção em Nota". Cada caderno de topo leva um quadrado de 14px da sua cor. Com movimento reduzido, nenhuma transição.
 
 ## Do's and Don'ts
 
@@ -286,4 +279,4 @@ Cobre a tela, sobe de baixo (0,28s, `cubic-bezier(0.16, 1, 0.3, 1)`; desce em 0,
 - **Don't** pôr a cor de coleção na faixa do topo da estante; ali a faixa é tinta.
 - **Don't** colocar sobretítulo ou rótulo de série acima do título do capítulo; a coleção já está na faixa e a posição vai na linha meta.
 - **Don't** usar texto em sans no corpo corrido nem serifa na interface.
-- **Don't** usar preto puro como fundo noturno; o papel da noite é grafite quente.
+- **Don't** criar modo escuro nem fundo preto: o usuário quer o site sempre no papel claro.
