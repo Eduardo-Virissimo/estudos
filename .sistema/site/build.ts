@@ -284,6 +284,18 @@ const FAMILIAS: Record<string, string> = {
   abstract: "resumo", summary: "resumo", tldr: "resumo",
 };
 
+/** Nome da linguagem na etiqueta do bloco de código. Texto puro (sem linguagem ou "text") não ganha etiqueta. */
+const LINGUAS: Record<string, string> = {
+  ts: "TypeScript", typescript: "TypeScript", tsx: "TSX", js: "JavaScript", javascript: "JavaScript", jsx: "JSX",
+  bash: "Terminal", sh: "Terminal", shell: "Terminal", zsh: "Terminal", console: "Terminal",
+  powershell: "PowerShell", ps1: "PowerShell", ps: "PowerShell", cmd: "Prompt",
+  json: "JSON", yaml: "YAML", yml: "YAML", toml: "TOML", md: "Markdown", markdown: "Markdown",
+  html: "HTML", css: "CSS", sql: "SQL", graphql: "GraphQL", http: "HTTP", regex: "Regex",
+  dockerfile: "Dockerfile", docker: "Dockerfile", gitignore: ".gitignore", diff: "Diff", py: "Python", python: "Python",
+};
+const SEM_ETIQUETA = new Set(["", "text", "txt", "plaintext", "plain", "output", "saida"]);
+const nomeDaLingua = (l: string) => (SEM_ETIQUETA.has(l) ? "" : LINGUAS[l] ?? l.charAt(0).toUpperCase() + l.slice(1));
+
 // breaks: true = cada quebra de linha vira quebra de linha, igual ao Obsidian (sem "Strict line breaks").
 const md = new Marked({ gfm: true, breaks: true });
 
@@ -351,7 +363,10 @@ md.use({
     code({ text, lang }) {
       const lingua = (lang ?? "").trim().split(/\s+/)[0].toLowerCase();
       const html = hljs.getLanguage(lingua) ? hljs.highlight(text, { language: lingua, ignoreIllegals: true }).value : escapar(text);
-      return `<pre><code class="hljs${lingua ? " language-" + escapar(lingua) : ""}">${html}</code></pre>\n`;
+      const pre = `<pre><code class="hljs${lingua ? " language-" + escapar(lingua) : ""}">${html}</code></pre>`;
+      const nome = nomeDaLingua(lingua);
+      // A etiqueta da linguagem fica pendurada no fio de cima do bloco, como a aba de uma pasta.
+      return nome ? `<figure class="codigo"><figcaption>${escapar(nome)}</figcaption>${pre}</figure>\n` : `<figure class="codigo">${pre}</figure>\n`;
     },
 
     // Callouts: > [!tipo]+/- Título
@@ -499,11 +514,11 @@ const icone = {
 const colecaoDe = (p?: Pagina) => (p ? colecoes.find((c) => p.rel.split("/")[0] === c.pasta) : undefined);
 const serieDe = (pasta: string) => slugSegmento(pasta);
 
-function moldura(o: { saida: string; titulo: string; classe: string; corpo: string; alvo?: Pagina }) {
+function moldura(o: { saida: string; titulo: string; classe: string; corpo: string; alvo?: Pagina; minutos?: number }) {
   const raiz = raizDe(o.saida);
   const colecao = colecaoDe(o.alvo);
   return `<!doctype html>
-<html lang="pt-BR" data-raiz="${raiz}"${o.alvo ? ` data-saida="${escapar(o.alvo.saida)}"` : ""}${colecao ? ` data-serie="${serieDe(colecao.pasta)}"` : ""}>
+<html lang="pt-BR" data-raiz="${raiz}"${o.alvo ? ` data-saida="${escapar(o.alvo.saida)}"` : ""}${o.minutos ? ` data-min="${o.minutos}"` : ""}${colecao ? ` data-serie="${serieDe(colecao.pasta)}"` : ""}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -613,17 +628,27 @@ function paginaDeNota(p: Pagina, html: string) {
     const { n: i, total: t } = posicaoNaSecao(alvo);
     return t > 1 && i > 0 ? `capítulo ${i} de ${t}` : "";
   };
+  // "Neste capítulo": as seções (h2) da nota, pra ver o tamanho dela e pular direto. Só em nota
+  // com seções bastante pra valer o bloco; na trilha o índice dos estágios já faz esse papel.
+  const secoes = [...corpoNota.matchAll(/<h2 id="([^"]*)">([\s\S]*?)<\/h2>/g)].map((h) => ({ id: h[1], html: h[2].replace(/<a\b[^>]*>|<\/a>/g, "") }));
+  const indice =
+    secoes.length >= 3 && p.campos.tipo !== "trilha"
+      ? `<details class="indice"><summary><span>Neste capítulo</span><span class="conta">${plural(secoes.length, "seção", "seções")}</span></summary><ol>${secoes
+          .map((s) => `<li><a href="#${encodeURIComponent(s.id)}">${s.html}</a></li>`)
+          .join("")}</ol></details>`
+      : "";
   const corpo = `<header class="capitulo">
   <h1>${escapar(p.titulo)}</h1>
   <p class="meta">${meta.join(`<span aria-hidden="true"> · </span>`)}</p>
 </header>
+${indice}
 <article class="nota">${corpoNota}</article>
 <nav class="vizinhos" aria-label="Notas vizinhas">${
     proxima
       ? `<a class="proxima" href="${href(proxima)}" rel="next" aria-label="Próximo capítulo: ${escapar(proxima.nome)}"><span class="nome">${escapar(proxima.nome)}${icone.seguir}</span><span class="meta">${escapar(posicaoDe(proxima) || trilhaDe(proxima).slice(1).map(semPrefixo).join(" › "))}</span></a>`
       : ""
   }${anterior ? `<a class="anterior" href="${href(anterior)}" rel="prev" aria-label="Capítulo anterior: ${escapar(anterior.nome)}">${icone.voltar}<span class="nome">${escapar(anterior.nome)}</span></a>` : ""}</nav>`;
-  return moldura({ saida: p.saida, titulo: `${p.titulo} | ${config.titulo}`, classe: "pagina-nota", corpo, alvo: p });
+  return moldura({ saida: p.saida, titulo: `${p.titulo} | ${config.titulo}`, classe: "pagina-nota", corpo, alvo: p, minutos: minutosDeLeitura(p.md) });
 }
 
 function paginaInicial() {
@@ -640,10 +665,20 @@ function paginaInicial() {
   <nav class="arvore" aria-label="${escapar(c.pasta)}">${sumario(pasta, saida)}</nav>
 </section>`;
     });
+  // A estante: um livro (lombada em pé) por coleção, mais alto e mais grosso quanto mais notas tem.
+  const presentes = colecoes.filter((c) => arvore.pastas.has(c.pasta));
+  const livros = presentes
+    .map((c) => {
+      const n = emOrdem(arvore.pastas.get(c.pasta)!).length;
+      return `<a class="livro" href="#col-${serieDe(c.pasta)}" data-serie="${serieDe(c.pasta)}"><span class="livro-nome">${escapar(c.pasta)}</span><span class="livro-conta" data-total="${n}">${n}</span><span class="barrinha" aria-hidden="true"><span></span></span></a>`;
+    })
+    .join("");
   const corpo = `<section class="capa">
   <h1>${escapar(config.titulo)}</h1>
-  <p class="continuar" hidden><a href="#" aria-label="Continuar de onde parou"><span class="nome"></span><span class="meta"></span></a></p>
+  <p class="placar-geral" hidden><span class="texto"></span><span class="barrinha" aria-hidden="true"><span></span></span></p>
+  <div class="continuar" hidden><a href="#"><span class="nome"></span><span class="meta"></span><span class="barrinha" aria-hidden="true"><span></span></span><span class="acao"><span class="verbo">Continuar leitura</span><span class="falta"></span>${icone.seguir}</span></a></div>
 </section>
+${presentes.length > 1 ? `<nav class="estante" aria-label="Coleções">${livros}</nav>` : ""}
 ${trilhas.length ? `<section class="trilhas" aria-labelledby="comecar">
   <h2 id="comecar">Por onde começar</h2>
   <ul>${trilhas.map((t) => `<li data-serie="${serieDe(t.rel.split("/")[0])}"><a href="${urlSegura(t.saida)}"><span class="nome">${escapar(t.titulo)}</span><span class="caderno">${escapar(t.rel.split("/")[0])}</span></a></li>`).join("")}</ul>
@@ -695,8 +730,22 @@ gravar(".nojekyll", "");
 // Cor de cada coleção num arquivo próprio (a CSP não deixa estilo inline).
 gravar(
   "assets/colecoes.css",
-  colecoes.map((c) => `[data-serie="${serieDe(c.pasta)}"] { --serie: ${c.cor}; }`).join("\n") + "\n",
+  colecoes.map((c) => `[data-serie="${serieDe(c.pasta)}"] { --serie: ${c.cor}; }`).join("\n") + "\n" + estanteCss(),
 );
+
+/** Tamanho de cada livro da estante: grossura e altura crescem com o número de notas (devagar, pra coleção pequena não sumir). */
+function estanteCss() {
+  const contas = colecoes.filter((c) => arvore.pastas.has(c.pasta)).map((c) => ({ c, n: emOrdem(arvore.pastas.get(c.pasta)!).length }));
+  const maior = Math.max(1, ...contas.map((x) => x.n));
+  return contas
+    .map(({ c, n }) => {
+      // Livro em pé: estreito e alto. Com muitas coleções, a estante encolhe todos por igual (flex-shrink).
+      const grossura = 62 + Math.round(6 * Math.sqrt(n));
+      const altura = 184 + Math.round((56 * Math.log10(n + 1)) / Math.log10(maior + 1));
+      return `.estante [data-serie="${serieDe(c.pasta)}"] { width: ${grossura}px; height: ${altura}px; }`;
+    })
+    .join("\n") + "\n";
+}
 
 console.log(`✅ ${paginas.length} notas e ${arquivos.length} arquivos -> ${SAIDA}`);
 if (linksQuebrados.size) {

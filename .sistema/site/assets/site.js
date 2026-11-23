@@ -15,14 +15,58 @@
   };
   const ID_SEGURO = /^[\p{L}\p{N}_-]+$/u;
 
-  // ---------- continuar de onde parou (a nota e a seção) ----------
+  const SAIDA_SEGURA = /^[\w./%-]+\.html$/;
+  const SERIE_SEGURA = /^[a-z0-9.-]+$/;
+  const fracao = () => {
+    const total = document.documentElement.scrollHeight - innerHeight;
+    return total > 0 ? Math.min(1, Math.max(0, scrollY / total)) : 1;
+  };
+  /** Barrinha de progresso (fio da coleção crescendo da esquerda). */
+  const encher = (barra, f) => { const miolo = barra && $("span", barra); if (miolo) miolo.style.transform = `scaleX(${Math.min(1, Math.max(0, f))})`; };
+
+  // ---------- notas lidas (guardadas no aparelho) ----------
+  // Uma nota conta como lida quando o fim dela aparece na tela.
+  const CHAVE_LIDAS = "estudos:lidas";
+  let lidas = ler(CHAVE_LIDAS, {});
+  if (!lidas || typeof lidas !== "object" || Array.isArray(lidas)) lidas = {};
+  const base = new URL(raiz || "./", location.href).pathname;
+  /** "programacao/02-fundamentos/funcoes/funcoes.html" de um link do sumário. */
+  const saidaDe = (a) => {
+    const p = new URL(a.href, location.href).pathname;
+    try { return p.startsWith(base) ? decodeURIComponent(p.slice(base.length)) : ""; } catch { return ""; }
+  };
+
+  const metaCapitulo = $(".capitulo .meta");
+  const mostrarLida = () => {
+    if (!metaCapitulo || !lidas[saida] || $(".lida-selo", metaCapitulo)) return;
+    metaCapitulo.append(el("span", { className: "lida-selo" }, el("span", { ariaHidden: "true", textContent: " · " }), "lida"));
+  };
+  if (saida) {
+    mostrarLida();
+    const fim = $(".nota")?.lastElementChild;
+    if (fim && "IntersectionObserver" in window) {
+      const olho = new IntersectionObserver((vistos) => {
+        if (!vistos.some((v) => v.isIntersecting)) return;
+        olho.disconnect();
+        if (!lidas[saida]) { lidas[saida] = Date.now(); gravar(CHAVE_LIDAS, lidas); }
+        mostrarLida();
+      });
+      // Espera o leitor começar a rolar: abrir uma nota não é o mesmo que ler até o fim.
+      const comecar = () => { removeEventListener("scroll", comecar); olho.observe(fim); };
+      if (fracao() >= 1) olho.observe(fim);
+      else addEventListener("scroll", comecar, { passive: true });
+    }
+  }
+
+  // ---------- continuar de onde parou (a nota, a seção e quanto já leu) ----------
   const CHAVE = "estudos:ultima";
   if (saida) {
-    const base = {
+    const info = {
       u: saida,
       t: $(".capitulo h1")?.textContent || document.title,
       s: html.dataset.serie || "",
-      m: [$(".marca span")?.textContent, $(".capitulo .meta")?.textContent?.split(" · ")[0]].filter(Boolean).join(" · "),
+      m: [$(".marca span")?.textContent, metaCapitulo?.textContent?.split(" · ")[0]].filter(Boolean).join(" · "),
+      n: Number(html.dataset.min) || 0,
     };
     // A seção mais próxima acima do topo da tela é o "onde parei".
     const secaoAtual = () => {
@@ -33,25 +77,102 @@
       }
       return id;
     };
-    const salvar = () => gravar(CHAVE, { ...base, h: secaoAtual() });
+    const salvar = () => gravar(CHAVE, { ...info, h: secaoAtual(), p: Math.round(fracao() * 100) / 100 });
     salvar();
     let espera;
     addEventListener("scroll", () => { clearTimeout(espera); espera = setTimeout(salvar, 400); }, { passive: true });
     addEventListener("pagehide", salvar);
   }
-  const continuar = $(".continuar");
-  const ultima = ler(CHAVE, null);
-  if (continuar && ultima && typeof ultima.u === "string" && /^[\w./%-]+\.html$/.test(ultima.u)) {
-    const a = $("a", continuar);
-    const secao = typeof ultima.h === "string" && ID_SEGURO.test(ultima.h) ? "#" + encodeURIComponent(ultima.h) : "";
-    a.href = raiz + ultima.u + secao;
-    $(".nome", a).textContent = ultima.t || ultima.u;
-    $(".meta", a).textContent = typeof ultima.m === "string" ? ultima.m : "";
-    a.setAttribute("aria-label", `Continuar de onde parou: ${$(".nome", a).textContent}`);
-    if (typeof ultima.s === "string" && /^[a-z0-9.-]+$/.test(ultima.s)) continuar.dataset.serie = ultima.s;
-    continuar.hidden = false;
-    const alvo = new URL(raiz + ultima.u, location.href).href;
-    for (const link of $$("main .arvore a[href]")) if (link.href === alvo) link.classList.add("parou");
+
+  // ---------- sumário e estante: ✓ nas lidas, contagens "4/13" e barrinhas ----------
+  for (const a of $$(".arvore a[href]")) if (lidas[saidaDe(a)]) a.classList.add("lida");
+  const contar = (raizEl) => {
+    const links = $$("a[href]", raizEl);
+    return { total: links.length, lidas: links.filter((a) => a.classList.contains("lida")).length };
+  };
+  for (const d of $$(".arvore details")) {
+    const { total, lidas: n } = contar(d);
+    const conta = $(":scope > summary .conta", d);
+    if (!n || !conta) continue;
+    conta.textContent = `${n}/${total}`;
+    $(":scope > summary", d).style.setProperty("--feito", `${(n / total) * 100}%`);
+    $(":scope > summary", d).classList.add("com-lidas");
+  }
+
+  // ---------- página inicial ----------
+  const colecoes = $$("main .colecao");
+  if (colecoes.length) {
+    let todas = 0, todasLidas = 0;
+    for (const c of colecoes) {
+      const { total, lidas: n } = contar($(".arvore", c));
+      todas += total; todasLidas += n;
+      const conta = $(".lombada .conta", c);
+      if (conta && n) conta.textContent = `${n} de ${total} lidas`;
+      const livro = $(`.estante .livro[data-serie="${c.dataset.serie}"]`);
+      if (livro) {
+        if (n) $(".livro-conta", livro).textContent = `${n}/${total}`;
+        encher($(".barrinha", livro), total ? n / total : 0);
+        livro.setAttribute("aria-label", `${$(".livro-nome", livro).textContent}: ${n} de ${total} notas lidas`);
+      }
+    }
+    const placar = $(".placar-geral");
+    if (placar && todasLidas) {
+      $(".texto", placar).textContent = `${todasLidas} de ${todas} capítulos lidos`;
+      encher($(".barrinha", placar), todasLidas / todas);
+      placar.hidden = false;
+    }
+
+    // Cartão da capa: continuar a nota aberta; se ela já foi lida, o próximo capítulo dela;
+    // sem histórico (ou com nota que não existe mais), o primeiro capítulo ainda não lido.
+    const continuar = $(".continuar");
+    const links = colecoes.flatMap((c) => $$(".arvore a[href]", c));
+    const ultima = ler(CHAVE, null);
+    const valida = ultima && typeof ultima.u === "string" && SAIDA_SEGURA.test(ultima.u);
+    const linkUltima = valida ? links.find((a) => saidaDe(a) === ultima.u) : undefined;
+    const proximaNaoLida = (depois) => {
+      const c = depois?.closest(".colecao");
+      const lista = c ? $$(".arvore a[href]", c) : links;
+      const i = depois ? lista.indexOf(depois) : -1;
+      return lista.slice(i + 1).find((a) => !a.classList.contains("lida")) ?? (depois ? undefined : links.find((a) => !a.classList.contains("lida")));
+    };
+    let cartao;
+    if (linkUltima && !lidas[ultima.u]) {
+      const secao = typeof ultima.h === "string" && ID_SEGURO.test(ultima.h) ? "#" + encodeURIComponent(ultima.h) : "";
+      const p = typeof ultima.p === "number" ? Math.min(1, Math.max(0, ultima.p)) : 0;
+      const min = typeof ultima.n === "number" && ultima.n > 0 ? Math.max(1, Math.round(ultima.n * (1 - p))) : 0;
+      cartao = {
+        href: raiz + ultima.u + secao, nome: ultima.t || linkUltima.textContent, meta: typeof ultima.m === "string" ? ultima.m : "",
+        serie: ultima.s, verbo: "Continuar leitura", falta: min ? `faltam ${min} min` : "", p, link: linkUltima,
+      };
+    } else {
+      const prox = proximaNaoLida(linkUltima);
+      if (prox) {
+        let secaoNome = prox.closest("details")?.querySelector(":scope > summary span")?.textContent || "";
+        // Pasta com o mesmo nome da nota ("Roadmap 🗺️" › "Roadmap") não repete o nome na meta.
+        const simples = (s) => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().trim();
+        if (simples(secaoNome).startsWith(simples(prox.textContent))) secaoNome = "";
+        const c = prox.closest(".colecao");
+        cartao = {
+          href: prox.href, nome: prox.textContent, meta: [$(".lombada span", c)?.textContent, secaoNome].filter(Boolean).join(" · "),
+          serie: c?.dataset.serie, verbo: linkUltima ? "Próximo capítulo" : "Começar por aqui", falta: "", link: prox,
+        };
+      }
+    }
+    if (continuar && cartao) {
+      const a = $("a", continuar);
+      a.href = cartao.href;
+      $(".nome", a).textContent = cartao.nome;
+      $(".meta", a).textContent = cartao.meta;
+      $(".verbo", a).textContent = cartao.verbo;
+      $(".falta", a).textContent = cartao.falta;
+      const barra = $(".barrinha", a);
+      barra.hidden = cartao.p === undefined;
+      encher(barra, cartao.p ?? 0);
+      a.setAttribute("aria-label", `${cartao.verbo}: ${cartao.nome}${cartao.falta ? ", " + cartao.falta : ""}`);
+      if (typeof cartao.serie === "string" && SERIE_SEGURA.test(cartao.serie)) continuar.dataset.serie = cartao.serie;
+      continuar.hidden = false;
+      cartao.link.classList.add("parou");
+    }
   }
 
   // ---------- link pra uma seção dentro de um bloco fechado (estágios do Roadmap) ----------

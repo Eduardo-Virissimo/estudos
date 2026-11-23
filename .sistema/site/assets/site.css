@@ -368,8 +368,21 @@ code { font-family: var(--mono); font-size: 0.82em; font-variant-ligatures: none
   background: var(--codigo);
   overflow-wrap: anywhere;
 }
+/* Bloco de código sangra até a borda; a etiqueta da linguagem fica pendurada no fio de cima,
+   como a aba de uma pasta. */
+.codigo { margin: 0 calc(-1 * var(--lado)) 22px; }
+.codigo figcaption {
+  display: inline-block;
+  margin-left: var(--lado);
+  padding: 5px 10px 3px;
+  background: var(--serie-fundo);
+  color: var(--sobre-serie);
+  font: 700 11.5px/1.2 var(--sans);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
 pre {
-  margin: 0 calc(-1 * var(--lado)) 22px;
+  margin: 0;
   padding: 16px var(--lado);
   overflow-x: auto;
   border-top: 2px solid var(--serie-fundo);
@@ -411,25 +424,49 @@ summary.callout-titulo::-webkit-details-marker { display: none; }
   font: 400 15px/1.4 var(--sans);
   font-variant-numeric: tabular-nums;
 }
+/* Perguntas seguidas formam uma folha de exercícios só: um fio grosso da coleção em cima,
+   fios finos entre elas e o número de cada uma num quadrado (que vira verde ou âmbar). */
+.nota { counter-reset: ficha; }
 .ficha {
+  --recuo: 60px;
   position: relative;
-  margin: 0 0 14px;
+  margin: 0 0 22px;
   border: 1px solid var(--fio);
   border-top: 3px solid var(--serie-fundo);
   background: var(--folha);
+  counter-increment: ficha;
   scroll-margin-top: 24px;
   transition: box-shadow 0.3s;
 }
-.ficha.piscando { box-shadow: 0 0 0 3px color-mix(in oklab, var(--serie) 35%, transparent); }
+.ficha:has(+ .ficha) { margin-bottom: 0; }
+.ficha + .ficha { border-top: 0; }
+.ficha.piscando { box-shadow: 0 0 0 3px color-mix(in oklab, var(--serie) 35%, transparent); z-index: 1; }
 .nota .ficha-pergunta {
   margin: 0;
-  padding: 16px 16px 14px;
+  padding: 18px 16px 6px var(--recuo);
+  min-height: 56px;
   font: 600 18px/1.4 var(--sans);
   text-wrap: pretty;
 }
-.nota .ficha > ul, .nota .ficha > ol { margin: -2px 0 14px; padding: 0 16px; list-style: none; font-size: 17px; }
+.ficha-pergunta::before {
+  content: counter(ficha);
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid var(--serie-fundo);
+  color: var(--serie-texto);
+  font: 700 15px/1 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+.nota .ficha > ul, .nota .ficha > ol { margin: 4px 0 6px; padding: 0 16px 0 var(--recuo); list-style: none; font-size: 17px; }
 .ficha > ul li + li, .ficha > ol li + li { margin-top: 6px; }
-.ficha[data-estado="ok"] { border-top-color: var(--f-dica); }
+.ficha[data-estado] .ficha-pergunta::before { color: var(--sobre-serie); }
+.ficha[data-estado="ok"] .ficha-pergunta::before { border-color: var(--f-dica); background: var(--f-dica); }
+.ficha[data-estado="rever"] .ficha-pergunta::before { border-color: var(--f-atencao); background: var(--f-atencao); }
 .ficha[data-estado="ok"] .ficha-pergunta::after,
 .ficha[data-estado="rever"] .ficha-pergunta::after {
   display: block;
@@ -437,10 +474,10 @@ summary.callout-titulo::-webkit-details-marker { display: none; }
   font: 600 13px/1 var(--sans);
 }
 .ficha[data-estado="ok"] .ficha-pergunta::after { content: "Acertou da última vez"; color: var(--f-dica); }
-.ficha[data-estado="rever"] { border-top-color: var(--f-atencao); }
 .ficha[data-estado="rever"] .ficha-pergunta::after { content: "Marcada pra rever"; color: var(--f-atencao); }
 
 details.resposta { margin: 0; }
+.ficha > details.resposta > summary { min-height: 48px; padding-left: var(--recuo); border-top: 0; }
 details.resposta > summary {
   display: flex;
   align-items: center;
@@ -546,32 +583,165 @@ details.resposta > summary:active { background: var(--serie-leve); }
 
 /* ---------- página inicial: a estante ---------- */
 
-.capa { padding: calc(28px + env(safe-area-inset-top)) 0 8px; }
+.capa { padding: calc(32px + env(safe-area-inset-top)) 0 8px; }
 .capa h1 {
   margin: 0;
-  font: 700 44px/1 var(--sans);
-  letter-spacing: -0.03em;
-}
-.capa .resumo {
-  margin: 14px 0 0;
-  color: var(--tinta-2);
-  font: 400 16px var(--sans);
-  font-variant-numeric: tabular-nums;
+  font: 700 60px/0.95 var(--sans);
+  letter-spacing: -0.035em;
 }
 
-.continuar { margin: 28px 0 0; }
+/* Barrinha de progresso: fio fino que a cor da coleção vai enchendo da esquerda. */
+.barrinha { display: block; height: 3px; background: var(--fio); overflow: hidden; }
+.barrinha[hidden] { display: none; }
+.barrinha > span {
+  display: block;
+  height: 100%;
+  background: var(--serie-fundo);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.placar-geral { margin: 14px 0 0; color: var(--tinta-2); font: 400 15px/1.4 var(--sans); font-variant-numeric: tabular-nums; }
+.placar-geral[hidden] { display: none; }
+.placar-geral .barrinha { margin-top: 8px; }
+.placar-geral .barrinha > span { background: var(--tinta); }
+
+.continuar { margin: 26px 0 0; }
+.continuar[hidden] { display: none; }
 .continuar a {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 16px 52px 18px 16px;
+  padding: 18px 56px 0 16px;
   border: 1px solid var(--fio);
   border-top: 3px solid var(--serie-fundo);
   background: var(--folha);
   color: var(--tinta);
   text-decoration: none;
 }
+.continuar .barrinha { margin: 12px 0 2px; }
+/* Embaixo do cartão, a faixa da coleção com a ação: é o botão grande, no alcance do polegar. */
+.continuar .acao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  margin: 14px -57px -1px -17px;
+  padding: 0 16px 0 17px;
+  background: var(--serie-fundo);
+  color: var(--sobre-serie);
+  font: 700 16px/1.2 var(--sans);
+}
+.continuar .falta { margin-left: auto; font-weight: 400; font-size: 15px; opacity: 0.9; font-variant-numeric: tabular-nums; }
+.continuar .falta:empty { display: none; }
+.continuar .falta:empty + .seta { margin-left: auto; }
+.continuar a:active .acao { filter: brightness(1.12); }
+
+/* A estante: um livro em pé por coleção, a grossura e a altura vêm do número de notas
+   (colecoes.css). O nome corre na lombada, de cima pra baixo; embaixo, quanto já foi lido. */
+.estante {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  margin: 36px 0 0;
+  padding: 0 4px;
+  border-bottom: 3px solid var(--tinta);
+}
+.livro {
+  position: relative;
+  flex: 0 1 auto;
+  width: 80px;
+  min-width: 48px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0 14px;
+  overflow: hidden;
+  background: var(--serie-fundo);
+  color: var(--sobre-serie);
+  text-decoration: none;
+  font-family: var(--sans);
+}
+.livro::before { /* dois filetes no alto da lombada, como a douração de um livro */
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  height: 5px;
+  border-top: 1px solid color-mix(in oklab, var(--sobre-serie) 55%, transparent);
+  border-bottom: 1px solid color-mix(in oklab, var(--sobre-serie) 55%, transparent);
+}
+.livro-nome {
+  writing-mode: vertical-rl;
+  font: 700 20px/1 var(--sans);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.livro-conta { font: 600 13px/1 var(--sans); font-variant-numeric: tabular-nums; }
+.livro .barrinha {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: color-mix(in oklab, var(--sobre-serie) 28%, transparent);
+}
+.livro .barrinha > span { background: var(--sobre-serie); }
+.livro:active { filter: brightness(1.12); }
+
+/* "Neste capítulo": as seções da nota, logo abaixo da capa do capítulo. */
+.indice { border-bottom: 1px solid var(--fio); font-family: var(--sans); }
+.indice > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  list-style: none;
+  cursor: pointer;
+  font: 700 16px/1.2 var(--sans);
+}
+.indice > summary::-webkit-details-marker { display: none; }
+.indice > summary .conta { margin-left: auto; color: var(--tinta-2); font-weight: 400; font-size: 14px; font-variant-numeric: tabular-nums; }
+.indice > summary::after {
+  content: "";
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin-right: 6px;
+  border-right: 2px solid var(--tinta-2);
+  border-bottom: 2px solid var(--tinta-2);
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.indice[open] > summary::after { transform: rotate(225deg) translate(-1px, -1px); }
+.indice > summary:active { background: var(--serie-leve); }
+.indice ol { list-style: none; margin: 0 0 12px; padding: 0; }
+.indice a {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-height: 44px;
+  padding: 11px 0;
+  border-top: 1px solid var(--fio);
+  color: var(--tinta);
+  font: 400 16px/1.35 var(--sans);
+  text-decoration: none;
+}
+.indice a::before { /* o toco da coleção que abre cada seção, em miniatura */
+  content: "";
+  flex: none;
+  width: 14px;
+  height: 3px;
+  background: var(--serie-fundo);
+  transform: translateY(-4px);
+}
+.indice a:active { background: var(--serie-leve); }
+
+.lida-selo { color: var(--f-dica); font-weight: 600; }
 .continuar a::after { /* fitinha marcando onde você parou */
   content: "";
   position: absolute;
@@ -682,6 +852,30 @@ details.resposta > summary:active { background: var(--serie-leve); }
   background: var(--serie-fundo);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%);
 }
+
+/* Nota já lida: um visto na cor da coleção, à direita (antes da fitinha, se ela também estiver lá). */
+.arvore a.lida { padding-right: 40px; }
+.arvore a.lida::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  background: var(--serie-fundo);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5l3.5 3.5 7.5-8' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5l3.5 3.5 7.5-8' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.arvore a.lida:is(.parou, [aria-current="page"]) { padding-right: 64px; }
+.arvore a.lida:is(.parou, [aria-current="page"])::before { right: 34px; }
+.arvore > ul > li > a.lida::before { right: 28px; }
+.arvore > ul > li > a.lida { padding-right: 52px; }
+/* Seção com notas lidas: um fio da coleção embaixo da linha, do tamanho do que já foi lido. */
+.arvore summary.com-lidas {
+  background: linear-gradient(var(--serie-fundo), var(--serie-fundo)) left bottom / var(--feito, 0%) 2px no-repeat;
+}
+.arvore summary.com-lidas .conta { color: var(--serie-texto); font-weight: 600; }
 
 /* Na folha, cada caderno de topo leva um quadrado da cor da coleção. */
 .folha .arvore > ul > li > details[data-serie] > summary { min-height: 52px; font-size: 18px; }

@@ -25,7 +25,7 @@ colors:
 typography:
   display:
     fontFamily: "Source Sans 3, Arial, Helvetica, sans-serif"
-    fontSize: "64px"
+    fontSize: "60px"
     fontWeight: 700
     lineHeight: 0.95
     letterSpacing: "-0.03em"
@@ -179,7 +179,7 @@ As três chegam ao CSS como `--serie` num elemento `[data-serie]` (gerado em `as
 **Character:** Serifa de livro desenhada pra tela no texto corrido, sans firme e pesada (700) nos títulos e na interface: o par clássico de livro de estudo, Times + Arial, redesenhado.
 
 ### Hierarchy
-- **Display** (700, 64px, 0,95, -0,03em): só o "Estudos" da capa do site.
+- **Display** (700, 60px, 0,95, -0,035em): só o "Estudos" da capa do site.
 - **Headline** (700, 38px, 1,08, -0,015em): título do capítulo, centrado, com `text-wrap: balance`, seguido de um fio curto de 44×1px em tinta.
 - **Lombada** (700, 26px, 1,1): nome da coleção na faixa da estante.
 - **Title** (700, 24px, 1,2): seções (h2) da nota; h3 em 20px/1,3, h4 em 18px/1,35; títulos de bloco da capa em 22px.
@@ -230,16 +230,22 @@ Fixa no rodapé, no alcance do polegar: folha com fio de 1px em cima, botões de
 - **Toque:** sem hover (só celular); `:active` clareia o fundo (branco a 16% sobre a faixa; `--serie-leve` no papel). Foco: contorno de 2px em `--serie-texto` a 2px de distância.
 
 ### Capa do capítulo
-Título centrado (headline), fio curto de 44px em tinta, linha meta em tinta apagada com a seção sem o número da pasta, a posição na ordem de estudo e o tempo ("Fundamentos · capítulo 7 de 13 · 11 min de leitura"). Um fio de 3px na cor da coleção fecha a capa.
+Título centrado (headline), fio curto de 44px em tinta, linha meta em tinta apagada com a seção sem o número da pasta, a posição na ordem de estudo e o tempo ("Fundamentos · capítulo 7 de 13 · 11 min de leitura"). Um fio de 3px na cor da coleção fecha a capa. Nota já lida ganha "· lida" em verde-dica no fim da meta.
+
+### Neste capítulo (índice da nota)
+Logo abaixo da capa, em nota com 3 ou mais seções (fora da trilha): linha recolhível de 52px, "Neste capítulo" em sans 700/16px, contagem "11 seções" tabular e seta de canto. Aberta, lista as h2 em linhas de 44px com fio em cima e um toco de 14×3px da coleção antes de cada título. Fio de 1px embaixo.
+
+### Notas lidas
+Uma nota conta como lida quando o fim dela entra na tela depois de o leitor rolar (guardado no aparelho, `estudos:lidas`). Na árvore, a nota lida leva um **visto** SVG de 16px na cor da coleção à direita (antes da fitinha, se as duas estiverem na linha); a seção com notas lidas troca a contagem por "6/13" na cor da coleção e ganha um **fio de 2px** embaixo da linha, do tamanho do que foi lido.
 
 ### Seções da nota
 Cada h2 abre com um toco de faixa de 32×4px na cor da coleção, 14px acima do texto. Seções vazias do modelo (como "Minhas anotações" em branco) **não aparecem**: o gerador as tira antes de montar a página.
 
 ### Código e tabelas
-`pre` sangra até a borda, fundo de papel de código, fio de 2px na cor da coleção em cima, 16px de respiro; 13,5px em telas até 380px. Código e tabelas largos ganham **sombra na borda** enquanto ainda há conteúdo pra rolar pro lado (gradientes `local`/`scroll`), que some ao chegar no fim. Código em linha tem fundo de papel de código e quebra em qualquer ponto.
+O bloco (`figure.codigo`) sangra até a borda, fundo de papel de código, fio de 2px na cor da coleção em cima, 16px de respiro; 13,5px em telas até 380px. A **etiqueta da linguagem** (TypeScript, Terminal, JSON…) fica pendurada sobre o fio, como aba de pasta: faixa da coleção, label 700/11,5px em versalete. Bloco sem linguagem ou `text` não tem etiqueta. Código e tabelas largos ganham **sombra na borda** enquanto ainda há conteúdo pra rolar pro lado (gradientes `local`/`scroll`), que some ao chegar no fim. Código em linha tem fundo de papel de código e quebra em qualquer ponto.
 
 ### Fichas de pergunta (signature)
-Um padrão só pra pergunta aberta e de múltipla escolha. Ficha em folha, borda de fio de 1px e fio de 3px na cor da coleção em cima. A pergunta fica sempre à vista (sans 600/18px); alternativas logo abaixo em 17px. Embaixo, no alcance do polegar, a linha **"Ver resposta"** de 52px (sans 700/16px na cor da coleção, seta que gira 180°). A resposta abre em serifa 17px sobre `--serie-leve`. Depois de ver, aparecem **Acertei** (verde-dica) e **Rever depois** (âmbar-atenção), lado a lado, 52px. O estado fica guardado no aparelho e pinta o fio de cima da ficha (verde = acertou, âmbar = rever) com uma linha de estado sob a pergunta. Acima das fichas, um **placar** em meta ("1 de 9 certas · 2 pra rever"). Gabaritos fora de ficha usam a mesma linha "Ver gabarito" dentro de uma caixa de fio.
+Um padrão só pra pergunta aberta e de múltipla escolha. Perguntas seguidas formam **uma folha de exercícios**: folha com borda de fio, fio de 3px da coleção só em cima da primeira e fio de 1px entre elas. Cada pergunta tem o **número num quadrado** de 30px (borda de 1,5px e número na cor da coleção) à esquerda; texto recuado 60px. A pergunta fica sempre à vista (sans 600/18px); alternativas logo abaixo em 17px. Embaixo, no alcance do polegar, a linha **"Ver resposta"** de 48px alinhada ao texto (sans 700/16px na cor da coleção, seta que gira 180°). A resposta abre em serifa 17px sobre `--serie-leve`. Depois de ver, aparecem **Acertei** (verde-dica) e **Rever depois** (âmbar-atenção), lado a lado, 52px. O estado fica guardado no aparelho e **enche o quadrado do número** (verde = acertou, âmbar = rever, número em branco) com uma linha de estado sob a pergunta. Acima das fichas, um **placar** em meta ("1 de 9 certas · 2 pra rever"). Gabaritos fora de ficha usam a mesma linha "Ver gabarito" dentro de uma caixa de fio.
 
 ### Boxes (nota, dica, atenção, perigo, resumo)
 Retângulo com borda tingida e fundo levíssimo da cor da família, rótulo em label na mesma cor, corpo em 17px. Nota e resumo usam a cor da coleção.
@@ -253,7 +259,7 @@ A ordem é a **ordem de estudo**: `ordem:` no frontmatter, senão a ordem em que
 Depois da introdução, um **índice dos estágios** (linhas de 52px, sans 700/17px, contagem "2 de 52" de tópicos marcados, tabular, à direita). Cada estágio é um bloco recolhível: fio de 3px da coleção em cima, título em sans 700/22px, contagem e seta. Link pra uma seção dentro de um estágio fechado abre o estágio. Caixinhas de tarefa são desenhadas (18px, borda de 1,5px em tinta apagada; marcada = quadrado da coleção com visto branco) e o item feito fica em tinta apagada.
 
 ### Estante (capa do site)
-"Estudos" em sans 700/44px, sem contadores; o cartão **Continuar de onde parou** (folha, fio de 1px, fio de 3px da coleção em cima, fitinha pendurada à direita), que volta pra **seção** onde você parou; a lista **Por onde começar** com quadrado de cor por trilha; e cada caderno como **lombada**: faixa chapada sangrando até a borda com o nome em 26px e a contagem em label à direita, seguida da árvore de seções (nomes de pasta sem o número).
+"Estudos" em sans 700/60px; abaixo, só depois da primeira nota lida, o **placar geral** ("8 de 133 capítulos lidos", meta tabular, barrinha de 3px em tinta). Depois o **cartão** (folha, fio de 1px, fio de 3px da coleção em cima, fitinha pendurada à direita, nome em sans 700/24px) que sempre aponta pra um lugar: a nota aberta e não terminada (com barrinha de quanto já leu e "faltam 6 min"), senão o próximo capítulo não lido depois dela, senão o primeiro não lido ("Começar por aqui"). A ação ocupa a base do cartão como faixa da coleção de 52px com seta. Então a **estante**: um livro em pé por coleção, largura e altura vindas do número de notas (em `colecoes.css`), nome correndo na lombada de cima pra baixo (700/20px), dois filetes no alto, contagem "7/100" embaixo e barrinha de 4px do que foi lido; os livros ficam sobre uma prateleira de 3px em tinta e levam à coleção. Por fim a lista **Por onde começar** com quadrado de cor por trilha; e cada caderno como **lombada**: faixa chapada sangrando até a borda com o nome em 26px e a contagem em label à direita ("7 de 100 lidas" quando há lidas), seguida da árvore de seções (nomes de pasta sem o número).
 
 ### Árvore de notas e fitinha
 Linhas de 44px em sans 16px; seções são `details` com seta de canto que gira; sub-níveis recuados com fio de 1px à esquerda e texto em tinta apagada; contagens tabulares. A **fitinha** (12×22px, corte em V) pendurada no alto da linha marca a nota atual e a última lida; no cartão "continuar" ela tem 16×30px.
