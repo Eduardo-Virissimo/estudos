@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # null e undefined
+
+**Quanto focar: 🔥 essencial.** É a origem do erro mais comum do JavaScript. Domine `?.`, `??` e o `strictNullChecks`.
 
 Se você programar em JavaScript por tempo suficiente, uma mensagem de erro vai virar sua velha conhecida: `Cannot read properties of undefined`. Ela é, provavelmente, o erro mais comum de toda a linguagem. E ela sempre conta a mesma história: você tentou usar alguma coisa como se fosse um objeto, e ela era um **nada**.
 

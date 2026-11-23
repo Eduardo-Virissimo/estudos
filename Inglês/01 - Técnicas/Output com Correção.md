@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Output com Correção
+
+**Quanto focar: 📌 importante.** Sem falar e escrever você não destrava, mas é só 20% do tempo. Entenda bem e pratique toda semana.
 
 Você entende quase tudo de um vídeo em inglês. Lê documentação sem dificuldade. Aí, numa conversa, alguém te pergunta o que você fez no fim de semana, e você trava. As palavras estão todas ali, você as reconhece quando ouve, mas na hora de juntar uma frase, não sai. "Eu estava pensando em..." como é que diz isso mesmo?
 

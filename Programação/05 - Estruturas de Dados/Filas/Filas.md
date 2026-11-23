@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Filas
+
+**Quanto focar: 📌 importante.** Aparecem em BFS e em processamento de tarefas. Entenda e implemente uma vez.
 
 Fila de padaria. Quem chegou primeiro é atendido primeiro, quem chega agora vai pro fim, e ninguém fura. É tão natural que parece não ter nada pra aprender. Só que ela está em todo sistema de verdade: os pedidos de uma loja virtual esperando processamento, os arquivos esperando a impressora, as mensagens que um servidor recebe mais rápido do que consegue tratar, os e-mails que um sistema manda um de cada vez pra não ser bloqueado.
 

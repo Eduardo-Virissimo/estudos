@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Palavras de Alta Frequência
+
+**Quanto focar: 🔥 essencial.** Poucas palavras cobrem quase tudo que você ouve e lê. É o vocabulário que mais rende, então priorize.
 
 Pegue qualquer texto em inglês, uma notícia, um README, uma página de livro, e conte quantas vezes aparece a palavra *the*. Depois *of*, *and*, *to*. Agora procure uma palavra como *notwithstanding*. As primeiras aparecem em quase toda frase. A última, talvez uma vez num livro inteiro.
 

@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Vocabulário Técnico
+
+**Quanto focar: 🔥 essencial.** É o inglês que você vai ler todo dia em código, erro e documentação. Domine, e vá aumentando o seu glossário.
 
 Leia três mensagens de erro, de três ferramentas diferentes: *Failed to fetch.* *Unexpected token in JSON at position 0.* *Request timed out.* Agora abra a documentação de uma biblioteca qualquer: *This method parses the input and returns...* Depois de algumas semanas lendo esse tipo de coisa, você percebe um padrão: são sempre as **mesmas palavras**, aparecendo em todo lugar, em combinações diferentes.
 

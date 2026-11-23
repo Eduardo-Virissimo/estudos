@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Backtracking
+
+**Quanto focar: 📌 importante.** Aparece em problemas médios de entrevista (combinações, permutações). Entenda o molde e pratique alguns.
 
 Você está num labirinto de cerca viva, sem mapa. Chega numa bifurcação e escolhe a esquerda. Mais adiante, outra bifurcação: esquerda de novo. Beco sem saída. O que você faz? Volta **até a última bifurcação** e tenta o outro lado. Se aquele também não der, volta mais uma bifurcação. Você nunca desiste do labirinto inteiro; só desfaz a última escolha que deu errado.
 

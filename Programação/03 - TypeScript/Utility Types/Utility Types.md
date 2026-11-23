@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Utility Types
+
+**Quanto focar: 📌 importante.** Economizam muito tipo repetido. Conheça os principais (`Partial`, `Pick`, `Omit`, `Record`) e consulte o resto.
 
 O seu programa tem um tipo `Tarefa`, com seis campos. Mas na hora de criar uma tarefa nova, o usuário não informa o `id` nem a data de criação: o programa gera os dois. Então você escreve um segundo tipo, `NovaTarefa`, copiando quatro dos campos. Na tela de edição, todos os campos são opcionais, e nasce um terceiro tipo, `AtualizacaoTarefa`. Na lista resumida, só aparecem dois campos: um quarto tipo. Quatro tipos, todos parecidos, todos copiados à mão.
 

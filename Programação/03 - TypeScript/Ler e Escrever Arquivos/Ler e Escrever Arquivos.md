@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Ler e Escrever Arquivos
+
+**Quanto focar: 📌 importante.** Útil pro projeto do estágio e pra scripts, mas em produção o dado costuma ir pro banco. Entenda e pratique uma vez.
 
 O seu gerenciador de tarefas funciona. Você adiciona três tarefas, conclui uma, lista, está tudo lá. Aí você fecha o terminal, abre de novo, roda o programa... e a lista está vazia. As tarefas sumiram. Não foi bug: é que tudo o que estava em variáveis morava na memória, e a memória é apagada quando o programa termina.
 

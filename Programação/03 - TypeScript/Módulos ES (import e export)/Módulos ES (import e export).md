@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Módulos ES (import e export)
+
+**Quanto focar: 🔥 essencial.** Todo arquivo de um projeto usa. Domine o básico e entenda os erros de import, que são frequentes.
 
 Na nota de [[Modularização]], você decidiu dividir o gerenciador de tarefas em vários arquivos: as regras num, o terminal noutro, o armazenamento num terceiro. Ótimo. Mas aí vem a pergunta prática: como o `main.ts` usa uma função que está no `regras.ts`? Os arquivos estão separados, e cada um não sabe nada do outro.
 

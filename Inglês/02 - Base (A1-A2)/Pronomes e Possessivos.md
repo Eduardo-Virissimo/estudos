@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Pronomes e Possessivos
+
+**Quanto focar: 🔥 essencial.** Estão em quase toda frase. Domine, porque erro aqui aparece o tempo todo.
 
 Você está contando pra um colega que a Maria perdeu o celular, e diz: *Maria lost his phone.* Ele te olha confuso: o celular de quem? De algum homem? Você quis dizer "o celular dela", mas pensou como em português: "o celular" é masculino, então saiu *his*. O erro parece pequeno, e muda completamente quem é o dono da coisa.
 

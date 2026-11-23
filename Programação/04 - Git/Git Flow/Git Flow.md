@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: bom saber
 revisado:
 ---
 
 # Git Flow
+
+**Quanto focar: 💤 bom saber.** Muitos times usam fluxos mais simples hoje. Conheça a ideia pra reconhecer se a empresa usar; não precisa decorar.
 
 Imagine um time de cinco pessoas trabalhando no mesmo projeto, sem ter combinado nada. Uma faz commit direto na `main`. Outra trabalha três semanas numa branch e tenta juntar tudo de uma vez. Uma terceira cria uma branch chamada `teste2-final`. Alguém sobe uma correção urgente que ninguém revisou, e ela quebra outra coisa. Não é que alguém esteja fazendo errado: é que cada um está fazendo de um jeito.
 

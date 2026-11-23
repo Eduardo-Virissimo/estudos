@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # GitHub e Pull Requests
+
+**Quanto focar: 🔥 essencial.** É como o time trabalha e onde o recrutador olha o seu código. Domine o fluxo de PR.
 
 Até aqui, o seu repositório Git morava num lugar só: o seu computador. Se o disco morrer amanhã, o histórico inteiro vai junto. Se você quiser mostrar o projeto pra alguém, não tem como. E se outra pessoa quiser ajudar, ela não tem onde pegar o código.
 

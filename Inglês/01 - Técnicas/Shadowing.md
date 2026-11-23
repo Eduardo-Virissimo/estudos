@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Shadowing
+
+**Quanto focar: 📌 importante.** Melhora pronúncia e listening, mas não precisa ser todo dia. Entenda a técnica e use alguns minutos por semana.
 
 Você sabe a frase. Já viu escrita dezenas de vezes: *What do you want to do?* Mas quando um nativo fala, ela sai como "whaddaya wanna do?", uma coisa só, rápida, sem nenhuma pausa entre as palavras. E quando **você** fala, sai o contrário: "what... do... you... want... to... do", cada palavra separada, todas do mesmo tamanho, como se estivesse ditando. As duas versões são a mesma frase, e soam como línguas diferentes.
 

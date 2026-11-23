@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Siglas Técnicas
+
+**Quanto focar: 📌 importante.** Aparecem em code review e documentação. Conheça as principais e consulte o resto quando aparecer.
 
 Você abre um pull request de um projeto open source e lê os comentários: *LGTM, just one nit.* *PTAL when you have a sec.* *IMO we should wait, AFAIK the API is changing.* *TL;DR: WIP, ETA Friday.* Todas as palavras são inglês, e mesmo assim a frase parece escrita em código.
 

@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # DevTools
+
+**Quanto focar: 🔥 essencial.** É a ferramenta número um pra depurar qualquer coisa na web: console, rede, elementos. Quem trabalha com front usa todo dia.
 
 Você clica no botão "Salvar" de um site e nada acontece. Nenhuma mensagem, nenhum erro, a página só fica ali parada. De fora, não dá pra saber se o botão está quebrado, se o servidor caiu ou se os dados foram salvos e a tela é que não atualizou.
 

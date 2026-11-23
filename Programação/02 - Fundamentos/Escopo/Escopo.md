@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Escopo
+
+**Quanto focar: 🔥 essencial.** Muito bug estranho é escopo. Entenda bem `let`/`const` e bloco; isso aparece também em entrevista.
 
 Você criou uma variável dentro de um `if`, e duas linhas depois, fora dele, tenta usar. O programa explode: `titulo is not defined`. Mas você acabou de criar o `titulo`, está ali, dá pra ver na tela! O que aconteceu?
 

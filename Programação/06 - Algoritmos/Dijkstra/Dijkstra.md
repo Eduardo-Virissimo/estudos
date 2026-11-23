@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: bom saber
 revisado:
 ---
 
 # Dijkstra
+
+**Quanto focar: 💤 bom saber.** Importante na teoria, mas raro no dia a dia de web e em entrevista de júnior. Entenda a ideia; implementar pode esperar.
 
 Você abre o GPS pra ir de casa até a faculdade. Existe a rota pela avenida, com 3 trechos longos, e a rota pelo bairro, com 7 trechos curtinhos. A [[BFS (Busca em Largura)|BFS]] escolheria a avenida, porque tem menos trechos. Mas o GPS quer a de **menor distância total**, e talvez os 7 trechos curtos somem menos que os 3 longos. Quando cada aresta tem um **peso** (quilômetros, minutos, reais), "menos passos" deixa de ser "mais perto", e a BFS não serve mais.
 

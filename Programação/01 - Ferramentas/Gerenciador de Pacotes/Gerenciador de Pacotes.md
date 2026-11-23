@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Gerenciador de Pacotes
+
+**Quanto focar: 🔥 essencial.** Todo projeto começa com `npm install`. Entender `package.json`, dependências e scripts é obrigatório desde o primeiro projeto.
 
 Você precisa mostrar "há 3 dias" do lado de uma data no seu programa. Dá pra escrever isso do zero: calcular a diferença em milissegundos, converter pra dias, tratar horas, meses, anos, plural, fuso horário... ou dá pra usar uma biblioteca que alguém já escreveu, testou e que milhões de pessoas usam. Quase nenhum projeto de verdade é feito do zero. Ele é montado em cima de **pacotes**: código pronto pra validar dados, lidar com datas, criar servidores.
 

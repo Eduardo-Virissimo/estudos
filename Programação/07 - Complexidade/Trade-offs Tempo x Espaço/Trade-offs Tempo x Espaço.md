@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Trade-offs Tempo x Espaço
+
+**Quanto focar: 📌 importante.** É o raciocínio por trás de cache e índice. Entenda bem; aparece em entrevista e em decisão de projeto.
 
 Um professor corrige a prova da turma toda e, pra cada aluno, precisa conferir se ele está na lista de quem tem direito a tempo extra. Ele pode, pra cada prova, abrir a lista e procurar o nome: lento, mas não ocupa nada na mesa. Ou pode, antes de começar, fazer um papelzinho com os nomes em ordem alfabética, ou melhor ainda, marcar com um adesivo a pasta de cada aluno com tempo extra. Gasta um tempo antes e um pouco de espaço na mesa, e depois cada conferência é instantânea.
 

@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Como Aprender Inglês
+
+**Quanto focar: 🔥 essencial.** É o mapa de como a aquisição funciona. Entender isso evita anos estudando do jeito errado, então leia com calma antes de tudo.
 
 Muita gente passou anos estudando inglês na escola. Sabe todas as regras do *present perfect*, conjuga o verbo *to be* de trás pra frente, tirava 10 nas provas. E aí, numa viagem, na hora de pedir um café, não sai nada. A pessoa fica parada, montando a frase na cabeça, traduzindo palavra por palavra, enquanto o atendente espera.
 

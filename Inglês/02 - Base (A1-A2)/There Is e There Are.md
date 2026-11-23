@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # There Is e There Are
+
+**Quanto focar: 📌 importante.** Muito comum, inclusive em erro e documentação ("there is a bug"). Entenda e pratique; é rápido.
 
 "Tem um bug na linha 10." Em português, é a coisa mais natural do mundo. E aí, em inglês, sai *Have a bug in line 10*, ou *Has a bug in my code*. A frase parece certa, palavra por palavra, mas um nativo vai estranhar. Porque o "tem" do português está fazendo dois trabalhos diferentes, e o inglês separa os dois.
 

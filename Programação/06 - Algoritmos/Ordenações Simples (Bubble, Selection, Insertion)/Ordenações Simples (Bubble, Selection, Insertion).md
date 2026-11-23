@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: bom saber
 revisado:
 ---
 
 # Ordenações Simples (Bubble, Selection, Insertion)
+
+**Quanto focar: 💤 bom saber.** Você nunca vai escrever uma no trabalho, você usa o `sort`. Servem pra aprender a pensar; entenda a ideia e não gaste muito tempo.
 
 Antes de tudo, um teste. Abra o terminal, rode `node` e digite:
 

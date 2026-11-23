@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Verbo To Be
+
+**Quanto focar: 🔥 essencial.** É o verbo mais usado do inglês e base de várias estruturas. Domine até sair sem pensar.
 
 Em português, você tem dois verbos pra coisas que parecem parecidas: "ser" e "estar". *Sou* brasileiro, *estou* cansado. Um é permanente, o outro é passageiro, e escolher errado soa estranho ("estou brasileiro"). Aí você começa o inglês e descobre que ele resolve os dois com um verbo só: o ***to be***. *I'm Brazilian. I'm tired.* Mesmo verbo, e você nunca mais precisa escolher.
 

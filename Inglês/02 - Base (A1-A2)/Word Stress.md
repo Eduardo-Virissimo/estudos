@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Word Stress
+
+**Quanto focar: 📌 importante.** Errar a sílaba forte atrapalha mais que errar um som. Entenda a ideia e confira no dicionário quando aprender palavra nova.
 
 Numa reunião, você explica que é *developer*, e fala "de-ve-LÓ-per", com a força na terceira sílaba, como faria em português. A pessoa do outro lado pede pra você repetir. Você repete, do mesmo jeito, e ela continua sem entender. Todos os sons estão certos: o *d*, o *v*, o *p*. O problema é outro, e é invisível pra quem fala português: a força está na sílaba errada.
 

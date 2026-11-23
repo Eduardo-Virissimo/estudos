@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Falsos Cognatos
+
+**Quanto focar: 📌 importante.** Evitam mal-entendidos bobos (actually, pretend). Leia, pratique e revise de vez em quando.
 
 Imagine uma entrevista de emprego em inglês. O entrevistador pergunta dos seus planos, e você responde, confiante: *"I pretend to learn Japanese"*. Você quis dizer que pretende aprender japonês. Mas o que ele ouviu foi que você **finge** que aprende japonês. Em seguida, querendo dizer que atualmente trabalha com suporte, você diz *"Actually, I work in support"*, e ele entende "na verdade, eu trabalho com suporte", como se você estivesse corrigindo alguma coisa que disse antes.
 

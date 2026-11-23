@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Set
+
+**Quanto focar: 📌 importante.** Resolve com elegância "já vi isso?" e "tire as duplicatas". Entenda e use sempre que couber.
 
 Você organiza um campeonato e tem a lista de inscrições: 5 mil linhas, gente que se inscreveu duas vezes, gente que mandou o formulário três vezes porque achou que não tinha ido. Precisa saber quantos jogadores existem de verdade, e na hora do check-in precisa responder rápido "este nick está inscrito?". Ninguém liga pra ordem, nem pra quantas vezes a pessoa se inscreveu. A pergunta é só: **está ou não está?**
 

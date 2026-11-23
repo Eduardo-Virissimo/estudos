@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Nomes e Comentários
+
+**Quanto focar: 🔥 essencial.** Você vai ler código muito mais do que escrever. Nome bom é a forma mais barata de código bom, e reviewer repara.
 
 Você abre um código que escreveu há três meses e dá de cara com isto:
 

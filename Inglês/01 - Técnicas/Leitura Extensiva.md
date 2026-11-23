@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Leitura Extensiva
+
+**Quanto focar: 📌 importante.** É uma das melhores formas de input, principalmente pra quem vai ler documentação. Entenda a ideia e encaixe na rotina.
 
 Lembra das leituras de inglês da escola? Um texto difícil, uma lista de perguntas no fim, e o dicionário aberto do lado. Cada linha tinha três palavras desconhecidas. Você levava uma aula inteira pra entender um parágrafo, e saía com a certeza de que ler em inglês é um sofrimento.
 

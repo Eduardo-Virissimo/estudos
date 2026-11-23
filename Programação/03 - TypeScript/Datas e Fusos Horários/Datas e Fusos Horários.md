@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Datas e Fusos Horários
+
+**Quanto focar: 📌 importante.** Quase todo sistema tem data, e bug de fuso é clássico. Entenda a regra de guardar em UTC; os detalhes você consulta.
 
 Seu diário de estudos registra a data de cada sessão. Tudo funciona perfeitamente durante o dia. Mas um dia você estuda até tarde, termina às 22h, e o diário grava a sessão como sendo do dia **seguinte**. Você confere o código, e a linha parece inocente: `new Date().toISOString().slice(0, 10)`. Não tem erro nenhum. Só que o resultado está errado, e só nas últimas três horas de cada dia.
 

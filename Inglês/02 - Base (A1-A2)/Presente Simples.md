@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Presente Simples
+
+**Quanto focar: 🔥 essencial.** É o tempo verbal da documentação ("this function returns..."). Domine, com atenção ao "s" da terceira pessoa.
 
 Abra a documentação de qualquer função no MDN e leia a primeira frase: *The `map()` method **creates** a new array... It **returns**...* Agora pense em como você descreveria a sua semana: *I **work** from home. I **study** English every morning.* As duas coisas, a documentação e a sua rotina, usam o mesmo tempo verbal, porque as duas falam de coisas que **são sempre assim**.
 

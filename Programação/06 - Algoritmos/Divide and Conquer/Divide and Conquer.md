@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Divide and Conquer
+
+**Quanto focar: 📌 importante.** É uma forma de pensar que aparece em vários algoritmos. Entenda a ideia; ela vem junto com Merge Sort e Busca Binária.
 
 Você precisa calcular 3 elevado a 1.000.000. O jeito óbvio é multiplicar 3 por ele mesmo um milhão de vezes. Mas olhe de outro ângulo: 3¹⁰⁰⁰⁰⁰⁰ é (3⁵⁰⁰⁰⁰⁰)². Se você soubesse quanto é 3⁵⁰⁰⁰⁰⁰, bastaria **uma** multiplicação a mais. E 3⁵⁰⁰⁰⁰⁰ é (3²⁵⁰⁰⁰⁰)². E assim por diante. Em vez de um milhão de multiplicações, umas 20 elevações ao quadrado (mais algumas multiplicações nos expoentes ímpares). De um milhão de passos pra uns 40.
 

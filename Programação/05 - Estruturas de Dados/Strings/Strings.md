@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Strings
+
+**Quanto focar: 🔥 essencial.** Manipular texto está em todo lugar, e é tema frequente de entrevista. Domine os métodos e o custo de concatenar.
 
 Você está fazendo o cadastro de um site e precisa de três regrinhas: o nome de usuário não pode ter espaço, a busca tem que achar "José" quando alguém digita "jose", e o contador de caracteres da bio tem que bater com o que a pessoa vê. Três coisas que parecem triviais. As três têm uma pegadinha, e a terceira pega até gente experiente.
 

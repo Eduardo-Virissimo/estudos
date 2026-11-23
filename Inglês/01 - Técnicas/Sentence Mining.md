@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Sentence Mining
+
+**Quanto focar: 📌 importante.** Ajuda a fixar vocabulário de verdade, mas é ferramenta, não fim. Entenda e use quando estiver consumindo bastante input.
 
 Quase todo mundo que estudou inglês já fez isto: uma lista de palavras, a tradução do lado, e horas tentando decorar. *Figure out*: descobrir. *Achieve*: conseguir. *Although*: embora. Na semana seguinte, metade já foi embora. No mês seguinte, quase tudo. E as que sobraram, você não sabe usar numa frase.
 

@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Estruturas de Repetição
+
+**Quanto focar: 🔥 essencial.** Percorrer lista é das coisas que você mais faz. Domine o `for...of`, o `while` e quando usar cada um.
 
 Você tem uma lista com o XP de cada sessão de estudo e quer saber o total. Com quatro sessões, dá pra escrever `xps[0] + xps[1] + xps[2] + xps[3]`. Com quarenta, já fica ridículo. Com uma lista que cresce todo dia, é impossível: você nem sabe quantos itens ela vai ter.
 

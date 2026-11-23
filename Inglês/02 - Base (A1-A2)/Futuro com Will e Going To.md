@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Futuro com Will e Going To
+
+**Quanto focar: 📌 importante.** Comum, mas dá pra se comunicar mesmo confundindo os dois. Entenda a diferença e pratique.
 
 Em português, o futuro é fácil: "vou ligar", "vou viajar", "vai chover". Uma forma só, e serve pra tudo. Aí você começa o inglês e descobre que existem **duas** formas, *will* e *going to*, e que os livros dão uma lista de regras pra cada uma. A reação natural é escolher uma e usar pra tudo.
 

@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Input Compreensível
+
+**Quanto focar: 🔥 essencial.** É o motor de tudo, 70% do seu tempo de inglês. Se for fazer uma coisa só, faça esta todo dia.
 
 Pense em duas cenas. Na primeira, você entra numa sala de cinema com o filme já começado. Perdeu os primeiros minutos, mas em pouco tempo entende quem é quem, qual é o conflito, e acompanha tudo, porque o resto da história explica o pedaço que você perdeu. Na segunda, você entra no meio de um filme em russo. Pode prestar toda a atenção do mundo: não vai entender nada.
 

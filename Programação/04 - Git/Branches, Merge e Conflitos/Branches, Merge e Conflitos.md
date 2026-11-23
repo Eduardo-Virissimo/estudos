@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Branches, Merge e Conflitos
+
+**Quanto focar: 🔥 essencial.** Você vai trabalhar em branch e resolver conflito toda semana num time. Domine, principalmente o conflito, que é onde o iniciante trava.
 
 O seu projeto funciona. Está limpo, testado, bonito. E aí você tem uma ideia arriscada: reescrever o jeito como as tarefas são filtradas. Pode ficar ótimo, ou pode quebrar tudo. Sem nenhuma proteção, você mexeria direto no código que funciona, e se a ideia der errado, teria que desfazer tudo na mão, lembrando de cada linha que mudou.
 

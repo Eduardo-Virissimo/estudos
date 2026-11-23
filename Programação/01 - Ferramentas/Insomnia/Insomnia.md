@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: bom saber
 revisado:
 ---
 
 # Insomnia
+
+**Quanto focar: 💤 bom saber.** É uma alternativa ao Postman e faz a mesma coisa. Escolha uma das duas; não precisa estudar as duas.
 
 Se você já passou pela nota do [[Postman]], conhece a ideia: em vez de escrever código só pra ver se uma API responde, você usa um programa onde monta a requisição, aperta **Send** e vê a resposta. O **Insomnia** faz exatamente isso, e a pergunta honesta é: por que aprender um segundo?
 

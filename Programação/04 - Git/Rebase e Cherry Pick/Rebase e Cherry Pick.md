@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Rebase e Cherry Pick
+
+**Quanto focar: 📌 importante.** Muitos times usam rebase no fluxo diário. Entenda o que fazem e quando é perigoso; pratique em um repo de teste.
 
 Você passou dois dias numa branch, e o histórico dela está assim: "começa filtro", "wip", "corrige typo", "agora vai", "agora vai mesmo". Enquanto isso, a `main` andou, e você precisa trazer as mudanças dela. Se fizer um merge, ganha mais um commit no meio da bagunça, e o desenho do histórico vira uma trança. Na hora de abrir o pull request, quem for revisar vai ter que ler o seu processo inteiro de tentativa e erro.
 

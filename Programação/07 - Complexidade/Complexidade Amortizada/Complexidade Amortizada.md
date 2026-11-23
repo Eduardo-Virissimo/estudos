@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: bom saber
 revisado:
 ---
 
 # Complexidade Amortizada
+
+**Quanto focar: 💤 bom saber.** Explica por que o `push` do array é rápido. Conheça a ideia; o formalismo pode esperar.
 
 Você paga R$ 1.200 de seguro do carro uma vez por ano. Naquele dia, dói. Mas se alguém pergunta "quanto custa o seguro?", você não responde "R$ 1.200 num dia e zero nos outros 364". Você responde "uns R$ 100 por mês". Você **espalhou** o gasto grande pelo ano inteiro, e a média diz mais sobre o seu orçamento do que o pico.
 

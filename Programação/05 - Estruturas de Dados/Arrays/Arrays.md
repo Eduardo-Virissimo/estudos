@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Arrays
+
+**Quanto focar: 🔥 essencial.** É a estrutura que você mais usa, no dia a dia e em entrevista. Domine as operações e o custo de cada uma.
 
 Pense numa fileira de armários numerados num vestiário. Você chega com a ficha "armário 37" e vai direto nele: não abre o 1, o 2, o 3 até achar. Basta saber onde a fileira começa e andar 37 portas. Agora imagine que alguém quer um armário novo **no começo** da fileira. Pra isso, todo mundo precisa mudar as coisas um armário pra frente: o do 1 vai pro 2, o do 2 vai pro 3, e assim até o fim.
 

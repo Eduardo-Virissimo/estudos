@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Linter
+
+**Quanto focar: 📌 importante.** Todo projeto profissional tem um, e ele pega bug antes de você rodar. Saiba configurar e entender o que ele aponta; os detalhes das regras você consulta.
 
 Olhe estas duas linhas e tente achar o problema:
 

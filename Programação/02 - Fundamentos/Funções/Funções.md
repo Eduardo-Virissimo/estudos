@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Funções
+
+**Quanto focar: 🔥 essencial.** São o tijolo de qualquer programa. Domine parâmetros, retorno e funções pequenas que fazem uma coisa só.
 
 Imagine uma receita de bolo. Você não reescreve a receita inteira toda vez que vai fazer um bolo. Ela está escrita num lugar, num caderno, e você só diz: "faz aquela receita, com estes ingredientes". Se um dia descobrir que fica melhor com menos açúcar, você corrige o caderno uma vez, e todos os bolos seguintes saem certos.
 

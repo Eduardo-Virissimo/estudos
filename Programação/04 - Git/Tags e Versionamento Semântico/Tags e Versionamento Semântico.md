@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Tags e Versionamento Semântico
+
+**Quanto focar: 📌 importante.** Você precisa entender o `^1.2.3` do `package.json` e como as versões funcionam. As tags em si você usa pouco no começo.
 
 Você usa uma biblioteca de datas no seu projeto, na versão `1.4.2`. Sai a `1.5.0`. Dá pra atualizar sem medo? E se sair a `2.0.0`? Repare que você conseguiu ter uma intuição sobre essas perguntas sem saber nada da biblioteca, só olhando os números. Isso não é coincidência. É o **Versionamento Semântico**, uma convenção que dá significado a cada parte do número de versão.
 

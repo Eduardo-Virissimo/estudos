@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Perguntas e Negativas
+
+**Quanto focar: 🔥 essencial.** É a estrutura que mais trava brasileiro, e sem ela você não pergunta nada. Domine.
 
 Em português, transformar uma frase numa pergunta é quase mágica: você não muda nenhuma palavra, só a entonação. "Você gosta de café." "Você gosta de café?" Pronto. E a negativa é só colocar um "não" na frente: "você não gosta de café". Por isso, quem fala português tende a fazer o mesmo em inglês, e sai *You like coffee?*, ou *What you want?*, ou *She not work here*.
 

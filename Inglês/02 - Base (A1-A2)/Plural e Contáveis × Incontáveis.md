@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Plural e Contáveis × Incontáveis
+
+**Quanto focar: 📌 importante.** Pegadinhas como "informations" aparecem em texto técnico. Entenda e pratique uma vez.
 
 Você termina uma revisão de código e escreve no PR: *Thanks for the feedbacks! I changed the codes and added some informations.* Três erros numa frase só, e nenhum deles de vocabulário ou de gramática "difícil". Todos do mesmo tipo: você colocou plural em palavras que, em inglês, simplesmente não têm plural.
 

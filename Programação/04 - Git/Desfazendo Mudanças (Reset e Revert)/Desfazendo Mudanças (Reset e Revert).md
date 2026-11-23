@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Desfazendo Mudanças (Reset e Revert)
+
+**Quanto focar: 📌 importante.** Um dia você vai precisar desfazer algo, e fazer errado apaga trabalho. Entenda bem a diferença entre os dois.
 
 Você acabou de fazer um commit e percebeu que a mensagem tem um erro de digitação. Ou esqueceu um arquivo. Ou, pior: rodou um comando que você não entendeu direito, e três commits inteiros sumiram do histórico. O coração acelera. Será que perdeu tudo?
 

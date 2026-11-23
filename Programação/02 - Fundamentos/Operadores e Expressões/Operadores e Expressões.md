@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Operadores e Expressões
+
+**Quanto focar: 🔥 essencial.** Estão em todo `if` e em todo cálculo. Domine, com atenção ao `===` e à precedência, que são pegadinhas clássicas.
 
 O seu app tem uma configuração de volume, de 0 a 100, e um valor padrão de 50 pra quem nunca mexeu nela. Você escreve `const volume = configuracao.volume || 50`, testa, funciona. Até que alguém reclama: "eu coloquei o volume no zero e ele volta sozinho pra 50!". Você olha o código, ele parece certo, e não tem erro nenhum no console.
 

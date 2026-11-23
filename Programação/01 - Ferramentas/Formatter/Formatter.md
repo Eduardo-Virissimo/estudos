@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Formatter
+
+**Quanto focar: 📌 importante.** Configura uma vez e esquece. Saiba ligar o Prettier e o formatar ao salvar; é meia hora de estudo, não mais.
 
 Você abre um pull request pra corrigir um bug de uma linha. Quando o colega vai revisar, o Git mostra **duzentas linhas mudadas**. O que aconteceu? O seu editor usa 4 espaços, o dele usa 2, você prefere aspas duplas, ele simples, e ao salvar o arquivo, o seu editor "arrumou" tudo do seu jeito. A linha que importa está escondida no meio de cento e noventa e nove que só mudaram de aparência.
 

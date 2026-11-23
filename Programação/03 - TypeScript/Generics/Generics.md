@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Generics
+
+**Quanto focar: 📌 importante.** Você vai usar muito mais do que escrever. Entenda o suficiente pra ler a tipagem das bibliotecas e escrever o básico.
 
 Você quer escrever uma função que devolve o primeiro item de uma lista. Qualquer lista: de textos, de números, de tarefas. Como tipar isso? Se você escreve `lista: string[]`, ela só serve pra textos. Uma versão pra cada tipo seria absurdo. Então você tenta o óbvio, `any`, e ele aceita qualquer coisa. Mas aí acontece isto:
 

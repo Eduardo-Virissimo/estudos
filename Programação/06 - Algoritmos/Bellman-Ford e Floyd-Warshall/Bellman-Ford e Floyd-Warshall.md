@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: bom saber
 revisado:
 ---
 
 # Bellman-Ford e Floyd-Warshall
+
+**Quanto focar: 💤 bom saber.** São casos específicos de caminho mínimo. Pode deixar pra depois da primeira vaga.
 
 O [[Dijkstra]] tem duas limitações. Ele não aceita pesos negativos, e ele responde "de **um** lugar até todos os outros". Às vezes você precisa do que ele não faz.
 

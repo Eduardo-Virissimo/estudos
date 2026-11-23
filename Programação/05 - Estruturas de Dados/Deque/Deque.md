@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: bom saber
 revisado:
 ---
 
 # Deque
+
+**Quanto focar: 💤 bom saber.** É uma variação da fila que aparece em poucos problemas. Conheça a ideia; aprofunde se cair num exercício.
 
 O seu editor guarda os últimos 50 arquivos abertos. Quando você abre um arquivo, ele entra **na frente** da lista. Quando a lista passa de 50, o mais antigo sai **pelo fundo**. E se você reabre um arquivo antigo, ele é tirado de onde estava e volta pra frente. Isso não é bem uma pilha (que só mexe numa ponta) nem uma fila (que entra por uma e sai pela outra). É uma estrutura que deixa entrar e sair **pelas duas pontas**.
 

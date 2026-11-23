@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Ler Documentação
+
+**Quanto focar: 🔥 essencial.** É a habilidade de inglês que mais te deixa independente como dev. Pratique toda semana.
 
 Muita gente que trava numa conversa em inglês lê documentação técnica sem esforço nenhum. Parece contraditório, mas tem explicação. A documentação é o inglês **mais fácil** que existe: frases curtas, um vocabulário muito repetitivo (a mesma meia dúzia de palavras aparece em todo lugar), e um assunto que você já entende. Se você sabe o que é uma função, entende *This function returns a string* mesmo sem conhecer metade das palavras.
 

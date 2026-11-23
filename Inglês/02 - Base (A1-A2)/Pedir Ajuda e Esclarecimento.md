@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Pedir Ajuda e Esclarecimento
+
+**Quanto focar: 🔥 essencial.** São as frases que salvam qualquer conversa quando você não entende. Decore as principais.
 
 Numa chamada, alguém explica uma tarefa em inglês, rápido, e você pega uns 70%. Tem uma palavra no meio que você não conhece, e uma frase que passou rápido demais. A pessoa termina e pergunta: *Does that make sense?* E você, com vergonha de perguntar, responde *Yes!*, balança a cabeça, e sai da chamada sem saber direito o que fazer.
 

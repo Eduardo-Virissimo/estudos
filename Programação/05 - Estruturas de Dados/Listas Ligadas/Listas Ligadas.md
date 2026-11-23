@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Listas Ligadas
+
+**Quanto focar: 📌 importante.** Quase não aparecem no código do dia a dia, mas são clássicas em entrevista e ensinam ponteiros. Entenda bem e implemente uma vez.
 
 Lembra da fileira de armários de [[Arrays]], em que pôr um armário novo no começo obrigava todo mundo a se mudar? Agora pense num trem. Cada vagão só sabe uma coisa: qual vagão vem engatado atrás dele. Pra colocar um vagão novo na frente, você não mexe em nenhum outro: engata o novo na locomotiva e engata o antigo primeiro vagão atrás dele. Duas ligações trocadas, pronto, não importa se o trem tem 5 vagões ou 5 mil.
 

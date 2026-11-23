@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Node.js
+
+**Quanto focar: 🔥 essencial.** É o que roda o seu back-end e as suas ferramentas. Entenda bem o que ele é e como rodar um projeto.
 
 Durante quase quinze anos, o JavaScript viveu preso dentro do navegador. Ele servia pra uma coisa só: deixar páginas interativas, fazer um menu abrir, validar um formulário. Se você quisesse escrever um servidor, um script de automação ou uma ferramenta de terminal, precisava aprender outra linguagem.
 

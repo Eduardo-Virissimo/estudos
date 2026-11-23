@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Conventional Commits
+
+**Quanto focar: 📌 importante.** Muitos times exigem. É rápido de aprender e já deixa o seu GitHub mais profissional.
 
 Abra o histórico de um projeto pessoal qualquer, inclusive os seus, e você vai encontrar algo assim: "ajustes", "wip", "agora vai", "agora vai mesmo", "arrumei", "agora vai!!!". Daqui a três meses, quando você precisar descobrir em que momento um bug apareceu, esse histórico não vai te dizer nada. Cada commit é uma caixa sem etiqueta.
 

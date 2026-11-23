@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Ler Mensagens de Erro
+
+**Quanto focar: 🔥 essencial.** Talvez a habilidade que mais economiza tempo de iniciante. Pratique até ler o erro antes de jogar no Google ou na IA.
 
 Você roda o programa e o terminal se enche de texto vermelho. Dez linhas, caminhos de arquivo estranhos, palavras em inglês, números soltos. O primeiro impulso é fechar o terminal, copiar tudo e colar em algum lugar perguntando "o que é isso?".
 

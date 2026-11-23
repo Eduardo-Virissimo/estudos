@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Lógica de Programação
+
+**Quanto focar: 🔥 essencial.** É a base de tudo que vem depois. Se travar aqui, trava em todo o resto, então pratique até quebrar problemas em passos com naturalidade.
 
 Peça pra alguém fazer um sanduíche, e a pessoa faz. Agora tente escrever as instruções pra um robô que só faz **exatamente** o que está escrito. "Passe a manteiga no pão." O robô pega o pote fechado e esfrega no pão. Você não disse pra abrir o pote. Nem pra pegar uma faca. Nem qual lado do pão.
 

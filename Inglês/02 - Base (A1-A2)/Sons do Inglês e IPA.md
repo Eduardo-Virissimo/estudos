@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Sons do Inglês e IPA
+
+**Quanto focar: 📌 importante.** Ajuda a ser entendido e a usar o dicionário de pronúncia. Entenda os sons principais; perfeição não é o objetivo.
 
 Leia em voz alta estas três palavras: *though*, *through*, *tough*. Elas se escrevem quase igual, só uma ou duas letras de diferença, e soam completamente diferentes: "dôu", "thrú", "tâf". Agora tente adivinhar como se fala *queue*. Ou *cache*. Ou *suite*. Em português, você lê uma palavra que nunca viu e já sabe pronunciar. Em inglês, não tem como.
 

@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: bom saber
 revisado:
 ---
 
 # Pares Mínimos
+
+**Quanto focar: 💤 bom saber.** Treino de ouvido útil, mas não é prioridade pra trabalhar. Faça alguns exercícios e siga em frente.
 
 Numa chamada com o time, alguém pergunta como você trabalha, e você responde: *I walk from home*. O seu colega americano faz uma cara estranha. Você quis dizer *I **work** from home*, "trabalho de casa". Mas o que ele ouviu foi "eu **ando** de casa". As duas palavras, *work* e *walk*, soam iguais pra você. Pra ele, são completamente diferentes.
 

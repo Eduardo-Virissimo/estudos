@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Configurando um Projeto TypeScript
+
+**Quanto focar: 🔥 essencial.** Você vai criar projeto do zero várias vezes. Pratique até montar um sem tutorial aberto.
 
 Até aqui, você criava um `teste.ts` em qualquer pasta e rodava com `npx tsx teste.ts`. Funciona pra experimentar. Mas quando o programa cresce pra vários arquivos, ganha dependências, precisa ir pro Git e rodar em outro computador, o arquivo solto não basta mais. Você precisa de um **projeto**.
 

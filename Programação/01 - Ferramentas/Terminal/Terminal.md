@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Terminal
+
+**Quanto focar: 🔥 essencial.** Você vai abrir o terminal todo dia pra rodar projeto, instalar pacote e usar o Git. Pratique até navegar e rodar comandos sem pensar.
 
 Todo tutorial de programação, cedo ou tarde, diz: "abra o terminal e rode este comando". E aí você abre uma janela preta, com um cursor piscando, sem botão nenhum, sem menu, sem dica do que fazer. É normal sentir que você voltou trinta anos no tempo.
 

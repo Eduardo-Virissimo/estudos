@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: bom saber
 revisado:
 ---
 
 # Paradigmas de Programação
+
+**Quanto focar: 💤 bom saber.** É mais vocabulário do que prática. Conheça os nomes e a ideia de cada um; o uso real vem com OO e Funcional mais pra frente.
 
 Peça um café de dois jeitos. No primeiro, você explica tudo: "pegue a xícara, coloque 15 gramas de pó, esquente a água a 92 graus, despeje devagar, em círculos...". No segundo, você só diz: "um café, por favor", e deixa quem sabe resolver. Os dois jeitos funcionam e chegam no mesmo café. Mas são **formas diferentes de pensar** o pedido.
 

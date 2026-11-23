@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Inglês em Commits, Issues e PRs
+
+**Quanto focar: 🔥 essencial.** Muitos times pedem commit e PR em inglês, e o seu GitHub também é visto por recrutador. Domine o padrão.
 
 Escrever um e-mail formal em inglês dá medo em muita gente. Mas escrever uma mensagem de commit? *Fix login bug.* Três palavras. E uma issue de bug segue sempre o mesmo roteiro, em qualquer projeto do mundo. E um comentário de revisão de código, depois que você conhece meia dúzia de frases, sai quase sozinho.
 

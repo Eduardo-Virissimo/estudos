@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Rotina de Estudo de Inglês
+
+**Quanto focar: 🔥 essencial.** Inglês é constância: sem rotina, nenhuma técnica funciona. Monte a sua e siga por 2 semanas antes de mexer.
 
 Todo começo de ano, alguém decide que agora vai: duas horas de inglês por dia. Compra o livro, baixa os aplicativos, monta uma planilha. Na primeira semana, cumpre. Na segunda, falha um dia por cansaço, e outro porque surgiu um compromisso. Na terceira, já parou. E conclui, de novo, que "não tem jeito pra idiomas".
 

@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Bash
+
+**Quanto focar: 📌 importante.** Servidor, Docker e CI rodam Linux, então você vai esbarrar em Bash cedo. Saiba ler e escrever um script curto; não precisa virar especialista.
 
 Toda sexta-feira você faz a mesma coisa: abre o terminal, cria uma pasta de backup, compacta a pasta de projetos, dá um nome com a data de hoje e confere se o arquivo apareceu. São quatro comandos. Na primeira semana você digita com cuidado. Na terceira, já no automático, esquece um pedaço da data e sobrescreve o backup da semana anterior.
 

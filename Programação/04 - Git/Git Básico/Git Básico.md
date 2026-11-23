@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Git Básico
+
+**Quanto focar: 🔥 essencial.** Todo time usa Git, sem exceção. Pratique o ciclo `add`/`commit`/`push` até ser automático.
 
 Todo mundo já passou por isso, mesmo antes de programar. Você está fazendo um trabalho, e a pasta vai se enchendo: `trabalho.docx`, `trabalho_final.docx`, `trabalho_final_revisado.docx`, `trabalho_final_AGORA_VAI.docx`. Você não sabe direito o que mudou entre um e outro. E se apagou um parágrafo importante lá na versão 3, boa sorte descobrindo em qual delas ele ainda estava.
 

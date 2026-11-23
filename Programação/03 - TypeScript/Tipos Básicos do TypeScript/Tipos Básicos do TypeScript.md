@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Tipos Básicos do TypeScript
+
+**Quanto focar: 🔥 essencial.** Você usa em toda linha de TypeScript. Domine, principalmente `unknown` versus `any`.
 
 O seu programa de tarefas aceita uma prioridade, que pode ser "baixa", "média" ou "alta". Um dia, em algum canto do código, alguém escreve `prioridade = "Alta"`, com maiúscula. Em outro, `"media"`, sem acento. Nada dá erro. O programa roda. Só que o filtro de prioridade alta para de achar essas tarefas, e ninguém entende por quê.
 

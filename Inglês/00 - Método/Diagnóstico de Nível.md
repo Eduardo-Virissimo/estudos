@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Diagnóstico de Nível
+
+**Quanto focar: 📌 importante.** Você faz uma vez no começo e repete de tempos em tempos. Importante pra escolher material, mas não é algo pra estudar a fundo.
 
 "Qual o seu nível de inglês?" A maioria das pessoas responde com o tempo de curso ("fiz três anos") ou com uma palavra vaga ("intermediário"). Nenhuma das duas respostas ajuda muito. Três anos de curso podem ter deixado alguém lendo bem e sem conseguir falar uma frase. E "intermediário" quer dizer coisas diferentes pra cada pessoa.
 

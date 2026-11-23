@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: essencial
 revisado:
 ---
 
 # Interfaces e Type Aliases
+
+**Quanto focar: 🔥 essencial.** Você vai descrever formato de dado o tempo todo. Domine; é o coração do TypeScript.
 
 O seu gerenciador de tarefas tem uma dúzia de funções que mexem com tarefas: adicionar, concluir, listar, salvar, filtrar. Em cada uma delas, você escreve o tipo do parâmetro: `{ id: number; titulo: string; concluida: boolean }`. Doze vezes. Um dia uma tarefa ganha um prazo, e você precisa achar e atualizar as doze. Esquece uma, e é ali que o bug vai morar.
 

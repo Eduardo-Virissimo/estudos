@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: bom saber
 revisado:
 ---
 
 # Trie
+
+**Quanto focar: 💤 bom saber.** É específica pra autocomplete e problemas de prefixo. Conheça a ideia; aprofunde se cair num exercício.
 
 Você digita "pro" na busca do seu vault e aparecem, antes de você terminar: "Promises", "Programação Dinâmica", "Profiling". A cada letra nova, a lista encolhe. Como fazer isso rápido com 10 mil títulos? O jeito ingênuo é percorrer os 10 mil a cada tecla perguntando `titulo.startsWith("pro")`. Funciona, mas a busca refaz todo o trabalho a cada letra, e com um dicionário de 300 mil palavras começa a engasgar.
 

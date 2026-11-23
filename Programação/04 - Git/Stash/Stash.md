@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # Stash
+
+**Quanto focar: 📌 importante.** É um quebra-galho do dia a dia, simples de aprender. Meia hora resolve.
 
 Você está no meio do filtro de prioridade. Metade feito, nada commitado, três arquivos abertos. E chega a mensagem: "urgente, o comando `add` está quebrado na `main`!". Você precisa ir pra `main` agora. Mas commitar trabalho pela metade, com o código nem compilando, deixaria um commit quebrado no histórico. E se você tentar trocar de branch assim mesmo, o Git recusa.
 

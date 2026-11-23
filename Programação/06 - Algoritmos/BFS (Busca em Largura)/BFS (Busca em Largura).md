@@ -1,9 +1,12 @@
 ---
 nivel: escrito
+foco: importante
 revisado:
 ---
 
 # BFS (Busca em Largura)
+
+**Quanto focar: 📌 importante.** É o jeito de achar o menor caminho sem peso e cai bastante em entrevista. Entenda e pratique.
 
 Jogue uma pedra num lago parado. A onda sai em círculo: primeiro atinge tudo que está a um palmo, depois tudo a dois palmos, depois a três. Ela nunca chega a algo distante antes de passar por tudo que está mais perto. Agora a pergunta: qual o caminho **mais curto** da pedra até uma folha boiando? É o caminho que a primeira onda a tocar a folha percorreu.
 
