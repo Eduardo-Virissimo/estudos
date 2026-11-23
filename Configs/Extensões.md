@@ -1,6 +1,6 @@
 # Extensões e configurações
 
-> Gerado por `backup.ps1` em 2026-11-13 16:47. Não edite à mão: rode o script de novo.
+> Gerado por `backup.ps1` em 2026-11-23 16:18. Não edite à mão: rode o script de novo.
 
 ## Plugins
 
@@ -27,6 +27,7 @@ Os da loja: instale pelo link (ou em Configurações → Plugins da comunidade).
 - `cursor-smooth.css` **(ativo)**
 - `custom-background.css`
 - `custom-rainbow-colors.css` **(ativo)**
+- `esconder-pastas-do-repo.css` **(ativo)**
 - `estudos-rpg-notas.css` **(ativo)**
 - `folder-depth-colors.css`
 

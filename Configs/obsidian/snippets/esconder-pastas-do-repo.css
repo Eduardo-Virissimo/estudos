@@ -1,0 +1,14 @@
+/* Esconde do explorador de arquivos o que só existe pro repositório (GitHub),
+   não pra estudar: backup de configurações, saída do graphify e docs do repo.
+   Pra mostrar de novo: Configurações > Aparência > Trechos CSS > desligar este. */
+.nav-folder:has(> .nav-folder-title:is(
+  [data-path="estudos/Configs"],
+  [data-path="estudos/graphify-out"]
+)),
+.nav-file:has(> .nav-file-title:is(
+  [data-path="estudos/README.md"],
+  [data-path="estudos/DESIGN.md"],
+  [data-path="estudos/PRODUCT.md"]
+)) {
+  display: none;
+}

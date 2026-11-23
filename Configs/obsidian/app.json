@@ -2,5 +2,13 @@
   "showUnsupportedFiles": true,
   "promptDelete": false,
   "newFileLocation": "current",
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "propertiesInDocument": "hidden",
+  "userIgnoreFilters": [
+    "estudos/Configs/",
+    "estudos/graphify-out/",
+    "estudos/README.md",
+    "estudos/DESIGN.md",
+    "estudos/PRODUCT.md"
+  ]
 }

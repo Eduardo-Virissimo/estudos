@@ -3,7 +3,8 @@
   "enabledCssSnippets": [
     "custom-rainbow-colors",
     "cursor-smooth",
-    "estudos-rpg-notas"
+    "estudos-rpg-notas",
+    "esconder-pastas-do-repo"
   ],
   "cssTheme": "AnuPpuccin",
   "showRibbon": false,
