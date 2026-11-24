@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É a mais simples e você usa sem perceber (`find`, `includes`). Entenda o custo e siga em frente rápido.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você perdeu a chave e procura nos bolsos da calça: o da frente esquerdo, o da frente direito, os de trás. Não há atalho, porque a chave pode estar em qualquer um, e os bolsos não seguem ordem nenhuma. Você olha um por um até achar ou até acabarem os bolsos.
 
 Isso é a **busca linear**: percorrer os itens do primeiro ao último, comparando cada um com o que se procura. É o algoritmo mais simples que existe, e você já usou centenas de vezes sem saber o nome, porque `includes`, `indexOf`, `find`, `some` e `filter` fazem exatamente isso. A nota não é pra ensinar a escrever um `for` (você já sabe). É pra fazer você **enxergar o custo** escondido atrás desses métodos, e saber quando a busca linear é a resposta certa, o que acontece mais do que parece.

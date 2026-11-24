@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você vai testar API o tempo todo no back-end. Saiba montar requisição, headers e body; o resto da ferramenta é bônus.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você está construindo o back-end de um app e acabou de escrever a rota que cadastra usuários. Como saber se ela funciona? A tela de cadastro ainda não existe. Dá pra escrever um código só pra chamar a rota, ou instalar o front-end inteiro e clicar nos botões... ou dá pra **conversar direto com o servidor**, sem tela nenhuma.
 
 É isso que o **Postman** faz. Você monta o pedido (o que quer, pra onde, com quais dados), clica em **Send**, e vê exatamente o que o servidor respondeu. Ele serve pra testar a API que você está construindo, e também pra explorar APIs dos outros antes de usar no seu código.

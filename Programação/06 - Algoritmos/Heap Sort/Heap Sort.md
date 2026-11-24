@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Pouco usado na prática e pouco cobrado. Conheça a ideia; se entendeu o Heap, já está bom.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Se você fez o desafio do [[Heap (Estrutura de Dados)|heap]], já escreveu um heap sort sem perceber: inseriu mil números num min-heap, extraiu um por um, e eles saíram em ordem. Isso é ordenar com um heap. Funciona, é O(n log n), e tem um defeito: usa um heap separado, com memória extra do tamanho da lista.
 
 O **heap sort** de verdade faz o mesmo truque **dentro do próprio array**, sem memória extra nenhuma. Ele transforma o array num max-heap (o maior no topo), troca o topo com o último elemento (o maior foi pro fim, no lugar certo), "conserta" o heap no que sobrou, e repete. A cada rodada, o maior que restava vai pro fim, e o array vai ficando ordenado da direita pra esquerda.

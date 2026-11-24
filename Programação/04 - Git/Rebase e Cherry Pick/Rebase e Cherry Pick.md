@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Muitos times usam rebase no fluxo diário. Entenda o que fazem e quando é perigoso; pratique em um repo de teste.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você passou dois dias numa branch, e o histórico dela está assim: "começa filtro", "wip", "corrige typo", "agora vai", "agora vai mesmo". Enquanto isso, a `main` andou, e você precisa trazer as mudanças dela. Se fizer um merge, ganha mais um commit no meio da bagunça, e o desenho do histórico vira uma trança. Na hora de abrir o pull request, quem for revisar vai ter que ler o seu processo inteiro de tentativa e erro.
 
 Existe um jeito de arrumar tudo isso antes de mostrar pra alguém. O **rebase** pega os commits da sua branch e os **reaplica em cima** de outra base, como se você tivesse começado a partir da `main` mais nova. O resultado é um histórico em linha reta, sem commits de merge. O **rebase interativo** (`-i`) vai além: junta, renomeia, reordena ou apaga commits. E o **cherry-pick** copia **um commit específico** de uma branch pra outra.

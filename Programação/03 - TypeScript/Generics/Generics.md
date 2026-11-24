@@ -1,12 +1,16 @@
 ---
 nivel: escrito
 foco: importante
+projeto:
+  - "[[Estruturas de Dados do Zero]]"
 revisado:
 ---
 
 # Generics
 
 **Quanto focar: 📌 importante.** Você vai usar muito mais do que escrever. Entenda o suficiente pra ler a tipagem das bibliotecas e escrever o básico.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Você quer escrever uma função que devolve o primeiro item de uma lista. Qualquer lista: de textos, de números, de tarefas. Como tipar isso? Se você escreve `lista: string[]`, ela só serve pra textos. Uma versão pra cada tipo seria absurdo. Então você tenta o óbvio, `any`, e ele aceita qualquer coisa. Mas aí acontece isto:
 

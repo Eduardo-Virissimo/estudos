@@ -1,12 +1,17 @@
 ---
 nivel: escrito
 foco: essencial
+projeto:
+  - "[[Gerenciador de Tarefas no Terminal]]"
+  - "[[Estruturas de Dados do Zero]]"
 revisado:
 ---
 
 # Git Básico
 
 **Quanto focar: 🔥 essencial.** Todo time usa Git, sem exceção. Pratique o ciclo `add`/`commit`/`push` até ser automático.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3 · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Todo mundo já passou por isso, mesmo antes de programar. Você está fazendo um trabalho, e a pasta vai se enchendo: `trabalho.docx`, `trabalho_final.docx`, `trabalho_final_revisado.docx`, `trabalho_final_AGORA_VAI.docx`. Você não sabe direito o que mudou entre um e outro. E se apagou um parágrafo importante lá na versão 3, boa sorte descobrindo em qual delas ele ainda estava.
 

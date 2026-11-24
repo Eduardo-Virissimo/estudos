@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Percorrer lista é das coisas que você mais faz. Domine o `for...of`, o `while` e quando usar cada um.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você tem uma lista com o XP de cada sessão de estudo e quer saber o total. Com quatro sessões, dá pra escrever `xps[0] + xps[1] + xps[2] + xps[3]`. Com quarenta, já fica ridículo. Com uma lista que cresce todo dia, é impossível: você nem sabe quantos itens ela vai ter.
 
 Os **laços** (*loops*) existem pra isso: repetir um bloco de código quantas vezes for preciso, sem você escrever a mesma coisa várias vezes. Existem três principais, e cada um responde a uma pergunta diferente. O `for...of` é pra quando você quer fazer algo **com cada item** de uma lista. O `for` clássico é pra quando importa **contar** quantas vezes. E o `while` é pra quando a repetição depende de uma **condição que muda** ("enquanto o jogador tiver vida...").

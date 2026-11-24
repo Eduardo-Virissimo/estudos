@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você vai abrir o terminal todo dia pra rodar projeto, instalar pacote e usar o Git. Pratique até navegar e rodar comandos sem pensar.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Todo tutorial de programação, cedo ou tarde, diz: "abra o terminal e rode este comando". E aí você abre uma janela preta, com um cursor piscando, sem botão nenhum, sem menu, sem dica do que fazer. É normal sentir que você voltou trinta anos no tempo.
 
 Mas tem um motivo pra todo dev passar boa parte do dia ali. O **terminal** é onde você conversa com o computador **digitando comandos**, em vez de clicar. E digitar, depois que você pega o jeito, é mais rápido, mais preciso e, principalmente, **repetível**: um comando que você digitou pode ser copiado, colado num tutorial, salvo num script, rodado mil vezes. É ali que você roda o projeto, usa o Git, instala pacotes e automatiza tarefas.

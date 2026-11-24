@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** É mais vocabulário do que prática. Conheça os nomes e a ideia de cada um; o uso real vem com OO e Funcional mais pra frente.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Peça um café de dois jeitos. No primeiro, você explica tudo: "pegue a xícara, coloque 15 gramas de pó, esquente a água a 92 graus, despeje devagar, em círculos...". No segundo, você só diz: "um café, por favor", e deixa quem sabe resolver. Os dois jeitos funcionam e chegam no mesmo café. Mas são **formas diferentes de pensar** o pedido.
 
 Na programação, essas formas de pensar têm nome: **paradigmas**. Um paradigma é um estilo de organizar o código, um jeito de pensar a solução. Você vai ouvir falar de quatro: o **imperativo**, em que você diz passo a passo como fazer; o **declarativo**, em que você diz o que quer e alguém resolve o como; o **orientado a objetos**, que junta os dados e o comportamento em objetos; e o **funcional**, feito de funções puras que transformam dados sem alterar nada.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É a base de BST, heap e de muito exercício de entrevista. Entenda bem e pratique os percursos.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 O chaveamento de um campeonato de futebol: na base, 16 times; acima, as oitavas, depois as quartas, a semifinal e, no topo, a final. Cada jogo junta dois times de baixo e manda um pra cima. Desenhe isso de cabeça pra baixo e você tem uma **árvore**: um ponto no topo (a final) que se divide em dois, que se dividem em dois, até as pontas.
 
 Até aqui, toda estrutura do estágio era uma **linha**: array, lista, pilha, fila, cada item com no máximo um vizinho de cada lado. A árvore é a primeira que **se ramifica**. E isso muda o jogo, porque uma árvore com 1 milhão de itens bem distribuídos tem só uns 20 andares. É por isso que árvores estão por baixo de bancos de dados, do sistema de arquivos, do HTML da página que você está vendo (o DOM é uma árvore) e de vários algoritmos de busca e compressão.

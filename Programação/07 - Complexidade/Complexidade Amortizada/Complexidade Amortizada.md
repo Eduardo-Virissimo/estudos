@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Explica por que o `push` do array é rápido. Conheça a ideia; o formalismo pode esperar.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você paga R$ 1.200 de seguro do carro uma vez por ano. Naquele dia, dói. Mas se alguém pergunta "quanto custa o seguro?", você não responde "R$ 1.200 num dia e zero nos outros 364". Você responde "uns R$ 100 por mês". Você **espalhou** o gasto grande pelo ano inteiro, e a média diz mais sobre o seu orçamento do que o pico.
 
 A **complexidade amortizada** é essa conta aplicada a algoritmos. Algumas operações são quase sempre baratas, mas de vez em quando fazem um trabalho enorme. O exemplo que você já viu várias vezes neste estágio: o `push` de um array. Quase sempre ele só escreve na próxima casa livre, O(1). Mas quando o espaço reservado acaba, ele aloca um bloco com o dobro do tamanho e **copia tudo**, O(n). Então o `push` é O(1) ou O(n)? A resposta honesta é: **O(1) amortizado**. Esta nota explica o que isso garante, e por que é uma garantia forte.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Muitos times pedem commit e PR em inglês, e o seu GitHub também é visto por recrutador. Domine o padrão.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Escrever um e-mail formal em inglês dá medo em muita gente. Mas escrever uma mensagem de commit? *Fix login bug.* Três palavras. E uma issue de bug segue sempre o mesmo roteiro, em qualquer projeto do mundo. E um comentário de revisão de código, depois que você conhece meia dúzia de frases, sai quase sozinho.
 
 Escrever em inglês no Git é muito mais fácil do que parece, porque é um inglês **curto e repetitivo**: sempre o mesmo formato, sempre os mesmos verbos. O commit vai no **imperativo** (*Fix login bug*, nunca *Fixed* nem *Fixing*). A issue de bug conta **os passos, o que era esperado, e o que aconteceu**. O pull request explica **o quê, por quê, e como testar**. E os comentários de revisão são **educados e diretos**.

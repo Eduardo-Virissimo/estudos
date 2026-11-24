@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É o raciocínio por trás de cache e índice. Entenda bem; aparece em entrevista e em decisão de projeto.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Um professor corrige a prova da turma toda e, pra cada aluno, precisa conferir se ele está na lista de quem tem direito a tempo extra. Ele pode, pra cada prova, abrir a lista e procurar o nome: lento, mas não ocupa nada na mesa. Ou pode, antes de começar, fazer um papelzinho com os nomes em ordem alfabética, ou melhor ainda, marcar com um adesivo a pasta de cada aluno com tempo extra. Gasta um tempo antes e um pouco de espaço na mesa, e depois cada conferência é instantânea.
 
 Essa troca, **usar mais memória pra ganhar velocidade** (ou o contrário), é provavelmente a decisão de engenharia mais comum que existe. Você já a fez várias vezes neste estágio: o Two Sum com `Map` em vez de dois laços, o `Set` em vez do `includes`, a [[Programação Dinâmica]] guardando respostas em vez de recalcular. Esta nota dá nome à troca e, mais importante, ensina a decidir **quando** ela vale a pena, porque nem sempre vale.

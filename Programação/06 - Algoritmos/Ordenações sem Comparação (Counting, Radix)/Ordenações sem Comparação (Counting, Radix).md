@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Servem pra casos bem específicos. Pode deixar pra depois da primeira vaga.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Uma escola tem 50 mil alunos e quer a lista ordenada pelas notas da prova, que vão de 0 a 10, inteiras. Você poderia usar o [[Merge Sort]] e comparar notas. Mas pense de outro jeito: só existem **11 notas possíveis**. Pegue 11 caixinhas, uma pra cada nota, e passe pela lista uma vez jogando cada aluno na caixa da sua nota. Depois, esvazie as caixas em ordem: a do 0, a do 1, até a do 10. Pronto, ordenado, sem comparar um aluno com outro nem uma vez.
 
 Existe um resultado famoso da computação que diz: **nenhuma ordenação que funciona comparando pares de itens pode ser mais rápida que O(n log n)** no pior caso. As notas anteriores bateram nesse limite. As ordenações desta nota escapam dele porque **não comparam**: elas usam o **valor** do item como endereço. O preço é que só funcionam em casos específicos (inteiros num intervalo pequeno, ou chaves de tamanho fixo).

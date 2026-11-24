@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Errar a sílaba forte atrapalha mais que errar um som. Entenda a ideia e confira no dicionário quando aprender palavra nova.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Numa reunião, você explica que é *developer*, e fala "de-ve-LÓ-per", com a força na terceira sílaba, como faria em português. A pessoa do outro lado pede pra você repetir. Você repete, do mesmo jeito, e ela continua sem entender. Todos os sons estão certos: o *d*, o *v*, o *p*. O problema é outro, e é invisível pra quem fala português: a força está na sílaba errada.
 
 Isso é o **word stress**: a sílaba **forte** de uma palavra. de-**VEL**-op, **COM**-pa-ny, ho-**TEL**. Em inglês, essa sílaba é mais longa, mais alta e mais clara que as outras, e as outras **encolhem**, quase somem. E isso importa muito mais do que parece. Errar a sílaba forte confunde mais do que errar um som, porque o ouvido de quem fala inglês reconhece as palavras pelo **ritmo**.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Muito comum, inclusive em erro e documentação ("there is a bug"). Entenda e pratique; é rápido.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 "Tem um bug na linha 10." Em português, é a coisa mais natural do mundo. E aí, em inglês, sai *Have a bug in line 10*, ou *Has a bug in my code*. A frase parece certa, palavra por palavra, mas um nativo vai estranhar. Porque o "tem" do português está fazendo dois trabalhos diferentes, e o inglês separa os dois.
 
 Pra dizer que uma coisa **existe** em algum lugar (o "tem" ou o "há" do português), o inglês usa ***there is***, pra uma coisa, e ***there are***, pra várias. *There's a bug in line 10.* *There are 3 failing tests.*

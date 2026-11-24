@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Talvez a habilidade que mais economiza tempo de iniciante. Pratique até ler o erro antes de jogar no Google ou na IA.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você roda o programa e o terminal se enche de texto vermelho. Dez linhas, caminhos de arquivo estranhos, palavras em inglês, números soltos. O primeiro impulso é fechar o terminal, copiar tudo e colar em algum lugar perguntando "o que é isso?".
 
 Só que tem uma coisa que separa quem está começando de quem já se vira sozinho, e não é decorar mais comandos. É que **o iniciante entra em pânico com o erro, e o experiente lê.** A mensagem de erro não é uma bronca. É o computador tentando te contar exatamente o que deu errado, e quase sempre ele conta.

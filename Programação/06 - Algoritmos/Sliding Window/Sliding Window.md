@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É um dos padrões que mais aparecem em entrevista. Entenda o molde e pratique alguns problemas.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você tem as vendas diárias de uma loja no ano inteiro, 365 números, e quer saber qual foi a melhor **semana**: os 7 dias seguidos com a maior soma. O jeito óbvio é, pra cada dia de início, somar os 7 dias a partir dele. São 359 semanas possíveis, cada uma com 7 somas. Funciona. Mas agora troque "semana" por "período de 90 dias" e "ano" por "10 anos de dados": o jeito óbvio vira centenas de milhares de somas, quase todas repetidas.
 
 Repare no que muda de uma semana pra seguinte. A semana de segunda a domingo e a de terça a segunda têm **seis dias em comum**. Só entra um dia novo (a segunda seguinte) e sai um dia velho (a primeira segunda). Então, em vez de somar 7 números de novo, basta pegar a soma anterior, **somar o que entrou e subtrair o que saiu**.

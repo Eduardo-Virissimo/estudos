@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você faz uma vez no começo e repete de tempos em tempos. Importante pra escolher material, mas não é algo pra estudar a fundo.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 "Qual o seu nível de inglês?" A maioria das pessoas responde com o tempo de curso ("fiz três anos") ou com uma palavra vaga ("intermediário"). Nenhuma das duas respostas ajuda muito. Três anos de curso podem ter deixado alguém lendo bem e sem conseguir falar uma frase. E "intermediário" quer dizer coisas diferentes pra cada pessoa.
 
 Saber o seu nível de verdade não é sobre ter um número pra colocar no currículo. É sobre uma coisa bem mais prática: **escolher o material certo**. Aquele em que você entende quase tudo, e ainda aprende alguma coisa nova. Se o material for fácil demais, você não aprende. Se for difícil demais, você não entende, e também não aprende (é o primeiro dos erros da nota [[Como Aprender Inglês]]).

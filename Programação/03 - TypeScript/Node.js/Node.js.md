@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o que roda o seu back-end e as suas ferramentas. Entenda bem o que ele é e como rodar um projeto.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Durante quase quinze anos, o JavaScript viveu preso dentro do navegador. Ele servia pra uma coisa só: deixar páginas interativas, fazer um menu abrir, validar um formulário. Se você quisesse escrever um servidor, um script de automação ou uma ferramenta de terminal, precisava aprender outra linguagem.
 
 Em 2009, um programador chamado Ryan Dahl teve uma ideia simples e poderosa: pegar o motor que executa JavaScript dentro do Chrome, o **V8**, e colocar ele pra rodar direto no sistema operacional, fora do navegador. Nasceu o **Node.js**: um programa que roda JavaScript no seu terminal, num servidor, num script. E ele acrescentou o que o navegador nunca teve: ler e escrever arquivos, criar servidores, acessar o sistema.

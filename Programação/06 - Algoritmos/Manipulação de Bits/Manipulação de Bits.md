@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Aparece pouco em web. Conheça os operadores; o resto pode esperar.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Lembra do `chmod 755` da nota de [[Bash]]? Aquele número não é aleatório. Cada dígito é a soma de três permissões: ler vale 4, escrever vale 2, executar vale 1. O 7 é 4 + 2 + 1 (tudo), o 5 é 4 + 1 (ler e executar). Por que 4, 2 e 1, e não 1, 2 e 3? Porque 4, 2 e 1 são, em binário, `100`, `010` e `001`: cada permissão é **um bit** de um número. Um número só guarda três "sim ou não" ao mesmo tempo, e dá pra somar, conferir e tirar cada um com uma operação.
 
 Isso é **manipulação de bits**: tratar um número como uma fileira de interruptores ligados (1) e desligados (0), e mexer neles diretamente com operadores especiais. No dia a dia do JavaScript, você vai usar isso pouco: em **flags** (permissões, opções combinadas), em algumas otimizações e em código que lida com arquivos binários, cores ou rede. Em entrevista, aparece em alguns truques famosos. A nota é sobre os operadores e os três ou quatro padrões que valem a pena, e não sobre decorar truques.

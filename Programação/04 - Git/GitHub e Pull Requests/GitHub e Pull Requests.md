@@ -1,12 +1,16 @@
 ---
 nivel: escrito
 foco: essencial
+projeto:
+  - "[[Gerenciador de Tarefas no Terminal]]"
 revisado:
 ---
 
 # GitHub e Pull Requests
 
 **Quanto focar: 🔥 essencial.** É como o time trabalha e onde o recrutador olha o seu código. Domine o fluxo de PR.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Até aqui, o seu repositório Git morava num lugar só: o seu computador. Se o disco morrer amanhã, o histórico inteiro vai junto. Se você quiser mostrar o projeto pra alguém, não tem como. E se outra pessoa quiser ajudar, ela não tem onde pegar o código.
 

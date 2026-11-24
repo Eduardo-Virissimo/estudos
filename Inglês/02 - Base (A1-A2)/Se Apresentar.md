@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você vai usar em entrevista e no primeiro dia com um time de fora. Prepare a sua e pratique em voz alta.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 A primeira call com um time de outro país. A pessoa que está conduzindo diz: *Let's do a quick round of introductions. Could you tell us a bit about yourself?* E todo mundo olha pra você. É o momento de mais nervosismo de qualquer conversa em inglês, e ele dura só um minuto. Se esse minuto sai travado, o resto da conversa já começa pesado. Se sai natural, você relaxa e segue.
 
 A boa notícia: você vai se apresentar em inglês muitas vezes ao longo da vida (numa entrevista, na primeira call com um time de fora, no perfil do GitHub, no LinkedIn), e dá pra **preparar uma vez e reaproveitar sempre**. Esse minuto pode ficar no automático, como uma música que você sabe de cor.

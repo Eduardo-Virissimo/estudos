@@ -1,12 +1,16 @@
 ---
 nivel: escrito
 foco: essencial
+projeto:
+  - "[[Gerenciador de Tarefas no Terminal]]"
 revisado:
 ---
 
 # Objetos e Arrays no JavaScript
 
 **Quanto focar: 🔥 essencial.** É 80% do código do dia a dia: desestruturação, spread, `map`/`filter`. Pratique muito até sair sem consultar.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Olhe este código e tente prever o que ele mostra:
 

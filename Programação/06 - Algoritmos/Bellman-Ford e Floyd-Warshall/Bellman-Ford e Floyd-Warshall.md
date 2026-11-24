@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** São casos específicos de caminho mínimo. Pode deixar pra depois da primeira vaga.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 O [[Dijkstra]] tem duas limitações. Ele não aceita pesos negativos, e ele responde "de **um** lugar até todos os outros". Às vezes você precisa do que ele não faz.
 
 Pesos negativos parecem estranhos num mapa (estrada de −3 km?), mas aparecem em outros grafos. Num jogo, uma passagem que **devolve** energia. Em finanças, trocar reais por dólares, dólares por euros e euros de volta por reais: se em algum momento você terminar com mais reais do que começou, achou uma **arbitragem**, e ela aparece como um ciclo negativo num grafo de câmbio. E "de todos pra todos" aparece sempre que você precisa de uma tabela de distâncias completa, como aquelas tabelas de quilometragem entre capitais no fim dos mapas rodoviários.

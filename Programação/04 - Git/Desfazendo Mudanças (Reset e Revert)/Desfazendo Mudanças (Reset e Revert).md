@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Um dia você vai precisar desfazer algo, e fazer errado apaga trabalho. Entenda bem a diferença entre os dois.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você acabou de fazer um commit e percebeu que a mensagem tem um erro de digitação. Ou esqueceu um arquivo. Ou, pior: rodou um comando que você não entendeu direito, e três commits inteiros sumiram do histórico. O coração acelera. Será que perdeu tudo?
 
 Quase certeza que não. Errar no Git é normal, e quase todo erro tem volta. Pra cada tipo de "ops" existe um comando certo. E a boa notícia é que escolher qual usar depende de **uma pergunta só**, que é a coisa mais importante desta nota: **esse commit já foi enviado pro GitHub, onde outras pessoas podem ter baixado ele?**

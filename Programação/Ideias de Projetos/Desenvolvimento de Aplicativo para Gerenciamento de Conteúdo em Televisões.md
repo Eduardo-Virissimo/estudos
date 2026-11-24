@@ -26,6 +26,16 @@ Centralizar várias telas em um único lugar, permitindo atualizar campanhas e c
 
 React ou Next.js, Node.js, PostgreSQL, armazenamento S3 e um aplicativo para Android TV ou modo kiosk.
 
+## Tópicos que entram aqui
+
+Estes tópicos do [[Roadmap]] têm 🧩 lá: é aqui, no projeto do Estágio 6, que eles saem da teoria. Estude a nota, faça o desafio dela e depois traga pra cá.
+
+- **HTTP e APIs:** [[WebSockets]], [[Server-Sent Events]], [[Idempotência]]
+- **Tratamento de Erros:** [[Retry]], [[Backoff Exponencial]]
+- **Concorrência:** [[Event Loop]], [[Race Condition]]
+- **Arquitetura de Software:** [[Arquitetura em Camadas]], [[Monólito]], [[Microsserviços]], [[Event Driven]], [[Filas de Mensagens]], [[Background Jobs]], [[Object Storage]], [[Upload em Partes]]
+- **Conceitos Gerais:** [[Escalabilidade]], [[Disponibilidade]], [[Consistência Eventual]], [[Cache]], [[Estratégias de Cache]]
+
 ## Próximos Passos
 
 - [ ] Criar protótipo do painel;

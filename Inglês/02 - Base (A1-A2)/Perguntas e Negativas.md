@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a estrutura que mais trava brasileiro, e sem ela você não pergunta nada. Domine.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Em português, transformar uma frase numa pergunta é quase mágica: você não muda nenhuma palavra, só a entonação. "Você gosta de café." "Você gosta de café?" Pronto. E a negativa é só colocar um "não" na frente: "você não gosta de café". Por isso, quem fala português tende a fazer o mesmo em inglês, e sai *You like coffee?*, ou *What you want?*, ou *She not work here*.
 
 O inglês funciona de outro jeito, e esta nota é sobre esse jeito. Toda pergunta e toda negativa em inglês precisam de um **verbo auxiliar**, um "ajudante". Se a frase já tem um (*be*, *can*, *will*...), é só **inverter** a ordem, ou colocar o ***not***. Se não tem, o inglês chama um: o ***do/does/did***. *You like it* vira *Do you like it?*

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É o exemplo clássico de dividir e conquistar e aparece em entrevista. Entenda e implemente uma vez.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Uma professora tem 400 provas pra colocar em ordem alfabética. Sozinha, ordenando de uma vez, ela vai passar a tarde comparando e reencaixando. Então ela tem uma ideia: divide a pilha em quatro e entrega cada parte pra um monitor. Cada monitor, com 100 provas, divide de novo e repassa. Quando as pilhas ficam com uma prova só, elas já estão "ordenadas" (uma prova sozinha está sempre em ordem). Aí começa a volta: cada um junta duas pilhas ordenadas numa só, até a professora receber de volta quatro pilhas ordenadas e juntar tudo.
 
 O passo mágico é o **juntar**. Juntar duas pilhas **já ordenadas** numa pilha ordenada é fácil e rápido: você olha a prova do topo de cada pilha, pega a que vem antes, e repete. Nunca precisa reencaixar nada.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você vai usar pra conectar no GitHub e, mais pra frente, em servidores. Saiba gerar chave e conectar; a parte avançada fica pra quando aparecer.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Em algum momento, o seu programa vai sair do seu computador e morar num servidor: uma máquina em algum datacenter, sem tela e sem teclado, que fica ligada 24 horas por dia. E aí surge a pergunta: como você entra nela? Como roda um comando, olha um log, atualiza o programa, se ela está a centenas de quilômetros?
 
 A resposta é o **SSH** (*Secure Shell*): um jeito de abrir um terminal em outro computador, pela rede, com tudo **criptografado**. Os comandos, as senhas e os arquivos viajam embaralhados, e ninguém no meio do caminho (o Wi-Fi do café, o provedor de internet) consegue ler.

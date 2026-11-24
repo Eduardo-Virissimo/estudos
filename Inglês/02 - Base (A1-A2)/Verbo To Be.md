@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o verbo mais usado do inglês e base de várias estruturas. Domine até sair sem pensar.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Em português, você tem dois verbos pra coisas que parecem parecidas: "ser" e "estar". *Sou* brasileiro, *estou* cansado. Um é permanente, o outro é passageiro, e escolher errado soa estranho ("estou brasileiro"). Aí você começa o inglês e descobre que ele resolve os dois com um verbo só: o ***to be***. *I'm Brazilian. I'm tired.* Mesmo verbo, e você nunca mais precisa escolher.
 
 O *to be* é o verbo mais usado do inglês, e é a base de quase tudo o que vem depois: ele aparece no presente contínuo, no *there is*, nas apresentações, em quase toda frase do dia a dia. No presente, ele tem só **três formas**: ***am*** (com *I*), ***is*** (com *he*, *she*, *it*) e ***are*** (com *you*, *we*, *they*). E serve pra dizer quem uma coisa é, como ela está, onde ela está, e quantos anos alguém tem.

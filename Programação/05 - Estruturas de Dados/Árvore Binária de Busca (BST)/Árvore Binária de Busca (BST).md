@@ -1,12 +1,16 @@
 ---
 nivel: escrito
 foco: importante
+projeto:
+  - "[[Estruturas de Dados do Zero]]"
 revisado:
 ---
 
 # Árvore Binária de Busca (BST)
 
 **Quanto focar: 📌 importante.** Clássica em entrevista e ajuda a entender índice de banco. Entenda e implemente uma vez.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Aquele jogo de adivinhar o número: "pensei num número de 1 a 100". Você chuta 50. "É menor." Chuta 25. "É maior." Chuta 37. Em no máximo 7 chutes você acerta qualquer número, porque cada resposta joga fora **metade** das possibilidades. Agora imagine guardar os seus dados de um jeito em que cada nó faz essa pergunta por você: tudo que é menor fica à esquerda, tudo que é maior fica à direita. Buscar vira descer a árvore respondendo "menor ou maior?".
 

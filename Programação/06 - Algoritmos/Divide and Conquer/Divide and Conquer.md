@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É uma forma de pensar que aparece em vários algoritmos. Entenda a ideia; ela vem junto com Merge Sort e Busca Binária.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você precisa calcular 3 elevado a 1.000.000. O jeito óbvio é multiplicar 3 por ele mesmo um milhão de vezes. Mas olhe de outro ângulo: 3¹⁰⁰⁰⁰⁰⁰ é (3⁵⁰⁰⁰⁰⁰)². Se você soubesse quanto é 3⁵⁰⁰⁰⁰⁰, bastaria **uma** multiplicação a mais. E 3⁵⁰⁰⁰⁰⁰ é (3²⁵⁰⁰⁰⁰)². E assim por diante. Em vez de um milhão de multiplicações, umas 20 elevações ao quadrado (mais algumas multiplicações nos expoentes ímpares). De um milhão de passos pra uns 40.
 
 Esse jeito de pensar se chama **dividir e conquistar** (*divide and conquer*): quebre o problema em pedaços **menores do mesmo tipo**, resolva cada pedaço (do mesmo jeito, recursivamente), e **combine** as respostas. Você já viu ele funcionando três vezes neste estágio sem que a nota dissesse o nome: a [[Busca Binária]] (divide ao meio e descarta uma metade), o [[Merge Sort]] (divide ao meio, ordena as duas, intercala) e o [[Quick Sort]] (particiona e ordena os dois lados).

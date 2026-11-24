@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Estão em todo `if` e em todo cálculo. Domine, com atenção ao `===` e à precedência, que são pegadinhas clássicas.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 O seu app tem uma configuração de volume, de 0 a 100, e um valor padrão de 50 pra quem nunca mexeu nela. Você escreve `const volume = configuracao.volume || 50`, testa, funciona. Até que alguém reclama: "eu coloquei o volume no zero e ele volta sozinho pra 50!". Você olha o código, ele parece certo, e não tem erro nenhum no console.
 
 O culpado é um operador. Os **operadores** são os símbolos que fazem conta e comparação: `+`, `>`, `===`, `&&`, `||`. E uma **expressão** é qualquer pedaço de código que **resulta num valor**: `2 + 3`, `idade >= 18`, `nome || "anônimo"`. A maior parte deles é intuitiva, igualzinha à matemática da escola. Mas o JavaScript tem algumas armadilhas famosas (o `==`, os valores "falsy" e esse `||` que apaga o zero) que causam bugs silenciosos, do tipo que não dá erro, só dá o resultado errado.

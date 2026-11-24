@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Ajuda a ser entendido e a usar o dicionário de pronúncia. Entenda os sons principais; perfeição não é o objetivo.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Leia em voz alta estas três palavras: *though*, *through*, *tough*. Elas se escrevem quase igual, só uma ou duas letras de diferença, e soam completamente diferentes: "dôu", "thrú", "tâf". Agora tente adivinhar como se fala *queue*. Ou *cache*. Ou *suite*. Em português, você lê uma palavra que nunca viu e já sabe pronunciar. Em inglês, não tem como.
 
 A escrita do inglês foi "congelando" há séculos, enquanto a pronúncia continuou mudando. O resultado é que a mesma letra pode ter vários sons, e o mesmo som pode ter várias escritas. Por isso, pra pronunciar inglês, você precisa de um outro mapa: o **IPA**, o Alfabeto Fonético Internacional. São aqueles símbolos estranhos entre barras que aparecem no dicionário: *think* é /θɪŋk/.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a sua linguagem principal. Entender o que o TypeScript adiciona ao JavaScript é a base de todo o resto.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Imagine um assistente sentado do seu lado enquanto você programa, lendo cada linha que você escreve. Você digita `usuario.emial`, e ele cutuca: "você quis dizer `email`?". Você chama uma função de preço passando o texto `"10"` no lugar do número 10, e ele avisa antes de você rodar. Ele não programa por você. Ele só não deixa passar os erros bobos que, sem ele, você só descobriria rodando, ou pior, quando um usuário reclamasse.
 
 Esse assistente é o **TypeScript**. Pra entender o que ele é, comece pelo **JavaScript**: a linguagem que roda no navegador e, com o [[Node.js]], também no servidor e no terminal. O TypeScript é JavaScript **com tipos**. Você escreve `nome: string`, um programa chamado compilador confere tudo antes de rodar, e depois **apaga os tipos**, gerando JavaScript comum.

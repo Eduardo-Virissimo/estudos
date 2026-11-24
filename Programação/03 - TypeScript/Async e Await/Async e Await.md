@@ -1,12 +1,16 @@
 ---
 nivel: escrito
 foco: essencial
+projeto:
+  - "[[Gerenciador de Tarefas no Terminal]]"
 revisado:
 ---
 
 # Async e Await
 
 **Quanto focar: 🔥 essencial.** É como você vai escrever código assíncrono no dia a dia. Domine, incluindo o tratamento de erro com `try/catch`.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Na nota de [[Promises]], você aprendeu a lidar com coisas que demoram (ler um arquivo, chamar uma API) encadeando `.then`. Funciona, mas depois de três ou quatro passos o código começa a parecer uma escada de funções dentro de funções, e fica difícil de seguir. Ler o arquivo, depois transformar em JSON, depois filtrar, depois salvar, cada passo dentro do `.then` do anterior.
 

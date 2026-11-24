@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a habilidade de inglês que mais te deixa independente como dev. Pratique toda semana.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Muita gente que trava numa conversa em inglês lê documentação técnica sem esforço nenhum. Parece contraditório, mas tem explicação. A documentação é o inglês **mais fácil** que existe: frases curtas, um vocabulário muito repetitivo (a mesma meia dúzia de palavras aparece em todo lugar), e um assunto que você já entende. Se você sabe o que é uma função, entende *This function returns a string* mesmo sem conhecer metade das palavras.
 
 Então o problema de ler documentação raramente é o inglês. É outro: a página tem dezenas de seções, você abre a primeira, começa a ler de cima pra baixo, e meia hora depois ainda não achou o que procurava. O segredo não é ler tudo. É **saber onde olhar**.

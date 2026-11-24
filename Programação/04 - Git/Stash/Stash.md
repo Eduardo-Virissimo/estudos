@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É um quebra-galho do dia a dia, simples de aprender. Meia hora resolve.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você está no meio do filtro de prioridade. Metade feito, nada commitado, três arquivos abertos. E chega a mensagem: "urgente, o comando `add` está quebrado na `main`!". Você precisa ir pra `main` agora. Mas commitar trabalho pela metade, com o código nem compilando, deixaria um commit quebrado no histórico. E se você tentar trocar de branch assim mesmo, o Git recusa.
 
 O `git stash` existe pra esse momento. Ele **guarda** as suas mudanças numa espécie de gaveta, e deixa a pasta limpa, como se você não tivesse mexido em nada. Você troca de branch, corrige o bug, volta, e roda `git stash pop` pra tirar tudo da gaveta e continuar de onde parou.

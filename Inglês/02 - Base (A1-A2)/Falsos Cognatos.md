@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Evitam mal-entendidos bobos (actually, pretend). Leia, pratique e revise de vez em quando.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Imagine uma entrevista de emprego em inglês. O entrevistador pergunta dos seus planos, e você responde, confiante: *"I pretend to learn Japanese"*. Você quis dizer que pretende aprender japonês. Mas o que ele ouviu foi que você **finge** que aprende japonês. Em seguida, querendo dizer que atualmente trabalha com suporte, você diz *"Actually, I work in support"*, e ele entende "na verdade, eu trabalho com suporte", como se você estivesse corrigindo alguma coisa que disse antes.
 
 Essas palavras têm nome: **falsos cognatos**, ou *false friends*, "falsos amigos". Elas **parecem** português, e significam outra coisa. *Actually* é "na verdade", e não "atualmente". *Pretend* é "fingir", e não "pretender". *Push* é "empurrar", e não "puxar".

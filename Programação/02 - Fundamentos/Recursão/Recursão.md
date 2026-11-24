@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você vai usar pouco no dia a dia, mas ela é a base de árvores, grafos e backtracking no Estágio 2. Entenda bem e pratique alguns exercícios.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você está numa fila enorme e quer saber em que posição está. Só que não dá pra ver o começo da fila, e você só consegue falar com a pessoa logo à sua frente. Então você pergunta: "em que posição você está?". Ela também não sabe, e pergunta pra pessoa da frente dela. Que pergunta pra da frente. E assim vai, até chegar na primeira pessoa da fila, que **sabe** a resposta sem perguntar pra ninguém: "eu sou a primeira". Aí a resposta começa a voltar: "então eu sou a segunda", "então eu sou a terceira", até chegar em você.
 
 Isso é **recursão**: quando uma função chama a si mesma pra resolver uma versão **menor** do mesmo problema. Cada pessoa da fila resolve um problema um pouco menor (a fila à frente dela) e usa a resposta pra resolver o seu. E a primeira pessoa é o **caso base**: o problema tão pequeno que a resposta é óbvia.

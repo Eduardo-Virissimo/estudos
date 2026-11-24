@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** É uma alternativa ao Postman e faz a mesma coisa. Escolha uma das duas; não precisa estudar as duas.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Se você já passou pela nota do [[Postman]], conhece a ideia: em vez de escrever código só pra ver se uma API responde, você usa um programa onde monta a requisição, aperta **Send** e vê a resposta. O **Insomnia** faz exatamente isso, e a pergunta honesta é: por que aprender um segundo?
 
 Porque cada um tem o seu jeito, e você vai encontrar os dois por aí. O Insomnia aposta numa interface mais enxuta, com menos botões e menos coisa no caminho, e trabalha bem com **REST**, **GraphQL** e outros protocolos. Muita gente prefere ele justamente por isso.

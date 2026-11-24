@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Economizam muito tipo repetido. Conheça os principais (`Partial`, `Pick`, `Omit`, `Record`) e consulte o resto.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 O seu programa tem um tipo `Tarefa`, com seis campos. Mas na hora de criar uma tarefa nova, o usuário não informa o `id` nem a data de criação: o programa gera os dois. Então você escreve um segundo tipo, `NovaTarefa`, copiando quatro dos campos. Na tela de edição, todos os campos são opcionais, e nasce um terceiro tipo, `AtualizacaoTarefa`. Na lista resumida, só aparecem dois campos: um quarto tipo. Quatro tipos, todos parecidos, todos copiados à mão.
 
 Aí um dia a tarefa ganha um campo novo, `tags`. Você atualiza o `Tarefa`, e esquece de atualizar a `NovaTarefa`. O formulário de criação para de mandar as tags, e ninguém percebe por semanas.

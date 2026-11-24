@@ -1,12 +1,16 @@
 ---
 nivel: escrito
 foco: bom saber
+projeto:
+  - "[[Gerenciador de Tarefas no Terminal]]"
 revisado:
 ---
 
 # Git Hooks
 
 **Quanto focar: 💤 bom saber.** Normalmente alguém já configurou no projeto. Saiba que existem e o que fazem; aprofunde quando precisar mexer.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Você revisa um pull request de um colega e encontra, de novo, um `console.log` esquecido, um arquivo sem formatação e um commit chamado "ajustes". Você comenta, ele corrige, e na semana seguinte acontece tudo de novo, com outra pessoa. Não é falta de vontade: é que ninguém lembra de rodar o linter, o formatter e a checagem de tipos antes de **cada** commit. Ninguém consegue.
 

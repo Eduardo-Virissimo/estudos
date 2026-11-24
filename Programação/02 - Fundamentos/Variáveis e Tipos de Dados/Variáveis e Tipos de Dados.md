@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você usa em toda linha de código. Domine, principalmente a conversão de tipos, que é fonte de muito bug.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você pede ao usuário duas notas, `8` e `7`, e soma pra calcular a média. O programa responde que a soma é `87`. Não é um erro de matemática do computador. É que o que chegou do teclado não eram os números 8 e 7, eram os **textos** `"8"` e `"7"`, e somar textos é colar um no outro.
 
 Esse bug resume a nota inteira. Uma **variável** é um nome que aponta pra um valor guardado na memória, como uma etiqueta colada numa caixa. E o **tipo** diz que espécie de valor está dentro da caixa (um número, um texto, um verdadeiro ou falso), e por isso diz o que dá pra fazer com ele: números se somam, textos se juntam. Quando o tipo não é o que você pensa, o programa faz uma coisa diferente da que você queria, e muitas vezes sem dar erro nenhum.

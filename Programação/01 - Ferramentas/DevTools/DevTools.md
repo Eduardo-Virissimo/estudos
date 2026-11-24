@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a ferramenta número um pra depurar qualquer coisa na web: console, rede, elementos. Quem trabalha com front usa todo dia.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você clica no botão "Salvar" de um site e nada acontece. Nenhuma mensagem, nenhum erro, a página só fica ali parada. De fora, não dá pra saber se o botão está quebrado, se o servidor caiu ou se os dados foram salvos e a tela é que não atualizou.
 
 Só que todo navegador traz, escondida, uma caixa de ferramentas pra olhar a página **por dentro**. São as **DevTools**, e elas abrem com `F12` (ou `Ctrl + Shift + I`, ou botão direito em qualquer coisa → **Inspecionar**). Com elas você vê o HTML e o CSS de cada pedaço da tela, as mensagens e os erros do JavaScript, cada conversa que a página tem com o servidor, e o que o site guardou no seu navegador.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Comum, mas dá pra se comunicar mesmo confundindo os dois. Entenda a diferença e pratique.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Em português, o futuro é fácil: "vou ligar", "vou viajar", "vai chover". Uma forma só, e serve pra tudo. Aí você começa o inglês e descobre que existem **duas** formas, *will* e *going to*, e que os livros dão uma lista de regras pra cada uma. A reação natural é escolher uma e usar pra tudo.
 
 Mas a diferença entre elas é mais simples do que as listas fazem parecer, e cabe numa pergunta só: **quando você decidiu?** O ***will*** é pro que você **decide na hora**, no momento em que está falando, e também pra promessas, ofertas e previsões: *I'll send it now*, *It will rain*. O ***going to*** é pra **planos que já estavam feitos** antes da conversa, e pra previsões baseadas no que você está vendo: *I'm going to learn React*, *Look at those clouds, it's going to rain*.

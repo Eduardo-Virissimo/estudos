@@ -27,6 +27,14 @@ Traduzir problemas técnicos em explicações simples e indicar quais correçõe
 
 A ferramenta deve analisar somente sistemas autorizados, limitar requisições, proteger os dados coletados e evitar acesso a redes internas ou informações sensíveis.
 
+## Tópicos que entram aqui
+
+Estes tópicos do [[Roadmap]] têm 🧩 lá: é aqui, no projeto do Estágio 7, que eles saem da teoria. Estude a nota, faça o desafio dela e depois traga pra cá.
+
+- **HTTP e APIs:** [[HTTPS]]
+- **Segurança:** [[Cabeçalhos de Segurança]], [[OWASP Top 10]]
+- **Redes:** [[Modelo TCP/IP]], [[IP]], [[DNS]], [[TCP]], [[TLS]], [[Certificados Digitais]], [[Versões do HTTP]], [[Portas]], [[Firewall]], [[Ferramentas de Rede]], [[O que Acontece ao Digitar uma URL]]
+
 ## Próximos Passos
 
 - [ ] Criar verificação de HTTPS e cabeçalhos;

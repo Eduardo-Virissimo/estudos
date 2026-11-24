@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Sem falar e escrever você não destrava, mas é só 20% do tempo. Entenda bem e pratique toda semana.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você entende quase tudo de um vídeo em inglês. Lê documentação sem dificuldade. Aí, numa conversa, alguém te pergunta o que você fez no fim de semana, e você trava. As palavras estão todas ali, você as reconhece quando ouve, mas na hora de juntar uma frase, não sai. "Eu estava pensando em..." como é que diz isso mesmo?
 
 Esse buraco tem uma explicação, e ela é a razão de existir desta nota. **Output** é falar e escrever, e ele não serve só pra "usar" o que você já sabe. É falando que você **descobre o buraco**. E o buraco descoberto faz uma coisa poderosa: na próxima vez que você ouvir aquela estrutura num vídeo, vai prestar atenção nela, porque agora você sabe que precisa dela.

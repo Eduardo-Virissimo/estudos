@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o motor de tudo, 70% do seu tempo de inglês. Se for fazer uma coisa só, faça esta todo dia.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Pense em duas cenas. Na primeira, você entra numa sala de cinema com o filme já começado. Perdeu os primeiros minutos, mas em pouco tempo entende quem é quem, qual é o conflito, e acompanha tudo, porque o resto da história explica o pedaço que você perdeu. Na segunda, você entra no meio de um filme em russo. Pode prestar toda a atenção do mundo: não vai entender nada.
 
 A diferença entre as duas cenas é a ideia mais importante do aprendizado de idiomas. O **input compreensível** é ouvir e ler conteúdo que você entende **quase todo**, com só um pouquinho de novidade. Quando você entende a maior parte, o contexto explica o que é novo, como no filme começado, e o cérebro absorve vocabulário e gramática sem você precisar decorar nada.

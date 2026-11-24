@@ -1,12 +1,16 @@
 ---
 nivel: escrito
 foco: importante
+projeto:
+  - "[[Estruturas de Dados do Zero]]"
 revisado:
 ---
 
 # Grafos
 
 **Quanto focar: 📌 importante.** Modelam rede, mapa e dependência, e aparecem em entrevista. Entenda bem como representar e percorrer.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 O mapa do metrô de São Paulo. Estações são bolinhas, os trilhos entre elas são linhas. Algumas estações se ligam a duas outras, as de baldeação se ligam a quatro ou cinco. Agora pense em perguntas que alguém faz olhando esse mapa: dá pra ir da Sé até o Butantã? Qual o caminho com menos estações? Se a estação Paraíso fechar, alguma parte da cidade fica isolada?
 

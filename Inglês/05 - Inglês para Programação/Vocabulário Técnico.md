@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o inglês que você vai ler todo dia em código, erro e documentação. Domine, e vá aumentando o seu glossário.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Leia três mensagens de erro, de três ferramentas diferentes: *Failed to fetch.* *Unexpected token in JSON at position 0.* *Request timed out.* Agora abra a documentação de uma biblioteca qualquer: *This method parses the input and returns...* Depois de algumas semanas lendo esse tipo de coisa, você percebe um padrão: são sempre as **mesmas palavras**, aparecendo em todo lugar, em combinações diferentes.
 
 Esse é o grande segredo do vocabulário técnico. Código, mensagens de erro e documentação usam um vocabulário **pequeno e muito repetido**: umas 150 palavras cobrem a maior parte de tudo o que você vai ler. A maioria são **verbos de ação** (*fetch*, *parse*, *render*, *throw*) e **nomes de coisas do código** (*array*, *string*, *branch*, *request*).

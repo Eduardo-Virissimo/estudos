@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Manipular texto está em todo lugar, e é tema frequente de entrevista. Domine os métodos e o custo de concatenar.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você está fazendo o cadastro de um site e precisa de três regrinhas: o nome de usuário não pode ter espaço, a busca tem que achar "José" quando alguém digita "jose", e o contador de caracteres da bio tem que bater com o que a pessoa vê. Três coisas que parecem triviais. As três têm uma pegadinha, e a terceira pega até gente experiente.
 
 Uma string é uma **sequência de caracteres**, e em muitos sentidos se comporta como um array: tem `length`, tem índice, dá pra percorrer. Mas tem duas diferenças que mudam tudo. Ela é **imutável**: você nunca altera uma string, sempre cria outra. E o que você chama de "caractere" nem sempre é o que o computador chama. Esta nota é sobre essas duas diferenças e sobre os padrões que aparecem em quase todo exercício de string. Ajuda ter passado por [[Arrays]].

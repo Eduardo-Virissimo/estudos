@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Estão em quase toda frase. Domine, porque erro aqui aparece o tempo todo.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Você está contando pra um colega que a Maria perdeu o celular, e diz: *Maria lost his phone.* Ele te olha confuso: o celular de quem? De algum homem? Você quis dizer "o celular dela", mas pensou como em português: "o celular" é masculino, então saiu *his*. O erro parece pequeno, e muda completamente quem é o dono da coisa.
 
 Os pronomes do inglês são uma tabela pequena, que se aprende rápido. Cada pessoa tem quatro formas: quem **faz** a ação (*I*), quem **recebe** (*me*), **de quem é**, antes de um nome (*my code*), e **de quem é**, sozinho (*it's mine*). O problema de quem fala português não está na tabela: está na escolha entre *his* e *her*.

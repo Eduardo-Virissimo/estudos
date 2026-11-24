@@ -13,6 +13,11 @@ nome: Inglês
 >   - 💤 **bom saber**: conheça a ideia e deixe o input completar o resto. Não trave aqui.
 >
 >   O começo de cada nota diz o porquê daquele nível.
+> - **Onde praticar**, logo depois do nível:
+>   - 🏋️ **tem exercícios**: a nota traz uma lista de exercícios pra fazer.
+>   - 🧪 **tem desafio**: a nota termina com um desafio em *Agora é com você*.
+>
+>   Sem ícone, a nota ainda não foi escrita.
 > - **Comece por 🧭 Comece aqui.** Descubra seu nível antes de escolher material: fácil demais não ensina, difícil demais desanima.
 > - **As 🛠️ Técnicas valem pra todos os níveis.** Elas são o *como*; os níveis são o *o quê*.
 > - **Os níveis seguem o CEFR** (A1 → C2), a régua usada no mundo inteiro. Cada um tem um ✅ *Pronto pra seguir*: são coisas que você **consegue fazer**, não regras que você sabe.
@@ -31,9 +36,9 @@ nome: Inglês
 
 ## Método
 
-- [ ] [[Como Aprender Inglês]] — 🔥 o ciclo que funciona: muito input compreensível, output com correção e revisão espaçada.
-- [ ] [[Diagnóstico de Nível]] — 📌 descobrir seu nível (A1–C2) pra escolher material nem fácil nem difícil demais.
-- [ ] [[Rotina de Estudo de Inglês]] — 🔥 um plano semanal de 30–60 min/dia que cabe na vida real.
+- [ ] [[Como Aprender Inglês]] — 🔥 🧪 o ciclo que funciona: muito input compreensível, output com correção e revisão espaçada.
+- [ ] [[Diagnóstico de Nível]] — 📌 🧪 descobrir seu nível (A1–C2) pra escolher material nem fácil nem difícil demais.
+- [ ] [[Rotina de Estudo de Inglês]] — 🔥 🧪 um plano semanal de 30–60 min/dia que cabe na vida real.
 
 ---
 
@@ -44,11 +49,11 @@ nome: Inglês
 
 ## Técnicas
 
-- [ ] [[Input Compreensível]] — 🔥 ouvir e ler conteúdo que você entende quase tudo; é o motor da aquisição.
-- [ ] [[Leitura Extensiva]] — 📌 ler muito, rápido e por prazer, em material com pouquíssimas palavras novas.
-- [ ] [[Sentence Mining]] — 📌 coletar frases reais com 1 palavra nova e revisá-las em flashcards (Anki).
-- [ ] [[Shadowing]] — 📌 repetir o áudio junto com o nativo pra treinar pronúncia, ritmo e listening.
-- [ ] [[Output com Correção]] — 📌 falar e escrever recebendo feedback, focando nos erros que se repetem.
+- [ ] [[Input Compreensível]] — 🔥 🧪 ouvir e ler conteúdo que você entende quase tudo; é o motor da aquisição.
+- [ ] [[Leitura Extensiva]] — 📌 🧪 ler muito, rápido e por prazer, em material com pouquíssimas palavras novas.
+- [ ] [[Sentence Mining]] — 📌 🧪 coletar frases reais com 1 palavra nova e revisá-las em flashcards (Anki).
+- [ ] [[Shadowing]] — 📌 🧪 repetir o áudio junto com o nativo pra treinar pronúncia, ritmo e listening.
+- [ ] [[Output com Correção]] — 📌 🧪 falar e escrever recebendo feedback, focando nos erros que se repetem.
 
 ---
 
@@ -59,34 +64,34 @@ nome: Inglês
 
 ## Pronúncia
 
-- [ ] [[Sons do Inglês e IPA]] — 📌 os sons que não existem em português (th, schwa, h aspirado) e como ler a pronúncia no dicionário.
-- [ ] [[Pares Mínimos]] — 💤 palavras que só mudam um som (ship/sheep, live/leave) e mudam o sentido.
-- [ ] [[Word Stress]] — 📌 a sílaba forte da palavra; errar ela atrapalha mais que errar um som.
+- [ ] [[Sons do Inglês e IPA]] — 📌 🧪 🏋️ os sons que não existem em português (th, schwa, h aspirado) e como ler a pronúncia no dicionário.
+- [ ] [[Pares Mínimos]] — 💤 🧪 🏋️ palavras que só mudam um som (ship/sheep, live/leave) e mudam o sentido.
+- [ ] [[Word Stress]] — 📌 🧪 🏋️ a sílaba forte da palavra; errar ela atrapalha mais que errar um som.
 
 ## Gramática essencial
 
-- [ ] [[Verbo To Be]] — 🔥 am/is/are: descrever, dizer onde e como algo está.
-- [ ] [[Pronomes e Possessivos]] — 🔥 I/me/my/mine: quem faz, quem recebe e de quem é.
-- [ ] [[There Is e There Are]] — 📌 dizer que algo existe ou "tem" (there's a bug on line 10).
-- [ ] [[Presente Simples]] — 🔥 rotinas e verdades; o "s" da terceira pessoa (he works).
-- [ ] [[Present Continuous]] — 📌 I'm working on it: o que está acontecendo agora e planos próximos.
-- [ ] [[Imperativo]] — 🔥 Click here, run the tests: ordens e instruções, o modo de todo tutorial e documentação.
-- [ ] [[Passado Simples]] — 🔥 contar o que aconteceu; verbos regulares (-ed) e os irregulares mais comuns.
-- [ ] [[Futuro com Will e Going To]] — 📌 decisão na hora × plano já feito.
-- [ ] [[Perguntas e Negativas]] — 🔥 do/does/did: a estrutura que mais trava brasileiro.
-- [ ] [[Artigos (a, an, the)]] — 📌 quando usar, e quando o inglês não usa artigo nenhum.
-- [ ] [[Plural e Contáveis × Incontáveis]] — 📌 books, children, information (nunca "informations"); much × many.
+- [ ] [[Verbo To Be]] — 🔥 🧪 🏋️ am/is/are: descrever, dizer onde e como algo está.
+- [ ] [[Pronomes e Possessivos]] — 🔥 🧪 🏋️ I/me/my/mine: quem faz, quem recebe e de quem é.
+- [ ] [[There Is e There Are]] — 📌 🧪 🏋️ dizer que algo existe ou "tem" (there's a bug on line 10).
+- [ ] [[Presente Simples]] — 🔥 🧪 🏋️ rotinas e verdades; o "s" da terceira pessoa (he works).
+- [ ] [[Present Continuous]] — 📌 🧪 🏋️ I'm working on it: o que está acontecendo agora e planos próximos.
+- [ ] [[Imperativo]] — 🔥 🧪 🏋️ Click here, run the tests: ordens e instruções, o modo de todo tutorial e documentação.
+- [ ] [[Passado Simples]] — 🔥 🧪 🏋️ contar o que aconteceu; verbos regulares (-ed) e os irregulares mais comuns.
+- [ ] [[Futuro com Will e Going To]] — 📌 🧪 🏋️ decisão na hora × plano já feito.
+- [ ] [[Perguntas e Negativas]] — 🔥 🧪 🏋️ do/does/did: a estrutura que mais trava brasileiro.
+- [ ] [[Artigos (a, an, the)]] — 📌 🧪 🏋️ quando usar, e quando o inglês não usa artigo nenhum.
+- [ ] [[Plural e Contáveis × Incontáveis]] — 📌 🧪 🏋️ books, children, information (nunca "informations"); much × many.
 
 ## Vocabulário
 
-- [ ] [[Palavras de Alta Frequência]] — 🔥 as ~1.000 palavras mais comuns cobrem a maior parte do que você ouve: comece por elas.
-- [ ] [[Falsos Cognatos]] — 📌 actually, pretend, push, library: parecem português e não são.
+- [ ] [[Palavras de Alta Frequência]] — 🔥 🧪 🏋️ as ~1.000 palavras mais comuns cobrem a maior parte do que você ouve: comece por elas.
+- [ ] [[Falsos Cognatos]] — 📌 🧪 🏋️ actually, pretend, push, library: parecem português e não são.
 
 ## Primeiras situações
 
-- [ ] [[Se Apresentar]] — 📌 falar de você, do trabalho e dos seus interesses em 1 minuto.
-- [ ] [[Números, Datas e Horas]] — 📌 contar, preços, datas (May 3rd) e horas (quarter past ten).
-- [ ] [[Pedir Ajuda e Esclarecimento]] — 🔥 Could you repeat that? What does X mean? As frases que salvam qualquer conversa.
+- [ ] [[Se Apresentar]] — 📌 🧪 🏋️ falar de você, do trabalho e dos seus interesses em 1 minuto.
+- [ ] [[Números, Datas e Horas]] — 📌 🧪 🏋️ contar, preços, datas (May 3rd) e horas (quarter past ten).
+- [ ] [[Pedir Ajuda e Esclarecimento]] — 🔥 🧪 🏋️ Could you repeat that? What does X mean? As frases que salvam qualquer conversa.
 
 ---
 
@@ -139,10 +144,10 @@ nome: Inglês
 
 ## Ler e escrever no trabalho
 
-- [ ] [[Vocabulário Técnico]] — 🔥 os verbos e palavras que mais aparecem em código, erros e documentação (fetch, parse, throw, deploy...), e o seu glossário pessoal.
-- [ ] [[Siglas Técnicas]] — 📌 API, CLI, CI/CD e as abreviações de code review (LGTM, PTAL, nit, WIP): o que significam e como se fala.
-- [ ] [[Ler Documentação]] — 🔥 habilidade de entender documentação oficial em inglês, essencial pra resolver problemas por conta própria.
-- [ ] [[Inglês em Commits, Issues e PRs]] — 🔥 escrever mensagens curtas, claras e no padrão (imperativo: "Fix login bug").
+- [ ] [[Vocabulário Técnico]] — 🔥 🧪 os verbos e palavras que mais aparecem em código, erros e documentação (fetch, parse, throw, deploy...), e o seu glossário pessoal.
+- [ ] [[Siglas Técnicas]] — 📌 🧪 API, CLI, CI/CD e as abreviações de code review (LGTM, PTAL, nit, WIP): o que significam e como se fala.
+- [ ] [[Ler Documentação]] — 🔥 🧪 habilidade de entender documentação oficial em inglês, essencial pra resolver problemas por conta própria.
+- [ ] [[Inglês em Commits, Issues e PRs]] — 🔥 🧪 escrever mensagens curtas, claras e no padrão (imperativo: "Fix login bug").
 
 ## Falar no trabalho
 

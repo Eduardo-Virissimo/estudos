@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparecem em code review e documentação. Conheça as principais e consulte o resto quando aparecer.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você abre um pull request de um projeto open source e lê os comentários: *LGTM, just one nit.* *PTAL when you have a sec.* *IMO we should wait, AFAIK the API is changing.* *TL;DR: WIP, ETA Friday.* Todas as palavras são inglês, e mesmo assim a frase parece escrita em código.
 
 Tecnologia é uma verdadeira sopa de siglas. Algumas você precisa entender pra ler qualquer documentação, outras pra acompanhar uma revisão de código, outras pra não travar numa reunião. E saber o que cada uma significa é só metade do trabalho: a outra metade é saber como ela se **fala** em inglês, porque "a-pê-í" numa reunião internacional soa estranho.

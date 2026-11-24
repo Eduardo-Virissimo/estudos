@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Aparece pouco fora da faculdade. Pode deixar pra depois da primeira vaga.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 A prefeitura quer levar internet de fibra a seis bairros. Ela tem o orçamento de cada trecho possível de cabo: do Centro à Vila, R$ 40 mil; da Vila ao Jardim, R$ 25 mil; e assim por diante. Não precisa ligar todo mundo com todo mundo. Basta que **todos os bairros fiquem conectados**, direta ou indiretamente, gastando o **mínimo** possível.
 
 Repare que isso é diferente do caminho mais curto do [[Dijkstra]]. O Dijkstra pergunta "qual o jeito mais barato de ir de A até B?". Aqui a pergunta é "qual o conjunto mais barato de cabos que conecta **todo mundo**?". A resposta é uma **árvore geradora mínima** (MST, *minimum spanning tree*): "árvore" porque não tem ciclos (um ciclo teria um cabo sobrando, que daria pra tirar), "geradora" porque alcança todos os vértices, e "mínima" porque a soma dos pesos é a menor possível.

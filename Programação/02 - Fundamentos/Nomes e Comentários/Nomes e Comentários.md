@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você vai ler código muito mais do que escrever. Nome bom é a forma mais barata de código bom, e reviewer repara.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você abre um código que escreveu há três meses e dá de cara com isto:
 
 ```ts

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** São as frases que salvam qualquer conversa quando você não entende. Decore as principais.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Numa chamada, alguém explica uma tarefa em inglês, rápido, e você pega uns 70%. Tem uma palavra no meio que você não conhece, e uma frase que passou rápido demais. A pessoa termina e pergunta: *Does that make sense?* E você, com vergonha de perguntar, responde *Yes!*, balança a cabeça, e sai da chamada sem saber direito o que fazer.
 
 Isso acontece com todo mundo, e a verdade que tira o peso da situação é esta: **nenhuma conversa em outra língua flui 100%**, nem pra quem é fluente. Até entre nativos, as pessoas pedem pra repetir, perguntam o que uma palavra quis dizer, confirmam o que entenderam. O que separa quem trava de quem segue em frente não é entender tudo: é ter **frases prontas** pra quando não entende.

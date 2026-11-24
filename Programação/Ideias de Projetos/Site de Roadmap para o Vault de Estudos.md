@@ -136,6 +136,16 @@ Para o primeiro protótipo, HTML, CSS e JavaScript puros são suficientes. Um fr
 
 Uma alteração em uma checklist pública do vault deve ser suficiente para atualizar o progresso exibido no site, sem editar manualmente componentes da interface. O visitante deve conseguir entender em poucos segundos o que já foi estudado e qual é o próximo passo.
 
+## Tópicos que entram aqui
+
+Estes tópicos do [[Roadmap]] têm 🧩 lá: é aqui, no projeto do Estágio 5, que eles saem da teoria. Estude a nota, faça o desafio dela e depois traga pra cá.
+
+- **Ferramentas:** [[Regex]]
+- **TypeScript:** [[Ler e Escrever Arquivos]]
+- **Serialização:** [[YAML]], [[JSON]]
+- **Front-end:** [[HTML Semântico]], [[CSS Básico]], [[Design Responsivo]], [[Acessibilidade (a11y)]], [[Performance Web]]
+- **DevOps:** [[CI/CD]], [[GitHub Actions]], [[Pipelines]], [[Deploy]]
+
 ## Próximo passo
 
 - [ ] Criar o protótipo visual da página inicial;

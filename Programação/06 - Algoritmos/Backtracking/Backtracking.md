@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparece em problemas médios de entrevista (combinações, permutações). Entenda o molde e pratique alguns.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você está num labirinto de cerca viva, sem mapa. Chega numa bifurcação e escolhe a esquerda. Mais adiante, outra bifurcação: esquerda de novo. Beco sem saída. O que você faz? Volta **até a última bifurcação** e tenta o outro lado. Se aquele também não der, volta mais uma bifurcação. Você nunca desiste do labirinto inteiro; só desfaz a última escolha que deu errado.
 
 Isso é **backtracking** (voltar atrás): construa uma solução fazendo uma escolha de cada vez; se em algum momento perceber que o caminho não dá certo, **desfaça a última escolha** e tente a próxima. É a técnica pra problemas em que você precisa **testar combinações**: todas as senhas possíveis, todas as formas de montar um time, onde colocar cada número num sudoku, todos os anagramas de uma palavra.

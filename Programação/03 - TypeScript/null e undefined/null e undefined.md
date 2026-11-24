@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a origem do erro mais comum do JavaScript. Domine `?.`, `??` e o `strictNullChecks`.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Se você programar em JavaScript por tempo suficiente, uma mensagem de erro vai virar sua velha conhecida: `Cannot read properties of undefined`. Ela é, provavelmente, o erro mais comum de toda a linguagem. E ela sempre conta a mesma história: você tentou usar alguma coisa como se fosse um objeto, e ela era um **nada**.
 
 O JavaScript, curiosamente, tem **dois** jeitos de dizer "não tem nada aqui". O `undefined` quer dizer "ainda não tem valor": uma variável que nunca recebeu nada, uma propriedade que não existe, uma função sem `return`. O `null` quer dizer "vazio de propósito": alguém decidiu, conscientemente, que aquilo está vazio.

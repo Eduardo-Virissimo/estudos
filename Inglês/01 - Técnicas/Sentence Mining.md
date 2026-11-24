@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Ajuda a fixar vocabulário de verdade, mas é ferramenta, não fim. Entenda e use quando estiver consumindo bastante input.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Quase todo mundo que estudou inglês já fez isto: uma lista de palavras, a tradução do lado, e horas tentando decorar. *Figure out*: descobrir. *Achieve*: conseguir. *Although*: embora. Na semana seguinte, metade já foi embora. No mês seguinte, quase tudo. E as que sobraram, você não sabe usar numa frase.
 
 O problema não é a sua memória. É que a palavra solta, sem nenhuma ligação com nada, é exatamente o tipo de coisa que o cérebro joga fora primeiro. O **sentence mining** ("mineração de frases") resolve isso trocando a lista por outra coisa: você garimpa **frases** do conteúdo que você já consome. Quando aparece uma frase em que você entende **tudo, menos uma coisa**, você salva ela num flashcard do **Anki**. E a revisão espaçada traz esse cartão de volta logo antes de você esquecer.

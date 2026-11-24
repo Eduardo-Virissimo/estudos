@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Tudo que fala com rede, banco ou arquivo é assíncrono. Domine, junto com Async e Await.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Olhe este código, que parece perfeitamente certo:
 
 ```ts

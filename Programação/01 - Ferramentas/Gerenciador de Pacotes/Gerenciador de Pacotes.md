@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Todo projeto começa com `npm install`. Entender `package.json`, dependências e scripts é obrigatório desde o primeiro projeto.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você precisa mostrar "há 3 dias" do lado de uma data no seu programa. Dá pra escrever isso do zero: calcular a diferença em milissegundos, converter pra dias, tratar horas, meses, anos, plural, fuso horário... ou dá pra usar uma biblioteca que alguém já escreveu, testou e que milhões de pessoas usam. Quase nenhum projeto de verdade é feito do zero. Ele é montado em cima de **pacotes**: código pronto pra validar dados, lidar com datas, criar servidores.
 
 Só que pacotes trazem um problema novo. Eles têm versões, dependem de outros pacotes, que dependem de outros, e alguém precisa baixar tudo isso, na versão certa, em cada computador onde o projeto roda. Esse alguém é o **gerenciador de pacotes**: o **npm** no JavaScript, o **pip** no Python, e assim por diante.

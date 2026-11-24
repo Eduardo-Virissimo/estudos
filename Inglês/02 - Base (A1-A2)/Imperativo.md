@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Todo tutorial, documentação e mensagem de commit usa. É fácil e você vai ver toda hora, então domine.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Abra o README de qualquer projeto no GitHub e repare em como ele fala com você: *Clone the repository. Install the dependencies. Run the app.* Uma mensagem de erro diz *Try again later*. Uma tela de configuração diz *Enter your email*. Uma mensagem de commit diz *Fix login bug*. Sem perceber, você lê esse tipo de frase o dia inteiro.
 
 Isso é o **imperativo**: o jeito de dar ordens, instruções e conselhos. E a boa notícia é que ele é a forma mais simples do inglês inteiro: **o verbo puro, sem sujeito**. *Open the file.* *Run the tests.* Pra negar, ***Don't*** antes do verbo: *Don't delete it.* Pra quem programa, entender o imperativo já destrava a maioria dos tutoriais.

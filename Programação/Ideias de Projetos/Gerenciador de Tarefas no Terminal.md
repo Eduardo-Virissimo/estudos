@@ -76,6 +76,20 @@ O ✅ do Estágio 1: você criou o projeto do zero, ele usa condições, laços 
 - Testes das regras com `node --test` (preview do Estágio 3)
 - Modo interativo com `readline` quando roda sem argumentos
 
+## Tópicos que entram aqui
+
+Estes tópicos do [[Roadmap]] têm 🧩 lá: é aqui, no projeto dos Estágios 1 e 3, que eles saem da teoria. Estude a nota, faça o desafio dela e depois traga pra cá.
+
+- **Fundamentos:** [[Lógica de Programação]], [[Entrada e Saída]], [[Estruturas Condicionais]], [[Funções]], [[Modularização]]
+- **TypeScript:** [[Configurando um Projeto TypeScript]], [[Interfaces e Type Aliases]], [[Union Types e Narrowing]], [[Objetos e Arrays no JavaScript]], [[Módulos ES (import e export)]], [[Async e Await]], [[Ler e Escrever Arquivos]], [[Datas e Fusos Horários]]
+- **Git:** [[Git Básico]], [[Conventional Commits]], [[Git Hooks]], [[GitHub e Pull Requests]], [[Tags e Versionamento Semântico]]
+- **Clean Code:** [[Code Smells]], [[Refatoração]], [[Responsabilidade Única]], [[Nomeação]]
+- **Debugging:** [[Debugging]], [[Breakpoints]], [[Debugger]], [[Stack Trace]]
+- **Tratamento de Erros:** [[Exceptions]], [[try/catch]], [[Validação]], [[Tratamento Global de Erros]]
+- **Orientação a Objetos:** [[Classes]], [[Encapsulamento]], [[Composição]]
+- **Testes de Software:** [[Testes Unitários]], [[Testes de Integração]], [[Mocks e Stubs]], [[Test Coverage]], [[TDD (Test Driven Development)]], [[Vitest]]
+- **Design de Software:** [[Repository]], [[Command]], [[Dependency Injection]]
+
 ## Próximos Passos
 
 - [ ] Ler o enunciado inteiro e desenhar os comandos em [[Lógica de Programação|pseudocódigo]]

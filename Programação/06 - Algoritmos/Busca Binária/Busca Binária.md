@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Cai muito em entrevista e é fácil de errar. Entenda bem e escreva várias vezes até sair certa.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Procurar "ornitorrinco" num dicionário de papel. Ninguém começa na primeira página e vai virando uma por uma. Você abre mais ou menos no meio, cai no "L", sabe que o "O" vem depois, e ignora a metade da esquerda inteira. Abre no meio do que sobrou, cai no "R", volta um pouco. Em poucas aberturas você chega na página, num livro de mil.
 
 Isso só funciona porque **o dicionário está em ordem alfabética**. Num livro com as palavras embaralhadas, abrir no meio não diz nada sobre onde está a palavra. A **busca binária** é esse método: num array ordenado, olhe o meio, descarte a metade em que o alvo não pode estar, repita. Cada passo corta o problema pela metade, e por isso ela é absurdamente rápida: num milhão de itens, a [[Busca Linear]] faz até um milhão de comparações; a binária faz no máximo **20**.

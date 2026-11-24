@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Aparece só em problemas específicos de grafo. Pode deixar pra depois da primeira vaga.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Numa rede social, a Ana é amiga da Bia, a Bia é amiga do Caio, e o Duda é amigo do Edu. Pergunta: a Ana e o Caio estão no mesmo grupo de amigos (ligados por alguma corrente de amizades)? E a Ana e o Edu? Agora imagine que as amizades vão chegando uma de cada vez, milhões delas, e a cada uma você precisa responder perguntas desse tipo na hora.
 
 Daria pra montar um [[Grafos|grafo]] e rodar uma [[BFS (Busca em Largura)|BFS]] a cada pergunta, mas isso percorre a rede inteira toda vez. O **Union-Find** (ou conjuntos disjuntos) é uma estrutura feita sob medida pra esse problema e só pra ele. Ela faz duas coisas: **unir** dois grupos e **descobrir** a que grupo alguém pertence. E faz as duas em tempo praticamente constante, com um código de quinze linhas.

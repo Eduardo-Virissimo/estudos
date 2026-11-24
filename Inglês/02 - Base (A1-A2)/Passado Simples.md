@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você usa pra contar o que fez, na daily e na entrevista. Domine, incluindo os irregulares mais comuns.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Toda manhã, na daily do time, a primeira pergunta é a mesma: o que você fez ontem? *Yesterday I fixed the login bug and wrote some tests.* É uma frase simples, mas ela usa o tempo verbal que você mais vai precisar pra contar qualquer coisa: o que aconteceu no fim de semana, como foi a entrevista, onde estava o bug.
 
 O **passado simples** conta o que **aconteceu e terminou**: *I worked yesterday*, *She fixed the bug*. Os verbos regulares ganham um ***-ed*** no final (*fixed*, *pushed*), e os irregulares mais comuns você aprende pelo uso (*go* vira *went*, *write* vira *wrote*).

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Você nunca vai escrever uma no trabalho, você usa o `sort`. Servem pra aprender a pensar; entenda a ideia e não gaste muito tempo.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Antes de tudo, um teste. Abra o terminal, rode `node` e digite:
 
 ```js

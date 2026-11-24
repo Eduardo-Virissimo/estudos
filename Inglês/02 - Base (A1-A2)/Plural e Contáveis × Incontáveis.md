@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Pegadinhas como "informations" aparecem em texto técnico. Entenda e pratique uma vez.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Você termina uma revisão de código e escreve no PR: *Thanks for the feedbacks! I changed the codes and added some informations.* Três erros numa frase só, e nenhum deles de vocabulário ou de gramática "difícil". Todos do mesmo tipo: você colocou plural em palavras que, em inglês, simplesmente não têm plural.
 
 Isso acontece porque todo substantivo em inglês é de um de dois tipos. Ou ele é **contável**, dá pra contar (*one bug, two bugs*). Ou é **incontável**, e não tem plural nenhum (*information*, *software*, *code*, *advice*). E essa diferença muda tudo em volta da palavra: um incontável não leva *a/an*, não ganha *-s*, e usa ***much*** em vez de *many*.

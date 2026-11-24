@@ -1,12 +1,16 @@
 ---
 nivel: escrito
 foco: essencial
+projeto:
+  - "[[Gerenciador de Tarefas no Terminal]]"
 revisado:
 ---
 
 # Union Types e Narrowing
 
 **Quanto focar: 🔥 essencial.** É o que deixa o TypeScript útil de verdade. Domine, porque aparece em todo tratamento de erro e resposta de API.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Uma tela do seu app busca dados da internet. Enquanto espera, mostra um ícone de carregando. Se der certo, mostra os dados. Se der errado, mostra o erro. Você modela isso com um objeto: `{ carregando: boolean; dados?: string[]; erro?: string }`. Funciona. Até o dia em que um bug faz a tela mostrar o ícone de carregando **e** uma mensagem de erro ao mesmo tempo. O tipo que você escreveu permite isso. Ele permite até "deu certo, mas sem dados".
 

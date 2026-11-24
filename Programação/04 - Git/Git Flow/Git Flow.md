@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Muitos times usam fluxos mais simples hoje. Conheça a ideia pra reconhecer se a empresa usar; não precisa decorar.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Imagine um time de cinco pessoas trabalhando no mesmo projeto, sem ter combinado nada. Uma faz commit direto na `main`. Outra trabalha três semanas numa branch e tenta juntar tudo de uma vez. Uma terceira cria uma branch chamada `teste2-final`. Alguém sobe uma correção urgente que ninguém revisou, e ela quebra outra coisa. Não é que alguém esteja fazendo errado: é que cada um está fazendo de um jeito.
 
 Um **fluxo de branches** é o combinado do time sobre isso: quais branches existem, pra que serve cada uma, e qual o caminho que o código percorre até chegar em produção. O mais famoso é o **Git Flow** clássico, com várias branches fixas (`main`, `develop`, `feature/`, `release/`, `hotfix/`): muito organizado, mas pesado. Hoje, a maioria dos times usa algo mais leve: o **GitHub Flow**, só com a `main` e branches curtas com pull request, ou o **Trunk-Based**, com commits pequenos e frequentes direto na `main`.

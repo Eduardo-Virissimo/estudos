@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Servidor, Docker e CI rodam Linux, então você vai esbarrar em Bash cedo. Saiba ler e escrever um script curto; não precisa virar especialista.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Toda sexta-feira você faz a mesma coisa: abre o terminal, cria uma pasta de backup, compacta a pasta de projetos, dá um nome com a data de hoje e confere se o arquivo apareceu. São quatro comandos. Na primeira semana você digita com cuidado. Na terceira, já no automático, esquece um pedaço da data e sobrescreve o backup da semana anterior.
 
 Esse é o momento em que vale aprender **Bash**. Até aqui você usava o terminal como um lugar pra digitar comandos, um de cada vez. Mas o Bash, o shell padrão do Linux, também é uma pequena linguagem de programação. Os mesmos comandos que você digita podem ir pra um arquivo, e esse arquivo vira um programa que repete a tarefa sempre do mesmo jeito, sem esquecer nada.

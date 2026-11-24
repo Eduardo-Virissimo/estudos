@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Muito bug estranho é escopo. Entenda bem `let`/`const` e bloco; isso aparece também em entrevista.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você criou uma variável dentro de um `if`, e duas linhas depois, fora dele, tenta usar. O programa explode: `titulo is not defined`. Mas você acabou de criar o `titulo`, está ali, dá pra ver na tela! O que aconteceu?
 
 Aconteceu **escopo**: a regra que diz **em que região do código uma variável existe**. Em JavaScript moderno, uma variável criada com `let` ou `const` só vive dentro do bloco `{ }` onde nasceu. Saiu do bloco, ela some.

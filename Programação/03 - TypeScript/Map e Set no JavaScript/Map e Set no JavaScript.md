@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparecem menos que objeto e array, mas resolvem muito bem busca rápida e valores únicos. Entenda e use quando fizer sentido.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você tem a lista de quem participou das sessões de estudo do mês, com cem mil registros e muitos nomes repetidos, e quer saber duas coisas. Quantas pessoas **diferentes** participaram? E quantas vezes cada uma apareceu? Com um array comum, a primeira pergunta vira um laço que, pra cada nome, confere se ele já foi visto, olhando a lista inteira de novo. A segunda vira um objeto com chaves esquisitas. Funciona, mas é lento e desajeitado.
 
 O JavaScript tem duas estruturas feitas exatamente pra esses problemas. O **`Set`** é uma coleção de **valores únicos**: serve pra tirar os repetidos e pra perguntar "isto existe aqui?" quase instantaneamente, mesmo com milhões de itens. O **`Map`** é um dicionário **chave → valor**, em que a chave pode ser de qualquer tipo: serve pra contar, indexar e agrupar.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Resolve com elegância "já vi isso?" e "tire as duplicatas". Entenda e use sempre que couber.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você organiza um campeonato e tem a lista de inscrições: 5 mil linhas, gente que se inscreveu duas vezes, gente que mandou o formulário três vezes porque achou que não tinha ido. Precisa saber quantos jogadores existem de verdade, e na hora do check-in precisa responder rápido "este nick está inscrito?". Ninguém liga pra ordem, nem pra quantas vezes a pessoa se inscreveu. A pergunta é só: **está ou não está?**
 
 Essa é a pergunta que o **Set** (conjunto) responde melhor que qualquer outra estrutura. Um Set é uma coleção de valores **únicos**, sem ordem que importe e sem repetição, e checar se algo está nele custa O(1). Por baixo, ele é uma [[Hash Table]] que guarda só as chaves, sem valores. Se você entendeu a hash table, o Set é de graça; a nota é sobre **reconhecer quando usar**, e sobre a matemática de conjuntos que resolve problemas inteiros em uma linha.

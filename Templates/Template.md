@@ -1,6 +1,7 @@
 ---
 nivel: escrito
 foco: importante
+projeto:
 revisado:
 ---
 
@@ -25,10 +26,15 @@ Exemplo pronto pra copiar o tom: [[Bash]].
 - Feche com "O essencial" (3 a 5 itens) e "Agora é com você" (desafio e, se fizer sentido, um projeto, em texto corrido).
 - Logo abaixo do título, uma linha "Quanto focar": 🔥 essencial / 📌 importante / 💤 bom saber (o mesmo do Roadmap
   e do `foco:` no topo), com 1-2 frases dizendo por quê e até onde ir ("domine", "pratique uma vez", "conheça a ideia").
+- Logo abaixo do "Quanto focar", uma linha "Onde praticar": 🏋️ exercícios (se tiver) · 🧪 o desafio de "Agora é com você"
+  · 🧩 o projeto de estágio que usa o tópico (veja "Tópicos que entram aqui" nas notas de Ideias de Projetos; o mesmo vai
+  em `projeto:` no topo; apague o campo se nenhum usar). No Roadmap, ponha os mesmos ícones depois do 🔥📌💤.
 - Fixo em toda nota: o 🧠 Me teste (a Ficha do herói lê as perguntas de lá). O resto é opcional.
 %%
 
 **Quanto focar: 📌 importante.** [Por que esse nível, e até onde ir.]
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Projeto do estágio]], projeto do Estágio N.
 
 [Abertura: a cena ou o problema. Por que isso importa. Uma ideia-chave que a pessoa leva da nota.]
 

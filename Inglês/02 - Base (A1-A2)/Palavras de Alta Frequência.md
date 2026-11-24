@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Poucas palavras cobrem quase tudo que você ouve e lê. É o vocabulário que mais rende, então priorize.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Pegue qualquer texto em inglês, uma notícia, um README, uma página de livro, e conte quantas vezes aparece a palavra *the*. Depois *of*, *and*, *to*. Agora procure uma palavra como *notwithstanding*. As primeiras aparecem em quase toda frase. A última, talvez uma vez num livro inteiro.
 
 Essa diferença muda completamente a estratégia de aprender vocabulário. As palavras de uma língua não aparecem na mesma quantidade: umas **mil** palavras (*the*, *get*, *thing*, *because*...) formam cerca de **80%** de tudo o que você lê e ouve num texto comum. Então aprender as mais frequentes primeiro rende muito, muito mais do que estudar palavras aleatórias, ou as "bonitas", ou as de uma lista de vocabulário qualquer.

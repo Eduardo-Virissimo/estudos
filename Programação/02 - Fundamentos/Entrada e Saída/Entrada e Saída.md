@@ -1,12 +1,16 @@
 ---
 nivel: escrito
 foco: importante
+projeto:
+  - "[[Gerenciador de Tarefas no Terminal]]"
 revisado:
 ---
 
 # Entrada e Saída
 
 **Quanto focar: 📌 importante.** Todo programa recebe e devolve dados, mas no dia a dia isso vira formulário, API e arquivo. Entenda a ideia e pratique; não precisa se aprofundar.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Você escreveu uma calculadora de IMC. O peso e a altura estão fixos no código, `const peso = 70`, e toda vez que quer calcular pra outra pessoa, abre o arquivo, muda o número, salva e roda de novo. Funciona, mas não é um programa de verdade: é um cálculo que só você consegue usar.
 

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Você não vai implementar no trabalho. Saiba que existem e por que um índice de banco não degrada; o resto pode esperar.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 A nota da [[Árvore Binária de Busca (BST)]] terminou com um problema sério: insira dados que já chegam em ordem, e a árvore vira uma linha, com busca em O(n). E dados em ordem são o caso **comum**, não a exceção. Então como os bancos de dados e as bibliotecas garantem O(log n) sempre?
 
 A resposta é uma árvore que **se arruma sozinha**. Toda vez que uma inserção ou remoção deixa um lado muito mais alto que o outro, ela faz um pequeno giro de nós, uma **rotação**, que abaixa o lado alto sem quebrar a regra da BST. As duas versões mais famosas são a **AVL** e a **rubro-negra**.

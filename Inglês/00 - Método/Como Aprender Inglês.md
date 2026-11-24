@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o mapa de como a aquisição funciona. Entender isso evita anos estudando do jeito errado, então leia com calma antes de tudo.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Muita gente passou anos estudando inglês na escola. Sabe todas as regras do *present perfect*, conjuga o verbo *to be* de trás pra frente, tirava 10 nas provas. E aí, numa viagem, na hora de pedir um café, não sai nada. A pessoa fica parada, montando a frase na cabeça, traduzindo palavra por palavra, enquanto o atendente espera.
 
 Essa experiência é tão comum que parece normal. Mas ela tem uma explicação, e entender essa explicação muda completamente o jeito de estudar. Pense em como você aprendeu português. Ninguém te ensinou gramática antes de você começar a falar. Você ouviu, durante anos, muita gente falando com você, e foi **entendendo**. A gramática se montou sozinha na sua cabeça. Até hoje, você fala certo sem saber nomear o "pretérito mais-que-perfeito".

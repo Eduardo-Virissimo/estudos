@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você usa em toda linha de TypeScript. Domine, principalmente `unknown` versus `any`.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 O seu programa de tarefas aceita uma prioridade, que pode ser "baixa", "média" ou "alta". Um dia, em algum canto do código, alguém escreve `prioridade = "Alta"`, com maiúscula. Em outro, `"media"`, sem acento. Nada dá erro. O programa roda. Só que o filtro de prioridade alta para de achar essas tarefas, e ninguém entende por quê.
 
 Esse é o tipo de bug que os tipos do TypeScript existem pra pegar. Os **tipos básicos** são o vocabulário da linguagem, as palavras com que você descreve os seus dados: os primitivos (`string`, `number`, `boolean`), as listas (`string[]`), as tuplas (`[string, number]`), e os **tipos literais** (`"baixa" | "média" | "alta"`), que resolvem exatamente o bug da prioridade.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É simples quando funciona e cai em entrevista. Entenda quando dá certo e quando não dá.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você trabalha no caixa e precisa dar R$ 0,87 de troco com o menor número de moedas. Ninguém faz conta nenhuma: pega a maior moeda que cabe (50 centavos), depois a maior que cabe no que sobrou (25), depois 10, e 1, e 1. Cinco moedas, sem pensar. E está certo, é o mínimo possível.
 
 Esse jeito de decidir tem nome: **guloso** (*greedy*). A cada passo, você escolhe o que parece **melhor agora**, sem olhar pra frente e sem voltar atrás. É o algoritmo mais simples de escrever e, quando funciona, o mais rápido. O problema é aquele "quando funciona". Na nota de [[Programação Dinâmica]], o mesmo troco com moedas de 1, 3 e 4 centavos fez o guloso errar: pra dar 6, ele pega 4 + 1 + 1 (três moedas), quando 3 + 3 dá duas.

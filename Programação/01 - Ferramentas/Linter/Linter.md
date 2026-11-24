@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Todo projeto profissional tem um, e ele pega bug antes de você rodar. Saiba configurar e entender o que ele aponta; os detalhes das regras você consulta.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Olhe estas duas linhas e tente achar o problema:
 
 ```javascript

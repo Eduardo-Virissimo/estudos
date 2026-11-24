@@ -89,3 +89,13 @@ Você terminou o estágio quando a tabela tem 30 linhas e você consegue explica
 ## Onde fazer
 
 📦 Repositório próprio no GitHub: `estruturas-do-zero`. Um commit por estrutura e um por exercício ([[Conventional Commits]]: `feat: pilha`, `exercicio: two-sum`).
+
+## Tópicos que entram aqui
+
+Estes tópicos do [[Roadmap]] têm 🧩 lá: é aqui, no projeto do Estágio 2, que eles saem da teoria. Estude a nota, faça o desafio dela e depois traga pra cá.
+
+- **Estruturas de Dados:** [[Pilhas]], [[Filas]], [[Listas Ligadas]], [[Hash Table]], [[Árvore Binária de Busca (BST)]], [[Heap (Estrutura de Dados)]], [[Trie]], [[Grafos]]
+- **Algoritmos:** [[BFS (Busca em Largura)]], [[DFS (Busca em Profundidade)]], [[Dijkstra]]
+- **Complexidade:** [[Big O]]
+- **TypeScript:** [[Classes no TypeScript]], [[Generics]], [[Módulos ES (import e export)]]
+- **Git:** [[Git Básico]], [[Conventional Commits]]

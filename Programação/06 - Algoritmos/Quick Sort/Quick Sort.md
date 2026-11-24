@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Muito cobrado na teoria e em entrevista. Entenda a partição e implemente uma vez.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Uma turma precisa fazer fila por altura. Em vez de comparar todo mundo com todo mundo, a professora escolhe um aluno qualquer, o Caio, e diz: "quem é mais baixo que o Caio vai pra esquerda dele, quem é mais alto vai pra direita". Em um minuto, a turma está dividida em dois grupos, e o Caio já está **exatamente no lugar certo** da fila final, porque todo mundo à esquerda é mais baixo e todo mundo à direita é mais alto. Agora ela repete o truque em cada grupo, escolhendo um novo "Caio" em cada um. Logo, todo mundo está no lugar.
 
 Esse é o **quick sort**. O aluno escolhido se chama **pivô**, e o passo de mandar cada um pro seu lado se chama **particionar**. Como o [[Merge Sort]], ele é dividir e conquistar ([[Divide and Conquer]]), mas ao contrário: o merge sort divide sem pensar e faz o trabalho na hora de juntar; o quick sort faz o trabalho na hora de dividir e não precisa juntar nada.

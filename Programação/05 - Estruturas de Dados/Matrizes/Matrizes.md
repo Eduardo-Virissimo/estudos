@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparecem em grade, tabuleiro e alguns exercícios de entrevista. Entenda bem como percorrer; no trabalho são raras.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Um tabuleiro de jogo da velha, uma planilha, o mapa de um joguinho em que cada quadrado é grama, parede ou água, a tela do seu computador (que é uma grade de pixels). Tudo isso tem duas dimensões: linha e coluna. E todos são guardados do mesmo jeito, com uma **matriz**, que no JavaScript é simplesmente um array de arrays.
 
 A ideia parece simples demais pra merecer uma nota, e é mesmo, até a hora em que você precisa olhar os **vizinhos** de uma casa. Aí aparecem os três problemas que derrubam todo mundo: trocar linha com coluna, sair da borda do tabuleiro, e uma armadilha do `fill` que faz todas as linhas mudarem ao mesmo tempo. Esta nota é sobre esses três. Ajuda ter passado por [[Arrays]].

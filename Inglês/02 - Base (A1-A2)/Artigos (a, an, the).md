@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Errar raramente atrapalha o entendimento, mas soa estranho. Entenda as regras principais e deixe o resto vir com input.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Em português, você diz "sou desenvolvedor", sem artigo, e "a vida é bela", com artigo. Em inglês, é exatamente o contrário: *I'm **a** developer*, com artigo, e *Life is beautiful*, sem. Não é à toa que os artigos são um dos erros mais teimosos de quem fala português. As palavras são pequenas, aparecem em toda frase, e as regras parecem não seguir lógica nenhuma.
 
 Mas elas seguem. O inglês tem três jeitos de começar um substantivo: *the*, *a/an*, ou nada. E escolher entre eles depende, quase sempre, de **uma pergunta só**: **quem ouve sabe exatamente de qual você está falando?** Se sabe, é ***the***, como em *the bug I told you about*. Se não sabe, e é uma coisa só, que dá pra contar, é ***a*** ou ***an***, como em *a bug*. E quando você fala **em geral**, de tudo daquele tipo, **não usa artigo nenhum**: *Developers love coffee*.

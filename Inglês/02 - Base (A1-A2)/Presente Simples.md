@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o tempo verbal da documentação ("this function returns..."). Domine, com atenção ao "s" da terceira pessoa.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Abra a documentação de qualquer função no MDN e leia a primeira frase: *The `map()` method **creates** a new array... It **returns**...* Agora pense em como você descreveria a sua semana: *I **work** from home. I **study** English every morning.* As duas coisas, a documentação e a sua rotina, usam o mesmo tempo verbal, porque as duas falam de coisas que **são sempre assim**.
 
 Esse é o **presente simples**: o tempo das rotinas, dos hábitos e das verdades. *I work from home.* *Water boils at 100 °C.* *This function returns a string.* A regra dele é simples, com uma pegadinha famosa, que todo professor de inglês conhece: com **he**, **she** e **it**, o verbo ganha um **-s** (*she works*).

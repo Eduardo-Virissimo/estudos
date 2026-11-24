@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Melhora pronúncia e listening, mas não precisa ser todo dia. Entenda a técnica e use alguns minutos por semana.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Você sabe a frase. Já viu escrita dezenas de vezes: *What do you want to do?* Mas quando um nativo fala, ela sai como "whaddaya wanna do?", uma coisa só, rápida, sem nenhuma pausa entre as palavras. E quando **você** fala, sai o contrário: "what... do... you... want... to... do", cada palavra separada, todas do mesmo tamanho, como se estivesse ditando. As duas versões são a mesma frase, e soam como línguas diferentes.
 
 O **shadowing** é a técnica que diminui essa distância. O nome quer dizer "sombra": você ouve um áudio de alguém nativo e repete **junto**, quase ao mesmo tempo, imitando o som, o ritmo e a entonação, como uma sombra que acompanha a pessoa. Ele treina três coisas de uma vez: a pronúncia, a compreensão e a fluência, porque obriga a sua boca a acompanhar a velocidade real da língua.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Outro padrão muito comum em entrevista, simples de aprender. Pratique alguns problemas.
 
+**Onde praticar:** 🧪 o desafio de "Agora é com você".
+
 Uma loja tem os preços dos produtos numa lista **ordenada**, do mais barato pro mais caro, e um cliente tem um vale-presente de exatamente R$ 100 que quer gastar em **dois** produtos. Quais dois? O jeito ingênuo testa todos os pares: o primeiro com cada um dos outros, o segundo com cada um dos outros... O(n²).
 
 Mas a lista está ordenada, e isso dá uma ideia. Ponha um dedo no produto **mais barato** e outro no **mais caro**. Some os dois. Se deu mais que 100, o caro é caro demais pra qualquer par com ele (até o mais barato passou do limite), então mova o dedo da direita pra um mais barato. Se deu menos que 100, o barato é barato demais (nem com o mais caro chegou), então mova o dedo da esquerda pra um mais caro. Se deu 100, achou. Os dedos vão se aproximando, e em no máximo n passos você termina.

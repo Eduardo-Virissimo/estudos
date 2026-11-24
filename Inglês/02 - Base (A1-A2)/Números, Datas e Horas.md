@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparecem em reunião, prazo e preço. Entenda e pratique; é mais treino que teoria.
 
+**Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
+
 Numa chamada de trabalho, alguém diz que a entrega é dia *oh-three-oh-four*, às *fifteen*. Você anota: 3 de abril, às 15h. Só que a pessoa estava nos Estados Unidos, e quis dizer **4 de março**. E talvez tenha dito *fifty*, não *fifteen*. Um mês de diferença no prazo, e um horário que nem existe.
 
 Números aparecem em toda conversa prática: preço, hora, data, versão de programa, telefone. E diferente de uma palavra errada, que a pessoa entende pelo contexto, um número errado causa estrago de verdade. A boa notícia é que as armadilhas são **poucas e previsíveis**, e esta nota passa por todas elas.

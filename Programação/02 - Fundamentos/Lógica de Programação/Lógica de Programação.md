@@ -1,12 +1,16 @@
 ---
 nivel: escrito
 foco: essencial
+projeto:
+  - "[[Gerenciador de Tarefas no Terminal]]"
 revisado:
 ---
 
 # Lógica de Programação
 
 **Quanto focar: 🔥 essencial.** É a base de tudo que vem depois. Se travar aqui, trava em todo o resto, então pratique até quebrar problemas em passos com naturalidade.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Peça pra alguém fazer um sanduíche, e a pessoa faz. Agora tente escrever as instruções pra um robô que só faz **exatamente** o que está escrito. "Passe a manteiga no pão." O robô pega o pote fechado e esfrega no pão. Você não disse pra abrir o pote. Nem pra pegar uma faca. Nem qual lado do pão.
 

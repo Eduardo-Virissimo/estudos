@@ -1,12 +1,16 @@
 ---
 nivel: escrito
 foco: importante
+projeto:
+  - "[[Estruturas de Dados do Zero]]"
 revisado:
 ---
 
 # DFS (Busca em Profundidade)
 
 **Quanto focar: 📌 importante.** Aparece em árvores, grafos e backtracking, e cai bastante em entrevista. Entenda e pratique.
+
+**Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Existe um truque antigo pra sair de qualquer labirinto: encoste a mão direita na parede e nunca solte. Você vai entrar em corredores sem saída, mas sempre volta e tenta o próximo. Uma versão mais esperta desse truque, com giz pra marcar por onde já passou, é exatamente o algoritmo desta nota: **vá o mais fundo que conseguir por um caminho; quando não der mais, volte até a última bifurcação e tente o caminho seguinte**.
 
