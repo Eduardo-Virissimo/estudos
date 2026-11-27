@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparecem menos que objeto e array, mas resolvem muito bem busca rápida e valores únicos. Entenda e use quando fizer sentido.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 5 min no Me teste e 40 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você tem a lista de quem participou das sessões de estudo do mês, com cem mil registros e muitos nomes repetidos, e quer saber duas coisas. Quantas pessoas **diferentes** participaram? E quantas vezes cada uma apareceu? Com um array comum, a primeira pergunta vira um laço que, pra cada nome, confere se ele já foi visto, olhando a lista inteira de novo. A segunda vira um objeto com chaves esquisitas. Funciona, mas é lento e desajeitado.

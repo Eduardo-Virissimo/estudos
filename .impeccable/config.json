@@ -38,6 +38,18 @@
         ],
         "createdAt": "2026-11-19T16:41:09.223Z",
         "reason": "Claude: decision-round sketch (not shipped) loading Source Sans 3 / Source Serif 4 from Google Fonts, the same families DESIGN.md documents; detector splits the family name"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "jersey 15",
+        "createdAt": "2026-11-27T06:32:56.016Z",
+        "reason": "claude: DESIGN.md documents the GitHub Pages reading site; the estudos-rpg Obsidian plugin has its own pixel-RPG identity and these fonts predate this session"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "figtree",
+        "createdAt": "2026-11-27T06:32:56.119Z",
+        "reason": "claude: DESIGN.md documents the GitHub Pages reading site; the estudos-rpg Obsidian plugin has its own pixel-RPG identity and these fonts predate this session"
       }
     ]
   }

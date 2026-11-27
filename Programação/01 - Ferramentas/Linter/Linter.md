@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Todo projeto profissional tem um, e ele pega bug antes de você rodar. Saiba configurar e entender o que ele aponta; os detalhes das regras você consulta.
 
+**Quanto tempo:** cerca de 45 min: 15 min de leitura, 10 min no Me teste e 25 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Olhe estas duas linhas e tente achar o problema:

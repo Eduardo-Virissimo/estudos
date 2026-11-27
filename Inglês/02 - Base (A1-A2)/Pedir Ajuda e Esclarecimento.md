@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** São as frases que salvam qualquer conversa quando você não entende. Decore as principais.
 
+**Quanto tempo:** cerca de 1h15: 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Numa chamada, alguém explica uma tarefa em inglês, rápido, e você pega uns 70%. Tem uma palavra no meio que você não conhece, e uma frase que passou rápido demais. A pessoa termina e pergunta: *Does that make sense?* E você, com vergonha de perguntar, responde *Yes!*, balança a cabeça, e sai da chamada sem saber direito o que fazer.

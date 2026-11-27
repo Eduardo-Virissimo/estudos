@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Muito bug estranho é escopo. Entenda bem `let`/`const` e bloco; isso aparece também em entrevista.
 
+**Quanto tempo:** cerca de 1h: 20 min de leitura, 10 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você criou uma variável dentro de um `if`, e duas linhas depois, fora dele, tenta usar. O programa explode: `titulo is not defined`. Mas você acabou de criar o `titulo`, está ali, dá pra ver na tela! O que aconteceu?

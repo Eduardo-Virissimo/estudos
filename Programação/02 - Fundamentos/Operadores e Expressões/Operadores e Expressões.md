@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Estão em todo `if` e em todo cálculo. Domine, com atenção ao `===` e à precedência, que são pegadinhas clássicas.
 
+**Quanto tempo:** cerca de 45 min: 15 min de leitura, 10 min no Me teste e 20 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 O seu app tem uma configuração de volume, de 0 a 100, e um valor padrão de 50 pra quem nunca mexeu nela. Você escreve `const volume = configuracao.volume || 50`, testa, funciona. Até que alguém reclama: "eu coloquei o volume no zero e ele volta sozinho pra 50!". Você olha o código, ele parece certo, e não tem erro nenhum no console.

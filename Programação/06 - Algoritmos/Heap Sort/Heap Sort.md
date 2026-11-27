@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Pouco usado na prática e pouco cobrado. Conheça a ideia; se entendeu o Heap, já está bom.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 5 min no Me teste e 40 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Se você fez o desafio do [[Heap (Estrutura de Dados)|heap]], já escreveu um heap sort sem perceber: inseriu mil números num min-heap, extraiu um por um, e eles saíram em ordem. Isso é ordenar com um heap. Funciona, é O(n log n), e tem um defeito: usa um heap separado, com memória extra do tamanho da lista.

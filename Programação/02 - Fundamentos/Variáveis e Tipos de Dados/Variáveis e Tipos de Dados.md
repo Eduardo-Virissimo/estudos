@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você usa em toda linha de código. Domine, principalmente a conversão de tipos, que é fonte de muito bug.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 10 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você pede ao usuário duas notas, `8` e `7`, e soma pra calcular a média. O programa responde que a soma é `87`. Não é um erro de matemática do computador. É que o que chegou do teclado não eram os números 8 e 7, eram os **textos** `"8"` e `"7"`, e somar textos é colar um no outro.

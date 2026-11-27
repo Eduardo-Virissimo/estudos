@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a sua linguagem principal. Entender o que o TypeScript adiciona ao JavaScript é a base de todo o resto.
 
+**Quanto tempo:** cerca de 45 min: 15 min de leitura, 5 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Imagine um assistente sentado do seu lado enquanto você programa, lendo cada linha que você escreve. Você digita `usuario.emial`, e ele cutuca: "você quis dizer `email`?". Você chama uma função de preço passando o texto `"10"` no lugar do número 10, e ele avisa antes de você rodar. Ele não programa por você. Ele só não deixa passar os erros bobos que, sem ele, você só descobriria rodando, ou pior, quando um usuário reclamasse.

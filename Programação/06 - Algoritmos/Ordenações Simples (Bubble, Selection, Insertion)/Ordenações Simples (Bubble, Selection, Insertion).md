@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Você nunca vai escrever uma no trabalho, você usa o `sort`. Servem pra aprender a pensar; entenda a ideia e não gaste muito tempo.
 
+**Quanto tempo:** cerca de 1h15: 15 min de leitura, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Antes de tudo, um teste. Abra o terminal, rode `node` e digite:

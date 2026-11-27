@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Todo tutorial, documentação e mensagem de commit usa. É fácil e você vai ver toda hora, então domine.
 
+**Quanto tempo:** cerca de 1h15: 10 min de leitura, 20 min nos exercícios, 5 min no Me teste e 45 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Abra o README de qualquer projeto no GitHub e repare em como ele fala com você: *Clone the repository. Install the dependencies. Run the app.* Uma mensagem de erro diz *Try again later*. Uma tela de configuração diz *Enter your email*. Uma mensagem de commit diz *Fix login bug*. Sem perceber, você lê esse tipo de frase o dia inteiro.

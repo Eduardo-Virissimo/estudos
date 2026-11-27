@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É simples quando funciona e cai em entrevista. Entenda quando dá certo e quando não dá.
 
+**Quanto tempo:** cerca de 1h30: 15 min de leitura, 5 min no Me teste e 1h15 no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você trabalha no caixa e precisa dar R$ 0,87 de troco com o menor número de moedas. Ninguém faz conta nenhuma: pega a maior moeda que cabe (50 centavos), depois a maior que cabe no que sobrou (25), depois 10, e 1, e 1. Cinco moedas, sem pensar. E está certo, é o mínimo possível.

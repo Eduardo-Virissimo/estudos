@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Pegadinhas como "informations" aparecem em texto técnico. Entenda e pratique uma vez.
 
+**Quanto tempo:** cerca de 1h: 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 25 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Você termina uma revisão de código e escreve no PR: *Thanks for the feedbacks! I changed the codes and added some informations.* Três erros numa frase só, e nenhum deles de vocabulário ou de gramática "difícil". Todos do mesmo tipo: você colocou plural em palavras que, em inglês, simplesmente não têm plural.

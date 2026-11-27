@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a ferramenta número um pra depurar qualquer coisa na web: console, rede, elementos. Quem trabalha com front usa todo dia.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 15 min no Me teste e 30 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você clica no botão "Salvar" de um site e nada acontece. Nenhuma mensagem, nenhum erro, a página só fica ali parada. De fora, não dá pra saber se o botão está quebrado, se o servidor caiu ou se os dados foram salvos e a tela é que não atualizou.

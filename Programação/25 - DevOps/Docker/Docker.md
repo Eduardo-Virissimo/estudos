@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Quase toda empresa usa pra rodar banco local e fazer deploy. Domine o básico: rodar, construir imagem e usar compose.
 
+**Quanto tempo:** cerca de 2h15: 35 min de leitura, 15 min no Me teste e 1h30 no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Plataforma de Matchmaking para Duos em Jogos]], projeto dos Estágios 4 e 5.
 
 Você termina a sua API, manda o repositório pra um colega, e ele responde: "não roda aqui". Você confere: na sua máquina, funciona perfeitamente. Depois de meia hora de investigação, descobrem que ele tem o Node 18 e você o 22, que ele não instalou o banco de dados, e que uma variável de ambiente estava configurada só no seu computador. Esse diálogo tem até nome no mundo da programação: **"na minha máquina funciona"**.

@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparece em validação, busca no editor e tratamento de texto. Entenda o básico (classes, quantificadores, grupos) e consulte o resto quando precisar.
 
+**Quanto tempo:** cerca de 1h15: 20 min de leitura, 15 min no Me teste e 45 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Site de Roadmap para o Vault de Estudos]], projeto do Estágio 5.
 
 Você tem um formulário com um campo de CEP e precisa checar se o que a pessoa digitou parece mesmo um CEP. Ou tem 300 arquivos onde as datas estão como `2026-10-27` e precisa trocar todas pra `27/10/2026`. Ou quer achar, num log enorme, todas as linhas com um número de pedido. Em nenhum desses casos você está procurando um **texto exato**. Você está procurando **qualquer coisa que se pareça com um padrão**.

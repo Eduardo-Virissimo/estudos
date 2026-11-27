@@ -11,6 +11,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Todo time usa Git, sem exceção. Pratique o ciclo `add`/`commit`/`push` até ser automático.
 
+**Quanto tempo:** cerca de 1h: 20 min de leitura, 10 min no Me teste e 30 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3 · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Todo mundo já passou por isso, mesmo antes de programar. Você está fazendo um trabalho, e a pasta vai se enchendo: `trabalho.docx`, `trabalho_final.docx`, `trabalho_final_revisado.docx`, `trabalho_final_AGORA_VAI.docx`. Você não sabe direito o que mudou entre um e outro. E se apagou um parágrafo importante lá na versão 3, boa sorte descobrindo em qual delas ele ainda estava.

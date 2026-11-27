@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Poucas palavras cobrem quase tudo que você ouve e lê. É o vocabulário que mais rende, então priorize.
 
+**Quanto tempo:** cerca de 1h45: 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 1h no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Pegue qualquer texto em inglês, uma notícia, um README, uma página de livro, e conte quantas vezes aparece a palavra *the*. Depois *of*, *and*, *to*. Agora procure uma palavra como *notwithstanding*. As primeiras aparecem em quase toda frase. A última, talvez uma vez num livro inteiro.

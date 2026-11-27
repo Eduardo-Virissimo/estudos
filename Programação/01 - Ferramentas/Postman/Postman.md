@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você vai testar API o tempo todo no back-end. Saiba montar requisição, headers e body; o resto da ferramenta é bônus.
 
+**Quanto tempo:** cerca de 1h15: 15 min de leitura, 15 min no Me teste e 40 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você está construindo o back-end de um app e acabou de escrever a rota que cadastra usuários. Como saber se ela funciona? A tela de cadastro ainda não existe. Dá pra escrever um código só pra chamar a rota, ou instalar o front-end inteiro e clicar nos botões... ou dá pra **conversar direto com o servidor**, sem tela nenhuma.

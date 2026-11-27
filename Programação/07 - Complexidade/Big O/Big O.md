@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você vai usar pra comparar soluções e vai ser perguntado em toda entrevista técnica. Domine.
 
+**Quanto tempo:** cerca de 1h15: 15 min de leitura, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Você escreve uma função que acha os nomes repetidos numa lista de inscritos. Testa com 100 nomes: instantâneo. Sobe pro servidor. Um mês depois, a lista tem 200 mil nomes, e a página que chama a sua função leva quatro minutos pra abrir. O código não mudou. O que mudou foi o **tamanho da entrada**, e a sua função, que era instantânea com 100, cresce de um jeito que com 200 mil fica inviável.

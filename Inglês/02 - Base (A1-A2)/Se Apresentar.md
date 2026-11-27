@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você vai usar em entrevista e no primeiro dia com um time de fora. Prepare a sua e pratique em voz alta.
 
+**Quanto tempo:** cerca de 1h30: 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 45 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 A primeira call com um time de outro país. A pessoa que está conduzindo diz: *Let's do a quick round of introductions. Could you tell us a bit about yourself?* E todo mundo olha pra você. É o momento de mais nervosismo de qualquer conversa em inglês, e ele dura só um minuto. Se esse minuto sai travado, o resto da conversa já começa pesado. Se sai natural, você relaxa e segue.

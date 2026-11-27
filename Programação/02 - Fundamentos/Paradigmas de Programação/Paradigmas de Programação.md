@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** É mais vocabulário do que prática. Conheça os nomes e a ideia de cada um; o uso real vem com OO e Funcional mais pra frente.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 5 min no Me teste e 40 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Peça um café de dois jeitos. No primeiro, você explica tudo: "pegue a xícara, coloque 15 gramas de pó, esquente a água a 92 graus, despeje devagar, em círculos...". No segundo, você só diz: "um café, por favor", e deixa quem sabe resolver. Os dois jeitos funcionam e chegam no mesmo café. Mas são **formas diferentes de pensar** o pedido.

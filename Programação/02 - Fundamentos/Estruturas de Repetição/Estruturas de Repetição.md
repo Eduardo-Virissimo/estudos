@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Percorrer lista é das coisas que você mais faz. Domine o `for...of`, o `while` e quando usar cada um.
 
+**Quanto tempo:** cerca de 1h15: 20 min de leitura, 10 min no Me teste e 40 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você tem uma lista com o XP de cada sessão de estudo e quer saber o total. Com quatro sessões, dá pra escrever `xps[0] + xps[1] + xps[2] + xps[3]`. Com quarenta, já fica ridículo. Com uma lista que cresce todo dia, é impossível: você nem sabe quantos itens ela vai ter.

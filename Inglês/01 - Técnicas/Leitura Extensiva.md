@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É uma das melhores formas de input, principalmente pra quem vai ler documentação. Entenda a ideia e encaixe na rotina.
 
+**Quanto tempo:** cerca de 30 min no primeiro dia (10 min de leitura e 5 min no Me teste, mais 10 min pra preparar o desafio). Depois o desafio segue por 6 dias, uns 20 min por dia. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Lembra das leituras de inglês da escola? Um texto difícil, uma lista de perguntas no fim, e o dicionário aberto do lado. Cada linha tinha três palavras desconhecidas. Você levava uma aula inteira pra entender um parágrafo, e saía com a certeza de que ler em inglês é um sofrimento.

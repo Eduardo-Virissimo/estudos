@@ -11,7 +11,7 @@ nome: Programação
 >   - 📌 **importante**: aparece com frequência. Entenda bem e pratique pelo menos uma vez.
 >   - 💤 **bom saber**: conheça o nome e a ideia, e aprofunde quando precisar. Não trave aqui.
 >
->   O começo de cada nota diz o porquê daquele nível.
+>   O começo de cada nota diz o porquê daquele nível e **quanto tempo** leva uma passada completa (leitura, Me teste e desafio).
 > - **Onde praticar**, logo depois do nível:
 >   - 🧪 **tem desafio**: a nota já existe e termina com um desafio em *Agora é com você*. Dá pra fazer hoje.
 >   - 🧩 **entra num projeto**: o tópico é usado num 🔨 Projeto de estágio. A nota do projeto lista todos em *Tópicos que entram aqui*.
@@ -671,6 +671,7 @@ nome: Programação
 > ✅ **Pronto pra seguir quando** você usa IA para acelerar sem aceitar código que não entende, e tem um projeto que chama uma LLM.
 > 🔨 **Projeto do estágio:** o [[Desenvolvimento de Aplicativo para Leitura e Aprendizado Interativo|app de leitura com IA]]: RAG sobre PDFs, resumos e perguntas geradas por capítulo.
 > 💡 Dá pra começar em paralelo a partir do Estágio 2: use IA para tirar dúvidas, nunca para pular o desafio.
+> 🧭 **Saiu ferramenta nova e bateu o medo?** Ferramenta muda toda semana, conceito não. Cursor, Claude Code, Codex, t3code e o que vier depois são embalagens diferentes pros mesmos tópicos daqui: [[Assistentes de Código]] (IA dentro do editor), [[Agentes de Código]] (IA que edita e roda comandos sozinha) e [[Agentes em Paralelo]] (vários agentes de uma vez). Quem entende o conceito troca de ferramenta numa tarde. Esta lista só muda quando surgir um *conceito* novo, não um produto novo.
 
 ## IA no Desenvolvimento ⭐
 

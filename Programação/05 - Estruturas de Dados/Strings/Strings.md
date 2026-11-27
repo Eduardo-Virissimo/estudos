@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Manipular texto está em todo lugar, e é tema frequente de entrevista. Domine os métodos e o custo de concatenar.
 
+**Quanto tempo:** cerca de 1h30: 15 min de leitura, 10 min nos exercícios, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você está fazendo o cadastro de um site e precisa de três regrinhas: o nome de usuário não pode ter espaço, a busca tem que achar "José" quando alguém digita "jose", e o contador de caracteres da bio tem que bater com o que a pessoa vê. Três coisas que parecem triviais. As três têm uma pegadinha, e a terceira pega até gente experiente.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a estrutura que mais trava brasileiro, e sem ela você não pergunta nada. Domine.
 
+**Quanto tempo:** cerca de 1h15: 10 min de leitura, 30 min nos exercícios, 5 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Em português, transformar uma frase numa pergunta é quase mágica: você não muda nenhuma palavra, só a entonação. "Você gosta de café." "Você gosta de café?" Pronto. E a negativa é só colocar um "não" na frente: "você não gosta de café". Por isso, quem fala português tende a fazer o mesmo em inglês, e sai *You like coffee?*, ou *What you want?*, ou *She not work here*.

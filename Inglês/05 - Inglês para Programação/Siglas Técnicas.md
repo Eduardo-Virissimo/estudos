@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparecem em code review e documentação. Conheça as principais e consulte o resto quando aparecer.
 
+**Quanto tempo:** cerca de 1h: 10 min de leitura, 5 min no Me teste e 40 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você abre um pull request de um projeto open source e lê os comentários: *LGTM, just one nit.* *PTAL when you have a sec.* *IMO we should wait, AFAIK the API is changing.* *TL;DR: WIP, ETA Friday.* Todas as palavras são inglês, e mesmo assim a frase parece escrita em código.

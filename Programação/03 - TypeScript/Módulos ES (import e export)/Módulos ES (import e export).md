@@ -11,6 +11,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Todo arquivo de um projeto usa. Domine o básico e entenda os erros de import, que são frequentes.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 5 min no Me teste e 45 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3 · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Na nota de [[Modularização]], você decidiu dividir o gerenciador de tarefas em vários arquivos: as regras num, o terminal noutro, o armazenamento num terceiro. Ótimo. Mas aí vem a pergunta prática: como o `main.ts` usa uma função que está no `regras.ts`? Os arquivos estão separados, e cada um não sabe nada do outro.

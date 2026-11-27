@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o verbo mais usado do inglês e base de várias estruturas. Domine até sair sem pensar.
 
+**Quanto tempo:** cerca de 1h15: 10 min de leitura, 30 min nos exercícios, 10 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Em português, você tem dois verbos pra coisas que parecem parecidas: "ser" e "estar". *Sou* brasileiro, *estou* cansado. Um é permanente, o outro é passageiro, e escolher errado soa estranho ("estou brasileiro"). Aí você começa o inglês e descobre que ele resolve os dois com um verbo só: o ***to be***. *I'm Brazilian. I'm tired.* Mesmo verbo, e você nunca mais precisa escolher.

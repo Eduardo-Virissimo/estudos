@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É temida em entrevista, mas no trabalho aparece pouco. Entenda a ideia e faça os problemas clássicos; não trave aqui.
 
+**Quanto tempo:** cerca de 2h15: 15 min de leitura, 5 min no Me teste e 2h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Uma escada tem 10 degraus, e você sobe dando passos de 1 ou de 2 degraus. De quantas formas diferentes dá pra chegar no topo? Tente pensar pelo fim. Pra pisar no degrau 10, seu último passo veio **ou** do degrau 9 (passo de 1) **ou** do degrau 8 (passo de 2). Então o número de formas de chegar no 10 é o número de formas de chegar no 9 **mais** o de chegar no 8. E o do 9 é o do 8 mais o do 7. E assim por diante, até o degrau 1 (uma forma só) e o 2 (duas formas: 1+1 ou 2).

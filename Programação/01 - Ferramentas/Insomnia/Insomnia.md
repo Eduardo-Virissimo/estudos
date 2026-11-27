@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** É uma alternativa ao Postman e faz a mesma coisa. Escolha uma das duas; não precisa estudar as duas.
 
+**Quanto tempo:** cerca de 45 min: 15 min de leitura, 10 min no Me teste e 25 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Se você já passou pela nota do [[Postman]], conhece a ideia: em vez de escrever código só pra ver se uma API responde, você usa um programa onde monta a requisição, aperta **Send** e vê a resposta. O **Insomnia** faz exatamente isso, e a pergunta honesta é: por que aprender um segundo?

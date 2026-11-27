@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Muitos times usam rebase no fluxo diário. Entenda o que fazem e quando é perigoso; pratique em um repo de teste.
 
+**Quanto tempo:** cerca de 1h15: 20 min de leitura, 5 min no Me teste e 45 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você passou dois dias numa branch, e o histórico dela está assim: "começa filtro", "wip", "corrige typo", "agora vai", "agora vai mesmo". Enquanto isso, a `main` andou, e você precisa trazer as mudanças dela. Se fizer um merge, ganha mais um commit no meio da bagunça, e o desenho do histórico vira uma trança. Na hora de abrir o pull request, quem for revisar vai ter que ler o seu processo inteiro de tentativa e erro.

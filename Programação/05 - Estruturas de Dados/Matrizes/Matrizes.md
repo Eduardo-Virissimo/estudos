@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparecem em grade, tabuleiro e alguns exercícios de entrevista. Entenda bem como percorrer; no trabalho são raras.
 
+**Quanto tempo:** cerca de 1h15: 15 min de leitura, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Um tabuleiro de jogo da velha, uma planilha, o mapa de um joguinho em que cada quadrado é grama, parede ou água, a tela do seu computador (que é uma grade de pixels). Tudo isso tem duas dimensões: linha e coluna. E todos são guardados do mesmo jeito, com uma **matriz**, que no JavaScript é simplesmente um array de arrays.

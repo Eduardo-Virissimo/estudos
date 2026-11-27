@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Quase todo sistema tem data, e bug de fuso é clássico. Entenda a regra de guardar em UTC; os detalhes você consulta.
 
+**Quanto tempo:** cerca de 1h30: 20 min de leitura, 10 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Seu diário de estudos registra a data de cada sessão. Tudo funciona perfeitamente durante o dia. Mas um dia você estuda até tarde, termina às 22h, e o diário grava a sessão como sendo do dia **seguinte**. Você confere o código, e a linha parece inocente: `new Date().toISOString().slice(0, 10)`. Não tem erro nenhum. Só que o resultado está errado, e só nas últimas três horas de cada dia.

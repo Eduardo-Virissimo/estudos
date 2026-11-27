@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparece em daily e em status ("I'm working on it"). Entenda e pratique.
 
+**Quanto tempo:** cerca de 1h: 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 25 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Um colega te chama numa conversa: *Hey, what are you doing?* Você responde: *I'm fixing the checkout bug.* Em seguida, ele pergunta se você pode ajudar com outra coisa, e você responde: *Sorry, I'm waiting for the client's reply, can I call you later?* As duas respostas descrevem o que está acontecendo **agora**, neste momento, e as duas usam a mesma estrutura.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você usa em toda linha de TypeScript. Domine, principalmente `unknown` versus `any`.
 
+**Quanto tempo:** cerca de 1h15: 20 min de leitura, 10 min no Me teste e 40 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 O seu programa de tarefas aceita uma prioridade, que pode ser "baixa", "média" ou "alta". Um dia, em algum canto do código, alguém escreve `prioridade = "Alta"`, com maiúscula. Em outro, `"media"`, sem acento. Nada dá erro. O programa roda. Só que o filtro de prioridade alta para de achar essas tarefas, e ninguém entende por quê.

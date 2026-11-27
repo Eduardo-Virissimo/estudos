@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você vai trabalhar em branch e resolver conflito toda semana num time. Domine, principalmente o conflito, que é onde o iniciante trava.
 
+**Quanto tempo:** cerca de 1h15: 20 min de leitura, 10 min no Me teste e 50 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 O seu projeto funciona. Está limpo, testado, bonito. E aí você tem uma ideia arriscada: reescrever o jeito como as tarefas são filtradas. Pode ficar ótimo, ou pode quebrar tudo. Sem nenhuma proteção, você mexeria direto no código que funciona, e se a ideia der errado, teria que desfazer tudo na mão, lembrando de cada linha que mudou.

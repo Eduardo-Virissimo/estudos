@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** São casos específicos de caminho mínimo. Pode deixar pra depois da primeira vaga.
 
+**Quanto tempo:** cerca de 1h15: 15 min de leitura, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 O [[Dijkstra]] tem duas limitações. Ele não aceita pesos negativos, e ele responde "de **um** lugar até todos os outros". Às vezes você precisa do que ele não faz.

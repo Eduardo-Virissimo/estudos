@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** São o tijolo de qualquer programa. Domine parâmetros, retorno e funções pequenas que fazem uma coisa só.
 
+**Quanto tempo:** cerca de 1h30: 25 min de leitura, 10 min no Me teste e 1h no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Imagine uma receita de bolo. Você não reescreve a receita inteira toda vez que vai fazer um bolo. Ela está escrita num lugar, num caderno, e você só diz: "faz aquela receita, com estes ingredientes". Se um dia descobrir que fica melhor com menos açúcar, você corrige o caderno uma vez, e todos os bolos seguintes saem certos.

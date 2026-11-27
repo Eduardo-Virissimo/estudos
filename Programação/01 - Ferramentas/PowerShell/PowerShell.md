@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Útil porque você está no Windows, mas a maioria dos tutoriais e servidores usa Bash. Aprenda o suficiente pro seu dia a dia e siga em frente.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 15 min no Me teste e 30 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Seu disco está quase cheio e você quer descobrir quais são os cinco maiores arquivos da pasta de projetos. No Linux, com Bash, a resposta envolve o `ls` imprimindo um monte de texto em colunas, e depois outros comandos recortando a coluna do tamanho, convertendo, ordenando. Funciona, mas é frágil: se a coluna mudar de lugar, tudo quebra.

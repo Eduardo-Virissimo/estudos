@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Aparece pouco fora da faculdade. Pode deixar pra depois da primeira vaga.
 
+**Quanto tempo:** cerca de 1h30: 15 min de leitura, 5 min no Me teste e 1h15 no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 A prefeitura quer levar internet de fibra a seis bairros. Ela tem o orçamento de cada trecho possível de cabo: do Centro à Vila, R$ 40 mil; da Vila ao Jardim, R$ 25 mil; e assim por diante. Não precisa ligar todo mundo com todo mundo. Basta que **todos os bairros fiquem conectados**, direta ou indiretamente, gastando o **mínimo** possível.

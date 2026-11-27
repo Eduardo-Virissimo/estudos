@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Resolve com elegância "já vi isso?" e "tire as duplicatas". Entenda e use sempre que couber.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 5 min no Me teste e 45 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você organiza um campeonato e tem a lista de inscrições: 5 mil linhas, gente que se inscreveu duas vezes, gente que mandou o formulário três vezes porque achou que não tinha ido. Precisa saber quantos jogadores existem de verdade, e na hora do check-in precisa responder rápido "este nick está inscrito?". Ninguém liga pra ordem, nem pra quantas vezes a pessoa se inscreveu. A pergunta é só: **está ou não está?**

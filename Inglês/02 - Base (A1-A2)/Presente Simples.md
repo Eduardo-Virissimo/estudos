@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o tempo verbal da documentação ("this function returns..."). Domine, com atenção ao "s" da terceira pessoa.
 
+**Quanto tempo:** cerca de 1h15: 10 min de leitura, 30 min nos exercícios, 5 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Abra a documentação de qualquer função no MDN e leia a primeira frase: *The `map()` method **creates** a new array... It **returns**...* Agora pense em como você descreveria a sua semana: *I **work** from home. I **study** English every morning.* As duas coisas, a documentação e a sua rotina, usam o mesmo tempo verbal, porque as duas falam de coisas que **são sempre assim**.

@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Projeto de verdade tem dezenas de arquivos. Saber dividir o código por responsabilidade é o que separa script de projeto.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 5 min no Me teste e 45 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Imagine o seu gerenciador de tarefas inteiro num arquivo só, com 500 linhas. Ele lê do teclado, valida, calcula prazos, formata a saída e salva em JSON, tudo misturado. Um dia você quer mudar o formato da data na tela. Rola o arquivo procurando onde isso está, acha, mexe, e torce pra não ter quebrado o cálculo de prazo, que estava logo do lado, usando a mesma variável.

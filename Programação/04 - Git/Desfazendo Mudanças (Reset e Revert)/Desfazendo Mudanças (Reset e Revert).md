@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Um dia você vai precisar desfazer algo, e fazer errado apaga trabalho. Entenda bem a diferença entre os dois.
 
+**Quanto tempo:** cerca de 1h15: 20 min de leitura, 10 min no Me teste e 40 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você acabou de fazer um commit e percebeu que a mensagem tem um erro de digitação. Ou esqueceu um arquivo. Ou, pior: rodou um comando que você não entendeu direito, e três commits inteiros sumiram do histórico. O coração acelera. Será que perdeu tudo?

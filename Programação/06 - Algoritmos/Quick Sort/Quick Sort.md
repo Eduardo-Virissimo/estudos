@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Muito cobrado na teoria e em entrevista. Entenda a partição e implemente uma vez.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 5 min no Me teste e 45 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Uma turma precisa fazer fila por altura. Em vez de comparar todo mundo com todo mundo, a professora escolhe um aluno qualquer, o Caio, e diz: "quem é mais baixo que o Caio vai pra esquerda dele, quem é mais alto vai pra direita". Em um minuto, a turma está dividida em dois grupos, e o Caio já está **exatamente no lugar certo** da fila final, porque todo mundo à esquerda é mais baixo e todo mundo à direita é mais alto. Agora ela repete o truque em cada grupo, escolhendo um novo "Caio" em cada um. Logo, todo mundo está no lugar.

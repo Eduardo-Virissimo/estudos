@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Todo programa toma decisões. Domine, e aprenda cedo a evitar `if` aninhado demais.
 
+**Quanto tempo:** cerca de 1h: 20 min de leitura, 5 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Pense em quantas decisões um caixa eletrônico toma antes de te entregar o dinheiro. O cartão é válido? A senha está certa? O valor é positivo? Tem saldo? Tem notas na máquina? Cada pergunta dessas leva a um caminho diferente: se a senha estiver errada, ele não pergunta o valor; se não tiver saldo, ele não conta as notas.

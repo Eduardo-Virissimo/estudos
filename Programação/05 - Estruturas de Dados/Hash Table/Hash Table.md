@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a estrutura mais útil da computação prática: objetos, `Map`, cache e índice usam a ideia. Domine, porque resolve metade dos exercícios de entrevista.
 
+**Quanto tempo:** cerca de 1h30: 20 min de leitura, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Você chega num show, entrega a mochila no guarda-volumes e recebe uma ficha: "armário 214". Na saída, o funcionário não procura sua mochila entre as outras mil. Ele olha a ficha e vai direto no 214. A ficha transformou "a mochila da Marina" num número de armário, e o número leva direto ao lugar.

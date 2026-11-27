@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Importante na teoria, mas raro no dia a dia de web e em entrevista de júnior. Entenda a ideia; implementar pode esperar.
 
+**Quanto tempo:** cerca de 1h30: 15 min de leitura, 5 min no Me teste e 1h15 no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Você abre o GPS pra ir de casa até a faculdade. Existe a rota pela avenida, com 3 trechos longos, e a rota pelo bairro, com 7 trechos curtinhos. A [[BFS (Busca em Largura)|BFS]] escolheria a avenida, porque tem menos trechos. Mas o GPS quer a de **menor distância total**, e talvez os 7 trechos curtos somem menos que os 3 longos. Quando cada aresta tem um **peso** (quilômetros, minutos, reais), "menos passos" deixa de ser "mais perto", e a BFS não serve mais.

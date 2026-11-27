@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparecem em reunião, prazo e preço. Entenda e pratique; é mais treino que teoria.
 
+**Quanto tempo:** cerca de 1h15: 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 40 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Numa chamada de trabalho, alguém diz que a entrega é dia *oh-three-oh-four*, às *fifteen*. Você anota: 3 de abril, às 15h. Só que a pessoa estava nos Estados Unidos, e quis dizer **4 de março**. E talvez tenha dito *fifty*, não *fifteen*. Um mês de diferença no prazo, e um horário que nem existe.

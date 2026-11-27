@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você precisa entender o `^1.2.3` do `package.json` e como as versões funcionam. As tags em si você usa pouco no começo.
 
+**Quanto tempo:** cerca de 1h15: 15 min de leitura, 10 min no Me teste e 45 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Você usa uma biblioteca de datas no seu projeto, na versão `1.4.2`. Sai a `1.5.0`. Dá pra atualizar sem medo? E se sair a `2.0.0`? Repare que você conseguiu ter uma intuição sobre essas perguntas sem saber nada da biblioteca, só olhando os números. Isso não é coincidência. É o **Versionamento Semântico**, uma convenção que dá significado a cada parte do número de versão.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Ajuda a fixar vocabulário de verdade, mas é ferramenta, não fim. Entenda e use quando estiver consumindo bastante input.
 
+**Quanto tempo:** cerca de 30 min no primeiro dia (10 min de leitura e 5 min no Me teste, mais 20 min pra preparar o desafio). Depois o desafio segue por 5 dias, uns 20 min por dia.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Quase todo mundo que estudou inglês já fez isto: uma lista de palavras, a tradução do lado, e horas tentando decorar. *Figure out*: descobrir. *Achieve*: conseguir. *Although*: embora. Na semana seguinte, metade já foi embora. No mês seguinte, quase tudo. E as que sobraram, você não sabe usar numa frase.

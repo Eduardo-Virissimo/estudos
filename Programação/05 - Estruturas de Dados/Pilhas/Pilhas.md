@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparecem disfarçadas (desfazer, parênteses, call stack) e em entrevista. Entenda e implemente uma vez.
 
+**Quanto tempo:** cerca de 1h15: 15 min de leitura, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Você está editando um texto, escreve uma frase, apaga uma palavra, cola um parágrafo. Aí aperta Ctrl+Z. O que volta? O parágrafo colado, a última coisa que você fez. Ctrl+Z de novo: a palavra apagada volta. O editor desfaz na ordem **contrária** à que você fez, como quem tira pratos de uma pilha: o último prato que entrou é o primeiro a sair.

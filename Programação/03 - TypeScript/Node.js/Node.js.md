@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o que roda o seu back-end e as suas ferramentas. Entenda bem o que ele é e como rodar um projeto.
 
+**Quanto tempo:** cerca de 45 min: 15 min de leitura, 5 min no Me teste e 20 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Durante quase quinze anos, o JavaScript viveu preso dentro do navegador. Ele servia pra uma coisa só: deixar páginas interativas, fazer um menu abrir, validar um formulário. Se você quisesse escrever um servidor, um script de automação ou uma ferramenta de terminal, precisava aprender outra linguagem.

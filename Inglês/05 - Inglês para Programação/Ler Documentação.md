@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a habilidade de inglês que mais te deixa independente como dev. Pratique toda semana.
 
+**Quanto tempo:** cerca de 45 min: 15 min de leitura, 5 min no Me teste e 30 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Muita gente que trava numa conversa em inglês lê documentação técnica sem esforço nenhum. Parece contraditório, mas tem explicação. A documentação é o inglês **mais fácil** que existe: frases curtas, um vocabulário muito repetitivo (a mesma meia dúzia de palavras aparece em todo lugar), e um assunto que você já entende. Se você sabe o que é uma função, entende *This function returns a string* mesmo sem conhecer metade das palavras.

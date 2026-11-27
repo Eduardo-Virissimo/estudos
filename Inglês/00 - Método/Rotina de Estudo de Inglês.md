@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Inglês é constância: sem rotina, nenhuma técnica funciona. Monte a sua e siga por 2 semanas antes de mexer.
 
+**Quanto tempo:** cerca de 30 min no primeiro dia (10 min de leitura e 5 min no Me teste, mais 20 min pra preparar o desafio). Depois o desafio segue por 7 dias, uns 30 a 60 min por dia.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Todo começo de ano, alguém decide que agora vai: duas horas de inglês por dia. Compra o livro, baixa os aplicativos, monta uma planilha. Na primeira semana, cumpre. Na segunda, falha um dia por cansaço, e outro porque surgiu um compromisso. Na terceira, já parou. E conclui, de novo, que "não tem jeito pra idiomas".

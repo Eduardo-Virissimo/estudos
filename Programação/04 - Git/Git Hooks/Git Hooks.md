@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Normalmente alguém já configurou no projeto. Saiba que existem e o que fazem; aprofunde quando precisar mexer.
 
+**Quanto tempo:** cerca de 1h30: 15 min de leitura, 10 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Você revisa um pull request de um colega e encontra, de novo, um `console.log` esquecido, um arquivo sem formatação e um commit chamado "ajustes". Você comenta, ele corrige, e na semana seguinte acontece tudo de novo, com outra pessoa. Não é falta de vontade: é que ninguém lembra de rodar o linter, o formatter e a checagem de tipos antes de **cada** commit. Ninguém consegue.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É a mais simples e você usa sem perceber (`find`, `includes`). Entenda o custo e siga em frente rápido.
 
+**Quanto tempo:** cerca de 45 min: 15 min de leitura, 5 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você perdeu a chave e procura nos bolsos da calça: o da frente esquerdo, o da frente direito, os de trás. Não há atalho, porque a chave pode estar em qualquer um, e os bolsos não seguem ordem nenhuma. Você olha um por um até achar ou até acabarem os bolsos.

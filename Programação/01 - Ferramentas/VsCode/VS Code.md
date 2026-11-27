@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É onde você vai passar o dia. Atalhos, busca, terminal integrado e debugger economizam horas por semana, então vale dominar.
 
+**Quanto tempo:** cerca de 45 min: 15 min de leitura, 15 min no Me teste e 20 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Observe alguém experiente programando no VS Code e repare numa coisa: a pessoa quase não usa o mouse. Abre arquivos sem procurar nas pastas, renomeia uma função no projeto inteiro de uma vez, edita dez linhas ao mesmo tempo. Parece que ela conhece centenas de atalhos. Na verdade, ela conhece uns cinco muito bem, e sabe como achar o resto.

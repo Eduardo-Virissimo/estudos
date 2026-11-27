@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É a fila de prioridade, que aparece em vários problemas médios de entrevista. Entenda a ideia e implemente uma vez.
 
+**Quanto tempo:** cerca de 1h15: 15 min de leitura, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 No pronto-socorro, ninguém é atendido por ordem de chegada. Quem chegou com o braço quebrado espera; quem chegou infartando passa na frente de todo mundo, mesmo tendo chegado por último. E a cada paciente novo, a pergunta da recepção é sempre a mesma: **quem é o mais urgente agora?**

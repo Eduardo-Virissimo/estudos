@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você vai criar projeto do zero várias vezes. Pratique até montar um sem tutorial aberto.
 
+**Quanto tempo:** cerca de 1h15: 20 min de leitura, 5 min no Me teste e 45 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Até aqui, você criava um `teste.ts` em qualquer pasta e rodava com `npx tsx teste.ts`. Funciona pra experimentar. Mas quando o programa cresce pra vários arquivos, ganha dependências, precisa ir pro Git e rodar em outro computador, o arquivo solto não basta mais. Você precisa de um **projeto**.

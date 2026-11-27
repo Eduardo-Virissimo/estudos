@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Sem falar e escrever você não destrava, mas é só 20% do tempo. Entenda bem e pratique toda semana.
 
+**Quanto tempo:** cerca de 15 min no primeiro dia (10 min de leitura e 5 min no Me teste). Depois o desafio segue por 5 dias, uns 15 min por dia. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Você entende quase tudo de um vídeo em inglês. Lê documentação sem dificuldade. Aí, numa conversa, alguém te pergunta o que você fez no fim de semana, e você trava. As palavras estão todas ali, você as reconhece quando ouve, mas na hora de juntar uma frase, não sai. "Eu estava pensando em..." como é que diz isso mesmo?

@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Frameworks e bibliotecas usam, mas muito código moderno prefere funções. Entenda bem a sintaxe; a teoria vem em OO no Estágio 3.
 
+**Quanto tempo:** cerca de 1h30: 25 min de leitura, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Pense na planta de uma casa. A planta em si não é uma casa: você não mora nela. Mas com uma planta só você constrói quantas casas quiser, todas com a mesma estrutura, e cada uma com os seus próprios móveis, as suas cores, os seus moradores.

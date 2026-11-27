@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Comum, mas dá pra se comunicar mesmo confundindo os dois. Entenda a diferença e pratique.
 
+**Quanto tempo:** cerca de 1h15: 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Em português, o futuro é fácil: "vou ligar", "vou viajar", "vai chover". Uma forma só, e serve pra tudo. Aí você começa o inglês e descobre que existem **duas** formas, *will* e *going to*, e que os livros dão uma lista de regras pra cada uma. A reação natural é escolher uma e usar pra tudo.

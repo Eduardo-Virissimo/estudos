@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você vai usar pra conectar no GitHub e, mais pra frente, em servidores. Saiba gerar chave e conectar; a parte avançada fica pra quando aparecer.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 10 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Em algum momento, o seu programa vai sair do seu computador e morar num servidor: uma máquina em algum datacenter, sem tela e sem teclado, que fica ligada 24 horas por dia. E aí surge a pergunta: como você entra nela? Como roda um comando, olha um log, atualiza o programa, se ela está a centenas de quilômetros?

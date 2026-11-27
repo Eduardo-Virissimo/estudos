@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o inglês que você vai ler todo dia em código, erro e documentação. Domine, e vá aumentando o seu glossário.
 
+**Quanto tempo:** cerca de 1h15: 15 min de leitura, 10 min no Me teste e 45 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Leia três mensagens de erro, de três ferramentas diferentes: *Failed to fetch.* *Unexpected token in JSON at position 0.* *Request timed out.* Agora abra a documentação de uma biblioteca qualquer: *This method parses the input and returns...* Depois de algumas semanas lendo esse tipo de coisa, você percebe um padrão: são sempre as **mesmas palavras**, aparecendo em todo lugar, em combinações diferentes.

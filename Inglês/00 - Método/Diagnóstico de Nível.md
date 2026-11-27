@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você faz uma vez no começo e repete de tempos em tempos. Importante pra escolher material, mas não é algo pra estudar a fundo.
 
+**Quanto tempo:** cerca de 1h15: 10 min de leitura, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 "Qual o seu nível de inglês?" A maioria das pessoas responde com o tempo de curso ("fiz três anos") ou com uma palavra vaga ("intermediário"). Nenhuma das duas respostas ajuda muito. Três anos de curso podem ter deixado alguém lendo bem e sem conseguir falar uma frase. E "intermediário" quer dizer coisas diferentes pra cada pessoa.

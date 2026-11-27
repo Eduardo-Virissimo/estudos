@@ -11,6 +11,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Muitos times exigem. É rápido de aprender e já deixa o seu GitHub mais profissional.
 
+**Quanto tempo:** cerca de 45 min: 15 min de leitura, 10 min no Me teste e 20 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3 · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Abra o histórico de um projeto pessoal qualquer, inclusive os seus, e você vai encontrar algo assim: "ajustes", "wip", "agora vai", "agora vai mesmo", "arrumei", "agora vai!!!". Daqui a três meses, quando você precisar descobrir em que momento um bug apareceu, esse histórico não vai te dizer nada. Cada commit é uma caixa sem etiqueta.

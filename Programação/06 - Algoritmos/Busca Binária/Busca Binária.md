@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Cai muito em entrevista e é fácil de errar. Entenda bem e escreva várias vezes até sair certa.
 
+**Quanto tempo:** cerca de 1h15: 15 min de leitura, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Procurar "ornitorrinco" num dicionário de papel. Ninguém começa na primeira página e vai virando uma por uma. Você abre mais ou menos no meio, cai no "L", sabe que o "O" vem depois, e ignora a metade da esquerda inteira. Abre no meio do que sobrou, cai no "R", volta um pouco. Em poucas aberturas você chega na página, num livro de mil.

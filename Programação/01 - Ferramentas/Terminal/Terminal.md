@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você vai abrir o terminal todo dia pra rodar projeto, instalar pacote e usar o Git. Pratique até navegar e rodar comandos sem pensar.
 
+**Quanto tempo:** cerca de 45 min: 15 min de leitura, 15 min no Me teste e 15 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Todo tutorial de programação, cedo ou tarde, diz: "abra o terminal e rode este comando". E aí você abre uma janela preta, com um cursor piscando, sem botão nenhum, sem menu, sem dica do que fazer. É normal sentir que você voltou trinta anos no tempo.

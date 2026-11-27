@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Você não vai implementar no trabalho. Saiba que existem e por que um índice de banco não degrada; o resto pode esperar.
 
+**Quanto tempo:** cerca de 45 min: 10 min de leitura, 5 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 A nota da [[Árvore Binária de Busca (BST)]] terminou com um problema sério: insira dados que já chegam em ordem, e a árvore vira uma linha, com busca em O(n). E dados em ordem são o caso **comum**, não a exceção. Então como os bancos de dados e as bibliotecas garantem O(log n) sempre?

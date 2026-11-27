@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Ajuda a ser entendido e a usar o dicionário de pronúncia. Entenda os sons principais; perfeição não é o objetivo.
 
+**Quanto tempo:** cerca de 1h30: 15 min de leitura, 25 min nos exercícios, 5 min no Me teste e 45 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Leia em voz alta estas três palavras: *though*, *through*, *tough*. Elas se escrevem quase igual, só uma ou duas letras de diferença, e soam completamente diferentes: "dôu", "thrú", "tâf". Agora tente adivinhar como se fala *queue*. Ou *cache*. Ou *suite*. Em português, você lê uma palavra que nunca viu e já sabe pronunciar. Em inglês, não tem como.

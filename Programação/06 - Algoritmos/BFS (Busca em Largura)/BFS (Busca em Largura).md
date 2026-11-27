@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É o jeito de achar o menor caminho sem peso e cai bastante em entrevista. Entenda e pratique.
 
+**Quanto tempo:** cerca de 1h45: 20 min de leitura, 5 min no Me teste e 1h15 no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
 Jogue uma pedra num lago parado. A onda sai em círculo: primeiro atinge tudo que está a um palmo, depois tudo a dois palmos, depois a três. Ela nunca chega a algo distante antes de passar por tudo que está mais perto. Agora a pergunta: qual o caminho **mais curto** da pedra até uma folha boiando? É o caminho que a primeira onda a tocar a folha percorreu.

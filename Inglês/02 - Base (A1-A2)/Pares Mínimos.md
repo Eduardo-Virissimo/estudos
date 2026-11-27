@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Treino de ouvido útil, mas não é prioridade pra trabalhar. Faça alguns exercícios e siga em frente.
 
+**Quanto tempo:** cerca de 1h no primeiro dia (10 min de leitura, 25 min nos exercícios e 5 min no Me teste, mais 20 min pra preparar o desafio). Depois o desafio segue por 7 dias, uns 5 min por dia.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Numa chamada com o time, alguém pergunta como você trabalha, e você responde: *I walk from home*. O seu colega americano faz uma cara estranha. Você quis dizer *I **work** from home*, "trabalho de casa". Mas o que ele ouviu foi "eu **ando** de casa". As duas palavras, *work* e *walk*, soam iguais pra você. Pra ele, são completamente diferentes.

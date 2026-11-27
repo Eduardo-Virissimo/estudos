@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** Errar raramente atrapalha o entendimento, mas soa estranho. Entenda as regras principais e deixe o resto vir com input.
 
+**Quanto tempo:** cerca de 1h15: 10 min de leitura, 30 min nos exercícios, 5 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Em português, você diz "sou desenvolvedor", sem artigo, e "a vida é bela", com artigo. Em inglês, é exatamente o contrário: *I'm **a** developer*, com artigo, e *Life is beautiful*, sem. Não é à toa que os artigos são um dos erros mais teimosos de quem fala português. As palavras são pequenas, aparecem em toda frase, e as regras parecem não seguir lógica nenhuma.

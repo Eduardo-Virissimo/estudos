@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 📌 importante.** É a base de BST, heap e de muito exercício de entrevista. Entenda bem e pratique os percursos.
 
+**Quanto tempo:** cerca de 1h15: 15 min de leitura, 5 min no Me teste e 1h no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 O chaveamento de um campeonato de futebol: na base, 16 times; acima, as oitavas, depois as quartas, a semifinal e, no topo, a final. Cada jogo junta dois times de baixo e manda um pra cima. Desenhe isso de cabeça pra baixo e você tem uma **árvore**: um ponto no topo (a final) que se divide em dois, que se dividem em dois, até as pontas.

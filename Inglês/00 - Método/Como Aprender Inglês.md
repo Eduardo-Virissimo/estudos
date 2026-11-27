@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o mapa de como a aquisição funciona. Entender isso evita anos estudando do jeito errado, então leia com calma antes de tudo.
 
+**Quanto tempo:** cerca de 45 min: 10 min de leitura, 5 min no Me teste e 30 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Muita gente passou anos estudando inglês na escola. Sabe todas as regras do *present perfect*, conjuga o verbo *to be* de trás pra frente, tirava 10 nas provas. E aí, numa viagem, na hora de pedir um café, não sai nada. A pessoa fica parada, montando a frase na cabeça, traduzindo palavra por palavra, enquanto o atendente espera.

@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Aparece só em problemas específicos de grafo. Pode deixar pra depois da primeira vaga.
 
+**Quanto tempo:** cerca de 1h: 15 min de leitura, 5 min no Me teste e 45 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 
 Numa rede social, a Ana é amiga da Bia, a Bia é amiga do Caio, e o Duda é amigo do Edu. Pergunta: a Ana e o Caio estão no mesmo grupo de amigos (ligados por alguma corrente de amizades)? E a Ana e o Edu? Agora imagine que as amizades vão chegando uma de cada vez, milhões delas, e a cada uma você precisa responder perguntas desse tipo na hora.

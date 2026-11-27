@@ -10,6 +10,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É 80% do código do dia a dia: desestruturação, spread, `map`/`filter`. Pratique muito até sair sem consultar.
 
+**Quanto tempo:** cerca de 1h15: 20 min de leitura, 10 min no Me teste e 45 min no desafio.
+
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 
 Olhe este código e tente prever o que ele mostra:

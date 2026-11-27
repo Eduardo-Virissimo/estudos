@@ -8,6 +8,8 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Estão em quase toda frase. Domine, porque erro aqui aparece o tempo todo.
 
+**Quanto tempo:** cerca de 1h: 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 25 min no desafio.
+
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 
 Você está contando pra um colega que a Maria perdeu o celular, e diz: *Maria lost his phone.* Ele te olha confuso: o celular de quem? De algum homem? Você quis dizer "o celular dela", mas pensou como em português: "o celular" é masculino, então saiu *his*. O erro parece pequeno, e muda completamente quem é o dono da coisa.
