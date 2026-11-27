@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Inglês é constância: sem rotina, nenhuma técnica funciona. Monte a sua e siga por 2 semanas antes de mexer.
 
-**Quanto tempo:** cerca de 30 min no primeiro dia (10 min de leitura e 5 min no Me teste, mais 20 min pra preparar o desafio). Depois o desafio segue por 7 dias, uns 30 a 60 min por dia.
+**⏱️ Quanto tempo: cerca de 30 min no primeiro dia, depois 7 dias de uns 30 a 60 min.** No primeiro dia: 10 min de leitura e 5 min no Me teste, mais 20 min pra preparar o desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

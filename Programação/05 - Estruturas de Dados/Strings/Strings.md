@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Manipular texto está em todo lugar, e é tema frequente de entrevista. Domine os métodos e o custo de concatenar.
 
-**Quanto tempo:** cerca de 1h30: 15 min de leitura, 10 min nos exercícios, 5 min no Me teste e 1h no desafio.
+**⏱️ Quanto tempo: cerca de 1h30.** Uns 15 min de leitura, 10 min nos exercícios, 5 min no Me teste e 1h no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial", refaça uns exercícios e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

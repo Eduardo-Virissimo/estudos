@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Quase todo sistema tem data, e bug de fuso é clássico. Entenda a regra de guardar em UTC; os detalhes você consulta.
 
-**Quanto tempo:** cerca de 1h30: 20 min de leitura, 10 min no Me teste e 1h no desafio.
+**⏱️ Quanto tempo: cerca de 1h30.** Uns 20 min de leitura, 10 min no Me teste e 1h no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 

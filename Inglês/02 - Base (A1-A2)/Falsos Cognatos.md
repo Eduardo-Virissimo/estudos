@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Evitam mal-entendidos bobos (actually, pretend). Leia, pratique e revise de vez em quando.
 
-**Quanto tempo:** cerca de 1h15: 10 min de leitura, 25 min nos exercícios, 10 min no Me teste e 30 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 10 min de leitura, 25 min nos exercícios, 10 min no Me teste e 30 min no desafio.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial", refaça uns exercícios e volte no texto só onde errar.
 
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 

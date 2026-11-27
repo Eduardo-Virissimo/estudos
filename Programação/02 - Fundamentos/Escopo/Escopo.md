@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Muito bug estranho é escopo. Entenda bem `let`/`const` e bloco; isso aparece também em entrevista.
 
-**Quanto tempo:** cerca de 1h: 20 min de leitura, 10 min no Me teste e 30 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h.** Uns 20 min de leitura, 10 min no Me teste e 30 min no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** É simples quando funciona e cai em entrevista. Entenda quando dá certo e quando não dá.
 
-**Quanto tempo:** cerca de 1h30: 15 min de leitura, 5 min no Me teste e 1h15 no desafio.
+**⏱️ Quanto tempo: cerca de 1h30.** Uns 15 min de leitura, 5 min no Me teste e 1h15 no desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

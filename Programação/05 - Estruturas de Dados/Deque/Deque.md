@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** É uma variação da fila que aparece em poucos problemas. Conheça a ideia; aprofunde se cair num exercício.
 
-**Quanto tempo:** cerca de 1h: 15 min de leitura, 5 min no Me teste e 40 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h.** Uns 15 min de leitura, 5 min no Me teste e 40 min no desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

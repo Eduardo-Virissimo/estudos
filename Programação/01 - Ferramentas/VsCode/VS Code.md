@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É onde você vai passar o dia. Atalhos, busca, terminal integrado e debugger economizam horas por semana, então vale dominar.
 
-**Quanto tempo:** cerca de 45 min: 15 min de leitura, 15 min no Me teste e 20 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 45 min.** Uns 15 min de leitura, 15 min no Me teste e 20 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

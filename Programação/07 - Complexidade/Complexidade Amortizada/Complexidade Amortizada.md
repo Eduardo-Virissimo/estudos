@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Explica por que o `push` do array é rápido. Conheça a ideia; o formalismo pode esperar.
 
-**Quanto tempo:** cerca de 45 min: 10 min de leitura, 5 min no Me teste e 30 min no desafio.
+**⏱️ Quanto tempo: cerca de 45 min.** Uns 10 min de leitura, 5 min no Me teste e 30 min no desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

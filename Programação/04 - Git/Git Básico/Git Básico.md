@@ -11,7 +11,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Todo time usa Git, sem exceção. Pratique o ciclo `add`/`commit`/`push` até ser automático.
 
-**Quanto tempo:** cerca de 1h: 20 min de leitura, 10 min no Me teste e 30 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 1h.** Uns 20 min de leitura, 10 min no Me teste e 30 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3 · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 

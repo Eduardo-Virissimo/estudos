@@ -111,6 +111,25 @@ export function parsePerguntas(texto: string): PerguntaLida[] {
   return out;
 }
 
+/**
+ * Lê o tempo de estudo da nota: a parte em negrito de `**⏱️ Quanto tempo: cerca de 1h30.** Uns 25 min...`.
+ * Devolve só o que interessa pra um card ("1h30"), ou null se a nota não tiver a linha.
+ * Aceita a linha sem o ⏱️ e sem o "cerca de", pra uma nota escrita à mão não sumir.
+ */
+export function parseTempo(texto: string): string | null {
+  return valorEmNegrito(texto, /^\*\*(?:⏱️?\s*)?Quanto tempo:\s*([^*\n]+?)\s*\*\*/mu);
+}
+
+/** Tempo pra rever quem já estudou: `**🔁 Pra rever: cerca de 15 min.** Faça o Me teste...` -> "15 min". */
+export function parseTempoRever(texto: string): string | null {
+  return valorEmNegrito(texto, /^\*\*(?:🔁\s*)?Pra rever:\s*([^*\n]+?)\s*\*\*/mu);
+}
+
+function valorEmNegrito(texto: string, re: RegExp): string | null {
+  const t = (texto.match(re)?.[1] ?? "").replace(/^cerca de\s+/i, "").replace(/\.$/, "").trim();
+  return t || null;
+}
+
 /** Troca `[ ]` por `[x]` (e vice-versa) numa linha. */
 export function alternarCheckbox(linha: string): string {
   return /\[[xX]\]/.test(linha) ? linha.replace(/\[[xX]\]/, "[ ]") : linha.replace(/\[ \]/, "[x]");

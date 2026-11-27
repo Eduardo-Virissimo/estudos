@@ -12,7 +12,7 @@ nome: Inglês
 >   - 📌 **importante**: aparece com frequência. Entenda bem e pratique.
 >   - 💤 **bom saber**: conheça a ideia e deixe o input completar o resto. Não trave aqui.
 >
->   O começo de cada nota diz o porquê daquele nível e **quanto tempo** leva uma passada completa (leitura, exercícios, Me teste e desafio).
+>   O começo de cada nota diz o porquê daquele nível e **quanto tempo** leva: ⏱️ pra estudar do zero (leitura, exercícios, Me teste e desafio) e 🔁 pra rever, se você já estudou.
 > - **Onde praticar**, logo depois do nível:
 >   - 🏋️ **tem exercícios**: a nota traz uma lista de exercícios pra fazer.
 >   - 🧪 **tem desafio**: a nota termina com um desafio em *Agora é com você*.

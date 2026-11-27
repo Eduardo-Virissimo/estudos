@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Todo tutorial, documentação e mensagem de commit usa. É fácil e você vai ver toda hora, então domine.
 
-**Quanto tempo:** cerca de 1h15: 10 min de leitura, 20 min nos exercícios, 5 min no Me teste e 45 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 10 min de leitura, 20 min nos exercícios, 5 min no Me teste e 45 min no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial", refaça uns exercícios e volte no texto só onde errar.
 
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 

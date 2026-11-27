@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você vai testar API o tempo todo no back-end. Saiba montar requisição, headers e body; o resto da ferramenta é bônus.
 
-**Quanto tempo:** cerca de 1h15: 15 min de leitura, 15 min no Me teste e 40 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 15 min de leitura, 15 min no Me teste e 40 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

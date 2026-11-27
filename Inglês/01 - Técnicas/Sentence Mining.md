@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Ajuda a fixar vocabulário de verdade, mas é ferramenta, não fim. Entenda e use quando estiver consumindo bastante input.
 
-**Quanto tempo:** cerca de 30 min no primeiro dia (10 min de leitura e 5 min no Me teste, mais 20 min pra preparar o desafio). Depois o desafio segue por 5 dias, uns 20 min por dia.
+**⏱️ Quanto tempo: cerca de 30 min no primeiro dia, depois 5 dias de uns 20 min.** No primeiro dia: 10 min de leitura e 5 min no Me teste, mais 20 min pra preparar o desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

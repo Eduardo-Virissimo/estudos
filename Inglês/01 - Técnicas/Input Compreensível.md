@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o motor de tudo, 70% do seu tempo de inglês. Se for fazer uma coisa só, faça esta todo dia.
 
-**Quanto tempo:** cerca de 1h: 10 min de leitura, 5 min no Me teste e 40 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h.** Uns 10 min de leitura, 5 min no Me teste e 40 min no desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

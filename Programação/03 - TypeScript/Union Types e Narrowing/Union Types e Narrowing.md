@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o que deixa o TypeScript útil de verdade. Domine, porque aparece em todo tratamento de erro e resposta de API.
 
-**Quanto tempo:** cerca de 1h15: 25 min de leitura, 5 min no Me teste e 50 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 25 min de leitura, 5 min no Me teste e 50 min no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 

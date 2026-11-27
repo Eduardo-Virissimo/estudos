@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { addDias, diaDaSemana, diffDias, parseISO, relativo } from "../src/domain/dates.ts";
-import { parsePerguntas, parseTrilha, alternarCheckbox, limparTitulo } from "../src/domain/parse.ts";
+import { parsePerguntas, parseTempo, parseTempoRever, parseTrilha, alternarCheckbox, limparTitulo } from "../src/domain/parse.ts";
 import { CONQUISTAS, calcularProgresso, maiorSequencia, nivelPara, sequencia, avaliarConquistas } from "../src/domain/progress.ts";
 import { aposEsquecer, aposLembrar, filaDoDia, infoRevisao, normalizarCaixa } from "../src/domain/review.ts";
 import type { Snapshot } from "../src/domain/types.ts";
@@ -194,5 +194,32 @@ describe("configurações", () => {
     assert.deepEqual(s.titulos, DEFAULT_SETTINGS.titulos);
     assert.doesNotThrow(() => mergeSettings(null));
     assert.doesNotThrow(() => mergeSettings("lixo"));
+  });
+});
+
+describe("tempo de estudo da nota", () => {
+  it("lê o total em negrito da linha ⏱️ Quanto tempo", () => {
+    assert.equal(parseTempo("**Quanto focar: 🔥 essencial.** x\n\n**⏱️ Quanto tempo: cerca de 1h30.** Uns 25 min de leitura."), "1h30");
+    assert.equal(parseTempo("**⏱️ Quanto tempo: cerca de 45 min.** Uns 15 min..."), "45 min");
+  });
+  it("desafio de vários dias vem inteiro", () => {
+    assert.equal(parseTempo("**⏱️ Quanto tempo: cerca de 30 min no primeiro dia, depois 7 dias de uns 30 a 60 min.** No primeiro dia: ..."), "30 min no primeiro dia, depois 7 dias de uns 30 a 60 min");
+  });
+  it("aceita a linha escrita à mão sem ⏱️ e sem 'cerca de'; sem a linha dá null", () => {
+    assert.equal(parseTempo("**Quanto tempo: 2h.** leitura e desafio"), "2h");
+    assert.equal(parseTempo("# Nota\n\nTexto sem tempo nenhum."), null);
+    assert.equal(parseTempo("Falei do **Quanto tempo:** no meio da frase"), null, "só vale no começo da linha, com o valor no negrito");
+  });
+});
+
+describe("tempo pra rever", () => {
+  const nota = "**⏱️ Quanto tempo: cerca de 1h30.** Uns 25 min...\n\n**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro...";
+  it("lê o rever separado do estudar", () => {
+    assert.equal(parseTempoRever(nota), "15 min");
+    assert.equal(parseTempo(nota), "1h30", "a linha de rever não atrapalha a de estudar");
+  });
+  it("sem a linha dá null; escrita à mão sem 🔁 também vale", () => {
+    assert.equal(parseTempoRever("**⏱️ Quanto tempo: cerca de 1h.** Uns..."), null);
+    assert.equal(parseTempoRever("**Pra rever: 10 min.** Me teste."), "10 min");
   });
 });

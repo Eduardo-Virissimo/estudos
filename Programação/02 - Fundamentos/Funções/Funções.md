@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** São o tijolo de qualquer programa. Domine parâmetros, retorno e funções pequenas que fazem uma coisa só.
 
-**Quanto tempo:** cerca de 1h30: 25 min de leitura, 10 min no Me teste e 1h no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 1h30.** Uns 25 min de leitura, 10 min no Me teste e 1h no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 

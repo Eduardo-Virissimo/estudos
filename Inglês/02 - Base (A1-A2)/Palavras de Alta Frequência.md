@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Poucas palavras cobrem quase tudo que você ouve e lê. É o vocabulário que mais rende, então priorize.
 
-**Quanto tempo:** cerca de 1h45: 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 1h no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 1h45.** Uns 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 1h no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial", refaça uns exercícios e volte no texto só onde errar.
 
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 

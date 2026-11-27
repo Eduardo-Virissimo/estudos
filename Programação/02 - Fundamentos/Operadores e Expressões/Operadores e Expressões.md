@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Estão em todo `if` e em todo cálculo. Domine, com atenção ao `===` e à precedência, que são pegadinhas clássicas.
 
-**Quanto tempo:** cerca de 45 min: 15 min de leitura, 10 min no Me teste e 20 min no desafio.
+**⏱️ Quanto tempo: cerca de 45 min.** Uns 15 min de leitura, 10 min no Me teste e 20 min no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você vai usar em entrevista e no primeiro dia com um time de fora. Prepare a sua e pratique em voz alta.
 
-**Quanto tempo:** cerca de 1h30: 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 45 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 1h30.** Uns 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 45 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial", refaça uns exercícios e volte no texto só onde errar.
 
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 

@@ -11,7 +11,7 @@ nome: Programação
 >   - 📌 **importante**: aparece com frequência. Entenda bem e pratique pelo menos uma vez.
 >   - 💤 **bom saber**: conheça o nome e a ideia, e aprofunde quando precisar. Não trave aqui.
 >
->   O começo de cada nota diz o porquê daquele nível e **quanto tempo** leva uma passada completa (leitura, Me teste e desafio).
+>   O começo de cada nota diz o porquê daquele nível e **quanto tempo** leva: ⏱️ pra estudar do zero (leitura, Me teste e desafio) e 🔁 pra rever, se você já estudou.
 > - **Onde praticar**, logo depois do nível:
 >   - 🧪 **tem desafio**: a nota já existe e termina com um desafio em *Agora é com você*. Dá pra fazer hoje.
 >   - 🧩 **entra num projeto**: o tópico é usado num 🔨 Projeto de estágio. A nota do projeto lista todos em *Tópicos que entram aqui*.

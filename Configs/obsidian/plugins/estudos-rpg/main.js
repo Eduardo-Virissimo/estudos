@@ -970,7 +970,12 @@ function topico(parent, ctx, trilha, tp, contexto) {
   if (!tp.caminho) nome.createSpan({ cls: "erpg-selo-novo", text: "sem nota" });
   if (tp.desc) corpo.createDiv({ cls: "erpg-topico-desc", text: tp.desc });
   const nota = tp.caminho ? ctx.snap.notas.find((n) => n.caminho === tp.caminho) : void 0;
-  if (nota) corpo.createSpan({ cls: `erpg-nivel is-${nota.nivel}`, text: NOME_NIVEL[nota.nivel] });
+  if (nota) {
+    const pe = corpo.createDiv({ cls: "erpg-topico-pe" });
+    pe.createSpan({ cls: `erpg-nivel is-${nota.nivel}`, text: NOME_NIVEL[nota.nivel] });
+    if (nota.tempo) pe.createSpan({ cls: "erpg-tempo", text: `\u23F1\uFE0F ${nota.tempo}`, attr: { title: `Estudar ${nota.label} do zero: ${nota.tempo}` } });
+    if (nota.tempoRever) pe.createSpan({ cls: "erpg-tempo is-rever", text: `\u{1F501} rever ${nota.tempoRever}`, attr: { title: `J\xE1 estudou ${nota.label}? Pra rever: ${nota.tempoRever}` } });
+  }
   corpo.addEventListener("click", (ev) => ctx.acoes.abrirNota(tp.caminho ?? tp.alvo, ev.ctrlKey || ev.metaKey));
 }
 function listaTopicos(parent, ctx, alvo, busca) {
@@ -1310,6 +1315,16 @@ function parsePerguntas(texto) {
   }
   return out;
 }
+function parseTempo(texto) {
+  return valorEmNegrito(texto, /^\*\*(?:⏱️?\s*)?Quanto tempo:\s*([^*\n]+?)\s*\*\*/mu);
+}
+function parseTempoRever(texto) {
+  return valorEmNegrito(texto, /^\*\*(?:🔁\s*)?Pra rever:\s*([^*\n]+?)\s*\*\*/mu);
+}
+function valorEmNegrito(texto, re) {
+  const t = (texto.match(re)?.[1] ?? "").replace(/^cerca de\s+/i, "").replace(/\.$/, "").trim();
+  return t || null;
+}
 function alternarCheckbox(linha) {
   return /\[[xX]\]/.test(linha) ? linha.replace(/\[[xX]\]/, "[ ]") : linha.replace(/\[ \]/, "[x]");
 }
@@ -1322,8 +1337,8 @@ var Indexer = class {
   }
   app;
   getSettings;
-  /** Cache das perguntas por arquivo: só relê o arquivo se ele mudou. */
-  cachePerguntas = /* @__PURE__ */ new Map();
+  /** Cache do que vem do corpo da nota (perguntas e tempo): só relê o arquivo se ele mudou. */
+  cacheCorpo = /* @__PURE__ */ new Map();
   async construir(hoje) {
     const s = this.getSettings();
     const ignoradas = s.pastasIgnoradas.map((p) => (0, import_obsidian7.normalizePath)(p).toLowerCase()).filter(Boolean);
@@ -1351,31 +1366,43 @@ var Indexer = class {
     }
     const areaPorCaminho = /* @__PURE__ */ new Map();
     for (const t of trilhas) for (const r of t.regioes) for (const tp of r.topicos) if (tp.caminho) areaPorCaminho.set(tp.caminho, r.nome);
-    const notas = candidatasEstudo.map(({ f, fm, nivel }) => ({
-      caminho: f.path,
-      label: rotulo(f),
-      nivel,
-      caixa: normalizarCaixa(fm.caixa, s.intervalos),
-      revisado: parseISO(fm.revisado),
-      area: areaPorCaminho.get(f.path) ?? null
-    }));
+    const notas = [];
     const perguntas = [];
-    for (const { f } of candidatasEstudo) perguntas.push(...await this.perguntasDe(f));
+    for (const { f, fm, nivel } of candidatasEstudo) {
+      const lido = await this.lerCorpo(f);
+      perguntas.push(...lido.perguntas);
+      notas.push({
+        caminho: f.path,
+        label: rotulo(f),
+        nivel,
+        caixa: normalizarCaixa(fm.caixa, s.intervalos),
+        revisado: parseISO(fm.revisado),
+        area: areaPorCaminho.get(f.path) ?? null,
+        tempo: lido.tempo,
+        tempoRever: lido.tempoRever
+      });
+    }
     trilhas.sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
     notas.sort((a, b) => a.label.localeCompare(b.label, "pt-BR"));
     return { hoje, trilhas, notas, perguntas, diario };
   }
   /** Esquece arquivos apagados/renomeados do cache. */
   esquecer(caminho) {
-    this.cachePerguntas.delete(caminho);
+    this.cacheCorpo.delete(caminho);
   }
-  async perguntasDe(f) {
-    const c = this.cachePerguntas.get(f.path);
-    if (c && c.mtime === f.stat.mtime) return c.itens;
+  /** Perguntas e tempo de estudo do corpo da nota. Só relê o arquivo se ele mudou. */
+  async lerCorpo(f) {
+    const c = this.cacheCorpo.get(f.path);
+    if (c && c.mtime === f.stat.mtime) return c;
     const texto = await this.app.vault.cachedRead(f);
-    const itens = parsePerguntas(texto).map((p) => ({ ...p, caminho: f.path, nota: rotulo(f) }));
-    this.cachePerguntas.set(f.path, { mtime: f.stat.mtime, itens });
-    return itens;
+    const lido = {
+      mtime: f.stat.mtime,
+      perguntas: parsePerguntas(texto).map((p) => ({ ...p, caminho: f.path, nota: rotulo(f) })),
+      tempo: parseTempo(texto),
+      tempoRever: parseTempoRever(texto)
+    };
+    this.cacheCorpo.set(f.path, lido);
+    return lido;
   }
   fm(f) {
     return this.app.metadataCache.getFileCache(f)?.frontmatter ?? {};

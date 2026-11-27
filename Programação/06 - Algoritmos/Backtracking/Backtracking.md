@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparece em problemas médios de entrevista (combinações, permutações). Entenda o molde e pratique alguns.
 
-**Quanto tempo:** cerca de 2h: 20 min de leitura, 5 min no Me teste e 1h30 no desafio.
+**⏱️ Quanto tempo: cerca de 2h.** Uns 20 min de leitura, 5 min no Me teste e 1h30 no desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

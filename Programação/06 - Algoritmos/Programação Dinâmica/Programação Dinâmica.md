@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** É temida em entrevista, mas no trabalho aparece pouco. Entenda a ideia e faça os problemas clássicos; não trave aqui.
 
-**Quanto tempo:** cerca de 2h15: 15 min de leitura, 5 min no Me teste e 2h no desafio.
+**⏱️ Quanto tempo: cerca de 2h15.** Uns 15 min de leitura, 5 min no Me teste e 2h no desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você vai trabalhar em branch e resolver conflito toda semana num time. Domine, principalmente o conflito, que é onde o iniciante trava.
 
-**Quanto tempo:** cerca de 1h15: 20 min de leitura, 10 min no Me teste e 50 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 20 min de leitura, 10 min no Me teste e 50 min no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

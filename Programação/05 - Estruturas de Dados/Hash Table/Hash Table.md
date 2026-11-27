@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a estrutura mais útil da computação prática: objetos, `Map`, cache e índice usam a ideia. Domine, porque resolve metade dos exercícios de entrevista.
 
-**Quanto tempo:** cerca de 1h30: 20 min de leitura, 5 min no Me teste e 1h no desafio.
+**⏱️ Quanto tempo: cerca de 1h30.** Uns 20 min de leitura, 5 min no Me teste e 1h no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 

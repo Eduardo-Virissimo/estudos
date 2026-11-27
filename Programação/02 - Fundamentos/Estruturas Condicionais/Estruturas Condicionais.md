@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Todo programa toma decisões. Domine, e aprenda cedo a evitar `if` aninhado demais.
 
-**Quanto tempo:** cerca de 1h: 20 min de leitura, 5 min no Me teste e 30 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h.** Uns 20 min de leitura, 5 min no Me teste e 30 min no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 

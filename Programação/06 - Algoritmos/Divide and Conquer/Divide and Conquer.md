@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** É uma forma de pensar que aparece em vários algoritmos. Entenda a ideia; ela vem junto com Merge Sort e Busca Binária.
 
-**Quanto tempo:** cerca de 1h30: 10 min de leitura, 5 min no Me teste e 1h15 no desafio.
+**⏱️ Quanto tempo: cerca de 1h30.** Uns 10 min de leitura, 5 min no Me teste e 1h15 no desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

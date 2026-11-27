@@ -44,6 +44,10 @@ export interface NotaEstudo {
   revisado: string | null; // YYYY-MM-DD
   /** Região/trilha que aponta para esta nota (se alguma apontar). */
   area: string | null;
+  /** O "⏱️ Quanto tempo" da nota (ex.: "1h30"), ou null se ela não tiver. */
+  tempo: string | null;
+  /** O "🔁 Pra rever" da nota (ex.: "15 min"): o tempo de quem já estudou e só quer revisar. */
+  tempoRever: string | null;
 }
 
 export interface Pergunta {

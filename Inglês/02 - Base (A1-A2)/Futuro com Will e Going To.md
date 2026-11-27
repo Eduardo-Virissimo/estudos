@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Comum, mas dá pra se comunicar mesmo confundindo os dois. Entenda a diferença e pratique.
 
-**Quanto tempo:** cerca de 1h15: 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 30 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 10 min de leitura, 25 min nos exercícios, 5 min no Me teste e 30 min no desafio.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial", refaça uns exercícios e volte no texto só onde errar.
 
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 

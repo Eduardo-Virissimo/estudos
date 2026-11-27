@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Melhora pronúncia e listening, mas não precisa ser todo dia. Entenda a técnica e use alguns minutos por semana.
 
-**Quanto tempo:** cerca de 15 min no primeiro dia (10 min de leitura e 5 min no Me teste). Depois o desafio segue por 5 dias, uns 15 min por dia. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 15 min no primeiro dia, depois 5 dias de uns 15 min.** No primeiro dia: 10 min de leitura e 5 min no Me teste. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

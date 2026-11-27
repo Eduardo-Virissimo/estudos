@@ -415,7 +415,13 @@ export function topico(parent: HTMLElement, ctx: Ctx, trilha: string, tp: Topico
   if (!tp.caminho) nome.createSpan({ cls: "erpg-selo-novo", text: "sem nota" });
   if (tp.desc) corpo.createDiv({ cls: "erpg-topico-desc", text: tp.desc });
   const nota = tp.caminho ? ctx.snap.notas.find((n) => n.caminho === tp.caminho) : undefined;
-  if (nota) corpo.createSpan({ cls: `erpg-nivel is-${nota.nivel}`, text: NOME_NIVEL[nota.nivel] });
+  if (nota) {
+    // Rodapé do card: o nível da nota e, se a nota tiver, quanto tempo leva estudar e quanto leva só rever.
+    const pe = corpo.createDiv({ cls: "erpg-topico-pe" });
+    pe.createSpan({ cls: `erpg-nivel is-${nota.nivel}`, text: NOME_NIVEL[nota.nivel] });
+    if (nota.tempo) pe.createSpan({ cls: "erpg-tempo", text: `⏱️ ${nota.tempo}`, attr: { title: `Estudar ${nota.label} do zero: ${nota.tempo}` } });
+    if (nota.tempoRever) pe.createSpan({ cls: "erpg-tempo is-rever", text: `🔁 rever ${nota.tempoRever}`, attr: { title: `Já estudou ${nota.label}? Pra rever: ${nota.tempoRever}` } });
+  }
   corpo.addEventListener("click", (ev) => ctx.acoes.abrirNota(tp.caminho ?? tp.alvo, ev.ctrlKey || ev.metaKey));
 }
 

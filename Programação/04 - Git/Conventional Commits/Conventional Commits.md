@@ -11,7 +11,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Muitos times exigem. É rápido de aprender e já deixa o seu GitHub mais profissional.
 
-**Quanto tempo:** cerca de 45 min: 15 min de leitura, 10 min no Me teste e 20 min no desafio.
+**⏱️ Quanto tempo: cerca de 45 min.** Uns 15 min de leitura, 10 min no Me teste e 20 min no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3 · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 

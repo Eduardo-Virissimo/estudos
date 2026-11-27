@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** É uma alternativa ao Postman e faz a mesma coisa. Escolha uma das duas; não precisa estudar as duas.
 
-**Quanto tempo:** cerca de 45 min: 15 min de leitura, 10 min no Me teste e 25 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 45 min.** Uns 15 min de leitura, 10 min no Me teste e 25 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

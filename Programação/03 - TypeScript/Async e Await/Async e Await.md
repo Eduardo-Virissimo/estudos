@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É como você vai escrever código assíncrono no dia a dia. Domine, incluindo o tratamento de erro com `try/catch`.
 
-**Quanto tempo:** cerca de 1h45: 25 min de leitura, 10 min no Me teste e 1h15 no desafio.
+**⏱️ Quanto tempo: cerca de 1h45.** Uns 25 min de leitura, 10 min no Me teste e 1h15 no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 

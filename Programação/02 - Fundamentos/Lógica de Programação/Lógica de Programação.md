@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a base de tudo que vem depois. Se travar aqui, trava em todo o resto, então pratique até quebrar problemas em passos com naturalidade.
 
-**Quanto tempo:** cerca de 1h: 15 min de leitura, 5 min no Me teste e 40 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h.** Uns 15 min de leitura, 5 min no Me teste e 40 min no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 

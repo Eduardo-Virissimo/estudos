@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Muitos times pedem commit e PR em inglês, e o seu GitHub também é visto por recrutador. Domine o padrão.
 
-**Quanto tempo:** cerca de 1h15: 20 min de leitura, 5 min no Me teste e 45 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 20 min de leitura, 5 min no Me teste e 45 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

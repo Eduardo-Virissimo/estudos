@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** É o exemplo clássico de dividir e conquistar e aparece em entrevista. Entenda e implemente uma vez.
 
-**Quanto tempo:** cerca de 1h: 15 min de leitura, 5 min no Me teste e 45 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h.** Uns 15 min de leitura, 5 min no Me teste e 45 min no desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

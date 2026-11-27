@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É a ferramenta número um pra depurar qualquer coisa na web: console, rede, elementos. Quem trabalha com front usa todo dia.
 
-**Quanto tempo:** cerca de 1h: 15 min de leitura, 15 min no Me teste e 30 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 1h.** Uns 15 min de leitura, 15 min no Me teste e 30 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

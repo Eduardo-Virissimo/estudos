@@ -39,7 +39,7 @@ src/
   settings.ts        configurações + valores padrão
   domain/            REGRAS DO JOGO (TypeScript puro, sem Obsidian → testável)
     types.ts           tipos dos dados
-    parse.ts           lê trilhas (estágios e regiões) e perguntas do Markdown
+    parse.ts           lê trilhas (estágios e regiões), perguntas e o ⏱️ tempo de estudo do Markdown
     dates.ts           datas YYYY-MM-DD no fuso local
     review.ts          revisão espaçada (Leitner)
     progress.ts        XP, nível, sequência, habilidades e conquistas

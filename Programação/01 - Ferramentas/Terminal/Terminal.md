@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Você vai abrir o terminal todo dia pra rodar projeto, instalar pacote e usar o Git. Pratique até navegar e rodar comandos sem pensar.
 
-**Quanto tempo:** cerca de 45 min: 15 min de leitura, 15 min no Me teste e 15 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 45 min.** Uns 15 min de leitura, 15 min no Me teste e 15 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Servidor, Docker e CI rodam Linux, então você vai esbarrar em Bash cedo. Saiba ler e escrever um script curto; não precisa virar especialista.
 
-**Quanto tempo:** cerca de 1h30: 25 min de leitura, 15 min no Me teste e 45 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h30.** Uns 25 min de leitura, 15 min no Me teste e 45 min no desafio.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

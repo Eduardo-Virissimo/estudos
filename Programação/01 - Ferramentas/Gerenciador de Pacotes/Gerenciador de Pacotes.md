@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** Todo projeto começa com `npm install`. Entender `package.json`, dependências e scripts é obrigatório desde o primeiro projeto.
 
-**Quanto tempo:** cerca de 1h: 20 min de leitura, 15 min no Me teste e 25 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 1h.** Uns 20 min de leitura, 15 min no Me teste e 25 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

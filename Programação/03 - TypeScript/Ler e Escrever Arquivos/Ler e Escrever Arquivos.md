@@ -11,7 +11,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Útil pro projeto do estágio e pra scripts, mas em produção o dado costuma ir pro banco. Entenda e pratique uma vez.
 
-**Quanto tempo:** cerca de 1h45: 20 min de leitura, 5 min no Me teste e 1h15 no desafio.
+**⏱️ Quanto tempo: cerca de 1h45.** Uns 20 min de leitura, 5 min no Me teste e 1h15 no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3 · 🧩 [[Site de Roadmap para o Vault de Estudos]], projeto do Estágio 5.
 

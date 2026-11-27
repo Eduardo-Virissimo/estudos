@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Muitos times usam fluxos mais simples hoje. Conheça a ideia pra reconhecer se a empresa usar; não precisa decorar.
 
-**Quanto tempo:** cerca de 1h15: 15 min de leitura, 10 min no Me teste e 50 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 15 min de leitura, 10 min no Me teste e 50 min no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

@@ -700,6 +700,11 @@ body { --erpg-ico: calc(var(--erpg-px, 1px) * 24); }
 .erpg-nivel.is-escrito { background: var(--painel-3); color: var(--comum); }
 .erpg-nivel.is-praticado { background: var(--raro); color: var(--noite); }
 .erpg-nivel.is-projeto { background: var(--lendario); color: var(--noite); }
+/* Rodapé do card: nível + tempo de estudo lado a lado (o tempo em ouro, pra saltar aos olhos) */
+.erpg-topico-pe { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin-top: 0.35rem; }
+.erpg-topico-pe .erpg-nivel { margin-top: 0; }
+.erpg-tempo { padding: 0.05rem 0.45rem; background: var(--noite); color: var(--ouro); font-family: var(--fonte-pixel); font-size: 15px; font-weight: 400; }
+.erpg-tempo.is-rever { color: var(--suave); }
 
 /* ---------- Janela de conquistas ---------- */
 .erpg-conquistas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 6px; }

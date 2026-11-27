@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparecem em grade, tabuleiro e alguns exercícios de entrevista. Entenda bem como percorrer; no trabalho são raras.
 
-**Quanto tempo:** cerca de 1h15: 15 min de leitura, 5 min no Me teste e 1h no desafio.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 15 min de leitura, 5 min no Me teste e 1h no desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

@@ -6,16 +6,17 @@
 
 import { type App, TFile, normalizePath } from "obsidian";
 import { parseISO } from "../domain/dates.ts";
-import { parsePerguntas, parseTrilha } from "../domain/parse.ts";
+import { parsePerguntas, parseTempo, parseTempoRever, parseTrilha } from "../domain/parse.ts";
 import { normalizarCaixa } from "../domain/review.ts";
 import { NIVEIS, type DiaDiario, type Nivel, type NotaEstudo, type Pergunta, type Snapshot, type Trilha } from "../domain/types.ts";
 import type { Settings } from "../settings.ts";
 
 type Frontmatter = Record<string, unknown>;
+interface CorpoLido { mtime: number; perguntas: Pergunta[]; tempo: string | null; tempoRever: string | null }
 
 export class Indexer {
-  /** Cache das perguntas por arquivo: só relê o arquivo se ele mudou. */
-  private cachePerguntas = new Map<string, { mtime: number; itens: Pergunta[] }>();
+  /** Cache do que vem do corpo da nota (perguntas e tempo): só relê o arquivo se ele mudou. */
+  private cacheCorpo = new Map<string, CorpoLido>();
 
   constructor(private app: App, private getSettings: () => Settings) {}
 
@@ -53,17 +54,22 @@ export class Indexer {
     const areaPorCaminho = new Map<string, string>();
     for (const t of trilhas) for (const r of t.regioes) for (const tp of r.topicos) if (tp.caminho) areaPorCaminho.set(tp.caminho, r.nome);
 
-    const notas: NotaEstudo[] = candidatasEstudo.map(({ f, fm, nivel }) => ({
-      caminho: f.path,
-      label: rotulo(f),
-      nivel,
-      caixa: normalizarCaixa(fm.caixa, s.intervalos),
-      revisado: parseISO(fm.revisado),
-      area: areaPorCaminho.get(f.path) ?? null,
-    }));
-
+    const notas: NotaEstudo[] = [];
     const perguntas: Pergunta[] = [];
-    for (const { f } of candidatasEstudo) perguntas.push(...(await this.perguntasDe(f)));
+    for (const { f, fm, nivel } of candidatasEstudo) {
+      const lido = await this.lerCorpo(f);
+      perguntas.push(...lido.perguntas);
+      notas.push({
+        caminho: f.path,
+        label: rotulo(f),
+        nivel,
+        caixa: normalizarCaixa(fm.caixa, s.intervalos),
+        revisado: parseISO(fm.revisado),
+        area: areaPorCaminho.get(f.path) ?? null,
+        tempo: lido.tempo,
+        tempoRever: lido.tempoRever,
+      });
+    }
 
     trilhas.sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
     notas.sort((a, b) => a.label.localeCompare(b.label, "pt-BR"));
@@ -72,16 +78,22 @@ export class Indexer {
 
   /** Esquece arquivos apagados/renomeados do cache. */
   esquecer(caminho: string) {
-    this.cachePerguntas.delete(caminho);
+    this.cacheCorpo.delete(caminho);
   }
 
-  private async perguntasDe(f: TFile): Promise<Pergunta[]> {
-    const c = this.cachePerguntas.get(f.path);
-    if (c && c.mtime === f.stat.mtime) return c.itens;
+  /** Perguntas e tempo de estudo do corpo da nota. Só relê o arquivo se ele mudou. */
+  private async lerCorpo(f: TFile): Promise<CorpoLido> {
+    const c = this.cacheCorpo.get(f.path);
+    if (c && c.mtime === f.stat.mtime) return c;
     const texto = await this.app.vault.cachedRead(f);
-    const itens = parsePerguntas(texto).map((p) => ({ ...p, caminho: f.path, nota: rotulo(f) }));
-    this.cachePerguntas.set(f.path, { mtime: f.stat.mtime, itens });
-    return itens;
+    const lido = {
+      mtime: f.stat.mtime,
+      perguntas: parsePerguntas(texto).map((p) => ({ ...p, caminho: f.path, nota: rotulo(f) })),
+      tempo: parseTempo(texto),
+      tempoRever: parseTempoRever(texto),
+    };
+    this.cacheCorpo.set(f.path, lido);
+    return lido;
   }
 
   private fm(f: TFile): Frontmatter {

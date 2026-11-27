@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Aparece em validação, busca no editor e tratamento de texto. Entenda o básico (classes, quantificadores, grupos) e consulte o resto quando precisar.
 
-**Quanto tempo:** cerca de 1h15: 20 min de leitura, 15 min no Me teste e 45 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 20 min de leitura, 15 min no Me teste e 45 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Site de Roadmap para o Vault de Estudos]], projeto do Estágio 5.
 

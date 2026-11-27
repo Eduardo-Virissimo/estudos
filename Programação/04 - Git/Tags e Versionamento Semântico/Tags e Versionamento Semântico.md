@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você precisa entender o `^1.2.3` do `package.json` e como as versões funcionam. As tags em si você usa pouco no começo.
 
-**Quanto tempo:** cerca de 1h15: 15 min de leitura, 10 min no Me teste e 45 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 15 min de leitura, 10 min no Me teste e 45 min no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Gerenciador de Tarefas no Terminal]], projeto dos Estágios 1 e 3.
 

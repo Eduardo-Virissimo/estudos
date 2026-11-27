@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Você vai usar pra conectar no GitHub e, mais pra frente, em servidores. Saiba gerar chave e conectar; a parte avançada fica pra quando aparecer.
 
-**Quanto tempo:** cerca de 1h: 15 min de leitura, 10 min no Me teste e 30 min no desafio.
+**⏱️ Quanto tempo: cerca de 1h.** Uns 15 min de leitura, 10 min no Me teste e 30 min no desafio.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

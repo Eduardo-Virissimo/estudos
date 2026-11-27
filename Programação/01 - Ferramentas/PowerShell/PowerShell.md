@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Útil porque você está no Windows, mas a maioria dos tutoriais e servidores usa Bash. Aprenda o suficiente pro seu dia a dia e siga em frente.
 
-**Quanto tempo:** cerca de 1h: 15 min de leitura, 15 min no Me teste e 30 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 1h.** Uns 15 min de leitura, 15 min no Me teste e 30 min no desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** É a fila de prioridade, que aparece em vários problemas médios de entrevista. Entenda a ideia e implemente uma vez.
 
-**Quanto tempo:** cerca de 1h15: 15 min de leitura, 5 min no Me teste e 1h no desafio.
+**⏱️ Quanto tempo: cerca de 1h15.** Uns 15 min de leitura, 5 min no Me teste e 1h no desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 

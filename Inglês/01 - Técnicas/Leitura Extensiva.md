@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** É uma das melhores formas de input, principalmente pra quem vai ler documentação. Entenda a ideia e encaixe na rotina.
 
-**Quanto tempo:** cerca de 30 min no primeiro dia (10 min de leitura e 5 min no Me teste, mais 10 min pra preparar o desafio). Depois o desafio segue por 6 dias, uns 20 min por dia. O projeto maior do fim do desafio fica fora dessa conta.
+**⏱️ Quanto tempo: cerca de 30 min no primeiro dia, depois 6 dias de uns 20 min.** No primeiro dia: 10 min de leitura e 5 min no Me teste, mais 10 min pra preparar o desafio. O projeto maior do fim do desafio fica fora dessa conta.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

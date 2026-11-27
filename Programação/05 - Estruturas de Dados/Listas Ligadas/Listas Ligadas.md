@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Quase não aparecem no código do dia a dia, mas são clássicas em entrevista e ensinam ponteiros. Entenda bem e implemente uma vez.
 
-**Quanto tempo:** cerca de 1h45: 20 min de leitura, 5 min nos exercícios, 5 min no Me teste e 1h15 no desafio.
+**⏱️ Quanto tempo: cerca de 1h45.** Uns 20 min de leitura, 5 min nos exercícios, 5 min no Me teste e 1h15 no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial", refaça uns exercícios e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 

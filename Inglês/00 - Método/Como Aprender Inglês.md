@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 🔥 essencial.** É o mapa de como a aquisição funciona. Entender isso evita anos estudando do jeito errado, então leia com calma antes de tudo.
 
-**Quanto tempo:** cerca de 45 min: 10 min de leitura, 5 min no Me teste e 30 min no desafio.
+**⏱️ Quanto tempo: cerca de 45 min.** Uns 10 min de leitura, 5 min no Me teste e 30 min no desafio.
+
+**🔁 Pra rever: cerca de 10 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você".
 

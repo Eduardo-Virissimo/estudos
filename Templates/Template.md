@@ -26,9 +26,13 @@ Exemplo pronto pra copiar o tom: [[Bash]].
 - Feche com "O essencial" (3 a 5 itens) e "Agora é com você" (desafio e, se fizer sentido, um projeto, em texto corrido).
 - Logo abaixo do título, uma linha "Quanto focar": 🔥 essencial / 📌 importante / 💤 bom saber (o mesmo do Roadmap
   e do `foco:` no topo), com 1-2 frases dizendo por quê e até onde ir ("domine", "pratique uma vez", "conheça a ideia").
-- Logo abaixo do "Quanto focar", uma linha "Quanto tempo": o total de uma passada completa (leitura, exercícios se tiver,
-  Me teste e o desafio até o "Você terminou quando"), com cada parte. Leitura: umas 150 palavras por minuto. Me teste: 1 min
-  por pergunta. Desafio de vários dias: o primeiro dia e depois "N dias, X min por dia". Projeto extra do desafio fica fora da conta.
+- Logo abaixo do "Quanto focar", a linha "⏱️ Quanto tempo", com o TOTAL dentro do negrito (destacado como o "Quanto focar")
+  e as partes logo depois: leitura, exercícios (se tiver), Me teste e o desafio até o "Você terminou quando".
+  Leitura: umas 150 palavras por minuto, mais um pouco por linha de código. Me teste: 1 min por pergunta.
+  Desafio de vários dias: "**⏱️ Quanto tempo: cerca de X no primeiro dia, depois N dias de uns Y min.** No primeiro dia: ...".
+  Se o desafio termina com um projeto maior, avise: "O projeto maior do fim do desafio fica fora dessa conta."
+- Logo abaixo, a linha "🔁 Pra rever", pra quem já estudou: Me teste (1 min por pergunta) + "O essencial" (2 min) + reler
+  ~1/4 da leitura onde errar (+ ~1/3 dos exercícios, se tiver). Arredonde pra 5 min. Fica entre 10 e 25 min.
 - Depois do "Quanto tempo", uma linha "Onde praticar": 🏋️ exercícios (se tiver) · 🧪 o desafio de "Agora é com você"
   · 🧩 o projeto de estágio que usa o tópico (veja "Tópicos que entram aqui" nas notas de Ideias de Projetos; o mesmo vai
   em `projeto:` no topo; apague o campo se nenhum usar). No Roadmap, ponha os mesmos ícones depois do 🔥📌💤.
@@ -37,7 +41,9 @@ Exemplo pronto pra copiar o tom: [[Bash]].
 
 **Quanto focar: 📌 importante.** [Por que esse nível, e até onde ir.]
 
-**Quanto tempo:** cerca de [total]: [X] min de leitura, [Y] min no Me teste e [Z] min no desafio.
+**⏱️ Quanto tempo: cerca de [total].** Uns [X] min de leitura, [Y] min no Me teste e [Z] min no desafio.
+
+**🔁 Pra rever: cerca de [N] min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Projeto do estágio]], projeto do Estágio N.
 

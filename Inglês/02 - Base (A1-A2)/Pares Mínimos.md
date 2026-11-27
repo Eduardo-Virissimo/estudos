@@ -8,7 +8,9 @@ revisado:
 
 **Quanto focar: 💤 bom saber.** Treino de ouvido útil, mas não é prioridade pra trabalhar. Faça alguns exercícios e siga em frente.
 
-**Quanto tempo:** cerca de 1h no primeiro dia (10 min de leitura, 25 min nos exercícios e 5 min no Me teste, mais 20 min pra preparar o desafio). Depois o desafio segue por 7 dias, uns 5 min por dia.
+**⏱️ Quanto tempo: cerca de 1h no primeiro dia, depois 7 dias de uns 5 min.** No primeiro dia: 10 min de leitura, 25 min nos exercícios e 5 min no Me teste, mais 20 min pra preparar o desafio.
+
+**🔁 Pra rever: cerca de 20 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial", refaça uns exercícios e volte no texto só onde errar.
 
 **Onde praticar:** 🏋️ os exercícios da nota · 🧪 o desafio de "Agora é com você".
 

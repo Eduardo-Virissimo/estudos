@@ -10,7 +10,9 @@ revisado:
 
 **Quanto focar: 📌 importante.** Clássica em entrevista e ajuda a entender índice de banco. Entenda e implemente uma vez.
 
-**Quanto tempo:** cerca de 2h: 25 min de leitura, 5 min no Me teste e 1h30 no desafio.
+**⏱️ Quanto tempo: cerca de 2h.** Uns 25 min de leitura, 5 min no Me teste e 1h30 no desafio.
+
+**🔁 Pra rever: cerca de 15 min.** Se você já estudou, faça o Me teste primeiro, releia "O essencial" e volte no texto só onde errar.
 
 **Onde praticar:** 🧪 o desafio de "Agora é com você" · 🧩 [[Estruturas de Dados do Zero]], projeto do Estágio 2.
 
